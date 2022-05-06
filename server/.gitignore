@@ -1,0 +1,9 @@
+node_modules
+dist
+dump.rdb
+.idea
+deploy.sh
+.env
+src/static
+src/db.json
+src/config

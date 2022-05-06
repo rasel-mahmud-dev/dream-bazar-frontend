@@ -1,0 +1,30 @@
+@import "scss/--colors.scss";
+
+.breadcrumb{
+  display: flex;  
+  .breadcrumb_item{
+    color:  #141414;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    &:hover{ color: var(--color-primary)}
+    &:not(:nth-child(1)){
+      margin: 0 0px;
+      .slash{ margin-right: 5px;}
+    }
+    .breadcrumb_item--name{
+      text-decoration: none;
+      font-size: 13px;
+      color: #565656;
+      font-weight: 500;
+      &:hover{ color: $primary; }
+    }
+    i{ margin: 0 5px; font-size: 10px;}
+    &:nth-child(1){
+      i{
+        margin-left: 0px;
+        font-size: 12px;
+      }
+    }
+  }
+}

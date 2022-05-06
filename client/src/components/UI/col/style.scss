@@ -1,0 +1,126 @@
+@use "sass:math";
+//@use "sass:list";
+@import "src/styles/--variable";
+
+@mixin make-grid($prefixClass: ''){
+  @include loop-grid-columns(24, $prefixClass)
+}
+
+
+@mixin loop-grid-columns($grid-columns, $prefix-class) {
+  
+  $per-row-size: math.div(100, $grid-columns);
+    //$grid-columns(100 / $grid-columns);
+  
+  @for $i from 1 through $grid-columns {
+    @if $i == $grid-columns {
+      .col#{$prefix-class}-#{$i} {
+        max-width: 100%;
+        flex: 100%;
+      }
+
+    } @else{
+      .col#{$prefix-class}-#{$i} {
+        flex: 0 0 ($per-row-size * $i) * 1%;
+        max-width: ($per-row-size * $i) * 1%
+      }
+      
+      // for offset like margin-left: 4.1666666667%;
+      .col#{$prefix-class}-offset-#{$i}{
+        margin-left: ($per-row-size * $i) * 1%;
+      }
+      
+      // order
+      .col#{$prefix-class}-order-#{$i} {
+        order: $i
+      }
+      
+      // col pull
+      .col#{$prefix-class}-pull-#{$i}{
+        right: ($per-row-size * $i) * 1%; ;
+      } 
+      
+      // col push
+      .col#{$prefix-class}-push-#{$i}{
+        left: ($per-row-size * $i) * 1%; ;
+      }
+    }
+  }
+
+}
+
+
+
+
+
+
+// Extra small grid
+//
+// Columns, offsets, pushes, and pulls for extra small devices like
+// smartphones.
+
+@include make-grid(-xs);
+
+
+// Small grid
+//
+// Columns, offsets, pushes, and pulls for the small device range, from phones
+// to tablets.
+
+@media (min-width: $screen-sm-min) {
+  @include make-grid(-sm);
+}
+
+// Small grid
+//
+// Columns, offsets, pushes, and pulls for the small device range, from phones
+// to tablets.
+
+@media (min-width: $screen-sm-min) {
+  @include make-grid(-sm);
+}
+
+
+// Medium grid
+//
+// Columns, offsets, pushes, and pulls for the desktop device range.
+
+@media (min-width: $screen-md-min) {
+  @include make-grid(-md);
+}
+
+// Large grid
+//
+// Columns, offsets, pushes, and pulls for the large desktop device range.
+
+@media (min-width: $screen-lg-min) {
+  @include make-grid(-lg);
+}
+
+// Extra Large grid
+//
+// Columns, offsets, pushes, and pulls for the full hd device range.
+
+@media (min-width: $screen-xl-min) {
+  @include make-grid(-xl);
+}
+
+// Extra Extra Large grid
+//
+// Columns, offsets, pushes, and pulls for the full hd device range.
+
+@media (min-width: $screen-xxl-min) {
+  @include make-grid(-xxl);
+}
+
+
+// .col {
+//   position: relative;
+//   max-width: 100%;
+//   min-height: 1px;
+//   }
+  
+//   .col-0 {
+//   display: none;
+//   }
+  

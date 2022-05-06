@@ -1,0 +1,298 @@
+@import "--colors";
+$shadow-d1: 0 0 2px 3px grey;
+
+$border: 1px solid rgba(224, 224, 224, 0.58);
+
+$screen-xs-min: 480px;
+$screen-sm-min: 576px;
+$screen-md-min: 768px;
+$screen-lg-min: 992px;
+$screen-xl-min: 1200px;
+$screen-xxl-min: 1600px;
+
+
+// this for suggetion...(only for development)
+$color-white-bg: #fff;
+$color-black: #000;
+$color-light-black: #172337;
+$color-brand-orange: #fb641b;
+$color-brand-blue: #2874f0;
+$color-brand-bbd: #2455f4;
+$color-brand-footer: #172337;
+$color-brand-blue-lighter: #7accff;
+$color-brand-blue-lighter1: #dfeafd;
+$color-blue-lighter1: #b3d7ff;
+$color-primary-yellow: #ffe11b;
+$color-yellow-grade1: #fff7e1;
+$color-yellow-grade2: #fef8e0;
+$color-purple: #5f4eeb;
+$color-offer-green: #388e3c;
+$color-green-grade0: #26a541;
+$color-green-grade1: #e9f2e9;
+$color-green-grade2: #e6f4e8;
+$color-yellowish-orange: #ff9f00;
+$color-flash-green: #11c29b;
+$color-error-red: #ff6161;
+$color-error-red2: #ff4343;
+$color-error-red3: #ffeaed;
+$color-error-red4: #dd5354;
+$color-error-red5: #d23276;
+$color-grey-grade0: #fafafa;
+$color-grey-grade1: #f0f0f0;
+$color-grey-grade2: #e0e0e0;
+$color-grey-grade3: #c2c2c2;
+$color-grey-grade4: #878787;
+$color-grey-grade5: #212121;
+$color-grey-grade6: #d7d7d7;
+$color-grey-grade7: #f9f9f9;
+$color-grey-grade8: #9e9e9e;
+$color-grey-grade9: #efefef;
+$color-grey-grade10: #f5f5f5;
+$color-grey-grade11: #aaa;
+$color-grey-grade12: #dbdbdb;
+$color-grey-grade13: #fbfbfb;
+$color-grey-grade14: #666;
+$color-grey-grade15: #f8f8f8;
+$color-grey-grade16: #eee;
+$color-grey-grade17: #9b9b9b;
+$color-grey-grade18: #686868;
+$color-error-bg: #fff7f8;
+$color-info-bg: #ffffe6;
+$color-info-light-bg: #fffbf6;
+$color-page-bg: #f1f3f6;
+$color-green-bg: #f7fffa;
+$color-blue-bg: #f5faff;
+$color-vip-black-bg: #343c4e;
+$color-grey-badge: #717171;
+$color-vendor-text: #3f3f3f;
+$color-supermart-green: #26a541;
+$color-dark-blue1: #1d6ded;
+$color-light-blue: #f4f8ff;
+$color-light-blue1: #bed5fa;
+$color-light-blue2: #93b7f1;
+$color-suparmart-fk-background: #258b3b;
+$color-info-yellow: #fffdec;
+$color-cobranded-footer-blue: #005387;
+$color-pre-book-purple: #854987;
+$color-light-pink: #fff0ff;
+$color-orange-bg: #fff7e1;
+$color-bright-orange: #e79900;
+$color-wishlist-red: #ff4343;
+$header-width-min: 790px;
+$width-min: 978px;
+$width-max: 1680px;
+$product-page-gutter: 24px;
+$product-section-title-width: 110px;
+$product-section-title-padding: 10px;
+$fs-regular: 400;
+$fs-medium: 500;
+$fs-8: 8px;
+$fs-10: 10px;
+$fs-11: 11px;
+$fs-12: 12px;
+$fs-13: 13px;
+$fs-14: 14px;
+$fs-16: 16px;
+$fs-18: 18px;
+$fs-20: 20px;
+$fs-24: 24px;
+$fs-28: 28px;
+$fs-32: 32px;
+$fs-default: 14px;
+$header-gutter: 16px;
+$z-index-dev-console: 31;
+$z-index-product-page-overlay: 30;
+$z-index-login-dropdown: 1;
+$z-index-pincode: 1;
+$z-index-sticky: 2;
+$z-index-loader: 2;
+$z-index-back-to-top: 2;
+$z-index-tooltip: 5;
+$z-index-tooltip-overlay: 4;
+$z-index-header: 10;
+$z-index-catnav: 6;
+$z-index-header-shadow: 6;
+$z-index-modal: 12;
+$z-index-tooltip-on-modal: 14;
+$z-index-toast: 18;
+$z-index-compare-button: 3;
+$z-index-sticky-basket: 3;
+$z-index-start-chat-button: 3;
+$z-index-product-page-sidebar-container: 4;
+$z-index-product-page-zoom-image-container: 28;
+$z-index-loader-bar: 12;
+$z-index-webpush-widget: 19;
+$product-page-fade-in-time: 0.6s;
+$z-index-compare-page-content-sticky-top: 6;
+$z-index-pincode-widget: 2;
+$z-index-pincode-overlay: 6;
+$z-index-latest-cart-item: 12;
+$basket-popup-width: 960px;
+$loading-shimmer-card-border-radius: 2px;
+$basket-popup-min-width: 960px;
+$basket-popup-min-height: 512px;
+$basket-popup-height: 89vh;
+$basket-popup-height-v4: 79vh;
+$z-index-basket-tooltip: 12;
+$z-index-mulitwidgeLoader: 3;
+$user-confirmation-popup-max-width: 406p;
+
+
+
+$variableCss : (
+  color-primary: $primary,
+  light-gray-0: #f5f5f5,
+  light-gray-1: #eaeaea,
+  light-gray-2: #d2d2d2,
+  light-gray-3: #e2e2e2,
+  light-gray-4: #cecece,
+  light-gray-5: #acacac,
+  light-gray-6: #b1b1b1,
+  light-gray-7: #7d7d7d,
+  light-gray-8: #f5f5f5cc,
+  
+  gray-0: #fafbfc,
+  gray-1: #f6f8fa,
+  gray-2: #909dab,
+  gray-3: #768390,
+  gray-4: #636e7b,
+  gray-5: #545d68,
+  gray-6: #444c56,
+  gray-7: #373e47,
+  gray-8: #2d333b,
+  gray-9: #22272e,
+  
+  
+  color-white-bg: #fff,
+  color-black: #000,
+  color-light-black: #172337,
+  color-brand-orange: #fb641b,
+  color-brand-blue: #2874f0,
+  color-brand-bbd: #2455f4,
+  color-brand-footer: #172337,
+  color-brand-blue-lighter: #7accff,
+  color-brand-blue-lighter1: #dfeafd,
+  color-blue-lighter1: #b3d7ff,
+  color-primary-yellow: #ffe11b,
+  color-yellow-grade1: #fff7e1,
+  color-yellow-grade2: #fef8e0,
+  color-purple: #5f4eeb,
+  color-offer-green: #388e3c,
+  color-green-grade0: #26a541,
+  color-green-grade1: #e9f2e9,
+  color-green-grade2: #e6f4e8,
+  color-yellowish-orange: #ff9f00,
+  color-flash-green: #11c29b,
+  color-error-red: #ff6161,
+  color-error-red2: #ff4343,
+  color-error-red3: #ffeaed,
+  color-error-red4: #dd5354,
+  color-error-red5: #d23276,
+  color-grey-grade0: #fafafa,
+  color-grey-grade1: #f0f0f0,
+  color-grey-grade2: #e0e0e0,
+  color-grey-grade3: #c2c2c2,
+  color-grey-grade4: #878787,
+  color-grey-grade5: #212121,
+  color-grey-grade6: #d7d7d7,
+  color-grey-grade7: #f9f9f9,
+  color-grey-grade8: #9e9e9e,
+  color-grey-grade9: #efefef,
+  color-grey-grade10: #f5f5f5,
+  color-grey-grade11: #aaa,
+  color-grey-grade12: #dbdbdb,
+  color-grey-grade13: #fbfbfb,
+  color-grey-grade14: #666,
+  color-grey-grade15: #f8f8f8,
+  color-grey-grade16: #eee,
+  color-grey-grade17: #9b9b9b,
+  color-grey-grade18: #686868,
+  color-error-bg: #fff7f8,
+  color-info-bg: #ffffe6,
+  color-info-light-bg: #fffbf6,
+  color-page-bg: #f1f3f6,
+  color-green-bg: #f7fffa,
+  color-blue-bg: #f5faff,
+  color-vip-black-bg: #343c4e,
+  color-grey-badge: #717171,
+  color-vendor-text: #3f3f3f,
+  color-supermart-green: #26a541,
+  color-dark-blue1: #1d6ded,
+  color-light-blue: #f4f8ff,
+  color-light-blue1: #bed5fa,
+  color-light-blue2: #93b7f1,
+  color-suparmart-fk-background: #258b3b,
+  color-info-yellow: #fffdec,
+  color-cobranded-footer-blue: #005387,
+  color-pre-book-purple: #854987,
+  color-light-pink: #fff0ff,
+  color-orange-bg: #fff7e1,
+  color-bright-orange: #e79900,
+  color-wishlist-red: #ff4343,
+  header-width-min: 790px,
+  width-min: 978px,
+  width-max: 1680px,
+  product-page-gutter: 24px,
+  product-section-title-width: 110px,
+  product-section-title-padding: 10px,
+  fs-regular: 400,
+  fs-medium: 500,
+  fs-8: 8px,
+  fs-10: 10px,
+  fs-11: 11px,
+  fs-12: 12px,
+  fs-13: 13px,
+  fs-14: 14px,
+  fs-16: 16px,
+  fs-18: 18px,
+  fs-20: 20px,
+  fs-24: 24px,
+  fs-28: 28px,
+  fs-32: 32px,
+  fs-default: 14px,
+  header-gutter: 16px,
+  z-index-dev-console: 31,
+  z-index-product-page-overlay: 30,
+  z-index-login-dropdown: 1,
+  z-index-pincode: 1,
+  z-index-sticky: 2,
+  z-index-loader: 2,
+  z-index-back-to-top: 2,
+  z-index-tooltip: 5,
+  z-index-tooltip-overlay: 4,
+  z-index-header: 10,
+  z-index-catnav: 6,
+  z-index-header-shadow: 6,
+  z-index-modal: 12,
+  z-index-tooltip-on-modal: 14,
+  z-index-toast: 18,
+  z-index-compare-button: 3,
+  z-index-sticky-basket: 3,
+  z-index-start-chat-button: 3,
+  z-index-product-page-sidebar-container: 4,
+  z-index-product-page-zoom-image-container: 28,
+  z-index-loader-bar: 12,
+  z-index-webpush-widget: 19,
+  product-page-fade-in-time: 0.6s,
+  z-index-compare-page-content-sticky-top: 6,
+  z-index-pincode-widget: 2,
+  z-index-pincode-overlay: 6,
+  z-index-latest-cart-item: 12,
+  basket-popup-width: 960px,
+  loading-shimmer-card-border-radius: 2px,
+  basket-popup-min-width: 960px,
+  basket-popup-min-height: 512px,
+  basket-popup-height: 89vh,
+  basket-popup-height-v4: 79vh,
+  z-index-basket-tooltip: 12,
+  z-index-mulitwidgeLoader: 3,
+  user-confirmation-popup-max-width: 406px
+);
+
+//:root, [data-color-mode=light][data-dark-theme*=light], [data-color-mode=light][data-light-theme*=light] {
+
+:root {
+  @each $name, $color in $variableCss {
+    --#{$name}: #{$color}
+  }
+}

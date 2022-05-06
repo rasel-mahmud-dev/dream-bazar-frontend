@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js" integrity="sha512-Idr7xVNnMWCsgBQscTSCivBNWWH30oo/tzYORviOCrLKmBaRxRflm2miNhTFJNVmXvCtzgms5nlJF4az2hiGnA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+
+
+
+
+
+
+
+<script >
+  
+  (async function (){
+    
+    let concurrent = 1000
+    
+    let ii = 0;
+    let result = []
+    let startTime = Date.now()
+    for (let i = 0; i < concurrent; i++) {
+      // axios.get("http://localhost:3001/api/products")
+      axios.get("http://localhost:1000")
+        .then(res => {
+        if (res.data) {
+          result.push(res.data)
+          ii++
+          if(concurrent === ii){
+            console.log(Date.now() - startTime)
+            console.log(result)
+          }
+          
+        }
+      })
+    }
+    
+    
+  
+    
+  }())
+
+
+</script>
+
+
+</body>
+</html>

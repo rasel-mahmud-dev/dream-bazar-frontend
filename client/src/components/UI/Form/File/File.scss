@@ -1,0 +1,16 @@
+
+.hide-input-image{
+  display: none !important;
+  opacity: 0;
+/*   width: 0px;
+height: 0px;
+position: fixed;
+top: -100vh; */
+}
+
+.preview_image{
+  max-width: 300px;
+  img{
+    width: 100%;
+  }
+}

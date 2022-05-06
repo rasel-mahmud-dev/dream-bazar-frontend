@@ -1,7 +1,7 @@
 
 .idea
 
-client/.git
+client/.gita
 client/antd/node_modules
 client/src/asserts/fontawesome-pro-5.14.0-web
 client/images
@@ -11,7 +11,7 @@ client/gallery.html
 client/src/storeData.json
 
 
-server/.git
+server/.gita
 server/node_modules
 server/dist
 server/dump.rdb

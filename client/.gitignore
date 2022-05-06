@@ -1,0 +1,9 @@
+node_modules
+.idea
+.vscode
+src/asserts/fontawesome-pro-5.14.0-web
+antd
+dist
+images
+gallery.html
+src/storeData.json

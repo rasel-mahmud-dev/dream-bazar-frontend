@@ -1,0 +1,39 @@
+
+.spin-fixed{
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+}
+
+.spin{
+  width: 50px;
+  height: 50px;
+  position: relative ; 
+  display: inline-block;
+  .loader_circle{
+    position: absolute;
+    width: 100%;
+    display: inline-block;
+    height: 100%;
+    border: 5px solid transparent;
+    border-right-color: red;
+    border-radius: 100%;
+    animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    &:nth-child(1){ animation-delay: -0.45s; }
+    &:nth-child(2){ animation-delay: -0.3s; }
+    &:nth-child(3){ animation-delay: -0.15s; }
+    &:nth-child(4){ animation-delay: -0.10s; }
+  }
+}
+.loader-primary{
+  .loader_circle{
+    border-right-color: var(--color-primary);
+  }
+}
+
+
+@keyframes loader{
+  0%{ transform: rotate(0deg) }
+  100%{ transform: rotate(360deg)}
+}

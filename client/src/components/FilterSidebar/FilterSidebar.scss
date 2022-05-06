@@ -1,0 +1,116 @@
+.product_sidebar{
+    // background: rgb(228, 189, 202);
+    min-height: 100vh;
+    /* width: 300px; */
+}
+
+.filter_section {
+  .filter_section--each_section {
+    background: white;
+    padding: 10px 5px;
+    border-bottom: 1px solid #d6d6d6a1;
+    &.filter_section__selected_values{
+      .filter_section--header {
+        cursor: inherit;
+      }
+    }
+    .filter_section--header{
+      //background: #ff6060;
+      color: #171717;
+      padding: 0px 5px;
+      cursor: pointer;
+      user-select: none;
+      &:hover{
+        //background: var(--color-light-blue2);
+      }
+      &> * {
+        pointer-events: none;
+      }
+    }
+    .filter_section__title {
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: #212121;
+      margin-bottom: 5px;
+      &.clear-btn{
+        pointer-events: auto;
+        //padding: 3px 5px;
+        //font-size: 12px;
+        &:hover{
+          //background: var(--color-primary);
+          //color: white;
+        }
+      }
+      &.disabled{
+        color: #e1e1e1;
+        cursor: none !important;
+        pointer-events: none;
+      }
+    }
+    
+    .input_item {
+      display: flex;
+      align-items: center;
+      margin: 5px 0px;
+      
+      label {
+        margin-left: 5px;
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--color-grey-grade5);
+        
+        &:hover {
+          color: rgb(45, 255, 45)
+        }
+      }
+    }
+  }
+}
+
+
+.selected_filter--list{ 
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0px;
+    .__item{
+      background: #4c28ffd4;
+      display: flex;
+      align-items: center;
+      margin: 2px;
+      padding: 4px 5px;
+      font-size: 12px;
+      white-space: nowrap;
+      color: #efefef;
+      span{font-weight: 400;}
+      i{
+        font-weight: 400;
+        margin-left: 5px;
+        cursor: pointer;
+        &:hover{
+          color: red;
+        }
+      }
+    }
+    
+  
+}
+.collapse_icon, .expand_icon{
+  margin-left: 10px;
+  i{
+    font-size: 12px;
+    cursor: pointer;
+    &:hover{
+      color: var(--color-primary)
+    }
+  }
+}
+
+.expand_icon{
+
+}
+
+.brand_search_input_row{
+  margin: 5px 10px 0px 0px;
+
+}

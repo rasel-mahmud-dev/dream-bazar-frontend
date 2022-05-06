@@ -1,0 +1,24 @@
+
+
+.menu-item{
+  color: #2a2a2a;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 5px 0px;
+  cursor: pointer;
+  &:hover{
+    color: #2978ff;
+  }
+  
+  i{
+    font-size: 9px;
+    padding: 0 5px;
+  }
+}
+
+.entry_category{margin-left: 30px !important;}
+.two-level-cat{margin-left: 8px;}
+.three-level-cat{margin-left: 14px;}
+.four-level-cat{margin-left: 22px !important;}
+.five-level-cat{margin-left: 29px !important;}
+.active-current__cat{ color: #1d6ded; font-weight: 500 }

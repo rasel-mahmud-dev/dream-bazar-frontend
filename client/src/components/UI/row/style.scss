@@ -1,0 +1,60 @@
+
+// Grid system
+.row {
+  display: flex;
+  flex-flow: row wrap;
+
+  &::before,
+  &::after {
+    display: flex;
+  }
+
+  // wrap of flex
+  &-no-wrap {
+    flex-wrap: nowrap;
+  }
+}
+
+.justify-center{
+  justify-content: center;
+}
+
+.row-start {
+justify-content: flex-start;
+}
+
+.row-center {
+justify-content: center;
+}
+
+.row-end {
+justify-content: flex-end;
+}
+
+.row-space-between {
+justify-content: space-between;
+}
+
+.row-space-around {
+justify-content: space-around;
+}
+
+.row-top {
+align-items: flex-start;
+}
+
+.row-middle {
+align-items: center;
+}
+
+.row-bottom {
+align-items: flex-end;
+}
+
+$name: #fff;
+
+
+
+.name{
+color: $name;
+}

@@ -1,0 +1,105 @@
+@import "src/styles/--colors";
+
+.store-name{
+
+  text-align: center;
+  
+}
+
+.shadow-2{
+  box-shadow: 0 1px 3px 0px #44444486;
+}
+
+.top_brands_wrapper{
+  margin: 10px 0px;
+  position: relative;
+  .top-brands{
+    background: white;
+    display: flex;
+    height: 120px;
+    align-items: center;
+    .brand{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 100px;
+      border-radius: 8px;
+      padding: 5px 10px;
+      margin: 10px;
+      box-sizing: border-box;
+      text-align: center;
+      border: 1px solid #e2e2e2;
+      background: white;
+      .brand_logo_div{
+        width: 45px;
+        height: 46px;
+      }
+      .brand_logo{
+        min-width: 45px;
+        min-height: 40px;
+        margin: auto;
+        img{
+          width: 100%;
+          height: 100%;
+          display: flex;
+        }
+      }
+    }
+  }
+  .scroll_button{
+    position: absolute;
+    right: -6px;
+    height: 81px;
+    top: 45%;
+    transform: translateY(-50%);
+    width: 65px;
+    i{font-size: 50px}
+    display: flex;
+    justify-content: center;
+    //border: none;
+    box-shadow: none;
+  }
+}
+
+.shop-banner{
+  background: var(--color-primary);
+  height: 80px;
+  width: 100%;
+  display: block;
+  h1{
+    text-align: center;
+    margin: 0;
+    line-height: 80px;
+    padding: 0;
+    color: white;
+  }
+}
+
+
+.store-sections{
+  .store-section{
+    background: #f0f0f0;
+    padding: 30px 10px;
+    margin: 10px 0px;
+    h2{
+      color: $dark-A400;
+    }
+    .span-underline{
+      display: block;
+      width: 20%;
+      height: 3px;
+      background: red;
+      text-align: center;
+      margin: auto;
+      /* margin-top: 10px; */
+    }
+  }
+}
+.products_slider--store{
+  background: white;
+  .product{
+    background: white;
+    width: 200px;
+  }
+}

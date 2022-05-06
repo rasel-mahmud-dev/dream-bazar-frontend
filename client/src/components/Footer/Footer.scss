@@ -1,0 +1,37 @@
+
+.footer{
+    min-height: 100px;
+    display: block;
+    background: rgb(58, 58, 58);
+    padding: 10px 0px;
+
+    .footer_row{
+        display: flex;
+        justify-content: space-between;
+
+        .footer_col_title{
+            color: white !important;
+            margin-bottom: 8px;
+    
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+            li{
+                color: grey;
+                &:hover{
+                    color: rgb(255, 255, 255);
+                }
+            }
+        }
+
+       
+    }
+
+    h3{
+        color: white;
+        text-align: center;
+
+    }
+
+}
