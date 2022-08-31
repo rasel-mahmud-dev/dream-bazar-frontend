@@ -3,8 +3,7 @@ import axios from "axios"
 
 
 export const backend = "http://localhost:3001"
-export const staticOrigin = "http://localhost:3001"
-//
+
 // export const backend = "https://localhost"
 // export const staticOrigin = "https://localhost"
 

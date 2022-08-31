@@ -1,14 +1,14 @@
 
 .modal{
-  background: white;
+  //background: white;
+  //box-shadow: 0 2px 30px 3px #343434d4;
   position: fixed;
   top: 10vh;
   left: 50%;
-  z-index: 150;
+  z-index: 1003;
   transform: translateX(-50%);
-  width: max-content; 
-  box-shadow: 0 2px 30px 3px #343434d4; 
-  padding: 10px; 
+  width: max-content;
+  padding: 10px;
   overflow-y: auto;
   /* height: 80vh  */;
 }

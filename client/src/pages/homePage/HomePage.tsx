@@ -2,17 +2,18 @@ import React from "react";
 import "./HomePage.scss"
 import {ACTION_TYPES} from "store/types"
 import {connect, useDispatch} from "react-redux"
-import {Link, useHistory} from "react-router-dom"
+import {Link, useHistory, useNavigate} from "react-router-dom"
 import {fetchHomePageSectionProducts, fetchProducts} from "actions/productAction"
 import {addToCart} from "actions/cartAction"
 import {Button, Carousel, Container, Image, Menu, Popup, Spin} from "UI/index"
 import {closeNotify} from "actions/appAction"
 import {isEn} from "src/lang"
 import fullLink from "src/utills/fullLink";
-import Slider from "components/slider/Slider";
+
 
 import product404Logo from  "src/asserts/images/product-404.svg"
 import HomeProductNavigation from "pages/homePage/HomeProductNavigation";
+import staticImagePath from "src/utills/staticImagePath";
 
 // import "slick-carousel/slick/slick-theme.css";
 
@@ -20,8 +21,9 @@ let id;
 
 const HomePage = (props) => { 
   const dispatch = useDispatch()
-  const history = useHistory()
-  
+
+  const navigate = useNavigate();
+
   const {
     homePageSectionsData,
     homePageSectionProducts: productSectionsWithProduct,
@@ -31,10 +33,11 @@ const HomePage = (props) => {
     fetchedData
   } = props.productState
   
-    const carouselImages = [
-        "images/home-carousel/ff548b9075708229.jpg",
-        "images/home-carousel/a7f93e9e0f7b947f.jpg",
-        "images/home-carousel/bf3d1c8a7696dfd9 (1).jpg",
+    const carouselData = [
+      {img:"ff548b9075708229.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
+      {img:"a7f93e9e0f7b947f.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
+      {img:"bf3d1c8a7696dfd9-1.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
+      {img:"ff548b9075708229.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"}
     ]
   
   const { selectedLang,lang } = props.appState
@@ -129,11 +132,10 @@ const HomePage = (props) => {
     homePageSectionsData.map(item=> {
       if(item.name === sectionName && !item.id){
         // history.push(`/prod/${item.name}/${item.type}/${item.params}`)
-        history.push(`/prod/${item.name}`)
+        navigate(`/prod/${item.name}`)
       } else if(item.name === sectionName && item.id){
-        history.push(`/products/?slug=${item.name}&type=${item.filterBy}&id=${item.id}`)
+        navigate(`/products/?slug=${item.name}&type=${item.filterBy}&id=${item.id}`)
       }
-    
     })
   }
   
@@ -184,18 +186,31 @@ const HomePage = (props) => {
     return (
       <div className="homepage">
 
+
         <HomeProductNavigation/>
 
-        <Container maxWidth={1688} noGutter={true} >
+
+        <div>
           <div className="homepage_slider">
-            <Slider images={carouselImages} />
+            <Carousel>
+              { carouselData.map(item=>(
+                  <div className="relative">
+                    <img src={staticImagePath(item.img)} alt=""/>
+                    <div className="swiper-caption">
+                      <h1 className="slider-title font-medium text-3xl text-white ">{item.title}</h1>
+                      <h1 className="slider-para text-white ">{item.desc}</h1>
+                      <Button className="slider-btn">Shop Now</Button>
+                    </div>
+                  </div>
+              )) }
+            </Carousel>
         </div>
 
-       </Container>
+       </div>
         
         <div className="r" onScroll={handleScroll}>
         
-           <Container maxWidth={1688}>
+           <div>
         
             { Object.keys(productSectionsWithProduct) && Object.keys(productSectionsWithProduct).map(sectionName=>(
               <>
@@ -281,7 +296,7 @@ const HomePage = (props) => {
            {renderLoader("home_section", "Load More Section", loadMoreSection)}
         
         
-          </Container>
+          </div>
           
         
         </div>

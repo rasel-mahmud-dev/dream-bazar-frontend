@@ -4,9 +4,11 @@ import  { useState, Suspense } from 'react'
 import {useDispatch, connect} from 'react-redux'
 import './App.scss'
 import "./styles/shared.scss"
-import { Switch, Route, Link, useHistory } from "react-router-dom"
+import {  Route, Link } from "react-router-dom"
 import { Modal, TopProgressBar, Tooltip} from "components/UI"
-import routes from "./routes"
+
+import MyRoutes from "./MyRoutes"
+
 import Navigation from "components/Navigation/Navigation"
 import Footer from "components/Footer/Footer"
 import apis from "src/apis"
@@ -14,14 +16,14 @@ import apis from "src/apis"
 import actions from './store/actions'
 const {closeNotify} = actions
 
-import { ACTION_TYPES } from "store/types"
+
 import CategoryNavbar from "components/categoryNavbar/CategoryNavbar";
 
 function App(props) {
   const {appState} = props
   
   const [afterNavHeight, setNavHeight] = React.useState(0)
-  const history = useHistory()
+  // const history = useHistory()
   const dispatch = useDispatch()
   const [count, setCount] = useState(0) 
   const [products, setProducts] = React.useState([]) 
@@ -77,10 +79,10 @@ function App(props) {
       
     })()
     
-    setPathname(history.location.pathname)
-    history.listen((h)=>{
-      setPathname(h.pathname)
-    })
+    // setPathname(history.location.pathname)
+    // history.listen((h)=>{
+    //   setPathname(h.pathname)
+    // })
     
   }, [])
   
@@ -166,11 +168,12 @@ function loadMore(e){
          </Modal>
          
      
-         <Switch>
+
            <Suspense fallback={<TopProgressBar />}>
-             { routes.map((route, i)=> <Route key={i} {...route} /> ) }
+             <MyRoutes />
+             {/*{ routes.map((route, i)=> <Route key={i} {...route} /> ) }*/}
            </Suspense>
-         </Switch>
+
   
   
          <Tooltip delay={1000} placement={"top-left"} tooltip={<a>

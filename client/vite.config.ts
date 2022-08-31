@@ -1,11 +1,10 @@
 import { defineConfig } from 'vite'
-import reactRefresh from '@vitejs/plugin-react-refresh'
-import path from "path" 
+import react from '@vitejs/plugin-react'
+import path from "path"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [reactRefresh()],
-  // base: "/multiproduct-ecomerce-app-deploy/", // for github page static files
+  plugins: [react()],
   resolve: {
     alias: {
       "app": path.resolve(__dirname, "./src"),

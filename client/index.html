@@ -2,57 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ecommere App</title>
-    <style>
-      .loader{
-          position: relative; 
-          /* background: red; */
-          width: 50px;
-          height: 50px;
-          position: fixed;
-          top: 30vh;
-          left: 50%;
-          transform: translateX(-50%);
-      }
-      .l{
-        position: absolute; 
-        border-radius: 100%;
-        display: block;
-         width: inherit;
-         height: inherit;
-        border: 10px solid transparent;
-        border-bottom-color: red;
-        animation: spin 1s linear infinite;
-      }
-      .l:nth-child(1){ animation-delay: .2s;}
-      .l:nth-child(2){animation-delay: .3s;}
-      .l:nth-child(3){animation-delay: .1s;}
-      @keyframes spin{
-        0%{transform: rotate(0)}
-        100%{transform: rotate(360deg)}
-      }
-      
-    </style>
+    <title>Vite + React + TS</title>
   </head>
   <body>
-    <div id="loader-root"></div>
     <div id="modal-root"></div>
     <div id="root"></div>
-    <div id="console-root"></div>
-  <script>
-    const loaderRoot = document.querySelector("#loader-root")
-    const loader = `
-    <div class="loader">
-      <span class="l"></span>
-      <span class="l"></span>
-      <span class="l"></span>
-    </div> 
-    `
-    loaderRoot.innerHTML = loader 
-    
-  </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
