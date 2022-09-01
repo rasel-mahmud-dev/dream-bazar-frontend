@@ -22,7 +22,7 @@ const HomeProductNavigation = () => {
   const homeNavData = [
     {name: 'Top Offer', logo: "/nav-images/f15c02bfeb02d15d.png", id: "kj98759e347"},
     {
-      name: 'Computers', logo: "/nav-images/69c6589653afdb9a.png", id: "computers",
+      name: 'Computers', logo: "/nav-images/69c6589653afdb9a.png", id: "Electronics",
       sub_menu: [
         {
           name: 'Computer Components',

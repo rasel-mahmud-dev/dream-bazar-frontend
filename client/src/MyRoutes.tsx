@@ -28,7 +28,7 @@ const MyRoutes = ()=>{
       <Routes>
         <Route path="/" element={<HomePage />}>
         </Route>
-        <Route path="/p" element={<Products />} />
+        <Route path="/p" element={<ProductFilterPage />} />
       </Routes>
   )
 }

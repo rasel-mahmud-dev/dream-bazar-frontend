@@ -1,7 +1,6 @@
 import React, {FC, useEffect, useState} from 'react'
 import "./FilterSidebar.scss"
 import {connect, useDispatch} from "react-redux"
-import {useHistory} from "react-router-dom"
 import {ACTION_TYPES} from "store/types"
 import {Button, Input, Row} from "components/UI"
 
@@ -14,6 +13,7 @@ import { removeAllFilteredValue } from "actions/filterSidebar.action";
 import qstring from "query-string";
 import apis from "src/apis";
 import {nonInitialEffect} from "src/reactTools/nonInitialEffect";
+import {useLocation, useNavigate} from "react-router-dom";
 
 
 interface FilterSidebarProps {
@@ -65,8 +65,9 @@ let excludeArr = null
 const FilterSidebar = (props: FilterSidebarProps) => {
   
   const dispatch = useDispatch()
-  const history = useHistory()
-  
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const { 
     category,
     filteredAttributes,  // we got it from category collection in database...
@@ -220,7 +221,7 @@ const FilterSidebar = (props: FilterSidebarProps) => {
   }
   
   useEffect(async ()=>{
-    let { cat, cat_tree, brand } = qstring.parse(history.location.search)
+    let { cat, cat_tree, brand } = qstring.parse(location.search)
     // find cat_tree all parent category
   
     let cIndex = ui_categories.findIndex(c=>c.id === cat )

@@ -1,7 +1,7 @@
 
 import express, {Request, Response } from "express";
 import staticDir from "./utilities/staticDir";
-import  mongoose from "mongoose";
+import mongoose from "mongoose";
 
 const bodyParser = require("body-parser") 
 const cors = require("cors") 

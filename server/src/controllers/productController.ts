@@ -1473,7 +1473,7 @@ export const productFiltersGetV2 = async (req, res, next)=>{
 
   } catch(ex){
     console.log(ex)
-    res.send(ex.message)
+    res.send([])
   } finally{
     client?.close()
   }

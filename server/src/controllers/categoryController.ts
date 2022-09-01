@@ -42,30 +42,72 @@ export const getCategories = async (req, res, next)=>{
 }
 
 export const getCategory = async (req, res, next)=>{
-  const  {id} = req.params
-
-  if(!isObjectId(id)){
-    return errorResponse(res, 401, "Please Provide a valid Object ID")
-  }
-  let client;
+  const  {name, parentId} = req.query
+  let db;
   try {
-    const {c: CategoryCollection, client: cc} = await dbConnect("categories")
-    client = cc
-    let category = await CategoryCollection.findOne({_id: ObjectId(id)})
-    if (category) {
-      res.json({category: category})
+    db = await sqlDatabase()
+    if(name) {
+      let sql = `SELECT * FROM categories WHERE name = ?`
+      db.get(sql, name, function (err, data) {
 
-    } else {
-      res.status(404).json({message: "Item Not Found", category: null})
+        if (err || !data) {
+          console.log(err)
+          errorResponse(res, 404, "category not found")
+        }
+        res.send(data)
+      })
+    } else if(parentId){
+      let sql = `SELECT * FROM categories WHERE parentId = ?`
+      db.all(sql, parentId, function (err, data) {
+
+        if (err || !data) {
+          console.log(err)
+          errorResponse(res, 404, "category not found")
+        }
+        res.send(data)
+      })
     }
-  }catch (ex){
+
+    //   CREATE TABLE "categories" (
+    //       "id"	TEXT NOT NULL,
+    //       "name"	text(200) NOT NULL,
+    //       "parentId"	TEXT DEFAULT "",
+    //       "isProductLevel"	NUMERIC DEFAULT 0,
+    //       "ideals"	JSON,
+    //       CONSTRAINT "categories_pk" PRIMARY KEY("name")
+    // )
+
+  } catch(ex){
     next(ex)
-    console.log(ex)
-  } finally {
-    client?.close()
+
+  } finally{
+    // db && db.close()
   }
+
+  // if(!isObjectId(id)){
+  //   return errorResponse(res, 401, "Please Provide a valid Object ID")
+  // }
+  // let client;
+  // try {
+  //   const {c: CategoryCollection, client: cc} = await dbConnect("categories")
+  //   client = cc
+  //   let category = await CategoryCollection.findOne({_id: ObjectId(id)})
+  //   if (category) {
+  //     res.json({category: category})
+  //
+  //   } else {
+  //     res.status(404).json({message: "Item Not Found", category: null})
+  //   }
+  // }catch (ex){
+  //   next(ex)
+  //   console.log(ex)
+  // } finally {
+  //   client?.close()
+  // }
   
 }
+
+
 
 function getAllCategories(sql: string, ...args: any){
   return new Promise(async function (resolve, reject){

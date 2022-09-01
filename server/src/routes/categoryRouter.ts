@@ -24,6 +24,7 @@ export default function (app){
   // // app.post("/api/categories", getCategoryByIds)
   // app.post("/api/categories/filter", fetchCategoryWithFilter)
   app.post("/api/category", saveCategory)
+  app.get("/api/category", getCategory)
   // app.put("/api/categories/:id", updateCategory)
   // app.delete("/api/categories/:id", deleteCategory)
   // app.get("/api/categories/filter-section/:id", getCategoryFilterSection)

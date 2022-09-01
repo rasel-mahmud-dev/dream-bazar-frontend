@@ -2,7 +2,7 @@ import React, {FC} from "react"
 // import json from "src/breadcrumbData.json"
 import {  Badge, Pagination, Container, Row, Tooltip, Spin} from "components/UI"
 import qstring from "query-string"
-import {useHistory, Link, useParams} from "react-router-dom"
+import {Link, useParams, useNavigate, useLocation} from "react-router-dom"
 import api from "src/apis"
 import {useDispatch, connect} from "react-redux"
 import FilterSidebar from "components/FilterSidebar/FilterSidebar"
@@ -25,6 +25,7 @@ import {toggleAppMask} from "actions/appAction";
 import calculateDiscount from "src/utills/calculateDiscount";
 import apis from "src/apis";
 import {getPagination} from "actions/localActions";
+import CategoryList from "pages/productFilterPage/CategoryList";
 
 
 let initialLoad = true
@@ -91,8 +92,9 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
   } = productState
   
 
-  const history = useHistory()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const location = useLocation()
   // const d = props.appState.ui_categories
 
   const [paginate, setPaginate] = React.useState({
@@ -207,115 +209,120 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
       // props.toggleAppMask(true)
       // props.toggleLoader("product-filter", true)
       // parse query parameter and set rootCategory and last selected category
-      let { cat, cat_tree, brand } = qstring.parse(history.location.search)
-      
-      // find brand using brand name...
-      apis.get(`/api/brand?brand_name=${brand}`).then(response=>{
-        if(response.status === 200) {
-          let brand = response.data.brand
+      let { cat, cat_tree, brand } = qstring.parse(location.search)
+
+
+      if(brand) {
+        // find brand using brand name...
+        apis.get(`/api/brand?brandName=${brand}`).then(response => {
+          if (response.status === 200) {
+            let brand = response.data.brand
+            dispatch({
+              type: ACTION_TYPES.ADD_FILTER,
+              payload: {
+                brands: [brand]
+              }
+            })
+          }
+        }).catch(err => {
           dispatch({
             type: ACTION_TYPES.ADD_FILTER,
             payload: {
-              brands: [brand]
+              brands: []
             }
           })
-        }
-      }).catch(err=>{
-        dispatch({
-          type: ACTION_TYPES.ADD_FILTER,
-          payload: {
-            brands: []
-          }
         })
-      })
+      }
       
       /**
        fetch only one category that has url params as root category instead of fetch all categories... (like old way)
        let selectedRootCat  = props.appState.ui_categories ? props.appState.ui_categories.find(js=>js.id == cat) : {}
        let { currentNestedSubCategory, selectedCatSections } = chooseLastSelectedCategory(selectedRootCat, cat_tree)
        */
-      
-      let response = await apis.get(`/api/ui-data/category/${cat}`)
-      if(response.status === 200) {
-        let newFetchedRootCategory = response.data
-  
-        let {
-          currentNestedSubCategory,
-          selectedCatSections
-        } = chooseLastSelectedCategory(newFetchedRootCategory, cat_tree)
+
+      // let response0 = await apis.get(`/api/category?parentId=''`)
+      // console.log(response0)
+      // if(!cat) return;
+      // let response = await apis.get(`/api/category?name=${cat}`)
+      // if(response.status === 200) {
+      //   let response2 = await apis.get(`/api/category?parentId=${response.data.id}`)
+
+        // let newFetchedRootCategory = response.data
+        // console.log(cat_tree)
+        // let { currentNestedSubCategory, selectedCatSections } = chooseLastSelectedCategory(newFetchedRootCategory, cat_tree)
         
         /**
          here is one issue down code 4 dispatch function re-render 4 times ui.
          you can merge it.
          so, it will render one time
          */
-        dispatch({
-          type: ACTION_TYPES.SET_UI_CATEGORIES,
-          payload: newFetchedRootCategory
-        })
-        dispatch({
-          type: "SET_SELECTED_CATEGORY_SECTIONS",
-          payload: selectedCatSections
-        })
-  
-        dispatch({
-          type: "SET_CURRENT_CATEGORY_ROOT",
-          payload: newFetchedRootCategory
-        })
-        dispatch({
-          type: "SET_CURRENT_NESTED_SUBCATEGORY",
-          payload: currentNestedSubCategory
-          // payload: currentNestedSubCategory
-        })
+        // dispatch({
+        //   type: ACTION_TYPES.SET_UI_CATEGORIES,
+        //   payload: newFetchedRootCategory
+        // })
+        // dispatch({
+        //   type: "SET_SELECTED_CATEGORY_SECTIONS",
+        //   payload: selectedCatSections
+        // })
+        //
+        // dispatch({
+        //   type: "SET_CURRENT_CATEGORY_ROOT",
+        //   payload: newFetchedRootCategory
+        // })
+        // dispatch({
+        //   type: "SET_CURRENT_NESTED_SUBCATEGORY",
+        //   payload: currentNestedSubCategory
+        //   // payload: currentNestedSubCategory
+        // })
         
-        let categoryInfoRes = await apis.get(`/api/ui-data/category-info/${currentNestedSubCategory.id}`)
-        if(categoryInfoRes.status === 200){
-          
-          if(categoryInfoRes.data.filter_items){
-          
-          let filterItemsRes = await apis.post("/api/ui-data/filter-items", {attributeNames: categoryInfoRes.data.filter_items})
-          if(filterItemsRes.status === 200) {
-            let filter_items_populated = []
-            filterItemsRes.data.findIndex(fItem => {
-              let match = categoryInfoRes.data.filter_items.indexOf(fItem.attribute_name)
-              if (match !== -1) {
-                filter_items_populated.push(fItem)
-              }
-            })
-          }
-            
-            // dispatch({type: ACTION_TYPES.SET_UI_CATEGORY_INFO, payload:  {
-            //   ...categoryInfoRes.data,
-            //   filter_items_populated
-            // }})
-            
-          }
-          
-          /// fetch all brand for selected category
-          if(currentNestedSubCategory._id){
-            let brandResponse = await apis.post("/api/fetch-brands", {forCategoryIds: [currentNestedSubCategory._id]})
-            dispatch({
-              type: ACTION_TYPES.SET_BRAND_FOR_CATEGORY,
-              payload: {
-                id: currentNestedSubCategory.id,
-                brands: brandResponse.data.brands
-              }
-            })
-          }
-         
-        }
+        // let categoryInfoRes = await apis.get(`/api/ui-data/category-info/${currentNestedSubCategory.id}`)
+        // if(categoryInfoRes.status === 200){
+        //
+        //   if(categoryInfoRes.data.filter_items){
+        //
+        //   let filterItemsRes = await apis.post("/api/ui-data/filter-items", {attributeNames: categoryInfoRes.data.filter_items})
+        //   if(filterItemsRes.status === 200) {
+        //     let filter_items_populated = []
+        //     filterItemsRes.data.findIndex(fItem => {
+        //       let match = categoryInfoRes.data.filter_items.indexOf(fItem.attribute_name)
+        //       if (match !== -1) {
+        //         filter_items_populated.push(fItem)
+        //       }
+        //     })
+        //   }
+        //
+        //     // dispatch({type: ACTION_TYPES.SET_UI_CATEGORY_INFO, payload:  {
+        //     //   ...categoryInfoRes.data,
+        //     //   filter_items_populated
+        //     // }})
+        //
+        //   }
+        //
+        //   /// fetch all brand for selected category
+        //   if(currentNestedSubCategory._id){
+        //     let brandResponse = await apis.post("/api/fetch-brands", {forCategoryIds: [currentNestedSubCategory._id]})
+        //     dispatch({
+        //       type: ACTION_TYPES.SET_BRAND_FOR_CATEGORY,
+        //       payload: {
+        //         id: currentNestedSubCategory.id,
+        //         brands: brandResponse.data.brands
+        //       }
+        //     })
+        //   }
+        //
+        // }
         // if(catRes.status === 200){
         //   dispatch({type: "SET_UI_FILTER_ITEMS", payload:  filterItemsRes.data})
         // }
   
-      }
+      // }
       // dispatch({
       //   type: "SET_LAST_SELECTED_CATEGORY",
       //   payload: currentNestedSubCategory
       // })
       //
     }())
-  }, [history.location.search])
+  }, [location.search])
   
   
   function chooseLastSelectedCategory(selectedRootCat, cat_tree) {
@@ -783,7 +790,7 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
     //
     // setCategoryData(updatedCategory)
 
-  }, [history.location.search, props.appState.ui_categories])
+  }, [location.search, props.appState.ui_categories])
 
   function callbackHandler(jsx) {
     ss=jsx
@@ -815,17 +822,18 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
       <div className="product-filter-page--layout">
         <div className="sidebar">
           {ss}
-          <SidebarRenderCategory ui_filterItems={{}} />
-          <FilterSidebar
-            // selectedCatSections={selectedCatSections}
-            currentNestedSubCategory={currentNestedSubCategory}
-            cb={callbackHandler}
-          />
+          <CategoryList />
+          {/*<SidebarRenderCategory ui_filterItems={{}} />*/}
+          {/*<FilterSidebar*/}
+          {/*  // selectedCatSections={selectedCatSections}*/}
+          {/*  currentNestedSubCategory={currentNestedSubCategory}*/}
+          {/*  cb={callbackHandler}*/}
+          {/*/>*/}
         </div>
 
         <div className="content content-container">
           <RenderBreadcrumb
-            history={history}
+             navigate={navigate}
             dispatch={dispatch}
             selectedCatSections={selectedCatSections}
           />

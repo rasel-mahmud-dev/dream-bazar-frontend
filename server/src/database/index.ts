@@ -6,9 +6,7 @@ const isDev = process.env.NODE_ENV === "development"
 import {MongoClient} from "mongodb";
 
 export const typeOrmConfig: any = {
-  DB_CONN_STRING: process.env.DB_CONN_STRING,
-  // DB_NAME: isDev ? "mongodb://127.0.0.1:27017/digital-bazar"
-  DB_NAME: isDev ? "mongodb://127.0.0.1:27017/node-ecommerce"
+  DB_CONN_STRING: isDev ? "mongodb://127.0.0.1:27017/node-ecommerce"
       : process.env.MONGODB_URL,
   REDIS_ENDPOINT: process.env.REDIS_ENDPOINT,
   REDIS_PORT: process.env.REDIS_PORT,
@@ -25,7 +23,7 @@ interface T{
 
 function dbConnect(collectionName?: string){
 
-  let client = new MongoClient(typeOrmConfig.DB_NAME)
+  let client = new MongoClient(typeOrmConfig.DB_CONN_STRING)
 
   return new Promise<T>(async (resolve, reject) => {
     try {

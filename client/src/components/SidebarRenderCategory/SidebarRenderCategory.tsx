@@ -1,8 +1,10 @@
 import React, {FC} from 'react';
 import "./sidebarRenderCategory.scss";
-import { useHistory } from  "react-router-dom"
+
 import {connect, useDispatch} from "react-redux";
 import {LastSelectedCategoryProps, SelectedCatSectionType} from "reducers/productReducer";
+import {useLocation} from "react-router-dom";
+import {RootState} from "src/store";
 
 
 interface  FilterSidebarProps {
@@ -14,7 +16,7 @@ interface  FilterSidebarProps {
 
 const SidebarRenderCategory: FC<FilterSidebarProps> = (props) => {
   
-  const history = useHistory()
+  const location = useLocation()
   const dispatch = useDispatch()
   
     // const [lastSelectedCategory, setLastSelectedCategory] = React.useState<{id: string, _id: string, name: string}>({})
@@ -89,7 +91,7 @@ const SidebarRenderCategory: FC<FilterSidebarProps> = (props) => {
           if (selected_cat.id) {
             u = u + `&cat_tree=${selected_cat.id}`
           }
-          history.replace(u)  // replace browser url
+          // history.replace(u)  // replace browser url
         }
       }
     }
@@ -212,7 +214,8 @@ const SidebarRenderCategory: FC<FilterSidebarProps> = (props) => {
   );
 };
 
-function mapStateToProps(state){
+function mapStateToProps(state: RootState){
+  console.log(state)
   return {
     lastSelectedCategory: state.productState.lastSelectedCategory,
     selectedCatSections: state.productState.selectedCatSections
