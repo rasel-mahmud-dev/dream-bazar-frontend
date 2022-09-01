@@ -15,7 +15,7 @@ import {
   productUpdate,
   saveProducts,
   updateProductPutReq,
-  uploadHandler
+  uploadHandler, productFiltersGetV2
 } from "../controllers/productController"
 
 
@@ -26,7 +26,7 @@ import {
 } from "../controllers/productDescriptionController"
 
 const fetchHomePageSectionProducts = require("../workers/fetchHomePageSectionProducts");
-const productsFilterGetReq = require("../workers/productsFilterGetReq");
+
 
 
 export default function (app){
@@ -53,11 +53,14 @@ export default function (app){
       res.send(result)
     // }, 2000)
   })
-  app.get("/api/products/filter/v2", async (req, res, next)=>{
-    let result = await productsFilterGetReq({query: req.query, params: req.params})
-    res.send(result)
-  })
-  // app.post("/api/products/filter/v2", productFiltersPostV2)
+  //
+  // app.get("/api/products/filter/v2", async (req, res, next)=>{
+  //   let result = await productsFilterGetReq({query: req.query, params: req.params})
+  //   res.send(result)
+  // })
+
+  app.get("/api/products/filter/v2", productFiltersGetV2)
+
   app.post("/api/products/update/:id", productUpdate)
   app.get("/api/products/category-product/:categoryId", fetchCategoryProducts)
   

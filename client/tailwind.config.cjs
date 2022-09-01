@@ -15,6 +15,9 @@ module.exports = {
           "9": "#8c8c8c"
         }
       },
+      maxWidth:{
+        '8xl': "85rem"
+      },
       minWidth: {
         100: "100px",
         150: "150px",

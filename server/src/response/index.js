@@ -1,7 +1,5 @@
 
-
-
-exports.errorResponse = (res, status, data)=>{  
+export const errorResponse = (res, status, data)=>{
   let statusCode = status ? status : 500
   
   if(typeof data === "string"){
@@ -12,7 +10,7 @@ exports.errorResponse = (res, status, data)=>{
 }
 
 
-exports.successResponse = (res, status, data)=>{ 
+export const successResponse = (res, status, data)=>{
   let statusCode = status ? status : 500
   
   if(typeof data === "string"){

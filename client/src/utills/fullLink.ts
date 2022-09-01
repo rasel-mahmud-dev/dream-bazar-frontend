@@ -4,13 +4,7 @@ import {backend} from "src/apis"
 
 function fullLink(filePath: string){
 
-  if(import.meta.env.DEV){
-    let a = filePath.indexOf("/img/")
-    return backend  + filePath.slice(a)
-  } else {
-    if (filePath && typeof filePath === "string" && filePath.startsWith("http")) {
-      return filePath
-    }
+  if(import.meta.env.DEV) {
     return backend + "/" + filePath
   }
 }

@@ -1,9 +1,10 @@
-const { ObjectId} = require("mongodb") 
-
+import fs from "fs";
+const { ObjectId} = require("mongodb")
 import dbConnect from "../database"
 
 const isObjectId = require("../utilities/isObjectId") 
-const { errorResponse, successResponse } = require("../response")
+import { errorResponse, successResponse } from "../response"
+import sqlDatabase from "../database/sqlDatabase";
 
 export const getCategoriesCount = async (req, res, next)=>{
   const { _id } = req.query
@@ -23,66 +24,21 @@ export const getCategoriesCount = async (req, res, next)=>{
 
 
 export const getCategories = async (req, res, next)=>{
-  const {type,    _for } = req.query
-  let client;
   try {
-      const {c: CategoryCollection, client: cc} = await dbConnect("categories")
-    client = cc
-    let cursor;
-    if (type === "lastLevel") {
-      cursor = CategoryCollection.find({last_level: true})
-    } else {
-      cursor = CategoryCollection.aggregate([
-        {
-          $lookup: {
-            from: "filter_items",
-            localField: "filters",
-            foreignField: "_id",
-            as: "filters"
-          }
-        },
-        {
-          $lookup: {
-            from: "categories",
-            localField: "parent_id",
-            foreignField: "_id",
-            as: "parent"
-          }
-        },
-        { $unwind: { path: "$parent", preserveNullAndEmptyArrays: true } },
-        {
-          $project: {
-            _id: 1,
-            name: 1,
-            created_at: 1,
-            updated_at: 1,
-            logo: 1,
-            parent_id: 1,
-            parent: { name: 1 },
-            is_product_level: 1
-          }
-        },
-        
-      ])
-    }
+    // fs.readFile(path.resolve( staticDir + "/ui-data/product_categories.json"), function (err, data){
+    //   if(err){
+    //     errorResponse(res, 500, err.message)
+    //     return
+    //   }
+    //   res.send(data)
+    // })
 
-    // if(await cursor.count() === 0){
-    //   return res.json({categories: []}) 
-    // }
+    let a = await getAllCategories("SElECT * FROM categories");
+    res.send(a)
 
-    // gg
-    let p = []
-    await cursor.forEach((i) => {
-      p.push(i)
-    })
-
-    res.json({categories: p})
-  }catch (ex){
+  } catch (ex){
     next(ex)
-  } finally {
-    client?.close()
   }
-  
 }
 
 export const getCategory = async (req, res, next)=>{
@@ -111,45 +67,58 @@ export const getCategory = async (req, res, next)=>{
   
 }
 
+function getAllCategories(sql: string, ...args: any){
+  return new Promise(async function (resolve, reject){
+    let db: any
+    try {
+      db = await sqlDatabase()
 
-export const saveCategories = async (req, res, next)=>{
-  let categories = req.body
-  let client;
-  
-  
-  if(!categories.name) {
-    return res.status(403).json({
-      message: "Category name not provide"
-    })
-  }
-
-  try {
-    const {c: CategoryCollection, client: cc} = await dbConnect("categories")
-    client = cc
-    let response;
-    
-    
-    let newCategory: any = {}
-    newCategory.name = categories.name
-    newCategory.parent_id = categories.parent_id ? ObjectId(categories.parent_id): null
-    newCategory.created_at = new Date()
-    newCategory.updated_at = new Date()
-        
-    response = await CategoryCollection.insertOne(newCategory)
-   
-    console.log(response)
-  
-    
-    if(response.insertedCount > 0){
-      res.status(201).json({category: response.ops }) 
-    } else {
-      res.status(403).json({message: "category add fail" }) 
+      db.all(sql, ...args, (err: any, result: any | null) => {
+        if(err != null){
+              reject(err)
+        } else if (err == null && result){
+          resolve(result)
+        } else if (result){
+          resolve(result)
+        } else {
+          reject(err)
+        }
+      })
+    } catch (ex){
+      console.log(ex, "SSSSSSSS")
+      reject(ex)
+    } finally {
+      db && db.close()
     }
+  })
+}
+
+export const saveCategory = async (req, res, next)=>{
+  const { id, name, parentId, isProductLevel  } = req.body
+  let db: any
+  try {
+    db = await sqlDatabase()
+    let sql = `
+        INSERT INTO categories('id', 'name', 'parentId', 'isProductLevel') values('${id}', '${name}', '${parentId}', '${isProductLevel}')
+     `
+    db.exec(sql, function (data, err){
+      console.log(err, data)
+    })
+
+  //   CREATE TABLE "categories" (
+  //       "id"	TEXT NOT NULL,
+  //       "name"	text(200) NOT NULL,
+  //       "parentId"	TEXT DEFAULT "",
+  //       "isProductLevel"	NUMERIC DEFAULT 0,
+  //       "ideals"	JSON,
+  //       CONSTRAINT "categories_pk" PRIMARY KEY("name")
+  // )
+
   } catch(ex){
     next(ex)
-    console.log(ex)
+
   } finally{
-    client?.close()
+    db && db.close()
   }
 }
 

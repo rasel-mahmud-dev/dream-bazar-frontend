@@ -2,6 +2,7 @@ import {Menu, Popup} from "UI/index";
 import React from "react";
 import fullLink from "src/utills/fullLink";
  import {Link} from "react-router-dom"
+import staticImagePath from "src/utills/staticImagePath";
 let id;
 
 const { SubMenu } = Menu
@@ -19,9 +20,9 @@ const HomeProductNavigation = () => {
   const [moreHomeNavData, setMoreHomeNavData] = React.useState<moreHomeNavDataType | null>(null)
   
   const homeNavData = [
-    {name: 'Top Offer', logo: "images/nav-images/f15c02bfeb02d15d.png", id: "kj98759e347"},
+    {name: 'Top Offer', logo: "/nav-images/f15c02bfeb02d15d.png", id: "kj98759e347"},
     {
-      name: 'Computers', logo: "images/nav-images/69c6589653afdb9a.png", id: "computers",
+      name: 'Computers', logo: "/nav-images/69c6589653afdb9a.png", id: "computers",
       sub_menu: [
         {
           name: 'Computer Components',
@@ -52,11 +53,11 @@ const HomeProductNavigation = () => {
         }
       ]
     },
-    {name: 'Mobiles', logo: "images/nav-images/22fddf3c7da4c4f4.png", id: "mobiles-store", type: "store"},
+    {name: 'Mobiles', logo: "/nav-images/22fddf3c7da4c4f4.png", id: "mobiles-store", type: "store"},
     {
       name: 'Fashions',
       id: "clothing and accessories",
-      logo: "images/nav-images/82b3ca5fb2301045.png",
+      logo: "/nav-images/82b3ca5fb2301045.png",
       sub_menu: [
         {
           name: "Men's Top Wear",
@@ -249,7 +250,7 @@ const HomeProductNavigation = () => {
     {
       name: 'Electronics',
       id: "electronics",
-      logo: "images/nav-images/69c6589653afdb9a.png",
+      logo: "/nav-images/69c6589653afdb9a.png",
       sub_menu: [
         {name: "Audio", id: "audio and video", _id: "",
           sub_menu: [
@@ -331,10 +332,10 @@ const HomeProductNavigation = () => {
         {name: "Tablets", id: "Tablets", _id: ""},
       ]
     },
-    // {name: 'Laptops', logo: "images/nav-images/69c6589653afdb9a.png", id: "laptop-store", type: "store"},
+    // {name: 'Laptops', logo: "/nav-images/69c6589653afdb9a.png", id: "laptop-store", type: "store"},
     {name:
         'Appliances',
-      logo: "images/nav-images/0ff199d1bd27eb98.png",
+      logo: "/nav-images/0ff199d1bd27eb98.png",
       id: "home entertainment",
       cat_tree: "televisions",
       sub_menu: [
@@ -416,10 +417,10 @@ const HomeProductNavigation = () => {
         }
       ]
     },
-    {name: "Home & Kitchen", id: "home & kitchen", logo: "images/nav-images/ab7e2b022a4587dd.jpg"},
-    {name: 'Glosses', logo: "images/nav-images/29327f40e9c4d26b.png", id: "kj98e759347"},
-    {name: 'Travels', logo: "images/nav-images/71050627a56b4693.png", id: "kj98e759347"},
-    {name: 'Beauty, Toys & more', logo: "images/nav-images/dff3f7adcf3a90c6.png", id: "kj98e759347"},
+    {name: "Home & Kitchen", id: "home & kitchen", logo: "/nav-images/ab7e2b022a4587dd.jpg"},
+    {name: 'Glosses', logo: "/nav-images/29327f40e9c4d26b.png", id: "kj98e759347"},
+    {name: 'Travels', logo: "/nav-images/71050627a56b4693.png", id: "kj98e759347"},
+    {name: 'Beauty, Toys & more', logo: "/nav-images/dff3f7adcf3a90c6.png", id: "kj98e759347"},
   ]
   
   
@@ -657,13 +658,13 @@ const HomeProductNavigation = () => {
               { navData.type ? (
                 <Link to={`/p/s?cat=${navData.id}`}>
                   <div className="nav-logo">
-                    <img src={fullLink(navData.logo)}  alt={navData.name}/>
+                    <img src={staticImagePath(navData.logo)}  alt={navData.name}/>
                   </div>
                 </Link>
               ) : (
                 // <Link to={`/p?cat=${navData.id}&${navData.cat_tree ? 'cat_tree='+ navData.cat_tree: ''}`}>
                 <div className="nav-logo">
-                  <img src={fullLink(navData.logo)}  alt={navData.name}/>
+                  <img src={staticImagePath(navData.logo)}  alt={navData.name}/>
                 </div>
                 // </Link>
               )}

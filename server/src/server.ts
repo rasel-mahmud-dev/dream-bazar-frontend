@@ -1,6 +1,7 @@
 
 import express, {Request, Response } from "express";
-import {staticDir} from "./config";
+import staticDir from "./utilities/staticDir";
+import  mongoose from "mongoose";
 
 const bodyParser = require("body-parser") 
 const cors = require("cors") 
@@ -9,7 +10,7 @@ const passport = require('passport');
 
 require('dotenv').config()
 
-import dbConnect from "./database";
+// import dbConnect from "./database";
 
 // passport config initial...
 require('./passport/google.js')
@@ -17,11 +18,13 @@ require('./passport/facebook.js')
 
 const app = express()  
 app.use(express.static(`${staticDir}/public`))
-app.use("/upload/", express.static(`${staticDir}/static/upload/`))
-app.use("/static/upload/", express.static(`${staticDir}/static/upload/`))
-app.use("/images/", express.static(`${staticDir}/static/images/`))
-app.use("/ui-data/", express.static(`${staticDir}/static/ui-data/`))
+app.use("/upload/", express.static(`${staticDir}/upload/`))
+app.use("/static/upload/", express.static(`${staticDir}/upload/`))
+app.use("/images/", express.static(`${staticDir}/images/`))
+app.use("/ui-data/", express.static(`${staticDir}/ui-data/`))
 
+
+const isDev = process.env.NODE_ENV === "development"
 
 // app.use(session({
 //   resave: false,
@@ -50,7 +53,6 @@ app.use(bodyParser.urlencoded({extended: true}))
 import routes from "./routes"
 
 
-
 app.use((req, res, next)=>{
     console.log(req.url, req.method);
     next()
@@ -59,7 +61,6 @@ app.use((req, res, next)=>{
 
 passport.initialize()
 // app.use(passport.session());
-
 
 
 routes(app)
@@ -78,15 +79,19 @@ app.use((err, req, res, next)=>{
     status: err.status || 500, 
     message: err.message || "Internal server error"
   })
-
 })
 
 
-dbConnect().then((m)=>{
-  console.log("database connected")
-  m.client.close()
-}).catch(ex=>{
-  console.log(ex);
-})
+// mongoose.connect(isDev
+//     ? "mongodb://127.0.0.1:27017/digital-store"
+//     : process.env.MONGODB_URL
+//   ).then(()=>{
+//     console.log("mongodb connected...");
+//   })
+//   .catch(err=>{
+//     console.log(err);
+//   })
+
+
 
 app.listen(3001, ()=>console.log("server is running on port 3001"))

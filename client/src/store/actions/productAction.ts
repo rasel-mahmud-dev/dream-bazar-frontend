@@ -1,5 +1,6 @@
 import { ACTION_TYPES } from "store/types"
 import apis from "src/apis";
+import {RootState, RootStateType} from "src/store";
 
 
 export const fetchProducts = () => async (dispatch, getState, api) => {
@@ -16,49 +17,85 @@ export const fetchProduct = (id) => async (dispatch, getState, api) => {
   })
 }
 
-export const fetchBrandForCategory=(current_category_id)=> async (dispatch, getState, api)=>{
+export const fetchBrandForCategory=(current_category_id)=> async (dispatch, getState: ()=>RootState, api)=>{
   let data = await api.get("/api/brands", )
   
 }
 
 // fetch homepage section product...
-export const fetchHomePageSectionProducts = () => async (dispatch, getState, api) => {
-   handlerLoader(dispatch, {isLoading: true, where: "home_section"})
+export const fetchHomePageSectionProducts = () => async (dispatch, getState: ()=>RootState, api) => {
+
+   // handlerLoader(dispatch, {isLoading: true, where: "home_section"})
+
    let { homePageSectionsData, paginations, loadingStates } = getState().productState
-  
+
+  // console.log(homePageSectionsData)
+
   // let loadingState = loadingStates.find(ls=>ls.where === "home_section")
-    
-    
+
+
     let h = {}
-    let pagination = paginations && paginations.find(pg=>pg.where === "home_section")
-    const paginatedHomePageSectionsData = homePageSectionsData.slice(pagination.perPage * (pagination.currentPage - 1), (pagination.perPage * pagination.currentPage) )
-  
-  
-    paginatedHomePageSectionsData.forEach( (data, i)=>{
-      (async function(){
-        try {
-          
-          // await api.get(`/api/products/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
-          if(data.params){
-            let response = await apis.get(`/api/products/filter/v2?${data.params}`)
-            
-            h[data.name] = { values: response.data, type: data.type }
-            
-            if(paginatedHomePageSectionsData.length === (i + 1)){
-              dispatch({
-                type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
-                payload: h
-              })
-              handlerLoader(dispatch, {isLoading: false, where: "home_section"})
-            }
+
+  homePageSectionsData.forEach( (data, i)=>{
+    (async function(){
+      try {
+
+        // await api.get(`/api/products/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
+        if(data.params){
+          let response = await apis.get(`/api/products/filter/v2?${data.params}`)
+
+          h[data.name] = { values: response.data, type: data.type }
+
+          if(homePageSectionsData.length === (i + 1)){
+            // console.log(h)
+            dispatch({
+              type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
+              payload: h
+            })
+
+            // handlerLoader(dispatch, {isLoading: false, where: "home_section"})
           }
-       
-        } catch (ex){
-          console.log(ex.message)
         }
-        
-      })()
-    })
+
+      } catch (ex){
+        console.log(ex)
+      }
+
+    })()
+  })
+
+
+
+  // let pagination = paginations && paginations.find(pg=>pg.where === "home_section")
+
+    // const paginatedHomePageSectionsData = homePageSectionsData.slice(pagination.perPage * (pagination.currentPage - 1), (pagination.perPage * pagination.currentPage) )
+  
+  
+    // paginatedHomePageSectionsData.forEach( (data, i)=>{
+    //   (async function(){
+    //     try {
+    //
+    //       // await api.get(`/api/products/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
+    //       if(data.params){
+    //         let response = await apis.get(`/api/products/filter/v2?${data.params}`)
+    //
+    //         h[data.name] = { values: response.data, type: data.type }
+    //
+    //         if(paginatedHomePageSectionsData.length === (i + 1)){
+    //           dispatch({
+    //             type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
+    //             payload: h
+    //           })
+    //           handlerLoader(dispatch, {isLoading: false, where: "home_section"})
+    //         }
+    //       }
+    //
+    //     } catch (ex){
+    //       console.log(ex.message)
+    //     }
+    //
+    //   })()
+    // })
   
   
   // console.log(h)

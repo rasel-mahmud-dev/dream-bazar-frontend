@@ -2,7 +2,7 @@ import React from "react";
 import "./HomePage.scss"
 import {ACTION_TYPES} from "store/types"
 import {connect, useDispatch} from "react-redux"
-import {Link, useHistory, useNavigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import {fetchHomePageSectionProducts, fetchProducts} from "actions/productAction"
 import {addToCart} from "actions/cartAction"
 import {Button, Carousel, Container, Image, Menu, Popup, Spin} from "UI/index"
@@ -10,8 +10,6 @@ import {closeNotify} from "actions/appAction"
 import {isEn} from "src/lang"
 import fullLink from "src/utills/fullLink";
 
-
-import product404Logo from  "src/asserts/images/product-404.svg"
 import HomeProductNavigation from "pages/homePage/HomeProductNavigation";
 import staticImagePath from "src/utills/staticImagePath";
 
@@ -61,13 +59,17 @@ const HomePage = (props) => {
   }
   
   
-  React.useEffect(()=>{  
-    let fetchedDataa =  fetchedData.find(fd=>fd.where === "home_page") 
-    if(!fetchedDataa.isFetched) {
-      props.fetchHomePageSectionProducts()
-    } else {
-    
-    }
+  React.useEffect(()=>{
+
+    props.fetchHomePageSectionProducts()
+
+    // let fetchedDataa =  fetchedData.find(fd=>fd.where === "home_page")
+    // console.log(fetchedDataa)
+    // if(!fetchedDataa.isFetched) {
+    //   props.fetchHomePageSectionProducts()
+    // } else {
+    //
+    // }
   }, [paginations]) // with watch when change paginations currentPage
 
 
@@ -189,7 +191,6 @@ const HomePage = (props) => {
 
         <HomeProductNavigation/>
 
-
         <div>
           <div className="homepage_slider">
             <Carousel>
@@ -205,10 +206,10 @@ const HomePage = (props) => {
               )) }
             </Carousel>
         </div>
-
        </div>
-        
-        <div className="r" onScroll={handleScroll}>
+
+
+        <div className="r max-w-8xl mx-auto" onScroll={handleScroll}>
         
            <div>
         
@@ -216,18 +217,18 @@ const HomePage = (props) => {
               <>
               <div className="product_section_header">
                   <div className="product_section_header__header">
-                    <h1>{ isEn(selectedLang) ? sectionName : renderSectionName(sectionName)}</h1>
+                    <h1>{isEn(selectedLang) ? sectionName : renderSectionName(sectionName)}</h1>
                     { productSectionsWithProduct[sectionName].type === "products"
                     && null
                     }
                     <Button onClick={()=>handleJumpOneTypeProductPage(sectionName, productSectionsWithProduct)}>{ isEn(selectedLang) ? 'More' : lang.more } </Button>
                   </div>
         
-                <div className="products_slider">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                   {productSectionsWithProduct[sectionName]
                   && productSectionsWithProduct[sectionName].values
                   && productSectionsWithProduct[sectionName].values.length > 0 ? productSectionsWithProduct[sectionName].values.map(pp => (
-                    <div className="product">
+                    <div className="product bg-red-100">
                       {productSectionsWithProduct[sectionName].type === "brands" || productSectionsWithProduct[sectionName].type === "categories"
                         ? <div className="product_image small">
                           <img src={fullLink(pp.logo)} alt=""/>
@@ -235,6 +236,7 @@ const HomePage = (props) => {
                         : (
                           <div className="product_image_div">
                             <div className="product_image_wra">
+
                               <img src={fullLink(pp.cover_photo)} alt=""/>
                             </div>
                           </div>

@@ -9,6 +9,7 @@ import dbConnect from "../database/index"
 
 
 import fileUploadHandler from "../utilities/fileUpload";
+import {parentPort} from "worker_threads";
 
 
 export const getProductCount = async (req, res, next)=>{
@@ -1006,80 +1007,6 @@ export const saveProductsAsDuplicate = async (req, res, next)=>{
 }
 
 
-// export const fetchCategoryProducts = async (req, res, next)=>{
- 
-//   const { categoryId } = req.params   
-//   const fetchEachSectionItems = 10;
-  
-  //   const {db, client: cc} = await dbConnect()   
-  // client = cc
-    
-//     try{
-//       const CategoryCollection = db.collection("categories")
-//       const ProductCollection =  db.collection("products")
-      
-//       // find category that cliked in frontend.  and see it last level category, or not.
-//       // last level category must have property filters array required 
-//       let findCategory = await CategoryCollection.findOne({_id: new ObjectId(categoryId)})
-      
-//       // when this category under more categor.... 
-//       if(!findCategory.filters){ 
-  
-//         // get child categories....
-//         let categoryCursor = CategoryCollection.find({ parent_id: new ObjectId(categoryId)  })
-        
-//         let childCategoriesObj = {}  // { "32423432" : "Motherboard", "4234324": "Ram"}  
-        
-//         let productFilterArray = []
-//         await categoryCursor.forEach(item=>{
-//           childCategoriesObj[item._id] = item.name
-//           productFilterArray.push(item._id)
-//         })
-        
-//         // now find Products where category id === each childCategory 
-//         let productsCursors = ProductCollection.find({ category_id: { $in: [...productFilterArray]}})
-//         let productsWithChildCategory = []  // all product that category_id === each childCategory
-//         await productsCursors.forEach(p=>{
-//           productsWithChildCategory.push(p)
-//         })
-       
-//       // console.log(childCategories)
-       
-//       // make category key and products array like  {"Motherboard": [{product}]} 
-//       let o = {} 
-       
-//       productsWithChildCategory.forEach(prod=>{
-//         for(let catId in childCategoriesObj){ 
-        
-//             if(catId == prod.category_id ){
-//             if(o[childCategoriesObj[catId]]){
-//               o[childCategoriesObj[catId]].push(prod)
-//             } else{
-//               o[childCategoriesObj[catId]] = [prod] 
-//             }
-//           } 
-//         }
-//       })
-       
-//       res.send({ categoryProduct: o })
-        
-//       } else {
-//         const cursor = ProductCollection.find({ category_id: new ObjectId(categoryId) })
-//         let pp = []
-//         await cursor.forEach(p=>{
-//           pp.push(p)
-//         }) 
-//         return res.json({ products: pp })
-//       }
-//     } catch(ex){
-//       console.error(ex) 
-      
-//     } finally{
-//       client.close()
-//     }
-// }
-
-
 export const fetchCategoryProducts = async (req, res, next)=>{
  
   const { categoryId } = req.params   
@@ -1325,8 +1252,6 @@ export const productFiltersPost = async (req, res, next)=>{
 }
 
 
-
-
 async function findEntryLevel_Cat(category_id) {
   let client;
   try {
@@ -1500,6 +1425,59 @@ const getNestedCategoryIds = async (req, res)=>{
   } finally {
     client?.close()
   }
+}
+
+
+export const productFiltersGetV2 = async (req, res, next)=>{
+  let client;
+
+  try{
+
+    const { c: ProductCollection, client: cc } = await dbConnect("products")
+
+    let query = req.query
+    let { pagePage, perPage, ...other } = query
+
+    let cursor;
+
+    if(other.sold){
+      cursor = ProductCollection.aggregate([
+        { $sort: { sold: Number(other.sold) } },
+        { $limit: 20 }
+      ])
+    } else if(other.discount){
+      cursor = ProductCollection.aggregate([
+        { $sort: { discount: Number(other.discount) } },
+        { $limit: 20 }
+      ])
+    } else if(other.views){
+      cursor = ProductCollection.aggregate([
+        { $sort: { views: Number(other.views) } },
+        { $limit: 20 }
+      ])
+    } else if(other.updated_at){
+      cursor = ProductCollection.aggregate([
+        { $sort: { updated_at: Number(other.updated_at) } },
+        { $limit: 20 }
+      ])
+    }
+    let p = []
+    await cursor.forEach(c=>{
+      p.push(c)
+    })
+
+
+    res.send(p)
+
+
+
+  } catch(ex){
+    console.log(ex)
+    res.send(ex.message)
+  } finally{
+    client?.close()
+  }
+
 }
 
 
