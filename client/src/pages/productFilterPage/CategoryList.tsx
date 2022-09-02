@@ -64,6 +64,17 @@ function CategoryList(props) {
         return !categories[cat.id] || !!categories[cat.id].sub
     }
 
+    function  getCategoriesLocal(filter: string, data: CategoryType[]){
+        return data.filter(function (item){
+            if(filter){
+                let f = filter.split("=");
+                if(item[f[0]] === f[1]){
+                    return item;
+                }
+            }
+        })
+    }
+    
     async function handleExpandChildCategory(item: CategoryType){
 
         setSelectedCategory(item)
@@ -73,23 +84,40 @@ function CategoryList(props) {
         if(isRootCat(item)){
             navigate(`/p?cat=${item.name}`)
             
+            // if expanded root level category
+            // click to collapse root sub categories
             if(isExpanded(updateCategory, item)) {
                 // collapse all and show all root categories
                 
                 if(flatCategories) {
+                    let root = findRootCategories(getCategoriesLocal("parentId=0", [...flatCategories]))
                     // get root categories from cache categories
-                    // setFetchCategories(findRootCategories(flatCategories))
+                    setFetchCategories(root)
                 } else {
-                    // get root categories from categories sqlite database
-                    let rootCategories = await getCategories('parentId=0')
-                    if (rootCategories) {
-                        setFetchCategories(findRootCategories(rootCategories))
+                    let a = await getAllCategories();
+                    if(a) {
+                        // get root categories from categories sqlite database
+                        let rootCategories = findRootCategories(getCategoriesLocal("parentId=0", a))
+                        if (rootCategories) {
+                            setFetchCategories(findRootCategories(rootCategories))
+                        }
+                        setFlatCategories(a)
                     }
                 }
          
             } else {
+                
                 // expand sub category of root category
-                let subCategory = await getCategories(`parentId=${item.id}`)
+                let subCategory = null
+                if(flatCategories) {
+                    subCategory = getCategoriesLocal(`parentId=${item.id}`, flatCategories)
+                } else {
+                    let a = await getAllCategories();
+                    if(a) {
+                        subCategory = getCategoriesLocal(`parentId=${item.id}`, a)
+                        setFlatCategories(a)
+                    }
+                }
                 if (subCategory) {
                     let findOneRoot: CategoryType  = updateCategory[item.id]
                     if(findOneRoot) {
@@ -103,6 +131,7 @@ function CategoryList(props) {
             return;
         }
     
+        
         let data = qstring.parse(location.hash)
         if("/p?cat" in data){
             navigate(`/p?cat=${data["/p?cat"]}&cat_tree=${item.name}`)
@@ -112,8 +141,16 @@ function CategoryList(props) {
         if(flatCategories) {
             // get root categories from cache categories
             // setFetchCategories(findRootCategories(flatCategories))
+            subCategory = getCategoriesLocal(`parentId=${item.id}`, flatCategories)
         } else {
-            subCategory = await getCategories(`parentId=${item.id}`)
+    
+            let a = await getAllCategories()
+            if (a) {
+                setFlatCategories(a);
+                subCategory = getCategoriesLocal(`parentId=${item.id}`, a)
+            } else {
+                subCategory = await getCategories(`parentId=${item.id}`)
+            }
         }
     
         if (subCategory) {
@@ -126,6 +163,8 @@ function CategoryList(props) {
             }
         }
     }
+    
+    
 
     function findNestedCategory(categories: CategoryType[] | {[key: string]: CategoryType} | any, catId: string){
         if(typeof categories === "object"){
@@ -156,31 +195,32 @@ function CategoryList(props) {
     useEffect(()=>{
         (async function(){
             let data = qstring.parse(location.hash)
-            if("/p?cat" in data && "cat_tree" in data){
-                if(!fetchCategories) {
-                    let a = await getAllCategories()
-                    if (a) {
-                        // setFlatCategories(a);
-                        let newCategories = getRootLevelNested([...a], "Motherboard", "Electronics")
-                        if(newCategories) {
-                            setFetchCategories({[newCategories.id]: newCategories})
-                            let lastItem  = a.find(item=> item.name === data["cat_tree"]);
-                            setSelectedCategory(lastItem)
+    
+            let a = await getAllCategories();
+            if(a){
+                if("/p?cat" in data && "cat_tree" in data){
+                    setFlatCategories(a);
+                    let newCategories = getRootLevelNested([...a], "Motherboard", "Electronics")
+                    if(newCategories) {
+                        setFetchCategories({[newCategories.id]: newCategories})
+                        let lastItem  = a.find(item=> item.name === data["cat_tree"]);
+                        setSelectedCategory(lastItem)
+                    }
+                    
+                } else if("/p?cat" in data){
+                    let rootCategories =  getCategoriesLocal('parentId=0', a)
+                    if(rootCategories) {
+                        let result: any = {}
+                        for (const rootCategoriesKey in rootCategories) {
+                            result[rootCategories[rootCategoriesKey].id] = rootCategories[rootCategoriesKey]
                         }
+                        let rootSelected  = rootCategories.find(item=> item.name === data["/p?cat"]);
+                        setSelectedCategory(rootSelected)
+                        setFetchCategories(result)
                     }
-                }
-            } else if("/p?cat" in data){
-                 let rootCategories = await getCategories('parentId=0')
-                if(rootCategories) {
-                    let result: any = {}
-                    for (const rootCategoriesKey in rootCategories) {
-                        result[rootCategories[rootCategoriesKey].id] = rootCategories[rootCategoriesKey]
-                    }
-                    let rootSelected  = rootCategories.find(item=> item.name === data["/p?cat"]);
-                    setSelectedCategory(rootSelected)
-                    setFetchCategories(result)
                 }
             }
+            setFlatCategories(a);
         }())
     }, [location.search])
 
