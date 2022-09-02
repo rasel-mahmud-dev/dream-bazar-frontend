@@ -7,7 +7,7 @@ import qstring from "query-string";
 import {useEffect, useState} from "react";
 import apis from "src/apis";
 import {useNavigate} from "react-router-dom";
-import {FaAngleRight} from "react-icons/all";
+import {FaAngleRight, FaTimes} from "react-icons/all";
 
 
 export interface CategoryType{
@@ -87,11 +87,12 @@ function CategoryList(props) {
             // if expanded root level category
             // click to collapse root sub categories
             if(isExpanded(updateCategory, item)) {
-                // collapse all and show all root categories
                 
+                // collapse all and show all root categories
+                //remove all sub category from root clicked category
                 if(flatCategories) {
-                    let root = findRootCategories(getCategoriesLocal("parentId=0", [...flatCategories]))
-                    // get root categories from cache categories
+                    let root = findRootCategories(getCategoriesLocal("parentId=0", flatCategories))
+                    if(item.sub) delete item.sub
                     setFetchCategories(root)
                 } else {
                     let a = await getAllCategories();
@@ -121,7 +122,7 @@ function CategoryList(props) {
                 if (subCategory) {
                     let findOneRoot: CategoryType  = updateCategory[item.id]
                     if(findOneRoot) {
-                        findOneRoot.sub = subCategory
+                        findOneRoot.sub = [...subCategory]
                         // delete other root level categories.
                         // only exists clicked root categories
                         setFetchCategories({[findOneRoot.id]: findOneRoot})
@@ -138,33 +139,54 @@ function CategoryList(props) {
         }
         
         let subCategory: CategoryType[] | undefined = undefined
+        
         if(flatCategories) {
             // get root categories from cache categories
             // setFetchCategories(findRootCategories(flatCategories))
             subCategory = getCategoriesLocal(`parentId=${item.id}`, flatCategories)
         } else {
-    
             let a = await getAllCategories()
-            if (a) {
+            if(a) {
                 setFlatCategories(a);
                 subCategory = getCategoriesLocal(`parentId=${item.id}`, a)
             } else {
                 subCategory = await getCategories(`parentId=${item.id}`)
             }
         }
+        
     
         if (subCategory) {
             let findNestedOne = findNestedCategory(updateCategory, item.id)
+            
             if(findNestedOne) {
-                findNestedOne.sub = subCategory
-                // update n level nested category
-                setFetchCategories(updateCategory)
-                return;
+                if(findNestedOne.sub){
+                    // deleted all n level nested category
+                    findNestedOne.sub = null
+                } else {
+                    findNestedOne.sub = [...subCategory]
+                    // update n level nested category
+                    setFetchCategories(updateCategory)
+                }
             }
         }
     }
     
-    
+    async function getAllRootCategoryFromLocal(item: CategoryType, cb){
+        if(flatCategories) {
+            let root = findRootCategories(getCategoriesLocal("parentId=0", flatCategories))
+            cb(root)
+        } else {
+            let a = await getAllCategories();
+            if(a) {
+                // get root categories from categories sqlite database
+                let rootCategories = findRootCategories(getCategoriesLocal("parentId=0", a))
+                if (rootCategories) {
+                    setFetchCategories(findRootCategories(rootCategories))
+                }
+                cb(a)
+            }
+        }
+    }
 
     function findNestedCategory(categories: CategoryType[] | {[key: string]: CategoryType} | any, catId: string){
         if(typeof categories === "object"){
@@ -191,6 +213,7 @@ function CategoryList(props) {
             }
         }
     }
+    
     
     useEffect(()=>{
         (async function(){
@@ -246,28 +269,7 @@ function CategoryList(props) {
         })
     }
 
-    function handleChangeCategory(item: {name: string, _id: string}){
 
-        let updatedCategory = state.filter.category
-        if(updatedCategory && updatedCategory._id === item._id){
-            updatedCategory = null
-            setBrands(null)
-        } else {
-            updatedCategory = {
-                name: item.name,
-                _id: item._id
-            }
-            let brands = findCategoryBrand(state.brands, updatedCategory._id)
-            setBrands(brands)
-        }
-
-        setFilter({
-            ...state.filter,
-            brands: [],
-            category: updatedCategory,
-
-        })
-    }
 
     function handleChangeBrand(item: {name: string, _id: string}){
         let updatedBrands = [...state.filter.brands]
@@ -351,20 +353,49 @@ function CategoryList(props) {
         handleExpandChildCategory(item)
     }
     
+    
+    
+    
+    function handleRemoveCategory(item: CategoryType){
+        let updatedSelectedCategory = {...selectedCategory}
+
+        getAllRootCategoryFromLocal(item, (data)=>{
+            for (let dataKey in data) {
+                if(data[dataKey] && data[dataKey].sub) data[dataKey].sub = null
+            }
+            setFetchCategories(data);
+            updatedSelectedCategory = null
+        })
+        setSelectedCategory(updatedSelectedCategory)
+            // updatedSelectedCategory = null
+            
+            // setBrands(null)
+      
+        // setSelectedCategory(updatedSelectedCategory)
+        
+        // setFilter({
+        //     ...state.filter,
+        //     brands: [],
+        //     category: updatedCategory,
+        //
+        // })
+    }
 
     return (
         <div className="hidden md:block col-span-3 ">
             <div className="grid px-4">
-                {/*{state.filter?.category && <div className="flex flex-wrap gap-2 mt-4">*/}
-                {/*    <div*/}
-                {/*        onClick={() => handleChangeCategory(state.filter?.category)}*/}
-                {/*        className="bg-green-500/10 px-4 py-2 rounded flex justify-between">*/}
-                {/*        <span>{state.filter?.category.name}</span>*/}
-                {/*        <span className="ml-2 text-red-500 font-medium cursor-pointer">x</span>*/}
-                {/*    </div>*/}
-                {/*</div> }*/}
-
-                <h1 className="font-bold text-2xl  mt-8">Category</h1>
+                
+                <h1 className="font-semibold text-xl mt-8">Category</h1>
+                <div className='mb-2'>
+                    {selectedCategory && <div className="flex flex-wrap gap-2 mt-2">
+                        <div
+                            onClick={() => handleRemoveCategory(selectedCategory)}
+                            className="bg-blue-500/20 font-medium px-4 py-2 rounded flex justify-between items-center">
+                            <span>{selectedCategory.name}</span>
+                            <FaTimes />
+                        </div>
+                    </div> }
+                </div>
                 <RenderRecurtion fetchCategories={fetchCategories} handleClickItem={handleClickItem} selectedCategory={selectedCategory} />
                 {/*<RecursiveRenderCategory*/}
                 {/*    selectedCategory={selectedCategory}*/}
@@ -415,8 +446,8 @@ const RenderRecurtion =({fetchCategories, handleClickItem, selectedCategory})=>{
             <div className="ml-4">
                 <li
                     onClick={()=>handleClickItem(fetchCategories[key])}
-                    className={`flex items-center justify-between px-1 py-2 ${selectedCategory && selectedCategory.id === fetchCategories[key].id ? "bg-blue-500 text-white" : ""} `}>
-                    <span>{fetchCategories[key].name}</span>
+                    className={`flex items-center cursor-pointer justify-between px-1 py-1 ${selectedCategory && selectedCategory.id === fetchCategories[key].id ? "bg-blue-500 text-white" : ""} `}>
+                    <span className=" font-medium">{fetchCategories[key].name}</span>
                     <FaAngleRight />
                 </li>
                 { fetchCategories[key].sub && fetchCategories[key].sub.length && <RenderRecurtion selectedCategory={selectedCategory} fetchCategories={fetchCategories[key].sub} handleClickItem={handleClickItem}/> }
@@ -426,9 +457,9 @@ const RenderRecurtion =({fetchCategories, handleClickItem, selectedCategory})=>{
         { fetchCategories && Array.isArray(fetchCategories) && (
             <div className="ml-4">
                 {fetchCategories.map(item=>(
-                    <div className="ml-4">
+                    <div className="">
                         <h1 onClick={()=>handleClickItem(item)}
-                            className={`flex items-center justify-between px-1 py-2 ${selectedCategory && selectedCategory.id === item.id ? "bg-blue-500 text-white" : ""} `}>
+                            className={`flex font-medium items-center cursor-pointer justify-between px-1 py-1 ${selectedCategory && selectedCategory.id === item.id ? "bg-blue-500 text-white" : ""} `}>
                             {item.name}
                         </h1>
                         { item.sub && item.sub.length && <RenderRecurtion  selectedCategory={selectedCategory} fetchCategories={item.sub} handleClickItem={handleClickItem}/> }
