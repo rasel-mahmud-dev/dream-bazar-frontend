@@ -1,5 +1,5 @@
 import React from 'react' 
-import { useParams, useHistory, Link } from "react-router-dom"
+import {useParams, Link, useNavigate} from "react-router-dom"
 import qs from "query-string"  
 
 import {Button, Spin, Input} from "components/UI"
@@ -12,7 +12,7 @@ import "./EmailVerification.scss"
 const EmailVerification = (props) => { 
   
   let params = useParams() 
-  let history = useHistory() 
+  let navigate = useNavigate()
   const dispatch = useDispatch()
     
   const {loadingStates, cartState} = props
@@ -28,14 +28,14 @@ const EmailVerification = (props) => {
   const [consumeSecond, setConsumeSecond] = React.useState(0)
   
   let id;
-  React.useEffect(()=>{
-    if(history.location.search){
-      let q: any = qs.parse(history.location.search)
-      if(q){
-        setState(q)
-      }
-    }
-  }, [history.location.search])
+  // React.useEffect(()=>{
+  //   if(history.location.search){
+  //     let q: any = qs.parse(history.location.search)
+  //     if(q){
+  //       setState(q)
+  //     }
+  //   }
+  // }, [history.location.search])
 
   React.useEffect(()=>{
     clearInterval(id)
@@ -50,12 +50,12 @@ const EmailVerification = (props) => {
 
 
   function getQs(){
-    return qs.parse(history.location.search)  
+    // return qs.parse(history.location.search)
   }
  
   function handlePushBack(){
     // history.back() 
-    history.goBack()
+    // history.goBack()
   }
   
   function handleProductAction(type, prod){

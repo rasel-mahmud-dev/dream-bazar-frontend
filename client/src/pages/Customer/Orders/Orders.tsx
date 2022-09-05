@@ -1,12 +1,12 @@
 import React from 'react' 
-import { useParams, useHistory, Link } from "react-router-dom"
+import {useParams, Link, useLocation, useNavigate} from "react-router-dom"
 
 
 import {
   Button,
   Menu,
   Image,
-  Spin, Input, Modal, Divider, Badge
+  Spin, Input, Modal,  Badge
 } from "components/UI"
 import {connect, useDispatch} from "react-redux"
 import { fetchProduct, toggleLoader } from "actions/productAction"
@@ -19,7 +19,10 @@ const {SubMenu} = Menu
 
 const Orders = (props) => { 
   let params = useParams() 
-  let history = useHistory() 
+  // let history = useHistory()
+  
+  const location = useLocation();
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const {loadingStates, cartState, _id} = props
@@ -44,7 +47,7 @@ const Orders = (props) => {
 
   function handlePushBack(){
     // history.back() 
-    history.goBack()
+    // history.goBack()
   }
   
   function handleProductAction(type, prod){
@@ -64,7 +67,7 @@ const Orders = (props) => {
   // }
   
   function renderOrders(){ 
-    let path =  history.location.pathname
+    let path =  location.pathname
     return (
         <div>
           { allOrders.map((order: any)=>(
@@ -75,7 +78,7 @@ const Orders = (props) => {
                 <span className="p-right">{order.payment_method === "cash_on_delivery" ? "COD" :order.payment_method}</span>
               </h4>  
               
-              <Divider lineHeight={1} lineColor="#d9d9d96f"  />
+              {/*<Divider lineHeight={1} lineColor="#d9d9d96f"  />*/}
               <div className="order-item d-flex">
                 <div className="w-25">
                   <Image src={fullLink(order.product.cover_photo)} maxWidth={100}/>
@@ -104,7 +107,7 @@ const Orders = (props) => {
   return (
       <div className="container"> 
          
-        <Divider lineHeight={3} />
+        {/*<Divider lineHeight={3} />*/}
           
           <h1 className="t-center">Orders</h1> 
           

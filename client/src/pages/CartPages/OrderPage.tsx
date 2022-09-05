@@ -1,5 +1,5 @@
 import React from 'react' 
-import { useParams, useHistory, Link } from "react-router-dom"
+import {useParams, Link, useNavigate} from "react-router-dom"
 import {Button, Spin, Input} from "components/UI"
 import {connect, useDispatch} from "react-redux"
 import { fetchProduct, toggleLoader } from "actions/productAction"
@@ -7,8 +7,9 @@ import { fetchProduct, toggleLoader } from "actions/productAction"
 
 const OrderPage = (props) => { 
     let params = useParams() 
-    let history = useHistory() 
+    // let history = useHistory()
     const dispatch = useDispatch()
+    const navigate=  useNavigate();
     
     const {loadingStates, cartState, _id} = props
     const [paymentMethod, setPaymentMethod] = React.useState("")
@@ -27,7 +28,7 @@ const OrderPage = (props) => {
 
   function handlePushBack(){
     // history.back() 
-    history.goBack()
+    navigate(-1)
   }
   
   function handleProductAction(type, prod){

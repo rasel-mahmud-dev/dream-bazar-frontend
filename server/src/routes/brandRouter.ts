@@ -1,7 +1,3 @@
-const getBrandsWorker = require("../workers/getBrandsWorker")
-
-
-
 
 import {
   deleteBrand,
@@ -20,11 +16,8 @@ export default function (app){
   
   // app.get("/api/brands", getBrands)
   
-  app.get("/api/brands", async (req, res, next)=>{
-    let brands = await getBrandsWorker();
-    res.setHeader("Content-Type", "application/json")
-    res.json({brands: JSON.parse(brands)})
-  })
+  app.get("/api/brands", getBrands)
+
   
   app.post("/api/brands", getBrandsByIds)
   

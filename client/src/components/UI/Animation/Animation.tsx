@@ -7,6 +7,7 @@ interface AnimationProps {
   baseClass?: string,
   inProp: boolean
   onClick?: any
+  children: any
 }
 
 

@@ -1,6 +1,6 @@
 import React, {FC} from "react"
 // import json from "src/breadcrumbData.json"
-import {  Badge, Pagination, Container, Row, Tooltip, Spin} from "components/UI"
+import {  Badge, Pagination, Tooltip, Spin} from "components/UI"
 import qstring from "query-string"
 import {Link, useParams, useNavigate, useLocation} from "react-router-dom"
 import api from "src/apis"
@@ -78,20 +78,16 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
   
   const {
     paginations,
-    category,
     products,
     totalProduct,
     totalFilterAbleProductCount,
-    currentCategoryRoot,
     currentCategorySelected,
     filteredAttributes,
-    currentNestedSubCategory,
-    selectedCatSections,
     loadingStates,
     filters
   } = productState
   
-
+  
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const location = useLocation()
@@ -203,318 +199,318 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
 
 
   // @ts-ignore
-  React.useEffect(()=>{
-    (async function () {
-      
-      // props.toggleAppMask(true)
-      // props.toggleLoader("product-filter", true)
-      // parse query parameter and set rootCategory and last selected category
-      let { cat, cat_tree, brand } = qstring.parse(location.search)
-
-
-      if(brand) {
-        // find brand using brand name...
-        apis.get(`/api/brand?brandName=${brand}`).then(response => {
-          if (response.status === 200) {
-            let brand = response.data.brand
-            dispatch({
-              type: ACTION_TYPES.ADD_FILTER,
-              payload: {
-                brands: [brand]
-              }
-            })
-          }
-        }).catch(err => {
-          dispatch({
-            type: ACTION_TYPES.ADD_FILTER,
-            payload: {
-              brands: []
-            }
-          })
-        })
-      }
-      
-      /**
-       fetch only one category that has url params as root category instead of fetch all categories... (like old way)
-       let selectedRootCat  = props.appState.ui_categories ? props.appState.ui_categories.find(js=>js.id == cat) : {}
-       let { currentNestedSubCategory, selectedCatSections } = chooseLastSelectedCategory(selectedRootCat, cat_tree)
-       */
-
-      // let response0 = await apis.get(`/api/category?parentId=''`)
-      // console.log(response0)
-      // if(!cat) return;
-      // let response = await apis.get(`/api/category?name=${cat}`)
-      // if(response.status === 200) {
-      //   let response2 = await apis.get(`/api/category?parentId=${response.data.id}`)
-
-        // let newFetchedRootCategory = response.data
-        // console.log(cat_tree)
-        // let { currentNestedSubCategory, selectedCatSections } = chooseLastSelectedCategory(newFetchedRootCategory, cat_tree)
-        
-        /**
-         here is one issue down code 4 dispatch function re-render 4 times ui.
-         you can merge it.
-         so, it will render one time
-         */
-        // dispatch({
-        //   type: ACTION_TYPES.SET_UI_CATEGORIES,
-        //   payload: newFetchedRootCategory
-        // })
-        // dispatch({
-        //   type: "SET_SELECTED_CATEGORY_SECTIONS",
-        //   payload: selectedCatSections
-        // })
-        //
-        // dispatch({
-        //   type: "SET_CURRENT_CATEGORY_ROOT",
-        //   payload: newFetchedRootCategory
-        // })
-        // dispatch({
-        //   type: "SET_CURRENT_NESTED_SUBCATEGORY",
-        //   payload: currentNestedSubCategory
-        //   // payload: currentNestedSubCategory
-        // })
-        
-        // let categoryInfoRes = await apis.get(`/api/ui-data/category-info/${currentNestedSubCategory.id}`)
-        // if(categoryInfoRes.status === 200){
-        //
-        //   if(categoryInfoRes.data.filter_items){
-        //
-        //   let filterItemsRes = await apis.post("/api/ui-data/filter-items", {attributeNames: categoryInfoRes.data.filter_items})
-        //   if(filterItemsRes.status === 200) {
-        //     let filter_items_populated = []
-        //     filterItemsRes.data.findIndex(fItem => {
-        //       let match = categoryInfoRes.data.filter_items.indexOf(fItem.attribute_name)
-        //       if (match !== -1) {
-        //         filter_items_populated.push(fItem)
-        //       }
-        //     })
-        //   }
-        //
-        //     // dispatch({type: ACTION_TYPES.SET_UI_CATEGORY_INFO, payload:  {
-        //     //   ...categoryInfoRes.data,
-        //     //   filter_items_populated
-        //     // }})
-        //
-        //   }
-        //
-        //   /// fetch all brand for selected category
-        //   if(currentNestedSubCategory._id){
-        //     let brandResponse = await apis.post("/api/fetch-brands", {forCategoryIds: [currentNestedSubCategory._id]})
-        //     dispatch({
-        //       type: ACTION_TYPES.SET_BRAND_FOR_CATEGORY,
-        //       payload: {
-        //         id: currentNestedSubCategory.id,
-        //         brands: brandResponse.data.brands
-        //       }
-        //     })
-        //   }
-        //
-        // }
-        // if(catRes.status === 200){
-        //   dispatch({type: "SET_UI_FILTER_ITEMS", payload:  filterItemsRes.data})
-        // }
+  // React.useEffect(()=>{
+  //   (async function () {
+  //
+  //     // props.toggleAppMask(true)
+  //     // props.toggleLoader("product-filter", true)
+  //     // parse query parameter and set rootCategory and last selected category
+  //     let { cat, cat_tree, brand } = qstring.parse(location.search)
+  //
+  //
+  //     if(brand) {
+  //       // find brand using brand name...
+  //       apis.get(`/api/brand?brandName=${brand}`).then(response => {
+  //         if (response.status === 200) {
+  //           let brand = response.data.brand
+  //           dispatch({
+  //             type: ACTION_TYPES.ADD_FILTER,
+  //             payload: {
+  //               brands: [brand]
+  //             }
+  //           })
+  //         }
+  //       }).catch(err => {
+  //         dispatch({
+  //           type: ACTION_TYPES.ADD_FILTER,
+  //           payload: {
+  //             brands: []
+  //           }
+  //         })
+  //       })
+  //     }
+  //
+  //     /**
+  //      fetch only one category that has url params as root category instead of fetch all categories... (like old way)
+  //      let selectedRootCat  = props.appState.ui_categories ? props.appState.ui_categories.find(js=>js.id == cat) : {}
+  //      let { currentNestedSubCategory, selectedCatSections } = chooseLastSelectedCategory(selectedRootCat, cat_tree)
+  //      */
+  //
+  //     // let response0 = await apis.get(`/api/category?parentId=''`)
+  //     // console.log(response0)
+  //     // if(!cat) return;
+  //     // let response = await apis.get(`/api/category?name=${cat}`)
+  //     // if(response.status === 200) {
+  //     //   let response2 = await apis.get(`/api/category?parentId=${response.data.id}`)
+  //
+  //       // let newFetchedRootCategory = response.data
+  //       // console.log(cat_tree)
+  //       // let { currentNestedSubCategory, selectedCatSections } = chooseLastSelectedCategory(newFetchedRootCategory, cat_tree)
+  //
+  //       /**
+  //        here is one issue down code 4 dispatch function re-render 4 times ui.
+  //        you can merge it.
+  //        so, it will render one time
+  //        */
+  //       // dispatch({
+  //       //   type: ACTION_TYPES.SET_UI_CATEGORIES,
+  //       //   payload: newFetchedRootCategory
+  //       // })
+  //       // dispatch({
+  //       //   type: "SET_SELECTED_CATEGORY_SECTIONS",
+  //       //   payload: selectedCatSections
+  //       // })
+  //       //
+  //       // dispatch({
+  //       //   type: "SET_CURRENT_CATEGORY_ROOT",
+  //       //   payload: newFetchedRootCategory
+  //       // })
+  //       // dispatch({
+  //       //   type: "SET_CURRENT_NESTED_SUBCATEGORY",
+  //       //   payload: currentNestedSubCategory
+  //       //   // payload: currentNestedSubCategory
+  //       // })
+  //
+  //       // let categoryInfoRes = await apis.get(`/api/ui-data/category-info/${currentNestedSubCategory.id}`)
+  //       // if(categoryInfoRes.status === 200){
+  //       //
+  //       //   if(categoryInfoRes.data.filter_items){
+  //       //
+  //       //   let filterItemsRes = await apis.post("/api/ui-data/filter-items", {attributeNames: categoryInfoRes.data.filter_items})
+  //       //   if(filterItemsRes.status === 200) {
+  //       //     let filter_items_populated = []
+  //       //     filterItemsRes.data.findIndex(fItem => {
+  //       //       let match = categoryInfoRes.data.filter_items.indexOf(fItem.attribute_name)
+  //       //       if (match !== -1) {
+  //       //         filter_items_populated.push(fItem)
+  //       //       }
+  //       //     })
+  //       //   }
+  //       //
+  //       //     // dispatch({type: ACTION_TYPES.SET_UI_CATEGORY_INFO, payload:  {
+  //       //     //   ...categoryInfoRes.data,
+  //       //     //   filter_items_populated
+  //       //     // }})
+  //       //
+  //       //   }
+  //       //
+  //       //   /// fetch all brand for selected category
+  //       //   if(currentNestedSubCategory._id){
+  //       //     let brandResponse = await apis.post("/api/fetch-brands", {forCategoryIds: [currentNestedSubCategory._id]})
+  //       //     dispatch({
+  //       //       type: ACTION_TYPES.SET_BRAND_FOR_CATEGORY,
+  //       //       payload: {
+  //       //         id: currentNestedSubCategory.id,
+  //       //         brands: brandResponse.data.brands
+  //       //       }
+  //       //     })
+  //       //   }
+  //       //
+  //       // }
+  //       // if(catRes.status === 200){
+  //       //   dispatch({type: "SET_UI_FILTER_ITEMS", payload:  filterItemsRes.data})
+  //       // }
+  //
+  //     // }
+  //     // dispatch({
+  //     //   type: "SET_LAST_SELECTED_CATEGORY",
+  //     //   payload: currentNestedSubCategory
+  //     // })
+  //     //
+  //   }())
+  // }, [location.search])
   
-      // }
-      // dispatch({
-      //   type: "SET_LAST_SELECTED_CATEGORY",
-      //   payload: currentNestedSubCategory
-      // })
-      //
-    }())
-  }, [location.search])
   
-  
-  function chooseLastSelectedCategory(selectedRootCat, cat_tree) {
-    // console.log(selectedRootCat)
+  // function chooseLastSelectedCategory(selectedRootCat, cat_tree) {
+  //   // console.log(selectedRootCat)
+  //
+  //   let currentNestedSubCategory = {}
+  //   let updatedSelectedCatSections: SelectedCatSectionType = {
+  //     oneLevel: selectedRootCat
+  //   }
+  //
+  //   // console.log(selectedRootCat.id, cat_tree)
+  //
+  //   if(selectedRootCat){
+  //     if(selectedRootCat.id === cat_tree){
+  //       currentNestedSubCategory = selectedRootCat
+  //     } else {
+  //       if(selectedRootCat.sub_menu){
+  //         for (let i = 0; i < selectedRootCat.sub_menu.length; i++) {
+  //           if(selectedRootCat.sub_menu[i].id === cat_tree){
+  //             currentNestedSubCategory = selectedRootCat.sub_menu[i]
+  //             updatedSelectedCatSections = {
+  //               ...updatedSelectedCatSections,
+  //               twoLevel: selectedRootCat.sub_menu[i]
+  //             }
+  //           } else {
+  //             if(selectedRootCat.sub_menu[i].sub_menu){
+  //               for (let j = 0; j < selectedRootCat.sub_menu[i].sub_menu.length; j++) {
+  //                 if(selectedRootCat.sub_menu[i].sub_menu[j].id == cat_tree){
+  //                   currentNestedSubCategory = selectedRootCat.sub_menu[i].sub_menu[j]
+  //                   updatedSelectedCatSections = {
+  //                     ...updatedSelectedCatSections,
+  //                     twoLevel: selectedRootCat.sub_menu[i],
+  //                     threeLevel: selectedRootCat.sub_menu[i].sub_menu[j]
+  //                   }
+  //                 } else {
+  //                   if(selectedRootCat.sub_menu[i].sub_menu[j].sub_menu){
+  //                     for (let k = 0; k < selectedRootCat.sub_menu[i].sub_menu[j].sub_menu.length; k++) {
+  //                       if(selectedRootCat.sub_menu[i].sub_menu[j].sub_menu[k].id === cat_tree){
+  //                         currentNestedSubCategory =  selectedRootCat.sub_menu[i].sub_menu[j].sub_menu[k]
+  //                       }
+  //                     }
+  //                   }
+  //                 }
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  //
+  //   return {
+  //     currentNestedSubCategory,
+  //     selectedCatSections: updatedSelectedCatSections
+  //   }
+  // }
 
-    let currentNestedSubCategory = {}
-    let updatedSelectedCatSections: SelectedCatSectionType = {
-      oneLevel: selectedRootCat
-    }
-
-    // console.log(selectedRootCat.id, cat_tree)
-
-    if(selectedRootCat){
-      if(selectedRootCat.id === cat_tree){
-        currentNestedSubCategory = selectedRootCat
-      } else {
-        if(selectedRootCat.sub_menu){
-          for (let i = 0; i < selectedRootCat.sub_menu.length; i++) {
-            if(selectedRootCat.sub_menu[i].id === cat_tree){
-              currentNestedSubCategory = selectedRootCat.sub_menu[i]
-              updatedSelectedCatSections = {
-                ...updatedSelectedCatSections,
-                twoLevel: selectedRootCat.sub_menu[i]
-              }
-            } else {
-              if(selectedRootCat.sub_menu[i].sub_menu){
-                for (let j = 0; j < selectedRootCat.sub_menu[i].sub_menu.length; j++) {
-                  if(selectedRootCat.sub_menu[i].sub_menu[j].id == cat_tree){
-                    currentNestedSubCategory = selectedRootCat.sub_menu[i].sub_menu[j]
-                    updatedSelectedCatSections = {
-                      ...updatedSelectedCatSections,
-                      twoLevel: selectedRootCat.sub_menu[i],
-                      threeLevel: selectedRootCat.sub_menu[i].sub_menu[j]
-                    }
-                  } else {
-                    if(selectedRootCat.sub_menu[i].sub_menu[j].sub_menu){
-                      for (let k = 0; k < selectedRootCat.sub_menu[i].sub_menu[j].sub_menu.length; k++) {
-                        if(selectedRootCat.sub_menu[i].sub_menu[j].sub_menu[k].id === cat_tree){
-                          currentNestedSubCategory =  selectedRootCat.sub_menu[i].sub_menu[j].sub_menu[k]
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    return {
-      currentNestedSubCategory,
-      selectedCatSections: updatedSelectedCatSections
-    }
-  }
-
-  React.useEffect( function (){
-    (async function () {
-
-
-      try{
-        // console.log(currentCategorySelected)
-        // fetch category for filter sidebar items
-        // console.log(currentCategorySelected)
-
-        /**
-          Fetch product if subcategory exists like jeans, t-sharts   sub_category means url params &cat_tree=
-         */
-        
-        if(currentNestedSubCategory) {
-          // we need category id that need to find category from  database
-          
-          const { sortBy, brands=[] } = filters
-
-          
-          // if has sub_category mongodb database _id... or _ids []
-          if (currentNestedSubCategory._id || currentNestedSubCategory._ids) {
-            let params = ""
-            if (currentNestedSubCategory._ids && currentNestedSubCategory._ids.length > 0){
-              currentNestedSubCategory._ids.forEach((i, index)=>{
-                if(index !== 0){
-                  params += "+" + i
-                } else {
-                  params += i
-                }
-              })
-            } else {
-              params = currentNestedSubCategory._id
-            }
-
-            // now we need category filter sections
-            // console.log(params)
-            // let { data } = await api.get(`/api/categories/filter-section/${params}`)
-            // console.log(data)
-            // if (data.category) {
-            //   dispatch({type: "SET_CATEGORY", payload: data.category[0]})
-            // }
-  
-            let pagination = getPagination(paginations, PaginationWhereEnum.filter_products_page)
-            
-            let data = {
-              currentNestedSubCategory,
-              selectedCatSections,
-              brands,
-              filteredAttributes,
-              sortBy,
-              paginate: {currentPage: pagination ? pagination.currentPage : 1, perPage: pagination ? pagination.perPage : 20},
-            }
-            
-            // filterProductWithState(data,  true, function (data) {
-            //   dispatch({
-            //     type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
-            //     payload: data.total
-            //   })
-            // })
-            //
-            // filterProductWithState(data,  false, function (data) {
-            //   // console.log(data)
-            //   dispatch({
-            //     type: ACTION_TYPES.FETCH_PRODUCTS,
-            //     payload: data
-            //   })
-            // })
-            
-            
-          } else {
-            // dispatch({
-            //   type: ACTION_TYPES.FETCH_PRODUCTS,
-            //   payload: []
-            // })
-          }
-        }
-      } catch(ex){
-        console.log("error,,,,,,,,", ex)
-      }
-
-    }())
-    
-  }, [currentNestedSubCategory, selectedCatSections])
+  // React.useEffect( function (){
+  //   (async function () {
+  //
+  //
+  //     try{
+  //       // console.log(currentCategorySelected)
+  //       // fetch category for filter sidebar items
+  //       // console.log(currentCategorySelected)
+  //
+  //       /**
+  //         Fetch product if subcategory exists like jeans, t-sharts   sub_category means url params &cat_tree=
+  //        */
+  //
+  //       if(currentNestedSubCategory) {
+  //         // we need category id that need to find category from  database
+  //
+  //         const { sortBy, brands=[] } = filters
+  //
+  //
+  //         // if has sub_category mongodb database _id... or _ids []
+  //         if (currentNestedSubCategory._id || currentNestedSubCategory._ids) {
+  //           let params = ""
+  //           if (currentNestedSubCategory._ids && currentNestedSubCategory._ids.length > 0){
+  //             currentNestedSubCategory._ids.forEach((i, index)=>{
+  //               if(index !== 0){
+  //                 params += "+" + i
+  //               } else {
+  //                 params += i
+  //               }
+  //             })
+  //           } else {
+  //             params = currentNestedSubCategory._id
+  //           }
+  //
+  //           // now we need category filter sections
+  //           // console.log(params)
+  //           // let { data } = await api.get(`/api/categories/filter-section/${params}`)
+  //           // console.log(data)
+  //           // if (data.category) {
+  //           //   dispatch({type: "SET_CATEGORY", payload: data.category[0]})
+  //           // }
+  //
+  //           let pagination = getPagination(paginations, PaginationWhereEnum.filter_products_page)
+  //
+  //           let data = {
+  //             currentNestedSubCategory,
+  //             selectedCatSections,
+  //             brands,
+  //             filteredAttributes,
+  //             sortBy,
+  //             paginate: {currentPage: pagination ? pagination.currentPage : 1, perPage: pagination ? pagination.perPage : 20},
+  //           }
+  //
+  //           // filterProductWithState(data,  true, function (data) {
+  //           //   dispatch({
+  //           //     type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
+  //           //     payload: data.total
+  //           //   })
+  //           // })
+  //           //
+  //           // filterProductWithState(data,  false, function (data) {
+  //           //   // console.log(data)
+  //           //   dispatch({
+  //           //     type: ACTION_TYPES.FETCH_PRODUCTS,
+  //           //     payload: data
+  //           //   })
+  //           // })
+  //
+  //
+  //         } else {
+  //           // dispatch({
+  //           //   type: ACTION_TYPES.FETCH_PRODUCTS,
+  //           //   payload: []
+  //           // })
+  //         }
+  //       }
+  //     } catch(ex){
+  //       console.log("error,,,,,,,,", ex)
+  //     }
+  //
+  //   }())
+  //
+  // }, [currentNestedSubCategory, selectedCatSections])
 
   // re-fetch product if change
   // brands, filteredAttributes, sortBy
-  React.useEffect(()=>{
-    
-    try {
-      /**
-        Don't re-fetch product count if only change pagination or sort value.
-       */
-      
-      const { sortBy, brands } = filters
-
-      // fetch category for filter sidebar items
-      if(currentNestedSubCategory && currentNestedSubCategory._id){
-  
-        // console.log("sdfsdfdsf", filters.brands)
-        
-        // we need category id that need to find category from  database
-        
-        // fetching product with fetched this category id..
-        let pagination = getPagination(paginations, PaginationWhereEnum.filter_products_page)
-        let data = {
-          brands,
-          currentNestedSubCategory,
-          filteredAttributes,
-          selectedCatSections,
-          sortBy,
-          paginate: {currentPage: pagination ? pagination.currentPage : 1, perPage: pagination ? pagination.perPage : 30},
-        }
-        
-        filterProductWithState(data,  true, function (data) {
-          dispatch({
-            type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
-            payload: data.total
-          })
-        }).then(r=>{})
-        
-        filterProductWithState(data, false, function (data) {
-          dispatch({
-            type: ACTION_TYPES.FETCH_PRODUCTS,
-            payload: data
-          })
-        }).then( r =>{})
-        // console.log(currentCategorySelected, filteredAttributes)
-      }
-    } catch(ex){
-      console.log("error,,,,,,,,", ex)
-    }
-  
-
-
-  }, [filters.brands, filteredAttributes, filters.sortBy, currentNestedSubCategory])
+  // React.useEffect(()=>{
+  //
+  //   try {
+  //     /**
+  //       Don't re-fetch product count if only change pagination or sort value.
+  //      */
+  //
+  //     const { sortBy, brands } = filters
+  //
+  //     // fetch category for filter sidebar items
+  //     if(currentNestedSubCategory && currentNestedSubCategory._id){
+  //
+  //       // console.log("sdfsdfdsf", filters.brands)
+  //
+  //       // we need category id that need to find category from  database
+  //
+  //       // fetching product with fetched this category id..
+  //       let pagination = getPagination(paginations, PaginationWhereEnum.filter_products_page)
+  //       let data = {
+  //         brands,
+  //         currentNestedSubCategory,
+  //         filteredAttributes,
+  //         selectedCatSections,
+  //         sortBy,
+  //         paginate: {currentPage: pagination ? pagination.currentPage : 1, perPage: pagination ? pagination.perPage : 30},
+  //       }
+  //
+  //       filterProductWithState(data,  true, function (data) {
+  //         dispatch({
+  //           type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
+  //           payload: data.total
+  //         })
+  //       }).then(r=>{})
+  //
+  //       filterProductWithState(data, false, function (data) {
+  //         dispatch({
+  //           type: ACTION_TYPES.FETCH_PRODUCTS,
+  //           payload: data
+  //         })
+  //       }).then( r =>{})
+  //       // console.log(currentCategorySelected, filteredAttributes)
+  //     }
+  //   } catch(ex){
+  //     console.log("error,,,,,,,,", ex)
+  //   }
+  //
+  //
+  //
+  // }, [filters.brands, filteredAttributes, filters.sortBy, currentNestedSubCategory])
   
 
   // refetch product if change paginate value
@@ -664,7 +660,7 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
               />
             </div>
 
-            <Link class="block mx-auto" to={`/products/${product._id}`}>
+            <Link className="block mx-auto" to={`/products/${product._id}`}>
               <div className="product_image_div">
                 <div className="product_image_wra">
                   <img src={fullLink(product.cover_photo)} alt=""/>
@@ -811,7 +807,7 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
   let pagination = getPagination(paginations, PaginationWhereEnum.filter_products_page)
 
   return (
-    <Container maxWidth={1688}>
+    <div >
 
       <div className="spin-fixed top-1/4 ">
         {/*<div className="backdrop-filter backdrop-blur-md w-52 h-20 flex items-center justify-center">*/}
@@ -821,30 +817,23 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
 
       <div className="product-filter-page--layout">
         <div className="sidebar">
-          {ss}
+          {/*{ss}*/}
           <CategoryList />
-          {/*<SidebarRenderCategory ui_filterItems={{}} />*/}
-          {/*<FilterSidebar*/}
-          {/*  // selectedCatSections={selectedCatSections}*/}
-          {/*  currentNestedSubCategory={currentNestedSubCategory}*/}
-          {/*  cb={callbackHandler}*/}
-          {/*/>*/}
         </div>
 
         <div className="content content-container">
-          <RenderBreadcrumb
-             navigate={navigate}
-            dispatch={dispatch}
-            selectedCatSections={selectedCatSections}
-          />
+          {/*<RenderBreadcrumb*/}
+          {/*  dispatch={dispatch}*/}
+          {/*  selectedCatSections={selectedCatSections}*/}
+          {/*/>*/}
 
-          <h4>{currentNestedSubCategory._id && currentNestedSubCategory._id }</h4>
-
+          {/*<h4>{currentNestedSubCategory._id && currentNestedSubCategory._id }</h4>*/}
+          {/**/}
           <div className="row my-5">
-            <h4>{currentCategorySelected.name}<span className="sm-text">
-              {`(Showing 1 – ${(pagination.perPage*pagination.currentPage) > totalFilterAbleProductCount ? totalFilterAbleProductCount : pagination.perPage*pagination.currentPage} products of ${totalFilterAbleProductCount} products)`}
-              </span>
-            </h4>
+            {/*<h4>{currentCategorySelected.name}<span className="sm-text">*/}
+            {/*  {`(Showing 1 – ${(pagination.perPage*pagination.currentPage) > totalFilterAbleProductCount ? totalFilterAbleProductCount : pagination.perPage*pagination.currentPage} products of ${totalFilterAbleProductCount} products)`}*/}
+            {/*  </span>*/}
+            {/*</h4>*/}
           </div>
 
           <div className="row my-5 sorting_btn_section">
@@ -866,7 +855,7 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
         </div>
       </div>
 
-    </Container>
+    </div>
   )
   // return (
   //   <h1>sdfsddddd</h1>

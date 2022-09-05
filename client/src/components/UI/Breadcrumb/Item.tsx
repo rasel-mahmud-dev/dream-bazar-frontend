@@ -7,6 +7,7 @@ interface ItemProps{
   onClick?: any
   to?: string
   className?: string
+  children: any
 }
 
 const Item: FC<ItemProps> = (props)=>{

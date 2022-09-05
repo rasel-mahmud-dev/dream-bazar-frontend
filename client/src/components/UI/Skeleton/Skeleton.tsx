@@ -5,7 +5,7 @@ import Circle from "./Circle";
 
 const Skeleton = ({className, children, ...other}) => {
     return (
-        <div class={className + " skeleton"} {...other}>
+        <div className={className + " skeleton"} {...other}>
             {children}
         </div>
     );

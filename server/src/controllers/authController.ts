@@ -1,17 +1,19 @@
-
-
+import {NextFunction, Request, Response} from "express"
 import dbConnect  from "../database"
-const {ObjectId} = require("mongodb") 
+const {ObjectId} = require("mongodb")
+import {Document, InsertOneResult, FindOperators } from "mongodb"
+import {RequestWithAuth} from "../types";
 const formidable = require('formidable');
 const path = require("path")
 const { copyFile, mkdir, rm, slats } = require('fs/promises');
 const fileUpload = require("../utilities/fileUpload")
 const {errorResponse, successResponse} = require("../response")
 
+
 const { createToken, getToken, parseToken} = require("../jwt")
 
 
-export const login = async (req, res, next)=>{
+export const login = async (req: Request, res: Response, next: NextFunction)=>{
   
   let client;
   try{
@@ -71,7 +73,7 @@ export const login = async (req, res, next)=>{
   }
 } 
 
-export const registration = async (req, res, next)=>{
+export const registration = async (req: Request, res: Response, next: NextFunction)=>{
  
   let client;
 
@@ -80,7 +82,8 @@ export const registration = async (req, res, next)=>{
     const { c: UserCollection, client: cc } = await dbConnect("users")  
     client = cc
     
-    let user = await UserCollection.findOne({email: req.body.email})
+    let user: Document = await UserCollection.findOne({email: req.body.email})
+
     if(user){
       return res.send('user already registered  ')
     }
@@ -96,7 +99,7 @@ export const registration = async (req, res, next)=>{
   }
 } 
 
-export const currentAuth = async (req, res, next)=>{
+export const currentAuth = async (req: Request, res: Response, next: NextFunction)=>{
   
   let client;
   
@@ -132,12 +135,12 @@ export const currentAuth = async (req, res, next)=>{
   }
 }
 
-export const fetchProfile = async (req, res, next)=>{
+export const fetchProfile = async (req: RequestWithAuth, res: Response, next: NextFunction)=>{
   let client;
   try{
     const { c: UserCollection, client: cc } = await dbConnect("users")  
     client = cc
-    let user = await UserCollection.findOne({_id: ObjectId(req.user_id) })
+    let user = await UserCollection.findOne({_id: ObjectId(req.user.userId) })
     res.json({user})
   } catch(ex){
     next(ex)

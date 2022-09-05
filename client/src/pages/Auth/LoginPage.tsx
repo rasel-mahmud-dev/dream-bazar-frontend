@@ -1,5 +1,5 @@
 import React, {FC} from 'react'
-import { useParams, useHistory, Link } from "react-router-dom"
+import {useParams, Link, useLocation, useNavigate} from "react-router-dom"
 import qs from "query-string"
 import apis, {backend} from "src/apis" 
 import {
@@ -8,10 +8,9 @@ import {
   Tooltip,
   Form,
   Checkbox,
-  Divider,
-  Div,
+
   Popup,
-  Container,
+
   Input,
   Password
 } from "components/UI"
@@ -30,9 +29,13 @@ interface LoginPageProps {
 }
 
 const LoginPage: FC<LoginPageProps> = (props) => {
-    let params = useParams() 
-    let history = useHistory() 
+    let params = useParams()
+  
+  const location = useLocation();
+  
+    // let history = useHistory()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
 
   const [loadings, setLoading] = React.useState([])
@@ -52,13 +55,13 @@ const LoginPage: FC<LoginPageProps> = (props) => {
   })
 
 function getQs(){
-  return qs.parse(history.location.search)  
+  return qs.parse(location.search)
 }
  
  
   function handlePushBack(){
     // history.back() 
-    history.goBack()
+    // history.goBack()
   }
   
   function handleProductAction(type, prod){
@@ -120,7 +123,7 @@ function getQs(){
           let toPath = auth.role === "customer"
             ? `/customer/${auth.username}`
             : `/auth/admin/dashboard`
-          history.push(toPath)
+          navigate(toPath)
         }
       }
       
@@ -254,7 +257,7 @@ function getQs(){
   
 
     return (
-        <Container maxWidth={1688} >
+        <div  >
           <h1 className="text-gray-dark-gray-8 mt-5 text-2xl font-bold">Login Here</h1>
           {renderLoader("login-user")}
           {errorMessage.message && (
@@ -267,7 +270,8 @@ function getQs(){
             )}
           { renderLoginForm() }
           
-          <Divider lineColor="#dddcdcab" text="or" />
+          {/*<Divider lineColor="#dddcdcab" text="or" />*/}
+          
           <Button 
             type="default"
             href={`${backend}/api/auth/google`}
@@ -288,7 +292,7 @@ function getQs(){
               Back to checkout
             </Button>
           </div>
-        </Container>
+        </div>
     )
 }
 

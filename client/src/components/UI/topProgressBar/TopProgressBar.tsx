@@ -19,7 +19,8 @@ const TopProgressBar = (props) => {
   }, [])
   
   return (
-    <div> 
+    <div>
+        {/* @ts-ignore */}
       <LoadingBar color="#f11946" ref={el} shadow={true} />
     </div>
   )

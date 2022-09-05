@@ -1,3 +1,4 @@
+import {NextFunction, Request, Response} from "express"
 import Product, {ProductType} from "../models/Product";
 import Validator from "../utilities/validator";
 import ProductDescription, {ProductDescriptionType} from "../models/ProductDescription";
@@ -7,10 +8,9 @@ const isObjectId = require("../utilities/isObjectId")
 
 import dbConnect from "../database/index"
 
-
 import fileUploadHandler from "../utilities/fileUpload";
-import {parentPort} from "worker_threads";
-
+import {collections, connectToDatabase} from "../services/database.service";
+import mongoose from "mongoose";
 
 export const getProductCount = async (req, res, next)=>{
   const {category_id} = req.query
@@ -35,60 +35,73 @@ export const getProductCount = async (req, res, next)=>{
   } finally{
     client?.close()
   }
-} 
+}
 
+
+
+const ProductModel = mongoose.model("products", new mongoose.Schema({
+  title: String
+}))
 
 export const getProducts = async (req, res, next)=>{
   
   const { pageNumber=1, perPage=10 } = req.query
-  
+
+  const now = Date.now()
+
   try {
 
-    let docs: any = await Product.aggregate([
-      {
-          $lookup: {
-            from: "categories",
-            localField: "category_id",
-            foreignField: "_id",
-            as: "category"
-          }
-        },
-        { $unwind: {path: "$category", preserveNullAndEmptyArrays: true } },
-        {
-          $lookup: {
-            from: "brands",
-            localField: "brand_id",
-            foreignField: "_id",
-            as: "brand"
-          }
-        },
-        { $unwind: {path: "$brand", preserveNullAndEmptyArrays: true } },
-        {
-          $project: {
-            title: 1,
-            created_at: 1,
-            price: 1,
-            cover_photo: 1,
-            category_id: 1,
-            category: {
-              title: 1,
-              logo: 1,
-              name: 1
-            },
-            brand_id: 1,
-            brand: {
-              _id: 1,
-              name: 1,
-            }
-          }
-        },
-        {$skip: perPage * (pageNumber - 1)},
-        {$limit: Number(perPage)}
-    ])
+    // let docs: any = await Product.aggregate([
+    //   {
+    //       $lookup: {
+    //         from: "categories",
+    //         localField: "category_id",
+    //         foreignField: "_id",
+    //         as: "category"
+    //       }
+    //     },
+    //     { $unwind: {path: "$category", preserveNullAndEmptyArrays: true } },
+    //     {
+    //       $lookup: {
+    //         from: "brands",
+    //         localField: "brand_id",
+    //         foreignField: "_id",
+    //         as: "brand"
+    //       }
+    //     },
+    //     { $unwind: {path: "$brand", preserveNullAndEmptyArrays: true } },
+    //     {
+    //       $project: {
+    //         title: 1,
+    //         created_at: 1,
+    //         price: 1,
+    //         cover_photo: 1,
+    //         category_id: 1,
+    //         category: {
+    //           title: 1,
+    //           logo: 1,
+    //           name: 1
+    //         },
+    //         brand_id: 1,
+    //         brand: {
+    //           _id: 1,
+    //           name: 1,
+    //         }
+    //       }
+    //     },
+    //     {$skip: perPage * (pageNumber - 1)},
+    //     {$limit: Number(perPage)}
+    // ])
+
+    const docs = await collections.products.find().toArray();
+    // const docs = await ProductModel.find()
+
+
     
     // let docs = await  Product.findOne({ qty: 5 })
-    
-    res.json({products: docs})
+
+
+    res.json({time: Date.now() - now, total: docs.length, products: docs})
 
     // let cursor;
       // cursor = ProductCollection.aggregate([
@@ -124,7 +137,6 @@ export const getProducts = async (req, res, next)=>{
     // client?.close()
   }
 }
-
 
 export const getProduct = async (req, res, next)=>{
   if(!isObjectId(req.params.id)){
@@ -293,7 +305,6 @@ export const getProduct = async (req, res, next)=>{
 
 }
 
-
 export const productUpdate = async (req, res, next)=>{
   const { id } = req.params
   const { type, quantity } = req.body
@@ -329,7 +340,6 @@ export const productUpdate = async (req, res, next)=>{
     client?.close()
   }
 }
-
 
 export const updateProductPutReq = async (req, res, next)=>{
   const { id } = req.params
@@ -402,9 +412,11 @@ export const updateProductPutReq = async (req, res, next)=>{
       }
 
       updatedProduct.images = uploadedImages
+
       let doc = await ProductCollection.findOneAndUpdate({
         _id: new ObjectId(id)
       }, {
+        // @ts-ignore
         $set: updatedProduct
       })
       
@@ -454,8 +466,6 @@ export const updateProductPutReq = async (req, res, next)=>{
     // client?.close()
   }
 }
-
-
 
 // add new product
 export const saveProducts = async (req, res, next)=>{
@@ -729,8 +739,6 @@ export const saveProducts = async (req, res, next)=>{
     // client?.close()
   }
 }
-
-
 
 // make duplicate product
 export const saveProductsAsDuplicate = async (req, res, next)=>{
@@ -1434,8 +1442,10 @@ export const productFiltersGetV2 = async (req, res, next)=>{
   try{
 
     const { c: ProductCollection, client: cc } = await dbConnect("products")
+    client = cc;
 
     let query = req.query
+
     let { pagePage, perPage, ...other } = query
 
     let cursor;
@@ -1469,14 +1479,130 @@ export const productFiltersGetV2 = async (req, res, next)=>{
 
     res.send(p)
 
-
-
   } catch(ex){
     console.log(ex)
     res.send([])
   } finally{
     client?.close()
   }
+}
+
+
+type ResponseData = {
+  [key: string] : { values: ProductType[], type: string }
+}
+
+export const getHomepageSectionProducts = async (req: Request<ResponseData>, res: Response, next: NextFunction)=>{
+  // let client: any;
+
+  const data: {params: string, type: string, name: string}[] = req.body.data
+
+  let result: { [key: string]: { values: ProductType[], type: string } } = {}
+
+   try {
+     data.forEach((item, index)=> {
+
+       (async function(){
+         const params = item.params;
+
+         let a = params.split("=")
+         let other : {
+           sold?: string
+           discount?: string
+           views?: string
+         } = {};
+
+         if (a.length === 2) {
+           other = {[a[0]]: a[1]}
+         }
+
+         let cursor;
+
+         if (other.sold) {
+           cursor = collections.products.aggregate([
+             {$sort: {sold: Number(other.sold)}},
+             {$limit: 20}
+           ])
+         } else if (other.discount) {
+           cursor = collections.products.aggregate([
+             {$sort: {discount: Number(other.discount)}},
+             {$limit: 20}
+           ])
+         } else if (other.views) {
+           cursor = collections.products.aggregate([
+             {$sort: {views: Number(other.views)}},
+             {$limit: 20}
+           ])
+         }
+
+         let p : ProductType[] = []
+         await cursor.forEach(c=>{
+           p.push(c)
+         })
+
+
+         result[item.name] = { values: p, type: "products" }
+
+         if(index === (data.length - 1)) {
+           res.json(result)
+         }
+
+       }())
+     })
+
+   } catch(ex){
+     res.status(500).send([])
+   } finally{
+     // client?.close()
+   }
+
+
+  // try{
+  //   const { c: ProductCollection, client: cc } = await dbConnect("products")
+  //   client = cc;
+  //
+  //   let query = req.query
+  //
+  //   let { pagePage, perPage, ...other } = query
+  //
+  //   let cursor;
+  //
+  //   if(other.sold){
+  //     cursor = ProductCollection.aggregate([
+  //       { $sort: { sold: Number(other.sold) } },
+  //       { $limit: 20 }
+  //     ])
+  //   } else if(other.discount){
+  //     cursor = ProductCollection.aggregate([
+  //       { $sort: { discount: Number(other.discount) } },
+  //       { $limit: 20 }
+  //     ])
+  //   } else if(other.views){
+  //     cursor = ProductCollection.aggregate([
+  //       { $sort: { views: Number(other.views) } },
+  //       { $limit: 20 }
+  //     ])
+  //   } else if(other.updated_at){
+  //     cursor = ProductCollection.aggregate([
+  //       { $sort: { updated_at: Number(other.updated_at) } },
+  //       { $limit: 20 }
+  //     ])
+  //   }
+  //   let p = []
+  //   await cursor.forEach(c=>{
+  //     p.push(c)
+  //   })
+  //
+  //
+  //   res.send(p)
+  //
+  // } catch(ex){
+  //   console.log(ex)
+  //   res.send([])
+  // } finally{
+  //   client?.close()
+  // }
+
 
 }
 

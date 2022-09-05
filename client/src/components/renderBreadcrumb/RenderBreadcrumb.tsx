@@ -5,14 +5,13 @@ import { Dispatch } from "redux";
 
 interface RenderBreadcrumbProps {
   lastSelectedCategory?: LastSelectedCategoryProps,
-  selectedCatSections : SelectedCatSectionType,
+  selectedCatSections: SelectedCatSectionType,
   dispatch: Dispatch,
-  history: { replace: any }
 }
 
 const RenderBreadcrumb: FC<RenderBreadcrumbProps> = (props) => {
   
-  const { selectedCatSections, lastSelectedCategory, dispatch, history}  = props
+  const { selectedCatSections, lastSelectedCategory, dispatch}  = props
   
   // console.log(selectedCatSections)
   
@@ -90,29 +89,35 @@ const RenderBreadcrumb: FC<RenderBreadcrumbProps> = (props) => {
       if (item.id) {
         u = u + `&cat_tree=${item.id}`
       }
-      history.replace(u)  // replace browser url
+      // history.replace(u)  // replace browser url
     }
   }
   
+
   return (
     <div className="mt-2">
       <Breadcrumb>
         {selectedCatSections.oneLevel && (
+            // @ts-ignore
           <Breadcrumb.Item key="oneLevel" onClick={()=>handleClickBreadcrumbItem(selectedCatSections.oneLevel, "oneLevel")} >
             <i className='far fa-home'/>
             {selectedCatSections.oneLevel.name}
           </Breadcrumb.Item>
         )}
         {selectedCatSections.twoLevel && (
+            // @ts-ignore
           <Breadcrumb.Item key="twoLevel" onClick={()=>handleClickBreadcrumbItem(selectedCatSections.twoLevel, "twoLevel")}>{selectedCatSections.twoLevel.name}</Breadcrumb.Item>
         )}
         {selectedCatSections.threeLevel && (
+            // @ts-ignore
           <Breadcrumb.Item key="threeLevel" onClick={()=>handleClickBreadcrumbItem(selectedCatSections.threeLevel, "threeLevel")}>{selectedCatSections.threeLevel.name}</Breadcrumb.Item>
         )}
         {selectedCatSections.fourLevel && (
+            // @ts-ignore
           <Breadcrumb.Item key="fourLevel" onClick={()=>handleClickBreadcrumbItem(selectedCatSections.fourLevel, "fourLevel")}>{selectedCatSections.fourLevel.name}</Breadcrumb.Item>
         )}
         {selectedCatSections.fiveLevel && (
+            // @ts-ignore
           <Breadcrumb.Item key="fiveLevel" onClick={()=>handleClickBreadcrumbItem(selectedCatSections.fiveLevel, "fiveLevel")}>{selectedCatSections.fiveLevel.name}</Breadcrumb.Item>
         )}
       </Breadcrumb>

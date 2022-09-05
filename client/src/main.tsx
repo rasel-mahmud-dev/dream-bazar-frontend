@@ -7,16 +7,16 @@ import { HashRouter} from "react-router-dom"
 import createStore from "src/store"
 
 
-const store = createStore({})
+const store = createStore()
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <Provider store={store}>
             <HashRouter>
                 <App />
             </HashRouter>
         </Provider>
-    </React.StrictMode>
+    // </React.StrictMode>
 )
 

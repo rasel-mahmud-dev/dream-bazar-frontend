@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from 'react'
 import "./FilterSidebar.scss"
 import {connect, useDispatch} from "react-redux"
 import {ACTION_TYPES} from "store/types"
-import {Button, Input, Row} from "components/UI"
+import {Button, Input} from "components/UI"
 
 
 import {fetchBrandForCategory} from "actions/productAction";
@@ -220,65 +220,77 @@ const FilterSidebar = (props: FilterSidebarProps) => {
     }
   }
   
-  useEffect(async ()=>{
-    let { cat, cat_tree, brand } = qstring.parse(location.search)
-    // find cat_tree all parent category
+  useEffect(()=>{
   
-    let cIndex = ui_categories.findIndex(c=>c.id === cat )
-    // if(cIndex !== -1) {
-    //   findReCur(ui_categories[cIndex].sub_menu, cat_tree)
-    //   console.log(n)
-    // }
-
-    let ids = []
-    let names  = Object.keys(selectedCatSections)
-    names.forEach(name=>{
-      if(selectedCatSections[name]) {
-        ids.push(selectedCatSections[name].id)
-      }
-    })
-    let categoryInfoRes = await apis.post(`/api/ui-data/category-info`, {ids})
+    (async function(){
+      
+      let { cat, cat_tree, brand } = qstring.parse(location.search)
+      // find cat_tree all parent category
+  
+      let cIndex = ui_categories.findIndex(c=>c.id === cat )
+      
+      
+      // if(cIndex !== -1) {
+      //   findReCur(ui_categories[cIndex].sub_menu, cat_tree)
+      //   console.log(n)
+      // }
+  
+      // let ids = []
+      // let names  = Object.keys(selectedCatSections)
+      // names.forEach(name=>{
+      //   if(selectedCatSections[name]) {
+      //     ids.push(selectedCatSections[name].id)
+      //   }
+      // })
+      
+      // console.log(selectedCatSections)
+      
+      
+      // let categoryInfoRes = await apis.post(`/api/ui-data/category-info`, {ids})
+  
+      // if(categoryInfoRes.status === 200){
+      //
+      //   let filter_items = []
+      //   let i = []
+      //   categoryInfoRes.data.category_info.forEach( (ci, index) => {
+      //     (async function (){
+      //       let filterItemsRes = await apis.post("/api/ui-data/filter-items", {attributeNames: ci.filter_items})
+      //       if (filterItemsRes.status === 200) {
+      //         ci.filter_items.forEach(item => {
+      //           filterItemsRes.data.forEach(fItem => {
+      //             if (item === fItem.attribute_name) {
+      //               if(i.findIndex(item=> (item.attribute_name === fItem.attribute_name)) === -1){
+      //                 i.push(fItem)
+      //               }
+      //             }
+      //           })
+      //         })
+      //
+      //         filter_items.push({
+      //           ...ci,
+      //           filter_items_populated: i
+      //         })
+      //       }
+      //       if(categoryInfoRes.data.category_info.length === (index + 1)){
+      //         dispatch({
+      //           type: ACTION_TYPES.SET_UI_CATEGORY_INFO,
+      //           payload: filter_items
+      //         })
+      //         // let uu = []
+      //         // i.forEach(item=> uu )
+      //         dispatch({
+      //           type: ACTION_TYPES.SET_UI_FILTER_ITEM,
+      //           payload: i
+      //         })
+      //       }
+      //
+      //     }())
+      //
+      //   })
+      // }
+      
+    }())
     
-    if(categoryInfoRes.status === 200){
-    
-          let filter_items = []
-          let i = []
-          categoryInfoRes.data.category_info.forEach( (ci, index) => {
-            (async function (){
-              let filterItemsRes = await apis.post("/api/ui-data/filter-items", {attributeNames: ci.filter_items})
-              if (filterItemsRes.status === 200) {
-                ci.filter_items.forEach(item => {
-                  filterItemsRes.data.forEach(fItem => {
-                    if (item === fItem.attribute_name) {
-                      if(i.findIndex(item=> (item.attribute_name === fItem.attribute_name)) === -1){
-                        i.push(fItem)
-                      }
-                    }
-                  })
-                })
-    
-                filter_items.push({
-                  ...ci,
-                  filter_items_populated: i
-                })
-              }
-              if(categoryInfoRes.data.category_info.length === (index + 1)){
-                dispatch({
-                  type: ACTION_TYPES.SET_UI_CATEGORY_INFO,
-                  payload: filter_items
-                })
-                // let uu = []
-                // i.forEach(item=> uu )
-                dispatch({
-                  type: ACTION_TYPES.SET_UI_FILTER_ITEM,
-                  payload: i
-                })
-              }
-              
-            }())
-            
-          })
-        }
   
     // setFilterItem_currentCategory({})
   }, [selectedCatSections])
@@ -294,7 +306,7 @@ const FilterSidebar = (props: FilterSidebarProps) => {
     let renderAttributesFilterSection = []
     let a = ui_category_info.filter(category_info=> ids.indexOf(category_info.id) !== -1 )
     a.forEach(item=>{
-      item.filter_items_populated.forEach(po=>{
+      item.filter_items_populated.forEach((po: any)=>{
         if(renderAttributesFilterSection.findIndex(rafs=>rafs.attribute_name === po.attribute_name) === -1){
           renderAttributesFilterSection.push(po)
         }
@@ -507,14 +519,14 @@ const FilterSidebar = (props: FilterSidebarProps) => {
     
     return filterItem_sections_data && filterItem_sections_data.filterItem_sections &&  filterItem_sections_data.filterItem_sections.length > 0 && filterItem_sections_data.filterItem_sections.map(filter_item=>(
        filter_item.values && filter_item.values.length > 0 && <div className="filter_section--each_section">
-         <Row onClick={()=>toggleFilterItem_SectionHandler(filter_item.attribute_name)} justify="between" align="center" className="filter_section--header"  >
+         <div onClick={()=>toggleFilterItem_SectionHandler(filter_item.attribute_name)}  className="filter_section--header"  >
           <h4  className="filter_section__title">{filter_item.name.toUpperCase()}</h4>
           <div className="collapse_icon">
             <i
               onClick={()=>toggleFilterItem_SectionHandler(filter_item.attribute_name)}
               className={["fa", filter_item.expand ? "fa-chevron-up" : "fa-chevron-down"].join(" ")} />
           </div>
-        </Row>
+        </div>
          
          <div className={["ml-2 mt-3", filter_item.expand ? "show" : "hide"].join(" ")} >
           { filter_item.values && filter_item.values.slice(0, toggleShowMoreFilterItems[filter_item.attribute_name] ? toggleShowMoreFilterItems[filter_item.attribute_name] : 5).map(item=>(
@@ -594,18 +606,18 @@ const FilterSidebar = (props: FilterSidebarProps) => {
   
     return (
       <div>
-        { filterItem_currentCategory.map(filterItem=>  (
+        { filterItem_currentCategory.map((filterItem:  any)=>  (
           <div className="filter_section--each_section">
-              <Row
+              <div
                 onClick={() => toggleFilterAttribute(filterItem.attribute_name)}
-                justify="between" align="center" className="filter_section--header">
+                className="filter_section--header">
                 <h4 className="filter_section__title">{filterItem.name.toUpperCase()}</h4>
                 <div className="collapse_icon">
                   <i
                     onClick={() => toggleFilterAttribute(filterItem.attribute_name)}
                     className={["fa", filterItem.expand ? "fa-chevron-up" : "fa-chevron-down"].join(" ")}/>
                 </div>
-              </Row>
+              </div>
       
               <div className={["ml-2 mt-3", filterItem.expand ? "show" : "hide"].join(" ")}>
                 { filterItem.values && filterItem.values.slice(0, toggleShowMoreFilterItems[filterItem.attribute_name] ? toggleShowMoreFilterItems[filterItem.attribute_name] : 5).map(item=>(
@@ -648,7 +660,7 @@ const FilterSidebar = (props: FilterSidebarProps) => {
               <div>
                 {category_info.filter_items_populated.map((item: any) => (
                   <div className="filter_section--each_section">
-                    <Row
+                    <div
                       onClick={() => toggleFilterAttribute(item.attribute_name)}
                       justify="between" align="center" className="filter_section--header">
                       <h4 className="filter_section__title">{item.name.toUpperCase()}</h4>
@@ -657,7 +669,7 @@ const FilterSidebar = (props: FilterSidebarProps) => {
                           onClick={() => toggleFilterAttribute(item.attribute_name)}
                           className={["fa", item.expand ? "fa-chevron-up" : "fa-chevron-down"].join(" ")}/>
                       </div>
-                    </Row>
+                    </div>
             
                     <div className={["ml-2 mt-3", item.expand ? "show" : "hide"].join(" ")}>
             
@@ -692,14 +704,14 @@ const FilterSidebar = (props: FilterSidebarProps) => {
     
     // return filterItem_sections_data && filterItem_sections_data.filterItem_sections &&  filterItem_sections_data.filterItem_sections.length > 0 && filterItem_sections_data.filterItem_sections.map(filter_item=>(
     //   filter_item.values && filter_item.values.length > 0 && <div className="filter_section--each_section">
-		// 		<Row onClick={()=>toggleFilterItem_SectionHandler(filter_item.attribute_name)} justify="between" align="center" className="filter_section--header"  >
+		// 		<div onClick={()=>toggleFilterItem_SectionHandler(filter_item.attribute_name)} justify="between" align="center" className="filter_section--header"  >
 		// 			<h4  className="filter_section__title">{filter_item.name.toUpperCase()}</h4>
 		// 			<div className="collapse_icon">
 		// 				<i
 		// 					onClick={()=>toggleFilterItem_SectionHandler(filter_item.attribute_name)}
 		// 					className={["fa", filter_item.expand ? "fa-chevron-up" : "fa-chevron-down"].join(" ")} />
 		// 			</div>
-		// 		</Row>
+		// 		</div>
 		//
 		// 		<div className={["ml-2 mt-3", filter_item.expand ? "show" : "hide"].join(" ")} >
     //       { filter_item.values && filter_item.values.slice(0, toggleShowMoreFilterItems[filter_item.attribute_name] ? toggleShowMoreFilterItems[filter_item.attribute_name] : 5).map(item=>(
@@ -767,19 +779,19 @@ const FilterSidebar = (props: FilterSidebarProps) => {
       return findBrands.brands && findBrands.brands.length > 0 && (
         <div className="filter_section">
           <div className="filter_section--each_section">
-            <Row onClick={() => toggleFilterItem_SectionHandler_For_LocalState("brands")} justify="between"
-                 align="center" className="filter_section--header">
+            <div onClick={() => toggleFilterItem_SectionHandler_For_LocalState("brands")}
+                  className="filter_section--header">
               <h4 className="filter_section__title">{"Brands".toUpperCase()}</h4>
               <div className="collapse_icon">
                 <i
                   className={["fa", isCollapseIds.indexOf("brands") === -1 ? "fa-chevron-right" : "fa-chevron-down"].join(" ")}/>
               </div>
-            </Row>
+            </div>
         
             <div
               className={["ml-2 mt-3", isCollapseIds.indexOf("brands") === -1 ? "hide" : "show"].join(" ")}>
           
-              <Row className="brand_search_input_row">
+              <div className="brand_search_input_row">
                 <div className="div">
                   <Input.Menu
                     placeholder="Search brands..."
@@ -792,9 +804,9 @@ const FilterSidebar = (props: FilterSidebarProps) => {
                   />
             
                 </div>
-              </Row>
+              </div>
           
-              {findBrands.brands && findBrands.brands.slice(0, toggleShowMoreFilterItems["brands"] ? toggleShowMoreFilterItems["brands"] : 5).map(brand => (
+              {findBrands.brands && findBrands.brands.slice(0, toggleShowMoreFilterItems["brands"] ? toggleShowMoreFilterItems["brands"] : 5).map((brand: any) => (
                 <div className="input_item">
                   <input
                     onChange={(e) => handleChangeBrand(brand)}
@@ -913,14 +925,14 @@ const FilterSidebar = (props: FilterSidebarProps) => {
             { category  &&
               category.filters && category.filters.map(fields=>(
               <div className="filter_section--each_section">
-                <Row onClick={()=>toggleFilterItem_SectionHandler(fields.name)} justify="space-between" align="center" className="filter_section--header"  >
+                <div onClick={()=>toggleFilterItem_SectionHandler(fields.name)} justify="space-between" align="center" className="filter_section--header"  >
                   <h4  className="filter_section__title">{fields.name.toUpperCase()}</h4>
                   <div className="collapse_icon">
                     <i
                       onClick={()=>toggleFilterItem_SectionHandler(fields.name)}
                       className={["fa", isCollapseIds.indexOf(fields.name) === -1 ? "fa-chevron-right" : "fa-chevron-down"].join(" ")} />
                   </div>
-                </Row>
+                </div>
                 <div className={["ml-4 mt-3", isCollapseIds.indexOf(fields.name) === -1 ? "hide" : "show"].join(" ")} >
                   { fields.values.map(value=>(
                       <div className="input_item">

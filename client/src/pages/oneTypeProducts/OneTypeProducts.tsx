@@ -1,13 +1,11 @@
 import React, {useEffect} from "react";
 import {connect, useDispatch} from "react-redux"
-import { Link, useHistory, useParams } from "react-router-dom"
-import {Button,  Pagination, Tooltip, Container} from "src/components/UI"
+import { Link,  useParams } from "react-router-dom"
+import {Button,  Pagination, Tooltip} from "src/components/UI"
 import {changePagination, fetchOneTypeProductLength, fetchOneTypeProduct} from "src/store/actions/productAction"
 import fullLink from "src/utills/fullLink";
 import "./oneTypeProducts.scss"
 import calculateDiscount from "src/utills/calculateDiscount";
-import Col from "UI/col/Col";
-import Row from "UI/row/Row";
 
 
 const OneTypeProducts = (props) => {
@@ -19,7 +17,8 @@ const OneTypeProducts = (props) => {
     paginations
   } = props.productState
   
-  const history = useHistory()
+  // const history = useHistory()
+  
   const params = useParams()
   
   const [isEntryLevel, setEntryLevel] = React.useState(false)
@@ -68,7 +67,7 @@ const OneTypeProducts = (props) => {
   
   function handlePushBack(){
     // history.back()
-    history.goBack()
+    // history.goBack()
   }
   
   
@@ -87,7 +86,7 @@ const OneTypeProducts = (props) => {
   }
 
   return (
-    <Container maxWidth={1688} >
+    <div >
       
       <div className="content-container">
         <div className="content-header">
@@ -96,9 +95,9 @@ const OneTypeProducts = (props) => {
           <h4 className="m-0 text-lg text-center font-medium">{oneTypeProductsLength && (oneTypeProductsLength) }</h4>
         </div>
         
-        <Row justify={"center"}>
+        <div >
           {oneTypeFetchProducts && oneTypeFetchProducts.values && oneTypeFetchProducts.values.length > 0 ? oneTypeFetchProducts.values.map(pp=>(
-            <Col xs={24} sm={8} md={8} lg={6} xl={6} xxl={4} className="justify-center d-flex">
+            <div className="justify-center d-flex">
               <div className="one-type-product__product m-1 mb-3">
                 <div>
                   <Link className="product-detail-link" to={`/products/${pp._id}`}>
@@ -142,12 +141,12 @@ const OneTypeProducts = (props) => {
                 )
                 }
               </div>
-            </Col>
+            </div>
           )) : (
             <h1>No Product Found</h1>
           )}
   
-        </Row>
+        </div>
   
   
         <div className="mt-10">
@@ -160,7 +159,7 @@ const OneTypeProducts = (props) => {
         </div>
       </div>
       
-    </Container>
+    </div>
   )
   
 }

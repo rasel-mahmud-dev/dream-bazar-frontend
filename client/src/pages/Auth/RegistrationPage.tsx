@@ -1,6 +1,6 @@
 
 import React from 'react' 
-import { useParams, useHistory, Link } from "react-router-dom"
+import { useParams,  Link } from "react-router-dom"
 import {Button, Spin, Input} from "components/UI"
 import {connect, useDispatch} from "react-redux"
 import { registration } from "actions/authAction"
@@ -8,7 +8,7 @@ import {ACTION_TYPES} from "store/types"
 
 const RegistrationPage = (props) => { 
     let params = useParams() 
-    let history = useHistory() 
+    // let history = useHistory()
     const dispatch = useDispatch()
 
     
@@ -22,7 +22,7 @@ const RegistrationPage = (props) => {
 
   function handlePushBack(){
     // history.back() 
-    history.goBack()
+    // history.goBack()
   }
   
   function handleProductAction(type, prod){
@@ -52,11 +52,11 @@ const RegistrationPage = (props) => {
     }
     
     setUserData({...state})
-    if(!state.isNumber){
-      history.push(`${history.location.pathname}/email-verification?email=${state.email}&method=email`)
-    } else {
-      history.push(`${history.location.pathname}/phone-verification?phone=${state.email}&method=phone`)
-    }
+    // if(!state.isNumber){
+    //   history.push(`${history.location.pathname}/email-verification?email=${state.email}&method=email`)
+    // } else {
+    //   history.push(`${history.location.pathname}/phone-verification?phone=${state.email}&method=phone`)
+    // }
   }
   
   function renderRegistrationForm(){

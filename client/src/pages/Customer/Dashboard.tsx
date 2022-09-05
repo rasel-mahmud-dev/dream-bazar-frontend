@@ -1,5 +1,5 @@
 import React, {lazy, Suspense} from 'react' 
-import { useParams, useHistory, Link, Route, Switch } from "react-router-dom"
+import { useParams,  Link, Route, } from "react-router-dom"
 import {nonInitialEffect} from "src/reactTools"
 
 import {
@@ -8,7 +8,7 @@ import {
   Spin,
   Input,
   Modal,
-  TopProgressBar, Container
+  TopProgressBar
 } from "components/UI"
 
 import {connect, useDispatch} from "react-redux"
@@ -28,7 +28,7 @@ const {SubMenu} = Menu
 
 const Dashboard = (props) => { 
   let params = useParams() 
-  let history = useHistory() 
+  // let history = useHistory()
   const dispatch = useDispatch()
   const { authState } = props
   let [collapseIds, setCollapseIds] = React.useState(["1", "2"])
@@ -114,50 +114,50 @@ const Dashboard = (props) => {
   
   nonInitialEffect(()=>{
     if(!authState._id){
-      history.push("/auth/login?redirect=dashboard")
+      // history.push("/auth/login?redirect=dashboard")
     } 
   }, [authState && authState._id])
   
   
-  function renderCustomerDashboardRoutes(){
-    return (
-        <Suspense fallback={<TopProgressBar/>}>
-          <Switch>
-          
-            <Route exact={true} path="/customer/:name" 
-              render={props=> <CustomerDashboard
-              {...props} 
-                username={authState.username} 
-              _id={authState._id} 
-              /> } />    
-            
-            
-            <Route exact={true} path="/customer/:name/address-book" 
-              render={props=> <AddressBook {...props} _id={authState._id} /> } />    
-            
-            <Route exact={true} path="/customer/:name/create-seller-account" 
-              render={props=> <CreateSellerAccount 
-                {...props} 
-                _id={authState._id} 
-              /> } />    
-            
-           
-            <Route exact={true} path="/customer/:name/my-orders" 
-              render={props=> <Orders {...props} _id={authState._id} /> } />  
-              
-            <Route exact={true} path="/customer/:name/my-orders/details/:orderId" 
-              render={props=> <OrderDetails {...props}  _id={authState._id} /> } />    
-            
-            <Route 
-              exact={true} 
-              path="/customer/:name/account-info" 
-              component={AccountInfo}
-            />    
-          </Switch>
-        </Suspense>
-      )
-    
-  }
+  // function renderCustomerDashboardRoutes(){
+  //   return (
+  //       <Suspense fallback={<TopProgressBar/>}>
+  //         <Switch>
+  //
+  //           <Route exact={true} path="/customer/:name"
+  //             render={props=> <CustomerDashboard
+  //             {...props}
+  //               username={authState.username}
+  //             _id={authState._id}
+  //             /> } />
+  //
+  //
+  //           <Route exact={true} path="/customer/:name/address-book"
+  //             render={props=> <AddressBook {...props} _id={authState._id} /> } />
+  //
+  //           <Route exact={true} path="/customer/:name/create-seller-account"
+  //             render={props=> <CreateSellerAccount
+  //               {...props}
+  //               _id={authState._id}
+  //             /> } />
+  //
+  //
+  //           <Route exact={true} path="/customer/:name/my-orders"
+  //             render={props=> <Orders {...props} _id={authState._id} /> } />
+  //
+  //           <Route exact={true} path="/customer/:name/my-orders/details/:orderId"
+  //             render={props=> <OrderDetails {...props}  _id={authState._id} /> } />
+  //
+  //           <Route
+  //             exact={true}
+  //             path="/customer/:name/account-info"
+  //             component={AccountInfo}
+  //           />
+  //         </Switch>
+  //       </Suspense>
+  //     )
+  //
+  // }
   
   
   function renderSidebarMenu(){
@@ -196,7 +196,7 @@ const Dashboard = (props) => {
   }
 
   return (
-    <Container maxWidth={1688}>
+    <div >
         <div className="row r">
           <div className="sidebar">
         
@@ -247,10 +247,10 @@ const Dashboard = (props) => {
             
           </div>
           <div className="content">
-            {renderCustomerDashboardRoutes()}
+            {/*{renderCustomerDashboardRoutes()}*/}
           </div>
         </div>
-      </Container>
+      </div>
     )
 }
 

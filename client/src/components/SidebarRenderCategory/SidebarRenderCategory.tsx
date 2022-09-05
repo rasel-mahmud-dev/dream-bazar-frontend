@@ -217,6 +217,7 @@ const SidebarRenderCategory: FC<FilterSidebarProps> = (props) => {
 function mapStateToProps(state: RootState){
   console.log(state)
   return {
+    //@ts-ignore
     lastSelectedCategory: state.productState.lastSelectedCategory,
     selectedCatSections: state.productState.selectedCatSections
   }

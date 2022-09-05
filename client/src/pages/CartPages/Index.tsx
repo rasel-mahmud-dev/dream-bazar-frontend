@@ -1,6 +1,6 @@
 import React from 'react' 
-import { useParams, useHistory, Link } from "react-router-dom"
-import {Button, Col, Container, Row, Spin, Image} from "components/UI"
+import { useParams,  Link } from "react-router-dom"
+import {Button , Image} from "components/UI"
 import {connect, useDispatch} from "react-redux"
 import { fetchProduct, toggleLoader } from "actions/productAction"
 import {ACTION_TYPES} from "store/types"
@@ -10,10 +10,11 @@ import Title from 'src/components/UI/typography/Title';
 
 import "./CartPage.scss"
 import fullLink from "src/utills/fullLink";
+import Spin from "UI/Spin/Spin";
 
 const CartPage = (props) => { 
     let params = useParams() 
-    let history = useHistory() 
+    // let history = useHistory()
     const dispatch = useDispatch()
 
     const {loadingStates, cartState, appState: { selectedLang, lang } } = props
@@ -24,7 +25,7 @@ const CartPage = (props) => {
 
   function handlePushBack(){
     // history.back() 
-    history.goBack()
+    // history.goBack()
   }
   
   function handleProductAction(type, prod){
@@ -103,37 +104,37 @@ const CartPage = (props) => {
   
   
   return (
-    <Container maxWidth={1688}>
+    <div>
       
-      <Row>
+      <div>
         
-        <Col xs={24} md={24} lg={16} >
+        <div  >
           <div className="cart_items">
             <h3 className="t-center"> {isEn(selectedLang) ? "Your Cart" : lang.cart_title}</h3>
             
             { cartState.cartProducts && cartState.cartProducts.length > 0
             && renderCartItems()}
             
-            <Row justify={"between"}>
+            <div >
               <Button onClick={handlePushBack}>{isEn(selectedLang) ? "Back to Shop" : lang.continue_to_shop}  </Button>
               <Link to="/shopping/cart/checkout">
                 <Button className="right" >Go to Checkout</Button>
               </Link>
-            </Row>
+            </div>
           </div>
         
-        </Col>
-        <Col xs={24} md={24} lg={8}  >
+        </div>
+        <div  >
           <div className="remm_product">
             <Title level={3} className="section_title">Recommend Products</Title>
           </div>
-        </Col>
+        </div>
       
-      </Row>
+      </div>
     
     
     
-    </Container>
+    </div>
   )
 };
 

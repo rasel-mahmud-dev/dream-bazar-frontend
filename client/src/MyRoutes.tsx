@@ -19,7 +19,7 @@ const SellerHub = lazy(()=>import("src/pages/SellerHub/Index"))
 const StoreList = lazy(()=>import("src/pages/SellerHub/StoreList/StoreList"))
 
 const EmailAndPhoneVerification = lazy(()=>import("src/pages/Auth/EmailVerification"))
-const ProductFilterPage = lazy(()=>import("src/pages/productFilterPage/ProductFilterPage"))
+const ProductFilterPage: any = lazy(()=>import("src/pages/productFilterPage/ProductFilterPage"))
 const StorePage = lazy(()=>import("src/pages/storePage/StorePage"))
 
 

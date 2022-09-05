@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { useHistory, useParams, Link } from "react-router-dom"
+import {useParams, Link, useLocation, useNavigate} from "react-router-dom"
 import qs from "query-string"  
 import Image from "components/UI/Image/Image"
 import FilterSidebar from "components/FilterSidebar/FilterSidebar"
@@ -18,8 +18,10 @@ interface ProductProps {
 
 const Products: FC<ProductProps> = (props) => { 
 
-    const history = useHistory()  
+    // const history = useHistory()
+    const navigate = useNavigate()
     const params = useParams()   
+    const location = useLocation()
 
     const [isEntryLevel, setEntryLevel] = React.useState(false)
     const [ queryObject , setQueryObject] = React.useState<{
@@ -38,7 +40,7 @@ const Products: FC<ProductProps> = (props) => {
    
     let h = {}
 
-    let query: { id?: string, type?: string, slug?: string } = qs.parse(history.location.search) 
+    let query: { id?: string, type?: string, slug?: string } = qs.parse(location.search)
 
   
     // @ts-ignore
@@ -133,7 +135,7 @@ const Products: FC<ProductProps> = (props) => {
         
 
 
-    }, [query.slug, history.location.search]) 
+    }, [query.slug, location.search])
   
   
 
@@ -153,13 +155,13 @@ const Products: FC<ProductProps> = (props) => {
                     if(sub1.name === params.children){
                         b = {...sub1}
                         let seletedBreadcrumbIndex = productDropdownNavData.findIndex(d=>d.id === pdata.id)
-                        history.push(`/products/?type=${b.type}&id=${b.id}&slug=${b.name}`) 
+                        navigate(`/products/?type=${b.type}&id=${b.id}&slug=${b.name}`)
                         sub1.subCategory = []
                     } else{ 
                         sub1.subCategory.map(sub2=>{
                             if(sub2.name === params.children){
                                 let seletedBreadcrumbIndex = productDropdownNavData.findIndex(d=>d.id === pdata.id)
-                                history.push(`/products/?type=${sub2.type}&id=${sub2.id}&slug=${sub2.name}`) 
+                                navigate(`/products/?type=${sub2.type}&id=${sub2.id}&slug=${sub2.name}`)
                             } else{
                                 sub2.items.map(item=>{
                                 if(item.name === params.children){

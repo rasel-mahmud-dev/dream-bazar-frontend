@@ -1,4 +1,4 @@
-import staticDir from "../utilities/staticDir";
+import dataDir from "../utilities/dataDir";
 
 const path = require("path");
 
@@ -6,7 +6,7 @@ function sqlDatabase(){
     const sqlite3 = require('sqlite3').verbose();
 
     return new Promise((resolve, reject)=>{
-        const dbPath = path.resolve( staticDir + "/db.db")
+        const dbPath = path.resolve(dataDir + "/db.db")
         const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err: any) => {
 
             if(err){

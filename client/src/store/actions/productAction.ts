@@ -1,6 +1,6 @@
 import { ACTION_TYPES } from "store/types"
 import apis from "src/apis";
-import {RootState, RootStateType} from "src/store";
+import {RootState} from "src/store";
 
 
 export const fetchProducts = () => async (dispatch, getState, api) => {
@@ -34,35 +34,64 @@ export const fetchHomePageSectionProducts = () => async (dispatch, getState: ()=
   // let loadingState = loadingStates.find(ls=>ls.where === "home_section")
 
 
-    let h = {}
+  let h = {}
 
-  homePageSectionsData.forEach( (data, i)=>{
-    (async function(){
-      try {
-
-        // await api.get(`/api/products/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
-        if(data.params){
-          let response = await apis.get(`/api/products/filter/v2?${data.params}`)
-
-          h[data.name] = { values: response.data, type: data.type }
-
-          if(homePageSectionsData.length === (i + 1)){
-            // console.log(h)
-            dispatch({
-              type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
-              payload: h
-            })
-
-            // handlerLoader(dispatch, {isLoading: false, where: "home_section"})
-          }
-        }
-
-      } catch (ex){
-        console.log(ex)
-      }
-
-    })()
+  let data = homePageSectionsData.map(section=>{
+    return {
+      name: section.name,
+      params: section.params
+    }
   })
+
+  let response = await apis.post(`/api/products/home-section`, {
+    data: data
+  })
+
+  if(response.status === 200) {
+    dispatch({
+      type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
+      payload: response.data
+    })
+  }
+
+
+  // homePageSectionsData.forEach( (data, i)=>{
+  //   (async function(){
+  //     try {
+  //
+  //       // await api.get(`/api/products/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
+  //       if(data.params){
+  //         // let response = await apis.get(`/api/products/filter/v2?${data.params}`)
+  //
+  //
+  //         let response = await apis.post(`/api/products/home-section`, {
+  //           data: data.params
+  //         })
+  //
+  //         console.log(response)
+  //
+  //         // console.log(data.params)
+  //
+  //         // h[data.name] = { values: response.data, type: data.type }
+  //         //
+  //         // if(homePageSectionsData.length === (i + 1)){
+  //         //   // console.log(h)
+  //         //   dispatch({
+  //         //     type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
+  //         //     payload: h
+  //         //   })
+  //         //
+  //         //   // handlerLoader(dispatch, {isLoading: false, where: "home_section"})
+  //         // }
+  //
+  //       }
+  //
+  //     } catch (ex){
+  //       console.log(ex)
+  //     }
+  //
+  //   })()
+  // })
 
 
 

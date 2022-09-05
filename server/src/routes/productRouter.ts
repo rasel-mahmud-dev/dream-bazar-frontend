@@ -1,5 +1,3 @@
-import isAuth from "../middlewares/isAuth"
-
 const productsFilter = require("../workers/productsFilter")
 
 import {
@@ -15,7 +13,10 @@ import {
   productUpdate,
   saveProducts,
   updateProductPutReq,
-  uploadHandler, productFiltersGetV2
+  uploadHandler,
+  productFiltersGetV2,
+  getHomepageSectionProducts
+
 } from "../controllers/productController"
 
 
@@ -24,8 +25,6 @@ import {
   getProductDescriptions,
   deleteProductDescription
 } from "../controllers/productDescriptionController"
-
-const fetchHomePageSectionProducts = require("../workers/fetchHomePageSectionProducts");
 
 
 
@@ -38,11 +37,13 @@ export default function (app){
   app.get("/api/products/count", getProductCount)
   
   // use worker_threads
-  app.get("/api/products/fetch-home-page", async (req, res, next)=>{
-    let p = await fetchHomePageSectionProducts(req.query)
-    res.send(p)
-  })
+  // app.get("/api/products/fetch-home-page", async (req, res, next)=>{
+  //   let p = await fetchHomePageSectionProducts(req.query)
+  //   res.send(p)
+  // })
+
   // app.get("/api/products/fetch-home-page", productFilterHomePage)
+
   app.get("/api/products/filter", productFilters)
   app.post("/api/products/filter", productFiltersPost)
   
@@ -60,6 +61,8 @@ export default function (app){
   // })
 
   app.get("/api/products/filter/v2", productFiltersGetV2)
+
+  app.post("/api/products/home-section", getHomepageSectionProducts)
 
   app.post("/api/products/update/:id", productUpdate)
   app.get("/api/products/category-product/:categoryId", fetchCategoryProducts)

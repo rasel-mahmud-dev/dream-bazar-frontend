@@ -31,6 +31,19 @@ export const ACTION_TYPES = {
   
   SET_BRAND_FOR_CATEGORY: "SET_BRAND_FOR_CATEGORY",
   
-  SET_UI_FILTER_ITEM: "SET_UI_FILTER_ITEM"
+  SET_UI_FILTER_ITEM: "SET_UI_FILTER_ITEM",
+  
+  FETCH_CATEGORIES: "FETCH_CATEGORIES",
+  FETCH_BRANDS: "FETCH_BRANDS"
 
+}
+
+
+export interface CategoryType{
+  name: string,
+  id: string,
+  parentId: string,
+  sub?: CategoryType[],
+  expand?: boolean
+  active?: boolean
 }

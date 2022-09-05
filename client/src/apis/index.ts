@@ -2,7 +2,7 @@
 import axios from "axios" 
 
 
-export const backend = "http://localhost:3001"
+export const backend = "http://localhost:2000/.netlify/functions/app"
 
 // export const backend = "https://localhost"
 // export const staticOrigin = "https://localhost"

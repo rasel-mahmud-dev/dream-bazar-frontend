@@ -2,7 +2,7 @@
 
 const Line = ({className, ...other}) => {
     return (
-        <div class={"skeleton-line " +className} {...other}>
+        <div className={"skeleton-line " +className} {...other}>
             
         </div>
     );

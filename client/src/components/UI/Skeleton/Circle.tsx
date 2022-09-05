@@ -2,7 +2,7 @@
 
 const Circle = ({className, ...other}) => {
     return (
-        <div class={"skeleton-circle " + className} {...other}>
+        <div className={"skeleton-circle " + className} {...other}>
             
         </div>
     );

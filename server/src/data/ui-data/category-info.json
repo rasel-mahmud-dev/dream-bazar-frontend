@@ -1,0 +1,163 @@
+[
+  {
+    "id": "clothing and accessories",
+    "render_product_attr": [
+      "brand",
+      "title",
+      "price",
+      "size"
+    ],
+    "filter_items_exclude": [],
+    "filter_items": [
+      "size",
+      "ideal_for",
+      "color",
+      "discount"
+    ],
+    "default_expand": []
+  },
+  {
+    "id": "top wear",
+    "filter_items": [
+      "size",
+      "ideal_for",
+      "color",
+      "discount",
+      "customer_rate"
+    ],
+    "default_expand": [
+      "color",
+      "customer_rate"
+    ],
+    "filter_items_exclude": [
+      "ideal_for"
+    ]
+  },
+  {
+    "_id": "610661af3763b883da372233",
+    "id": "sharts",
+    "filter_items": [
+      "ideal_for",
+      "size",
+      "color"
+    ],
+    "filter_items_exclude": [
+      "ideal_for"
+    ],
+    "default_expand": [
+      "ideal_for"
+    ]
+  },
+  {
+    "id": "t-sharts",
+    "_id": "610660933763b883da37222f",
+    "filter_items_exclude": [],
+    "filter_items": [
+      "size",
+      "color"
+    ],
+    "default_expand": [
+      "size"
+    ]
+  },
+  {
+    "id": "sarees",
+    "_id": "61397fe19d681052496d2457",
+    "render_product_attr": [
+      "brand",
+      "title",
+      "price"
+    ],
+    "filter_items": [
+      "sari_length"
+    ],
+    "filter_items_exclude": [
+      "ideal_for"
+    ]
+  },
+  {
+    "id": "mobile and accessories",
+    "filter_items": [
+      "ram",
+      "screen_size",
+      "internal_storage",
+      "discount",
+      "offer",
+      "customer_rate"
+    ]
+  },
+  {
+    "id": "mobiles",
+    "_id": "60df5e546419f56b97610602",
+    "render_product_attr": [],
+    "filter_items": [
+      "ram",
+      "internal_storage",
+      "screen_size",
+      "discount",
+      "customer_rate",
+      "cpu_core",
+      "clock_speed",
+      "os_version",
+      "processor_brand",
+      "network_type",
+      "sim_type",
+      "primary_camera",
+      "os"
+    ]
+  },
+  {
+    "id": "motherboard",
+    "filter_items": [
+      "generation",
+      "form_factor"
+    ],
+    "default_expand": [
+      "generation",
+      "form_factor"
+    ]
+  },
+  {
+    "id": "computers",
+    "filter_items": [
+      "generation"
+    ],
+    "default_expand": [
+      "generation"
+    ]
+  },
+  {
+    "render_product_attr": [
+      "title",
+      "size"
+    ],
+    "filter_items": [
+      "size",
+      "ideal_for"
+    ],
+    "filter_items_exclude": [],
+    "default_expand": [
+      "ideal_for"
+    ],
+    "id": "footwear",
+    "_id": "616ed4e947cdd777fb383273"
+  },
+  {
+    "render_product_attr": [
+      "title",
+      "price"
+    ],
+    "filter_items": [
+      "monitor_screen_size",
+      "number_of_hdmi_ports",
+      "number_of_usb_ports",
+      "color"
+    ],
+    "filter_items_exclude": [],
+    "default_expand": [
+      "monitor_screen_size"
+    ],
+    "id": "Televisions",
+    "_id": "61489d4e841259e4451165f2"
+  }
+]

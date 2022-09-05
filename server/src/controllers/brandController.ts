@@ -1,13 +1,17 @@
   
 import dbConnect from "../database"
 // import BrandController from "../../src/pages/Admin/Components/BrandController";
+import {NextFunction, Request, Response} from "express"
 
 import { ObjectId } from "mongodb"
+import {collections} from "../services/database.service";
+import sqlDatabase from "../database/sqlDatabase";
+import {errorResponse} from "../response";
 const fileUpload = require("../utilities/fileUpload")
 const isObjectId = require("../utilities/isObjectId")
 
 
-export const getBrandsCount = async (req, res, next)=>{
+export const getBrandsCount = async (req: Request, res: Response, next: NextFunction)=>{
   const { _id } = req.query
   let client;
   try{
@@ -24,7 +28,7 @@ export const getBrandsCount = async (req, res, next)=>{
   }
 } 
 
-export const fetchBrandsWithFilter = async (req, res, next)=>{
+export const fetchBrandsWithFilter = async (req: Request, res: Response, next: NextFunction)=>{
   
   let client;
   const { brands=[], forCategoryIds } = req.body
@@ -65,69 +69,97 @@ export const fetchBrandsWithFilter = async (req, res, next)=>{
 
 let ms;
 
-export const getBrands =  async (req, res, next)=>{
-  
 
-  let client; 
 
-  let {perPage=10, pageNumber=1} = req.query  
-  
-  let startTime = Date.now()
-  
-  try{
-    const {c: brandCollection, client: cc } = await dbConnect("brands") 
-    client = cc
+export const saveBrand =  async (data)=>{
+  const { id, name, logo, forCategory  } = data;
 
-    const cursor = brandCollection.aggregate([
-      {
-        $lookup: {
-          from: "categories",
-          localField: "for_category",
-          foreignField: "_id",
-          as: "for_categories"
-        }
-      },
-      // { $skip: perPage * (pageNumber - 1) },
-      // { $limit: Number(perPage) },
-      {
-        $project: {
-          name: 1,
-          logo: 1,
-          created_at: 1,
-          updated_at: 1,
-          for_category: 1,
-          for_categories: {
-            _id: 1,
-            name: 1,
-            logo: 1,
-          },
-        }
+  let db: any
+  try {
+    db = await sqlDatabase()
+    let sql = `
+        INSERT INTO brands('id', 'name', 'logo', 'forCategory') values("${id}", "${name}", "${logo}", '${JSON.stringify(forCategory)}')
+     `
+
+    // let sql = `
+    //      DROP TABLE if EXISTS "brands";
+    //      CREATE TABLE "brands" (
+    //       id TEXT NOT NULL,
+    //       name text(200) NOT NULL,
+    //       logo text(500) NOT NULL,
+    //       forCategory JSON,
+    //       CONSTRAINT "brands_pk" PRIMARY KEY("name", "id")
+    // )
+    //  `
+
+    db.exec(sql, function (data: any, err: any){
+      if(err){
+        console.log(err)
+        return;
       }
-    ])   
-
-    let brands = []
-    await cursor.forEach(brand=>{
-      if(brand){
-        brands.push(brand) 
-      }
+      console.log(data)
+      console.log("table has been created")
     })
 
 
-    
-    res.status(200).json({brands: brands})
-    // res.status(200).json({brands: brands, ms: s})
+
+  } catch(ex){
+
+  } finally{
+    db && db.close()
+  }
+}
+
+
+export const getBrands =  async (req: Request, res: Response, next: NextFunction)=>{
+
+  let {perPage=10, pageNumber=1} = req.query
+
+  let db;
+  try {
+    db = await sqlDatabase()
+
+    let sql = `SELECT * FROM brands`
+    db.all(sql, function (err, data) {
+      if (err || !data) {
+        errorResponse(res, 404, "brands not found")
+        return;
+      }
+      res.send(data)
+    })
+
+    // let brands = await collections.brands.find().toArray();
+    //
+    //
+    //
+    // brands.forEach(brand=>{
+    //   const brandObj = {
+    //       name: brand.name,
+    //       id: brand._id.toString(),
+    //       logo: brand.logo ? brand.logo : "",
+    //       forCategory: brand.for_category ? brand.for_category : []
+    //   }
+    //
+    //   brandObj.forCategory = brandObj.forCategory.map(b=>b.toString())
+    //   saveBrand(brandObj)
+    //
+    // })
+
 
   } catch(ex){
      next()
     console.log(ex)
 
   } finally{
-    client?.close()
+
   }
 }
 
-export const getBrand =  async (req, res, next)=>{
-  const { brandId, brand_name } = req.query
+export const getBrand =  async (req: Request, res: Response, next: NextFunction)=>{
+  const { brandId, brand_name } = req.query as {
+    brandId: string,
+    brand_name: string
+  }
   let client;
   
   try{
@@ -152,7 +184,7 @@ export const getBrand =  async (req, res, next)=>{
   }
 }
 
-export const getBrandsByIds =  async (req, res, next)=>{
+export const getBrandsByIds =  async (req: Request, res: Response, next: NextFunction)=>{
   const { ids } = req.body
   let client;
   try {
@@ -182,7 +214,7 @@ export const getBrandsByIds =  async (req, res, next)=>{
   }
 } 
 
-export const saveBrands =  async (req, res, next)=>{
+export const saveBrands =  async (req: Request, res: Response, next: NextFunction)=>{
 
   const { name, for_category, logo }  = req.body 
 
@@ -230,7 +262,7 @@ export const saveBrands =  async (req, res, next)=>{
   }
 }
 
-export const saveBrandsWithImage =  async (req, res, next)=>{
+export const saveBrandsWithImage =  async (req: Request, res: Response, next: NextFunction)=>{
   
   let client;
   

@@ -1,9 +1,9 @@
 import React from 'react' 
-import { useParams, useHistory } from "react-router-dom"
+import { useParams, } from "react-router-dom"
 import "./accountInfo.scss"
 import blobToBase64 from "src/utills/blobToBase64"
 import fullLink from "src/utills/fullLink"
-import {Button, Input, Divider, Popup, Password} from "components/UI"
+import {Button, Input,  Popup, Password} from "components/UI"
 
 import {connect, useDispatch} from "react-redux"
 import apis from "src/apis";
@@ -12,7 +12,7 @@ import apis from "src/apis";
 const AccountInfo = (props) => { 
   let inputRef = React.useRef<HTMLInputElement>(null)
   let params = useParams() 
-  let history = useHistory() 
+  // let history = useHistory()
   const dispatch = useDispatch()
   const { authState } = props
   let [collapseIds, setCollapseIds] = React.useState(["4", "sdf"])
@@ -147,7 +147,7 @@ const AccountInfo = (props) => {
                 <h4>{new Date(fetchProfile.created_at).toDateString()}</h4>
               </div>
            </li>
-             <Divider />
+             {/*<Divider />*/}
           {!fetchProfile.password && <div className="row d-flex align-center">
             <h4 className="mr-5">set password to next time log in</h4>
               <Button onClick={()=>setShowPassForm(!isShowSetPassForm)}>Set Password</Button>

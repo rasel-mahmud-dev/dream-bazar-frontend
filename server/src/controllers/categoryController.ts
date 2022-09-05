@@ -1,12 +1,14 @@
 import fs from "fs";
+
 const { ObjectId} = require("mongodb")
 import dbConnect from "../database"
 
 const isObjectId = require("../utilities/isObjectId") 
 import { errorResponse, successResponse } from "../response"
 import sqlDatabase from "../database/sqlDatabase";
+import {NextFunction, Request, Response} from "express";
 
-export const getCategoriesCount = async (req, res, next)=>{
+export const getCategoriesCount = async (req: Request, res: Response, next: NextFunction)=>{
   const { _id } = req.query
   let client;
   try{
@@ -23,9 +25,9 @@ export const getCategoriesCount = async (req, res, next)=>{
 } 
 
 
-export const getCategories = async (req, res, next)=>{
+export const getCategories =  async (req: Request, res: Response, next: NextFunction)=>{
   try {
-    // fs.readFile(path.resolve( staticDir + "/ui-data/product_categories.json"), function (err, data){
+    // fs.readFile(path.resolve( dataDir + "/ui-data/product_categories.json"), function (err, data){
     //   if(err){
     //     errorResponse(res, 500, err.message)
     //     return
@@ -41,7 +43,7 @@ export const getCategories = async (req, res, next)=>{
   }
 }
 
-export const getCategory = async (req, res, next)=>{
+export const getCategory =  async (req: Request, res: Response, next: NextFunction)=>{
   const  {name, parentId} = req.query
   let db;
   try {
@@ -135,7 +137,7 @@ function getAllCategories(sql: string, ...args: any){
   })
 }
 
-export const saveCategory = async (req, res, next)=>{
+export const saveCategory =  async (req: Request, res: Response, next: NextFunction)=>{
   const { id, name, parentId, isProductLevel  } = req.body
   let db: any
   try {
@@ -143,7 +145,7 @@ export const saveCategory = async (req, res, next)=>{
     let sql = `
         INSERT INTO categories('id', 'name', 'parentId', 'isProductLevel') values('${id}', '${name}', '${parentId}', '${isProductLevel}')
      `
-    db.exec(sql, function (data, err){
+    db.exec(sql, function (data: any, err: any){
       console.log(err, data)
     })
 
@@ -165,7 +167,7 @@ export const saveCategory = async (req, res, next)=>{
 }
 
 
-export const updateCategory = async (req, res, next)=>{
+export const updateCategory = async (req: Request, res: Response, next: NextFunction)=>{
   const { id } = req.params  
 
   const updatedCategory = req.body
@@ -200,7 +202,7 @@ export const updateCategory = async (req, res, next)=>{
     } else{
       next("internal error")
     }
-     
+
   } catch(ex){
     next(ex)
     console.log(ex)
@@ -212,7 +214,8 @@ export const updateCategory = async (req, res, next)=>{
 }
 
 
-export const deleteCategory = async (req, res, next)=>{
+
+export const deleteCategory = async (req: Request, res: Response, next: NextFunction)=>{
   const { id } = req.params  
 
   if(!isObjectId(id)){
@@ -241,7 +244,7 @@ export const deleteCategory = async (req, res, next)=>{
 }
 
 
-export const getCategoryByIds = async (req, res, next) => {
+export const getCategoryByIds = async (req: Request, res: Response, next: NextFunction)=>{
   let client;
   const { type, ids } = req.body 
   try {
@@ -277,7 +280,7 @@ export const getCategoryByIds = async (req, res, next) => {
 // category Filter for varies type filter for [ homepage, filter-sidebar ] 
 // fetch all child category for parent category that id given
 
-export const filterCategoryFetch = async (req, res, next)=>{
+export const filterCategoryFetch =  async (req: Request, res: Response, next: NextFunction)=>{
   
   const { type, categoryId } = req.query 
   let client;
@@ -323,7 +326,7 @@ export const filterCategoryFetch = async (req, res, next)=>{
 
   
 
-export const fetchCategoryWithFilter = async (req, res, next)=>{
+export const fetchCategoryWithFilter =  async (req: Request, res: Response, next: NextFunction)=>{
   
   const { type, is_product_level } = req.body 
 
@@ -369,7 +372,7 @@ export const fetchCategoryWithFilter = async (req, res, next)=>{
 
   
   
-export const getCategoryFilterSection = async (req, res, next)=>{
+export const getCategoryFilterSection =  async (req: Request, res: Response, next: NextFunction)=>{
   const { id } = req.params 
   let client;
  
@@ -475,7 +478,7 @@ client = cc
 
 
 //! Here nested array of lookup bug...
-export const getCategoryExpand = async (req, res, next)=>{
+export const getCategoryExpand =  async (req: Request, res: Response, next: NextFunction)=>{
   let client;
   
   try{

@@ -4,10 +4,10 @@ import api from "src/apis"
 import fullLink from 'src/utills/fullLink'
 import "./style.scss"
 import Title from "UI/typography/Title";
-import {Button, Row, Image, Container} from "components/UI";
-import Slider from "components/slider/Slider";
+import {Button,  Image, } from "components/UI";
+// import Slider from "components/slider/Slider";
 import apis from "src/apis";
-import {Link, useHistory} from  "react-router-dom"
+import {Link} from  "react-router-dom"
 import {isEn} from "src/lang";
 import qstring from "query-string";
 // import json from "src/breadcrumbData.json";
@@ -66,33 +66,35 @@ const Store = (props: StorePropsType)=>{
   const [queryObj, setQueryObj] = React.useState({cat: "", cat_tree: "", brand: ""})
   
   const dispatch  = useDispatch()
-  const history  = useHistory()
+  // const history  = useHistory()
   
   useEffect(()=>{
-    let qs: any = qstring.parse(history.location.search)
-    setQueryObj(qs)
-    if(qs.cat){
-      if(qs.cat.endsWith("-store")){
-        storeId =  qs.cat
-        let store: any = storeData.find(sd=>sd.store_id === storeId )
-        if(store){
-          // console.log(store)
-          setStore(store)
-        }
-      } else{
-        // let fCat = json ? json.find(c=>c.id === qs.cat) : null
-        // dispatch({
-        //   type: "SET_CURRENT_CATEGORY_ROOT",
-        //   payload: fCat
-        // })
-      }
-    }
+    
+    // let qs: any = qstring.parse(history.location.search)
+    // setQueryObj(qs)
+    // if(qs.cat){
+    //   if(qs.cat.endsWith("-store")){
+    //     storeId =  qs.cat
+    //     let store: any = storeData.find(sd=>sd.store_id === storeId )
+    //     if(store){
+    //       // console.log(store)
+    //       setStore(store)
+    //     }
+    //   } else{
+    //     // let fCat = json ? json.find(c=>c.id === qs.cat) : null
+    //     // dispatch({
+    //     //   type: "SET_CURRENT_CATEGORY_ROOT",
+    //     //   payload: fCat
+    //     // })
+    //   }
+    // }
     
     // return ()=>{
       // setStore({name: "", sections: [], store_id: "", store_name: "", top_brands: []})
     // }
   
-  }, [history.location.search])
+  // }, [history.location.search])
+  }, [])
   
   
   useEffect(()=>{
@@ -210,9 +212,10 @@ const Store = (props: StorePropsType)=>{
                 <h2 className="t-center">{section.name.toUpperCase()}</h2>
                 <span className="span-underline"/>
               </div>
-              {section.sliders && section.sliders.map(sli=>(
-                <Slider images={sli.slider_images} />
-              ))}
+              
+              {/*{section.sliders && section.sliders.map(sli=>(*/}
+              {/*  <Slider images={sli.slider_images} />*/}
+              {/*))}*/}
               
               <div>{ renderSectionProducts(section.name) }</div>
               
@@ -240,7 +243,7 @@ const Store = (props: StorePropsType)=>{
   }
   
   return (
-    <Container maxWidth={1688}>
+    <div >
       
       {renderStoreHeader()}
       { store ? (
@@ -250,16 +253,16 @@ const Store = (props: StorePropsType)=>{
               {renderTopBrand()}
               {isShowTopBrandBtn && <Button onClick={()=>topBrandRef.current.scrollLeft += 300 } hover={false} className="scroll_button" icon="next-brand-btn-icon fa fa-angle-right"  /> }
             </div>
-            <Row>
+            <div>
               { storeDesc.banner_image && <Image src={fullLink(storeDesc.banner_image)}  maxWidth={100}/>}
-            </Row>
+            </div>
             <div className="store-sections">
               { renderStoreSectionProduct() }
             </div>
           </div>
         ) : null
       }
-    </Container>
+    </div>
   )
 }
 

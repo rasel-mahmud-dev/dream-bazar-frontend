@@ -1,8 +1,8 @@
 import React from 'react' 
-import { useParams, useHistory, Link } from "react-router-dom"
+import { useParams,  Link } from "react-router-dom"
 import qs from "src/utills/qs"
 
-import {Button, Menu, Divider} from "components/UI"
+import {Button, Menu} from "components/UI"
 import { useDispatch} from "react-redux"
 
 
@@ -12,7 +12,7 @@ const {SubMenu} = Menu
 
 const OrderDetails = (props) => { 
   let params = useParams() 
-  let history = useHistory() 
+  // let history = useHistory()
   const dispatch = useDispatch()
 
   const {loadingStates, cartState, _id} = props
@@ -26,7 +26,7 @@ const OrderDetails = (props) => {
       //   let {data} = await api.get(`/api/order/${_id}/${}`)
       //   setOrder(data.order)
       }
-      console.log(qs(history))
+      // console.log(qs(history))
     }())
   }, [_id])
   
@@ -38,7 +38,7 @@ const OrderDetails = (props) => {
 
   function handlePushBack(){
     // history.back() 
-    history.goBack()
+    // history.goBack()
   }
   
   function handleProductAction(type, prod){
@@ -89,7 +89,7 @@ const OrderDetails = (props) => {
   return (
       <div className="container"> 
          
-        <Divider lineHeight={3} />
+        {/*<Divider lineHeight={3} />*/}
           
           <h1 className="t-center">Orders Details</h1> 
           

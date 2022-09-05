@@ -1,7 +1,7 @@
-import { ACTION_TYPES } from "src/store/types"
+import {ACTION_TYPES, CategoryType} from "src/store/types"
 
 import filterSidebar from "./filterSidebar.reducer"
-import React from "react";
+
 
 interface eachCat {
   name: string,
@@ -64,10 +64,6 @@ export interface ProductStateType {
   totalProduct: number,
   totalFilterAbleProductCount: number,
   products: any
-  currentCategoryRoot: {
-     name: string, id: string, _id: string, sub_menu: {}[]
-  } | null,
-  currentCategorySelected: {name?: string, id: string, _id: string },
   category: { // this is need for filter sidebar
     // filters: {name: string, values: {name: "string", value: any}[]}[]
     brands: {_id: string, name: string}[] // populated from brands collections
@@ -95,8 +91,8 @@ export interface ProductStateType {
     category_id?: string,
     filterItem_sections?: {attribute_name: string, name: string, values: { name: string, value: string | object }}[]
   },
-  currentNestedSubCategory: LastSelectedCategoryProps,
-  selectedCatSections : SelectedCatSectionType
+  flatCategories: CategoryType[] | null
+  brands: {}
 }
 
 const initialState: ProductStateType = {
@@ -148,9 +144,6 @@ const initialState: ProductStateType = {
   
   /// make caching brand for individual category
   brandsForCategory: [],
-  
-  currentCategorySelected: {name: "", id: "", _id: ""},
-  currentCategoryRoot: {name: "", id: "", _id: "", sub_menu: []},
   filters: {
     price: [10, 100],
     brands: [],
@@ -159,14 +152,11 @@ const initialState: ProductStateType = {
   filteredAttributes: [],
   expandFilterItems_sectionIds: ["generation"],
   filterItem_sections_data: {},
-  currentNestedSubCategory: {},
-  selectedCatSections : {
-    oneLevel: null,
-    twoLevel: null,
-    threeLevel: null,
-    fourLevel: null,
-    fiveLevel: null,
-  }
+  flatCategories: null,
+  
+  brands: {},
+  
+  
 }
 
 
@@ -228,7 +218,15 @@ const productReducer = (state: ProductStateType=initialState, action)=>{
     case ACTION_TYPES.FETCH_PRODUCTS : 
       updatedState.products = action.payload
       return updatedState
-      
+    
+    case ACTION_TYPES.FETCH_BRANDS:
+      updatedState.brands[action.payload.categoryId] = action.payload.brands
+      return updatedState
+    
+    case ACTION_TYPES.FETCH_CATEGORIES :
+      updatedState.flatCategories = action.payload
+      return updatedState
+    
     
     // if change page number then call this
     case ACTION_TYPES.FETCH_PRODUCTS_APPEND :
@@ -354,17 +352,10 @@ const productReducer = (state: ProductStateType=initialState, action)=>{
       updatedState.filteredAttributes = action.payload
       return updatedState
       
-    case "SET_CURRENT_CATEGORY_SELECTED":
-      updatedState.currentCategorySelected = action.payload 
-      return updatedState
-      
     case "SET_CATEGORY":
       updatedState.category = action.payload 
       return updatedState
     
-    case "SET_CURRENT_CATEGORY_ROOT":
-      updatedState.currentCategoryRoot = action.payload 
-      return updatedState
     
     case "SET_FILTER_SECTION_TOGGLE_ATTRIBUTE_NAME":
       updatedState.expandFilterItems_sectionIds = action.payload

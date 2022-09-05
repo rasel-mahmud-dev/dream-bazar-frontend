@@ -1,19 +1,19 @@
 import React from 'react' 
-import { useParams, useHistory } from "react-router-dom"
+import { useParams, } from "react-router-dom"
 
-import {Button, Spin, Input, Divider} from "components/UI"
+import {Button, Spin, Input, } from "components/UI"
 import {connect, useDispatch} from "react-redux"
 
 
 const SellerHub = (props) => { 
     let params = useParams() 
-    let history = useHistory() 
+    // let history = useHistory()
     const dispatch = useDispatch()
 
 
   function handlePushBack(){
     // history.back() 
-    history.goBack()
+    // history.goBack()
   }
   
 
@@ -23,7 +23,7 @@ const SellerHub = (props) => {
           <h1>Join Us Now!</h1>
           <Input placeholder="Enter 11 digit phone number here" />
           <Button onClick={handlePushBack}>Registration Now</Button>
-          <Divider /> 
+    
           <h1>Why Sell Here</h1>
         </div>
     )

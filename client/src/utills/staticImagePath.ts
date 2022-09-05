@@ -2,9 +2,9 @@
 
 const staticImagePath = (fileName: string)=>{
     if(import.meta.env.DEV){
-        return "/src/assets/static/"  + fileName
+        return "/static/"  + fileName
     } else {
-        return "/assets/static/"  + fileName
+        return "/static/"  + fileName
     }
 }
 

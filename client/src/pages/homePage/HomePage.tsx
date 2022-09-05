@@ -5,7 +5,7 @@ import {connect, useDispatch} from "react-redux"
 import {Link, useNavigate} from "react-router-dom"
 import {fetchHomePageSectionProducts, fetchProducts} from "actions/productAction"
 import {addToCart} from "actions/cartAction"
-import {Button, Carousel, Container, Image, Menu, Popup, Spin} from "UI/index"
+import {Button, Carousel,  Image, Menu, Popup, Spin} from "UI/index"
 import {closeNotify} from "actions/appAction"
 import {isEn} from "src/lang"
 import fullLink from "src/utills/fullLink";
@@ -237,7 +237,7 @@ const HomePage = (props) => {
                           <div className="product_image_div">
                             <div className="product_image_wra">
 
-                              <img src={fullLink(pp.cover_photo)} alt=""/>
+                              <img src={staticImagePath(pp.cover_photo)} alt="AAAAAAAAAAAAA"/>
                             </div>
                           </div>
                           // <div className="product_image">

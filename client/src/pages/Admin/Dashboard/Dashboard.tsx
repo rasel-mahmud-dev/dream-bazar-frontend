@@ -1,6 +1,6 @@
 
 import React from "react"
-import {Switch, Route, NavLink, Link, useHistory} from "react-router-dom"
+import { Route, NavLink, Link} from "react-router-dom"
 
 import ProductController from "../Components/ProductController"
 import CategoryController from "../Components/CategoryController"
@@ -91,8 +91,8 @@ const SideBar = (props)=> {
 
 
 const Dashboard = (props) =>{ 
-  const history = useHistory()
-  const pathname = history.location.pathname 
+  // const history = useHistory()
+  // const pathname = history.location.pathname
   const baseURL = "/auth/admin/dashboard"
   
   function addNestedRoutes(){
@@ -105,28 +105,29 @@ const Dashboard = (props) =>{
     //<Route exact={true} path="/auth/admin/dashboard/categories" component={CategoryController} />
     //<Route exact={true} path="/auth/admin/dashboard/brands" component={BrandController} />
 
-    return (
-      <Switch>
-        {routes.map((route, i)=> <Route
-          key={i}
-          path={baseURL + route.path} 
-          component={route.component} 
-        /> 
-        )}
-      </Switch>
+    return ( "SDA"
+      // <Switch>
+      //   {routes.map((route, i)=> <Route
+      //     key={i}
+      //     path={baseURL + route.path}
+      //     component={route.component}
+      //   />
+      //   )}
+      // </Switch>
     )
   }
   
   return (
       <div>
-        <div className="sidebar-row">
-          <SideBar baseURL={baseURL} pathname={pathname} /> 
-          <div className="dashboard_content">
-            {addNestedRoutes()}
-          </div>
-        </div>
-         
-       
+        
+        {/*<div className="sidebar-row">*/}
+        {/*  <SideBar baseURL={baseURL} pathname={pathname} /> */}
+        {/*  <div className="dashboard_content">*/}
+        {/*    {addNestedRoutes()}*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+        {/* */}
+        
       </div>
     )
 }

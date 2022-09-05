@@ -1,5 +1,5 @@
 import React from 'react' 
-import { useParams, useHistory, Link } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import {Button, Spin, Input} from "components/UI"
 import {connect, useDispatch} from "react-redux"
 import { fetchProduct, toggleLoader } from "actions/productAction"
@@ -7,7 +7,7 @@ import { fetchProduct, toggleLoader } from "actions/productAction"
 
 const PaymentPage = (props) => { 
     let params = useParams() 
-    let history = useHistory() 
+    // let history = useHistory()
     const dispatch = useDispatch()
     
     const {loadingStates, cartState} = props
@@ -39,7 +39,7 @@ const PaymentPage = (props) => {
 
   function handlePushBack(){
     // history.back() 
-    history.goBack()
+    // history.goBack()
   }
   
   function handleProductAction(type, prod){

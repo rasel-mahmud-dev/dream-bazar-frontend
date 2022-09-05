@@ -1,5 +1,5 @@
 import React from 'react' 
-import { useParams, useHistory } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 import {Button} from "components/UI"
 import {connect, useDispatch} from "react-redux"
@@ -7,13 +7,13 @@ import {connect, useDispatch} from "react-redux"
 
 const StoreList = (props) => { 
     let params = useParams() 
-    let history = useHistory() 
+    // let history = useHistory()
     const dispatch = useDispatch()
 
 
   function handlePushBack(){
     // history.back() 
-    history.goBack()
+    // history.goBack()
   }
   
   function renderStore(){

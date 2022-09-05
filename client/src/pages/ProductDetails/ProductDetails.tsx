@@ -5,13 +5,13 @@ import { fetchProduct, toggleLoader } from "actions/productAction"
 import {ACTION_TYPES} from "store/types"
 
 
-import {Container, Row, Col, Button, Badge, Image, Div, Typography, Spin} from "components/UI"
+import { Button, Badge, Image, Typography, Spin} from "components/UI"
 import {connect, useDispatch } from "react-redux"
 
 let image = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`
 let image2 = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`
 
-import { useParams, useHistory } from "react-router-dom"
+import {useNavigate, useParams,} from "react-router-dom"
 import "./productDetails.scss"
 
 import { addToCart } from  "actions/cartAction"
@@ -33,7 +33,9 @@ interface ProductDetailsProps{
 
 const ProductDetails: FC<ProductDetailsProps> = (props) => {
   const params = useParams()
-  let history = useHistory()
+  
+  const navigate = useNavigate()
+  // let history = useHistory()
   
   // const {homePageSectionData} = props.productState
   
@@ -172,7 +174,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
   
   
   function handlePushBack(){
-    history.goBack()
+    navigate(-1)
   }
   
   function handleProductAction(type, prod){
@@ -234,17 +236,17 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
     if(productDescription.details) {
       return Object.keys(productDescription.details).map(sectionKey=>{
         return ( <div className="description_section">
-            <Row align="top" className="mt-5">
+            <div  className="mt-5">
               <div className="description_key description_key_att" >{sectionKey}</div>
               <div className="description_value">
                 {productDescription.details && productDescription.details[sectionKey] && Object.keys(productDescription.details[sectionKey]).map(sec=>(
-                  <Row className="description_section_row">
+                  <div className="description_section_row">
                     <li className="description_key--key">{sec}</li>
                     <li className="description_key--value">{productDescription.details && productDescription.details[sectionKey][sec]}</li>
-                  </Row>
+                  </div>
                 ))}
               </div>
-            </Row>
+            </div>
           </div>
         
         )
@@ -256,7 +258,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
 
   
   return (
-    <Container maxWidth={1688}>
+    <div >
       <div className="product_details">
   
         <div className="spin-fixed top-1/4">
@@ -291,10 +293,10 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                 } alt="" />
               </div>
               
-              <Row justify="center" className="mt-5">
+              <div  className="mt-5">
                 <Button onClick={()=>addToCartHandler(product)} size="large" theme="orange" >Add To Cart</Button>
                 <Button size="large" theme="yellow">Buy Now</Button>
-              </Row>
+              </div>
             </div>
             
             <div  className="mt-5">
@@ -334,30 +336,30 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
         
         <div className="product_description_col">
           <h4 className="text-lg font-medium mb-2">{product.title}</h4>
-          <Row>
+          <div>
             <div className="rating_badge">
               <span>{calculateRate()}</span>
               <i className="fa fa-star" />
             </div>
             <h5 className="ml-2 text-sm"> 1,50,723 Ratings & 7,095 Reviews</h5>
-          </Row>
-          <Row className="pt-3 flex items-center">
+          </div>
+          <div className="pt-3 flex items-center">
             <h4 className="text-lg font-bold">TK { calculateDiscount(product.discount || 0, product.price || 0)}</h4>
             <h5 className="off-div d-flex ml-3 ">
               <span>TK{product.price}</span>
               <span>{product.discount}% off</span>
             </h5>
-          </Row>
+          </div>
           <h6>No Cost EMI</h6>
           
           <div>
-            <Row align="top" className="mt-5">
+            <div  className="mt-5">
               <div className="description_key" >
                 <img style={{maxWidth: '20px'}} src={image} alt="" />
               </div>
               <h5 className="description_key--value">1 Year Warranty for Mobile and 6 Months for Accessories Know More</h5>
-            </Row>
-            <Row align="top" className="mt-5">
+            </div>
+            <div  className="mt-5">
               <div className="description_key" >
                 <Title level={4} className="section_title">Highlights</Title>
               </div>
@@ -369,8 +371,8 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                   </li>
                 ))}
               </ul>
-            </Row>
-            <Row align="top" className="mt-5">
+            </div>
+            <div  className="mt-5">
               <div className="description_key" >
                 <Title level={4} className="section_title">Seller</Title>
               </div>
@@ -386,14 +388,14 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                     <li>{rule}</li>
                 ))}
               </ul>
-            </Row>
+            </div>
             
-            <Row align="top" className="mt-5">
+            <div  className="mt-5">
               <div className="description_key" >
                 <Title level={4} className="section_title" >Description</Title>
               </div>
               <p className="description_value description_key--value">{productDescription.description}</p>
-            </Row>
+            </div>
           </div>
           
           <div>
@@ -401,40 +403,40 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
             { renderDeepDetails() }
             {/*{descriptionAttributes.map(eachAttribute=>(*/}
             {/*  <div className="description_section">*/}
-            {/*    <Row align="top" className="mt-5">*/}
+            {/*    <div ="mt-5">*/}
             {/*      <div className="description_key description_key_att" >{eachAttribute.name}</div>*/}
             {/*      <div className="description_value">*/}
             {/*        {eachAttribute.sections && eachAttribute.sections.map(sec=>(*/}
-            {/*          <Row className="description_section_row">*/}
+            {/*          <div className="description_section_row">*/}
             {/*            <li className="description_key--key">{sec.name}</li>*/}
             {/*            <li className="description_key--value">{sec.value}</li>*/}
-            {/*          </Row>*/}
+            {/*          </div>*/}
             {/*        ))}*/}
             {/*      </div>*/}
-            {/*    </Row>*/}
+            {/*    </div>*/}
             {/*  </div>*/}
             {/*))}*/}
-            <Row className="p-5 disclimer">
+            <div className="p-5 disclimer">
               <p><span className="strong">Disclaimer</span>. We can not guarantee that the information on this page is 100% correct. Read more</p>
-            </Row>
+            </div>
             
             <div className="question_answer_section">
               <Title level={4} weight={500} className="section_title">Questions and Answers</Title>
               <div className="question_answer_root">
                 {productQuestions.map(qs=>(
                   <div className="question_answer p-3">
-                    <Row justify={"between"}>
+                    <div >
                       <h5>Q: {qs.qs.text}</h5>
-                    </Row>
+                    </div>
                     <h5 >A: {qs.ans.text}</h5>
             
-                    <Row className="mt-2" justify="between" align={"center"}>
+                    <div className="mt-2" >
                       <div className="flex">
                         <Image  src={""} maxWidth={"avatar"}/>
                         <Title className="ml-2" level={5}>{qs.qs.username}</Title>
                       </div>
                       <Title level={6}>{new Date(qs.qs.created_at).toDateString()}</Title>
-                    </Row>
+                    </div>
             
                   </div>
                 ))}
@@ -445,7 +447,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
             <div className="rating_and_review">
               <Title level={2} weight={500} >Ratings & Reviews</Title>
   
-            <Row direction={"column"}>
+            <div >
               <div className="d-flex mt-5">
                 <div>
                   <div className="rating_badge bg-transparent rating-star big-rating ">
@@ -456,7 +458,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                   <Title className="text-grey fs-14 t-center" level={4}>&</Title>
                   <h4 className="text-grey fs-14" > {reviews.length} Total Ratings</h4>
                 </div>
-                <Row direction={"column"} className="ml-5">
+                <div  className="ml-5">
                   { rating.map(rat=>(
                     <div className="rate">
                       <div className="rating_badge bg-transparent rating-star ">
@@ -472,7 +474,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                   )) }
                   
                 
-                </Row>
+                </div>
               </div>
               
               <div className="mt-5">
@@ -487,7 +489,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                 </div>
               </div>
               
-            </Row>
+            </div>
               
               <div className="rating_root mt-5">
                 
@@ -503,13 +505,13 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                     <Title level={5}>{review.desc}</Title>
                     <Image className="mt-5 mb-2" src={image2} maxWidth={30} />
                     
-                    <Row align={"center"}>
+                    <div >
                       <Title level={5} className="mr-40">{review.username}</Title>
                       <h5 className="">
                         <i className="mr-2 fa fa-check-circle"/>
                         Certified Buyer</h5>
                       <Title level={6} className="ml-2 date">{new Date(review.created_at).toDateString()}</Title>
-                    </Row>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -529,7 +531,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
     
     
     
-    </Container>
+    </div>
   );
 }
 

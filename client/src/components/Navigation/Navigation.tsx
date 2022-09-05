@@ -2,7 +2,7 @@ import React from 'react'
 import "./Navigation.scss" 
 import {Link} from "react-router-dom" 
 import { useDispatch, connect } from "react-redux"
-import {OnScroll, Button, Menu, Popup, Divider, Badge, Typography, Row, Image, Input } from "components/UI"
+import {OnScroll, Button, Menu, Popup,  Badge, Typography,  Image, Input } from "components/UI"
 // import ProductCategoryDropdown from "components/ProductCategoryDropdown/ProductCategoryDropdown"
 import {ACTION_TYPES} from "store/types"
 import fullLink from "src/utills/fullLink"
@@ -68,7 +68,7 @@ function Navigation(props) {
           <span>New Customer?</span>
           <Link to={`/auth/registration?redirect=/`} style={{marginLeft: "10px"}} >Sign Up</Link>
         </div>
-        <Divider lineHeight="1" lineColor="#d1d3d25d"/>
+        {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
         <Menu>
           <Menu.Item 
             icon="fa fa-user" key="1">
@@ -83,16 +83,16 @@ function Navigation(props) {
             </Link>
             }
             </Menu.Item>
-          <Divider lineHeight="1" lineColor="#d1d3d25d"/>
+          {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
       
 
           <Menu.Item icon="fa fa-heart" key="3">
             <Link to={`/customer/${authState.username ? authState.username : "Guest" }/my-orders`}>Order</Link>
           </Menu.Item>
-          <Divider lineHeight="1" lineColor="#d1d3d25d"/>
+          {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
           
           <Menu.Item icon="fa fa-heart" key="4">Wishlist</Menu.Item>
-          <Divider lineHeight="1" lineColor="#d1d3d25d"/>
+          {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
            
             { authState._id ? (
                <Menu.Item onClick={()=>handleLogout()} icon="fa fa-sign-out-alt" key="5">
@@ -118,7 +118,8 @@ function Navigation(props) {
       totalPrice += perItemPrice
     }
     
-    return (
+    // @ts-ignore
+      return (
       <Popup timeout={500} animationClass="nav-popup-menu" style={{...popupStyle, top: top + 'px'}} bg="white" inProp={isShow}>
         <div style={{padding: "5px 10px"}}
              className="render_cart d-flex align-center fs-14">
@@ -133,6 +134,7 @@ function Navigation(props) {
               </thead>
               <tbody>
               {cartState.cartProducts.map((item, i)=>(
+                  // @ts-ignore
                 <tr key={i}>
                   <td className="title_td">
                     <div className="cart_image_div">
@@ -147,11 +149,11 @@ function Navigation(props) {
               ))}
               </tbody>
             </table>
-            <Divider lineColor="#e2e2e2" lineHeight={0.5} className="mt-2 mb-2" />
-            <Row justify={"between"} align={"center"}>
+            {/*<Divider lineColor="#e2e2e2" lineHeight={0.5} className="mt-2 mb-2" />*/}
+            <div  >
               <h4>Total Price: {totalPrice} TK</h4>
               <Button className={"m-0 p-0"} type="link" to="/shopping/cart">Go To Cart</Button>
-            </Row>
+            </div>
           </div>
         </div>
       </Popup>

@@ -1,6 +1,6 @@
 import React from 'react';
 import "./CategoryNavbar.scss"
-import { Container } from "components/UI";
+
 import { Link } from  "react-router-dom"
 
 const CategoryNavbar = (props) => {
@@ -749,7 +749,7 @@ const CategoryNavbar = (props) => {
   
   return (
     <div className="category_navigation">
-      <Container maxWidth={1688}>
+      <div>
         <div className="category_main_nav">
           {data.map((item, i)=>(
             <div key={i} onMouseLeave={()=> handleMouseHover("", "leave") } onMouseEnter={()=>handleMouseHover(item.id, "enter")} className="category_main_nav--item">
@@ -758,7 +758,7 @@ const CategoryNavbar = (props) => {
             </div>
           ))}
         </div>
-      </Container>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, {CSSProperties, FC} from "react"
-import createStyles from "UI/styles"
+
 import "./Popup.scss"
 import {CSSTransition} from "react-transition-group"
 interface PopupProps{
@@ -9,10 +9,10 @@ interface PopupProps{
   inProp: boolean,
   style?: CSSProperties | any,
   bg?: string,
+  children: any
 }
 
-const Popup: FC<PopupProps>  = ({className, timeout=500, animationClass, inProp, style, bg, children, ...otherAttributes})=>{
-  const styles = createStyles(style, {bg})
+const Popup: FC<PopupProps>  = ({className, timeout=500, animationClass, inProp,  bg, children, ...otherAttributes})=>{
   
   return (
      <CSSTransition 
@@ -20,7 +20,7 @@ const Popup: FC<PopupProps>  = ({className, timeout=500, animationClass, inProp,
       in={inProp} 
       timeout={timeout} 
       classNames={[animationClass ? animationClass : "my-popup"].join(" ")}>
-      <div style={styles} className={"popup " + className} {...otherAttributes}>
+      <div className={"popup " + className} {...otherAttributes}>
         {children}
       </div>
     </CSSTransition>

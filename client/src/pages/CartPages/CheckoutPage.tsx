@@ -1,5 +1,5 @@
 import React from 'react' 
-import { useParams, useHistory, Link } from "react-router-dom"
+import { useParams,  Link } from "react-router-dom"
 
 import {Button, Spin, Input, Modal} from "components/UI"
 import {connect, useDispatch} from "react-redux"
@@ -10,7 +10,7 @@ import api from "src/apis"
 
 const CheckoutPage = (props) => { 
     let params = useParams() 
-    let history = useHistory() 
+    // let history = useHistory()
     const dispatch = useDispatch()
     
   const {loadingStates, cartState, authState} = props
@@ -66,7 +66,7 @@ const CheckoutPage = (props) => {
 
   function handlePushBack(){
     // history.back() 
-    history.goBack()
+    // history.goBack()
   }
   
   function handleProductAction(type, prod){
@@ -83,7 +83,7 @@ const CheckoutPage = (props) => {
     // alert(JSON.stringify(shippingAddress))
     if(!authState._id){
       window.localStorage.setItem("shipper", JSON.stringify(shippingAddress)) 
-      history.push("/auth/login/?redirect=/shopping/cart/shipping")
+      // history.push("/auth/login/?redirect=/shopping/cart/shipping")
     } else{
       let {data} = await api.post("/api/shipping-address", {
         ...shippingAddress, 

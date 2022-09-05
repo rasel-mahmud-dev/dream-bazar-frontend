@@ -4,7 +4,7 @@ import {
   Menu,
   Spin,
   Input,
-  Modal, TopProgressBar, Container
+  Modal, TopProgressBar,
 } from "components/UI"
 
 
@@ -12,7 +12,7 @@ const CreateSellerAccount = (props)=>{
   return (
     <div>
       
-      <Container>
+      <div>
         <form action="">
           <h1 className="font-medium text-gray-900 text-3xl mt-3">Create A Seller Account</h1>
           
@@ -46,7 +46,7 @@ const CreateSellerAccount = (props)=>{
           {/*</div>*/}
           
         </form>
-      </Container>
+      </div>
     </div>
       
   )

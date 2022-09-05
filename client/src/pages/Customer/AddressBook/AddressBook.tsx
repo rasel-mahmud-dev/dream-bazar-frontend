@@ -1,9 +1,9 @@
 import React from 'react' 
-import { useParams, useHistory, Link } from "react-router-dom"
+import { useParams,  Link } from "react-router-dom"
 
 
 import {Button, 
-Menu,Input, Divider, Badge} from "components/UI"
+Menu,Input,  Badge} from "components/UI"
 import {connect, useDispatch} from "react-redux"
 
 
@@ -14,7 +14,7 @@ const {SubMenu} = Menu
 
 const AddressBook = (props) => { 
   let params = useParams() 
-  let history = useHistory() 
+  // let history = useHistory()
   const dispatch = useDispatch()
   const {_id} = props  
   const [shippingAddresses, setShippingAddresses] = React.useState([])
@@ -156,7 +156,7 @@ const AddressBook = (props) => {
             size="large"
             border="1.5px dashed #aaffa0d7" >+ Add Address
           </Button> 
-          <Divider lineHeight={1} lineColor="#d9d9d" />
+          {/*<Divider lineHeight={1} lineColor="#d9d9d" />*/}
         
           {shippingAddresses.map((sp: any)=>(
              <div className="address_book">

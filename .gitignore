@@ -11,6 +11,7 @@ client/gallery.html
 client/src/storeData.json
 client/README.MD
 
+
 server/.gita
 server/node_modules
 server/dist
@@ -19,6 +20,12 @@ server/.idea
 server/deploy.sh
 server/.env
 server/src/static
+server/public
 server/src/db.json
 server/src/config
 server/README.MD
+
+
+# Local Netlify folder
+server/.netlify
+.netlify
