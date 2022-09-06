@@ -11,17 +11,16 @@ import MyRoutes from "./MyRoutes"
 
 import Navigation from "components/Navigation/Navigation"
 import Footer from "components/Footer/Footer"
-import apis from "src/apis"
 
 import actions from './store/actions'
 const {closeNotify} = actions
 
-
 import CategoryNavbar from "components/categoryNavbar/CategoryNavbar";
 import {AppContext, DeviceType} from "store/AppContext";
 import throttle from "src/utills/throttle";
-import {useTranslation} from "react-i18next";
-import i18next from "i18next";
+import useLanguage from "src/lang";
+import {setLanguage} from "actions/appContextActions";
+
 
 function App(props) {
   const {appState} = props
@@ -77,8 +76,6 @@ function App(props) {
       //   dispatch({type: "SET_UI_CATEGORIES_FILTER_INFO", payload:  categoryInfosRes.data})
       // }
       
-      
-      
       // const authData = await apis.post("/api/auth/current-auth")
       // dispatch({
       //   type: ACTION_TYPES.LOGIN,
@@ -91,6 +88,13 @@ function App(props) {
     // history.listen((h)=>{
     //   setPathname(h.pathname)
     // })
+  
+  
+    let lang = localStorage.getItem("lang");
+    if(!lang){
+      lang = "en"
+    }
+    setLanguage(lang, contextDispatch)
   
     handlerWindowResize();
     window.addEventListener("resize", throttle(handlerWindowResize, 300))
@@ -134,7 +138,7 @@ function App(props) {
 
   }, [pagination.page])
   
-
+  
   function loadMore(e){
   setPagination({
     ...pagination, 
@@ -142,11 +146,9 @@ function App(props) {
   })
 }
 
-
   function handleModalClose(){
     props.closeNotify()
   }
-  
   
   function showBigCategoryNav(pathName){
     let p = ["/p/s", "/p", "/p/", "/products/" ]
@@ -161,24 +163,34 @@ function App(props) {
     return isShow
   }
   
-  const { t, i18n } = useTranslation();
-  
   function handleC(e){
-    i18next.changeLanguage(e.target.value)
     console.log(e.target.value)
   }
   
   
+  const [t] = useLanguage(AppContext)
+
+  
   return (
     <div className="App">
       
-      {/*<select name="" id="" onChange={handleC}>*/}
-      {/*  <option value="bn">Bangla</option>*/}
-      {/*  <option value="en">English</option>*/}
-      {/*</select>*/}
+      <select name="" id="" onChange={handleC}>
+        <option value="bn">Bangla</option>
+        <option value="en">English</option>
+      </select>
+
+      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
+      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
+      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
+      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
+      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
+      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
+      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
+      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
+      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
+      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
       
-      {/*<h1>{t('top_bar_title')}</h1>*/}
-    
+      
     {/*  <Spin size={15}/>
       <div style={{width: 500 + "px", margin: "auto"}}>
       { renderProduct()  }

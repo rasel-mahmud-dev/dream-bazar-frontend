@@ -1,4 +1,5 @@
 import {createContext, useReducer, useState} from "react";
+import {ACTION_TYPES} from "store/types";
 
 export const AppContext = createContext({})
 
@@ -8,15 +9,29 @@ export enum DeviceType {
 	TABLET = "TABLET"
 }
 interface initialState {
-	deviceType: DeviceType
+	deviceType: DeviceType,
+	translations: Object,
+	lang: "en" | "bn"
 }
 
-const initialState: initialState = {deviceType: "DESKTOP"};
+const initialState: initialState = {
+	deviceType: DeviceType.DESKTOP,
+	translations: {},
+	lang: "en"
+};
 
 function reducer(state: initialState, action: { type: any; payload: DeviceType }) {
 	switch (action.type) {
         case "SET_DEVICE":
             return { ...state, deviceType: action.payload };
+		
+		case ACTION_TYPES.SET_LANGUAGE:
+            return {
+				...state,
+	            translations: action.payload.translations,
+                lang: action.payload.lang
+			}
+	            ;
         default:
             return state;
     }

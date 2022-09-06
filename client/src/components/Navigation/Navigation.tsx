@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./Navigation.scss";
 import { Link } from "react-router-dom";
-import { useDispatch, connect } from "react-redux";
+import {useDispatch, connect, useSelector} from "react-redux";
 import {
     OnScroll,
     Button,
@@ -30,19 +30,26 @@ import {
     GiShoppingBag,
     GrLanguage,
     MdLanguage,
-    IoLanguageOutline,
+    IoLanguageOutline, FaAngleDown, FiMoon,
 } from "react-icons/all";
+import {RootState} from "src/store";
+import {setLanguage} from "actions/appContextActions";
+import appContext, {AppContext} from "store/AppContext";
 
 const Title = Typography.Title.default;
 
 function Navigation(props) {
-    const { authState, logout, cartState } = props;
+    const { authState, appState, cartState } = useSelector((state: RootState)=>state);
     const dispatch = useDispatch();
-
+    
+    const {contextState, contextDispatch} = useContext<any>(AppContext)
+    
+    
     const news =
         "From Yesterday our Online Shop will be Shutdown untill Governer don't declear next info.";
     const [isFixed, setFixed] = React.useState(false);
     const [isShow, setShow] = React.useState("");
+    
     React.useEffect(() => {
         //console.log(props.offsetTop)
         if (props.offsetTop > 100) {
@@ -84,7 +91,6 @@ function Navigation(props) {
     }
 
     function handleLogout() {
-        alert("You'r log outed");
         window.localStorage.setItem("token", "");
         dispatch({
             type: ACTION_TYPES.LOGIN,
@@ -245,6 +251,18 @@ function Navigation(props) {
         );
     }
 
+    function handleChangeTheme(e){
+        dispatch({
+            type: ACTION_TYPES.SET_THEME,
+            payload: e.target.value
+        })
+    }
+    
+    function handleChangeLanguage(e){
+        setLanguage(e.target.value, contextDispatch)
+    }
+    
+    
     return (
         <div className={["navigation", isFixed ? "nav_fixed" : ""].join(" ")}>
             {/* top navigation */}
@@ -264,12 +282,20 @@ function Navigation(props) {
                         </marquee>
                     </div>
 
-                    <div className="col-span-2 flex w-full ">
+                    <div className="col-span-2 flex w-full gap-x-4">
                         <li className="flex items-center justify-end">
                             <IoLanguageOutline className="text-md" />
-                            <select name="" id="">
+                            <select onChange={handleChangeLanguage} name="" id="">
                                 <option value="bn">Bangla</option>
                                 <option value="en">English</option>
+                            </select>
+                        </li>
+                         <li className="flex items-center justify-end">
+                            <FiMoon className="text-md" />
+                            <select onChange={handleChangeTheme} name="" id="" value={appState.theme}>
+                                <option value="dark">Dark</option>
+                                <option value="light">Light</option>
+                                <option value="system">System</option>
                             </select>
                         </li>
                         {/*<button onClick={()=>dispatch({type: ACTION_TYPES.CHOOSE_LANGUAGE, payload: "en"})}>EN</button>*/}
@@ -280,23 +306,33 @@ function Navigation(props) {
 
             <div className="main-nav bg-green-450">
                 <div className="max-w-8xl mx-auto px-4 py-3">
-                    <div className="flex items-center justify-between w-full">
-                        <h2 className=" w-full">
+                    
+                    <div className="grid grid-cols-12 items-center w-full">
+                        
+                        <div className="col-span-2 logo">
                             <Link to="/" className="flex items-center">
                                 <img src="/logo-2.png" alt="" />
                                 <h4 className="text-white font-semibold text-xl">
                                     Ecommerce
                                 </h4>
                             </Link>
-                        </h2>
+                        </div>
 
-                        <div className=" flex  ">
+                        <div className="col-span-6 flex w-full  ">
                             {/* <ProductCategoryDropdown /> */}
-                            <div className="flex items-center">
-                                <div className="bg-white/30 py-2 px-4 flex justify-between items-center rounded-full">
+                            <div className="flex items-center  w-full">
+                                <div className="bg-white/30 py-2 px-4 flex justify-between items-center rounded-full w-full">
+                                    <div className="flex items-center border-r border-white pr-2">
+                                        <select name="" id="" className="bg-transparent text-white outline-none border-none w-auto placeholder-white">
+                                            <option value="">All</option>
+                                            <option value="">Title</option>
+                                            <option value="">Brand</option>
+                                        </select>
+                                        {/*<FaAngleDown className="text-white text-xl" />*/}
+                                    </div>
                                     <input
                                         placeholder="Search for products, brand and more"
-                                        className="bg-transparent w-full outline-none text-white placeholder-white"
+                                        className="bg-transparent w-full outline-none text-white placeholder-white ml-2 "
                                     />
                                     <BiSearch className="text-white text-xl" />
                                 </div>
@@ -334,8 +370,33 @@ function Navigation(props) {
                             {/*</div>*/}
                         </div>
 
-                        <div className="w-full">
-                            {/*<li*/}
+                        <div className="col-span-4 justify-self-end">
+                            
+                            <div className="flex gap-x-4 ">
+                                <li className="flex items-center gap-x-2">
+                                    <GiShoppingBag className="text-white text-2xl " />
+                                    <span className="font-medium text-white">
+                                        In Cart
+                                    </span>
+                                </li>
+                                
+                                <li className="flex items-center gap-x-2 ">
+                                    <FaHeart className="text-white text-2xl" />
+                                    <span className="font-medium text-white">
+                                        Favorite
+                                    </span>
+                                </li>
+                                <li className="flex items-center gap-x-2 ">
+                                    <BiUser className="text-white text-2xl" />
+                                    <span className="font-medium text-white">
+                                        Account
+                                    </span>
+                                </li>
+                            </div>
+                            
+                            
+                            
+                            {/*<div*/}
                             {/*    className="relative"*/}
                             {/*    data-id="cart"*/}
                             {/*    onClick={handleMouseHover}*/}
@@ -379,29 +440,8 @@ function Navigation(props) {
                             {/*    </span>*/}
                             {/*    {renderAuthMenu(20, isShow === "auth_menu")}*/}
                             {/*</Button>*/}
-
-                            <div className="flex w-full justify-center">
-                                <li className="flex items-center gap-x-2">
-                                    <GiShoppingBag className="text-white text-2xl" />
-                                    <p className="font-medium text-white">
-                                        In Cart
-                                    </p>
-                                </li>
-
-                                <li className="flex items-center gap-x-2">
-                                    <FaHeart className="text-white text-2xl" />
-                                    <p className="font-medium text-white">
-                                        Favorite
-                                    </p>
-                                </li>
-                                <li className="flex items-center gap-x-2">
-                                    <BiUser className="text-white text-2xl" />
-                                    <p className="font-medium text-white">
-                                        Account
-                                    </p>
-                                </li>
-                            </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -418,4 +458,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {})(OnScroll(Navigation, 300, 200));
+export default OnScroll(Navigation, 300, 200)

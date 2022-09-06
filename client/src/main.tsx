@@ -8,8 +8,6 @@ import createStore from "src/store"
 import AppContextProvider from "store/AppContext";
 
 
-import "./lang/i18n";
-
 const store = createStore()
 
 
