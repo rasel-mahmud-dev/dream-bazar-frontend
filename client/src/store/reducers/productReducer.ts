@@ -93,6 +93,12 @@ export interface ProductStateType {
   },
   flatCategories: CategoryType[] | null
   brands: {}
+  
+  selectCategory: {
+    root: CategoryType
+    tree: CategoryType
+  }
+  
 }
 
 const initialState: ProductStateType = {
@@ -106,8 +112,8 @@ const initialState: ProductStateType = {
   productDetails: {},
   oneTypeFetchProducts: {name: "", values: [{}]},
   homePageSectionsData: [
-    {name: "Top Popular Products", type: "products", filterBy: "views=-1", params: "views=-1"},
-    {name: "Top Selling Products", type: "products", filterBy: "sold=-1", params: "sold=-1"},
+    {name: "Top Popular products", type: "products", filterBy: "views=-1", params: "views=-1"},
+    {name: "Top Selling products", type: "products", filterBy: "sold=-1", params: "sold=-1"},
     {name: "Top Offers", type: "products", filterBy: "top-discount", params: "discount=-1"},
     // {name: "Today's Fashion Deals", type: "products", filterBy: "top-discount", params: "discount=-1&cat=60df5e546419f56b97610608"},
     // {name: "Featured Brands", type: "products", filterBy: "top-discount", params: "discount=-1&cat=60df5e546419f56b97610608"},
@@ -155,6 +161,8 @@ const initialState: ProductStateType = {
   flatCategories: null,
   
   brands: {},
+  
+  selectCategory: {}
   
   
 }
@@ -215,16 +223,28 @@ const productReducer = (state: ProductStateType=initialState, action)=>{
       return updatedState
   
   
-    case ACTION_TYPES.FETCH_PRODUCTS : 
+    case ACTION_TYPES.FETCH_FILTER_PRODUCTS :
       updatedState.products = action.payload
       return updatedState
+    
     
     case ACTION_TYPES.FETCH_BRANDS:
       updatedState.brands[action.payload.categoryId] = action.payload.brands
       return updatedState
     
+    
     case ACTION_TYPES.FETCH_CATEGORIES :
       updatedState.flatCategories = action.payload
+      return updatedState
+    
+      
+    
+    case ACTION_TYPES.SET_SELECT_CATEGORY:
+      
+      updatedState.selectCategory.root = action.payload.root
+      if(action.payload.tree){
+        updatedState.selectCategory.tree = action.payload.tree
+      }
       return updatedState
     
     

@@ -26,6 +26,10 @@ import calculateDiscount from "src/utills/calculateDiscount";
 import apis from "src/apis";
 import {getPagination} from "actions/localActions";
 import CategoryList from "pages/productFilterPage/CategoryList";
+import {RootState} from "src/store";
+import BrandList from "pages/productFilterPage/BrandList";
+import staticImagePath from "src/utills/staticImagePath";
+import {FaHeart} from "react-icons/all";
 
 
 let initialLoad = true
@@ -84,7 +88,9 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
     currentCategorySelected,
     filteredAttributes,
     loadingStates,
-    filters
+    filters,
+    selectCategory,
+    flatCategories
   } = productState
   
   
@@ -512,7 +518,56 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
   //
   // }, [filters.brands, filteredAttributes, filters.sortBy, currentNestedSubCategory])
   
+  React.useEffect(()=>{
+   
+    let data = {
+        brands: filters.brands,
+        selectCategory,
+        filteredAttributes,
+        // sortBy,
+        paginate: {currentPage: pagination ? pagination.currentPage : 1, perPage: pagination ? pagination.perPage : 20},
+      }
 
+      filterProductWithState(data,  false, function (data) {
+        dispatch({
+          type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
+          payload: data.products
+        })
+        dispatch({
+          type: ACTION_TYPES.FETCH_FILTER_PRODUCTS,
+          payload: data.products
+        })
+        
+        // dispatch({
+        //   type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
+        //   payload: data.total
+        // })
+      })
+    
+  }, [selectCategory.root, selectCategory.tree, filters.brands])
+  
+  
+  function getAllChildrenId(id, arr){
+    let aa = []
+    function re(id, arr){
+      if(arr){
+        arr.forEach(a=>{
+          if(a.parentId === id){
+            if(a.isProductLevel){
+              aa.push(a.id)
+              re(a.id, arr)
+            }
+          }
+        });
+      }
+    }
+    re(id, arr)
+    return aa;
+  }
+  
+  
+
+  
   // refetch product if change paginate value
   // then append product with exist products in store
   nonInitialEffect(()=>{
@@ -535,19 +590,19 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
 
   // only count total filtered products. if changed these state
 
-  async function filterProductWithState(filteredData, isCount: boolean, cb){
+  async function filterProductWithState(data, isCount: boolean, cb){
 
     !isCount && props.toggleAppMask(true)
     !isCount && (props.toggleLoader && props.toggleLoader("product-filter", true))
 
     const {
       currentNestedSubCategory,
-      selectedCatSections,
+      selectCategory,
       brands,
       filteredAttributes,
       sortBy,
       paginate,
-    } = filteredData
+    } = data
 
     let attributes = {}
     if(filteredAttributes.length > 0 ){
@@ -563,54 +618,65 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
     let brandIds : string[] = []
     if(brands){
       brands.forEach((brand: any)=>{
-        brandIds.push(brand._id)
+        brandIds.push(brand.id)
       })
     }
 
     interface bodyDataType {
-      category_id?: string,
-      category_ids?: string,
+      categoryId?: string,
+      categoryIds?: string[],
       pageNumber: any;
       perPage: any;
-      brand_ids: string[];
+      brandIds: string[];
       attributes: {};
-      sort_by?: any
+      sortBy?: any
     }
 
     let bodyData: bodyDataType = {
       attributes: attributes,
-      brand_ids: brandIds.length > 0 ? brandIds : [],
-      sort_by: sortBy && sortBy.length > 0 ? sortBy : [],
+      categoryIds: [],
+      brandIds: brandIds.length > 0 ? brandIds : [],
+      sortBy: sortBy && sortBy.length > 0 ? sortBy : [],
       // category_id: currentCategorySelected._id,
       pageNumber: paginate && paginate.currentPage,
       perPage: paginate && paginate.perPage
     }
-
-    if(currentNestedSubCategory && currentNestedSubCategory._id){
-      bodyData.category_id = currentNestedSubCategory._id
+  
+    
+    if(currentNestedSubCategory && selectCategory.tree){
+      bodyData.categoryIds =  getAllChildrenId(selectCategory.tree.id, flatCategories)
+    } else if(selectCategory && selectCategory.root){
+      bodyData.categoryIds =  getAllChildrenId(selectCategory.root.id, flatCategories)
     }
-
-    if(currentNestedSubCategory && currentNestedSubCategory._ids){
-      bodyData.category_ids = currentNestedSubCategory._ids
-    }
-
-    try {
-      if(isCount){
-        let {data} = await api.post(`/api/products/filter/v2`, {...bodyData, documentCount: true})
-        cb(data)
-      } else {
-        let {data} = await api.post(`/api/products/filter/v2`, bodyData)
-        if (data) {
-          props.toggleAppMask(false)
-          props.toggleLoader("product-filter", false)
-          cb(data)
-        }
-      }
-    } catch (ex){
-      console.log(ex)
-    }
+  
+    let response = await api.post(`/api/products/filter/v2`, bodyData)
+    
+    props.toggleAppMask(false)
+    props.toggleLoader("product-filter", false)
+   
+    cb(response.data)
+   
+    
+    
+    // console.log(bodyData)
+    // try {
+    //   if(isCount){
+    //     let {data} = await api.post(`/api/products/filter/v2`, {...bodyData, documentCount: true})
+    //     cb(data)
+    //   } else {
+    //     let {data} = await api.post(`/api/products/filter/v2`, bodyData)
+    //     if (data) {
+    //       props.toggleAppMask(false)
+    //       props.toggleLoader("product-filter", false)
+    //       cb(data)
+    //     }
+    //   }
+    // } catch (ex){
+    //   console.log(ex)
+    // }
   }
-
+  
+  
 
   function renderProducts(){
 
@@ -649,8 +715,8 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
     return (
       <div className="products-views">
         { products && products.length > 0 ? products.map((product, i)=>(
-          <div key={i} className="product card pb-5">
-            <i onClick={()=>handleAddToWishList(product)} className={["add_wish_list_btn  fa fa-heart", isWished(product)? "wish": ''].join(' ')}/>
+          <div key={i} className="product card pb-5" >
+            <FaHeart onClick={()=>handleAddToWishList(product)} className={`add_wish_list_btn  fa fa-heart  ${isWished(product)? 'wish': ''} `} />
             <div className="add_wish_list_btn left">
               <Badge
                 color="light-A400"
@@ -663,7 +729,7 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
             <Link className="block mx-auto" to={`/products/${product._id}`}>
               <div className="product_image_div">
                 <div className="product_image_wra">
-                  <img src={fullLink(product.cover_photo)} alt=""/>
+                  <img src={staticImagePath(product.coverPhoto)} alt=""/>
                 </div>
               </div>
             </Link>
@@ -819,6 +885,7 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
         <div className="sidebar">
           {/*{ss}*/}
           <CategoryList />
+          <BrandList />
         </div>
 
         <div className="content content-container">
@@ -863,7 +930,7 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
 }
 
 
-function mapStateToProps(state){
+function mapStateToProps(state: RootState){
  
   return {
     productState: state.productState,

@@ -12,6 +12,8 @@ const COLLECTIONS_NAME = [
     "brands"
 ]
 
+export let db: mongoDB.Db
+
 export async function connectToDatabase () {
 
    try{
@@ -19,7 +21,7 @@ export async function connectToDatabase () {
 
        await client.connect();
 
-       const db: mongoDB.Db = client.db(process.env.DB_NAME);
+       db = client.db(process.env.DB_NAME);
 
        COLLECTIONS_NAME.forEach(collection=>{
            collections[collection] = db.collection(collection)

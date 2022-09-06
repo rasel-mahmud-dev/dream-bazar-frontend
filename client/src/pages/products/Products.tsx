@@ -389,7 +389,7 @@ const Products: FC<ProductProps> = (props) => {
 //                                         <Link to={`/products/${p.id}`}>Details</Link>
 //                                     </div>
 //                                   )) : (
-//                                       <h1>No Products found on Database.</h1> 
+//                                       <h1>No products found on Database.</h1>
 //                                   )
 //                                 }
 //                               </div> 

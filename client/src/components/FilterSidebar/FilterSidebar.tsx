@@ -566,10 +566,6 @@ const FilterSidebar = (props: FilterSidebarProps) => {
   
   
   
-  
-  
-  
-  
   /**
    * Product Filter attributes that store in category info json file .
    */

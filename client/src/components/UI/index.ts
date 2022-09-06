@@ -1,7 +1,7 @@
 import Button from "./Button/Button"
 import Pagination from "./Pagination/Pagination"
 import Image from "./Image/Image"
-import { File, Form, Select, Checkbox, Input, Password } from "./Form"
+import { File, Form, Select, Checkbox,  Password } from "./Form"
 import Popup from "./Popup/Popup"
 import Tabs from "./Tabs/Tabs"
 import Modal from "./Modal/Modal"
@@ -28,7 +28,7 @@ export {
   Pagination,
   Image,
   File, Popup, Tabs,
-  Modal, Select, Checkbox, Input, Password,
+  Modal, Select, Checkbox,  Password,
   OnScroll,
   Spin,
   Menu,

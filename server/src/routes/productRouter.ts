@@ -48,12 +48,7 @@ export default function (app){
   app.post("/api/products/filter", productFiltersPost)
   
   // this route i use worker_threads
-  app.post("/api/products/filter/v2", async (req, res, next)=>{
-    let result = await productsFilter({body: req.body})
-    // setTimeout(()=>{
-      res.send(result)
-    // }, 2000)
-  })
+  app.post("/api/products/filter/v2", productFiltersPostV2)
   //
   // app.get("/api/products/filter/v2", async (req, res, next)=>{
   //   let result = await productsFilterGetReq({query: req.query, params: req.params})
@@ -68,8 +63,12 @@ export default function (app){
   app.get("/api/products/category-product/:categoryId", fetchCategoryProducts)
   
   app.get("/api/products", getProducts)
-  
+
+
   app.post("/api/products", saveProducts)
+
+
+
   app.post("/api/products/copy", saveProductsAsDuplicate)
   app.get("/api/products/:id", getProduct)
   app.put("/api/products/:id", updateProductPutReq)

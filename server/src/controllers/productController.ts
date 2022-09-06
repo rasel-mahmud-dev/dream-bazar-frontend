@@ -9,8 +9,12 @@ const isObjectId = require("../utilities/isObjectId")
 import dbConnect from "../database/index"
 
 import fileUploadHandler from "../utilities/fileUpload";
-import {collections, connectToDatabase} from "../services/database.service";
+import {collections, connectToDatabase, db} from "../services/database.service";
 import mongoose from "mongoose";
+import {parentPort, workerData} from "worker_threads";
+import dataDir from "../utilities/dataDir";
+import fs from "fs";
+import product from "../models/Product";
 
 export const getProductCount = async (req, res, next)=>{
   const {category_id} = req.query
@@ -96,8 +100,43 @@ export const getProducts = async (req, res, next)=>{
     const docs = await collections.products.find().toArray();
     // const docs = await ProductModel.find()
 
+    // let filePath = dataDir + "/products.json"
+    // let data = fs.readFileSync(filePath);
+    // let p = JSON.parse(data.toString());
+    // p.forEach(pp=>{
+    //   // console.log(pp)
+    //   setTimeout(()=>{
+    //     collections.products.insertOne({
+    //       ...pp,
+    //       _id: new ObjectId(pp._id),
+    //       sellerId:  new ObjectId(pp.sellerId),
+    //     }).then().catch(ex=>{
+    //       console.log(ex.message)
+    //     })
+    //   }, 200)
+    // })
 
-    
+
+    // let a = await db.createCollection("products")
+    // console.log(a);
+
+  //   collections.products.createIndex({
+  //         categoryId: 1,
+  //       },
+  //       {
+  //         unique: false
+  //       }
+  //   )
+  //
+  // collections.products.createIndex({
+  //         brandId: 1,
+  //       },
+  //       {
+  //         unique: false
+  //       }
+  //   )
+
+
     // let docs = await  Product.findOne({ qty: 5 })
 
 
@@ -1611,21 +1650,21 @@ export const productFiltersPostV2 = async (req, res, next)=>{
 
   //   {
   //       "product_ids": ["60df5e546419f56b97610633"]
-  //       "category_ids": ["60df5e546419f56b97610608"],
+  //       "categoryIds": string[],
   //       "category_id": "60df5e546419f56b97610608",
-  // 	     "sort_by": [{"field": "created_at", "order": 1}],
+  // 	   "sort_by": [{"field": "created_at", "order": 1}],
   //       "attributes": {
   //         "form_factor": ["mini_itx", "df"],
   // 	       "generation": [1]
   //       }
   // }
 
-  const {
+  let {
     sort_by,
-    category_ids,
+    categoryIds,
     product_ids,
-    category_id,
-    brand_ids,
+    categoryId,
+    brandIds,
     attributes,
     pageNumber=1,
     perPage=10,
@@ -1634,7 +1673,7 @@ export const productFiltersPostV2 = async (req, res, next)=>{
 
   let client;
 
-  console.log(req.body)
+
 
   try{
 
@@ -1646,26 +1685,9 @@ export const productFiltersPostV2 = async (req, res, next)=>{
     const CategoryCollection = db.collection("categories")
 
     let pipe = []
-    let categoryIds = []
-    let categoryId : ObjectId;
-    let brandIds = []
     let productIds = []
     // let idealForIds = []
 
-    if(category_id){
-      categoryId = new ObjectId(category_id)
-    }
-
-    if(category_ids && category_ids.length > 0){
-      category_ids.forEach(id=>{
-        categoryIds.push(new ObjectId(id))
-      })
-    }
-    if(brand_ids && brand_ids.length > 0){
-      brand_ids.forEach(id=>{
-        brandIds.push(new ObjectId(id))
-      })
-    }
     if(product_ids && product_ids){
       product_ids.forEach(id=>{
         productIds.push(new ObjectId(id))
@@ -1680,7 +1702,6 @@ export const productFiltersPostV2 = async (req, res, next)=>{
         if(attributes[attr] && attributes[attr].length > 0){
           attributesValues[`attributes.${attr}`] = { $in: attributes[attr] }
         }
-
        }
     }
         
@@ -1750,35 +1771,28 @@ export const productFiltersPostV2 = async (req, res, next)=>{
     //   ]
 
     //let cursor = ProductCollection.aggregate(pipe)
+
+    // console.log(categoryIds)
   
-  
-    let categories = await getNestedCategoryIds(req, res)
-    let cursor = ProductCollection.aggregate([
-      ...pipe,
+    // let categories = await getNestedCategoryIds(req, res)
+    let products = await collections.products.aggregate([
+      // ...pipe,
       {
         $match: {
-          category_id: { $in: categories} // category id
+          categoryId: { $in: categoryIds} // category id
         }
       },
-      { $skip: perPage * (pageNumber - 1) },
-      { $limit: Number(perPage) },
-    ])
+
+      // { $skip: perPage * (pageNumber - 1) },
+      // { $limit: Number(perPage) },
+
+    ]).toArray();
 
 
-    let products = []
 
-    await cursor.forEach(p=>{
-      products.push(p)
-    })
-
-    console.log(categories, "Fetch with these category")
-
-    setTimeout(()=>{
-      res.send(products)
-    }, 1000)
+    res.send({products})
 
 
-    
     // let cursor;
     // if(category_id){
     //   cursor = ProductCollection.aggregate([
@@ -1845,9 +1859,204 @@ export const productFiltersPostV2 = async (req, res, next)=>{
 
     // ***************** if it not last level category (END) ******************
 
+
+
+        // (async function (body){
+        //
+        //   const {
+        //     sort_by,
+        //     category_ids,
+        //     product_ids,
+        //     category_id,
+        //     brand_ids,
+        //     attributes,
+        //     pageNumber=1,
+        //     perPage=10,
+        //     documentCount
+        //   } = body
+        //
+        //   let client;
+        //
+        //
+        //   try{
+        //     const { db, client: cc } = await dbConnect()
+        //     client = cc
+        //     const ProductCollection = db.collection("products")
+        //     const CategoryCollection = db.collection("categories")
+        //
+        //     let pipe = []
+        //     let categoryIds = []
+        //     let categoryId;
+        //     let brandIds = []
+        //     let productIds = []
+        //     // let idealForIds = []
+        //
+        //     if(category_id){
+        //       categoryId = ObjectId(category_id)
+        //     }
+        //
+        //     if(category_ids && category_ids.length > 0){
+        //       category_ids.forEach(id=>{
+        //         categoryIds.push(ObjectId(id))
+        //       })
+        //     }
+        //     if(brand_ids && brand_ids.length > 0){
+        //       brand_ids.forEach(id=>{
+        //         brandIds.push(ObjectId(id))
+        //       })
+        //     }
+        //     if(product_ids && product_ids){
+        //       product_ids.forEach(id=>{
+        //         productIds.push(ObjectId(id))
+        //       })
+        //     }
+        //
+        //
+        //     let attributesValues = {}
+        //     if(attributes && Object.keys(attributes).length > 0 ){
+        //       for(let attr in attributes){
+        //
+        //         if(attributes[attr] && attributes[attr].length > 0){
+        //           attributesValues[`attributes.${attr}`] = { $in: attributes[attr] }
+        //         }
+        //
+        //       }
+        //     }
+        //
+        //     // console.log(req.body)
+        //     // { $match: { "attributes.form_factor": { $in: ["mini_itx"]  }} }
+        //     // categoryIds && categoryIds.length > 0 ? category_id: { $in: [...categoryIds] } } : [{}]
+        //
+        //     pipe = [
+        //       ...pipe,
+        //       {$match: productIds.length > 0 ? { _id: { $in: productIds } } : {}},
+        //       // {$match: categoryId ? { category_id: categoryId} : {}},
+        //       { $match : {
+        //           $and: [
+        //             // categoryIds && categoryIds.length > 0 ? {
+        //             //   category_id: { $in: [...categoryIds] }
+        //             // } : {},
+        //             brandIds && brandIds.length > 0 ? {
+        //               brand_id: { $in: [...brandIds] }
+        //             } : {}
+        //           ],
+        //           $or: [
+        //             Object.keys(attributesValues).length > 0 ? {
+        //               ...attributesValues,
+        //             } : {}
+        //           ]
+        //         }
+        //       }
+        //
+        //     ]
+        //     //
+        //     // if(count){
+        //     //   pipe = [
+        //     //     ...pipe,
+        //     //     { $group: {
+        //     //         _id: null, total: { $sum: 1 } }
+        //     //     }
+        //     //   ]
+        //     // }
+        //
+        //     let sortingStage = { $sort: {} }
+        //     let sortBy = {}
+        //     if(sort_by && sort_by.length > 0){
+        //       sort_by.map(sort=>{
+        //         sortingStage["$sort"][sort.field] = sort.order
+        //       })
+        //       pipe = [
+        //         ...pipe,
+        //         {...sortingStage},
+        //       ]
+        //     }
+        //
+        //     let categories = await getNestedCategoryIds(body)
+        //     // console.log(JSON.stringify(pipe))
+        //
+        //
+        //
+        //     if(documentCount) {
+        //
+        //
+        //
+        //
+        //       // client?.close()
+        //       // parentPort.postMessage(JSON.stringify(products));
+        //       // parentPort.close()
+        //       // process.exit(0);
+        //
+        //       let cursor  = ProductCollection.aggregate([
+        //         ...pipe,
+        //         {
+        //           $match: {
+        //             category_id: {$in: categories} // category id
+        //           }
+        //         },
+        //         {
+        //           $lookup: {
+        //             from: "brands",
+        //             localField: "brand_id",
+        //             foreignField: "_id",
+        //             as: "brand"
+        //           }
+        //         },
+        //         {$unwind: {path: "$brand", preserveNullAndEmptyArrays: true}},
+        //         { $group: {
+        //             _id: null, total: { $sum: 1 } }
+        //         }
+        //       ])
+        //       let doc = {}
+        //       await cursor.forEach(c=>{
+        //         doc =  {...c}
+        //       })
+        //       client?.close()
+        //       parentPort.postMessage(JSON.stringify({total: doc.total}));
+        //       parentPort.close()
+        //       process.exit(0);
+        //     } else {
+        //       let cursor  = ProductCollection.aggregate([
+        //         ...pipe,
+        //         {
+        //           $match: {
+        //             category_id: {$in: categories} // category id
+        //           }
+        //         },
+        //         {
+        //           $lookup: {
+        //             from: "brands",
+        //             localField: "brand_id",
+        //             foreignField: "_id",
+        //             as: "brand"
+        //           }
+        //         },
+        //         {$unwind: {path: "$brand", preserveNullAndEmptyArrays: true}},
+        //         {$skip: perPage * (pageNumber - 1)},
+        //         {$limit: Number(perPage)},
+        //       ])
+        //
+        //       let products = []
+        //       await cursor.forEach(p=>{
+        //         products.push(p)
+        //       })
+        //       client?.close()
+        //       parentPort.postMessage(JSON.stringify(products));
+        //       parentPort.close()
+        //       process.exit(0);
+        //     }
+        //
+        //
+        //   } catch(ex){
+        //
+        //   } finally{
+        //     client?.close()
+        //   }
+        //
+        // }(workerData.body))
     
 
   } catch(ex){
+    console.log(ex)
     next(ex)
   } finally{
     client?.close()

@@ -2,10 +2,12 @@ import React from 'react'
 import "./Navigation.scss" 
 import {Link} from "react-router-dom" 
 import { useDispatch, connect } from "react-redux"
-import {OnScroll, Button, Menu, Popup,  Badge, Typography,  Image, Input } from "components/UI"
+import {OnScroll, Button, Menu, Popup,  Badge, Typography,  Image } from "components/UI"
 // import ProductCategoryDropdown from "components/ProductCategoryDropdown/ProductCategoryDropdown"
 import {ACTION_TYPES} from "store/types"
 import fullLink from "src/utills/fullLink"
+import {InputGroup} from "UI/Form";
+import {BiSearch} from "react-icons/all";
 
 const Title = Typography.Title.default
 
@@ -176,7 +178,7 @@ function Navigation(props) {
             {/*</div>*/}
           </div>
 
-          <div className="main-nav">
+          <div className="main-nav bg-white">
             <div className="main-nav--container">
             <h2 className="logo_nav">
               <Link to="/">Ecommerce</Link>
@@ -184,7 +186,14 @@ function Navigation(props) {
             <div className="center_nav justify-center ">
               { /* <ProductCategoryDropdown /> */ }
               <div className="min-w-full flex items-center">
-                <Input placeholder="Search for products, brand and more" addonAfter={<i className="fa fa-search" />}  />
+                
+                <div className="bg-neutral-900/10 py-2 px-4 flex justify-between items-center rounded-full">
+                    <input
+                        placeholder="Search for products, brand and more"
+                        className="bg-transparent w-full outline-none text-white"  />
+                    <BiSearch className="text-white text-xl" />
+                </div>
+                
                 {/*<Button className="py-10" type="primary">Search</Button>*/}
               </div>
               <div className="flex items-center">

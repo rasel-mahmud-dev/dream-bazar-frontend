@@ -147,7 +147,7 @@ function loadMore(e){
       </div> */}
 
 
-     <Navigation /> 
+     {/*<Navigation /> */}
       
       
     

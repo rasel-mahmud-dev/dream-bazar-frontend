@@ -168,10 +168,10 @@ const HomePage = (props) => {
   
   function renderSectionName(sectionName){ 
     switch(sectionName){
-      case "Top Selling Products":
+      case "Top Selling products":
         return "besi bicroy kora ponnno" 
       
-      case "Top Popular Products":
+      case "Top Popular products":
         return lang.top_popular_products
         
       case "Shop By Categories":

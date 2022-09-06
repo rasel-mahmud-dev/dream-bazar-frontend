@@ -22,8 +22,8 @@ function CategoryList(props) {
     
     const dispatch = useDispatch();
     
-    
     const { flatCategories, brands } = useSelector((state: RootState)=>state.productState)
+    
     
     /*
     * 1 => []
@@ -231,23 +231,13 @@ function CategoryList(props) {
     useEffect(()=>{
         (async function(){
             
-            apis.get("/api/brands").then(res=>{
-                dispatch({
-                    type: ACTION_TYPES.FETCH_BRANDS,
-                    payload: {
-                        brands: res.data,
-                        categoryId: 'all'
-                    }
-                })
-            })
-            
-            
-            
             let data = qstring.parse(location.hash)
     
             let updateSidebarCategory = {
                 ...sidebarCategory
             }
+            
+            let root = {}
             
             let a = await getAllCategories();
     
@@ -264,10 +254,10 @@ function CategoryList(props) {
                     
                     
                     // set expand true that expanded and other make false
-                    let selectedItem: CategoryType = setExpand(rootCategories, rootCategoryName)
-             
+                    let selectedRooCat: CategoryType = setExpand(rootCategories, rootCategoryName)
+                    root = selectedRooCat
                     
-                    let subCats = findChildCategory(a, selectedItem.id)
+                    let subCats = findChildCategory(a, selectedRooCat.id)
                     
                     updateSidebarCategory[levelNumber] = rootCategories
                     levelNumber++
@@ -321,16 +311,9 @@ function CategoryList(props) {
                 } else if("/p?cat" in data){
               
                     let rootCategories =  getCategoriesLocal('parentId=0', a)
-                    let selectedItem: CategoryType = setExpand(rootCategories, data["/p?cat"])
-                    // rootCategories.forEach(item=> {
-                    //      if(item.name === data["/p?cat"]){
-                    //          item.expand = true;
-                    //          selectedItem = item;
-                    //      } else {
-                    //          item.expand = false;
-                    //      }
-                    // });
-                    let subCats = findChildCategory(a, selectedItem.id)
+                    let selectedRootCat: CategoryType = setExpand(rootCategories, data["/p?cat"])
+                    root = selectedRootCat
+                    let subCats = findChildCategory(a, selectedRootCat.id)
                     updateSidebarCategory[1] = rootCategories
                     updateSidebarCategory[2] = subCats
                   
@@ -339,17 +322,24 @@ function CategoryList(props) {
                     updateSidebarCategory[1] = rootCategories
                 }
                 
+                dispatch({
+                    type: "SET_SELECT_CATEGORY",
+                    payload: {
+                        root: root,
+                        tree: {}
+                    }
+                })
+                
                 setSidebarCategory(updateSidebarCategory);
-   
                 
                 dispatch({
                     type: ACTION_TYPES.FETCH_CATEGORIES,
                     payload: a
                 })
-                
             }
         }())
     }, [location.search])
+    
     
     
     function setExpand(subCategories, catName){
@@ -412,7 +402,6 @@ function CategoryList(props) {
         
         setSidebarCategory(updateSidebarCategory)
     }
-    
     
 
     async function getAllCategories(){
@@ -515,35 +504,6 @@ function CategoryList(props) {
                     </div>
                 )) }
                 
-            </div>
-
-            <div className="grid px-4">
-                <h1 className="font-bold text-2xl mt-8">Brands</h1>
-                
-                 {/*Selected brands  */}
-                {/*{brands && <div className="flex flex-wrap gap-2 mt-4">*/}
-                {/*   {  brands["all"] && brands["all"].map(brand=>(*/}
-                {/*       <div*/}
-                {/*           onClick={() => handleChangeBrand(brand)}*/}
-                {/*           className="bg-green-500/10 px-4 py-2 rounded flex justify-between">*/}
-                {/*        <span>{brand.name}</span>*/}
-                {/*        <span className="ml-2 text-red-500 font-medium cursor-pointer">x</span>*/}
-                {/*    </div>*/}
-                {/*   )) }*/}
-                {/*   */}
-                {/*</div> }*/}
-
-                
-                <div className="">
-                    <div className="flex flex-wrap gap-2 mt-4">
-                    {  brands["all"] && brands["all"].map(brand=>(
-                            <li onClick={() => handleChangeBrand(brand)} className="flex  items-center hover:text-green-400 cursor-pointer select-none">
-                                <input checked={true} type="checkbox" />
-                                <label className="font-medium cursor-pointer ml-2">{brand.name}</label>
-                            </li>
-                        ))}
-                    </div>
-                </div>
             </div>
         </div>
     );
