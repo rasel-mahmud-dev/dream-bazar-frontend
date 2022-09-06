@@ -647,29 +647,31 @@ const HomeProductNavigation = () => {
   }
   
   return (
-    <div className="home_page_product_nav">
-      <div className="home_page_product_nav--container">
+    <div className="bg-white py-4 shadow-md">
+      <div className="flex items-center justify-between max-w-8xl mx-auto px-4">
         { homeNavData.map((navData, i)=>{
           return (
             <li
-              onMouseLeave={(e)=>handleMouseDown(navData, "leave", e)}
-              onMouseOver={(e)=>handleMouseDown(navData, "enter", e)}
-              className="home_page_product_nav--item">
-              { navData.type ? (
-                <Link to={`/p/s?cat=${navData.id}`}>
+                onMouseLeave={(e)=>handleMouseDown(navData, "leave", e)}
+                onMouseOver={(e)=>handleMouseDown(navData, "enter", e)}
+                className={`list-none cat_item`}>
+              <div>
+                { navData.type ? (
+                    <Link to={`/p/s?cat=${navData.id}`}>
                   <div className="nav-logo">
                     <img src={staticImagePath(navData.logo)}  alt={navData.name}/>
                   </div>
                 </Link>
-              ) : (
-                // <Link to={`/p?cat=${navData.id}&${navData.cat_tree ? 'cat_tree='+ navData.cat_tree: ''}`}>
-                <div className="nav-logo">
+                ) : (
+                    // <Link to={`/p?cat=${navData.id}&${navData.cat_tree ? 'cat_tree='+ navData.cat_tree: ''}`}>
+                    <div className="nav-logo">
                   <img src={staticImagePath(navData.logo)}  alt={navData.name}/>
                 </div>
-                // </Link>
-              )}
+                    // </Link>
+                )}
+              </div>
               
-              <h4 className="item_name">
+              <h4 className="item_name hidden md:block">
                 { navData.type ? <Link className="item_link" to={`/p/s?cat=${navData.id}`}>{navData.name}</Link> :  navData.name }
                 {/*<Link className="item_link" to={`/p?cat=${navData.id}&${navData.cat_tree ? 'cat_tree='+ navData.cat_tree: ''}`}>{navData.name}</Link>*/}
                 { navData.sub_menu && <i className="fa fa-angle-down ml-3"/>}

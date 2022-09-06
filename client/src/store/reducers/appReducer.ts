@@ -1,7 +1,7 @@
 import { ACTION_TYPES } from "src/store/types"
 
 
-import langData from "src/lang" 
+import langData from "src/lang/i18n"
 
 export interface CategoryType{
   name: string,

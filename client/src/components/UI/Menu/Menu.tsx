@@ -102,7 +102,7 @@ export default Menu
 // import { fetchProducts, fetchHomePageSectionProducts } from "actions/productAction.ts"
 // import { addToCart } from "actions/cartAction"
 // import {Button, Divider, Image, Spin, Carousel, Popup, Menu} from "src/components/UI"
-// import apis, { backend } from "src/apis/index.ts" 
+// import apis, { backend } from "src/apis/i18n.ts"
 // import {closeNotify} from "actions/appAction"
 // import { isEn} from "src/lang"
 // let id; 

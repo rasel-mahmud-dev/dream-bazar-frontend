@@ -1,5 +1,5 @@
 import * as React  from 'react'
-import  { useState, Suspense } from 'react'
+import {useState, Suspense, useContext} from 'react'
 
 import {useDispatch, connect} from 'react-redux'
 import './App.scss'
@@ -18,15 +18,21 @@ const {closeNotify} = actions
 
 
 import CategoryNavbar from "components/categoryNavbar/CategoryNavbar";
+import {AppContext, DeviceType} from "store/AppContext";
+import throttle from "src/utills/throttle";
+import {useTranslation} from "react-i18next";
+import i18next from "i18next";
 
 function App(props) {
   const {appState} = props
   
   const [afterNavHeight, setNavHeight] = React.useState(0)
+  
   // const history = useHistory()
   const dispatch = useDispatch()
   const [count, setCount] = useState(0) 
-  const [products, setProducts] = React.useState([]) 
+  const [products, setProducts] = React.useState([])
+  
   const [pagination, setPagination] = React.useState({
     page: 1, 
     perPage: 5
@@ -35,7 +41,8 @@ function App(props) {
   
   const [pathname, setPathname] = React.useState<string>("")
   
-  const [isMobile, setMobile] = React.useState(false)
+  
+  const {contextState, contextDispatch} = useContext<any>(AppContext)
   
   React.useEffect(()=>{
     let header = document.querySelector(".navigation") as HTMLDivElement
@@ -44,6 +51,7 @@ function App(props) {
     }
   }, [props.innerWidth])
 
+  
   React.useEffect( ()=>{
     
     (async function(){
@@ -83,8 +91,31 @@ function App(props) {
     // history.listen((h)=>{
     //   setPathname(h.pathname)
     // })
+  
+    handlerWindowResize();
+    window.addEventListener("resize", throttle(handlerWindowResize, 300))
+    return ()=> window.removeEventListener("resize", throttle(handlerWindowResize, 300))
     
   }, [])
+  
+  function handlerWindowResize(){
+    if(window.innerWidth > 600 && window.innerWidth < 1000) {
+      contextDispatch({
+        type: "SET_DEVICE",
+        payload: DeviceType.TABLET,
+      })
+    } else if(window.innerWidth < 600) {
+      contextDispatch({
+        type: "SET_DEVICE",
+        payload: DeviceType.MOBILE,
+      })
+    } else {
+      contextDispatch({
+        type: "SET_DEVICE",
+        payload: DeviceType.DESKTOP,
+      })
+    }
+  }
   
   React.useEffect(()=>{
 
@@ -104,7 +135,7 @@ function App(props) {
   }, [pagination.page])
   
 
-function loadMore(e){
+  function loadMore(e){
   setPagination({
     ...pagination, 
     page: pagination.page + 1
@@ -130,9 +161,23 @@ function loadMore(e){
     return isShow
   }
   
+  const { t, i18n } = useTranslation();
+  
+  function handleC(e){
+    i18next.changeLanguage(e.target.value)
+    console.log(e.target.value)
+  }
+  
   
   return (
     <div className="App">
+      
+      {/*<select name="" id="" onChange={handleC}>*/}
+      {/*  <option value="bn">Bangla</option>*/}
+      {/*  <option value="en">English</option>*/}
+      {/*</select>*/}
+      
+      {/*<h1>{t('top_bar_title')}</h1>*/}
     
     {/*  <Spin size={15}/>
       <div style={{width: 500 + "px", margin: "auto"}}>
@@ -147,7 +192,7 @@ function loadMore(e){
       </div> */}
 
 
-     {/*<Navigation /> */}
+     <Navigation />
       
       
     
@@ -176,13 +221,14 @@ function loadMore(e){
 
   
   
-         <Tooltip delay={1000} placement={"top-left"} tooltip={<a>
-           Hi Iam tooltips
-           Hi Iam tooltips
-           Hi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltips
-         </a>}>
-           <button>Mouse Over Here</button>
-         </Tooltip>
+         {/*<Tooltip delay={1000} placement={"top-left"} tooltip={<a>*/}
+         {/*  Hi Iam tooltips*/}
+         {/*  Hi Iam tooltips*/}
+         {/*  Hi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltipsHi Iam tooltips*/}
+         {/*</a>}>*/}
+         {/*  <button>Mouse Over Here</button>*/}
+         {/*</Tooltip>*/}
+         
          <Footer/>
        </div>
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./HomePage.scss"
 import {ACTION_TYPES} from "store/types"
 import {connect, useDispatch} from "react-redux"
@@ -7,11 +7,11 @@ import {fetchHomePageSectionProducts, fetchProducts} from "actions/productAction
 import {addToCart} from "actions/cartAction"
 import {Button, Carousel,  Image, Menu, Popup, Spin} from "UI/index"
 import {closeNotify} from "actions/appAction"
-import {isEn} from "src/lang"
 import fullLink from "src/utills/fullLink";
 
 import HomeProductNavigation from "pages/homePage/HomeProductNavigation";
 import staticImagePath from "src/utills/staticImagePath";
+import AppContextProvider, {AppContext} from "store/AppContext";
 
 // import "slick-carousel/slick/slick-theme.css";
 
@@ -19,7 +19,9 @@ let id;
 
 const HomePage = (props) => { 
   const dispatch = useDispatch()
-
+  
+  const {contextState, contextDispatch} = useContext<any>(AppContext)
+  
   const navigate = useNavigate();
 
   const {
@@ -184,8 +186,16 @@ const HomePage = (props) => {
         return sectionName
     }
   }
-    
-    return (
+  
+  function shortTitle(str) {
+    if(contextState.deviceType === "MOBILE"){
+       return  str.slice(0, 25) + "..."
+    } else {
+      return  str;
+    }
+  }
+  
+  return (
       <div className="homepage">
 
 
@@ -217,11 +227,11 @@ const HomePage = (props) => {
               <>
               <div className="product_section_header">
                   <div className="product_section_header__header">
-                    <h1>{isEn(selectedLang) ? sectionName : renderSectionName(sectionName)}</h1>
+                    <h1 className="text-neutral-800 font-medium text-md md:text-lg lg:text-2xl">{sectionName}</h1>
                     { productSectionsWithProduct[sectionName].type === "products"
                     && null
                     }
-                    <Button onClick={()=>handleJumpOneTypeProductPage(sectionName, productSectionsWithProduct)}>{ isEn(selectedLang) ? 'More' : lang.more } </Button>
+                    <Button onClick={()=>handleJumpOneTypeProductPage(sectionName, productSectionsWithProduct)}>{'More'} </Button>
                   </div>
         
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -237,7 +247,7 @@ const HomePage = (props) => {
                           <div className="product_image_div">
                             <div className="product_image_wra">
 
-                              <img src={staticImagePath(pp.cover_photo)} alt="AAAAAAAAAAAAA"/>
+                              <img src={staticImagePath(pp.coverPhoto)} alt="AAAAAAAAAAAAA"/>
                             </div>
                           </div>
                           // <div className="product_image">
@@ -245,6 +255,7 @@ const HomePage = (props) => {
                           //     </div>
                         )
                       }
+                      
                       <div className="desc">
                         <h4 className="product_name">
                           <Link to="">
@@ -253,7 +264,7 @@ const HomePage = (props) => {
                                 ? pp.name
                                 : productSectionsWithProduct[sectionName].type === "brands"
                                   ? pp.name
-                                  : pp.title
+                                  : shortTitle(pp.title)
               
                             } </Link>
                         </h4>

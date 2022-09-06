@@ -4,7 +4,7 @@ import {Button , Image} from "components/UI"
 import {connect, useDispatch} from "react-redux"
 import { fetchProduct, toggleLoader } from "actions/productAction"
 import {ACTION_TYPES} from "store/types"
-import {isEn} from "src/lang"
+import {isEn} from "src/lang/i18n"
 
 import Title from 'src/components/UI/typography/Title';
 

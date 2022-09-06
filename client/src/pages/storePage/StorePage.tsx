@@ -8,7 +8,7 @@ import {Button,  Image, } from "components/UI";
 // import Slider from "components/slider/Slider";
 import apis from "src/apis";
 import {Link} from  "react-router-dom"
-import {isEn} from "src/lang";
+import {isEn} from "src/lang/i18n";
 import qstring from "query-string";
 // import json from "src/breadcrumbData.json";
 import {connect, useDispatch } from  "react-redux"
