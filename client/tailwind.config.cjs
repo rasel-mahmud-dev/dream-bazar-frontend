@@ -42,6 +42,9 @@ module.exports = {
       },
       zIndex: {
         500: "500",
+      },
+      boxShadow: {
+        "card-deep": "0px 9px 14px 9px rgb(149 149 149 / 5%), -1px 1px 18px -15px rgb(77 179 75 / 45%), 0 14px 20px 0px rgb(226 255 226 / 60%)"
       }
     },
   },

@@ -8,7 +8,7 @@ import generateNumber from './../../utils/generateNumber';
 import sumOfArray from './../../utils/sumOfArray';
 import { useSelector } from 'react-redux';
 
-function GetOTPModal(props) {
+function GetOTP(props) {
 
     const { state, setState, onChange, dispatch } = props
 
@@ -127,8 +127,8 @@ function GetOTPModal(props) {
 
     return (
         <div>
-            <h1 className="font-bold text-2xl md:text-3xl text-gray-200 text-center">Get OTP Code</h1>
-            <p className="py-4 text-center text-gray-300 ">We will send you a mail with a otp code and link. This link or otp code make your account verifiyed.</p>
+            <h1 className="card-title">Get OTP Code</h1>
+            <p className="card-info">We will send you a mail with a otp code and link. This link or otp code make your account verifiyed.</p>
 
             <form onSubmit={handleGetOTPCode}>
 
@@ -185,4 +185,4 @@ function GetOTPModal(props) {
     )
 }
 
-export default GetOTPModal
+export default GetOTP

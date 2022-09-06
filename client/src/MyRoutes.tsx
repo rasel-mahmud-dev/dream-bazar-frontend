@@ -4,6 +4,9 @@ import {Routes, Route,} from "react-router-dom"
 import ResetPassword from "pages/auth/ResetPassword";
 import JoinHome from "pages/auth/JoinHome";
 import ForgetPassword from "pages/auth/ForgetPassword";
+import OTPValidate from "pages/auth/OTPValidate";
+import Registration from "pages/auth/Registration";
+import Login from "pages/auth/Login";
 
 const HomePage = lazy(() => import("pages/homePage/HomePage"))
 const Products = lazy(() => import("src/pages/products/Products"))
@@ -13,8 +16,8 @@ const Dashboard = lazy(() => import("src/pages/Admin/Dashboard/Dashboard"))
 const CartPage = lazy(() => import("src/pages/CartPages/Index"))
 const CheckoutPage = lazy(() => import("src/pages/CartPages/CheckoutPage"))
 const PaymentPage = lazy(() => import("src/pages/CartPages/PaymentPage"))
-const LoginPage = lazy(() => import("src/pages/auth/LoginPage"))
-const RegistrationPage = lazy(() => import("src/pages/auth/RegistrationPage"))
+
+const RegistrationPage = lazy(() => import("pages/auth/Registration"))
 const CustomerDashboard = lazy(() => import("src/pages/Customer/Dashboard"))
 const TestPage = lazy(() => import("src/pages/Test/Test"))
 
@@ -34,9 +37,11 @@ const MyRoutes = () => {
             <Route path="/p" element={<ProductFilterPage/>}/>
 			
           <Route path="/auth/join" element={<JoinHome/>}>
-              <Route path="login" element={<LoginPage/>}/>
+              <Route path="login" element={<Login/>}/>
+              <Route path="registration" element={<Registration/>}/>
               <Route path="reset-password" element={<ResetPassword/>}/>
               <Route path="forget-password" element={<ForgetPassword/>}/>
+              <Route path="opt-validate" element={<OTPValidate/>}/>
           </Route>
 			
       </Routes>

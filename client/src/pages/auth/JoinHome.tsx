@@ -3,12 +3,19 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { toggleModal } from "src/store/slices/appSlice"
 
 import { FaTimes } from "react-icons/fa"
-import {Outlet} from "react-router-dom";
-// import OTPValidateModal from './OTPValidateModal';
-// import GetOTPModal from './GetOTPModal';
+import {Link, Outlet} from "react-router-dom";
+
+import "./style.scss"
+import {BiHome, CgHome} from "react-icons/all";
+import {createContext} from "vm";
+
+
+// import OTPValidate from './OTPValidate';
+// import GetOTP from './GetOTP';
 // import ResetPassword from './ResetPassword';
 // import RegistrationModal from './RegistrationModal';
 // import LoginModal from './LoginModal';
+
 
 
 function JoinHome() {
@@ -20,14 +27,14 @@ function JoinHome() {
 
     const [state, setState] = useState({
         userData: {
-            firstName: { value: "", errorMessage: "", tauch: false },
-            lastName: { value: "", errorMessage: "", tauch: false },
-            email: { value: "", errorMessage: "", tauch: false },
-            password: { value: "", errorMessage: "", tauch: false },
-            confirmPassword: { value: "", errorMessage: "", tauch: false },
-            gender: { value: "", errorMessage: "", tauch: false },
-            otpCode: { value: "", errorMessage: "", tauch: false },
-            result: { value: "", errorMessage: "", tauch: false }
+            firstName: { value: "", errorMessage: "" },
+            lastName: { value: "", errorMessage: "" },
+            email: { value: "", errorMessage: "" },
+            password: { value: "", errorMessage: "" },
+            confirmPassword: { value: "", errorMessage: "" },
+            gender: { value: "", errorMessage: "" },
+            otpCode: { value: "", errorMessage: "" },
+            result: { value: "", errorMessage: "" }
         },
         verifyFor: "newAccount", // newAcc, resetPassword
         httpResponse: "",
@@ -59,7 +66,6 @@ function JoinHome() {
     //     }
     // }, [app.modal, auth.auth])
 
-
     function handleChange(e) {
         const { name, value } = e.target
         let updateUserData = { ...state.userData }
@@ -69,7 +75,6 @@ function JoinHome() {
             [name]: {
                 ...updateUserData[name],
                 value: value,
-                tauch: true,
                 errorMessage: updateUserData[name] ? "" : updateUserData[name].errorMessage
             }
         }
@@ -78,20 +83,24 @@ function JoinHome() {
             ...state,
             userData: updateUserData
         })
-
     }
-
-
+    
+    
 
     return (
         <div>
 
             {/* <input type="checkbox" id="my-modal" className="modal-toggle" /> */}
-
-                    <h1>JOin</h1>
-   
-                    
-                    <Outlet />
+    
+                    <div className="auth-card-container">
+                        <div className="auth-card">
+                            <Outlet context={{parentState: state, setParentState: setState, handleChange}} />
+                            <Link className="flex items-center justify-center text-link font-medium" to="/">
+                                 <CgHome className="mr-1" />
+                                Go Home
+                            </Link>
+                        </div>
+                    </div>
 
                     {/*<div onClick={() => dispatch(toggleModal(""))} className="bg-neutral text-white absolute right-3 top-3 p-2 rounded-full">*/}
                     {/*    <FaTimes />*/}
@@ -115,7 +124,7 @@ function JoinHome() {
                     {/*    onResetUserData={handleResetUserData}*/}
                     {/*    dispatch={dispatch}*/}
                     {/*/>}*/}
-                    {/*{modal === "get_otp_modal" && <GetOTPModal*/}
+                    {/*{modal === "get_otp_modal" && <GetOTP*/}
                     {/*    state={state}*/}
                     {/*    onChange={handleChange}*/}
                     {/*    setState={setState}*/}
@@ -124,7 +133,7 @@ function JoinHome() {
                     {/*    onResetUserData={handleResetUserData}*/}
                     {/*    dispatch={dispatch}*/}
                     {/*/>}*/}
-                    {/*{modal === "otp_verify_modal" && <OTPValidateModal*/}
+                    {/*{modal === "otp_verify_modal" && <OTPValidate*/}
                     {/*    state={state}*/}
                     {/*    setState={setState}*/}
                     {/*    onChange={handleChange}*/}
