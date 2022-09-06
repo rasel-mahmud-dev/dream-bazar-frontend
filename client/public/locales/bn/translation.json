@@ -7,8 +7,21 @@
   "add_to_cart": "কার্ট এ যোগ করুন",
   "no_product_found": "কোন পণ্য খুঁজে পাওয়া যায়নি",
   "details": "বিস্তারিত",
-  "top_popular_products": "সর্বাধিক জনপ্রিয়",
-  "top_selling_products": "",
+
+
+  "Top Popular products": "সর্বাধিক জনপ্রিয় পণ্য",
+  "Top Selling products": "সর্বাধিক বিক্রয় পণ্য",
+  "Top Offers": "সর্বাধিক সুবিধা",
+
+  "English": "ইংরেজি",
+  "Bangla": "বাংলা",
+
+  "Dark": "কালো",
+  "Light": "আলো",
+  "System": "সিস্টেম",
+  "Account": "একাউন্ট",
+  "Favorite": "পছেন্দের লিস্ট",
+  "In Cart": "কার্ট",
   "shop_by_categories": "শপিং দারাাগন ",
   "shop_by_brands": "শপিং দাঁড়া ব্রান্ড"   ,
   "login": "লগ ইন করুন",

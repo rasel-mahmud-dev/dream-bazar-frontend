@@ -12,7 +12,7 @@ import fullLink from "src/utills/fullLink";
 import HomeProductNavigation from "pages/homePage/HomeProductNavigation";
 import staticImagePath from "src/utills/staticImagePath";
 import AppContextProvider, {AppContext} from "store/AppContext";
-
+import useLanguage from "src/hooks/useLanguage";
 // import "slick-carousel/slick/slick-theme.css";
 
 let id;
@@ -23,6 +23,8 @@ const HomePage = (props) => {
   const {contextState, contextDispatch} = useContext<any>(AppContext)
   
   const navigate = useNavigate();
+  
+  const [l] = useLanguage(AppContext)
 
   const {
     homePageSectionsData,
@@ -33,12 +35,12 @@ const HomePage = (props) => {
     fetchedData
   } = props.productState
   
-    const carouselData = [
-      {img:"ff548b9075708229.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
-      {img:"a7f93e9e0f7b947f.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
-      {img:"bf3d1c8a7696dfd9-1.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
-      {img:"ff548b9075708229.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"}
-    ]
+  const carouselData = [
+    {img:"ff548b9075708229.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
+    {img:"a7f93e9e0f7b947f.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
+    {img:"bf3d1c8a7696dfd9-1.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
+    {img:"ff548b9075708229.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"}
+  ]
   
   const { selectedLang,lang } = props.appState
 
@@ -227,7 +229,7 @@ const HomePage = (props) => {
               <>
               <div className="product_section_header">
                   <div className="product_section_header__header">
-                    <h1 className="text-neutral-800 font-medium text-md md:text-lg lg:text-2xl">{sectionName}</h1>
+                    <h1 className="text-neutral-800 font-medium text-md md:text-lg lg:text-2xl">{l(sectionName, sectionName)}</h1>
                     { productSectionsWithProduct[sectionName].type === "products"
                     && null
                     }

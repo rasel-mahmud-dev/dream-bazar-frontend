@@ -112,9 +112,9 @@ const initialState: ProductStateType = {
   productDetails: {},
   oneTypeFetchProducts: {name: "", values: [{}]},
   homePageSectionsData: [
-    {name: "Top Popular products", type: "products", filterBy: "views=-1", params: "views=-1"},
-    {name: "Top Selling products", type: "products", filterBy: "sold=-1", params: "sold=-1"},
-    {name: "Top Offers", type: "products", filterBy: "top-discount", params: "discount=-1"},
+    {name: "Top Popular products", langKey: "top_popular_products", type: "products", filterBy: "views=-1", params: "views=-1"},
+    {name: "Top Selling products", langKey: "top_selling_products", type: "products", filterBy: "sold=-1", params: "sold=-1"},
+    {name: "Top Offers", langKey: "top_offer_products", type: "products", filterBy: "top-discount", params: "discount=-1"},
     // {name: "Today's Fashion Deals", type: "products", filterBy: "top-discount", params: "discount=-1&cat=60df5e546419f56b97610608"},
     // {name: "Featured Brands", type: "products", filterBy: "top-discount", params: "discount=-1&cat=60df5e546419f56b97610608"},
     // {name: "Best of Electronics", type: "products", filterBy: "top-views", params: "cat=60df5e546419f56b97610608"},

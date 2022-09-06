@@ -36,6 +36,8 @@ import {RootState} from "src/store";
 import {setLanguage} from "actions/appContextActions";
 import appContext, {AppContext} from "store/AppContext";
 
+import useLanguage from "src/hooks/useLanguage";
+
 const Title = Typography.Title.default;
 
 function Navigation(props) {
@@ -43,6 +45,8 @@ function Navigation(props) {
     const dispatch = useDispatch();
     
     const {contextState, contextDispatch} = useContext<any>(AppContext)
+    
+    const [l] = useLanguage(AppContext)
     
     
     const news =
@@ -285,17 +289,17 @@ function Navigation(props) {
                     <div className="col-span-2 flex w-full gap-x-4">
                         <li className="flex items-center justify-end">
                             <IoLanguageOutline className="text-md" />
-                            <select onChange={handleChangeLanguage} name="" id="">
-                                <option value="bn">Bangla</option>
-                                <option value="en">English</option>
+                            <select onChange={handleChangeLanguage} name="" id="" value={contextState.lang}>
+                                <option value="bn">{l('Bangla', 'Bangla')}</option>
+                                <option value="en">{l('English', 'English')}</option>
                             </select>
                         </li>
                          <li className="flex items-center justify-end">
                             <FiMoon className="text-md" />
                             <select onChange={handleChangeTheme} name="" id="" value={appState.theme}>
-                                <option value="dark">Dark</option>
-                                <option value="light">Light</option>
-                                <option value="system">System</option>
+                                <option value="dark">{l("Dark", "Dark")}</option>
+                                <option value="dark">{l("Light", "Light")}</option>
+                                <option value="dark">{l("System", "System")}</option>
                             </select>
                         </li>
                         {/*<button onClick={()=>dispatch({type: ACTION_TYPES.CHOOSE_LANGUAGE, payload: "en"})}>EN</button>*/}
@@ -376,20 +380,20 @@ function Navigation(props) {
                                 <li className="flex items-center gap-x-2">
                                     <GiShoppingBag className="text-white text-2xl " />
                                     <span className="font-medium text-white">
-                                        In Cart
+                                        {l("In Cart", "In Cart") }
                                     </span>
                                 </li>
                                 
                                 <li className="flex items-center gap-x-2 ">
                                     <FaHeart className="text-white text-2xl" />
                                     <span className="font-medium text-white">
-                                        Favorite
+                                        {l("Favorite", "Favorite") }
                                     </span>
                                 </li>
                                 <li className="flex items-center gap-x-2 ">
                                     <BiUser className="text-white text-2xl" />
                                     <span className="font-medium text-white">
-                                        Account
+                                        {l("Account", "Account") }
                                     </span>
                                 </li>
                             </div>

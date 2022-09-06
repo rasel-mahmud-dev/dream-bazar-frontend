@@ -1,11 +1,11 @@
 import {useContext} from "react";
 
 
-export default function useLanguage(Context){
+function useLanguage(Context){
 	const a =  useContext(Context);
 	let translations = a.contextState.translations
 	
-	const f = (token, fallback)=>{
+	const chooseToken = (token: string, fallback?: string)=>{
 		if(translations[token]){
 			return translations[token]
 		} else {
@@ -13,5 +13,7 @@ export default function useLanguage(Context){
 		}
 	}
 	
-	return [f]
+	return [chooseToken]
 }
+
+export default useLanguage

@@ -18,7 +18,7 @@ const {closeNotify} = actions
 import CategoryNavbar from "components/categoryNavbar/CategoryNavbar";
 import {AppContext, DeviceType} from "store/AppContext";
 import throttle from "src/utills/throttle";
-import useLanguage from "src/lang";
+import useLanguage from "src/hooks/useLanguage";
 import {setLanguage} from "actions/appContextActions";
 
 
@@ -173,23 +173,7 @@ function App(props) {
   
   return (
     <div className="App">
-      
-      <select name="" id="" onChange={handleC}>
-        <option value="bn">Bangla</option>
-        <option value="en">English</option>
-      </select>
-
-      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
-      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
-      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
-      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
-      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
-      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
-      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
-      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
-      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
-      <h1>{t('top_bar_title', "ASDDDDDDDDDD")}</h1>
-      
+    
       
     {/*  <Spin size={15}/>
       <div style={{width: 500 + "px", margin: "auto"}}>
