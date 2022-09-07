@@ -8,8 +8,10 @@ function useLanguage(Context){
 	const chooseToken = (token: string, fallback?: string)=>{
 		if(translations[token]){
 			return translations[token]
-		} else {
+		} else if(fallback) {
 			return fallback
+		} else {
+			return token;
 		}
 	}
 	

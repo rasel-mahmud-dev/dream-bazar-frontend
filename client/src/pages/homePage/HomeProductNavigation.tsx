@@ -639,7 +639,7 @@ const HomeProductNavigation = () => {
                   }
                 </div>
               ))}
-						</ul> }
+            </ul> }
           </div>
         </div>
       )
@@ -647,7 +647,7 @@ const HomeProductNavigation = () => {
   }
   
   return (
-    <div className="bg-white py-4 shadow-md">
+    <div className="bg-white py-4 dark:bg-neutral-800 dark:text-white shadow-md">
       <div className="flex items-center justify-between max-w-8xl mx-auto px-4">
         { homeNavData.map((navData, i)=>{
           return (

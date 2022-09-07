@@ -14,13 +14,15 @@ export enum DeviceType {
 interface initialState {
 	deviceType: DeviceType,
 	translations: Object,
-	lang: "en" | "bn"
+	lang: "en" | "bn",
+	theme:  "light" | "dark" | "system",
 }
 
 const initialState: initialState = {
 	deviceType: DeviceType.DESKTOP,
 	translations: l,
-	lang: "en"
+	lang: "en",
+	theme: "light"
 };
 
 
@@ -36,8 +38,12 @@ interface LanguageActionType{
 		lang: string
 	}
 }
+interface SetThemeActionType{
+	type: ACTION_TYPES.SET_THEME,
+	payload: "light" | "dark" | "system",
+}
 
-function reducer(state: initialState, action: DeviceActionType | LanguageActionType ) {
+function reducer(state: initialState, action: DeviceActionType | LanguageActionType | SetThemeActionType ) {
 	switch (action.type) {
         case "SET_DEVICE":
             return { ...state, deviceType: action.payload };
@@ -48,7 +54,13 @@ function reducer(state: initialState, action: DeviceActionType | LanguageActionT
 	            translations: action.payload.translations,
                 lang: action.payload.lang
 			}
-			
+		
+		case ACTION_TYPES.SET_THEME:
+			return {
+				...state,
+				theme: action.payload
+			}
+		
         default:
             return state;
     }
@@ -58,7 +70,6 @@ function reducer(state: initialState, action: DeviceActionType | LanguageActionT
 const AppContextProvider = (props)=> {
 	
 	const [contextState, contextDispatch] = useReducer(reducer, initialState);
-	// const [contextState, contextDispatch] = useState<initialState>({deviceType: DeviceType.MOBILE})
 	
 	return (
 		<AppContext.Provider value={{contextState: contextState, contextDispatch}}>

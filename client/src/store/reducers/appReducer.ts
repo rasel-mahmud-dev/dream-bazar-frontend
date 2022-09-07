@@ -5,7 +5,6 @@ interface AppStateType {
   notificationMsg?: string,
   isNotify?: false,
   notificationType: string,
-  theme: "light" | "dark" | "system",
   isOpenAppMask: boolean
 }
 
@@ -14,7 +13,6 @@ const initialState: AppStateType = {
   isNotify: false,
   notificationType: "",
   notificationMsg: "",
-  theme: "light",
   isOpenAppMask: false
 }
 
@@ -45,9 +43,6 @@ const appReducer = (state: any=initialState, action)=>{
       }
       return  updatedState;
       
-    case ACTION_TYPES.SET_THEME:
-      updatedState.theme = action.payload
-      return updatedState
     
     default: 
        return state

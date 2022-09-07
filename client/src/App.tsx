@@ -19,7 +19,7 @@ import CategoryNavbar from "components/categoryNavbar/CategoryNavbar";
 import {AppContext, DeviceType} from "store/AppContext";
 import throttle from "src/utills/throttle";
 import useLanguage from "src/hooks/useLanguage";
-import {setLanguage} from "actions/appContextActions";
+import {setLanguage, toggleTheme} from "actions/appContextActions";
 
 
 function App(props) {
@@ -89,12 +89,9 @@ function App(props) {
     //   setPathname(h.pathname)
     // })
   
-  
-    let lang = localStorage.getItem("lang");
-    if(!lang){
-      lang = "en"
-    }
-    setLanguage(lang, contextDispatch)
+
+    setLanguage("", contextDispatch)
+    toggleTheme("", contextDispatch)
   
     handlerWindowResize();
     window.addEventListener("resize", throttle(handlerWindowResize, 300))
@@ -191,7 +188,6 @@ function App(props) {
      <Navigation />
       
       
-    
        <div className="App-Content ">
          <div className="h117" style={{height: afterNavHeight + "px"}}/>
          <div className={["App-Content-mask", appState.isOpenAppMask ? "mask__open" : "mask__close"].join(" ")}/>

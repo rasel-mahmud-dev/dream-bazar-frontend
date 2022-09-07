@@ -14,27 +14,21 @@ import {
 // import ProductCategoryDropdown from "components/ProductCategoryDropdown/ProductCategoryDropdown"
 import { ACTION_TYPES } from "store/types";
 import fullLink from "src/utills/fullLink";
-import { InputGroup } from "UI/Form";
+
 import {
-    BiHeart,
     BiSearch,
-    BiShoppingBag,
     BiUser,
     BsGithub,
-    CgShoppingBag,
-    CgShoppingCart,
     FaFacebook,
     FaHeart,
     FaLanguage,
-    FiShoppingCart,
     GiShoppingBag,
-    GrLanguage,
-    MdLanguage,
-    IoLanguageOutline, FaAngleDown, FiMoon,
+    IoLanguageOutline,  FiMoon,
 } from "react-icons/all";
+
 import {RootState} from "src/store";
-import {setLanguage} from "actions/appContextActions";
-import appContext, {AppContext} from "store/AppContext";
+import {setLanguage, toggleTheme} from "actions/appContextActions";
+import  {AppContext} from "store/AppContext";
 
 import useLanguage from "src/hooks/useLanguage";
 
@@ -256,23 +250,19 @@ function Navigation(props) {
     }
 
     function handleChangeTheme(e){
-        dispatch({
-            type: ACTION_TYPES.SET_THEME,
-            payload: e.target.value
-        })
+        toggleTheme(e.target.value, contextDispatch)
     }
     
     function handleChangeLanguage(e){
         setLanguage(e.target.value, contextDispatch)
     }
     
-    
     return (
         <div className={["navigation", isFixed ? "nav_fixed" : ""].join(" ")}>
             {/* top navigation */}
-            <div className="bg-white py-1">
+            <div className="bg-white dark:bg-neutral-800  py-1">
                 <div className="grid grid-cols-12 justify-between w-full max-w-8xl mx-auto px-4">
-                    <div className="col-span-2 flex items-center gap-x-4">
+                    <div className="col-span-2 flex items-center gap-x-4  dark:text-white">
                         <FaFacebook />
                         <BsGithub />
                         <FaFacebook />
@@ -282,24 +272,24 @@ function Navigation(props) {
 
                     <div className="col-span-8">
                         <marquee>
-                            <h6 className="">{news}</h6>
+                            <h6 className="dark:text-white">{news}</h6>
                         </marquee>
                     </div>
 
                     <div className="col-span-2 flex w-full gap-x-4">
                         <li className="flex items-center justify-end">
                             <IoLanguageOutline className="text-md" />
-                            <select onChange={handleChangeLanguage} name="" id="" value={contextState.lang}>
+                            <select onChange={handleChangeLanguage} name="" id="" value={contextState.lang} className="dark:bg-neutral-600 dark:text-white">
                                 <option value="bn">{l('Bangla', 'Bangla')}</option>
                                 <option value="en">{l('English', 'English')}</option>
                             </select>
                         </li>
                          <li className="flex items-center justify-end">
                             <FiMoon className="text-md" />
-                            <select onChange={handleChangeTheme} name="" id="" value={appState.theme}>
+                            <select onChange={handleChangeTheme} name="" id="" value={contextState.theme} className="dark:bg-neutral-600 dark:text-white">
                                 <option value="dark">{l("Dark", "Dark")}</option>
-                                <option value="dark">{l("Light", "Light")}</option>
-                                <option value="dark">{l("System", "System")}</option>
+                                <option value="light">{l("Light", "Light")}</option>
+                                <option value="system">{l("System", "System")}</option>
                             </select>
                         </li>
                         {/*<button onClick={()=>dispatch({type: ACTION_TYPES.CHOOSE_LANGUAGE, payload: "en"})}>EN</button>*/}

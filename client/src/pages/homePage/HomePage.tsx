@@ -36,10 +36,10 @@ const HomePage = (props) => {
   } = props.productState
   
   const carouselData = [
-    {img:"ff548b9075708229.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
-    {img:"a7f93e9e0f7b947f.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
-    {img:"bf3d1c8a7696dfd9-1.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
-    {img:"ff548b9075708229.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"}
+    {img:"images/home-carousel/ff548b9075708229.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
+    {img:"images/home-carousel/a7f93e9e0f7b947f.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
+    {img:"images/home-carousel/bf3d1c8a7696dfd9-1.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"},
+    {img:"images/home-carousel/ff548b9075708229.jpg", desc: "asdkfh asf hasdkfj haskdj fhasasd  asdfd asdf asdfas hsadjf asdjfh", title: "Awesome phone"}
   ]
   
   const { selectedLang,lang } = props.appState
@@ -199,8 +199,7 @@ const HomePage = (props) => {
   
   return (
       <div className="homepage">
-
-
+        
         <HomeProductNavigation/>
 
         <div>
@@ -227,13 +226,16 @@ const HomePage = (props) => {
         
             { Object.keys(productSectionsWithProduct) && Object.keys(productSectionsWithProduct).map(sectionName=>(
               <>
-              <div className="product_section_header">
-                  <div className="product_section_header__header">
-                    <h1 className="text-neutral-800 font-medium text-md md:text-lg lg:text-2xl">{l(sectionName, sectionName)}</h1>
+              <div className="bg-white dark:bg-neutral-800 mt-10 shadow-card-deep">
+                  <div className="flex items-center justify-between py-2 px-4 mb-8 border-b border-neutral-600 ">
+                    <h1 className="text-neutral-800 dark:text-white font-medium text-md md:text-lg lg:text-2xl">{l(sectionName)}</h1>
                     { productSectionsWithProduct[sectionName].type === "products"
                     && null
                     }
-                    <Button onClick={()=>handleJumpOneTypeProductPage(sectionName, productSectionsWithProduct)}>{'More'} </Button>
+                    <Button loading={true} className="bg-red-500 text-white" loaderClass="!border-l-green-500 !border-b-green-500"
+                        onClick={()=>handleJumpOneTypeProductPage(sectionName, productSectionsWithProduct)}>
+                      {l('More')}
+                    </Button>
                   </div>
         
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
