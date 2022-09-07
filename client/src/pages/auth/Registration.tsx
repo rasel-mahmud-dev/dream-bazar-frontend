@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import {useParams, Link, useLocation, useNavigate, useOutletContext} from "react-router-dom";
+import {
+    useParams,
+    Link,
+    useLocation,
+    useNavigate,
+    useOutletContext,
+} from "react-router-dom";
 import { Button, Spin, Popup } from "components/UI";
 import { useDispatch, useSelector } from "react-redux";
 import errorMessageCatch from "src/utills/errorMessageCatch";
@@ -12,9 +18,12 @@ import ResponseMessage from "UI/ResponseMessage";
 
 const Registration = (props) => {
     const {} = useSelector((state: RootState) => state);
-    
-    const {parentState, setParentState, handleChange} = useOutletContext<{parentState: any, setParentState: any, handleChange: any}>()
-    
+
+    const { parentState, setParentState, handleChange } = useOutletContext<{
+        parentState: any;
+        setParentState: any;
+        handleChange: any;
+    }>();
 
     let params = useParams();
 
@@ -29,7 +38,7 @@ const Registration = (props) => {
 
     const [state, setState] = useState({
         httpResponse: "",
-        httpStatus: 0
+        httpStatus: 0,
     });
 
     async function submitHandler(e) {
@@ -54,12 +63,11 @@ const Registration = (props) => {
                 payload[key] = updatedUserData[key].value;
             }
         }
-        
 
         if (!isCompleted) {
             setParentState({
                 ...parentState,
-                userData: updatedUserData
+                userData: updatedUserData,
             });
             return;
         }
@@ -84,7 +92,6 @@ const Registration = (props) => {
             });
         }
     }
-    
 
     const [errorMessage, setErrorMessage] = React.useState({
         message: "",
@@ -189,38 +196,37 @@ const Registration = (props) => {
 
     return (
         <div>
-    
             <h1 className="card-title">Create an Account</h1>
-            
+
             {/*{renderLoader("login-user")}*/}
-    
+
             <ResponseMessage
                 className="my-2"
                 message={parentState.httpResponse}
                 statusCode={parentState.httpStatus}
             />
-            
+
             <form onSubmit={submitHandler}>
                 <InputGroup
                     state={parentState.userData}
                     name="firstName"
                     onChange={handleChange}
                     placeholder="Enter firstName"
-                    inputClass="bg-neutral-100 rounded-lg border border-transparent focus:border focus:border-green-400 !py-3 !px-4"
+                    inputClass="input-group"
                 />
                 <InputGroup
                     state={parentState.userData}
                     name="lastName"
                     onChange={handleChange}
                     placeholder="Enter lastName"
-                    inputClass="bg-neutral-100 rounded-lg border border-transparent focus:border focus:border-green-400 !py-3 !px-4"
+                    inputClass="input-group"
                 />
                 <InputGroup
                     state={parentState.userData}
                     name="email"
                     onChange={handleChange}
                     placeholder="Enter Email"
-                    inputClass="bg-neutral-100 rounded-lg border border-transparent focus:border focus:border-green-400 !py-3 !px-4"
+                    inputClass="input-group"
                 />
 
                 <InputGroup
@@ -229,16 +235,16 @@ const Registration = (props) => {
                     type="password"
                     onChange={handleChange}
                     placeholder="Enter password"
-                    inputClass="bg-neutral-100 rounded-lg border border-transparent focus:border focus:border-green-400 !py-3 !px-4"
+                    inputClass="input-group"
                 />
 
                 <p className="my-5 text-right text-link">
-                    Already have an account? {" "}
-                    <Link to="/auth/join/login">
-                         login here
-                    </Link>
+                    Already have an account?{" "}
+                    <Link to="/auth/join/login">login here</Link>
                 </p>
-                <button className="w-full bg-green-450 px-4 py-2 border-none text-white font-semibold text-lg rounded-xl">Create</button>
+                <button className="w-full bg-green-450 px-4 py-2 border-none text-white font-semibold text-lg rounded-xl">
+                    Create
+                </button>
             </form>
             <p className="my-5 text-center text-neutral-600">Or sign in with</p>
 
@@ -263,10 +269,8 @@ const Registration = (props) => {
                     </a>
                 </button>
             </div>
-            
         </div>
     );
 };
 
-
-export default Registration
+export default Registration;

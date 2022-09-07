@@ -11,7 +11,7 @@
 }
 
 .auth-card{
-  @apply shadow-card-deep mx-auto bg-white p-5 rounded-2xl absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+  @apply shadow-card-deep dark:shadow-card-deep-dark  mx-auto bg-white dark:bg-neutral-800 p-5 rounded-2xl absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ;
   width: 100%;
   max-width: 420px;
   @include get_down(500px){
@@ -33,4 +33,8 @@
 
 .card-info{
   @apply py-4 text-center text-neutral-400
+}
+
+.input-group{
+  @apply bg-neutral-100 dark:bg-neutral-900/50 text-neutral-800  dark:text-neutral-300 placeholder:text-neutral-800  dark:placeholder:text-neutral-400  rounded-lg border border-transparent focus:border focus:border-green-400 py-3 px-4;
 }

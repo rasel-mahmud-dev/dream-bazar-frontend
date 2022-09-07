@@ -148,7 +148,7 @@ function Navigation(props) {
     return (
         <div className={["navigation", isFixed ? "nav_fixed" : ""].join(" ")}>
             {/* top navigation */}
-            <div className="bg-white dark:bg-neutral-800  py-1">
+            <div className="bg-white dark:bg-neutral-800  py-1 ">
                 <div className="grid grid-cols-12 justify-between w-full max-w-8xl mx-auto px-4">
                     <div className="col-span-2 flex items-center gap-x-4  dark:text-white">
                         <FaFacebook />

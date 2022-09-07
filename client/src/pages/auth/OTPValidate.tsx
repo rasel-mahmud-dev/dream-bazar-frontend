@@ -140,12 +140,12 @@ function OTPValidate(props) {
                     name="optCode"
                     onChange={onChange}
                     placeholder="Enter Code"
-                    inputClass="bg-neutral-100 rounded-lg border border-transparent focus:border focus:border-green-400 !py-3 !px-4"
+                    inputClass="input-group"
                 />
 
                 <div className="my-4">
-                    <Link className="text-right text-link" to="/">
-                        Have a OTP code{" "}
+                    <Link className="text-right text-link" to="/auth/join/forget-password">
+                        Didn't get OTP Code {" "}
                     </Link>
                 </div>
                 <button className="w-full bg-green-450 px-4 py-2 border-none text-white font-semibold text-lg rounded-xl">

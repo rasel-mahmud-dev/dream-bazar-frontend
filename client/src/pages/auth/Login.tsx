@@ -252,7 +252,7 @@ const Login: FC<LoginPageProps> = (props) => {
                     name="email"
                     onChange={handleChange}
                     placeholder="Enter Email"
-                    inputClass="bg-neutral-100 rounded-lg border border-transparent focus:border focus:border-green-400 !py-3 !px-4"
+                    inputClass="input-group"
                 />
                 
                 <InputGroup
@@ -261,7 +261,7 @@ const Login: FC<LoginPageProps> = (props) => {
                     type="password"
                     onChange={handleChange}
                     placeholder="Enter password"
-                    inputClass="bg-neutral-100 rounded-lg border border-transparent focus:border focus:border-green-400 !py-3 !px-4"
+                    inputClass="input-group"
                 />
 
                 <p className="my-5 text-right text-link">
