@@ -33,8 +33,8 @@ const Carousel = (props) => {
       modules={[Lazy, Autoplay, Pagination, Navigation]}
       className="mySwiper"
     >
-      { children && children.map(c=>(
-        <SwiperSlide>{c}</SwiperSlide>
+      { children && children.map((c, i)=>(
+        <SwiperSlide key={i}>{c}</SwiperSlide>
       ))}
   
     </Swiper>

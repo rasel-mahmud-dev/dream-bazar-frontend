@@ -1,18 +1,19 @@
-import React, {CSSProperties, FC} from "react"
+import React, {CSSProperties, FC, HTMLAttributes} from "react"
 
 import "./Popup.scss"
 import {CSSTransition} from "react-transition-group"
-interface PopupProps{
+
+
+interface PopupProps extends HTMLAttributes<HTMLDivElement>{
   className?: string
   timeout?: number,
   animationClass?:string,
   inProp: boolean,
   style?: CSSProperties | any,
-  bg?: string,
   children: any
 }
 
-const Popup: FC<PopupProps>  = ({className, timeout=500, animationClass, inProp,  bg, children, ...otherAttributes})=>{
+const Popup: FC<PopupProps>  = ({className, timeout=500, animationClass, inProp,  children, ...otherAttributes})=>{
   
   return (
      <CSSTransition 

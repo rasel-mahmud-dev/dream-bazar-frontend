@@ -11,7 +11,7 @@ interface BaseButtonProps extends HTMLAttributes<HTMLButtonElement> {
     children?: React.ReactNode;
     to?: string;
     href?: string;
-    loaderClass: string
+    loaderClass?: string
 }
 
 
@@ -21,26 +21,30 @@ const Button: FC<BaseButtonProps> = (props) => {
     if (to) {
         return (
             // @ts-ignore
-            <Link to={to} {...attributes}>
-                {loading && <LoadingIcon />}
+            <Link to={to} {...attributes} className={`btn rounded ${className}`}>
+                {loading && <div className={`btn-loading-circle mr-1.5 dark:bg-red-500 ${loaderClass}`}>
+                    <LoadingIcon />
+                </div> }
                 {props.children && <span>{props.children}</span>}
             </Link>
         );
     } else if (href) {
         return (
             // @ts-ignore
-            <a href={href} {...attributes}>
-                {loading && <LoadingIcon />}
+            <a href={href} {...attributes} className={`btn rounded ${className}`}>
+                {loading && <div className={`btn-loading-circle mr-1.5 dark:bg-red-500 ${loaderClass}`}>
+                    <LoadingIcon />
+                </div> }
                 {props.children && <span>{props.children}</span>}
             </a>
         );
     } else {
         return (
             <button {...attributes} className={`btn rounded ${className}`}>
-                {loading && <div className={`btn-loading-circle dark:bg-red-500 ${loaderClass}`}>
+                {loading && <div className={`btn-loading-circle mr-1.5 dark:bg-red-500 ${loaderClass}`}>
                     <LoadingIcon />
                 </div> }
-                {props.children && <span className="ml-1.5">{props.children}</span>}
+                {props.children && <span>{props.children}</span>}
             </button>
         );
     }

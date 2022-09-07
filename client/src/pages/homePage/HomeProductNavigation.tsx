@@ -610,16 +610,17 @@ const HomeProductNavigation = () => {
               {nav.sub_menu && nav.sub_menu.map(subName=>{
                 return (
                   <div
-                    onMouseEnter={(e)=>expandDropdownSubMenu(subName, e)}
-                    onMouseLeave={(e)=>collapseDropdownSubMenu(subName, e)}
-                    className={["dropdown_panel--item", moreHomeNavData && moreHomeNavData.id === subName.id ? "dropdown_panel--item--active" : ""].join(" ")}
-                    onClick={()=>expandMoreNavHandler(subName)} >
-                    {/*{ subName.ideal*/}
-                    {/*  ? <Link to={`/p?cat=${nav.id}&cat_tree=${subName.id}&ideal=${subName.ideal}`}>{subName.name}</Link>*/}
-                    {/*  : <Link to={`/p?cat=${nav.id}&cat_tree=${subName.id}`}>{subName.name}</Link>*/}
-                    {/*}*/}
-                    {renderLink(nav, subName)}
-                    { subName.sub_menu &&  <i className="far fa-chevron-right" />}
+                      key={subName.id}
+                      onMouseEnter={(e)=>expandDropdownSubMenu(subName, e)}
+                      onMouseLeave={(e)=>collapseDropdownSubMenu(subName, e)}
+                      className={["dropdown_panel--item", moreHomeNavData && moreHomeNavData.id === subName.id ? "dropdown_panel--item--active" : ""].join(" ")}
+                      onClick={()=>expandMoreNavHandler(subName)} >
+                      {/*{ subName.ideal*/}
+                      {/*  ? <Link to={`/p?cat=${nav.id}&cat_tree=${subName.id}&ideal=${subName.ideal}`}>{subName.name}</Link>*/}
+                      {/*  : <Link to={`/p?cat=${nav.id}&cat_tree=${subName.id}`}>{subName.name}</Link>*/}
+                      {/*}*/}
+                      {renderLink(nav, subName)}
+                      { subName.sub_menu &&  <i className="far fa-chevron-right" />}
                   </div>
                 )
               })}
@@ -629,8 +630,8 @@ const HomeProductNavigation = () => {
 						</ul> }
             { moreHomeNavData && <ul className="dropdown_panel--sub_menu dropdown_panel--more  ">
 							<h5 className="dropdown_panel--sub_menu--header">{moreHomeNavData.title}</h5>
-              { moreHomeNavData.items && moreHomeNavData.items.length > 0 && moreHomeNavData.items.map((moreNav: any)=>(
-                <div className="dropdown_panel--item">
+              { moreHomeNavData.items && moreHomeNavData.items.length > 0 && moreHomeNavData.items.map((moreNav: any, index)=>(
+                <div className="dropdown_panel--item" key={index}>
                   { moreNav.ideal ? (
                     <Link to={`/p?cat=${nav.id}&cat_tree=${moreNav.id}&ideal=${moreNav.ideal}`}>{moreNav.name}</Link>
                   ) : (
@@ -652,6 +653,7 @@ const HomeProductNavigation = () => {
         { homeNavData.map((navData, i)=>{
           return (
             <li
+                key={i}
                 onMouseLeave={(e)=>handleMouseDown(navData, "leave", e)}
                 onMouseOver={(e)=>handleMouseDown(navData, "enter", e)}
                 className={`list-none cat_item`}>

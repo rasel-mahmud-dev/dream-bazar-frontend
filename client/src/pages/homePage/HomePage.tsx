@@ -205,8 +205,8 @@ const HomePage = (props) => {
         <div>
           <div className="homepage_slider">
             <Carousel>
-              { carouselData.map(item=>(
-                  <div className="relative">
+              { carouselData.map((item, index)=>(
+                  <div className="relative" key={index}>
                     <img src={staticImagePath(item.img)} alt=""/>
                     <div className="swiper-caption">
                       <h1 className="slider-title font-medium text-3xl text-white ">{item.title}</h1>
@@ -222,17 +222,17 @@ const HomePage = (props) => {
 
         <div className="r max-w-8xl mx-auto" onScroll={handleScroll}>
         
-           <div>
+           <div className="my-20">
         
-            { Object.keys(productSectionsWithProduct) && Object.keys(productSectionsWithProduct).map(sectionName=>(
+            { Object.keys(productSectionsWithProduct) && Object.keys(productSectionsWithProduct).map((sectionName, index: number)=>(
               <>
-              <div className="bg-white dark:bg-neutral-800 mt-10 shadow-card-deep">
-                  <div className="flex items-center justify-between py-2 px-4 mb-8 border-b border-neutral-600 ">
+              <div className="bg-white dark:bg-neutral-800 mt-10 shadow-card-deep dark:shadow-md" key={index}>
+                  <div className="flex items-center justify-between py-2 px-4 mb-8 border-b border-b-neutral-900/10 dark:border-neutral-600 ">
                     <h1 className="text-neutral-800 dark:text-white font-medium text-md md:text-lg lg:text-2xl">{l(sectionName)}</h1>
                     { productSectionsWithProduct[sectionName].type === "products"
                     && null
                     }
-                    <Button loading={true} className="bg-red-500 text-white" loaderClass="!border-l-green-500 !border-b-green-500"
+                    <Button loading={false} className="bg-green-500 text-white" loaderClass="!border-l-white !border-b-white"
                         onClick={()=>handleJumpOneTypeProductPage(sectionName, productSectionsWithProduct)}>
                       {l('More')}
                     </Button>
@@ -241,8 +241,8 @@ const HomePage = (props) => {
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                   {productSectionsWithProduct[sectionName]
                   && productSectionsWithProduct[sectionName].values
-                  && productSectionsWithProduct[sectionName].values.length > 0 ? productSectionsWithProduct[sectionName].values.map(pp => (
-                    <div className="product bg-red-100">
+                  && productSectionsWithProduct[sectionName].values.length > 0 ? productSectionsWithProduct[sectionName].values.map((pp, index) => (
+                    <div className="product bg-red-100" key={index}>
                       {productSectionsWithProduct[sectionName].type === "brands" || productSectionsWithProduct[sectionName].type === "categories"
                         ? <div className="product_image small">
                           <img src={fullLink(pp.logo)} alt=""/>
@@ -261,7 +261,7 @@ const HomePage = (props) => {
                       }
                       
                       <div className="desc">
-                        <h4 className="product_name">
+                        <h4 className="text-neutral-900 dark:text-neutral-100">
                           <Link to="">
                             {
                               productSectionsWithProduct[sectionName].type === "categories"
@@ -310,8 +310,8 @@ const HomePage = (props) => {
             ))  }
             
             {/* This is Home Page Section Loading State Loading State   */}
-           {renderLoader("home_section", "Load More Section", loadMoreSection)}
-        
+           {/*{renderLoader("home_section", "Load More Section", loadMoreSection)}*/}
+            <Button className="!mx-auto text-green-500 mt-10">Load More Section</Button>
         
           </div>
           

@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {lazy, useContext, Suspense} from "react";
 import "./Navigation.scss";
 import { Link } from "react-router-dom";
 import {useDispatch, connect, useSelector} from "react-redux";
@@ -23,7 +23,7 @@ import {
     FaHeart,
     FaLanguage,
     GiShoppingBag,
-    IoLanguageOutline,  FiMoon,
+    IoLanguageOutline, FiMoon, FaSignInAlt, GrOrderedList, MdFavorite,
 } from "react-icons/all";
 
 import {RootState} from "src/store";
@@ -32,9 +32,13 @@ import  {AppContext} from "store/AppContext";
 
 import useLanguage from "src/hooks/useLanguage";
 
+const AuthDropdown  = lazy(()=>import("components/Navigation/AuthDropdown"));
+const MoreDropdown  = lazy(()=>import("components/Navigation/MoreDropdown"));
+
 const Title = Typography.Title.default;
 
 function Navigation(props) {
+    
     const { authState, appState, cartState } = useSelector((state: RootState)=>state);
     const dispatch = useDispatch();
     
@@ -42,11 +46,14 @@ function Navigation(props) {
     
     const [l] = useLanguage(AppContext)
     
+    const news = "From Yesterday our Online Shop will be Shutdown until Government don't declare next info.";
     
-    const news =
-        "From Yesterday our Online Shop will be Shutdown untill Governer don't declear next info.";
     const [isFixed, setFixed] = React.useState(false);
-    const [isShow, setShow] = React.useState("");
+    
+    const [state, setState] = React.useState({
+        openDropdown: ""
+    })
+    
     
     React.useEffect(() => {
         //console.log(props.offsetTop)
@@ -56,123 +63,6 @@ function Navigation(props) {
             setFixed(false);
         }
     }, [props.offsetTop]);
-
-    function handleMouseHover(e) {
-        setShow(e.target.dataset.id);
-    }
-
-    function handleMouseLeave(e) {
-        setShow("");
-    }
-
-    const popupStyle = {
-        position: "absolute",
-        right: "0px",
-    };
-
-    function renderMenuMore(top, isShow) {
-        return (
-            <Popup
-                timeout={500}
-                animationClass="nav-popup-menu"
-                style={popupStyle}
-                bg="white"
-                inProp={isShow}
-            >
-                <Menu>
-                    <Menu.Item key="6">
-                        <Link to="/store-list">store</Link>
-                    </Menu.Item>
-                </Menu>
-            </Popup>
-        );
-    }
-
-    function handleLogout() {
-        window.localStorage.setItem("token", "");
-        dispatch({
-            type: ACTION_TYPES.LOGIN,
-            payload: { _id: null },
-        });
-    }
-
-    function renderAuthMenu(top = 20, isShow) {
-        return (
-            <Popup
-                timeout={500}
-                animationClass="nav-popup-menu"
-                style={popupStyle}
-                bg="white"
-                inProp={isShow}
-            >
-                <div
-                    style={{ padding: "5px 10px" }}
-                    className="text-dark-A400 d-flex align-center"
-                >
-                    <span>New Customer?</span>
-                    <Link
-                        to={`/auth/registration?redirect=/`}
-                        style={{ marginLeft: "10px" }}
-                    >
-                        Sign Up
-                    </Link>
-                </div>
-                {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
-                <Menu>
-                    <Menu.Item icon="fa fa-user" key="1">
-                        {authState._id ? (
-                            <Link
-                                to={`${
-                                    authState.role === "customer"
-                                        ? "/customer/" + authState.username
-                                        : "/auth/admin/dashboard"
-                                }`}
-                            >
-                                My Profile
-                            </Link>
-                        ) : (
-                            <Link to="/auth/login/?redirect=dashboard">
-                                My Profile
-                            </Link>
-                        )}
-                    </Menu.Item>
-                    {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
-
-                    <Menu.Item icon="fa fa-heart" key="3">
-                        <Link
-                            to={`/customer/${
-                                authState.username
-                                    ? authState.username
-                                    : "Guest"
-                            }/my-orders`}
-                        >
-                            Order
-                        </Link>
-                    </Menu.Item>
-                    {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
-
-                    <Menu.Item icon="fa fa-heart" key="4">
-                        Wishlist
-                    </Menu.Item>
-                    {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
-
-                    {authState._id ? (
-                        <Menu.Item
-                            onClick={() => handleLogout()}
-                            icon="fa fa-sign-out-alt"
-                            key="5"
-                        >
-                            Logout
-                        </Menu.Item>
-                    ) : (
-                        <Menu.Item icon="fa fa-sign-in-alt" key="6">
-                            <Link to="/auth/login/?redirect=home">Login</Link>
-                        </Menu.Item>
-                    )}
-                </Menu>
-            </Popup>
-        );
-    }
 
     function renderCartProduct(top: number, isShow: boolean) {
         let totalPrice: number = 0;
@@ -187,8 +77,6 @@ function Navigation(props) {
             <Popup
                 timeout={500}
                 animationClass="nav-popup-menu"
-                style={{ ...popupStyle, top: top + "px" }}
-                bg="white"
                 inProp={isShow}
             >
                 <div
@@ -277,14 +165,14 @@ function Navigation(props) {
                     </div>
 
                     <div className="col-span-2 flex w-full gap-x-4">
-                        <li className="flex items-center justify-end">
+                        <li className="flex items-center justify-end dark:text-white">
                             <IoLanguageOutline className="text-md" />
                             <select onChange={handleChangeLanguage} name="" id="" value={contextState.lang} className="dark:bg-neutral-600 dark:text-white">
                                 <option value="bn">{l('Bangla', 'Bangla')}</option>
                                 <option value="en">{l('English', 'English')}</option>
                             </select>
                         </li>
-                         <li className="flex items-center justify-end">
+                         <li className="flex items-center justify-end dark:text-white">
                             <FiMoon className="text-md" />
                             <select onChange={handleChangeTheme} name="" id="" value={contextState.theme} className="dark:bg-neutral-600 dark:text-white">
                                 <option value="dark">{l("Dark", "Dark")}</option>
@@ -299,7 +187,7 @@ function Navigation(props) {
             </div>
 
             <div className="main-nav bg-green-450">
-                <div className="max-w-8xl mx-auto px-4 py-3">
+                <div className="max-w-8xl mx-auto px-4">
                     
                     <div className="grid grid-cols-12 items-center w-full">
                         
@@ -330,61 +218,42 @@ function Navigation(props) {
                                     />
                                     <BiSearch className="text-white text-xl" />
                                 </div>
-
-                                {/*<Button className="py-10" type="primary">Search</Button>*/}
                             </div>
-                            {/*<div className="flex items-center">*/}
-                            {/*    <Button*/}
-                            {/*        type="primary"*/}
-                            {/*        className="relative"*/}
-                            {/*        data-id="login-button"*/}
-                            {/*        onMouseEnter={handleMouseHover}*/}
-                            {/*        onMouseLeave={handleMouseLeave}*/}
-                            {/*    >*/}
-                            {/*        Login*/}
-                            {/*        {renderAuthMenu(*/}
-                            {/*            20,*/}
-                            {/*            isShow === "login-button" ? true : false*/}
-                            {/*        )}*/}
-                            {/*    </Button>*/}
-
-                            {/*    <Button*/}
-                            {/*        type="primary"*/}
-                            {/*        className="relative"*/}
-                            {/*        data-id="more-nav"*/}
-                            {/*        onMouseEnter={handleMouseHover}*/}
-                            {/*        onMouseLeave={handleMouseLeave}*/}
-                            {/*    >*/}
-                            {/*        More*/}
-                            {/*        {renderMenuMore(*/}
-                            {/*            20,*/}
-                            {/*            isShow === "more-nav" ? true : false*/}
-                            {/*        )}*/}
-                            {/*    </Button>*/}
-                            {/*</div>*/}
                         </div>
 
                         <div className="col-span-4 justify-self-end">
                             
                             <div className="flex gap-x-4 ">
-                                <li className="flex items-center gap-x-2">
+                                <li className="relative flex items-center gap-x-2 py-5"
+                                    onMouseEnter={()=>setState({...state, openDropdown: "cart"})}
+                                    onMouseLeave={()=>setState({...state, openDropdown: ""})}
+                                >
                                     <GiShoppingBag className="text-white text-2xl " />
                                     <span className="font-medium text-white">
                                         {l("In Cart", "In Cart") }
                                     </span>
+                                    <Suspense fallback={<h1>loading</h1>}>
+                                        <MoreDropdown className="-ml-20 top-14" isShow={state.openDropdown === "cart"}  />
+                                    </Suspense>
                                 </li>
                                 
-                                <li className="flex items-center gap-x-2 ">
+                                <li className="flex items-center gap-x-2 py-5 ">
                                     <FaHeart className="text-white text-2xl" />
                                     <span className="font-medium text-white">
                                         {l("Favorite", "Favorite") }
                                     </span>
                                 </li>
-                                <li className="flex items-center gap-x-2 ">
+                                <li className="relative flex items-center gap-x-2 py-5 "
+                                    onMouseEnter={()=>setState({...state, openDropdown: "auth"})}
+                                    onMouseLeave={()=>setState({...state, openDropdown: ""})}
+                                >
                                     <BiUser className="text-white text-2xl" />
                                     <span className="font-medium text-white">
                                         {l("Account", "Account") }
                                     </span>
+                                    <Suspense fallback={<h1>loading</h1>}>
+                                         <AuthDropdown className="right-0 top-14" isShow={state.openDropdown === "auth"}  />
+                                    </Suspense>
                                 </li>
                             </div>
                             
