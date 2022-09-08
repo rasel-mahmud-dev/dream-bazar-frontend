@@ -1,8 +1,12 @@
 import {NextFunction, Request, Response} from "express"
-import dbConnect  from "../database"
-const {ObjectId} = require("mongodb")
-import {Document, InsertOneResult, FindOperators } from "mongodb"
+import dbConnect from "../database"
 import {RequestWithAuth} from "../types";
+import {collections} from "../services/database.service";
+import User, {Roles} from "../models/User";
+import {createHash} from "../hash";
+import user from "../models/User";
+
+const {ObjectId} = require("mongodb")
 const formidable = require('formidable');
 const path = require("path")
 const { copyFile, mkdir, rm, slats } = require('fs/promises');
@@ -14,88 +18,78 @@ const { createToken, getToken, parseToken} = require("../jwt")
 
 
 export const login = async (req: Request, res: Response, next: NextFunction)=>{
-  
-  let client;
-  try{
-    const {c: UserCollection, client: cc } = await dbConnect("users")  
-    client = cc
 
-    let user = await UserCollection.findOne({ 
-      $or: [ 
-        {email: req.body.email}, 
-        {phone: req.body.phone}
-      ]
+  try{
+
+    let user = await collections.users.findOne({
+      email: req.body.email
     })
     
     if(!user){
       return errorResponse(res, 404, {
-        message: 'You are not registered',
-        phone: "This Phone is not registered"
+        message: 'You are not registered'
       })
     }
-    
-    let fieldName = ""
-    if(req.body.email){
-      fieldName = "email"
-    } else if(req.body.phone){
-      fieldName = "phone"
-    }
-    
-    if(user[fieldName] && user[fieldName] !== req.body[fieldName]){
-      return errorResponse(res, 404, {
-        message: 'Unauthoriz',
-        [fieldName]: "Count find Account with this " + fieldName
-      })
-      return  
-    } 
-    
+
     if(user.password !== req.body.password){
       return errorResponse(res, 404, {
         message: 'Password Error',
         password: "wrong password"
       })
     }
+
+
     
   //  let token = getToken(req)
     let token = createToken(user._id)
-    
-   
-      res.json({user, token})
+
+    res.json({user, token})
       
     
   } catch(ex){ 
     let response: any = {}
     response.message = ex.message || "Internal server error"
     response.status = ex.status || 500
-    next(response)} 
-    finally{
-      client?.close()
-  }
+    next(response)}
 } 
 
 export const registration = async (req: Request, res: Response, next: NextFunction)=>{
- 
-  let client;
-
   try{
+    const { email, firstName, lastName, password } = req.body
 
-    const { c: UserCollection, client: cc } = await dbConnect("users")  
-    client = cc
-    
-    let user: Document = await UserCollection.findOne({email: req.body.email})
-
+    const user = await collections.users.findOne({email})
     if(user){
-      return res.send('user already registered  ')
+      errorResponse(res, 401, "user already exists")
+      return;
     }
-    user = await UserCollection.insertOne(req.body)
-    if(user.insertedCount >= 1){
-      res.status(200).json({user: user.ops[0]})
+
+    let newUser = new User({
+      firstName,
+      email,
+      lastName: (lastName ? " " + lastName : ""),
+      username: firstName + (lastName ? " " + lastName : ""),
+      roles: [Roles.CUSTOMER]
+    })
+
+    const [err, hashPassword] = await createHash(password)
+    if(!err){
+      newUser.password = hashPassword;
     }
+
+    // console.log(newUser);
+
+    // let user: Document = await  collections.users.findOne({email: req.body.email})
+    //
+    // if(user){
+    //   return res.send('user already registered  ')
+    // }
+    // user = await  collections.users.insertOne(req.body)
+    // if(user.insertedCount >= 1){
+    //   res.status(200).json({user: user.ops[0]})
+    // }
   } catch(ex){
     next(ex)
     console.log(ex)
-  } finally{
-    client?.close()
   }
 } 
 

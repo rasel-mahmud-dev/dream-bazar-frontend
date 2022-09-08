@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import qs from "query-string";
-import { backend } from "src/apis";
+import apis, { backend } from "src/apis";
 
 import { Button, Popup, Spin } from "components/UI";
 
@@ -14,6 +14,8 @@ import { toggleAppMask } from "actions/appAction";
 import { InputGroup } from "UI/Form";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import { BsFacebook, BsGoogle } from "react-icons/all";
+import useLanguage from "src/hooks/useLanguage";
+import {AppContext} from "store/AppContext";
 
 interface LoginPageProps {
     toggleLoader?: any;
@@ -25,6 +27,8 @@ interface LoginPageProps {
 
 const Login: FC<LoginPageProps> = (props) => {
     let params = useParams();
+    
+    const [l] = useLanguage(AppContext)
 
     const location = useLocation();
 
@@ -47,6 +51,7 @@ const Login: FC<LoginPageProps> = (props) => {
         },
     });
 
+    
     async function loginHandler(e) {
         e.preventDefault();
 
@@ -79,16 +84,18 @@ const Login: FC<LoginPageProps> = (props) => {
         
         try {
             setState({ ...state, httpResponse: "pending" });
-
-            // let res = await api.post("/api/login", payload)
-            // if (res.status === 201) {
-            // 	if (!res.data.auth.verify) {
-            // 		return dispatch(toggleModal("get_otp_modal"))
-            // 	} else {
-            // 		dispatch(toggleModal(""))
-            // 		dispatch(setAuth(res.data))
-            // 	}
-            // }
+    
+            let res = await apis.post("/api/auth/login", payload)
+            if (res.status === 201) {
+            	if (!res.data.auth) {
+              
+            		// return dispatch(toggleModal("get_otp_modal"))
+              
+            	} else {
+            		// dispatch(toggleModal(""))
+            		// dispatch(setAuth(res.data))
+            	}
+            }
         } catch (ex) {
             setState({
                 ...state,
@@ -251,7 +258,7 @@ const Login: FC<LoginPageProps> = (props) => {
                     state={state.userData}
                     name="email"
                     onChange={handleChange}
-                    placeholder="Enter Email"
+                    placeholder={l('Enter Email')}
                     inputClass="input-group"
                 />
                 
@@ -260,18 +267,18 @@ const Login: FC<LoginPageProps> = (props) => {
                     name="password"
                     type="password"
                     onChange={handleChange}
-                    placeholder="Enter password"
+                    placeholder={l('Enter Password')}
                     inputClass="input-group"
                 />
 
                 <p className="my-5 text-right text-link">
-                    Forget password ?{" "}
+                    {l('Forget password')} ?{" "}
                     <Link to="/auth/join/forget-password?action=reset-password">
-                        reset password
+                        {l('reset password')}
                     </Link>{" "}
                 </p>
                 <button className="w-full bg-green-450 px-4 py-2 border-none text-white font-semibold text-lg rounded-xl">
-                    Login
+                    {l('Login')}
                 </button>
             </form>
             <p className="my-5 text-center text-neutral-600">Or sign in with</p>
@@ -298,13 +305,13 @@ const Login: FC<LoginPageProps> = (props) => {
                 </button>
             </div>
 
-            <p className="text-center mb-4 mt-6">
-                Not a member?
+            <p className="text-center mb-4 mt-6 dark:text-neutral-400">
+                {l('Not a member')}?
                 <Link
                     to="/auth/join/registration"
                     className="font-medium !text-green-500 text-link "
                 >
-                    Sign up now
+                    { l('Sign up now')}
                 </Link>
             </p>
         </div>

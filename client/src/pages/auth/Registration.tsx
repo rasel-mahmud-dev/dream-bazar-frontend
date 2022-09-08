@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import qs from "query-string";
 import { InputGroup } from "UI/Form";
-import { backend } from "src/apis";
+import apis, { backend } from "src/apis";
 import { BsFacebook, BsGoogle } from "react-icons/all";
 import { RootState } from "src/store";
 import ResponseMessage from "UI/ResponseMessage";
@@ -75,15 +75,16 @@ const Registration = (props) => {
         try {
             setParentState({ ...parentState, httpResponse: "pending" });
 
-            // let res = await api.post("/api/login", payload)
-            // if (res.status === 201) {
-            // 	if (!res.data.auth.verify) {
-            // 		return dispatch(toggleModal("get_otp_modal"))
-            // 	} else {
-            // 		dispatch(toggleModal(""))
-            // 		dispatch(setAuth(res.data))
-            // 	}
-            // }
+            let res = await apis.post("/api/auth/registration", payload)
+            if (res.status === 201) {
+                console.log(res.data)
+            	if (!res.data.auth) {
+            		// return dispatch(toggleModal("get_otp_modal"))
+            	} else {
+            		// dispatch(toggleModal(""))
+            		// dispatch(setAuth(res.data))
+            	}
+            }
         } catch (ex) {
             setState({
                 ...state,

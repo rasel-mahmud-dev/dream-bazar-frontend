@@ -10,6 +10,7 @@ const authController = require("../controllers/authController")
 export default function (app){
   
   app.post("/api/auth/login", authController.login)
+
   app.post("/api/auth/registration", authController.registration)
   app.post("/api/auth/current-auth", authController.currentAuth)
   app.get("/api/auth/fetch-profile/:user_id", isAuth, authController.fetchProfile)

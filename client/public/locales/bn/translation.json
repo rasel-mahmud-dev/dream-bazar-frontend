@@ -7,8 +7,14 @@
   "add_to_cart": "কার্ট এ যোগ করুন",
   "no_product_found": "কোন পণ্য খুঁজে পাওয়া যায়নি",
   "details": "বিস্তারিত",
-
-
+  "Enter Email": "আপনার ইমেইল",
+  "Enter Password": "আপনার পাসওয়ার্ড",
+  "Not a member": "সদস্য নন",
+  "Login Here": "লগইন করুন",
+  "Go Here": "হোমপেজ এ যান",
+  "Sign up now": "এখন নতুন একাউন্ট বানান",
+  "Forget password": "পাসওয়ার্ড ভুলে গেছেন",
+  "reset password": "পাসওয়ার্ড রিসেট করুন",
   "Top Popular products": "সর্বাধিক জনপ্রিয় পণ্য",
   "Top Selling products": "সর্বাধিক বিক্রয় পণ্য",
   "Top Offers": "সর্বাধিক ডিসকাউন্ট",
