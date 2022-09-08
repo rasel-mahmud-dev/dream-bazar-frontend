@@ -92,13 +92,19 @@ passport.initialize()
 // })
 
 
-// // error handler
-// app.use((err, req, res, next)=>{
-//     res.status(err.status || 500).json({
-//         status: err.status || 500,
-//         message: err.message || "Internal server error"
-//     })
-// })
+
+
+// error handler
+// use route for netlify serverless function
+router.use((err, req, res, next)=>{
+    if(typeof err === "string") {
+        res.status(500).json({message: err})
+    } else {
+        res.status(err.status || 500).json({
+            message: err.message || "Internal server error"
+        })
+    }
+})
 
 
 
