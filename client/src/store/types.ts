@@ -45,6 +45,15 @@ export enum ACTION_TYPES {
 
 }
 
+export enum Roles {
+  CUSTOMER = "CUSTOMER",
+  SALES_MANAGER = "SALES_MANAGER",
+  ORDER_MANAGER = "ORDER_MANAGER",
+  FULFILLMENT_AGENT = "FULFILLMENT_AGENT",
+  SITE_DESIGNER = "SITE_DESIGNER",
+  ADMIN = "ADMIN"
+}
+
 
 export interface CategoryType{
   name: string,
@@ -54,3 +63,17 @@ export interface CategoryType{
   expand?: boolean
   active?: boolean
 }
+
+
+export interface AuthType {
+  _id?: string
+  avatar?: string
+  email: string
+  firstName: string
+  lastName?: string
+  roles?: Roles[]
+  createdAt?: Date
+  updatedAt: Date
+  username?: string
+}
+

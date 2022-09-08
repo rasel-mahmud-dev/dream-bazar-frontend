@@ -1,3 +1,4 @@
+import {errorResponse} from "../response";
 
 const {getToken, parseToken} = require("../jwt")
 
@@ -7,14 +8,13 @@ module.exports = async (req, res, next)=>{
   if(token){
    parseToken(token, (err, data)=>{
      if(!err){
-       req.user_id = data._id
-      next()
+        req.userId = data._id
+        next()
      } else{
-        res.status(403).send("unorhorized")
+         errorResponse(next, "Unauthorized. Please login", 403)
      }
    })
-  
   } else{
-    res.status(403).send("unorhorized")
+    errorResponse(next, "Unauthorized. Please login", 403)
   }
 }

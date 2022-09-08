@@ -20,9 +20,11 @@ import {AppContext, DeviceType} from "store/AppContext";
 import throttle from "src/utills/throttle";
 import useLanguage from "src/hooks/useLanguage";
 import {setLanguage, toggleTheme} from "actions/appContextActions";
+import {currentAuthAction} from "actions/authAction";
 
 
 function App(props) {
+  
   const {appState} = props
   
   const [afterNavHeight, setNavHeight] = React.useState(0)
@@ -54,6 +56,8 @@ function App(props) {
   React.useEffect( ()=>{
     
     (async function(){
+  
+      currentAuthAction(dispatch)
       
       
       /**

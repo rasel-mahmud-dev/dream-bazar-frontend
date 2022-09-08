@@ -15,6 +15,7 @@ import apis, { backend } from "src/apis";
 import { BsFacebook, BsGoogle } from "react-icons/all";
 import { RootState } from "src/store";
 import ResponseMessage from "UI/ResponseMessage";
+import {registrationAction} from "actions/authAction";
 
 const Registration = (props) => {
     const {} = useSelector((state: RootState) => state);
@@ -43,10 +44,10 @@ const Registration = (props) => {
 
     async function submitHandler(e) {
         e.preventDefault();
-
+    
         let isCompleted = true;
-        let updatedUserData = { ...parentState.userData };
-
+        let updatedUserData = {...parentState.userData};
+    
         let loginData = {
             firstName: updatedUserData.firstName,
             lastName: updatedUserData.lastName,
@@ -54,7 +55,7 @@ const Registration = (props) => {
             password: updatedUserData.password,
         };
         let payload = {};
-
+    
         for (let key in loginData) {
             if (!updatedUserData[key].value) {
                 updatedUserData[key].errorMessage = `${key} is required`;
@@ -63,7 +64,7 @@ const Registration = (props) => {
                 payload[key] = updatedUserData[key].value;
             }
         }
-
+    
         if (!isCompleted) {
             setParentState({
                 ...parentState,
@@ -71,27 +72,8 @@ const Registration = (props) => {
             });
             return;
         }
-
-        try {
-            setParentState({ ...parentState, httpResponse: "pending" });
-
-            let res = await apis.post("/api/auth/registration", payload)
-            if (res.status === 201) {
-                console.log(res.data)
-            	if (!res.data.auth) {
-            		// return dispatch(toggleModal("get_otp_modal"))
-            	} else {
-            		// dispatch(toggleModal(""))
-            		// dispatch(setAuth(res.data))
-            	}
-            }
-        } catch (ex) {
-            setState({
-                ...state,
-                httpResponse: errorMessageCatch(ex),
-                httpStatus: 500,
-            });
-        }
+        setParentState({...parentState, httpResponse: "pending"});
+        registrationAction(dispatch, payload,  null)
     }
 
     const [errorMessage, setErrorMessage] = React.useState({

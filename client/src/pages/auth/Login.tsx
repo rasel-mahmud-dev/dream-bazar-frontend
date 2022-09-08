@@ -6,7 +6,7 @@ import apis, { backend } from "src/apis";
 import { Button, Popup, Spin } from "components/UI";
 
 import { connect, useDispatch } from "react-redux";
-import { login } from "actions/authAction";
+import { loginAction} from "actions/authAction";
 
 import { toggleLoader } from "actions/productAction";
 import { toggleAppMask } from "actions/appAction";
@@ -84,18 +84,8 @@ const Login: FC<LoginPageProps> = (props) => {
         
         try {
             setState({ ...state, httpResponse: "pending" });
-    
-            let res = await apis.post("/api/auth/login", payload)
-            if (res.status === 201) {
-            	if (!res.data.auth) {
-              
-            		// return dispatch(toggleModal("get_otp_modal"))
-              
-            	} else {
-            		// dispatch(toggleModal(""))
-            		// dispatch(setAuth(res.data))
-            	}
-            }
+            loginAction(payload, dispatch, null)
+            
         } catch (ex) {
             setState({
                 ...state,
@@ -218,21 +208,21 @@ const Login: FC<LoginPageProps> = (props) => {
     function onFinishFailed() {}
 
     function renderLoader(where) {
-        let loadingState = loadingStates.find((ls) => ls.where === where);
-        return (
-            <div className="spin-fixed" style={{ top: "20vh" }}>
-                {loadingState && loadingState.isLoading && (
-                    <Spin size={20} borderWidth={4} theme="primary" />
-                )}
-            </div>
-        );
+        // let loadingState = loadingStates.find((ls) => ls.where === where);
+        // return (
+        //     <div className="spin-fixed" style={{ top: "20vh" }}>
+        //         {loadingState && loadingState.isLoading && (
+        //             <Spin size={20} borderWidth={4} theme="primary" />
+        //         )}
+        //     </div>
+        // );
     }
 
     return (
         <div>
             <h1 className="card-title">Login Here</h1>
 
-            {renderLoader("login-user")}
+            {/*{renderLoader("login-user")}*/}
 
             {errorMessage.message && (
                 <Popup
@@ -245,8 +235,7 @@ const Login: FC<LoginPageProps> = (props) => {
                             onClick={() =>
                                 setErrorMessage({ phone: "", message: "" })
                             }
-                            type="text"
-                            icon="fa fa-times"
+     
                         />
                         <h4>{errorMessage.message}</h4>
                     </div>
@@ -318,15 +307,5 @@ const Login: FC<LoginPageProps> = (props) => {
     );
 };
 
-function mapStateToProps(state) {
-    return {
-        authState: state.authState,
-        loadingStates: state.productState.loadingStates,
-    };
-}
 
-export default connect(mapStateToProps, {
-    login,
-    toggleLoader,
-    toggleAppMask,
-})(Login);
+export default Login

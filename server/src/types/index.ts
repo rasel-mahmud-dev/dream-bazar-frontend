@@ -4,6 +4,7 @@ import { IncomingMessage, ServerResponse} from "http";
 
 
 export interface RequestWithAuth extends Request{
+    userId?: string,
     user: {
         userId: string,
         role: string

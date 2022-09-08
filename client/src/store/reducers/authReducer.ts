@@ -1,28 +1,28 @@
-import { ACTION_TYPES } from "src/store/types"
+import {ACTION_TYPES, AuthType} from "src/store/types"
 
 
 interface AuthStateType {
-  
-}
-
-const initialState = {
-  _id: null,
-  username: "",
-  email: ""
+  authChecked: boolean,
+  auth: AuthType | null
 }
 
 
-const authReducer = (state: AuthStateType=initialState, action)=>{
+
+const initialState: AuthStateType = {
+  authChecked: false,
+  auth: null
+}
+
+
+const authReducer = (state=initialState, action)=>{
   let updatedState = {...state}
   
   switch(action.type){
-    case ACTION_TYPES.LOGIN : 
+    case ACTION_TYPES.LOGIN:
+ 
       if(action.payload){
-        return action.payload
+        updatedState.auth = action.payload
       }
-      return state
-      
-    case ACTION_TYPES.REGISTRATION: 
       return updatedState
     
     case ACTION_TYPES.FETCH_CURRENT_AUTH: 

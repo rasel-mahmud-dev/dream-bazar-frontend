@@ -42,7 +42,6 @@ export const login = async (req: Request, res: Response, next: NextFunction)=>{
       return errorResponse(next, 'Password Error', 409)
     }
 
-   // let token = getToken(req)
     let token = createToken(user._id)
 
     delete user.password;
@@ -92,34 +91,17 @@ export const registration = async (req: Request, res: Response, next: NextFuncti
   }
 } 
 
-export const currentAuth = async (req: Request, res: Response, next: NextFunction)=>{
-  
-  let client;
-  
+
+export const currentAuth = async (req: RequestWithAuth, res: Response, next: NextFunction)=>{
+
   try{
-    const { c: UserCollection, client: cc } = await dbConnect("users")
-    client = cc
-    let token = getToken(req)
-  
-   if(!token || token === 'null'){
-     return next("Token not found")
-   }
-   
-   parseToken(token, (err, data)=>{
-     if(err){
-       client?.close()
-        return errorResponse(res, 409, {message: "token not found"})
-     }
-     UserCollection.findOne({_id: ObjectId(data._id) }).then(user=>{
-       client?.close()
-       let {password, wishlist, ...other} = user
-        res.json({user: other})
-     }).catch(err=>{
-       client?.close()
-        return errorResponse(res, 404, {message: err.message})
-     })
-   })
-   
+    const user = await collections.users.findOne<User>({_id: ObjectId(req.userId)})
+    if(!user){
+      return next("Please login.")
+    }
+
+    delete user.password
+    successResponse(res, 200, user)
   } catch(ex){
     next(ex)
   }

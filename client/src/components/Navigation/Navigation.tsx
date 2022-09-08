@@ -31,6 +31,7 @@ import {setLanguage, toggleTheme} from "actions/appContextActions";
 import  {AppContext} from "store/AppContext";
 
 import useLanguage from "src/hooks/useLanguage";
+import staticImagePath from "src/utills/staticImagePath";
 
 const AuthDropdown  = lazy(()=>import("components/Navigation/AuthDropdown"));
 const MoreDropdown  = lazy(()=>import("components/Navigation/MoreDropdown"));
@@ -39,8 +40,9 @@ const Title = Typography.Title.default;
 
 function Navigation(props) {
     
-    const { authState, appState, cartState } = useSelector((state: RootState)=>state);
+    const { authState: { auth }, appState, cartState } = useSelector((state: RootState)=>state);
     const dispatch = useDispatch();
+    
     
     const {contextState, contextDispatch} = useContext<any>(AppContext)
     
@@ -243,13 +245,20 @@ function Navigation(props) {
                                         {l("Favorite", "Favorite") }
                                     </span>
                                 </li>
+                                
                                 <li className="relative flex items-center gap-x-2 py-5 "
                                     onMouseEnter={()=>setState({...state, openDropdown: "auth"})}
                                     onMouseLeave={()=>setState({...state, openDropdown: ""})}
                                 >
-                                    <BiUser className="text-white text-2xl" />
+                                    {auth && auth.avatar ? (
+                                        <div>
+                                            <img src={staticImagePath(auth.avatar )} alt=""/>
+                                        </div>
+                                        ) : <BiUser className="text-white text-2xl" />
+                                    }
+                                    
                                     <span className="font-medium text-white">
-                                        {l("Account", "Account") }
+                                        {auth ? auth.firstName : l("Account") }
                                     </span>
                                     <Suspense fallback={<h1>loading</h1>}>
                                          <AuthDropdown className="right-0 top-14" isShow={state.openDropdown === "auth"}  />
@@ -312,13 +321,5 @@ function Navigation(props) {
     );
 }
 
-function mapStateToProps(state) {
-    return {
-        authState: state.authState,
-        // cartItems: 10
-        cartItems: state.cartState.cartProducts.length,
-        cartState: state.cartState,
-    };
-}
 
 export default OnScroll(Navigation, 300, 200)

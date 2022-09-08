@@ -15,4 +15,10 @@ const apis = axios.create({
     }
 })
 
-export default apis 
+export function getApi(){
+    const token = window.localStorage.getItem("token")
+    apis.defaults.headers["authorization"] = token;
+    return apis;
+}
+
+export default apis

@@ -1,63 +1,61 @@
 
 import { ACTION_TYPES } from "store/types"
-import apis from "src/apis";
+import apis, {getApi} from "src/apis";
+import errorMessageCatch from "src/utills/errorMessageCatch";
 
 
-export const loginHandler = (data, dispatch, cb) => {
-  window.localStorage.setItem("token", data.token)
-  cb && cb(data.user, false)
+
+export const loginHandler = (user, token, dispatch) => {
+  window.localStorage.setItem("token", token)
   dispatch({
     type: ACTION_TYPES.LOGIN,
-    payload: data.user
+    payload: user
   })
 }
 
-export const login = (userData, cb) => async(dispatch, getState, api) => { 
 
+
+
+export const loginAction = async (userData, dispatch, cb) => {
   try{
-    const response = await api.post("/api/auth/login", userData)  
-    if(response.data){
-      loginHandler(response.data, dispatch, cb)
+    const response = await apis.post("/api/auth/login", userData)
+    if(response.status === 201){
+      loginHandler(response.data.user, response.data.token, dispatch)
     } else{
       return cb(false, {message: "unable to connect with server"})
     }
-  } catch(ex){ 
-    if(ex.response.data){
-      if(ex.response.data){
-        cb(false, {...ex.response.data})
-      }
-    } else{
-      cb(false, {})
-    }
+  } catch(ex) {
+    console.log(errorMessageCatch(ex))
   }
 }
 
-export const registration = (userData) => async(dispatch, getState, api) => { 
 
-  const { data } = await api.post("/api/auth/registration", userData) 
-  
-  // dispatch({
-  //   type: ACTION_TYPES.ADD_TO_CART,
-  //   payload: product
-  // })
-  
-  
-  console.log(data)
+export const registrationAction = async (userData, dispatch, cb) => {
+
+  const { data, status } = await apis.post("/api/auth/registration", userData)
+  if(status === 201){
+    loginHandler(data.user, data.token, dispatch)
+  }
 }
 
-export const currentAuth = async(cb) =>{ 
-
-
-  const { data } = await apis.post("/api/auth/current-auth")
-//  window.localStorage.setItem("token", data.token)
-  cb(data.user)
-  console.log(data)
-
+export const currentAuthAction = async(dispatch) =>{
+  try{
+    const { data } = await getApi().get("/api/auth/current-auth")
+    console.log(data)
+    dispatch({
+      type: ACTION_TYPES.LOGIN,
+      payload: data
+    })
+  } catch(ex){
+  
+  }
+  
 }
+
 export const logout = () =>{ 
-  window.localStorage.setItem("token", "")
+  window.localStorage.removeItem("token")
   return {
     type: ACTION_TYPES.LOGIN,
-    payload: {_id: null}
+    payload: null
   }
 }
