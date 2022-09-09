@@ -21,13 +21,26 @@
 
   .menu-item_inline{
     cursor: pointer;
-    .menu-item_tooltip {
+
+    .menu-item-tooltip {
       display: none;
     }
-
-    &:hover {
-      .menu-item_tooltip {
+    .menu-item-icon:hover ~ .menu-item-tooltip {
         display: block;
-      }
     }
+
+
+
+
+
+    // nested sub menu
+
+    .menu-item-tooltip-sub {
+      display: none;
+    }
+    .menu-item-icon-sub:hover ~ .menu-item-tooltip-sub {
+      display: block;
+    }
+
   }
+

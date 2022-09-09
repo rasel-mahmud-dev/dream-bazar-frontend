@@ -7,7 +7,7 @@ import {
   Menu,
   Spin,
   Modal,
-  TopProgressBar
+  TopProgressBar, Animation
 } from "components/UI"
 
 import {connect, useDispatch, useSelector} from "react-redux"
@@ -18,13 +18,15 @@ import {RootState} from "src/store";
 import {
   BiStar,
   BiUser,
-  BsGear,
-  FaQuestionCircle, FaSignOutAlt,
-  GiHelp,
+  BsGear, FaAddressBook, FaIcons,
+  FaQuestionCircle, FaSignOutAlt, GiCancel,
+  GiHelp, GiReturnArrow, GoReport,
   GrOrderedList,
   MdDashboard,
-  MdFavorite
+  MdFavorite, MdManageAccounts, MdPayment
 } from "react-icons/all";
+import Item from "UI/Menu/Item";
+import AccountInfo from "pages/Customer/accountInfo/AccountInfo";
 
 // const AddressBook = lazy(()=> import("./AddressBook/AddressBook"))
 // const Orders = lazy(()=> import("./Orders/Orders"))
@@ -37,10 +39,12 @@ const {SubMenu} = Menu
 
 const Dashboard = (props) => { 
   let params = useParams() 
+  
   // let history = useHistory()
   const dispatch = useDispatch()
   const { authState : {auth} } = useSelector((state: RootState)=>state)
-  let [collapseIds, setCollapseIds] = React.useState(["1", "2"])
+  
+  let [collapseIds, setCollapseIds] = React.useState(["1", "1-11"])
   const [isInline, setInline] = useState(true)
   
   const sidebarData =  [
@@ -55,11 +59,11 @@ const Dashboard = (props) => {
       name: "My Account",
       id: 1,
       icon: <BiUser />,
-      sub_menu: [
-        {name: "Account Information", to: `/customer/${auth ? auth.username : "guest"}/account-info`},
-        {name: "Address Book", to: `/customer/${auth ? auth.username : "guest"}/address-book`},
-        {name: "Payment Option", to: "/dashboard/brands"},
-        {name: "Vouchers", to: "/dashboard/brands"},
+      subMenu: [
+        {name: "Account Information", to: `/customer/${auth ? auth.username : "guest"}/account-info`,  icon: <MdManageAccounts />, id: "11"},
+        {name: "Address Book", to: `/customer/${auth ? auth.username : "guest"}/address-book`, icon: <FaAddressBook />},
+        {name: "Payment Option", to: "/dashboard/brands", icon: <MdPayment />},
+        {name: "Vouchers", to: "/dashboard/brands", icon: <GoReport />},
       ]
     },
     {
@@ -67,10 +71,10 @@ const Dashboard = (props) => {
       name: "Orders",
       id: 2,
       icon: <GrOrderedList />,
-      sub_menu: [
-        {name: "My Orders", to: `/customer/${auth ? auth.username : "guest"}/my-orders`},
-        {name: "My Returns", to: "/dashboard/brands"},
-        {name: "My Cancellations", to: "/dashboard/brands"},
+      subMenu: [
+        {name: "My Orders", to: `/customer/${auth ? auth.username : "guest"}/my-orders`, icon: <FaIcons />},
+        {name: "My Returns", to: "/dashboard/brands", icon: <GiReturnArrow />},
+        {name: "My Cancellations", to: "/dashboard/brands", icon: <GiCancel />},
       ]
     },
     {
@@ -163,11 +167,10 @@ const Dashboard = (props) => {
   function renderSidebarMenu(){
     
     function toggleCollapseSubMenu(id){
-      console.log(id)
-      if(collapseIds.indexOf(id) !== -1){
+      if(collapseIds.indexOf(id.toString()) !== -1){
         setCollapseIds([])
       } else{
-        setCollapseIds([id]);
+        setCollapseIds([id.toString()]);
       }
     }
     
@@ -175,16 +178,46 @@ const Dashboard = (props) => {
       
         return isInline && (
             <div className="menu-item_inline relative py-3 px-4 flex flex-col justify-center items-center">
-              {React.cloneElement(item.icon, { className: "text-xl" })}
-              { item.label && <span className="flex mt-2 gap-0.5 justify-center">
-                <span className="w-1 h-1 bg-neutral-700 rounded-full"></span>
-                <span className="w-1 h-1 bg-neutral-700 rounded-full"></span>
-                <span className="w-1 h-1 bg-neutral-700 rounded-full"></span>
-              </span> }
               
-              <div className="menu-item_tooltip absolute left-16 whitespace-nowrap bg-neutral-700 px-3 py-2">
-                <span>{item.name}</span>
+              {React.cloneElement(item.icon, { className: "text-xl menu-item-icon"})}
+              
+              { item.label && (
+                  <span
+                      className="flex mt-2 gap-0.5 justify-center h-4 items-center"
+                      onClick={()=>toggleCollapseSubMenu(item.id)}>
+                    <span className="w-1 h-1 bg-neutral-700 rounded-full"></span>
+                    <span className="w-1 h-1 bg-neutral-700 rounded-full"></span>
+                    <span className="w-1 h-1 bg-neutral-700 rounded-full"></span>
+                  </span>
+                )
+              }
+              
+              
+              <Animation baseClass="sub_menu_animation" inProp={(collapseIds.includes(item.id.toString()))}>
+                  {item.subMenu && item.subMenu.map(item2=>(
+                      item2.icon && (
+                          <div className="my-3">
+                       
+                            { React.cloneElement(item2.icon, { className: "text-xl menu-item-icon-sub" }) }
+                           
+                            { collapseIds.includes(item.id.toString()) && <span
+                                className="menu-item-tooltip-sub absolute left-16 whitespace-nowrap bg-neutral-700 px-3 py-2">
+                                {item2.name}
+                              </span>
+                             }
+                          </div>
+                      )
+                      // <Item className={subItem.props.className ? subItem.props.className   : ""}>
+                      //   {subItem.props.children}
+                      // </Item>
+                  ))}
+             
+              </Animation>
+              
+              <div className="menu-item-tooltip absolute left-16 whitespace-nowrap bg-neutral-700 px-3 py-2">
+                <span className="">{item.name}</span>
               </div>
+              
             </div>
         )
     }
@@ -212,8 +245,8 @@ const Dashboard = (props) => {
                       </div>
     
     
-                      {data.sub_menu  && <div className="bg-neutral-700 px-3 py-2">
-                          {data.sub_menu.map(s=>(
+                      {data.subMenu  && <div className="bg-neutral-700 px-3 py-2">
+                          {data.subMenu.map(s=>(
                               <Menu.Item className=" my-1" key={s.name}>
                                 <Link to={s.to} className="flex items-center gap-x-1 text-neutral-200 py-1 menu-item">
                                   {data.icon}

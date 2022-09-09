@@ -59,48 +59,6 @@ const SubMenu: FC<SubMenuProps> = (props)=>{
       return (
         <div className="text-red-500">
           { inline && renderInlineMode(inline, item) }
-          {/*{  props.icon ?  (*/}
-          {/*      <li*/}
-          {/*        // onClick={()=>props.onClick && props.onClick(id)}*/}
-          {/*        // onMouseOver={()=>props.onMouseOver && props.onMouseOver(id)}*/}
-          {/*        // onMouseEnter={()=>props.onMouseEnter && props.onMouseEnter(id)}*/}
-          {/*        // onMouseLeave={()=> props.onMouseLeave && props.onMouseLeave(id)}*/}
-          {/*        className="text-xl">*/}
-          {/*        */}
-          {/*        {icon}*/}
-          {/*        */}
-          {/*        /!*{ selectedKeys.indexOf(id as string) !== -1 && <div className="sub_menu inline-mode--sub_menu ">*!/*/}
-          {/*        /!*  <Item*!/*/}
-          {/*        /!*    {...ch}*!/*/}
-          {/*        /!*    children={(*!/*/}
-          {/*        /!*      <span className="sub_menu__title" >{label.props.children && Array.isArray(label.props.children) && label.props.children[1]}</span>*!/*/}
-          {/*        /!*    )}*!/*/}
-          {/*        /!*    inline={inline}*!/*/}
-          {/*        /!*    key={ch.key}*!/*/}
-          {/*        /!*    id={ch.key}*!/*/}
-          {/*        /!*  />*!/*/}
-          {/*          */}
-          {/*          /!*{props.children && Array.isArray(props.children) ?  props.children.map((ch_ch: any)=>(*!/*/}
-          {/*          /!*    <Item*!/*/}
-          {/*          /!*      {...ch_ch.props}*!/*/}
-          {/*          /!*      inline={inline}*!/*/}
-          {/*          /!*      key={ch_ch.key}*!/*/}
-          {/*          /!*      id={ch_ch.key}*!/*/}
-          {/*          /!*    />*!/*/}
-          {/*          /!*  ))*!/*/}
-          {/*          /!*  : (*!/*/}
-          {/*          /!*    <Item*!/*/}
-          {/*          /!*      {...ch.props}*!/*/}
-          {/*          /!*      inline={inline}*!/*/}
-          {/*          /!*      key={ch.key}*!/*/}
-          {/*          /!*      id={ch.id}*!/*/}
-          {/*          /!*    />*!/*/}
-          {/*          /!*  )*!/*/}
-          {/*          /!*}*!/*/}
-          {/*          */}
-          {/*        /!*</div>  }*!/*/}
-          {/*      </li>*/}
-          {/*    ) : "ASDDDDDDDDDD" }*/}
         </div>
       )
     }
