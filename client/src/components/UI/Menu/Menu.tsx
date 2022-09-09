@@ -14,8 +14,10 @@ interface MenuProps {
 
 
 class Menu extends  React.Component<MenuProps, any>{
+  
   static Item: FC<ItemProps> = Item
   static SubMenu = SubMenu
+  
   
   renderItems = ()=>{
     

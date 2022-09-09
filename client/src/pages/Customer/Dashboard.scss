@@ -1,10 +1,12 @@
 
 
-
   .sidebar{
     width: 300px;
     height: 100vh;
     //background: #f1f1f1;
+    &.inline-mode{
+      width: 50px;
+    }
   }
   .content{
     //background: white;
@@ -15,4 +17,17 @@
 
   .menu-item{
     @apply flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer
+  }
+
+  .menu-item_inline{
+    cursor: pointer;
+    .menu-item_tooltip {
+      display: none;
+    }
+
+    &:hover {
+      .menu-item_tooltip {
+        display: block;
+      }
+    }
   }
