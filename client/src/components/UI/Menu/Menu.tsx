@@ -26,6 +26,7 @@ class Menu extends  React.Component<MenuProps, any>{
           return ch.type && ch.type.displayName === "SubMenu" ? (
             <SubMenu
               {...ch.props}
+              // onClickOnItem={()=>alert("ASDDDDDD")}
               key={ch.key}
               id={ch.key}
               inline={inline}

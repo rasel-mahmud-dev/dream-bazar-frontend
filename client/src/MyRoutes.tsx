@@ -7,6 +7,7 @@ import ForgetPassword from "pages/auth/ForgetPassword";
 import OTPValidate from "pages/auth/OTPValidate";
 import Registration from "pages/auth/Registration";
 import Login from "pages/auth/Login";
+import CustomerDashboardRoutes from "pages/Customer/CustomerDashboardRoutes";
 
 const HomePage = lazy(() => import("pages/homePage/HomePage"))
 const Products = lazy(() => import("src/pages/products/Products"))
@@ -43,6 +44,14 @@ const MyRoutes = () => {
               <Route path="forget-password" element={<ForgetPassword/>}/>
               <Route path="opt-validate" element={<OTPValidate/>}/>
           </Route>
+			
+			{ CustomerDashboardRoutes.map(route=>(
+				<Route path={route.path} element={<route.element />}></Route>
+			)) }
+			
+			{/*<Route path="/auth/customer/dashboard" element={} />*/}
+			{/*<CustomerDashboardRoutes />*/}
+			
 			
       </Routes>
 	)

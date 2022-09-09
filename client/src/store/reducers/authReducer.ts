@@ -29,6 +29,7 @@ const authReducer = (state=initialState, action)=>{
       return updatedState
     
     case ACTION_TYPES.LOGOUT:
+      updatedState.auth = null;
       return updatedState
       
     default: 

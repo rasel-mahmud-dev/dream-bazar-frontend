@@ -73,7 +73,11 @@ const Registration = (props) => {
             return;
         }
         setParentState({...parentState, httpResponse: "pending"});
-        registrationAction(dispatch, payload,  null)
+        registrationAction(dispatch, payload,  function (data, errorMessage){
+            if(!errorMessage) {
+                navigate("/")
+            }
+        })
     }
 
     const [errorMessage, setErrorMessage] = React.useState({

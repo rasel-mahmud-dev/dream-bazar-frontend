@@ -251,8 +251,8 @@ function Navigation(props) {
                                     onMouseLeave={()=>setState({...state, openDropdown: ""})}
                                 >
                                     {auth && auth.avatar ? (
-                                        <div>
-                                            <img src={staticImagePath(auth.avatar )} alt=""/>
+                                        <div className="w-6">
+                                            <img className="rounded-full" src={staticImagePath(auth.avatar )} alt=""/>
                                         </div>
                                         ) : <BiUser className="text-white text-2xl" />
                                     }

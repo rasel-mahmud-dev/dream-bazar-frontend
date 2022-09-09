@@ -1,9 +1,6 @@
 const passport = require("passport")
-const dbConnect = require("../database") 
-const mongodb = require("mongodb")
-const {createToken, getToken, parseToken} = require("../jwt")
+const {createToken} = require("../jwt")
 const isAuth = require("../middlewares/isAuth")
-
 
 const authController = require("../controllers/authController")
 

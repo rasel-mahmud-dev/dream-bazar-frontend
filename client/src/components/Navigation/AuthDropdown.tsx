@@ -4,7 +4,8 @@ import {Link} from "react-router-dom";
 import {BiUser, FaSignInAlt, GrOrderedList, MdFavorite} from "react-icons/all";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
-import {ACTION_TYPES} from "store/types";
+import {logoutAction} from "actions/authAction";
+import {Roles} from "store/types";
 
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -14,14 +15,11 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 const AuthDropdown: FC<Props> = (props) => {
 	
 	const dispatch = useDispatch()
-	const {authState} = useSelector((state: RootState)=>state)
+	const {authState: {auth}} = useSelector((state: RootState)=>state)
+	
 	
 	function handleLogout() {
-		window.localStorage.setItem("token", "");
-		dispatch({
-			type: ACTION_TYPES.LOGIN,
-			payload: { _id: null },
-		});
+		dispatch(logoutAction());
 	}
 	
 	
@@ -44,13 +42,13 @@ const AuthDropdown: FC<Props> = (props) => {
 
             <Menu>
                 <Menu.Item className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
-                    {authState._id ? (
+                    {auth ? (
                         <>
                          <BiUser />
                             <Link
                                 to={`${
-	                                authState.role === "customer"
-		                                ? "/customer/" + authState.username
+	                                auth.role === Roles.CUSTOMER
+		                                ? "/customer/" + auth.username
 		                                : "/auth/admin/dashboard"
                                 }`}
                             >
@@ -69,15 +67,7 @@ const AuthDropdown: FC<Props> = (props) => {
                 
                 <Menu.Item className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
                        <GrOrderedList />
-                    <Link
-                        to={`/customer/${
-	                        authState.username
-		                        ? authState.username
-		                        : "Guest"
-                        }/my-orders`}
-                    >
-                        Order
-                    </Link>
+                        <Link to="">Order</Link>
                 </Menu.Item>
                 {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
 
@@ -86,9 +76,15 @@ const AuthDropdown: FC<Props> = (props) => {
                     Wishlist
                 </Menu.Item>
                 {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
-
-                {authState._id ? (
-	                <Menu.Item onClick={handleLogout}>Logout</Menu.Item>
+	
+	            
+	            
+                {auth ? (
+	                <Menu.Item onClick={handleLogout} className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
+		                <FaSignInAlt />
+		                Logout
+	                </Menu.Item>
+	                
                 ) : (
 	                <Menu.Item className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
                         <FaSignInAlt />

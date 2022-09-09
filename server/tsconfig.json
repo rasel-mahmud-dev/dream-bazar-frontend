@@ -11,7 +11,7 @@
     "inlineSourceMap": true,
     "resolveJsonModule": true,
     "outDir": "dist",
-    "lib": ["es2021"]
+    "lib": ["es2021"],
   },
   "include": ["src/"],
   "ts-node": {

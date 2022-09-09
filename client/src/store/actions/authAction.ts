@@ -14,34 +14,40 @@ export const loginHandler = (user, token, dispatch) => {
 }
 
 
-
-
-export const loginAction = async (userData, dispatch, cb) => {
+export const loginAction = async (userData, dispatch, cb:(data: object, errorMessage?: string)=>void) => {
   try{
     const response = await apis.post("/api/auth/login", userData)
     if(response.status === 201){
       loginHandler(response.data.user, response.data.token, dispatch)
+      cb && cb(response.data.user, "")
     } else{
-      return cb(false, {message: "unable to connect with server"})
+      cb && cb({}, "unable to connect with server")
     }
   } catch(ex) {
-    console.log(errorMessageCatch(ex))
+    cb && cb({}, errorMessageCatch(ex))
   }
 }
 
 
-export const registrationAction = async (userData, dispatch, cb) => {
+export const registrationAction = async (userData, dispatch, cb:(data: object, errorMessage?: string)=>void) => {
 
-  const { data, status } = await apis.post("/api/auth/registration", userData)
-  if(status === 201){
-    loginHandler(data.user, data.token, dispatch)
+  try{
+    const { data, status } = await apis.post("/api/auth/registration", userData)
+    if(status === 201){
+      loginHandler(data.user, data.token, dispatch)
+      cb && cb(data.user, "")
+    } else {
+      cb && cb({}, "Error")
+    }
+  } catch (ex){
+    cb && cb({}, errorMessageCatch(ex))
   }
+  
 }
 
 export const currentAuthAction = async(dispatch) =>{
   try{
     const { data } = await getApi().get("/api/auth/current-auth")
-    console.log(data)
     dispatch({
       type: ACTION_TYPES.LOGIN,
       payload: data
@@ -52,10 +58,9 @@ export const currentAuthAction = async(dispatch) =>{
   
 }
 
-export const logout = () =>{ 
+export const logoutAction = () =>{
   window.localStorage.removeItem("token")
   return {
-    type: ACTION_TYPES.LOGIN,
-    payload: null
+    type: ACTION_TYPES.LOGOUT
   }
 }

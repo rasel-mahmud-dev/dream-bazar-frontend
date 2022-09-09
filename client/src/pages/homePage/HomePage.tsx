@@ -13,6 +13,7 @@ import HomeProductNavigation from "pages/homePage/HomeProductNavigation";
 import staticImagePath from "src/utills/staticImagePath";
 import AppContextProvider, {AppContext} from "store/AppContext";
 import useLanguage from "src/hooks/useLanguage";
+import {BiCart, FaList, MdFavorite} from "react-icons/all";
 // import "slick-carousel/slick/slick-theme.css";
 
 let id;
@@ -238,11 +239,11 @@ const HomePage = (props) => {
                     </Button>
                   </div>
         
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {productSectionsWithProduct[sectionName]
                   && productSectionsWithProduct[sectionName].values
                   && productSectionsWithProduct[sectionName].values.length > 0 ? productSectionsWithProduct[sectionName].values.map((pp, index) => (
-                    <div className="product bg-red-100" key={index}>
+                    <div className="product bg-red-100 p-4" key={index}>
                       {productSectionsWithProduct[sectionName].type === "brands" || productSectionsWithProduct[sectionName].type === "categories"
                         ? <div className="product_image small">
                           <img src={fullLink(pp.logo)} alt=""/>
@@ -251,7 +252,7 @@ const HomePage = (props) => {
                           <div className="product_image_div">
                             <div className="product_image_wra">
 
-                              <img src={staticImagePath(pp.coverPhoto)} alt="AAAAAAAAAAAAA"/>
+                              <img src={staticImagePath(pp.coverPhoto)} alt="cover"/>
                             </div>
                           </div>
                           // <div className="product_image">
@@ -260,8 +261,8 @@ const HomePage = (props) => {
                         )
                       }
                       
-                      <div className="desc">
-                        <h4 className="text-neutral-900 dark:text-neutral-100">
+                      <div className="desc mt-4">
+                        <h4 className="text-neutral-700 dark:text-neutral-100">
                           <Link to="">
                             {
                               productSectionsWithProduct[sectionName].type === "categories"
@@ -272,15 +273,25 @@ const HomePage = (props) => {
               
                             } </Link>
                         </h4>
+                       
                         {productSectionsWithProduct[sectionName].type === "products"
                         && (
                           <>
-                            <h5 className="product_price">${pp.price}</h5>
+                            <h5 className="mt-2 text-green-450 font-medium">${pp.price}</h5>
                             {/*<Button onClick={()=>handleAddToCart(pp)}>{ isEn(selectedLang) ? 'Add To Cart': lang.add_to_cart}</Button>*/}
                             {/*<Link className="product-detail-link" to={`/products/${pp._id}`}> { isEn(selectedLang) ? 'Details' : lang.details}</Link>*/}
                           </>
                         )
                         }
+                        
+                        <div className="flex justify-center gap-x-2 items-center mt-2">
+                          <div className="bg-gray-400/20 p-1.5 rounded-full">
+                            <MdFavorite className="text-sm text-red-500"/>
+                          </div>
+                          <div className="bg-gray-400/20 p-1.5 rounded-full">
+                            <BiCart className="text-sm" />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )) : (
