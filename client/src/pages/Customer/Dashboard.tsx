@@ -27,7 +27,7 @@ import {
 } from "react-icons/all";
 import Item from "UI/Menu/Item";
 import AccountInfo from "pages/Customer/accountInfo/AccountInfo";
-import {AppContext, DeviceType} from "store/AppContext";
+import {AppContext, AppContextType, DeviceType} from "store/AppContext";
 
 
 // const AddressBook = lazy(()=> import("./AddressBook/AddressBook"))
@@ -49,7 +49,8 @@ const Dashboard = (props) => {
   
   let [collapseIds, setCollapseIds] = React.useState(["1", "1-11"])
   const [isInline, setInline] = useState(false)
-  const {contextState} = useContext(AppContext)
+  const {contextState, contextDispatch} = useContext<AppContextType>(AppContext)
+  
   
   const sidebarData =  [
     {

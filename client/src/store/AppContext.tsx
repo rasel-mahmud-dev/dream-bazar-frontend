@@ -1,29 +1,36 @@
 import {createContext, useReducer, useState} from "react";
 import {ACTION_TYPES} from "store/types";
+import {Dispatch} from "redux";
 
-import l from "../../public/locales/en/translation.json"
-
-
-export const AppContext = createContext({})
+// import l from "../../public/locales/en/translation.json"
 
 export enum DeviceType {
 	DESKTOP = "DESKTOP",
 	MOBILE = "MOBILE",
 	TABLET = "TABLET"
 }
-interface initialState {
+
+
+interface InitialState {
 	deviceType: DeviceType,
 	translations: Object,
 	lang: "en" | "bn",
 	theme:  "light" | "dark" | "system",
 }
 
-const initialState: initialState = {
+const initialState: InitialState = {
 	deviceType: DeviceType.DESKTOP,
-	translations: l,
+	translations: {},
 	lang: "en",
 	theme: "light"
 };
+
+
+
+export const AppContext = createContext<{
+	contextDispatch: Dispatch<any>,
+	contextState: InitialState
+}>({contextState: initialState, contextDispatch: null})
 
 
 interface DeviceActionType {
@@ -43,7 +50,12 @@ interface SetThemeActionType{
 	payload: "light" | "dark" | "system",
 }
 
-function reducer(state: initialState, action: DeviceActionType | LanguageActionType | SetThemeActionType ) {
+export interface AppContextType {
+	contextDispatch: Dispatch<any>,
+	contextState: InitialState
+}
+
+function reducer(state: InitialState, action: DeviceActionType | LanguageActionType | SetThemeActionType ) {
 	switch (action.type) {
         case "SET_DEVICE":
             return { ...state, deviceType: action.payload };
@@ -67,15 +79,20 @@ function reducer(state: initialState, action: DeviceActionType | LanguageActionT
 }
 
 
-const AppContextProvider = (props)=> {
+	
+	const AppContextProvider = (props)=> {
 	
 	const [contextState, contextDispatch] = useReducer(reducer, initialState);
 	
-	return (
-		<AppContext.Provider value={{contextState: contextState, contextDispatch}}>
+	
+		return (
+		//@ts-ignore
+		<AppContext.Provider value={{contextState: contextState, contextDispatch: contextDispatch}}>
 			{props.children}
 		</AppContext.Provider>
 	)
 }
 
+
 export default AppContextProvider
+
