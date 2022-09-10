@@ -200,7 +200,9 @@ function App(props) {
       
        <div className="App-Content ">
          <div className="header_space"/>
-         <div className={["App-Content-mask", appState.isOpenAppMask ? "mask__open" : "mask__close"].join(" ")}/>
+         
+         <div className={["App-Content-mask", ( appState.backdrop.isOpen && appState.backdrop.scope === "app") ? "mask__open" : "mask__close"].join(" ")}/>
+         
          { showBigCategoryNav(pathname) && <CategoryNavbar /> }
   
          <Modal

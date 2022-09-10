@@ -5,7 +5,10 @@ interface AppStateType {
   notificationMsg?: string,
   isNotify?: false,
   notificationType: string,
-  isOpenAppMask: boolean
+  backdrop: {
+    isOpen: boolean,
+    scope: "app" | "global"
+  }
 }
 
 
@@ -13,7 +16,10 @@ const initialState: AppStateType = {
   isNotify: false,
   notificationType: "",
   notificationMsg: "",
-  isOpenAppMask: false
+  backdrop: {
+    isOpen: false,
+    scope: "global"
+  }
 }
 
 
@@ -35,11 +41,11 @@ const appReducer = (state: any=initialState, action)=>{
       updatedState.notificationType = action.payload.notificationType
       return updatedState
     
-    case "TOGGLE_APP_MASK":
-      if(typeof action.payload === "undefined"){
-        updatedState.isOpenAppMask = !action.payload
-      } else if(typeof action.payload === "boolean") {
-        updatedState.isOpenAppMask = action.payload
+    case ACTION_TYPES.TOGGLE_BACKDROP:
+      updatedState.backdrop = {
+        ...updatedState.backdrop,
+        isOpen: action.payload.isOpen,
+        scope: action.payload.scope
       }
       return  updatedState;
       

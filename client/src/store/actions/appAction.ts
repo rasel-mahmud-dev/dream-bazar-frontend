@@ -17,10 +17,10 @@ export const closeNotify=()=>{
 }
 
 
-export const toggleAppMask=(isOpenAppMask?: boolean)=>{
+export const toggleBackdrop=(data: {isOpen: boolean, scope: "app" | "global" | "custom"})=>{
   return {
-    type: "TOGGLE_APP_MASK",
-    payload: isOpenAppMask
+    type: ACTION_TYPES.TOGGLE_BACKDROP,
+    payload: data
   }
 }
 

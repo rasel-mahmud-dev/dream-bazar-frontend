@@ -1,11 +1,11 @@
 import React from "react"
-import { Button, Modal, Select, Input, File, Tabs } from "components/UI"
+import { Button, Modal, Select,  File, Tabs } from "components/UI"
 import api from "src/apis" 
 import fullLink from "src/utills/fullLink"
 
   const { TabPane } = Tabs
 
-  const ProductController = (props) =>{
+  const AllProducts = (props) =>{
   
   const [count, setCount] = React.useState()
   const [products, setProducts]  = React.useState<any[]>([])
@@ -228,6 +228,7 @@ function fetchStaticFiles(){
   return (
       <div className="container"> 
       
+        <h1>saddddddddddddddddddddddddddddddddd</h1>
       
       {  isShowForm === "" ? <Button onClick={(e)=> setShowForm("new")}>Add New Product</Button>
       : <Button onClick={(e)=> setShowForm("")}>Cancel</Button>
@@ -284,4 +285,4 @@ function fetchStaticFiles(){
     )
 }
 
-export default ProductController
+export default AllProducts

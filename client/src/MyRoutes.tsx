@@ -7,13 +7,16 @@ import ForgetPassword from "pages/auth/ForgetPassword";
 import OTPValidate from "pages/auth/OTPValidate";
 import Registration from "pages/auth/Registration";
 import Login from "pages/auth/Login";
-import CustomerDashboardRoutes from "pages/Customer/CustomerDashboardRoutes";
+
+
+import adminDashboardRoutes from "pages/Admin/adminDashboardRoutes";
+import customerDashboardRoutes from "pages/Customer/customerDashboardRoutes";
 
 const HomePage = lazy(() => import("pages/homePage/HomePage"))
 const Products = lazy(() => import("src/pages/products/Products"))
 const ProductDetails = lazy(() => import("src/pages/productDetails/ProductDetails"))
 const OneTypeProducts = lazy(() => import("src/pages/oneTypeProducts/OneTypeProducts"))
-const Dashboard = lazy(() => import("src/pages/Admin/Dashboard/Dashboard"))
+const Dashboard = lazy(() => import("pages/Admin/AdminDashboard"))
 const CartPage = lazy(() => import("src/pages/CartPages/Index"))
 const CheckoutPage = lazy(() => import("src/pages/CartPages/CheckoutPage"))
 const PaymentPage = lazy(() => import("src/pages/CartPages/PaymentPage"))
@@ -45,7 +48,15 @@ const MyRoutes = () => {
               <Route path="opt-validate" element={<OTPValidate/>}/>
           </Route>
 			
-			{ CustomerDashboardRoutes.map(route=>(
+			{ customerDashboardRoutes.map(route=>(
+				<Route path={route.path} element={<route.element />}>
+					{ route.children?.map(ch=>(
+						<Route path={ch.path} element={<ch.element />} />
+					)) }
+				</Route>
+			)) }
+			
+			{ adminDashboardRoutes.map(route=>(
 				<Route path={route.path} element={<route.element />}>
 					{ route.children?.map(ch=>(
 						<Route path={ch.path} element={<ch.element />} />

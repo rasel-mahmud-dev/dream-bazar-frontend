@@ -126,8 +126,6 @@ const Dashboard = (props) => {
     } else {
       setInline(true)
     }
-  
-    console.log(contextState)
     
   }, [contextState.windowWidth])
   
