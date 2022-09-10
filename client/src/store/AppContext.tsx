@@ -13,6 +13,7 @@ export enum DeviceType {
 
 interface InitialState {
 	deviceType: DeviceType,
+	windowWidth: number,
 	translations: Object,
 	lang: "en" | "bn",
 	theme:  "light" | "dark" | "system",
@@ -20,6 +21,7 @@ interface InitialState {
 
 const initialState: InitialState = {
 	deviceType: DeviceType.DESKTOP,
+	windowWidth: 0,
 	translations: {},
 	lang: "en",
 	theme: "light"
@@ -34,7 +36,7 @@ export const AppContext = createContext<{
 
 
 interface DeviceActionType {
-	type: "SET_DEVICE",
+	type: ACTION_TYPES.SET_DEVICE_TYPE,
 	payload: DeviceType
 }
 
@@ -50,14 +52,20 @@ interface SetThemeActionType{
 	payload: "light" | "dark" | "system",
 }
 
+interface SetWindowWidthActionType{
+	type: ACTION_TYPES.SET_WINDOW_WIDTH,
+	payload: number
+}
+
 export interface AppContextType {
 	contextDispatch: Dispatch<any>,
 	contextState: InitialState
 }
 
-function reducer(state: InitialState, action: DeviceActionType | LanguageActionType | SetThemeActionType ) {
+function reducer(state: InitialState, action: DeviceActionType | LanguageActionType | SetThemeActionType | SetWindowWidthActionType ) {
 	switch (action.type) {
-        case "SET_DEVICE":
+		
+        case ACTION_TYPES.SET_DEVICE_TYPE:
             return { ...state, deviceType: action.payload };
 		
 		case ACTION_TYPES.SET_LANGUAGE:
@@ -65,6 +73,12 @@ function reducer(state: InitialState, action: DeviceActionType | LanguageActionT
 				...state,
 	            translations: action.payload.translations,
                 lang: action.payload.lang
+			}
+			
+		case ACTION_TYPES.SET_WINDOW_WIDTH:
+            return {
+				...state,
+	            windowWidth: action.payload
 			}
 		
 		case ACTION_TYPES.SET_THEME:

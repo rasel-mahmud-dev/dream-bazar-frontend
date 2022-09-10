@@ -21,6 +21,7 @@ import throttle from "src/utills/throttle";
 import useLanguage from "src/hooks/useLanguage";
 import {setLanguage, toggleTheme} from "actions/appContextActions";
 import {currentAuthAction} from "actions/authAction";
+import {ACTION_TYPES} from "store/types";
 
 
 function App(props) {
@@ -106,21 +107,26 @@ function App(props) {
   function handlerWindowResize(){
     if(window.innerWidth > 600 && window.innerWidth < 1000) {
       contextDispatch({
-        type: "SET_DEVICE",
+        type: ACTION_TYPES.SET_DEVICE_TYPE,
         payload: DeviceType.TABLET,
       })
     } else if(window.innerWidth < 600) {
       contextDispatch({
-        type: "SET_DEVICE",
+        type: ACTION_TYPES.SET_DEVICE_TYPE,
         payload: DeviceType.MOBILE,
       })
     } else {
       contextDispatch({
-        type: "SET_DEVICE",
+        type: ACTION_TYPES.SET_DEVICE_TYPE,
         payload: DeviceType.DESKTOP,
       })
     }
+    contextDispatch({
+      type: ACTION_TYPES.SET_WINDOW_WIDTH,
+      payload: window.innerWidth,
+    })
   }
+  
   
   React.useEffect(()=>{
 
@@ -193,7 +199,7 @@ function App(props) {
       
       
        <div className="App-Content ">
-         <div className="h117" style={{height: afterNavHeight + "px"}}/>
+         <div className="header_space"/>
          <div className={["App-Content-mask", appState.isOpenAppMask ? "mask__open" : "mask__close"].join(" ")}/>
          { showBigCategoryNav(pathname) && <CategoryNavbar /> }
   

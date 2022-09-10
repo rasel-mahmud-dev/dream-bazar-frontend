@@ -89,7 +89,7 @@ const Dashboard = (props) => {
       icon: <BiStar />
     },{
       name: "My Wishlist & Followed Stores",
-      to: "",
+      to: "/auth/customer/dashboard/wishlist",
       id: 4,
       icon: <MdFavorite />
     },
@@ -116,19 +116,70 @@ const Dashboard = (props) => {
       to: "",
       id: 6,
       icon: <FaSignOutAlt />
+    },{
+      name: "Sign Out",
+      to: "",
+      id: 6,
+      icon: <FaSignOutAlt />
+    },{
+      name: "Sign Out",
+      to: "",
+      id: 6,
+      icon: <FaSignOutAlt />
+    },{
+      name: "Sign Out",
+      to: "",
+      id: 6,
+      icon: <FaSignOutAlt />
+    },{
+      name: "Sign Out",
+      to: "",
+      id: 6,
+      icon: <FaSignOutAlt />
+    },{
+      name: "Sign Out",
+      to: "",
+      id: 6,
+      icon: <FaSignOutAlt />
+    },{
+      name: "Sign Out",
+      to: "",
+      id: 6,
+      icon: <FaSignOutAlt />
+    },{
+      name: "Sign Out",
+      to: "",
+      id: 6,
+      icon: <FaSignOutAlt />
+    },{
+      name: "Sign Out",
+      to: "",
+      id: 6,
+      icon: <FaSignOutAlt />
+    },{
+      name: "Sign Out",
+      to: "",
+      id: 6,
+      icon: <FaSignOutAlt />
+    },{
+      name: "Sign Out",
+      to: "",
+      id: 6,
+      icon: <FaSignOutAlt />
     }
    
   ]
   
-  console.log(contextState)
-  
   React.useEffect(()=>{
-    if(contextState.deviceType === DeviceType.DESKTOP){
+    if(contextState.windowWidth > 800){
       setInline(false)
     } else {
       setInline(true)
     }
-  }, [contextState.deviceType])
+  
+    console.log(contextState)
+    
+  }, [contextState.windowWidth])
   
   
   nonInitialEffect(()=>{
@@ -232,28 +283,37 @@ const Dashboard = (props) => {
     }
     
     return (
-      <div className={`sidebar bg-neutral-800 ${isInline ? "inline-mode" : ""}`}>
-         { sidebarData.map(data=>(
-            <div className="">
+      <div className={`sidebar bg-white dark:bg-neutral-800 ${isInline ? "inline-mode" : ""}`}>
+         <div className="sidebar_content custom_scrollbar">
+           { sidebarData.map(data=>(
+               <div className="">
               
               <Menu selectedKeys={collapseIds} inline={isInline}>
                 
                   <Menu.SubMenu
-                    onClickOnItem={toggleCollapseSubMenu} className="pt-1 px-4"
-                    key={data.id.toString()}
-                    item={data}
-                    renderInlineMode={renderInlineMode}
-                    label={<h1 className="text-red-500 font-medium mt-2 ml-2">{data.label}</h1>}>
+                      onClickOnItem={toggleCollapseSubMenu} className="pt-1 px-4"
+                      key={data.id.toString()}
+                      item={data}
+                      renderInlineMode={renderInlineMode}
+                      label={<h1 className="text-red-500 font-medium mt-2 ml-2">{data.label}</h1>}>
                     
                       <div className="menu-item text-neutral-200">
-                          <div className="flex items-center">
+                        { data.to ? (
+                            <Link to={data.to} className="flex items-center">
+                              { data.icon }
+                              <span className="ml-2">{data.name}</span>
+                          </Link>
+                        ) : (
+                            <div className="flex items-center">
                               { data.icon }
                               <span className="ml-2">{data.name}</span>
                           </div>
+                        ) }
+                        
                       </div>
-    
-    
-                      {data.subMenu  && <div className="bg-neutral-700 px-3 py-2">
+  
+  
+                    {data.subMenu  && <div className="bg-neutral-700 px-3 py-2">
                           {data.subMenu.map(s=>(
                               <Menu.Item className=" my-1" key={s.name}>
                                 <Link to={s.to} className="flex items-center gap-x-1 text-neutral-200 py-1 menu-item">
@@ -263,29 +323,26 @@ const Dashboard = (props) => {
                             </Menu.Item>
                           ))}
                         </div>
-                      }
+                    }
                     
                   </Menu.SubMenu>
               </Menu>
             </div>
-         )) }
+           )) }
+         </div>
       </div>
     )
   }
   
   return (
-    <div >
-        <div className="h-screen">
+        <div className="flex">
         
-            {renderSidebarMenu()}
-            <br/>
-            
-          </div>
-          <div className="content">
-            {/*{renderCustomerDashboardRoutes()}*/}
+          {renderSidebarMenu()}
+      
+          <div className={`content ml-4 ${isInline ? "inline-mode" : ""}`}>
             <Outlet />
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, accusamus atque consequatur distinctio ducimus eligendi eos excepturi illum inventore, laudantium maxime officia omnis perspiciatis, porro quasi quo ratione similique temporibus?
           </div>
+          
         </div>
     )
 }

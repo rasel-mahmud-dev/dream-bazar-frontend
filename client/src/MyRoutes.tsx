@@ -46,7 +46,11 @@ const MyRoutes = () => {
           </Route>
 			
 			{ CustomerDashboardRoutes.map(route=>(
-				<Route path={route.path} element={<route.element />}></Route>
+				<Route path={route.path} element={<route.element />}>
+					{ route.children?.map(ch=>(
+						<Route path={ch.path} element={<ch.element />} />
+					)) }
+				</Route>
 			)) }
 			
 			{/*<Route path="/auth/customer/dashboard" element={} />*/}
