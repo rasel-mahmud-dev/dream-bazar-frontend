@@ -4,10 +4,16 @@ import dbConnect from "../database"
 import {NextFunction, Request, Response} from "express"
 
 import { ObjectId } from "mongodb"
-import {collections} from "../services/database.service";
+import {collections} from "../services/mongodb/database.service";
 import sqlDatabase from "../database/sqlDatabase";
-import {errorResponse} from "../response";
-const fileUpload = require("../utilities/fileUpload")
+import {errorResponse, successResponse} from "../response";
+import fileUpload from "../utilities/fileUpload"
+import fs from "fs";
+import dataDir from "../utilities/dataDir";
+import staticDir from "../utilities/staticDir";
+import uuid from "../utilities/uuid";
+import {getSqliteDb} from "../services/sqlite/database.service";
+import {findAll, findOne} from "../services/sqlite/database.methods";
 const isObjectId = require("../utilities/isObjectId")
 
 
@@ -71,84 +77,25 @@ let ms;
 
 
 
-export const saveBrand =  async (data)=>{
-  const { id, name, logo, forCategory  } = data;
 
-  let db: any
-  try {
-    db = await sqlDatabase()
-    let sql = `
-        INSERT INTO brands('id', 'name', 'logo', 'forCategory') values("${id}", "${name}", "${logo}", '${JSON.stringify(forCategory)}')
-     `
-
-    // let sql = `
-    //      DROP TABLE if EXISTS "brands";
-    //      CREATE TABLE "brands" (
-    //       id TEXT NOT NULL,
-    //       name text(200) NOT NULL,
-    //       logo text(500) NOT NULL,
-    //       forCategory JSON,
-    //       CONSTRAINT "brands_pk" PRIMARY KEY("name", "id")
-    // )
-    //  `
-
-    db.exec(sql, function (data: any, err: any){
-      if(err){
-        console.log(err)
-        return;
-      }
-      console.log(data)
-      console.log("table has been created")
-    })
-
-
-
-  } catch(ex){
-
-  } finally{
-    db && db.close()
-  }
-}
 
 
 export const getBrands =  async (req: Request, res: Response, next: NextFunction)=>{
 
   let {perPage=10, pageNumber=1} = req.query
 
-  let db;
+
   try {
-    db = await sqlDatabase()
 
-    let sql = `SELECT * FROM brands`
-    db.all(sql, function (err, data) {
-      if (err || !data) {
-        errorResponse(res, 404, "brands not found")
-        return;
-      }
-      res.send(data)
-    })
-
-    // let brands = await collections.brands.find().toArray();
-    //
-    //
-    //
-    // brands.forEach(brand=>{
-    //   const brandObj = {
-    //       name: brand.name,
-    //       id: brand._id.toString(),
-    //       logo: brand.logo ? brand.logo : "",
-    //       forCategory: brand.for_category ? brand.for_category : []
-    //   }
-    //
-    //   brandObj.forCategory = brandObj.forCategory.map(b=>b.toString())
-    //   saveBrand(brandObj)
-    //
-    // })
-
+    let [err, result] = await findAll(`SELECT * FROM brands`)
+    if(!err){
+      successResponse(res, 200, result)
+    } else {
+      successResponse(res, 200, [])
+    }
 
   } catch(ex){
      next()
-    console.log(ex)
 
   } finally{
 
@@ -212,53 +159,91 @@ export const getBrandsByIds =  async (req: Request, res: Response, next: NextFun
   } finally {
     client?.close()
   }
-} 
+}
+
+export const saveBrand =  async (data, next, cb)=>{
+  const { id, name, logo, forCategory  } = data;
+  try {
+    let [err, result] = await findOne("SELECT * FROM brands where name = ?", [name])
+    if(!err && result){
+      errorResponse(next, "Brand already exists", 401)
+    } else {
+      cb(null, data)
+    }
+
+    // let sql = `
+    //     INSERT INTO brands('id', 'name', 'logo', 'forCategory') values("${id}", "${name}", "${logo}", '${JSON.stringify(forCategory)}')
+    //  `
+    // let sql = `
+    //      DROP TABLE if EXISTS "brands";
+    //      CREATE TABLE "brands" (
+    //       id TEXT NOT NULL,
+    //       name text(200) NOT NULL,
+    //       logo text(500) NOT NULL,
+    //       forCategory JSON,
+    //       CONSTRAINT "brands_pk" PRIMARY KEY("name", "id")
+    // )
+    //  `
+
+    // db.exec(sql, function (data: any, err: any){
+    //   if(err){
+    //     cb(err, null)
+    //     return;
+    //   }
+    //   console.log(data)
+    //   cb(null, data)
+    //   console.log("table has been created")
+    // })
+
+  } catch(ex){
+    cb(ex, null)
+  } finally{
+
+  }
+}
 
 export const saveBrands =  async (req: Request, res: Response, next: NextFunction)=>{
 
-  const { name, for_category, logo }  = req.body 
 
-  let client;
-  
   
   try{
-    const {c: brandCollection, client: cc } = await dbConnect("brands")
-    client = cc
-    
-    let response;
-    let oids = []
-    if(for_category && for_category.length > 0){
-      for_category.forEach(c=>{
-        oids.push(new ObjectId(c))
-      })
-    }    
-    
-    let newB = {
-      name: name,
-      for_category: oids && oids.length > 0 ? oids : [],
-      created_at: new Date(),
-      updated_at:  new Date()
-    }
-    
-    response = await brandCollection.insertOne({
-      name: name,
-      for_category: oids && oids.length > 0 ? oids : [],
-      created_at: new Date(),
-      updated_at:  new Date()
-    })
-    
-    if(response.insertedId){
-      res.status(201).json({message: "Brand Save successful", brand: newB})
-    } else{
-      res.status(401).json({message: "Brand Save unsuccessful"})
+    const {err, fields, file, fileName} = await fileUpload(req, "logo");
+    if(err){
+      return errorResponse(next, "Internal Error. Please try Again")
     }
 
+    const { name, forCategory }  = fields as any
+
+
+    const newPath =  "upload/" + fileName
+
+    fs.cp(file, staticDir +"/"+ newPath, err1 => {
+      if(err){
+        return errorResponse(next, "Logo upload error. Please try Again")
+      }
+
+      let for_category = []
+      if(forCategory){
+        try {
+          for_category = JSON.parse(forCategory)
+        } catch (_) {}
+      }
+
+      saveBrand({id: uuid(10), name, forCategory: for_category, newPath}, next, (err, result)=>{
+        if(err){
+          console.log(err)
+          return errorResponse(next, "Internal error. Please try Again")
+        }
+
+        console.log(result)
+        successResponse(res, 201, result)
+      })
+    })
   } catch(ex){
-     next()
     console.log(ex)
 
   } finally{
-    client?.close()
+
   }
 }
 
@@ -271,27 +256,27 @@ export const saveBrandsWithImage =  async (req: Request, res: Response, next: Ne
     client = cc
     
     let filePath = "upload"
-    fileUpload(req, filePath, "logo", async(result)=>{
-      let response;
-      if (result) {
-        const brands = result.fields
-        brands.created_at = Date.now()
-        brands.updated_at = Date.now()
-        brands.logo = result.files && result.files.logo[0].path
-        response = await brandCollection.insertOne(brands)
-    
-        // console.log(response)
-    
-        if (response.insertedCount) {
-          res.status(200).json({message: "Brand Save succefull", brands: response.ops})
-        } else {
-          res.status(401).json({message: "Brand Save unsuccessfull"})
-        }
-    
-        client && client.close()
-    
-      }
-    })
+    // fileUpload(req, filePath, "logo", async(result)=>{
+    //   let response;
+    //   if (result) {
+    //     const brands = result.fields
+    //     brands.created_at = Date.now()
+    //     brands.updated_at = Date.now()
+    //     brands.logo = result.files && result.files.logo[0].path
+    //     response = await brandCollection.insertOne(brands)
+    //
+    //     // console.log(response)
+    //
+    //     if (response.insertedCount) {
+    //       res.status(200).json({message: "Brand Save succefull", brands: response.ops})
+    //     } else {
+    //       res.status(401).json({message: "Brand Save unsuccessfull"})
+    //     }
+    //
+    //     client && client.close()
+    //
+    //   }
+    // })
       
   } catch(ex){
      next()

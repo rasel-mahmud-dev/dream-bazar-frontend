@@ -27,7 +27,7 @@ const File = (props)=> {
     const file = e.target.files[0] 
     blobToBase64(file, (base64: string)=>{
       setSelectedImage({name: file.name, base64: base64})
-      onChange && onChange({ target: {name, type, file, fileName: file.name }})
+      onChange && onChange({ target: {name, type, value: file, fileName: file.name }})
     })
   }
   
@@ -50,8 +50,9 @@ const File = (props)=> {
       </div>
       
       { label && <label htmlFor={name}>{label}</label> }
+      
       <Button className="file_upload_button" onClick={chooseImage}>
-      Choose Image 
+        Choose Image
       <i className="far fa-cloud"></i>
       </Button>
       

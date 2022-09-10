@@ -1,6 +1,6 @@
 import {ObjectId} from "mongodb";
-import {collections} from "../services/database.service";
-import {IndexType} from "../services/models.index.types";
+import {collections} from "../services/mongodb/database.service";
+import {IndexType} from "../services/mongodb/models.index.types";
 
 
 interface UserType {

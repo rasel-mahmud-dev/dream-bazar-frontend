@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express"
 import dbConnect from "../database"
 import {RequestWithAuth} from "../types";
-import {collections} from "../services/database.service";
+import {collections} from "../services/mongodb/database.service";
 import User, {Roles} from "../models/User";
 import {createHash, hashCompare} from "../hash";
 

@@ -18,6 +18,11 @@ export const closeNotify=()=>{
 
 
 export const toggleBackdrop=(data: {isOpen: boolean, scope: "app" | "global" | "custom"})=>{
+  if(data.isOpen){
+    document.body.classList.add("block-page")}
+  else{
+    document.body.classList.remove("block-page")
+  }
   return {
     type: ACTION_TYPES.TOGGLE_BACKDROP,
     payload: data

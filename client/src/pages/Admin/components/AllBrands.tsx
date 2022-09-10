@@ -4,18 +4,17 @@ import fullLink from "src/utills/fullLink";
 import apis from "src/apis";
 import Table from "UI/table/Table";
 import staticImagePath from "src/utills/staticImagePath";
-import ButtonGroup from "UI/Button/ButtonGroup";
+
 import {
     BsPencilSquare,
-    CgTrash,
-    FaTrash,
     FcEmptyTrash,
-    TbTrash,
 } from "react-icons/all";
 import {useDispatch, useSelector} from "react-redux";
-import {toggleAppMask, toggleBackdrop} from "actions/appAction";
+import { toggleBackdrop} from "actions/appAction";
 import {RootState} from "src/store";
 import {InputGroup} from "UI/Form";
+import FileUpload from "UI/Form/File/FileUpload";
+import {useParams} from "react-router-dom";
 
 const { TabPane } = Tabs;
 
@@ -27,19 +26,22 @@ const AllBrands = (props) => {
     const [staticImages, setStaticImages] = React.useState([]);
     
     const {appState} = useSelector((state: RootState)=>state)
-    
 
-    const [isShowForm, setShowForm] = React.useState("");
-    const [isShowLogoHandler, setShowLogoHandler] = React.useState(false);
+ 
     const dispatch = useDispatch();
 
-    const [formData, setFormData] = React.useState<any>({
-        name: {value: "", errorMessage: ""},
-        logo: {value: "", errorMessage: ""},
+    const [state, setState] = React.useState<any>({
+        isShowForm: true,
+        updateId: "",
+        formData: {
+            name: {value: "", errorMessage: ""},
+            logo: {value: null, blob: null, errorMessage: ""},
+        }
     });
 
-    const [updatedBrandCopy, setUpdateBrandCopy] = React.useState<any>({});
-
+    const {formData, isShowForm, updateId} = state
+    
+    
     const d = [
         {
             name: "name",
@@ -83,63 +85,113 @@ const AllBrands = (props) => {
             setBrands(brands.filter((b) => b._id !== id));
         });
     }
-
+    
+    
     function handleChange(e) {
-        if (e.target.type === "image") {
-            setBrandData({
-                ...brandData,
-                [e.target.name]: e.target.file,
-                fileName: e.target.fileName,
-            });
+        const { name, value } = e.target
+        let updateFormData = { ...state.formData }
+
+        if(name === "logo") {
+            updateFormData = {
+                ...updateFormData,
+                [name]: {
+                    ...updateFormData[name],
+                    value: value,
+                    errorMessage: updateFormData[name] ? "" : updateFormData[name].errorMessage
+                }
+            }
         } else {
-            setBrandData({
-                ...brandData,
-                [e.target.name]: e.target.value,
-            });
+            updateFormData = {
+                ...updateFormData,
+                [name]: {
+                    ...updateFormData[name],
+                    value: value,
+                    errorMessage: updateFormData[name] ? "" : updateFormData[name].errorMessage
+                }
+            }
         }
+        setState({
+            ...state,
+            formData: updateFormData
+        })
     }
 
-    async function handleSave() {
-        if (isShowForm === "new") {
+    async function handleAdd(e) {
+        e.preventDefault();
+    
+        let isComplete = true
+        let payload = new FormData();
+        for (let item in formData) {
+            if(!formData[item].value){
+                isComplete = false
+            }
+            
+            if(item === "logo"){
+                if(typeof formData[item].value === "string"){
+                    payload.append(item, formData[item].value)
+                } else {
+                    payload.append(item, formData[item].value, formData[item].value.name)
+                }
+            } else {
+                payload.append(item, formData[item].value)
+            }
+        }
+        
+        if(updateId){
+            apis.patch("/api/brand/"+updateId, payload).then(response=>{
+                console.log(response)
+            }).catch(ex=>{
+                console.log(ex)
+            })
+        
+        } else {
+            apis.post("/api/brand", payload).then(response=>{
+                console.log(response)
+            }).catch(ex=>{
+                console.log(ex)
+            })
+        }
+        
+        // if (isShowForm === "new") {
             // let { data } = await api.post("/api/brands", {...brandData})
             // setBrands([...brands, data.brands[0]])
-            if (brandData.logo) {
-                // need form data to send blob to backend
-                let formData = new FormData();
-                for (const key in brandData) {
-                    formData.append(key, brandData[key]);
-                }
-                let { data } = await apis.post(
-                    "/api/brands/with-image-upload",
-                    formData
-                );
-                setBrands([...brands, ...data.brands]);
-            }
-
-            // console.log(brandData)
-        } else {
-            let updatedBrands = [...brands];
-            let { _id, ...otherProperties } = updatedBrandCopy;
-            let formData = new FormData();
-
-            let b = { ...otherProperties, ...brandData };
-            // upload with string logo path
-            for (let key in b) {
-                if (key !== "fileName") {
-                    formData.append(key, b[key]);
-                }
-            }
-            // console.log(b)
-            let { data } = await apis.put(`/api/brands/${_id}`, formData);
-
-            // if(updatedBrands.logo){
-            // let { data } = await api.put(`/api/brands/${_id}`, {...otherProperties, ...brandData})
-            // let index = updatedBrands.findIndex(b=>b._id === _id )
-            // updatedBrands[index] = data.brand
-            // setBrands(updatedBrands)
-        }
+        //     if (brandData.logo) {
+        //         // need form data to send blob to backend
+        //         let formData = new FormData();
+        //         for (const key in brandData) {
+        //             formData.append(key, brandData[key]);
+        //         }
+        //         let { data } = await apis.post(
+        //             "/api/brands/with-image-upload",
+        //             formData
+        //         );
+        //         setBrands([...brands, ...data.brands]);
+        //     }
+        //
+        //     // console.log(brandData)
+        // } else {
+        //     let updatedBrands = [...brands];
+        //     let { _id, ...otherProperties } = updatedBrandCopy;
+        //     let formData = new FormData();
+        //
+        //     let b = { ...otherProperties, ...brandData };
+        //     // upload with string logo path
+        //     for (let key in b) {
+        //         if (key !== "fileName") {
+        //             formData.append(key, b[key]);
+        //         }
+        //     }
+        //     // console.log(b)
+        //     let { data } = await apis.put(`/api/brands/${_id}`, formData);
+        //
+        //     // if(updatedBrands.logo){
+        //     // let { data } = await api.put(`/api/brands/${_id}`, {...otherProperties, ...brandData})
+        //     // let index = updatedBrands.findIndex(b=>b._id === _id )
+        //     // updatedBrands[index] = data.brand
+        //     // setBrands(updatedBrands)
+        // }
     }
-
+    
     //  load all static files...
     function fetchStaticFiles() {
         apis.get("/api/static-file").then((response) => {
@@ -147,6 +199,7 @@ const AllBrands = (props) => {
         });
     }
 
+    
     // click static file from static images
     function chooseImageFromStatic(url) {
         setBrandData({
@@ -154,23 +207,58 @@ const AllBrands = (props) => {
             logo: "upload/" + url,
         });
     }
-
-    // when choose new image form modal inside File Input
-    function handleChangeLogo(e) {
-        if (e.target.type === "file") {
-            setBrandData({
-                ...brandData,
-                [e.target.name]: e.target.file,
-                fileName: e.target.fileName,
-            });
-        } else {
-            setBrandData({
-                ...brandData,
-                [e.target.name]: e.target.value,
-            });
+    
+    
+    function clearField(){
+        let update = {...formData}
+        for (let updateKey in update) {
+            if (update[updateKey] && update[updateKey].value) {
+                update[updateKey].value = ""
+            }
         }
+            return  update
     }
-
+    
+    function handleShowAddForm(isOpen=false) {
+        setState({
+            ...state,
+            updateId: "",
+            isShowForm: isOpen,
+            formData: clearField()
+        })
+        dispatch(
+            toggleBackdrop({
+                isOpen: isOpen,
+                scope: "custom"
+            })
+        );
+    }
+    
+    function setUpdateBrandHandler(brand){
+    
+        let updateFormData = { ...state.formData }
+        if(brand.name) {
+            updateFormData.name = {value: brand.name, errorMessage: ""}
+        }
+        if(brand.logo){
+            updateFormData.logo= {value: brand.logo, errorMessage: ""}
+        }
+        
+        setState({
+            ...state,
+            isShowForm: true,
+            updateId: brand.id,
+            formData: updateFormData
+        })
+        dispatch(
+            toggleBackdrop({
+                isOpen: true,
+                scope: "custom"
+            })
+        );
+        
+    }
+    
     // render photo handler modal that an image can upload or get cdn link
     function showPhotoHandler() {
         // key ===  2 contains all static image files
@@ -222,45 +310,59 @@ const AllBrands = (props) => {
 
     function addProduct() {
         return (
-            <form>
-                <h2 className="">
-                    {isShowForm === "new" ? "Add New Brand" : "Update Brand"}
+            <form onSubmit={handleAdd}>
+                <h2 className="text-white text-center font-medium text-lg">
+                    {updateId  ?  "Update Brand" : "Add New Brand"}
                 </h2>
-                
-                
+
                 <InputGroup
                     name={"name"}
+                    label="Brand Name"
+                    className="!flex-col"
+                    labelClass="dark:text-white !mb-2"
                     state={formData}
+                    placeholder="Enter Brand Name"
                     onChange={handleChange}
                 />
-                
-                
-                <Button onClick={handleSave}>
-                    {isShowForm === "new" ? "Save Brand" : "Update Brand"}
+                {/*********** Cover **************/}
+  
+                <FileUpload
+                    name="logo"
+                    label="Logo"
+                    inputClass="input-group"
+                    placeholder="Choose Cover Photo"
+                    onChange={handleChange}
+                    defaultValue={formData.logo.value}
+                    labelClass="dark:text-white !mb-2"
+                    errorMessage={formData.logo.errorMessage}
+                    className={"!flex-col"}
+                />
+
+                <div className="flex items-center gap-x-4" >
+                    <Button type="submit" className="bg-secondary-300 mt-4">
+                    {!updateId ? "Save Brand" : "Update Brand"}
                 </Button>
+
+                <Button
+                    type="button"
+                    className="bg-secondary-300 mt-4"
+                    onClick={() => handleShowAddForm(false)}
+                >
+                    Cancel
+                </Button>
+                </div>
             </form>
         );
     }
+    
 
-    function handleTabChange(id) {
-        alert(id);
-    }
-
-    function handleShowAddForm() {
-        dispatch(
-            toggleBackdrop({
-                isOpen: true,
-                scope: "custom"
-            })
-        );
-    }
 
     const columns = [
         {
             title: "Logo",
             dataIndex: "logo",
             render: (item) => (
-                <div className="w-14">
+                <div className="w-8">
                     <img src={staticImagePath(item.logo)} alt="" />
                 </div>
             ),
@@ -273,87 +375,47 @@ const AllBrands = (props) => {
             className: "text-center",
             render: (item) => (
                 <div className="flex justify-center items-center gap-x-2">
-                    <BsPencilSquare className="text-md cursor-pointer" />
+                    <BsPencilSquare className="text-md cursor-pointer" onClick={()=>setUpdateBrandHandler(item)} />
                     <FcEmptyTrash className="text-xl cursor-pointer" />
                 </div>
             ),
         },
     ];
 
-    console.log(appState);
+
 
     return (
         <div className="pr-4">
             
-            {appState.backdrop.isOpen && <div className="backdrop backdrop--show">
-                <div className="modal-box">
+            {appState.backdrop.isOpen && <div className={`backdrop ${isShowForm ? "backdrop--show" : ""}`}>
+                <div className="modal-box auth-card">
                     {addProduct()}
                 </div>
             </div>}
             
             <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-medium">Brands</h1>
+                <h1 className="h2">Brands</h1>
 
-                {isShowForm === "" ? (
+                {!updateId ? (
                     <Button
                         className="mt-4 bg-secondary-300"
-                        onClick={handleShowAddForm}
+                        onClick={()=>handleShowAddForm(true)}
                     >
                         Add New Brand
                     </Button>
                 ) : (
-                    <Button onClick={(e) => setShowForm("")}>Cancel</Button>
+                    <Button onClick={() => handleShowAddForm(false)}>Cancel</Button>
                 )}
             </div>
-            {isShowForm !== "" && addProduct()}
+            
 
-            <h3>
+            <h3 className="p">
                 Brands fetch {brands?.length} of {totalBrands}{" "}
             </h3>
 
             <div className="card">
-                <Table dataSource={brands ? brands : []} columns={columns} />
+                <Table dataSource={brands ? brands : []} columns={columns} tbodyClass={{td: "py-2 px-2", tr: "hover:bg-green-500/10"}} />
             </div>
-
-            {/*<table>*/}
-            {/*  <thead> */}
-            {/*      <tr>*/}
-            {/*        <th className="t-start">Logo</th>*/}
-            {/*        <th className="t-start">Name</th>*/}
-            {/*        <th>Added</th>*/}
-            {/*        <th>Updated</th>*/}
-            {/*        <th>Action</th>*/}
-            {/*      </tr>*/}
-            {/*  </thead>*/}
-            {/*  <tbody>*/}
-            {/*  { brands?.map(b=>(*/}
-            {/*      <tr key={b._id}  >*/}
-            {/*        <td className="">*/}
-            {/*          { b.logo &&*/}
-            {/*          <div className="brand_logo">*/}
-            {/*            <img src={fullLink(b.logo)}  />*/}
-            {/*          </div>*/}
-            {/*          }*/}
-            {/*        </td>*/}
-            {/*      */}
-            {/*        <td className="">{b.name}</td>*/}
-            {/*        <td className="t-center">{new Date(Number(b.created_at)).toDateString() }</td>*/}
-            {/*        <td className="t-center">{new Date(Number(b.updated_at)).toDateString() }</td>*/}
-            {/*        <td className="t-center">*/}
-            {/*          <button*/}
-            {/*            onClick={(e)=> brandFetchForUpdate(b) }*/}
-            {/*            ><i className="fal fa-pen"/>*/}
-            {/*          </button>*/}
-            {/*          <button */}
-            {/*            onClick={()=>deleteItem(b._id)}>*/}
-            {/*              <i className="fal fa-trash"/>*/}
-            {/*          </button>*/}
-            {/*        </td>*/}
-            {/*      </tr>*/}
-            {/*  )) }*/}
-            {/*  </tbody>*/}
-            {/*    */}
-            {/*</table>*/}
         </div>
     );
 };

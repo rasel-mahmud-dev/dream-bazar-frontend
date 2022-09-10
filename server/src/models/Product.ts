@@ -1,6 +1,6 @@
 
 import {ObjectId} from "mongodb";
-import {IndexType} from "../services/models.index.types";
+import {IndexType} from "../services/mongodb/models.index.types";
 
 export interface ProductType{
   _id?: ObjectId,

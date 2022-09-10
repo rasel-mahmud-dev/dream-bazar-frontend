@@ -1,4 +1,4 @@
-import formidable from 'formidable';
+
 import { copyFile, mkdir, rm, stat } from 'fs/promises';
 import fs from "fs"
 
@@ -7,27 +7,51 @@ import {Request, Response} from "express"
 
 
 
+// function fileUpload(req: Request, filePath: string, fieldName: string, callback: (err: any, obj: ResultType)=>any){
+//   const uploadDir = filePath
+//
+//   fs.stat(uploadDir, (err)=>{
+//     if(err){
+//         mkdir(uploadDir).then(()=>{
+//           // continue
+//           fileUploadHandler(req, uploadDir, fieldName, callback)
+//         })
+//     } else {
+//           // continue
+//         fileUploadHandler(req, uploadDir, fieldName, callback)
+//       }
+//     })
+// }
+
+const formidable = require("formidable");
+const { rename } = require("fs/promises");
+const path = require("path")
 
 
 
+const fileUpload = (req: Request, imageName: string)=> {
+  const form = formidable({ multiples: false });
 
-
-function fileUpload(req: Request, filePath: string, fieldName: string, callback: (err: any, obj: ResultType)=>any){
-  const uploadDir = filePath
-  
-  fs.stat(uploadDir, (err)=>{
-    if(err){
-        mkdir(uploadDir).then(()=>{
-          // continue
-          fileUploadHandler(req, uploadDir, fieldName, callback)
-        })
-    } else {
-          // continue
-        fileUploadHandler(req, uploadDir, fieldName, callback)
+  return new Promise<{err: string | null, fields?: object, file: any, fileName: string  }>(((resolve, reject) => {
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        reject({err: err, fields: "", file: ""})
+      } else {
+        if(files && files[imageName]){
+          const {filepath, originalFilename, newFilename } = files[imageName]
+          let newName = filepath.replace(newFilename, "/"  +originalFilename )
+          await rename(filepath, newName)
+          resolve({err: null, fields, file: path.resolve(newName), fileName: originalFilename})
+        } else {
+          resolve({err: null, fields, file: null, fileName: ""})
+        }
       }
-    })
-  
+    });
+  }))
 }
+
+
+
 
 interface ResultType{
   fields?: any,

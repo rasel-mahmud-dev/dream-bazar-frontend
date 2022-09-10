@@ -1,7 +1,6 @@
 import * as mongoDB from "mongodb";
-
-import User from "../models/User";
-import Product from "../models/Product";
+import Product from "../../models/Product";
+import User from "../../models/User";
 
 
 export const collections: {
@@ -15,7 +14,6 @@ const COLLECTIONS_NAME = [
     {name: "users", model: User},
     {name: "products", model: Product}
 ]
-
 
 export let db: mongoDB.Db
 

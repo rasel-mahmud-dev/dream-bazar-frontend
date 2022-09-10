@@ -176,10 +176,9 @@ function App(props) {
   
   
   const [t] = useLanguage(AppContext)
-
   
   return (
-    <div className="App">
+    <div className={`App ${appState.backdrop.isOpen ? "overflow-hidden": "overflow-auto"}`}>
     
       
     {/*  <Spin size={15}/>

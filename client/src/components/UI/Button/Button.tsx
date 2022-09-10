@@ -10,6 +10,7 @@ interface BaseButtonProps extends HTMLAttributes<HTMLButtonElement> {
     className?: string;
     children?: React.ReactNode;
     to?: string;
+    type?: any,
     href?: string;
     loaderClass?: string
 }

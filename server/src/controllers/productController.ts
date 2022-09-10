@@ -9,7 +9,7 @@ const isObjectId = require("../utilities/isObjectId")
 import dbConnect from "../database/index"
 
 import fileUploadHandler from "../utilities/fileUpload";
-import {collections, connectToDatabase, db} from "../services/database.service";
+import {collections, connectToDatabase, db} from "../services/mongodb/database.service";
 import mongoose from "mongoose";
 import {parentPort, workerData} from "worker_threads";
 import dataDir from "../utilities/dataDir";

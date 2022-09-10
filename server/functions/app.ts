@@ -21,7 +21,8 @@ const isDev = process.env.NODE_ENV === "development"
 // require('./passport/facebook.js')
 
 import dataDir from "../src/utilities/dataDir";
-import {connectToDatabase} from "../src/services/database.service";
+import {connectToDatabase} from "../src/services/mongodb/database.service";
+import sqlDatabase from "../src/services/sqlite/database.service";
 
 const app = express()
 
@@ -72,6 +73,12 @@ if(isDev) {
 connectToDatabase().then(res=>{}).catch(ex=>{
     console.log(ex.message)
     process.exit(1)
+})
+
+
+// database sqlite database init
+sqlDatabase().then(res=>{}).catch(ex=>{
+    console.log(ex.message)
 })
 
 // app.use((req, res, next)=>{

@@ -28,11 +28,6 @@ export default function (app){
   app.post("/api/brands/with-image-upload", saveBrandsWithImage)
   app.put("/api/brands/:brandId", editBrand)
   app.delete("/api/brands/:brandId", deleteBrand)
-  
-  
+
   app.post("/api/fetch-brands", fetchBrandsWithFilter)
-  
-  
-  
-  
 }

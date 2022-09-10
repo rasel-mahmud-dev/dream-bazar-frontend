@@ -178,12 +178,12 @@ const AdminDashboard = (props) => {
             <div className={`sidebar bg-white dark:bg-neutral-800 ${isInline ? "inline-mode" : ""}`}>
              <div className="sidebar_content custom_scrollbar">
                  
-                 <div className="p-2 md:p-5 bg-neutral-100">
+                 <div className="p-2 md:p-5 bg-neutral-100 dark:bg-neutral-700">
                      <div className="w-8 md:w-14 mx-auto">
                          <img className="rounded-full" src={staticImagePath(auth?.avatar)} alt=""/>
                      </div>
                      <div className="hidden md:block">
-                         <h3 className="text-center text-lg font-medium mt-3">{auth.firstName} {auth.lastName}</h3>
+                         <h3 className="text-center text-lg font-medium mt-3 dark:text-neutral-200">{auth.firstName} {auth.lastName}</h3>
                      <h3 className="text-center font-medium mt-1 text-green-500">{auth.roles}</h3>
                      </div>
                  </div>
