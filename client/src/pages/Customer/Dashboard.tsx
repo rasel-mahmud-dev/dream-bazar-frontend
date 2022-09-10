@@ -14,7 +14,7 @@ import {
   BiStar,
   BiUser,
   BsGear, FaAddressBook, FaIcons,
-  FaQuestionCircle, FaSignOutAlt, GiCancel,
+  FaQuestionCircle, FaSignOutAlt, FiShoppingCart, GiCancel,
   GiHelp, GiReturnArrow, GoReport,
   GrOrderedList,
   MdDashboard,
@@ -23,6 +23,7 @@ import {
 
 
 import {AppContext, AppContextType, DeviceType} from "store/AppContext";
+import ShoppingCart from "pages/Customer/cart/ShoppingCart";
 
 
 // const AddressBook = lazy(()=> import("./AddressBook/AddressBook"))
@@ -75,6 +76,12 @@ const Dashboard = (props) => {
         {name: "My Returns", to: "/dashboard/brands", icon: <GiReturnArrow />},
         {name: "My Cancellations", to: "/dashboard/brands", icon: <GiCancel />},
       ]
+    },
+    {
+      name: "My Shopping Cart",
+      to: "/auth/customer/dashboard/cart",
+      id: 100,
+      icon: <FiShoppingCart />
     },
     {
       name: "My Reviews",
@@ -242,7 +249,7 @@ const Dashboard = (props) => {
         
             {renderSidebarMenu()}
     
-            <div className={`content ml-4 ${isInline ? "inline-mode" : ""}`}>
+            <div className={`content w-full ml-4 ${isInline ? "inline-mode" : ""}`}>
               <Outlet />
             </div>
           
