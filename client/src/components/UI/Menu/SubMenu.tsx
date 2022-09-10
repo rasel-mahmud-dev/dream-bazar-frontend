@@ -18,7 +18,7 @@ interface SubMenuProps {
   inline?: boolean,
   parent?: JSX.Element
   key?: string
-  item: {icon: any, id: string}
+  item: {icon: any, id: string, name: string}
   renderInlineMode?: (isInline: boolean, item: any)=>React.ReactNode
 }
 

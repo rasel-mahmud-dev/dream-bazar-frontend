@@ -1,5 +1,5 @@
-import React, {lazy, Suspense, useState} from 'react'
-import { useParams,  Link, Route, } from "react-router-dom"
+import React, {lazy, Suspense, useContext, useState} from 'react'
+import {useParams, Link, Route, Outlet,} from "react-router-dom"
 import {nonInitialEffect} from "src/reactTools"
 
 import {
@@ -27,6 +27,8 @@ import {
 } from "react-icons/all";
 import Item from "UI/Menu/Item";
 import AccountInfo from "pages/Customer/accountInfo/AccountInfo";
+import {AppContext, DeviceType} from "store/AppContext";
+
 
 // const AddressBook = lazy(()=> import("./AddressBook/AddressBook"))
 // const Orders = lazy(()=> import("./Orders/Orders"))
@@ -34,6 +36,7 @@ import AccountInfo from "pages/Customer/accountInfo/AccountInfo";
 // const AccountInfo = lazy(()=> import("./accountInfo/AccountInfo"))
 // const CustomerDashboard = lazy(()=> import("./CustomerDashboard"))
 // const CreateSellerAccount = lazy(()=>import("../SellerHub/createSellerAccount/CreateSellerAccount"))
+
 
 const {SubMenu} = Menu
 
@@ -45,7 +48,8 @@ const Dashboard = (props) => {
   const { authState : {auth} } = useSelector((state: RootState)=>state)
   
   let [collapseIds, setCollapseIds] = React.useState(["1", "1-11"])
-  const [isInline, setInline] = useState(true)
+  const [isInline, setInline] = useState(false)
+  const {contextState} = useContext(AppContext)
   
   const sidebarData =  [
     {
@@ -114,6 +118,16 @@ const Dashboard = (props) => {
     }
    
   ]
+  
+  console.log(contextState)
+  
+  React.useEffect(()=>{
+    if(contextState.deviceType === DeviceType.DESKTOP){
+      setInline(false)
+    } else {
+      setInline(true)
+    }
+  }, [contextState.deviceType])
   
   
   nonInitialEffect(()=>{
@@ -192,7 +206,6 @@ const Dashboard = (props) => {
                 )
               }
               
-              
               <Animation baseClass="sub_menu_animation" inProp={(collapseIds.includes(item.id.toString()))}>
                   {item.subMenu && item.subMenu.map(item2=>(
                       item2.icon && (
@@ -207,21 +220,15 @@ const Dashboard = (props) => {
                              }
                           </div>
                       )
-                      // <Item className={subItem.props.className ? subItem.props.className   : ""}>
-                      //   {subItem.props.children}
-                      // </Item>
                   ))}
-             
               </Animation>
               
               <div className="menu-item-tooltip absolute left-16 whitespace-nowrap bg-neutral-700 px-3 py-2">
                 <span className="">{item.name}</span>
               </div>
-              
             </div>
         )
     }
-    
     
     return (
       <div className={`sidebar bg-neutral-800 ${isInline ? "inline-mode" : ""}`}>
@@ -249,7 +256,7 @@ const Dashboard = (props) => {
                           {data.subMenu.map(s=>(
                               <Menu.Item className=" my-1" key={s.name}>
                                 <Link to={s.to} className="flex items-center gap-x-1 text-neutral-200 py-1 menu-item">
-                                  {data.icon}
+                                  {s.icon}
                                   {s.name}
                               </Link>
                             </Menu.Item>
@@ -275,13 +282,12 @@ const Dashboard = (props) => {
           </div>
           <div className="content">
             {/*{renderCustomerDashboardRoutes()}*/}
+            <Outlet />
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, accusamus atque consequatur distinctio ducimus eligendi eos excepturi illum inventore, laudantium maxime officia omnis perspiciatis, porro quasi quo ratione similique temporibus?
           </div>
         </div>
-    
     )
 }
-
-
 
 
 

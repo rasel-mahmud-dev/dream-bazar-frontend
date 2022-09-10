@@ -4,6 +4,8 @@
     width: 300px;
     height: 100vh;
     //background: #f1f1f1;
+    position: fixed;
+
     &.inline-mode{
       width: 50px;
     }
@@ -28,8 +30,6 @@
     .menu-item-icon:hover ~ .menu-item-tooltip {
         display: block;
     }
-
-
 
 
 
