@@ -3,16 +3,11 @@ import {useParams, Link, Route, Outlet,} from "react-router-dom"
 import {nonInitialEffect} from "src/reactTools"
 
 import {
-  Button,
   Menu,
-  Spin,
-  Modal,
-  TopProgressBar, Animation
+Animation
 } from "components/UI"
 
-import {connect, useDispatch, useSelector} from "react-redux"
-
-
+import { useDispatch, useSelector} from "react-redux"
 import "./Dashboard.scss"
 import {RootState} from "src/store";
 import {
@@ -25,8 +20,8 @@ import {
   MdDashboard,
   MdFavorite, MdManageAccounts, MdPayment
 } from "react-icons/all";
-import Item from "UI/Menu/Item";
-import AccountInfo from "pages/Customer/accountInfo/AccountInfo";
+
+
 import {AppContext, AppContextType, DeviceType} from "store/AppContext";
 
 
@@ -38,13 +33,12 @@ import {AppContext, AppContextType, DeviceType} from "store/AppContext";
 // const CreateSellerAccount = lazy(()=>import("../SellerHub/createSellerAccount/CreateSellerAccount"))
 
 
-const {SubMenu} = Menu
-
 const Dashboard = (props) => { 
   let params = useParams() 
   
   // let history = useHistory()
   const dispatch = useDispatch()
+  
   const { authState : {auth} } = useSelector((state: RootState)=>state)
   
   let [collapseIds, setCollapseIds] = React.useState(["1", "1-11"])
@@ -116,58 +110,7 @@ const Dashboard = (props) => {
       to: "",
       id: 6,
       icon: <FaSignOutAlt />
-    },{
-      name: "Sign Out",
-      to: "",
-      id: 6,
-      icon: <FaSignOutAlt />
-    },{
-      name: "Sign Out",
-      to: "",
-      id: 6,
-      icon: <FaSignOutAlt />
-    },{
-      name: "Sign Out",
-      to: "",
-      id: 6,
-      icon: <FaSignOutAlt />
-    },{
-      name: "Sign Out",
-      to: "",
-      id: 6,
-      icon: <FaSignOutAlt />
-    },{
-      name: "Sign Out",
-      to: "",
-      id: 6,
-      icon: <FaSignOutAlt />
-    },{
-      name: "Sign Out",
-      to: "",
-      id: 6,
-      icon: <FaSignOutAlt />
-    },{
-      name: "Sign Out",
-      to: "",
-      id: 6,
-      icon: <FaSignOutAlt />
-    },{
-      name: "Sign Out",
-      to: "",
-      id: 6,
-      icon: <FaSignOutAlt />
-    },{
-      name: "Sign Out",
-      to: "",
-      id: 6,
-      icon: <FaSignOutAlt />
-    },{
-      name: "Sign Out",
-      to: "",
-      id: 6,
-      icon: <FaSignOutAlt />
     }
-   
   ]
   
   React.useEffect(()=>{
@@ -187,47 +130,6 @@ const Dashboard = (props) => {
       // history.push("/auth/login?redirect=dashboard")
     } 
   }, [auth])
-  
-  
-  // function renderCustomerDashboardRoutes(){
-  //   return (
-  //       <Suspense fallback={<TopProgressBar/>}>
-  //         <Switch>
-  //
-  //           <Route exact={true} path="/customer/:name"
-  //             render={props=> <CustomerDashboard
-  //             {...props}
-  //               username={auth.username}
-  //             _id={auth}
-  //             /> } />
-  //
-  //
-  //           <Route exact={true} path="/customer/:name/address-book"
-  //             render={props=> <AddressBook {...props} _id={auth._id} /> } />
-  //
-  //           <Route exact={true} path="/customer/:name/create-seller-account"
-  //             render={props=> <CreateSellerAccount
-  //               {...props}
-  //               _id={auth._id}
-  //             /> } />
-  //
-  //
-  //           <Route exact={true} path="/customer/:name/my-orders"
-  //             render={props=> <Orders {...props} _id={auth._id} /> } />
-  //
-  //           <Route exact={true} path="/customer/:name/my-orders/details/:orderId"
-  //             render={props=> <OrderDetails {...props}  _id={auth._id} /> } />
-  //
-  //           <Route
-  //             exact={true}
-  //             path="/customer/:name/account-info"
-  //             component={AccountInfo}
-  //           />
-  //         </Switch>
-  //       </Suspense>
-  //     )
-  //
-  // }
   
   
   function renderSidebarMenu(){
@@ -295,7 +197,7 @@ const Dashboard = (props) => {
                       key={data.id.toString()}
                       item={data}
                       renderInlineMode={renderInlineMode}
-                      label={<h1 className="text-red-500 font-medium mt-2 ml-2">{data.label}</h1>}>
+                      label={<h1 className="text-red-500 font-medium mt-3 ml-2 mb-1">{data.label}</h1>}>
                     
                       <div className="menu-item text-neutral-200">
                         { data.to ? (
@@ -313,7 +215,7 @@ const Dashboard = (props) => {
                       </div>
   
   
-                    {data.subMenu  && <div className="bg-neutral-700 px-3 py-2">
+                    {data.subMenu  && <div className="bg-neutral-100 dark:bg-neutral-700 px-3 py-2">
                           {data.subMenu.map(s=>(
                               <Menu.Item className=" my-1" key={s.name}>
                                 <Link to={s.to} className="flex items-center gap-x-1 text-neutral-200 py-1 menu-item">
@@ -335,14 +237,16 @@ const Dashboard = (props) => {
   }
   
   return (
-        <div className="flex">
+        <div className="dashboard-container">
+          <div className="flex">
         
-          {renderSidebarMenu()}
-      
-          <div className={`content ml-4 ${isInline ? "inline-mode" : ""}`}>
-            <Outlet />
-          </div>
+            {renderSidebarMenu()}
+    
+            <div className={`content ml-4 ${isInline ? "inline-mode" : ""}`}>
+              <Outlet />
+            </div>
           
+          </div>
         </div>
     )
 }

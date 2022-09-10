@@ -1,32 +1,48 @@
 @import "src/styles/--breakpoint";
- .sidebar{
+
+
+.dashboard-container {
+
+  @include get_down(1910px){
+    max-width: 1400px;
+    margin: auto;
+  }
+
+  @include get_up(1921px){
+    max-width: 1400px;
+    margin: auto;
+  }
+
+
+
+  .sidebar {
     color: #2f2f2f;
     position: sticky;
     top: var(--header-height);
     bottom: 0;
     height: 100%;
     transition: width .3s ease;
-   box-shadow: 2px 0 9px -3px #2c2c2ca1;
+    box-shadow: 2px 0 9px -3px #2c2c2ca1;
 
-   @include get_down(800px){
-     position: relative;
-     top: auto;
-     .sidebar_content{
-       overflow: visible;
-       height: 100%;
-       //width: 300px;
-       //overflow-y: auto;
-       //height: calc(100vh - var(--header-height));
-     }
-   }
+    @include get_down(800px) {
+      position: relative;
+      top: auto;
+      .sidebar_content {
+        overflow: visible;
+        height: 100%;
+        //width: 300px;
+        //overflow-y: auto;
+        //height: calc(100vh - var(--header-height));
+      }
+    }
 
-    &.inline-mode{
-      .sidebar_content{
+    &.inline-mode {
+      .sidebar_content {
         width: 60px;
       }
     }
 
-    &_content{
+    &_content {
       width: 300px;
       overflow-y: auto;
       height: calc(100vh - var(--header-height));
@@ -34,24 +50,24 @@
   }
 
 
-  .content{
+  .content {
 
   }
 
-  .menu-item{
+  .menu-item {
     @apply flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer
   }
 
-  .menu-item_inline{
+  .menu-item_inline {
     cursor: pointer;
 
     .menu-item-tooltip {
       display: none;
     }
-    .menu-item-icon:hover ~ .menu-item-tooltip {
-        display: block;
-    }
 
+    .menu-item-icon:hover ~ .menu-item-tooltip {
+      display: block;
+    }
 
 
     // nested sub menu
@@ -59,9 +75,11 @@
     .menu-item-tooltip-sub {
       display: none;
     }
+
     .menu-item-icon-sub:hover ~ .menu-item-tooltip-sub {
       display: block;
     }
 
   }
 
+}
