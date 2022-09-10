@@ -47,8 +47,8 @@ const AuthDropdown: FC<Props> = (props) => {
                          <BiUser />
                             <Link
                                 to={`${
-	                                auth.role === Roles.CUSTOMER
-		                                ? "/customer/" + auth.username
+	                                (auth.roles.length === 1 && auth.roles.includes(Roles.CUSTOMER))
+		                                ? "/auth/customer/dashboard"
 		                                : "/auth/admin/dashboard"
                                 }`}
                             >
@@ -58,7 +58,7 @@ const AuthDropdown: FC<Props> = (props) => {
                     ) : (
                         <>
                             <BiUser />
-                            <Link to="/auth/login/?redirect=dashboard">
+                            <Link to="/auth/join/login/?redirect=dashboard">
                                 My Profile
                             </Link>
                         </>
@@ -67,13 +67,15 @@ const AuthDropdown: FC<Props> = (props) => {
                 
                 <Menu.Item className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
                        <GrOrderedList />
-                        <Link to="">Order</Link>
+                        <Link to="/auth/customer/dashboard/orders">Order</Link>
                 </Menu.Item>
                 {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
 
-                <Menu.Item  className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
-                    <MdFavorite />
-                    Wishlist
+                <Menu.Item  className="text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
+		                <Link to="/auth/customer/dashboard/wishlist" className="flex gap-x-2 items-center ">
+		                    <MdFavorite />
+		                    Wishlist
+		                </Link>
                 </Menu.Item>
                 {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
 	

@@ -14,13 +14,10 @@ interface CartStateType {
 
 const initialState = {
   cartProducts: [
-    {
-      _id: "34",
-      title: "Samsung j2",
-      quantity: 2,
-      unitPrice: 20,
-      image: "images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg"
-    }
+    {title: "Iphone 11", id:1, total: 123, color: "red", size: "big", qty: 10 , img: "/images/products/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg"},
+    {title: "Jeans 11", id:11232, total: 123, color: "red", size: "big", qty: 10, img: "/images/products/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg" },
+    {title: "Laptop 11", id:1123, total: 123, color: "red", size: "big", qty: 10 , img: "/images/products/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg"},
+    {title: "Mufti T-shart", id:11, total: 13, color: "green", size: "sm", qty: 10 , img: "/images/products/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg"},
   ]
 }
 

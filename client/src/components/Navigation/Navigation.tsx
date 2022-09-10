@@ -32,6 +32,7 @@ import  {AppContext} from "store/AppContext";
 
 import useLanguage from "src/hooks/useLanguage";
 import staticImagePath from "src/utills/staticImagePath";
+import CartDropdown from "components/Navigation/CartDropdown";
 
 const AuthDropdown  = lazy(()=>import("components/Navigation/AuthDropdown"));
 const MoreDropdown  = lazy(()=>import("components/Navigation/MoreDropdown"));
@@ -235,7 +236,7 @@ function Navigation(props) {
                                         {l("In Cart", "In Cart") }
                                     </span>
                                     <Suspense fallback={<h1>loading</h1>}>
-                                        <MoreDropdown className="-ml-20 top-14" isShow={state.openDropdown === "cart"}  />
+                                        <CartDropdown className="-right-40 top-14" isShow={state.openDropdown === "cart"}  />
                                     </Suspense>
                                 </li>
                                 

@@ -249,7 +249,7 @@ const Dashboard = (props) => {
         
             {renderSidebarMenu()}
     
-            <div className={`content w-full ml-4 ${isInline ? "inline-mode" : ""}`}>
+            <div className={`content w-full ml-8 ${isInline ? "inline-mode" : ""}`}>
               <Outlet />
             </div>
           
