@@ -28,3 +28,18 @@ export function findAll(sql: string){
         })
     })
 }
+
+
+export function update(sql: string,  params: any[]){
+    return new Promise<[err: any, result: any]>(async (resolve, reject)=>{
+        const db = await getSqliteDb();
+
+        db.run(sql, params, function (err, data) {
+            if (err) {
+                resolve([err, null])
+                return;
+            }
+            resolve([null, data])
+        })
+    })
+}

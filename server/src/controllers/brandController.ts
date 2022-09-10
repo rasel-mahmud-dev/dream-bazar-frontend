@@ -13,7 +13,7 @@ import dataDir from "../utilities/dataDir";
 import staticDir from "../utilities/staticDir";
 import uuid from "../utilities/uuid";
 import {getSqliteDb} from "../services/sqlite/database.service";
-import {findAll, findOne} from "../services/sqlite/database.methods";
+import {findAll, findOne, update} from "../services/sqlite/database.methods";
 const isObjectId = require("../utilities/isObjectId")
 
 
@@ -241,6 +241,72 @@ export const saveBrands =  async (req: Request, res: Response, next: NextFunctio
     })
   } catch(ex){
     console.log(ex)
+
+  } finally{
+
+  }
+}
+
+export const updateBrand =  async (req: Request, res: Response, next: NextFunction)=>{
+
+  try{
+
+    let [findErr, result] = await findOne('select * from brands where id = ?', [req.params.id])
+    if(findErr){
+      return errorResponse(next, "Brand Not found")
+    }
+
+    let {err, fields, file, fileName} = await fileUpload(req, "logo");
+    if(err){
+      return errorResponse(next, "Internal Error. Please try Again")
+    }
+
+    const { name, forCategory }  = fields as any
+
+    const newPath =  "upload/" + fileName
+
+    fs.cp(file, staticDir +"/"+ newPath, async (err1) => {
+
+      if(err){
+        return errorResponse(next, "Logo upload error. Please try Again")
+      }
+
+      let for_category = []
+      if(forCategory){
+        try {
+          for_category = JSON.parse(forCategory)
+        } catch (_) {}
+      }
+
+      let sql = ''
+      let data = []
+      let a = {logo: newPath,  name, forCategory};
+      for (const key in a) {
+        if(a[key]){
+          console.log(a[key])
+          sql += `${key} = ?, `
+          data.push(a[key])
+        }
+      }
+      sql = sql.slice(0, sql.lastIndexOf(","))
+
+      sql =  "UPDATE brands SET "+ sql + " WHERE id = ?"
+
+      let [errRes, result]   = await update(sql,  [...data, req.params.id] )
+      if(errRes){
+        errorResponse(next, "Brand update fail")
+      } else {
+        successResponse(res, 201, {
+          id: req.params.id,
+          logo: newPath,
+          name,
+          forCategory
+        })
+      }
+    })
+
+  } catch(ex){
+    errorResponse(next, "Brand update fail")
 
   } finally{
 
