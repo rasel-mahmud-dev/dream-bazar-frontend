@@ -30,6 +30,7 @@ import {RootState} from "src/store";
 import BrandList from "pages/productFilterPage/BrandList";
 import staticImagePath from "src/utills/staticImagePath";
 import {FaHeart} from "react-icons/all";
+import Product from "components/product/Product";
 
 
 let initialLoad = true
@@ -713,55 +714,9 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
       // )
 
     return (
-      <div className="products-views">
+      <div className="products-views-ssd grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         { products && products.length > 0 ? products.map((product, i)=>(
-          <div key={i} className="product card pb-5" >
-            <FaHeart onClick={()=>handleAddToWishList(product)} className={`add_wish_list_btn  fa fa-heart  ${isWished(product)? 'wish': ''} `} />
-            <div className="add_wish_list_btn left">
-              <Badge
-                color="light-A400"
-                radius={2}
-                bg="primary"
-                count="Best Value"
-              />
-            </div>
-
-            <Link className="block mx-auto" to={`/products/${product._id}`}>
-              <div className="product_image_div">
-                <div className="product_image_wra">
-                  <img src={staticImagePath(product.coverPhoto)} alt=""/>
-                </div>
-              </div>
-            </Link>
-
-            <div className="card-body mx-5 mt-5">
-              <Title level={5} className="product__brand_name">{product?.brand?.name}</Title>
-              { renderProductAtt.indexOf("title") !== -1 &&  <h4 className="product__title">
-                  <Tooltip theme="simple-white" tooltip={<a>{product.title}</a>}>
-                    <Link to={`/products/${product._id}`}>
-                      {product.title.slice(0, 20)}
-                      { product.title && product.title.length > 20 ? "..." : "" }
-                    </Link>
-                  </Tooltip>
-                </h4>
-              }
-
-              <div className="product__price_row d-flex align-center">
-                <h5 className="product__price">TK {calculateDiscount(product.discount, product.price)}</h5>
-                {product.discount !== 0 && <span className="product__price_old ml-3">TK{product.price}</span>}
-                {product.discount !== 0 && <h5 className="product__discount_row">{product.discount}% off</h5>}
-
-              </div>
-
-
-              { renderProductAtt.indexOf("size") !== -1 && (
-                <div className="product__size_row d-flex align-center">
-                  <h4 className="">Size</h4>
-                  <span className=" ml-5">S, M, L, XL, XXL</span>
-                </div>
-              )}
-            </div>
-          </div>
+          <Product key={i} product={product} handleAddToWishList={handleAddToWishList} isWished={isWished} renderProductAtt={renderProductAtt} />
         )) : (
           <NotFoundProduct title="Product not found on this Category " />
         )}

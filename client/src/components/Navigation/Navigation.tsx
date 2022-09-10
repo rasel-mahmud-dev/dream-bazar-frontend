@@ -231,6 +231,11 @@ function Navigation(props) {
                                     onMouseEnter={()=>setState({...state, openDropdown: "cart"})}
                                     onMouseLeave={()=>setState({...state, openDropdown: ""})}
                                 >
+                                 
+                                    <Badge className="bg-red-500">
+                                        10
+                                    </Badge>
+                                    
                                     <GiShoppingBag className="text-white text-2xl " />
                                     <span className="font-medium text-white">
                                         {l("In Cart", "In Cart") }

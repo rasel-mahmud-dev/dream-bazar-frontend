@@ -9,6 +9,7 @@ interface TooltipProps{
   delay?: number
   maxWidth?: number
   theme?: "simple-white"
+  tooltipClass?: string
 }
 
 
@@ -16,7 +17,7 @@ let id;
 
 const Tooltip: FC<TooltipProps> = (props)=>{
   
-  const { delay=1000, children, placement="top-left", ...attributes} = props
+  const { delay=1000,  tooltipClass = "", placement="top-left",} = props
   
   const baseRef = React.useRef<HTMLElement>(null)
   const tipsRootRef = React.useRef<HTMLDivElement>(null)
@@ -64,7 +65,7 @@ const Tooltip: FC<TooltipProps> = (props)=>{
         if (props.tooltip.props.className) {
           cls.push(props.tooltip.props.className)
         }
-        cls = [...cls, "tips", placement]
+        cls = [...cls, tooltipClass, "tips", placement]
         return React.cloneElement(
           props.tooltip, {
             ...props.tooltip.props,
@@ -74,7 +75,7 @@ const Tooltip: FC<TooltipProps> = (props)=>{
           React.createElement("span", {className: "angel"})
         )
       } else {
-        let cls: string[] = ["tips", placement]
+        let cls: string[] = [tooltipClass, "tips", placement]
         return React.createElement(
           "span", {
             className: cls.join(" ")
@@ -116,7 +117,9 @@ const Tooltip: FC<TooltipProps> = (props)=>{
     <div ref={tipsRootRef} className={tooltipsRootCls.join(" ")}>
       <div
         // style={{maxWidth: "max-content"}}
-        onMouseEnter={handleMouseEnter}  onMouseLeave={handleMouseLeave}>
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}>
+        
         {props.children && renderChild()}
         {openTooltip && renderTooltip()}
       </div>
