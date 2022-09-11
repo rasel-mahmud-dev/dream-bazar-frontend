@@ -30,8 +30,9 @@ export default function (app){
 
   app.get("/api/category", getCategory)
 
+  app.delete("/api/category/:id", deleteCategory)
+
   // app.put("/api/categories/:id", updateCategory)
-  // app.delete("/api/categories/:id", deleteCategory)
   // app.get("/api/categories/filter-section/:id", getCategoryFilterSection)
   // app.get("/api/category/expand/:category_id", getCategoryExpand)
   //

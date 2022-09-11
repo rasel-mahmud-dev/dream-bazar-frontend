@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store";
 import apis from "src/apis";
-import { deleteBrandAction, fetchFlatCategories } from "actions/productAction";
+import {deleteBrandAction, deleteFlatCategoryAction, fetchFlatCategories} from "actions/productAction";
 import { ACTION_TYPES } from "store/types";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import { toggleBackdrop } from "actions/appAction";
@@ -45,12 +45,6 @@ const AllCategory = (props) => {
 
     React.useEffect(() => {
         (async function () {
-            const { data } = await apis.get("/api/brands/count");
-            setTotalBrands(data.count);
-
-            const dd = await apis.get("/api/brands");
-            setBrands(dd.data);
-
             try {
                 let a = await fetchFlatCategories();
                 if (!flatCategories) {
@@ -64,9 +58,12 @@ const AllCategory = (props) => {
     }, []);
 
     function deleteItem(id: any) {
-        deleteBrandAction(dispatch, id, function (err, data) {
+        deleteFlatCategoryAction(dispatch, id, function (err, data) {
             if (!err) {
-                setBrands(brands.filter((b) => b.id !== id));
+                dispatch({
+                    type: ACTION_TYPES.DELETE_FLAT_CATEGORY,
+                    payload: id
+                })
             } else {
                 console.log(err);
             }
@@ -132,18 +129,11 @@ const AllCategory = (props) => {
                     if (status === 201) {
                         updateState.httpResponse = data.message;
                         updateState.httpStatus = 200;
-
-                        let updateBrands = brands;
-                        let index = updateBrands.findIndex(
-                            (b) => b.id === updateId
-                        );
-                        if (index !== -1) {
-                            brands[index] = {
-                                ...brands[index],
-                                ...data.brand,
-                            };
-                        }
-                        setBrands(updateBrands);
+                        
+                        dispatch({
+                            type: ACTION_TYPES.UPDATE_FLAT_CATEGORY,
+                            payload:  data.category
+                        })
                     }
                 })
                 .catch((ex) => {
@@ -161,7 +151,10 @@ const AllCategory = (props) => {
                     if (status === 201) {
                         updateState.httpResponse = data.message;
                         updateState.httpStatus = 200;
-                        setBrands([...brands, data.brand]);
+                        dispatch({
+                            type: ACTION_TYPES.ADD_FLAT_CATEGORY,
+                            payload:  data.category
+                        })
                     }
                 })
                 .catch((ex) => {
@@ -200,31 +193,22 @@ const AllCategory = (props) => {
         );
     }
 
-    function setUpdateBrandHandler(brand) {
+    function setUpdateBrandHandler(cat) {
         let updateFormData = { ...state.formData };
-        if (brand.name) {
-            updateFormData.name = { value: brand.name, errorMessage: "" };
+        if (cat.name) {
+            updateFormData.name = { value: cat.name, errorMessage: "" };
         }
-        if (brand.logo) {
-            updateFormData.logo = { value: brand.logo, errorMessage: "" };
+        if (cat.parentId) {
+            updateFormData.parentId = { value: cat.parentId, errorMessage: "" };
         }
-        if (brand.forCategory) {
-            if (typeof brand.forCategory === "string") {
-                try {
-                    let b = JSON.parse(brand.forCategory);
-                    let items = flatCategories.filter((c) => b.includes(c.id));
-                    updateFormData.forCategory = {
-                        value: items,
-                        errorMessage: "",
-                    };
-                } catch (_) {}
-            }
+        if (cat.isProductLevel) {
+            updateFormData.isProductLevel = { value: cat.isProductLevel === 1, errorMessage: "" };
         }
-
+        
         setState({
             ...state,
             isShowForm: true,
-            updateId: brand.id,
+            updateId: cat.id,
             formData: updateFormData,
         });
         dispatch(
@@ -273,6 +257,7 @@ const AllCategory = (props) => {
                     state={formData}
                     options={() => (
                         <>
+                            <option value="0">Select category parent ID</option>
                             {flatCategories.map((cat) => (
                                 <option className="cursor-pointer py-1 menu-item"  value={cat.id}>{cat.name}</option>
                             ))}

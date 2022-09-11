@@ -241,8 +241,34 @@ const productReducer = (state: ProductStateType=initialState, action)=>{
     case ACTION_TYPES.FETCH_CATEGORIES :
       updatedState.flatCategories = action.payload
       return updatedState
-    
       
+    
+    case ACTION_TYPES.UPDATE_FLAT_CATEGORY :
+      let updateFlatCategories = [...updatedState.flatCategories];
+      let index = updateFlatCategories.findIndex(
+          (b) => b.id === action.payload.id
+      );
+      
+      if (index !== -1) {
+        updateFlatCategories[index] = {
+          ...updateFlatCategories[index],
+          ...action.payload,
+        };
+      }
+      updatedState.flatCategories = updateFlatCategories
+      return updatedState
+    
+    
+    case ACTION_TYPES.DELETE_FLAT_CATEGORY :
+      updatedState.flatCategories = updatedState.flatCategories.filter(c=>c.id !== action.payload)
+      return updatedState
+  
+    
+    case ACTION_TYPES.ADD_FLAT_CATEGORY :
+      updatedState.flatCategories = [...updatedState.flatCategories, action.payload]
+      
+      return updatedState
+    
     
     case ACTION_TYPES.SET_SELECT_CATEGORY:
       

@@ -46,6 +46,19 @@ export function deleteBrandAction(dispatch, brandId, callback){
   }).catch(ex=>{
     callback(errorMessageCatch(ex), null)
   })
+}
+
+export function deleteFlatCategoryAction(dispatch, id, callback){
+  
+  apis.delete(`/api/category/${id}`).then((response) => {
+    if(response.status === 201) {
+      callback(null, response.data)
+    } else {
+      callback(response.data.message, null)
+    }
+  }).catch(ex=>{
+    callback(errorMessageCatch(ex), null)
+  })
   
 }
 

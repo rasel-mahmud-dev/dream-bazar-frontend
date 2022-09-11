@@ -8,7 +8,7 @@ import { errorResponse, successResponse } from "../response"
 import sqlDatabase from "../database/sqlDatabase";
 import {NextFunction, Request, Response} from "express";
 import uuid from "../utilities/uuid";
-import {findOne, insertOne} from "../services/sqlite/database.methods";
+import {deleteOneById, findOne, insertOne, update} from "../services/sqlite/database.methods";
 import {getSqliteDb} from "../services/sqlite/database.service";
 
 export const getCategoriesCount = async (req: Request, res: Response, next: NextFunction)=>{
@@ -162,7 +162,7 @@ export const saveCategory =  async (req: Request, res: Response, next: NextFunct
       if(!err){
         successResponse(res, 201, {
           message: "category created",
-          brand: {
+          category: {
             id,
             name,
             parentId,
@@ -188,52 +188,68 @@ export const updateCategory = async (req: Request, res: Response, next: NextFunc
 
   try {
 
-
     let [err, result] =  await findOne("SELECT name FROM categories where id = ?", [id])
     if(err || !result){
       return errorResponse(next, "Category not found")
     }
-    
 
+    let sql = ''
+    let data = []
 
+    let field = { name, parentId, isProductLevel};
 
-  } catch(ex){
-    next(ex)
-    console.log(ex)
+    for (const key in field) {
+      if (field[key]) {
+        sql += `${key} = ?, `
+        data.push(field[key])
+      }
+    }
+
+    sql = sql.slice(0, sql.lastIndexOf(","))
+
+    sql = "UPDATE categories SET " + sql + " WHERE id = ?"
+
+    let [errRes] = await update(sql, [...data, req.params.id])
+    if (errRes) {
+      errorResponse(next, "category update fail")
+    } else {
+      successResponse(res, 201, {
+        message: "category updated",
+        category: {
+          id: req.params.id,
+          name,
+          parentId,
+          isProductLevel: isProductLevel ? 1 : 0
+        }
+      })
+    }
+
+  } catch (ex) {
+    errorResponse(next, "category update fail")
 
   } finally {
-    client?.close()
-  
+
   }
 }
 
 
 
 export const deleteCategory = async (req: Request, res: Response, next: NextFunction)=>{
-  const { id } = req.params  
-
-  if(!isObjectId(id)){
-    return errorResponse(res, 401, "Please Provide a valid Object ID")
-  }
-  let client;
+  const {id} = req.params
 
   try {
-      const {c: CategoryCollection, client: cc} = await dbConnect("categories")
-      client = cc
-     let response = await CategoryCollection.deleteOne(
-       {_id: ObjectId(id)}
-    )
-    if(response.deletedCount > 0){
-      res.status(201).json({message: "category deleted"})
+
+    let [err, result] = await deleteOneById("categories", id)
+    if (err) {
+      errorResponse(next, "Category delete fail", 500)
     } else {
-      res.status(404).json({message: "category not deleted"})
+      successResponse(res, 201, {message: "Category deleted", id});
     }
-     
-  } catch(ex){
+
+  } catch (ex) {
     next(ex)
-    console.log(ex)
   } finally {
-    client?.close()
+
   }
 }
 
