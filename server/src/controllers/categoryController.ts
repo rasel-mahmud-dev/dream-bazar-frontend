@@ -7,6 +7,9 @@ const isObjectId = require("../utilities/isObjectId")
 import { errorResponse, successResponse } from "../response"
 import sqlDatabase from "../database/sqlDatabase";
 import {NextFunction, Request, Response} from "express";
+import uuid from "../utilities/uuid";
+import {findOne, insertOne} from "../services/sqlite/database.methods";
+import {getSqliteDb} from "../services/sqlite/database.service";
 
 export const getCategoriesCount = async (req: Request, res: Response, next: NextFunction)=>{
   const { _id } = req.query
@@ -138,70 +141,61 @@ function getAllCategories(sql: string, ...args: any){
 }
 
 export const saveCategory =  async (req: Request, res: Response, next: NextFunction)=>{
-  const { id, name, parentId, isProductLevel  } = req.body
-  let db: any
-  try {
-    db = await sqlDatabase()
-    let sql = `
-        INSERT INTO categories('id', 'name', 'parentId', 'isProductLevel') values('${id}', '${name}', '${parentId}', '${isProductLevel}')
-     `
-    db.exec(sql, function (data: any, err: any){
-      console.log(err, data)
-    })
 
-  //   CREATE TABLE "categories" (
-  //       "id"	TEXT NOT NULL,
-  //       "name"	text(200) NOT NULL,
-  //       "parentId"	TEXT DEFAULT "",
-  //       "isProductLevel"	NUMERIC DEFAULT 0,
-  //       "ideals"	JSON,
-  //       CONSTRAINT "categories_pk" PRIMARY KEY("name")
-  // )
+  const { name, parentId, isProductLevel  } = req.body
+
+  try {
+
+    let [err, result] =  await findOne("SELECT name FROM categories where name = ?", [name])
+    if(!err && result){
+      return errorResponse(next, "Category already exists")
+    }
+
+   let id = uuid(10);
+    let sql = `
+       INSERT INTO categories('id', 'name', 'parentId', 'isProductLevel') values('${id}', '${name}', '${parentId}', '${isProductLevel ? 1 : 0}')
+     `
+
+    const db  = await getSqliteDb();
+
+    db.exec(sql, function (data: any, err: any){
+      if(!err){
+        successResponse(res, 201, {
+          message: "category created",
+          brand: {
+            id,
+            name,
+            parentId,
+            isProductLevel: isProductLevel ? 1 : 0
+          }
+        })
+      } else {
+        errorResponse(next, "Category create fail")
+      }
+    })
 
   } catch(ex){
     next(ex)
 
-  } finally{
-    db && db.close()
   }
 }
 
 
 export const updateCategory = async (req: Request, res: Response, next: NextFunction)=>{
-  const { id } = req.params  
+  const { id } = req.params
 
-  const updatedCategory = req.body
+  const { name, parentId, isProductLevel  } = req.body
 
-  if(!isObjectId(id)){
-    return errorResponse(res, 401, "Please Provide a valid Object ID")
-  }
-  let client;
   try {
-    const {c: CategoryCollection, client: cc} = await dbConnect("categories")
-    client = cc
-    
-    
-    
-    updatedCategory.parent_id = updatedCategory.parent_id ? ObjectId(updatedCategory.parent_id) : null;
-    updatedCategory.updated_at = new Date() 
 
-    let {_id, created_at, ...otherField} = updatedCategory
-  
-    if(typeof created_at === "undefined"){
-      otherField.created_at = updatedCategory.updated_at
+
+    let [err, result] =  await findOne("SELECT name FROM categories where id = ?", [id])
+    if(err || !result){
+      return errorResponse(next, "Category not found")
     }
     
-    let updatedCat = await CategoryCollection.findOneAndUpdate(
-      { _id: ObjectId(id)},
-      { $set: otherField }, 
-      // { returnNewDocument: true }
-    )
-    if(updatedCat.ok){ 
-      console.log(updatedCat.value);
-      res.status(201).json({category: {...updatedCategory, ...otherField}})
-    } else{
-      next("internal error")
-    }
+
+
 
   } catch(ex){
     next(ex)

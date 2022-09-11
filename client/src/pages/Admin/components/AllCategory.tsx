@@ -99,7 +99,7 @@ const AllCategory = (props) => {
         e.preventDefault();
 
         let isComplete = true;
-        let payload = new FormData();
+        let payload = {}
 
         for (let item in formData) {
             if(item === "name") {
@@ -108,7 +108,7 @@ const AllCategory = (props) => {
                     formData[item].errorMessage = "Please enter " + item;
                 }
             }
-            payload.append(item, formData[item].value);
+            payload[item] = formData[item].value
           
         }
 
@@ -154,6 +154,7 @@ const AllCategory = (props) => {
                     setState(updateState);
                 });
         } else {
+           
             // add as a new brand
             apis.post("/api/category", payload)
                 .then(({ status, data }) => {
