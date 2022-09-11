@@ -13,7 +13,7 @@ import dataDir from "../utilities/dataDir";
 import staticDir from "../utilities/staticDir";
 import uuid from "../utilities/uuid";
 import {getSqliteDb} from "../services/sqlite/database.service";
-import {findAll, findOne, update} from "../services/sqlite/database.methods";
+import {deleteOne, deleteOneById, findAll, findOne, update} from "../services/sqlite/database.methods";
 const isObjectId = require("../utilities/isObjectId")
 
 
@@ -252,7 +252,7 @@ export const updateBrand =  async (req: Request, res: Response, next: NextFuncti
   try{
 
     let [findErr, result] = await findOne('select * from brands where id = ?', [req.params.id])
-    if(findErr){
+    if(findErr || !result){
       return errorResponse(next, "Brand Not found")
     }
 
@@ -322,6 +322,7 @@ export const saveBrandsWithImage =  async (req: Request, res: Response, next: Ne
     client = cc
     
     let filePath = "upload"
+
     // fileUpload(req, filePath, "logo", async(result)=>{
     //   let response;
     //   if (result) {
@@ -352,23 +353,23 @@ export const saveBrandsWithImage =  async (req: Request, res: Response, next: Ne
   }
 }
 
+
+
 export const deleteBrand = async(req, res, next)=>{
-  const { brandId } = req.params 
-  let client;
+
+  const { brandId } = req.params
+
   try{
-  const {c: brandCollection, client: cc } = await dbConnect("brands")
-  client = cc
-    const response = await brandCollection.deleteOne({_id: new ObjectId(brandId)})
-    if(response.deletedCount){
-      res.status(200).json({message: "brand successfully deleted"})
-    } else{
-      res.status(500).json({message: "brand delete unsuccessfully"})
-    }
+
+    let [err, result] = await deleteOneById("brands", brandId)
+
+    console.log(err, result)
+
   } catch(ex){
      next()
     console.log(ex)
   } finally{
-   client?.close()
+
   }
 }
 

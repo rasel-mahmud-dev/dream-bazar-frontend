@@ -1,4 +1,4 @@
-import { ACTION_TYPES } from "store/types"
+import {ACTION_TYPES, CategoryType} from "store/types"
 import apis from "src/apis";
 import {RootState} from "src/store";
 
@@ -20,6 +20,18 @@ export const fetchProduct = (id) => async (dispatch, getState, api) => {
 export const fetchBrandForCategory=(current_category_id)=> async (dispatch, getState: ()=>RootState, api)=>{
   let data = await api.get("/api/brands", )
   
+}
+
+
+export const fetchFlatCategories = ()=>{
+  return new Promise<CategoryType[] | undefined>(async (resolve, reject)=>{
+    let response = await apis.get<CategoryType[] | undefined>(`/api/categories`)
+    if(response) {
+      resolve(response.data)
+    } else{
+      resolve(undefined)
+    }
+  })
 }
 
 // fetch homepage section product...

@@ -24,11 +24,12 @@ export default function (app){
   app.get("/api/brand", getBrand)
   
   app.post("/api/brand", saveBrands)
+
   app.patch("/api/brand/:id", updateBrand)
 
   app.post("/api/brands/with-image-upload", saveBrandsWithImage)
   app.put("/api/brands/:brandId", editBrand)
-  app.delete("/api/brands/:brandId", deleteBrand)
+  app.delete("/api/brand/:brandId", deleteBrand)
 
   app.post("/api/fetch-brands", fetchBrandsWithFilter)
 }

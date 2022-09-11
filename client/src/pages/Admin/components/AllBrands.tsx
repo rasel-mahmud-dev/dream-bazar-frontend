@@ -15,17 +15,23 @@ import {RootState} from "src/store";
 import {InputGroup} from "UI/Form";
 import FileUpload from "UI/Form/File/FileUpload";
 import {useParams} from "react-router-dom";
+import MultiSelect from "UI/Form/multiSelect/MultiSelect";
+import {ACTION_TYPES} from "store/types";
+import {fetchFlatCategories} from "actions/productAction";
 
 const { TabPane } = Tabs;
 
 let files: string | any[] = [];
 
 const AllBrands = (props) => {
+    
+    const {authState, appState, productState : { flatCategories }} = useSelector((state: RootState)=>state)
+    
     const [totalBrands, setTotalBrands] = React.useState<number>(0);
     const [brands, setBrands] = React.useState<any[]>([]);
     const [staticImages, setStaticImages] = React.useState([]);
     
-    const {appState} = useSelector((state: RootState)=>state)
+
 
  
     const dispatch = useDispatch();
@@ -36,6 +42,7 @@ const AllBrands = (props) => {
         formData: {
             name: {value: "", errorMessage: ""},
             logo: {value: null, blob: null, errorMessage: ""},
+            forCategory: {value: [], errorMessage: ""},
         }
     });
 
@@ -64,6 +71,17 @@ const AllBrands = (props) => {
 
             const dd = await apis.get("/api/brands");
             setBrands(dd.data);
+    
+            try{
+                let a = await fetchFlatCategories();
+                if(!flatCategories) {
+                    dispatch({
+                        type: ACTION_TYPES.FETCH_CATEGORIES,
+                        payload: a
+                    })
+                }
+            } catch (ex){}
+            
         })();
     }, []);
 
@@ -307,11 +325,12 @@ const AllBrands = (props) => {
             </Modal>
         );
     }
-
+    
     function addProduct() {
+        console.log(flatCategories)
         return (
             <form onSubmit={handleAdd}>
-                <h2 className="text-white text-center font-medium text-lg">
+                <h2 className="h2 text-center !font-semibold">
                     {updateId  ?  "Update Brand" : "Add New Brand"}
                 </h2>
 
@@ -319,6 +338,7 @@ const AllBrands = (props) => {
                     name={"name"}
                     label="Brand Name"
                     className="!flex-col"
+                    inputClass="input-group"
                     labelClass="dark:text-white !mb-2"
                     state={formData}
                     placeholder="Enter Brand Name"
@@ -336,6 +356,24 @@ const AllBrands = (props) => {
                     labelClass="dark:text-white !mb-2"
                     errorMessage={formData.logo.errorMessage}
                     className={"!flex-col"}
+                />
+                
+                <MultiSelect
+                    name="forCategory"
+                    dataKey={{title: "name", key: "id"}}
+                    className={"!flex-col"}
+                    labelClass="dark:text-white !mb-2"
+                    value={formData.forCategory.value}
+                    label="Select for Category"
+                    inputClass="input-group"
+                    placeholder="for category"
+                    onChange={handleChange}
+                    errorMessage={formData.forCategory.errorMessage}
+                    options={(onClick)=> <div className="bg-neutral-100 px-2 absolute top-0 left-0 w-full">
+                        {flatCategories.map(cat=>(
+                                <li onClick={()=>onClick(cat)} className="cursor-pointer py-1 menu-item">{cat.name}</li>
+                            ))}
+                            </div>}
                 />
 
                 <div className="flex items-center gap-x-4" >
@@ -355,8 +393,6 @@ const AllBrands = (props) => {
         );
     }
     
-
-
     const columns = [
         {
             title: "Logo",
@@ -381,26 +417,25 @@ const AllBrands = (props) => {
             ),
         },
     ];
-
-
+    
 
     return (
         <div className="pr-4">
             
+            {/* add brand modal and backdrop */}
             {appState.backdrop.isOpen && <div className={`backdrop ${isShowForm ? "backdrop--show" : ""}`}>
                 <div className="modal-box auth-card">
                     {addProduct()}
                 </div>
             </div>}
             
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mt-4">
                 <h1 className="h2">Brands</h1>
 
                 {!updateId ? (
                     <Button
                         className="mt-4 bg-secondary-300"
-                        onClick={()=>handleShowAddForm(true)}
-                    >
+                        onClick={()=>handleShowAddForm(true)}>
                         Add New Brand
                     </Button>
                 ) : (

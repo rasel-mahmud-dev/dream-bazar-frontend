@@ -4,19 +4,13 @@ import {useEffect,  useState} from "react";
 import apis from "src/apis";
 import {useNavigate} from "react-router-dom";
 import {FaAngleRight, FaTimes} from "react-icons/all";
-import {ACTION_TYPES} from "store/types";
+import {ACTION_TYPES, CategoryType} from "store/types";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
+import {fetchFlatCategories} from "actions/productAction";
 
 
-export interface CategoryType{
-    name: string,
-    id: string,
-    parentId: string,
-    sub?: CategoryType[],
-    expand?: boolean
-    active?: boolean
-}
+
 
 function CategoryList(props) {
     
@@ -210,22 +204,6 @@ function CategoryList(props) {
         })
     }
     
-    // async function getAllRootCategoryFromLocal(item: CategoryType, cb){
-    //     if(flatCategories) {
-    //         let root = findRootCategories(getCategoriesLocal("parentId=0", flatCategories))
-    //         cb(root)
-    //     } else {
-    //         let a = await getAllCategories();
-    //         if(a) {
-    //             // get root categories from categories sqlite database
-    //             let rootCategories = findRootCategories(getCategoriesLocal("parentId=0", a))
-    //             if (rootCategories) {
-    //                 setFetchCategories(findRootCategories(rootCategories as any))
-    //             }
-    //             cb(a)
-    //         }
-    //     }
-    // }
     
     
     useEffect(()=>{
@@ -238,9 +216,13 @@ function CategoryList(props) {
             }
             
             let root = {}
-            
-            let a = await getAllCategories();
     
+            let a;
+            if(flatCategories) {
+                a = flatCategories;
+            } else {
+                a = await fetchFlatCategories();
+            }
             
             if(a){
                 if("/p?cat" in data && "cat_tree" in data){
@@ -332,10 +314,12 @@ function CategoryList(props) {
                 
                 setSidebarCategory(updateSidebarCategory);
                 
-                dispatch({
-                    type: ACTION_TYPES.FETCH_CATEGORIES,
-                    payload: a
-                })
+                if(!flatCategories) {
+                    dispatch({
+                        type: ACTION_TYPES.FETCH_CATEGORIES,
+                        payload: a
+                    })
+                }
             }
         }())
     }, [location.search])
@@ -404,16 +388,7 @@ function CategoryList(props) {
     }
     
 
-    async function getAllCategories(){
-        return new Promise<CategoryType[] | undefined>(async (resolve, reject)=>{
-            let response = await apis.get<CategoryType[] | undefined>(`/api/categories`)
-            if(response) {
-                resolve(response.data)
-            } else{
-                resolve(undefined)
-            }
-        })
-    }
+
     
 
     function handleChangeBrand(item: {name: string, _id: string}){
