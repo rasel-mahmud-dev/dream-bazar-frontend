@@ -198,7 +198,7 @@ function Navigation(props) {
                             <Link to="/" className="flex items-center">
                                 <img src="/logo-2.png" alt="" />
                                 <h4 className="text-white font-semibold text-xl">
-                                    Ecommerce
+                                    DreamShop
                                 </h4>
                             </Link>
                         </div>

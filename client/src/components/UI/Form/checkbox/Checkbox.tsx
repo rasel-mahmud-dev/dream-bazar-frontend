@@ -15,6 +15,7 @@ interface CheckboxProps{
   className?: string
   reverse?: boolean;
   checked?: boolean;
+  labelClass?: string,
   onChange?: any
   onClick?: any
 }
@@ -37,7 +38,7 @@ const Checkbox: FC<CheckboxProps> = (props)=>{
   }
   
   function renderCheckbox() {
-    const { name, label, className, reverse, checked, ...attribute } = props
+    const { name, label,  labelClass, className, reverse, checked, ...attribute } = props
   
     return (
       <div className={["checkbox-root", reverse ? "checkbox-reverse" : "", className].join(" ")}>
@@ -54,7 +55,7 @@ const Checkbox: FC<CheckboxProps> = (props)=>{
           />
           <div className="checkbox-mask" />
         </div>
-        <label className="checkbox-label" htmlFor={name}>{label}</label>
+         <label htmlFor={name}  className={`block w-40 font-medium mb-2 md:mb-0 ${labelClass}`} >{label}</label>
       </div>
     )
     

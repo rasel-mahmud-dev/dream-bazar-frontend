@@ -3,6 +3,7 @@ import AllProducts from "pages/Admin/components/AllProducts";
 import AllBrands from "pages/Admin/components/AllBrands";
 import AddProduct from "pages/Admin/components/AddProduct";
 import AddBrand from "pages/Admin/components/AddBrand";
+import AllCategory from "pages/Admin/components/AllCategory";
 
 
 const adminDashboardRoutes  = [
@@ -10,8 +11,8 @@ const adminDashboardRoutes  = [
     children: [
       {path :"products", element: AllProducts},
       {path :"add-product", element: AddProduct},
-      {path :"brands", element: AllBrands},
-      {path :"add-brand", element: AddBrand},
+      {path :"categories", element: AllCategory},
+      {path :"brands", element: AllBrands}
     ]
   }
 ]

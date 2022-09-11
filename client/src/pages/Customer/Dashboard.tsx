@@ -4,7 +4,7 @@ import {nonInitialEffect} from "src/reactTools"
 
 import {
   Menu,
-Animation
+  Animation
 } from "components/UI"
 
 import { useDispatch, useSelector} from "react-redux"
@@ -23,7 +23,10 @@ import {
 
 
 import {AppContext, AppContextType, DeviceType} from "store/AppContext";
+
+
 import ShoppingCart from "pages/Customer/cart/ShoppingCart";
+
 
 
 // const AddressBook = lazy(()=> import("./AddressBook/AddressBook"))
@@ -34,7 +37,9 @@ import ShoppingCart from "pages/Customer/cart/ShoppingCart";
 // const CreateSellerAccount = lazy(()=>import("../SellerHub/createSellerAccount/CreateSellerAccount"))
 
 
-const Dashboard = (props) => { 
+
+const Dashboard = (props) => {
+  
   let params = useParams() 
   
   // let history = useHistory()
@@ -44,6 +49,7 @@ const Dashboard = (props) => {
   
   let [collapseIds, setCollapseIds] = React.useState(["1", "1-11"])
   const [isInline, setInline] = useState(false)
+  
   const {contextState, contextDispatch} = useContext<AppContextType>(AppContext)
   
   
@@ -126,7 +132,6 @@ const Dashboard = (props) => {
     } else {
       setInline(true)
     }
-    
   }, [contextState.windowWidth])
   
   
