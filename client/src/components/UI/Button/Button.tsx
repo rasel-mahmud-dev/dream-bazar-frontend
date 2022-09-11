@@ -2,7 +2,6 @@ import React, { FC, HTMLAttributes } from "react";
 import { Link } from "react-router-dom";
 
 import "./Button.scss";
-import Spin from "UI/Spin/Spin";
 
 
 interface BaseButtonProps extends HTMLAttributes<HTMLButtonElement> {

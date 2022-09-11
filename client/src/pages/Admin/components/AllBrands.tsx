@@ -1,6 +1,5 @@
 import React, {} from "react";
-import { Button, File, Popup, Modal, Tabs } from "components/UI";
-import fullLink from "src/utills/fullLink";
+import { Button } from "components/UI";
 import apis from "src/apis";
 import Table from "UI/table/Table";
 import staticImagePath from "src/utills/staticImagePath";
@@ -147,7 +146,6 @@ const AllBrands = (props) => {
                 payload.append(item, formData[item].value)
             }
         }
-        console.log(formData)
         
         if(!isComplete){
             updateState.httpStatus = 500
@@ -158,13 +156,17 @@ const AllBrands = (props) => {
         
         updateState.httpStatus = 200
         updateState.httpResponse = "pending"
+        
         setState(updateState)
+        
+        updateState = {...state}
  
         if(updateId){
             apis.patch("/api/brand/"+updateId, payload).then(({status, data})=>{
                 if(status === 201) {
                     updateState.httpResponse = data.message
                     updateState.httpStatus = 200
+                    
                     let updateBrands = brands
                     let index = updateBrands.findIndex(b=>b.id === updateId)
                     if(index !== -1){
@@ -228,13 +230,22 @@ const AllBrands = (props) => {
     }
     
     function setUpdateBrandHandler(brand){
-    
         let updateFormData = { ...state.formData }
         if(brand.name) {
             updateFormData.name = {value: brand.name, errorMessage: ""}
         }
         if(brand.logo){
             updateFormData.logo= {value: brand.logo, errorMessage: ""}
+        }
+        if(brand.forCategory){
+            if(typeof brand.forCategory === "string"){
+                try {
+                    let b = JSON.parse(brand.forCategory)
+                    let items = flatCategories.filter(c=> b.includes(c.id))
+                    updateFormData.forCategory = {value: items, errorMessage: ""}
+                    
+                } catch (_){}
+            }
         }
         
         setState({
@@ -253,7 +264,6 @@ const AllBrands = (props) => {
     }
     
     function addBrandForm() {
-    
         
         return (
             <form onSubmit={handleAdd}>
