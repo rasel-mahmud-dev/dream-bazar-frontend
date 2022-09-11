@@ -45,7 +45,7 @@ const FileUpload:FC<Props> = (props)=>{
   return (
         <div>
             <div className={["mt-4 flex items-start flex-col md:flex-row", className].join(" ")} >
-            <label htmlFor={name}  className={`block w-40 font-medium text-gray-200 mb-2 md:mb-0 ${labelClass}`} >{label}</label>
+            <label htmlFor={name}  className={`block w-40 font-medium  mb-2 md:mb-0 ${labelClass}`} >{label}</label>
 
                 <div className="w-full">
                 

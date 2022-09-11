@@ -1,179 +1,147 @@
-  
 import dbConnect from "../database"
-// import BrandController from "../../src/pages/Admin/Components/BrandController";
 import {NextFunction, Request, Response} from "express"
 
-import { ObjectId } from "mongodb"
-import {collections} from "../services/mongodb/database.service";
-import sqlDatabase from "../database/sqlDatabase";
 import {errorResponse, successResponse} from "../response";
 import fileUpload from "../utilities/fileUpload"
 import fs from "fs";
-import dataDir from "../utilities/dataDir";
+
 import staticDir from "../utilities/staticDir";
 import uuid from "../utilities/uuid";
-import {getSqliteDb} from "../services/sqlite/database.service";
-import {deleteOne, deleteOneById, findAll, findOne, update} from "../services/sqlite/database.methods";
+
+import {deleteOneById, findAll, findOne, insertOne, update} from "../services/sqlite/database.methods";
+import {ObjectId} from "mongodb";
+
 const isObjectId = require("../utilities/isObjectId")
 
 
-export const getBrandsCount = async (req: Request, res: Response, next: NextFunction)=>{
-  const { _id } = req.query
-  let client;
-  try{
-    const { c: BrandCollection, client: cc} = await dbConnect("brands")
-    client = cc
-    
-    const doc = await BrandCollection.countDocuments({})
-    res.status(200).json({count: doc})
-  } catch(ex){
-     next()
-    console.log(ex)
-  } finally{
-    client?.close()
-  }
-} 
+export const getBrandsCount = async (req: Request, res: Response, next: NextFunction) => {
+    const {_id} = req.query
+    let client;
+    try {
+        const {c: BrandCollection, client: cc} = await dbConnect("brands")
+        client = cc
 
-export const fetchBrandsWithFilter = async (req: Request, res: Response, next: NextFunction)=>{
-  
-  let client;
-  const { brands=[], forCategoryIds } = req.body
-  
-  try{
-    const {c: brandCollection, client: cc } = await dbConnect("brands") 
-    client = cc
-    let brandIds = []
-    brands.forEach(b=>{
-      if(isObjectId(b)){
-        brandIds.push(new ObjectId(b))
-      }
-    })
-    
-    let cursor;
-    if(forCategoryIds){
-      let catIds = []
-      forCategoryIds.forEach(cat=>{
-        catIds.push(new ObjectId(cat))
-      })
-      cursor = brandCollection.find({ for_category: { $in: catIds } })
-      
-    } else {
-      cursor = brandCollection.find({ _id: { $in: brandIds } })
+        const doc = await BrandCollection.countDocuments({})
+        res.status(200).json({count: doc})
+    } catch (ex) {
+        next()
+        console.log(ex)
+    } finally {
+        client?.close()
     }
-    let allBrands = []
-    await cursor.forEach(brand=>{
-      allBrands.push(brand) 
-    })
-    res.status(200).json({brands: allBrands})
-  } catch(ex){
-     next()
-    console.log(ex)
-  } finally{
-    client?.close()
-  }
 }
 
-let ms;
+export const fetchBrandsWithFilter = async (req: Request, res: Response, next: NextFunction) => {
 
+    let client;
+    const {brands = [], forCategoryIds} = req.body
 
+    try {
+        const {c: brandCollection, client: cc} = await dbConnect("brands")
+        client = cc
+        let brandIds = []
+        brands.forEach(b => {
+            if (isObjectId(b)) {
+                brandIds.push(new ObjectId(b))
+            }
+        })
 
+        let cursor;
+        if (forCategoryIds) {
+            let catIds = []
+            forCategoryIds.forEach(cat => {
+                catIds.push(new ObjectId(cat))
+            })
+            cursor = brandCollection.find({for_category: {$in: catIds}})
 
-
-
-export const getBrands =  async (req: Request, res: Response, next: NextFunction)=>{
-
-  let {perPage=10, pageNumber=1} = req.query
-
-
-  try {
-
-    let [err, result] = await findAll(`SELECT * FROM brands`)
-    if(!err){
-      successResponse(res, 200, result)
-    } else {
-      successResponse(res, 200, [])
+        } else {
+            cursor = brandCollection.find({_id: {$in: brandIds}})
+        }
+        let allBrands = []
+        await cursor.forEach(brand => {
+            allBrands.push(brand)
+        })
+        res.status(200).json({brands: allBrands})
+    } catch (ex) {
+        next()
+        console.log(ex)
+    } finally {
+        client?.close()
     }
-
-  } catch(ex){
-     next()
-
-  } finally{
-
-  }
 }
 
-export const getBrand =  async (req: Request, res: Response, next: NextFunction)=>{
-  const { brandId, brand_name } = req.query as {
-    brandId: string,
-    brand_name: string
-  }
-  let client;
-  
-  try{
-    const {c: brandCollection, client: cc } = await dbConnect("brands")
-    client = cc
-    let brand;
-    if(brandId) {
-      brand = await brandCollection.findOne({_id: new ObjectId(brandId)})
-    } else if(brand_name) {
-      brand = await brandCollection.findOne({name: brand_name})
+
+export const getBrands = async (req: Request, res: Response, next: NextFunction) => {
+
+    let {perPage = 10, pageNumber = 1} = req.query
+
+
+    try {
+
+        let [err, result] = await findAll(`SELECT * FROM brands`)
+        if (!err) {
+            successResponse(res, 200, result)
+        } else {
+            successResponse(res, 200, [])
+        }
+
+    } catch (ex) {
+        next(ex)
+
+    } finally {
+
     }
-    if(brand){
-      res.status(200).json({brand: brand})
-    } else {
-      res.status(404).json({message: "brand not found"})
-    }
-  } catch(ex){
-     next()
-    console.log(ex)
-  } finally{
-    client?.close()
-  }
 }
 
-export const getBrandsByIds =  async (req: Request, res: Response, next: NextFunction)=>{
-  const { ids } = req.body
-  let client;
-  try {
-    const { c: BrandCollection, client: cc   } = await dbConnect("brands")
-    client = cc
-    let brandIds = []
-    let cursor; 
-    ids && ids.forEach(stringId=>{
-      brandIds.push( new ObjectId(stringId) )
-    })
-  
-    cursor = BrandCollection.find(
-      { _id: { $in: brandIds } }
-    )         
-    
-    let brands = []
-    await cursor.forEach(brand=>{
-      brands.push(brand)
-    }) 
-    res.json({brands: brands})
-      
-  } catch(ex){
-     next()
-    console.log(ex)
-  } finally {
-    client?.close()
-  }
+export const getBrand = async (req: Request, res: Response, next: NextFunction) => {
+
+    try {
+        let [err, result] = await findOne("SELECT * FROM brands where id = ?", [req.params.id])
+        if (!err && result) {
+            successResponse(res, 200, result)
+        } else {
+            errorResponse(next, "not found", 404)
+        }
+
+    } catch (ex) {
+        next(ex)
+    }
 }
 
-export const saveBrand =  async (data, next, cb)=>{
-  const { id, name, logo, forCategory  } = data;
-  try {
-    let [err, result] = await findOne("SELECT * FROM brands where name = ?", [name])
-    if(!err && result){
-      errorResponse(next, "Brand already exists", 401)
-    } else {
-      cb(null, data)
-    }
+export const getBrandsByIds = async (req: Request, res: Response, next: NextFunction) => {
+    const {ids} = req.body
+    let client;
+    try {
+        const {c: BrandCollection, client: cc} = await dbConnect("brands")
+        client = cc
+        let brandIds = []
+        let cursor;
+        ids && ids.forEach(stringId => {
+            brandIds.push(new ObjectId(stringId))
+        })
 
-    // let sql = `
-    //     INSERT INTO brands('id', 'name', 'logo', 'forCategory') values("${id}", "${name}", "${logo}", '${JSON.stringify(forCategory)}')
-    //  `
+        cursor = BrandCollection.find(
+            {_id: {$in: brandIds}}
+        )
+
+        let brands = []
+        await cursor.forEach(brand => {
+            brands.push(brand)
+        })
+        res.json({brands: brands})
+
+    } catch (ex) {
+        next()
+        console.log(ex)
+    } finally {
+        client?.close()
+    }
+}
+
+// save brand controller
+export const saveBrands = async (req: Request, res: Response, next: NextFunction) => {
+
+
     // let sql = `
     //      DROP TABLE if EXISTS "brands";
     //      CREATE TABLE "brands" (
@@ -185,268 +153,160 @@ export const saveBrand =  async (data, next, cb)=>{
     // )
     //  `
 
-    // db.exec(sql, function (data: any, err: any){
-    //   if(err){
-    //     cb(err, null)
-    //     return;
-    //   }
-    //   console.log(data)
-    //   cb(null, data)
-    //   console.log("table has been created")
-    // })
-
-  } catch(ex){
-    cb(ex, null)
-  } finally{
-
-  }
-}
-
-export const saveBrands =  async (req: Request, res: Response, next: NextFunction)=>{
-
-
-  
-  try{
-    const {err, fields, file, fileName} = await fileUpload(req, "logo");
-    if(err){
-      return errorResponse(next, "Internal Error. Please try Again")
-    }
-
-    const { name, forCategory }  = fields as any
-
-
-    const newPath =  "upload/" + fileName
-
-    fs.cp(file, staticDir +"/"+ newPath, err1 => {
-      if(err){
-        return errorResponse(next, "Logo upload error. Please try Again")
-      }
-
-      let for_category = []
-      if(forCategory){
-        try {
-          for_category = JSON.parse(forCategory)
-        } catch (_) {}
-      }
-
-      saveBrand({id: uuid(10), name, forCategory: for_category, newPath}, next, (err, result)=>{
-        if(err){
-          console.log(err)
-          return errorResponse(next, "Internal error. Please try Again")
+    try {
+        // parse formdata
+        let {err, fields, file, fileName} = await fileUpload(req, "logo");
+        if (err) {
+            return errorResponse(next, "Internal Error. Please try Again")
         }
 
-        console.log(result)
-        successResponse(res, 201, result)
-      })
-    })
-  } catch(ex){
-    console.log(ex)
+        const {name, forCategory} = fields as any
 
-  } finally{
-
-  }
-}
-
-export const updateBrand =  async (req: Request, res: Response, next: NextFunction)=>{
-
-  try{
-
-    let [findErr, result] = await findOne('select * from brands where id = ?', [req.params.id])
-    if(findErr || !result){
-      return errorResponse(next, "Brand Not found")
-    }
-
-    let {err, fields, file, fileName} = await fileUpload(req, "logo");
-    if(err){
-      return errorResponse(next, "Internal Error. Please try Again")
-    }
-
-    const { name, forCategory }  = fields as any
-
-    const newPath =  "upload/" + fileName
-
-    fs.cp(file, staticDir +"/"+ newPath, async (err1) => {
-
-      if(err){
-        return errorResponse(next, "Logo upload error. Please try Again")
-      }
-
-      let for_category = []
-      if(forCategory){
-        try {
-          for_category = JSON.parse(forCategory)
-        } catch (_) {}
-      }
-
-      let sql = ''
-      let data = []
-      let a = {logo: newPath,  name, forCategory};
-      for (const key in a) {
-        if(a[key]){
-          console.log(a[key])
-          sql += `${key} = ?, `
-          data.push(a[key])
+        // check it this brand already exists or not
+        let [findErr, result] = await findOne("SELECT * FROM brands where name = ?", [name])
+        if (!findErr && result) {
+            return errorResponse(next, "Brand already exists", 401)
         }
-      }
-      sql = sql.slice(0, sql.lastIndexOf(","))
 
-      sql =  "UPDATE brands SET "+ sql + " WHERE id = ?"
 
-      let [errRes, result]   = await update(sql,  [...data, req.params.id] )
-      if(errRes){
-        errorResponse(next, "Brand update fail")
-      } else {
+        let newPath = ""
+
+        // move file to our static dir
+        if (file) {
+            newPath = "upload/" + fileName
+            try {
+                fs.cpSync(file, staticDir + "/" + newPath)
+            } catch (ex) {
+            }
+        }
+
+        let for_category = []
+        if (forCategory) {
+            try {
+                for_category = JSON.parse(forCategory)
+            } catch (_) {
+            }
+        }
+
+        let id = uuid(10)
+        let [err2] = await insertOne(
+            "INSERT INTO brands (id, name, logo, forCategory) Values(?, ?, ?, ?)",
+            [id, name, newPath, JSON.stringify(for_category)]
+        )
+
+        if (err2) {
+            return errorResponse(next, "Internal error. Please try Again")
+        }
+
         successResponse(res, 201, {
-          id: req.params.id,
-          logo: newPath,
-          name,
-          forCategory
+            message: "brand added",
+            brand: {
+                id,
+                name,
+                logo: newPath,
+                forCategory: for_category
+            }
         })
-      }
-    })
-
-  } catch(ex){
-    errorResponse(next, "Brand update fail")
-
-  } finally{
-
-  }
-}
-
-export const saveBrandsWithImage =  async (req: Request, res: Response, next: NextFunction)=>{
-  
-  let client;
-  
-  try{
-    const {c: brandCollection, client: cc } = await dbConnect("brands")
-    client = cc
-    
-    let filePath = "upload"
-
-    // fileUpload(req, filePath, "logo", async(result)=>{
-    //   let response;
-    //   if (result) {
-    //     const brands = result.fields
-    //     brands.created_at = Date.now()
-    //     brands.updated_at = Date.now()
-    //     brands.logo = result.files && result.files.logo[0].path
-    //     response = await brandCollection.insertOne(brands)
-    //
-    //     // console.log(response)
-    //
-    //     if (response.insertedCount) {
-    //       res.status(200).json({message: "Brand Save succefull", brands: response.ops})
-    //     } else {
-    //       res.status(401).json({message: "Brand Save unsuccessfull"})
-    //     }
-    //
-    //     client && client.close()
-    //
-    //   }
-    // })
-      
-  } catch(ex){
-     next()
-    console.log(ex)
-  } finally{
-   client?.close()
-  }
-}
 
 
+    } catch (ex) {
+        return errorResponse(next, "Internal error. Please try Again")
 
-export const deleteBrand = async(req, res, next)=>{
+    } finally {
 
-  const { brandId } = req.params
-
-  try{
-
-    let [err, result] = await deleteOneById("brands", brandId)
-
-    console.log(err, result)
-
-  } catch(ex){
-     next()
-    console.log(ex)
-  } finally{
-
-  }
-}
-
-export const editBrand = async(req, res, next)=>{
-  const { brandId } = req.params 
-  const brand = req.body  
-  let client;
-  
-  try {
-
-    const {c: brandCollection, client: cc } = await dbConnect("brands")
-    client = cc
-    
-
-    const { _id, created_at, for_categories, for_category, ...others } = brand
-
-    let c_ids = [] 
-    if(for_category){
-      for(let i of for_category){
-        c_ids.push(new ObjectId(i))
-      }
     }
-    others.for_category = c_ids // array of mongodb ObjectId
-    others.updated_at = new Date()
-    
-    const response = await brandCollection.updateOne(
-      {_id: new ObjectId(brandId)},
-      { $set: others }
-    )
-
-    
-    if(response.modifiedCount > 0){
-      res.status(201).json({message: "brand updated", brand: { _id: _id, ...brand } })
-    } else{
-      res.status(409).json({message: "brand not updated"})
-    }
-
-    // let filePath = "upload"
-    // fileUpload(req, filePath, "logo", async(result)=>{
-    //   if(result){ 
-    //     const brand = result.fields
-    //     brand.updated_at = Date.now()
-    //     console.log(brand);
-
-        // if(result.files && result.files.logo[0].path){
-        //   brand.logo = result.files.logo[0].path 
-        // }
-        // const response = await brandCollection.updateOne(
-        //   {_id: new ObjectId(brandId)},
-        //   { $set: brand} 
-        // ) 
-      
-        
-        // if(response.result.nModified > 0){
-        //   res.status(201).json({message: "brand updated", brand: { _id: brandId, ...brand } })
-        // } else{
-        //   res.json({message: "brand not updated"})
-        // }
-    
-        // client.close()
-    //   } else{
-    //     console.log("server error")
-    //   }
-    // })
-
-
-
-
-
-
-    
-  } catch(ex){
-     next()
-    console.log(ex)
-  } finally{
-    client?.close()
-  }
 }
 
+export const updateBrand = async (req: Request, res: Response, next: NextFunction) => {
 
+    try {
+
+        let [findErr, result] = await findOne('select * from brands where id = ?', [req.params.id])
+        if (findErr || !result) {
+            return errorResponse(next, "Brand Not found")
+        }
+
+        let {err, fields, file, fileName} = await fileUpload(req, "logo");
+        if (err) {
+            return errorResponse(next, "Internal Error. Please try Again")
+        }
+
+        const {name, forCategory, logo = ""} = fields as any
+
+
+        let newPath = logo;
+
+
+        if (file) {
+            newPath = "upload/" + fileName
+            try {
+                fs.cpSync(file, staticDir + "/" + newPath)
+            } catch (ex) {
+            }
+        }
+
+        let for_category = []
+        if (forCategory) {
+            try {
+                for_category = JSON.parse(forCategory)
+            } catch (_) {
+            }
+        }
+
+        let sql = ''
+        let data = []
+        let a = {logo: newPath, name, forCategory};
+        for (const key in a) {
+            if (a[key]) {
+                sql += `${key} = ?, `
+                data.push(a[key])
+            }
+        }
+        sql = sql.slice(0, sql.lastIndexOf(","))
+
+        sql = "UPDATE brands SET " + sql + " WHERE id = ?"
+
+        let [errRes] = await update(sql, [...data, req.params.id])
+
+        if (errRes) {
+            errorResponse(next, "Brand update fail")
+        } else {
+            successResponse(res, 201, {
+                message: "brand updated",
+                brand: {
+                    id: req.params.id,
+                    logo: newPath,
+                    name,
+                    forCategory: for_category
+                }
+            })
+        }
+
+    } catch (ex) {
+        errorResponse(next, "Brand update fail")
+
+
+    } finally {
+
+    }
+}
+
+export const deleteBrand = async (req, res, next) => {
+
+    const {id} = req.params
+
+    try {
+
+        let [err, result] = await deleteOneById("brands", id)
+        if (err) {
+            errorResponse(next, "Brand delete fail", 500)
+        } else {
+            successResponse(res, 201, {message: "Brand deleted", id});
+        }
+
+    } catch (ex) {
+        next(ex)
+    } finally {
+
+    }
+}

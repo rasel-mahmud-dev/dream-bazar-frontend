@@ -1,6 +1,7 @@
 import {ACTION_TYPES, CategoryType} from "store/types"
 import apis from "src/apis";
 import {RootState} from "src/store";
+import errorMessageCatch from "src/utills/errorMessageCatch";
 
 
 export const fetchProducts = () => async (dispatch, getState, api) => {
@@ -32,6 +33,20 @@ export const fetchFlatCategories = ()=>{
       resolve(undefined)
     }
   })
+}
+
+export function deleteBrandAction(dispatch, brandId, callback){
+  
+  apis.delete(`/api/brand/${brandId}`).then((response) => {
+    if(response.status === 201) {
+      callback(null, response.data)
+    } else {
+      callback(response.data.message, null)
+    }
+  }).catch(ex=>{
+    callback(errorMessageCatch(ex), null)
+  })
+  
 }
 
 // fetch homepage section product...

@@ -232,6 +232,11 @@ const productReducer = (state: ProductStateType=initialState, action)=>{
       updatedState.brands[action.payload.categoryId] = action.payload.brands
       return updatedState
     
+      
+    case ACTION_TYPES.DELETE_BRAND:
+      // updatedState.brands = updatedState.brands.filter(b=>b.id !== action.payload)
+      return updatedState
+    
     
     case ACTION_TYPES.FETCH_CATEGORIES :
       updatedState.flatCategories = action.payload

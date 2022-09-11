@@ -44,10 +44,25 @@ export function update(sql: string,  params: any[]){
     })
 }
 
+
+export function insertOne(sql: string,  params: any[]){
+    return new Promise<[err: any, result: any]>(async (resolve, reject)=>{
+        const db = await getSqliteDb();
+
+        db.run(sql, params, function (err, data) {
+            if (err) {
+                resolve([err, null])
+                return;
+            }
+            resolve([null, data])
+        })
+    })
+}
+
 export function deleteOneById(tableName: string, id: string){
     return new Promise<[err: any, result: any]>(async (resolve, reject)=>{
         const db = await getSqliteDb();
-        let sql = 'DELETE FORM ' + tableName + " WHERE id = ? ";
+        let sql = 'DELETE FROM ' + tableName + " WHERE id = ? ";
         db.run(sql, [id], function (err, data) {
             if (err) {
                 resolve([err, null])

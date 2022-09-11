@@ -41,7 +41,7 @@ const Button: FC<BaseButtonProps> = (props) => {
         );
     } else {
         return (
-            <button {...attributes} className={`btn rounded ${className}`}>
+            <button {...attributes} className={`btn rounded ${className} ${loading ? "btn-disable": "" }`}>
                 {loading && <div className={`btn-loading-circle mr-1.5 dark:bg-red-500 ${loaderClass}`}>
                     <LoadingIcon />
                 </div> }

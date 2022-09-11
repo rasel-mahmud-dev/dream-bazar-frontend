@@ -8,24 +8,25 @@ interface Props{
     onChange: (args: any)=>any,
     options: (args: any)=> React.ReactNode, errorMessage?: string
     dataKey: {title: string, key: string}
+    state: {[key: string]: {value?: string | number, errorMessage?: string}}
 }
 
 import "./styles.scss";
 
-const MultiSelect :FC<Props> = ({ inputClass, dataKey, labelClass, name, value, label, placeholder, className, onChange, options, errorMessage }) =>{
+const MultiSelect :FC<Props> = ({ inputClass, state, dataKey, labelClass, name, value, label, placeholder, className, onChange, options, errorMessage }) =>{
 
     const [isOpen, setOpen] = React.useState(false)
-    const [state, setState] = React.useState([])
+    const [selectedItem, setSelectedItem] = React.useState([])
     
     React.useEffect(()=>{
         if(value && Array.isArray(value) && value.length){
-            setState(value)
+            setSelectedItem(value)
         }
     }, [])
 
     function onClick(item, e){
         e && e.stopPropagation();
-        let updateState = [...state]
+        let updateState = [...selectedItem]
         
         let index = updateState.findIndex(v=>v[dataKey.key] === item[dataKey.key]);
         
@@ -35,16 +36,15 @@ const MultiSelect :FC<Props> = ({ inputClass, dataKey, labelClass, name, value, 
             updateState.splice(index, 1)
         }
         
-        setState(updateState)
+        setSelectedItem(updateState)
         onChange && onChange({target: {value: updateState, name: name}})
     }
     
-    console.log(state)
     
 
     function deleteSelectedInput(item){
-        let newState = state && state.filter(v=>v[dataKey.key] !== item[dataKey.key])
-        setState(newState)
+        let newState = selectedItem && selectedItem.filter(v=>v[dataKey.key] !== item[dataKey.key])
+        setSelectedItem(newState)
         onChange && onChange({target: {value: newState, name: name}})
     }
 
@@ -54,11 +54,11 @@ const MultiSelect :FC<Props> = ({ inputClass, dataKey, labelClass, name, value, 
 
     return (
         <div className={["mt-4 flex items-start flex-col md:flex-row", className].join(" ")} >
-            <label htmlFor={name}  className={`block w-40 font-medium text-gray-200 mb-2 md:mb-0 ${labelClass}`} >{label}</label>
+            <label htmlFor={name}  className={`block w-40 font-medium mb-2 md:mb-0 ${labelClass}`} >{label}</label>
             <div className="w-full">
 
-                {state && state.length ? <div className="flex flex-wrap gap-x-1 gap-y-1 mb-2">
-                    {state.map((v, i) => (
+                {selectedItem && selectedItem.length ? <div className="flex flex-wrap gap-x-1 gap-y-1 mb-2">
+                    {selectedItem.map((v, i) => (
                         <li key={i} className="list-none flex items-center px-2 py-2 bg-secondary-300 rounded ">
                             <span className="mr-2 text-white">{v[dataKey.title]}</span>
                             <svg
@@ -78,9 +78,9 @@ const MultiSelect :FC<Props> = ({ inputClass, dataKey, labelClass, name, value, 
                         {options(onClick)}
                     </ul>}
                 </div>
-                <div className="mt-1">
-                    {errorMessage && <span className="rounded-md text-error">{errorMessage}</span>}
-                </div>
+                
+                {state[name]?.errorMessage && <div className="mt-1"> <span className="text-red-500 ">{state[name].errorMessage}</span> </div> }
+                
             </div>
         </div>
     )

@@ -14,31 +14,28 @@ import { toggleBackdrop} from "actions/appAction";
 import {RootState} from "src/store";
 import {InputGroup} from "UI/Form";
 import FileUpload from "UI/Form/File/FileUpload";
-import {useParams} from "react-router-dom";
 import MultiSelect from "UI/Form/multiSelect/MultiSelect";
 import {ACTION_TYPES} from "store/types";
-import {fetchFlatCategories} from "actions/productAction";
+import {deleteBrandAction, fetchFlatCategories} from "actions/productAction";
+import ActionInfo from "components/ActionInfo/ActionInfo";
+import errorMessageCatch from "src/utills/errorMessageCatch";
 
-const { TabPane } = Tabs;
 
-let files: string | any[] = [];
 
 const AllBrands = (props) => {
     
-    const {authState, appState, productState : { flatCategories }} = useSelector((state: RootState)=>state)
+    const { appState, productState : { flatCategories }} = useSelector((state: RootState)=>state)
     
     const [totalBrands, setTotalBrands] = React.useState<number>(0);
     const [brands, setBrands] = React.useState<any[]>([]);
-    const [staticImages, setStaticImages] = React.useState([]);
     
-
-
- 
     const dispatch = useDispatch();
 
     const [state, setState] = React.useState<any>({
         isShowForm: true,
         updateId: "",
+        httpResponse: "",
+        httpStatus: 200,
         formData: {
             name: {value: "", errorMessage: ""},
             logo: {value: null, blob: null, errorMessage: ""},
@@ -49,21 +46,6 @@ const AllBrands = (props) => {
     const {formData, isShowForm, updateId} = state
     
     
-    const d = [
-        {
-            name: "name",
-            label: "Brand Name",
-            required: true,
-        },
-        {
-            name: "logo",
-            type: "image",
-            fileName: "",
-            label: "Brand Logo",
-            required: false,
-        },
-    ];
-
     React.useEffect(() => {
         (async function () {
             const { data } = await apis.get("/api/brands/count");
@@ -84,24 +66,16 @@ const AllBrands = (props) => {
             
         })();
     }, []);
-
-    function brandFetchForUpdate(brand) {
-        setShowForm("update");
-        let updatedBrandData = { ...brandData };
-        for (let i = 0; i < d.length; i++) {
-            if (brand[d[i].name]) {
-                updatedBrandData[d[i].name] = brand[d[i].name];
-            }
-        }
-
-        setBrandData(updatedBrandData);
-        setUpdateBrandCopy(brand);
-    }
+    
 
     function deleteItem(id: any) {
-        apis.delete(`/api/brands/${id}`).then((response) => {
-            setBrands(brands.filter((b) => b._id !== id));
-        });
+        deleteBrandAction(dispatch, id, function(err, data){
+            if(!err){
+                setBrands(brands.filter(b=>b.id !== id))
+            } else {
+                console.log(err)
+            }
+        })
     }
     
     
@@ -135,95 +109,95 @@ const AllBrands = (props) => {
     }
 
     async function handleAdd(e) {
+    
+        let updateState = {...state}
+        
         e.preventDefault();
     
         let isComplete = true
         let payload = new FormData();
+        
         for (let item in formData) {
-            if(!formData[item].value){
-                isComplete = false
-            }
             
             if(item === "logo"){
-                if(typeof formData[item].value === "string"){
-                    payload.append(item, formData[item].value)
-                } else {
-                    payload.append(item, formData[item].value, formData[item].value.name)
+                if(formData[item].value) {
+                    if (typeof formData[item].value === "string") {
+                        payload.append(item, formData[item].value)
+                    } else {
+                        payload.append(item, formData[item].value, formData[item].value.name)
+                    }
                 }
+            } else if(item === "forCategory"){
+                let categoryIds = []
+                if(formData[item].value && Array.isArray(formData[item].value) && formData[item].value.length){
+                    for(let cat of formData[item].value){
+                        categoryIds.push(cat.id)
+                    }
+                } else {
+                    formData[item].errorMessage = "Please select brand for category "
+                }
+                
+                payload.append(item, JSON.stringify(categoryIds))
+                
             } else {
+                if(!formData[item].value){
+                    isComplete = false;
+                    formData[item].errorMessage = "Please enter " + item
+                }
                 payload.append(item, formData[item].value)
             }
         }
+        console.log(formData)
         
-        if(updateId){
-            apis.patch("/api/brand/"+updateId, payload).then(response=>{
-                console.log(response)
-            }).catch(ex=>{
-                console.log(ex)
-            })
-        
-        } else {
-            apis.post("/api/brand", payload).then(response=>{
-                console.log(response)
-            }).catch(ex=>{
-                console.log(ex)
-            })
+        if(!isComplete){
+            updateState.httpStatus = 500
+            updateState.httpResponse = "Please fill Input"
+            setState(updateState)
+            return;
         }
         
-        // if (isShowForm === "new") {
-            // let { data } = await api.post("/api/brands", {...brandData})
-            // setBrands([...brands, data.brands[0]])
-        //     if (brandData.logo) {
-        //         // need form data to send blob to backend
-        //         let formData = new FormData();
-        //         for (const key in brandData) {
-        //             formData.append(key, brandData[key]);
-        //         }
-        //         let { data } = await apis.post(
-        //             "/api/brands/with-image-upload",
-        //             formData
-        //         );
-        //         setBrands([...brands, ...data.brands]);
-        //     }
-        //
-        //     // console.log(brandData)
-        // } else {
-        //     let updatedBrands = [...brands];
-        //     let { _id, ...otherProperties } = updatedBrandCopy;
-        //     let formData = new FormData();
-        //
-        //     let b = { ...otherProperties, ...brandData };
-        //     // upload with string logo path
-        //     for (let key in b) {
-        //         if (key !== "fileName") {
-        //             formData.append(key, b[key]);
-        //         }
-        //     }
-        //     // console.log(b)
-        //     let { data } = await apis.put(`/api/brands/${_id}`, formData);
-        //
-        //     // if(updatedBrands.logo){
-        //     // let { data } = await api.put(`/api/brands/${_id}`, {...otherProperties, ...brandData})
-        //     // let index = updatedBrands.findIndex(b=>b._id === _id )
-        //     // updatedBrands[index] = data.brand
-        //     // setBrands(updatedBrands)
-        // }
-    }
-    
-    //  load all static files...
-    function fetchStaticFiles() {
-        apis.get("/api/static-file").then((response) => {
-            setStaticImages(response.data);
-        });
-    }
-
-    
-    // click static file from static images
-    function chooseImageFromStatic(url) {
-        setBrandData({
-            ...brandData,
-            logo: "upload/" + url,
-        });
+        updateState.httpStatus = 200
+        updateState.httpResponse = "pending"
+        setState(updateState)
+ 
+        if(updateId){
+            apis.patch("/api/brand/"+updateId, payload).then(({status, data})=>{
+                if(status === 201) {
+                    updateState.httpResponse = data.message
+                    updateState.httpStatus = 200
+                    let updateBrands = brands
+                    let index = updateBrands.findIndex(b=>b.id === updateId)
+                    if(index !== -1){
+                        brands[index] = {
+                            ...brands[index],
+                            ...data.brand
+                        }
+                    }
+                    setBrands(updateBrands)
+                }
+            }).catch(ex=>{
+                updateState.httpResponse = errorMessageCatch(ex);
+                updateState.httpStatus = 500
+                
+            }).finally(()=>{
+                setState(updateState)
+            })
+            
+        } else {
+            // add as a new brand
+            apis.post("/api/brand", payload).then(({status, data})=>{
+                if(status === 201) {
+                    updateState.httpResponse = data.message
+                    updateState.httpStatus = 200
+                    setBrands([...brands, data.brand])
+                }
+            }).catch(ex=>{
+                updateState.httpResponse = errorMessageCatch(ex);
+                updateState.httpStatus = 500
+            }).finally(()=>{
+                setState(updateState)
+            })
+        }
     }
     
     
@@ -234,13 +208,14 @@ const AllBrands = (props) => {
                 update[updateKey].value = ""
             }
         }
-            return  update
+        return  update
     }
     
     function handleShowAddForm(isOpen=false) {
         setState({
             ...state,
             updateId: "",
+            httpResponse: "",
             isShowForm: isOpen,
             formData: clearField()
         })
@@ -277,62 +252,22 @@ const AllBrands = (props) => {
         
     }
     
-    // render photo handler modal that an image can upload or get cdn link
-    function showPhotoHandler() {
-        // key ===  2 contains all static image files
-        function handleTabChange(key) {
-            if (key === "2") fetchStaticFiles();
-        }
-
-        return (
-            <Modal>
-                <Tabs defaultActiveKey="1" onChange={handleTabChange}>
-                    <TabPane tab="Upload a new image" key="1">
-                        <Input
-                            name="logo"
-                            label="Logo image cdn link"
-                            onChange={handleChangeLogo}
-                        />
-                        <span>or</span>
-                        <File
-                            type="file"
-                            name="logo"
-                            onChange={handleChangeLogo}
-                            label="Choose a photo"
-                        />
-                    </TabPane>
-
-                    <TabPane tab="Images Gallery" key="2">
-                        <div className="d-flex">
-                            {staticImages.map((path) => (
-                                <div className="static-image-thumbs">
-                                    <img
-                                        onClick={() =>
-                                            chooseImageFromStatic(path)
-                                        }
-                                        src={fullLink(path)}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    </TabPane>
-                </Tabs>
-
-                <Button onClick={() => setShowLogoHandler(false)}>
-                    Cancel
-                </Button>
-                <Button>Save</Button>
-            </Modal>
-        );
-    }
+    function addBrandForm() {
     
-    function addProduct() {
-        console.log(flatCategories)
+        
         return (
             <form onSubmit={handleAdd}>
                 <h2 className="h2 text-center !font-semibold">
                     {updateId  ?  "Update Brand" : "Add New Brand"}
                 </h2>
+                
+                
+                <ActionInfo
+                    message={state.httpResponse}
+                    statusCode={state.httpStatus}
+                    className="mt-4"
+                />
+                
 
                 <InputGroup
                     name={"name"}
@@ -360,15 +295,15 @@ const AllBrands = (props) => {
                 
                 <MultiSelect
                     name="forCategory"
+                    labelClass="dark:text-white !mb-2"
                     dataKey={{title: "name", key: "id"}}
                     className={"!flex-col"}
-                    labelClass="dark:text-white !mb-2"
                     value={formData.forCategory.value}
                     label="Select for Category"
                     inputClass="input-group"
                     placeholder="for category"
                     onChange={handleChange}
-                    errorMessage={formData.forCategory.errorMessage}
+                    state={formData}
                     options={(onClick)=> <div className="bg-neutral-100 px-2 absolute top-0 left-0 w-full">
                         {flatCategories.map(cat=>(
                                 <li onClick={()=>onClick(cat)} className="cursor-pointer py-1 menu-item">{cat.name}</li>
@@ -377,7 +312,7 @@ const AllBrands = (props) => {
                 />
 
                 <div className="flex items-center gap-x-4" >
-                    <Button type="submit" className="bg-secondary-300 mt-4">
+                    <Button type="submit" className="bg-secondary-300 mt-4" loaderClass="!border-white" loading={state.httpResponse === "pending"}>
                     {!updateId ? "Save Brand" : "Update Brand"}
                 </Button>
 
@@ -412,7 +347,7 @@ const AllBrands = (props) => {
             render: (item) => (
                 <div className="flex justify-center items-center gap-x-2">
                     <BsPencilSquare className="text-md cursor-pointer" onClick={()=>setUpdateBrandHandler(item)} />
-                    <FcEmptyTrash className="text-xl cursor-pointer" />
+                    <FcEmptyTrash className="text-xl cursor-pointer" onClick={()=>deleteItem(item.id)}/>
                 </div>
             ),
         },
@@ -425,7 +360,7 @@ const AllBrands = (props) => {
             {/* add brand modal and backdrop */}
             {appState.backdrop.isOpen && <div className={`backdrop ${isShowForm ? "backdrop--show" : ""}`}>
                 <div className="modal-box auth-card">
-                    {addProduct()}
+                    {addBrandForm()}
                 </div>
             </div>}
             

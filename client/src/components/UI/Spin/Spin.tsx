@@ -1,61 +1,26 @@
-import React, {FC} from "react"
+import React, {FC, HTMLAttributes} from "react"
 
 import "./Spin.scss"
 
 
-interface SpinProps {
-  size?: number
-  loaderColor?: string,
-  loaderBorderColor?: string,
-  borderWidth?: number,
-  style?: any,
+interface SpinProps extends HTMLAttributes<HTMLDivElement>{
+  loaderClass?: string
   className?: string
-  theme?: string
 }
 
+
 const Spin: FC<SpinProps> = (props)=>{
-  const {theme, size, loaderBorderColor, loaderColor, borderWidth, style, className, ...o} = props
-  
-  let classes = ["spin"]
-  if(className){
-    classes.push(className)
-  }
-  if(theme){
-    classes.push(`loader-${theme}`)
-  }
-  
-  const spinStyle = {...style}
-  if(size){
-    spinStyle.width = size + "px"  
-    spinStyle.height = size + "px"  
-  }
-  
-  let circleStyles: any =  {}
-  if(borderWidth){
-    circleStyles.borderWidth = borderWidth + "px"
-  }
-  
-  if(loaderBorderColor){
-    circleStyles.borderColor = loaderBorderColor
-    // circleStyles.borderRightColor = "blue"
-  }
-  
-  if(loaderColor){
-    circleStyles.borderRightColor = loaderColor
-  }
-  
- 
-  
+  const {loaderClass, className, ...o} = props
   
   return (
-    <div style={spinStyle} className={classes.join(" ")} {...o}>
-      <span style={circleStyles} className="loader_circle" />
-      <span style={circleStyles} className="loader_circle"/>
-      <span style={circleStyles} className="loader_circle"/>
-      <span style={circleStyles} className="loader_circle"/>
+    <div className={`spin ${className}`} {...o}>
+      <span className={`loader_circle ${loaderClass}`} />
+      <span className={`loader_circle ${loaderClass}`} />
+      <span className={`loader_circle ${loaderClass}`} />
+      <span className={`loader_circle ${loaderClass}`} />
     </div>
   )
-  
 }
- 
+
+
 export default Spin
