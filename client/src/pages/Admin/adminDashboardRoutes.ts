@@ -11,6 +11,7 @@ const adminDashboardRoutes  = [
     children: [
       {path :"products", element: AllProducts},
       {path :"add-product", element: AddProduct},
+      {path :"update-product/:id", element: AddProduct},
       {path :"categories", element: AllCategory},
       {path :"brands", element: AllBrands}
     ]

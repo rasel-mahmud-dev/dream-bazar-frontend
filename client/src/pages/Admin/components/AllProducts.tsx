@@ -2,10 +2,16 @@ import React from "react"
 import { Button, Modal, Select,  File, Tabs } from "components/UI"
 import api from "src/apis" 
 import fullLink from "src/utills/fullLink"
+import Table from "UI/table/Table";
+import staticImagePath from "src/utills/staticImagePath";
+import {BsPencilSquare, FcEmptyTrash} from "react-icons/all";
+import {useNavigate} from "react-router-dom";
 
   const { TabPane } = Tabs
 
   const AllProducts = (props) =>{
+    
+    const navigate = useNavigate();
   
   const [count, setCount] = React.useState()
   const [products, setProducts]  = React.useState<any[]>([])
@@ -45,35 +51,9 @@ import fullLink from "src/utills/fullLink"
     setUpdateProductCopy(product)
   }  
 
-  const d =  [
-    {name: "title", type:"input", label: "Product Name", required:true},
-    {name: "cover_photo", type: "file", label: "Product Cover Photo", required:true},
-    {name: "price", type:"input", label: "Product Unit Price", required:true},
-    {name: "qty", type:"input", label: "Product Quantity", require: true},
-    {
-      name: "category_id", 
-      type: "select",
-      label: "Select a category", 
-      require: true,
-      values: categories,
-      valueKey: { name: "name", id: "_id"}
-    },
-    {
-      name: "brand_id", 
-      type: "select",
-      label: "Select a Brand", 
-      require: true,
-      values: brands,
-      valueKey: { name: "name", id: "_id"}
-    }
-  ]
+
   
-  function handleChange(e){ 
-    setProductData({
-      ...productData, 
-      [e.target.name]: e.target.value 
-    })
-  }
+
   
   function deleteItem(id){
 
@@ -83,34 +63,6 @@ import fullLink from "src/utills/fullLink"
     setProducts(products.filter((p: any)=>p._id !== id))
   }
   
-  async function handleSave(){
-    
-    let oldProducts: any = [...products]
-    
-    if(isShowForm === "new"){ 
-      let g = {
-       ...productData,
-        sold: 0,
-        views: 0
-      } 
-      let response = await api.post("/api/products", {...g})
-      let returnProduct: any = response.data
-      setProducts([returnProduct])
-    
-    } else if(isShowForm === "update"){
-      let g: any = {
-        ...updatedProductCopy,
-        ...productData,
-      }
-      const {brand, category, _id, ...rest} = g
-
-      let { data } = await api.put(`/api/products/${updatedProductCopy._id}`, {...rest})
-      let index = oldProducts.findIndex(p=>p._id === updatedProductCopy._id )
-      oldProducts[index] = data.product
-      setProducts(oldProducts) 
-    }
-    
-  }
   
   
   
@@ -180,55 +132,41 @@ function fetchStaticFiles(){
         
   }
   
+    
+    const columns = [
+      {
+        title: "Image",
+        dataIndex: "coverPhoto",
+        render: (item) => (
+            <div className="w-8">
+                    <img src={staticImagePath(item.coverPhoto)} alt="" />
+                </div>
+        ),
+      },
+      { title: "Title", dataIndex: "title" },
+      { title: "Added", dataIndex: "createdAt",  render: (item) => <span>{new Date(item.createdAt).toDateString()}</span> },
+      { title: "Category", dataIndex: "categoryId" },
+      { title: "Brand", dataIndex: "brandId" },
+      { title: "Price", dataIndex: "price", render: (item) => <span>${item.price}</span> },
+      { title: "Stock", dataIndex: "stock" },
+      { title: "Sold", dataIndex: "sold" },
+      {
+        title: "Action",
+        dataIndex: "",
+        className: "text-center",
+        render: (item) => (
+            <div className="flex justify-center items-center gap-x-2">
+                    <BsPencilSquare className="text-md cursor-pointer" onClick={()=>navigate("/auth/admin/dashboard/update-product/"+item._id)} />
+                    <FcEmptyTrash className="text-xl cursor-pointer" onClick={()=>deleteItem(item.id)}/>
+                </div>
+        ),
+      },
+    ];
   
-  function addProduct(){
-    return (
-      <div>
-        <h2>{isShowForm === "new" ? "Add New Product" : "Update Product"}</h2>
-        { d && d.map((pData: any)=>(
-          <div className="">
-            { pData.type && pData.type === "select" ? (
-              <Select defaultValue={productData[pData.name]} name={pData.name} onChange={handleChange}>
-                <option value="">{pData.label}</option>
-                { pData.values && pData.values.map(item=> 
-                    <option 
-                      value={item[pData.valueKey.id]} >
-                      {item[pData.valueKey.name]}
-                    </option> 
-                  )}
-              </Select>
-            ) : pData.type && pData.type === "file" ? (
-              <div>
-                <img src={fullLink(pData.cover_photo)} alt={pData.cover_photo} />
-                <Button onClick={()=> setShowCoverPhotoHandler(!isShowCoverPhotoHandler) }>
-                  Upgrade Cover Photo
-                </Button>
-                { isShowCoverPhotoHandler && showPhotoHandler()}
-              </div>
-            ) : (
-              <>
-            <Input
-                label={pData.label}
-                name={pData.name} 
-                value={productData[pData.name]}  
-                onChange={handleChange}
-              />
-              </>
-            )}
-          </div>
-        ))}
-        
-        <Button onClick={handleSave}>{ isShowForm === "new" ? "Save Product" : "Update Product" }</Button>
-        
-      
-      </div>
-    )
-  }
   
   return (
       <div className="container"> 
       
-        <h1>saddddddddddddddddddddddddddddddddd</h1>
       
       {  isShowForm === "" ? <Button onClick={(e)=> setShowForm("new")}>Add New Product</Button>
       : <Button onClick={(e)=> setShowForm("")}>Cancel</Button>
@@ -238,48 +176,10 @@ function fetchStaticFiles(){
       
       
         <h3>Products fetch {products.length} of {count} </h3>
-        <table>
-          <thead> 
-              <tr>
-                <th className="t-start">Image</th>
-                <th className="t-center">Title</th>
-                <th>Added</th>
-                <th>Category</th>
-                <th>Brand</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Sold</th>
-                <th>Action</th>
-              </tr>
-          </thead>
-            <tbody>
-          { products.map((p: any)=>(
-              <tr>
-                <td className="">
-                  { p.logo &&
-                  <div className="brand_logo">
-                    <img src={fullLink(p.logo)}  />
-                  </div>
-                  }
-                </td>
-              
-                <td className="t-center">{p.title}</td>
-                <td className="t-center">{new Date(Number(p.created_at)).toDateString() }</td>
-                <td className="t-center">{p.category && p.category.name}</td>
-                <td className="t-center">{p.brand && p.brand.name}</td>
-                <td className="t-center">${p.price}</td>
-                <td className="t-center">{p.qty}</td>
-                <td className="t-center">{p.sold}</td>
-                <td className="t-center d-flex">
-                  <button><i className="fal fa-pen" onClick={(e)=> productFetchForUpdate(p) } /></button>
-                  <button><i onClick={()=>deleteItem(p._id)} className="fal fa-trash"/></button>
-                </td>
-              </tr>
-          )) }
-            </tbody>
-            
-        </table>
-          
+        
+         <div className="card">
+            <Table dataSource={products ? products : []} columns={columns} tbodyClass={{td: "py-2 px-2", tr: "hover:bg-green-500/10"}} />
+        </div>
       
       </div>
     )
