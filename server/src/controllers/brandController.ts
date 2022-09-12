@@ -141,7 +141,6 @@ export const getBrandsByIds = async (req: Request, res: Response, next: NextFunc
 // save brand controller
 export const saveBrands = async (req: Request, res: Response, next: NextFunction) => {
 
-
     // let sql = `
     //      DROP TABLE if EXISTS "brands";
     //      CREATE TABLE "brands" (

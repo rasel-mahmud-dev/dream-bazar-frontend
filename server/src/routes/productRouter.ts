@@ -11,7 +11,7 @@ import {
   productFiltersPostV2,
   saveProductsAsDuplicate,
   productUpdate,
-  saveProducts,
+  saveProduct,
   updateProductPutReq,
   uploadHandler,
   productFiltersGetV2,
@@ -46,6 +46,8 @@ export default function (app){
 
   app.get("/api/products/filter", productFilters)
   app.post("/api/products/filter", productFiltersPost)
+
+  app.delete("/api/product/:id", deleteProduct)
   
   // this route i use worker_threads
   app.post("/api/products/filter/v2", productFiltersPostV2)
@@ -65,14 +67,14 @@ export default function (app){
   app.get("/api/products", getProducts)
 
 
-  app.post("/api/products", saveProducts)
+  // add new product route
+  app.post("/api/product", saveProduct)
 
 
 
   app.post("/api/products/copy", saveProductsAsDuplicate)
   app.get("/api/products/:id", getProduct)
   app.put("/api/products/:id", updateProductPutReq)
-  app.delete("/api/products/:id", deleteProduct)
   app.post("/api/upload", uploadHandler)
   
   

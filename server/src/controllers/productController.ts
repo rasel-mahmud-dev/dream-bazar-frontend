@@ -10,13 +10,13 @@ import dbConnect from "../database/index"
 
 import fileUploadHandler from "../utilities/fileUpload";
 import {collections, connectToDatabase, db} from "../services/mongodb/database.service";
-import mongoose from "mongoose";
-import {parentPort, workerData} from "worker_threads";
-import dataDir from "../utilities/dataDir";
-import fs from "fs";
-import product from "../models/Product";
 
-export const getProductCount = async (req, res, next)=>{
+import fileUpload from "../utilities/fileUpload";
+import {errorResponse, successResponse} from "../response";
+import fs from "fs";
+import staticDir from "../utilities/staticDir";
+
+export const getProductCount = async (req: Request, res: Response, next: NextFunction) => {
   const {category_id} = req.query
   let client;
   try{
@@ -41,13 +41,7 @@ export const getProductCount = async (req, res, next)=>{
   }
 }
 
-
-
-const ProductModel = mongoose.model("products", new mongoose.Schema({
-  title: String
-}))
-
-export const getProducts = async (req, res, next)=>{
+export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
   
   const { pageNumber=1, perPage=10 } = req.query
 
@@ -506,165 +500,176 @@ export const updateProductPutReq = async (req, res, next)=>{
   }
 }
 
-// add new product
-export const saveProducts = async (req, res, next)=>{
 
-  let client;
-  
-  try{
-    fileUploadHandler(req, "src/static/upload", "image", async (err, ctx)=> {
-      
-      if (err) {
-        console.log(err.message)
-        throw new Error(err.message)
-      }
-  
-      let {
-        title,
-        price,
-        discount,
-        brand_id,
-        category_id,
-        seller_id,
-        qty,
-        sold,
-        views,
-        attributes,
-        cover_photo,
-        images,
-        removePhoto
-      } = ctx.fields
-      
-      try {
-  
-        let validate = new Validator({
-          title: {type: "text", required: true},
-          price: {type: "number", required: true},
-          discount: {type: "number", required: true},
-          brand_id: {type: "text", required: true},
-          category_id: {type: "text", required: true},
-          seller_id: {type: "text", required: true},
-          updated_at: {type: "text", required: true},
-          created_at: {type: "text", required: true},
-          qty: {type: "number", required: true},
-          sold: {type: "number", required: true},
-          views: {type: "number", required: true},
-          attributes: {type: "object", required: true},
-          cover_photo: {type: "text", required: true, errorMessage: "not allowed"},
-          image: {type: "text", required: true}
-        }, {abortEarly: true})
-  
-        let errors = validate.validate({
-          title,
-          price,
-          discount,
-          brand_id,
-          category_id,
-          seller_id,
-          qty,
-          sold,
-          views,
-          attributes: attributes !== "" ? JSON.parse(attributes) : {}
-        })
-  
-        // if(errors){
-        //   res.status(409).json({message: errors})
-        //   return
-        // }
-  
-        let newProduct: any = {
-          title,
-          price: Number(price),
-          discount: Number(discount),
-          brand_id: new ObjectId(brand_id),
-          category_id: new ObjectId(category_id),
-          seller_id: new ObjectId("6165b0ecd28d389c0a4dbc57"),
-          updated_at: new Date(),
-          created_at: new Date(),
-          qty: Number(qty),
-          sold: Number(sold),
-          views: Number(views),
-          attributes: JSON.parse(attributes)
-        }
-  
-        let uploadedImages: string[] = []
-  
-        if (ctx.files.image) {
-          ctx.files.image.forEach(link => {
-            uploadedImages.push(link.path)
-          })
-        }
-  
-        if (images && typeof images === "string") {
-          uploadedImages.push(...JSON.parse(images))
-        }
-  
-  
-        newProduct.images = uploadedImages
-        if (cover_photo) {
-          if (cover_photo.indexOf("/") !== -1) {
-            newProduct.cover_photo = cover_photo
-          } else {
-            newProduct.images.forEach(i => {
-              if (i.indexOf(cover_photo)) {
-                newProduct.cover_photo = i
-              }
-            })
-          }
-        } else {
-          newProduct.cover_photo = uploadedImages[0]
-        }
-  
-        let r = await Product.insertInto(newProduct)
-        let product_id = r.insertedId
-  
-  
-        const {
-          description,
-          seller_rules,
-          highlight,
-          details
-        } = ctx.fields
-  
-        let productDescriptionValidator = new Validator({
-          description: {type: "text", required: true},
-          seller_rules: {type: "object", required: true},
-          highlight: {type: "object", required: false},
-          details: {type: "object", required: false},
-          product_id: {type: "object", required: false}
-        })
-  
-        let e = productDescriptionValidator.validate({
-          description,
-          seller_rules: JSON.parse(seller_rules),
-          highlight: JSON.parse(highlight),
-          details: JSON.parse(details),
-          product_id: product_id
-        })
-        if (e) {
-          return res.send("product adding fail")
-        }
-  
-        let des = await ProductDescription.insertInto({
-          description,
-          seller_rules: JSON.parse(seller_rules),
-          highlight: JSON.parse(highlight),
-          details: JSON.parse(details),
-          product_id: product_id
-        })
-  
-        res.status(200).json({message: "Product Successfully Added"})
-  
-      } catch (ex){
-        await client?.close()
-        
-        res.json({ message: ex.message + ' not save product' })
-      } finally {
-        await client?.close()
-      }
+// add new product
+export const saveProduct = async (req: Request, res: Response, next: NextFunction) => {
+
+
+  let sellerId = "6165b0ecd28d389c0a4dbc57"
+
+
+  try {
+
+    let { err, fields, file, fileName } = await fileUpload(req, "coverPhoto");
+    if (err) {
+      return errorResponse(next, "Internal Error. Please try Again")
+    }
+
+    let {
+      title,
+      price,
+      discount,
+      brandId,
+      categoryId,
+      qty,
+      attributes="{}",
+      coverPhoto = "",
+      images
+
+    } =  fields as any
+
+
+    let validate = new Validator({
+      title: {type: "text", required: true},
+      price: {type: "number", required: true},
+      discount: {type: "number", required: true},
+      brandId: {type: "text", required: true},
+      categoryId: {type: "text", required: true},
+      sellerId: {type: "text", required: true},
+      qty: {type: "number", required: true},
+      attributes: {type: "object", required: true},
+      coverPhoto: {type: "text", required: true, errorMessage: "not allowed"},
+      // image: {type: "text", required: true}
+    }, {abortEarly: true})
+
+    let errors = validate.validate({title,price,discount,brandId,categoryId,sellerId,qty, attributes: attributes !== "" ? JSON.parse(attributes) : {}})
+
+    if(errors){
+      res.status(409).json({message: errors})
+      return
+    }
+
+    let newProduct = new Product({
+      title,
+      price: Number(price),
+      discount: Number(discount),
+      brandId: new ObjectId(brandId),
+      categoryId: new ObjectId(categoryId),
+      sellerId: new ObjectId(sellerId),
+      updatedAt: new Date(),
+      createdAt: new Date(),
+      qty: Number(qty),
+      sold: 0,
+      views: 0,
+      images: [],
+      attributes: JSON.parse(attributes),
+      coverPhoto: "",
+      isApproved: false,
+      authorId: new ObjectId("000000000000000000000000"),
     })
-    
-    
+
+    let newPath: string
+
+    // move file to our static dir
+    if (file) {
+      newPath = "upload/" + fileName
+      try {
+        fs.cpSync(file, staticDir + "/" + newPath)
+      } catch (ex) {
+      }
+    } else {
+      newPath = coverPhoto
+    }
+
+    newProduct.coverPhoto = newPath
+
+    let doc = await collections.products.insertOne(newProduct)
+    if(doc && doc.insertedId){
+      successResponse(res, 201, {
+        message: "Product added",
+        product: newProduct
+      })
+    }
+
+
+  } catch (ex){
+    next(ex)
+
+  } finally {
+
+  }
+
+
+
+  // let uploadedImages: string[] = []
+    //
+    // // if (ctx.files.image) {
+    // //   ctx.files.image.forEach(link => {
+    // //     uploadedImages.push(link.path)
+    // //   })
+    // // }
+    // //
+    // if (images && typeof images === "string") {
+    //   uploadedImages.push(...JSON.parse(images))
+    // }
+    //
+    //
+    // newProduct.images = uploadedImages
+    // if (cover_photo) {
+    //   if (cover_photo.indexOf("/") !== -1) {
+    //     newProduct.cover_photo = cover_photo
+    //   } else {
+    //     newProduct.images.forEach(i => {
+    //       if (i.indexOf(cover_photo)) {
+    //         newProduct.cover_photo = i
+    //       }
+    //     })
+    //   }
+    // } else {
+    //   newProduct.cover_photo = uploadedImages[0]
+    // }
+    //
+    // let r = await Product.insertInto(newProduct)
+    // let product_id = r.insertedId
+    //
+    //
+    // const {
+    //   description,
+    //   seller_rules,
+    //   highlight,
+    //   details
+    // } = ctx.fields
+    //
+    // let productDescriptionValidator = new Validator({
+    //   description: {type: "text", required: true},
+    //   seller_rules: {type: "object", required: true},
+    //   highlight: {type: "object", required: false},
+    //   details: {type: "object", required: false},
+    //   product_id: {type: "object", required: false}
+    // })
+    //
+    // let e = productDescriptionValidator.validate({
+    //   description,
+    //   seller_rules: JSON.parse(seller_rules),
+    //   highlight: JSON.parse(highlight),
+    //   details: JSON.parse(details),
+    //   product_id: product_id
+    // })
+    // if (e) {
+    //   return res.send("product adding fail")
+    // }
+    //
+    // let des = await ProductDescription.insertInto({
+    //   description,
+    //   seller_rules: JSON.parse(seller_rules),
+    //   highlight: JSON.parse(highlight),
+    //   details: JSON.parse(details),
+    //   product_id: product_id
+    // })
+    //
+    // res.status(200).json({message: "Product Successfully Added"})
+
+
     // const {  db, client: cc} = await dbConnect()
     // client = cc
     //
@@ -751,13 +756,10 @@ export const saveProducts = async (req, res, next)=>{
       //     brand: {name: brandData.name },
       //     category: { name: categoryData.name  }
       //   }
-      
-      
-        
-      //   res.json({ product: product })
+
+      // res.json({ product: product })
       // }
-      
-      
+
       // if(insertedCount > 0){
       //   let cta = await CategoryCollection.findOne(
       //     {_id: new ObjectId(cursor.ops[0].category_id)},
@@ -767,16 +769,14 @@ export const saveProducts = async (req, res, next)=>{
       // } else{
       //   res.json({ message: 'not save product' }) 
       // }
-
-      
     // })
 
-  } catch(ex){
-    console.log(ex.message)
-    next(ex)
-  } finally {
-    // client?.close()
-  }
+  // } catch(ex){
+  //   console.log(ex.message)
+  //   next(ex)
+  // } finally {
+  //   // client?.close()
+  // }
 }
 
 // make duplicate product
@@ -2169,28 +2169,21 @@ export const productFilters = async (req, res, next)=>{
 export const deleteProduct = async(req, res, next)=>{
   
   const { id } = req.params 
-  let client;
+
   try {
-    let { db, client: cc } =  await dbConnect()
-    client = cc
-    
-    let ProductCollection = db.collection("products")
-    let ProductDescriptionCollection = db.collection("product_descriptions")
-    
-    let doc = await  ProductCollection.deleteOne({_id: new ObjectId(id)})
-    if(doc.deletedCount >= 1){
-      await ProductDescriptionCollection.deleteOne({product_id: new ObjectId(id)})
-      res.status(201).send("product deleted")
+
+    let doc = await collections.products.deleteOne({_id: new ObjectId(id)})
+    if(doc.deletedCount > 0){
+      // await ProductDescriptionCollection.deleteOne({product_id: new ObjectId(id)})
+      successResponse(res, 201, "product deleted");
+
     } else{
-      res.status(422).send("product not deleted")
+      errorResponse(next , "product not deleted", 422)
     }
     
   } catch(ex){
     next(ex)
-  } finally{
-    client?.close()
   }
-    
 }
 
 

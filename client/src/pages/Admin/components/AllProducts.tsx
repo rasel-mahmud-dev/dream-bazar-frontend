@@ -56,11 +56,11 @@ import {useNavigate} from "react-router-dom";
 
   
   function deleteItem(id){
-
-    api.delete(`/api/products/${id}`).then(response=>{
-      alert(JSON.stringify(response.data)) 
+    api.delete(`/api/product/${id}`).then(response=>{
+     if(response.status === 201) {
+       setProducts(products.filter((p: any) => p._id !== id))
+     }
     })
-    setProducts(products.filter((p: any)=>p._id !== id))
   }
   
   
@@ -157,7 +157,7 @@ function fetchStaticFiles(){
         render: (item) => (
             <div className="flex justify-center items-center gap-x-2">
                     <BsPencilSquare className="text-md cursor-pointer" onClick={()=>navigate("/auth/admin/dashboard/update-product/"+item._id)} />
-                    <FcEmptyTrash className="text-xl cursor-pointer" onClick={()=>deleteItem(item.id)}/>
+                    <FcEmptyTrash className="text-xl cursor-pointer" onClick={()=>deleteItem(item._id)}/>
                 </div>
         ),
       },

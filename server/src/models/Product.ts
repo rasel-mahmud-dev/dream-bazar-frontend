@@ -3,22 +3,23 @@ import {ObjectId} from "mongodb";
 import {IndexType} from "../services/mongodb/models.index.types";
 
 export interface ProductType{
-  _id?: ObjectId,
+  _id?: ObjectId | string,
   title: string,
   price: number,
   discount?: number
   attributes?: object,
   coverPhoto: string,
   images?: string[],
-  updatedAt?: Date,
   qty: number,
   sold?: number,
   views?: number,
-  brandId?: string
-  categoryId?: string
-  sellerId?: object | string
-  authorId: object | string
+  brandId?: string | ObjectId
+  categoryId?: string | ObjectId
+  sellerId?: ObjectId | string
+  authorId: ObjectId | string
   createdAt?: Date,
+  updatedAt?: Date,
+  isApproved: boolean
 }
 
 
@@ -32,12 +33,13 @@ class Product implements ProductType{
   public images: string[]
   public updatedAt: Date
   public qty: number
+  isApproved: boolean
   public sold: number
   public views: number
-  public brandId: string
-  public categoryId: string
-  public sellerId: object | string
-  public authorId: object | string
+  public brandId: string | ObjectId
+  public categoryId: string | ObjectId
+  public sellerId: ObjectId | string
+  public authorId: ObjectId | string
   public createdAt: Date
 
   static indexes: IndexType = {
@@ -66,6 +68,7 @@ class Product implements ProductType{
     this.authorId = data.authorId
     this.createdAt = new Date()
     this.updatedAt = new Date()
+    this.isApproved = data.isApproved
   }
 }
 

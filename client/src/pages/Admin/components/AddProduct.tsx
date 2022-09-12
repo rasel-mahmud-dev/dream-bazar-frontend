@@ -11,6 +11,7 @@ import apis from "src/apis";
 import {fetchFlatCategories} from "actions/productAction";
 import {ACTION_TYPES} from "store/types";
 import {Button} from "UI/index";
+import errorMessageCatch from "src/utills/errorMessageCatch";
 
 
 
@@ -50,13 +51,13 @@ const AddProduct: FC<Props> = (props) => {
         httpResponse: "",
         httpStatus: 200,
         productData: {
-            title: { value: "", errorMessage: "" },
+            title: { value: "asdsad", errorMessage: "" },
             coverPhoto: { value: "", errorMessage: "" },
-            categoryId: { value: "", errorMessage: "" },
-            brandId: { value: "", errorMessage: "" },
-            price: { value: "", errorMessage: "" },
-            qty: { value: "", errorMessage: "" },
-            discount: { value: "", errorMessage: "" }
+            categoryId: { value: "60df5e546419f56b97610602", errorMessage: "" },
+            brandId: { value: "61356bd9a937c621233341d9", errorMessage: "" },
+            price: { value: "23432", errorMessage: "" },
+            qty: { value: "234234", errorMessage: "" },
+            discount: { value: "234234", errorMessage: "" }
         }
     })
     
@@ -76,6 +77,7 @@ const AddProduct: FC<Props> = (props) => {
                 }
             }
         } else {
+            console.log(value)
             updateProductData = {
                 ...updateProductData,
                 [name]: {
@@ -92,9 +94,9 @@ const AddProduct: FC<Props> = (props) => {
     }
     
     
-    async function handleSave(e){
+    async function handleSave(e) {
         let updateState = {...state}
-        
+    
         e.preventDefault();
     
         let isComplete = true
@@ -102,18 +104,19 @@ const AddProduct: FC<Props> = (props) => {
     
         for (let item in productData) {
         
-            if(item === "coverPhoto"){
-                if(productData[item].value) {
+            if (item === "coverPhoto") {
+                if (productData[item].value) {
                     if (typeof productData[item].value === "string") {
                         payload.append(item, productData[item].value)
                     } else {
-                        payload.append(item, productData[item].value, productData[item].value.name)
+                        // when value is blob image
+                        payload.append(item, productData[item].value, productData[item].value?.name)
                     }
                 }
-            } else if(item === "forCategory"){
+            } else if (item === "forCategory") {
                 let categoryIds = []
-                if(productData[item].value && Array.isArray(productData[item].value) && productData[item].value.length){
-                    for(let cat of productData[item].value){
+                if (productData[item].value && Array.isArray(productData[item].value) && productData[item].value.length) {
+                    for (let cat of productData[item].value) {
                         categoryIds.push(cat.id)
                     }
                 } else {
@@ -123,7 +126,7 @@ const AddProduct: FC<Props> = (props) => {
                 payload.append(item, JSON.stringify(categoryIds))
             
             } else {
-                if(!productData[item].value){
+                if (!productData[item].value) {
                     isComplete = false;
                     productData[item].errorMessage = "Please enter " + item
                 }
@@ -131,7 +134,7 @@ const AddProduct: FC<Props> = (props) => {
             }
         }
     
-        if(!isComplete){
+        if (!isComplete) {
             updateState.httpStatus = 500
             updateState.httpResponse = "Please fill Input"
             setState(updateState)
@@ -141,9 +144,43 @@ const AddProduct: FC<Props> = (props) => {
         updateState.httpStatus = 200
         updateState.httpResponse = "pending"
     
-        // setState(updateState)
     
-        let response = await api.post("/api/productss", payload)
+        setState(updateState)
+    
+        updateState = {...state}
+    
+        if (params.id) {
+            apis.patch("/api/product/"+params.id, payload).then(({status, data}) => {
+                if (status === 201) {
+                    updateState.httpResponse = data.message
+                    updateState.httpStatus = 200
+                    // setBrands([...brands, data.products])
+                }
+            }).catch(ex => {
+                updateState.httpResponse = errorMessageCatch(ex);
+                updateState.httpStatus = 500
+            }).finally(() => {
+                setState(updateState)
+            })
+        } else {
+            // add as a new product
+            apis.post("/api/product", payload).then(({status, data}) => {
+                if (status === 201) {
+                    updateState.httpResponse = data.message
+                    updateState.httpStatus = 200
+                    // setBrands([...brands, data.products])
+                }
+            }).catch(ex => {
+                updateState.httpResponse = errorMessageCatch(ex);
+                updateState.httpStatus = 500
+            }).finally(() => {
+                setState(updateState)
+            })
+        }
+    
+        
+        
+      
         
         // updateState = {...state}
         
@@ -218,7 +255,6 @@ const AddProduct: FC<Props> = (props) => {
                         name="categoryId"
                         labelClass="dark:text-white !mb-2"
                         className={"!flex-col"}
-                        // value={productData.categoryId.value}
                         label="Select categoryId"
                         inputClass="input-group"
                         placeholder="categoryId"
@@ -238,7 +274,6 @@ const AddProduct: FC<Props> = (props) => {
                         name="brandId"
                         labelClass="dark:text-white !mb-2"
                         className={"!flex-col"}
-                        // value={productData.parentId.value}
                         label="Select brandId"
                         inputClass="input-group"
                         placeholder="brandId"
