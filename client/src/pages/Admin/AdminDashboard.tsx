@@ -1,5 +1,5 @@
 import React, {lazy, Suspense, useContext, useState} from 'react'
-import {useParams, Link, Route, Outlet,} from "react-router-dom"
+import {useParams, Link, Route, Outlet, useLocation,} from "react-router-dom"
 import {nonInitialEffect} from "src/reactTools"
 
 import {
@@ -26,84 +26,130 @@ import {AppContext, AppContextType, DeviceType} from "store/AppContext";
 
 import staticImagePath from "src/utills/staticImagePath";
 
-
+const sidebarData =  [
+    {
+        id: 0,
+        name: "Dashboard",
+        icon: <MdDashboard />,
+        to: `/auth/admin/dashboard`
+    },
+    {
+        label: "Manage Product",
+        name: "Products",
+        to: "none",
+        id: 1,
+        icon: <CgProductHunt />,
+        subMenu: [
+            {name: "Products", to: `/auth/admin/dashboard/products`,  icon: <MdManageAccounts />, id: "11"},
+            {name: "Add Products",  to: `/auth/admin/dashboard/add-product`, icon: <FaAddressBook />, id: "23432432"}
+        ]
+    },
+    {
+        label: "Manage Brands",
+        name: "Brands",
+        to: "none",
+        id: 2,
+        icon: <GrOrderedList />,
+        subMenu: [
+            {name: "Brands", to: "/auth/admin/dashboard/brands", icon: <FaIcons />, id: "234234"},
+            {name: "Add Brand", to: "/auth/admin/dashboard/add-brand", icon: <CgAdd />, id: '7574'},
+        ]
+    },
+    {
+        label: "Manage Categories",
+        name: "Categories",
+        to: "none",
+        id: 3,
+        icon: <GrOrderedList />,
+        subMenu: [
+            {name: "Categories", to: `/auth/admin/dashboard/categories`, icon: <FaIcons />, id: "7567"},
+            {name: "Add Category", to: "/auth/admin/dashboard/add-category", icon: <CgAdd />},
+        ]
+    },
+    {
+        name: "Setting",
+        to: "",
+        id: 4,
+        icon: <BsGear/>
+    },
+    {
+        name: "Policies",
+        to: "",
+        id: 5,
+        icon: <FaQuestionCircle />
+    },
+    {
+        name: "Help",
+        to: "",
+        id: 6,
+        icon: <GiHelp />
+    },
+    {
+        name: "Sign Out",
+        to: "",
+        id: 7,
+        icon: <FaSignOutAlt />
+    }
+]
 
 const AdminDashboard = (props) => {
     
     let params = useParams()
+    let location = useLocation();
+    
+    React.useEffect(()=>{
+        
+        let a = location.pathname.lastIndexOf("/");
+    
+        if(a !== -1){
+            a =   location.pathname.slice(a)
+        }
+
+        let isFound = false
+        sidebarData.forEach(item=>{
+            
+            if(item.to){
+                let index = item.to.indexOf(a)
+             
+                if(index !== -1){
+                   setCurrentPage(item.id.toString())
+                    isFound = true
+                    return;
+                   
+                } else  {
+           
+                    if(!isFound && item.subMenu) {
+                        item.subMenu.forEach(subItem => {
+                            if (subItem.to && subItem.to.indexOf(a) !== -1) {
+                                if(subItem.id) {
+                                    setCurrentPage(subItem.id.toString())
+                                    return;
+                                }
+                            }
+                        })
+                    }
+                }
+            }
+        })
+        
+        
+        
+        
+    }, [location.pathname])
+    
     
     // let history = useHistory()
     const dispatch = useDispatch()
     
     const { authState : {auth} } = useSelector((state: RootState)=>state)
     
-    let [collapseIds, setCollapseIds] = React.useState(["1", "1-11"])
+    let [collapseIds, setCollapseIds] = React.useState(["1"])
+    let [currentPage, setCurrentPage] = React.useState("0")
+    
+    
     const [isInline, setInline] = useState(false)
     const {contextState, contextDispatch} = useContext<AppContextType>(AppContext)
     
-    
-    const sidebarData =  [
-        {
-            id: 0,
-            name: "Dashboard",
-            icon: <MdDashboard />,
-            to: `/customer/${auth ? auth.username : "guest"}`
-        },
-        {
-            label: "Manage Product",
-            name: "Products",
-            id: 1,
-            icon: <CgProductHunt />,
-            subMenu: [
-                {name: "Products", to: `/auth/admin/dashboard/products`,  icon: <MdManageAccounts />, id: "11"},
-                {name: "Add Products",  to: `/auth/admin/dashboard/add-product`, icon: <FaAddressBook />}
-            ]
-        },
-        {
-            label: "Manage Brands",
-            name: "Brands",
-            id: 2,
-            icon: <GrOrderedList />,
-            subMenu: [
-                {name: "Brands", to: "/auth/admin/dashboard/brands", icon: <FaIcons />},
-                {name: "Add Brand", to: "/auth/admin/dashboard/add-brand", icon: <CgAdd />},
-            ]
-        },
-        {
-            label: "Manage Categories",
-            name: "Categories",
-            id: 3,
-            icon: <GrOrderedList />,
-            subMenu: [
-                {name: "Categories", to: `/auth/admin/dashboard/categories`, icon: <FaIcons />},
-                {name: "Add Category", to: "/auth/admin/dashboard/add-category", icon: <CgAdd />},
-            ]
-        },
-        {
-            name: "Setting",
-            to: "",
-            id: 4,
-            icon: <BsGear/>
-        },
-        {
-            name: "Policies",
-            to: "",
-            id: 5,
-            icon: <FaQuestionCircle />
-        },
-        {
-            name: "Help",
-            to: "",
-            id: 6,
-            icon: <GiHelp />
-        },
-        {
-            name: "Sign Out",
-            to: "",
-            id: 7,
-            icon: <FaSignOutAlt />
-        }
-    ]
     
     React.useEffect(()=>{
         if(contextState.windowWidth > 800){
@@ -197,11 +243,12 @@ const AdminDashboard = (props) => {
                               onClickOnItem={toggleCollapseSubMenu} className="pt-1 px-4"
                               key={data.id.toString()}
                               item={data}
+                              activeId={currentPage}
                               renderInlineMode={renderInlineMode}
                               label={<h1 className="text-green-400 font-medium mt-3 ml-2 mb-1">{data.label}</h1>}>
                             
                               <div className="menu-item text-neutral-200">
-                                { data.to ? (
+                                { (!data.subMenu && data.to) ? (
                                     <Link to={data.to} className="flex items-center">
                                       { data.icon }
                                         <span className="ml-2">{data.name}</span>
@@ -217,10 +264,10 @@ const AdminDashboard = (props) => {
             
             
                               {data.subMenu  && <div className="bg-neutral-100 dark:bg-neutral-700 px-3 py-2">
-                                  {data.subMenu.map(s=>(
-                                      <Menu.Item className=" my-1" key={s.name}>
+                                  {data.subMenu.map((s)=>(
+                                      <Menu.Item className={`my-1`} key={s.id} >
                                         <Link to={s.to} className="flex items-center gap-x-1 text-neutral-200 py-1 menu-item">
-                                          {s.icon}
+                                            {s.icon}
                                             {s.name}
                                       </Link>
                                     </Menu.Item>
@@ -234,23 +281,24 @@ const AdminDashboard = (props) => {
                )) }
              </div>
         </div>
-        )
-    }
+    )}
+    
     
     return (
         <div className="dashboard-container">
           <div className="flex">
-        
+            
             {renderSidebarMenu()}
-    
-              <div className={`content w-full ml-8 ${isInline ? "inline-mode" : ""}`}>
-              <Outlet />
+            <div className={`content w-full ml-8 ${isInline ? "inline-mode" : ""}`}>
+                <Outlet />
             </div>
           
           </div>
         </div>
     )
 }
+
+
 
 
 

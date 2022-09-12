@@ -2,7 +2,6 @@ import AdminDashboard from "pages/Admin/AdminDashboard";
 import AllProducts from "pages/Admin/components/AllProducts";
 import AllBrands from "pages/Admin/components/AllBrands";
 import AddProduct from "pages/Admin/components/AddProduct";
-import AddBrand from "pages/Admin/components/AddBrand";
 import AllCategory from "pages/Admin/components/AllCategory";
 
 

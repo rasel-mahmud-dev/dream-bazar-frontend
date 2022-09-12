@@ -37,7 +37,7 @@ const AllCategory = (props) => {
         formData: {
             name: { value: "", errorMessage: "" },
             isProductLevel: { value: false,  errorMessage: "" },
-            parentId: { value: 0, errorMessage: "" }
+            parentId: { value: "0", errorMessage: "" }
         },
     });
 
@@ -249,7 +249,6 @@ const AllCategory = (props) => {
                     name="parentId"
                     labelClass="dark:text-white !mb-2"
                     className={"!flex-col"}
-                    value={formData.parentId.value}
                     label="Select ParentId"
                     inputClass="input-group"
                     placeholder="parentId"
@@ -295,17 +294,9 @@ const AllCategory = (props) => {
     }
 
     const columns = [
-        {
-            title: "Logo",
-            dataIndex: "logo",
-            render: (item) => (
-                <div className="w-8">
-                    <img src={staticImagePath(item?.logo)} alt="" />
-                </div>
-            ),
-        },
         { title: "Name", dataIndex: "name" },
-        { title: "CreatedAt", dataIndex: "createdAt" },
+        { title: "CreatedAt", dataIndex: "createdAt", render: (item) => <span>{new Date(item.createdAt).toDateString()}</span> },
+        { title: "Is Product Level", dataIndex: "isProductLevel", render: (item) => <span>{item.isProductLevel === 1 ? "True": "False" }</span> },
         {
             title: "Action",
             dataIndex: "",

@@ -1,11 +1,19 @@
 
-.sub-menu-item__expanded {
+.active-menu-item{
   background: rgb(60 204 111 / 1);
-  color: white;
+  color: white !important;
   &:hover{
-    background: rgb(60 204 111 / 1) !important;
+    background: rgb(12, 199, 78) !important;
   }
 }
+
+//.sub-menu-item__expanded {
+//  background: rgb(60 204 111 / 1);
+//  color: white;
+//  &:hover{
+//    background: rgb(60 204 111 / 1) !important;
+//  }
+//}
 
 .sub_menu {
   box-sizing: border-box;

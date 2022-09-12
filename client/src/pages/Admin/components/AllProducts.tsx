@@ -148,7 +148,7 @@ function fetchStaticFiles(){
       { title: "Category", dataIndex: "categoryId" },
       { title: "Brand", dataIndex: "brandId" },
       { title: "Price", dataIndex: "price", render: (item) => <span>${item.price}</span> },
-      { title: "Stock", dataIndex: "stock" },
+      { title: "Stock", dataIndex: "qty" },
       { title: "Sold", dataIndex: "sold" },
       {
         title: "Action",
