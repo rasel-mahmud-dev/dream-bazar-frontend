@@ -172,173 +172,192 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
 }
 
 export const getProduct = async (req, res, next)=>{
+
   if(!isObjectId(req.params.id)){
     return res.send('please send product id')
   }
- 
-
-  // let client;
 
   try {
-    
-    
-    let p: ProductType = await Product.aggregate([
-      { $match: { _id: new ObjectId(req.params.id) } },
-      {
-        $lookup: {
-          from: "categories",
-          localField: "category_id",
-          foreignField: "_id",
-          as: "category"
-        }
-      },
-      {
-        $lookup: {
-          from: "brands",
-          localField: "brand_id",
-          foreignField: "_id",
-          as: "brand"
-        }
-      },
-      {
-        $lookup: {
-          from: "sellers",
-          localField: "seller_id",
-          foreignField: "_id",
-          as: "seller"
-        }
-      },
-      { $unwind: { path: "$seller", preserveNullAndEmptyArrays: true } },
-      {
-        $lookup: {
-          from: "users",
-          localField: "seller.customer_id",
-          foreignField: "_id",
-          as: "seller.seller_desc"
-        }
-      },
-      { $unwind: { path: "$seller.seller_desc", preserveNullAndEmptyArrays: true } },
-      {
-        $project: {
-          title: 1,
-          seller_id: 1,
-          seller: {
-            customer_id: 1,
-            shop_name: 1,
-            seller_info: {
-              username: 1,
-              email: 1
-            }
-          },
-          qty: 1,
-          sold: 1,
-          views: 1,
-          "category_id": 1,
-          "price": 1,
-          "brand_id": 1,
-          "created_at": 1,
-          "attributes": 1,
-          "cover_photo": 1,
-          "discount": 10,
-          "images": 1,
-          "updated_at": 1
-        }
-      }
-    ])
-    
-    
-    // const { c: ProductCollection, client: cc} = await dbConnect("products")
-    // client = cc
-    //
-    // let cursor =  ProductCollection.aggregate([
-    //   { $match: { _id: new ObjectId(req.params.id) } },
-    //   {
-    //     $lookup: {
-    //       from: "categories",
-    //       localField: "category_id",
-    //       foreignField: "_id",
-    //       as: "category"
-    //     }
-    //   },
-    //   {
-    //     $lookup: {
-    //       from: "brands",
-    //       localField: "brand_id",
-    //       foreignField: "_id",
-    //       as: "brand"
-    //     }
-    //   },
-    //   {
-    //     $lookup: {
-    //       from: "sellers",
-    //       localField: "seller_id",
-    //       foreignField: "_id",
-    //       as: "seller"
-    //     }
-    //   },
-    //   { $unwind: { path: "$seller", preserveNullAndEmptyArrays: true } },
-    //   {
-    //     $lookup: {
-    //       from: "users",
-    //       localField: "seller.customer_id",
-    //       foreignField: "_id",
-    //       as: "seller.seller_desc"
-    //     }
-    //   },
-    //   { $unwind: { path: "$seller.seller_desc", preserveNullAndEmptyArrays: true } },
-    //   {
-    //     $project: {
-    //       title: 1,
-    //       seller_id: 1,
-    //       seller: {
-    //         customer_id: 1,
-    //         shop_name: 1,
-    //         seller_info: {
-    //           username: 1,
-    //           email: 1
-    //         }
-    //       },
-    //       qty: 1,
-    //       sold: 1,
-    //       views: 1,
-    //       "category_id": 1,
-    //       "price": 1,
-    //       "brand_id": 1,
-    //       "created_at": 1,
-    //       "attributes": 1,
-    //       "cover_photo": 1,
-    //       "discount": 10,
-    //       "images": 1,
-    //       "updated_at": 1
-    //     }
-    //   }
-    // ])
-    //
-    // let product = {}
-    //
-    // await cursor.forEach(p=>{
-    //   product = p
-    // })
-    //
-    // if(product){
-    //   return res.json({product: product})
-    //
-    // } else {
-    //   res.status(404).json({message: "Product Not Found"})
-    // }
-  
-    return res.json({product: p[0]})
-    
+    let product = await collections.products.findOne({ _id: new ObjectId(req.params.id)})
+    successResponse(res, 200, product)
+
   } catch (ex){
-    console.log("-================");
+
     next(ex)
   } finally {
-    // client?.close()
-  }
 
+  }
 }
 
-export const productUpdate = async (req, res, next)=>{
+
+//
+// export const getProduct = async (req, res, next)=>{
+//
+//   if(!isObjectId(req.params.id)){
+//     return res.send('please send product id')
+//   }
+//
+//   try {
+//
+//
+//     let p = await collections.products.aggregate([
+//       { $match: { _id: new ObjectId(req.params.id) } },
+//       {
+//         $lookup: {
+//           from: "categories",
+//           localField: "category_id",
+//           foreignField: "_id",
+//           as: "category"
+//         }
+//       },
+//       {
+//         $lookup: {
+//           from: "brands",
+//           localField: "brand_id",
+//           foreignField: "_id",
+//           as: "brand"
+//         }
+//       },
+//       {
+//         $lookup: {
+//           from: "sellers",
+//           localField: "seller_id",
+//           foreignField: "_id",
+//           as: "seller"
+//         }
+//       },
+//       { $unwind: { path: "$seller", preserveNullAndEmptyArrays: true } },
+//       {
+//         $lookup: {
+//           from: "users",
+//           localField: "seller.customer_id",
+//           foreignField: "_id",
+//           as: "seller.seller_desc"
+//         }
+//       },
+//       { $unwind: { path: "$seller.seller_desc", preserveNullAndEmptyArrays: true } },
+//       {
+//         $project: {
+//           title: 1,
+//           seller_id: 1,
+//           seller: {
+//             customer_id: 1,
+//             shop_name: 1,
+//             seller_info: {
+//               username: 1,
+//               email: 1
+//             }
+//           },
+//           qty: 1,
+//           sold: 1,
+//           views: 1,
+//           "category_id": 1,
+//           "price": 1,
+//           "brand_id": 1,
+//           "created_at": 1,
+//           "attributes": 1,
+//           "cover_photo": 1,
+//           "discount": 10,
+//           "images": 1,
+//           "updated_at": 1
+//         }
+//       }
+//     ])
+//
+//
+//     // const { c: ProductCollection, client: cc} = await dbConnect("products")
+//     // client = cc
+//     //
+//     // let cursor =  ProductCollection.aggregate([
+//     //   { $match: { _id: new ObjectId(req.params.id) } },
+//     //   {
+//     //     $lookup: {
+//     //       from: "categories",
+//     //       localField: "category_id",
+//     //       foreignField: "_id",
+//     //       as: "category"
+//     //     }
+//     //   },
+//     //   {
+//     //     $lookup: {
+//     //       from: "brands",
+//     //       localField: "brand_id",
+//     //       foreignField: "_id",
+//     //       as: "brand"
+//     //     }
+//     //   },
+//     //   {
+//     //     $lookup: {
+//     //       from: "sellers",
+//     //       localField: "seller_id",
+//     //       foreignField: "_id",
+//     //       as: "seller"
+//     //     }
+//     //   },
+//     //   { $unwind: { path: "$seller", preserveNullAndEmptyArrays: true } },
+//     //   {
+//     //     $lookup: {
+//     //       from: "users",
+//     //       localField: "seller.customer_id",
+//     //       foreignField: "_id",
+//     //       as: "seller.seller_desc"
+//     //     }
+//     //   },
+//     //   { $unwind: { path: "$seller.seller_desc", preserveNullAndEmptyArrays: true } },
+//     //   {
+//     //     $project: {
+//     //       title: 1,
+//     //       seller_id: 1,
+//     //       seller: {
+//     //         customer_id: 1,
+//     //         shop_name: 1,
+//     //         seller_info: {
+//     //           username: 1,
+//     //           email: 1
+//     //         }
+//     //       },
+//     //       qty: 1,
+//     //       sold: 1,
+//     //       views: 1,
+//     //       "category_id": 1,
+//     //       "price": 1,
+//     //       "brand_id": 1,
+//     //       "created_at": 1,
+//     //       "attributes": 1,
+//     //       "cover_photo": 1,
+//     //       "discount": 10,
+//     //       "images": 1,
+//     //       "updated_at": 1
+//     //     }
+//     //   }
+//     // ])
+//     //
+//     // let product = {}
+//     //
+//     // await cursor.forEach(p=>{
+//     //   product = p
+//     // })
+//     //
+//     // if(product){
+//     //   return res.json({product: product})
+//     //
+//     // } else {
+//     //   res.status(404).json({message: "Product Not Found"})
+//     // }
+//
+//     return res.json({product: p[0]})
+//
+//   } catch (ex){
+//     console.log("-================");
+//     next(ex)
+//   } finally {
+//     // client?.close()
+//   }
+//
+// }
+
+
+export const productUpdateForAttributeChange = async (req, res, next)=>{
   const { id } = req.params
   const { type, quantity } = req.body
   let client;
@@ -768,6 +787,289 @@ export const saveProduct = async (req: Request, res: Response, next: NextFunctio
       //   res.json({ products: cursor.ops }) 
       // } else{
       //   res.json({ message: 'not save product' }) 
+      // }
+    // })
+
+  // } catch(ex){
+  //   console.log(ex.message)
+  //   next(ex)
+  // } finally {
+  //   // client?.close()
+  // }
+}
+
+
+
+// update  product
+export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
+
+  const { id } = req.params;
+
+  let sellerId = "6165b0ecd28d389c0a4dbc57"
+
+
+  try {
+
+    let { err, fields, file, fileName } = await fileUpload(req, "coverPhoto");
+    if (err) {
+      return errorResponse(next, "Internal Error. Please try Again")
+    }
+
+    let {
+      title,
+      price,
+      discount,
+      brandId,
+      categoryId,
+      qty,
+      attributes="{}",
+      coverPhoto = "",
+      images
+
+    } =  fields as any
+
+
+    let validate = new Validator({
+      title: {type: "text", required: true},
+      price: {type: "number", required: true},
+      discount: {type: "number", required: true},
+      brandId: {type: "text", required: true},
+      categoryId: {type: "text", required: true},
+      sellerId: {type: "text", required: true},
+      qty: {type: "number", required: true},
+      attributes: {type: "object", required: true},
+      coverPhoto: {type: "text", required: true, errorMessage: "not allowed"},
+      // image: {type: "text", required: true}
+    }, {abortEarly: true})
+
+    let errors = validate.validate({title,price,discount,brandId,categoryId,sellerId,qty, attributes: attributes !== "" ? JSON.parse(attributes) : {}})
+
+    if(errors){
+      errorResponse(next, {message: errors}, 409)
+      return
+    }
+
+    let updateProduct = {
+      title,
+      price: Number(price),
+      discount: Number(discount),
+      brandId: new ObjectId(brandId),
+      categoryId: new ObjectId(categoryId),
+      sellerId: new ObjectId(sellerId),
+      updatedAt: new Date(),
+      createdAt: new Date(),
+      qty: Number(qty),
+      images: [],
+      attributes: JSON.parse(attributes),
+      coverPhoto: "",
+      isApproved: false,
+      authorId: new ObjectId("000000000000000000000000"),
+    }
+
+    let newPath: string
+
+    // move file to our static dir
+    if (file) {
+      newPath = "upload/" + fileName
+      try {
+        fs.cpSync(file, staticDir + "/" + newPath)
+      } catch (ex) {
+      }
+    } else {
+      newPath = coverPhoto
+    }
+
+    updateProduct.coverPhoto = newPath
+
+    let doc = await collections.products.updateOne({_id: new ObjectId(id)}, {
+      $set: {
+          ...updateProduct
+      }
+    })
+
+    if(doc.modifiedCount === 1) {
+      successResponse(res, 201, {message: "product updated", updateProduct})
+
+    } else {
+      errorResponse(next, "product update fail", 500)
+    }
+
+  } catch (ex){
+    next(ex)
+
+  } finally {
+
+  }
+
+
+
+  // let uploadedImages: string[] = []
+    //
+    // // if (ctx.files.image) {
+    // //   ctx.files.image.forEach(link => {
+    // //     uploadedImages.push(link.path)
+    // //   })
+    // // }
+    // //
+    // if (images && typeof images === "string") {
+    //   uploadedImages.push(...JSON.parse(images))
+    // }
+    //
+    //
+    // newProduct.images = uploadedImages
+    // if (cover_photo) {
+    //   if (cover_photo.indexOf("/") !== -1) {
+    //     newProduct.cover_photo = cover_photo
+    //   } else {
+    //     newProduct.images.forEach(i => {
+    //       if (i.indexOf(cover_photo)) {
+    //         newProduct.cover_photo = i
+    //       }
+    //     })
+    //   }
+    // } else {
+    //   newProduct.cover_photo = uploadedImages[0]
+    // }
+    //
+    // let r = await Product.insertInto(newProduct)
+    // let product_id = r.insertedId
+    //
+    //
+    // const {
+    //   description,
+    //   seller_rules,
+    //   highlight,
+    //   details
+    // } = ctx.fields
+    //
+    // let productDescriptionValidator = new Validator({
+    //   description: {type: "text", required: true},
+    //   seller_rules: {type: "object", required: true},
+    //   highlight: {type: "object", required: false},
+    //   details: {type: "object", required: false},
+    //   product_id: {type: "object", required: false}
+    // })
+    //
+    // let e = productDescriptionValidator.validate({
+    //   description,
+    //   seller_rules: JSON.parse(seller_rules),
+    //   highlight: JSON.parse(highlight),
+    //   details: JSON.parse(details),
+    //   product_id: product_id
+    // })
+    // if (e) {
+    //   return res.send("product adding fail")
+    // }
+    //
+    // let des = await ProductDescription.insertInto({
+    //   description,
+    //   seller_rules: JSON.parse(seller_rules),
+    //   highlight: JSON.parse(highlight),
+    //   details: JSON.parse(details),
+    //   product_id: product_id
+    // })
+    //
+    // res.status(200).json({message: "Product Successfully Added"})
+
+
+    // const {  db, client: cc} = await dbConnect()
+    // client = cc
+    //
+    // const ProductCollection  = db.collection("products")
+    // const ProductDescriptionCollection = db.collection("product_descriptions")
+    //
+    //
+    //
+    // let imagesLink = []
+    // let cover_photo = ""
+    //
+    // fileUploadHandler(req, "upload", "image", async (err, ctx)=>{
+    //   if(err){
+    //     throw new Error(r)
+    //   }
+    //
+    //
+    //   if(ctx?.files?.image){
+    //     for (let i = 0; i < ctx.files.image.length; i++) {
+    //       const link = ctx.files.image[i];
+    //       imagesLink.push(link.path)
+    //       if(ctx?.fields?.cover_photo){
+    //         let match = link.path.lastIndexOf(ctx.fields.cover_photo)
+    //         if(match !== -1){
+    //           cover_photo = link.path
+    //         }
+    //       }
+    //     }
+    //   }
+    //
+    //
+    //   const { _id, details, highlight, description, attributes, ...other } = ctx.fields
+    //
+    //   // console.log(other);
+    //   // console.log(details, highlight, description);
+    //
+    //   let newProduct = {}
+    //   newProduct.title = other.title
+    //   newProduct.price = Number(other.price)
+    //   newProduct.qty = Number(other.qty)
+    //   newProduct.sold = Number(other.sold)
+    //   newProduct.views = Number(other.views)
+    //   newProduct.discount = Number(other.discount)
+    //   newProduct.images = imagesLink
+    //   newProduct.cover_photo = cover_photo
+    //   if(attributes && JSON.parse(attributes)){
+    //     newProduct.attributes = JSON.parse(attributes)
+    //   }
+    //
+    //   newProduct.category_id =  new ObjectId(other.category_id)
+    //   newProduct.brand_id =  new ObjectId(other.brand_id)
+    //   newProduct.created_at = new Date()
+    //   newProduct.updated_at = new Date()
+    //
+    //
+    //   let resposnse = await ProductCollection.insertOne(newProduct)
+    //   if(resposnse.acknowledged){
+    //     let respons = await ProductDescriptionCollection.insertOne({
+    //       details: JSON.parse(details),
+    //       highlight: JSON.parse(highlight),
+    //       description: description,
+    //       product_id: resposnse.insertedId
+    //     })
+    //
+    //     if(respons.acknowledged){
+    //       // let product = {...respons.ops[0] }
+    //       console.log(respons);
+    //     }
+    //   }
+
+
+      // if(response.insertedCount > 0){
+
+      //   let product = {...response.ops[0] }
+
+      //   let brandData = await BrandCollection.findOne(
+      //     {_id: new ObjectId(product.brand_id)})
+
+      //   let categoryData = await CategoryCollection.findOne(
+      //     {_id: new ObjectId(product.category_id)})
+
+      //   product = {
+      //     ...product,
+      //     brand: {name: brandData.name },
+      //     category: { name: categoryData.name  }
+      //   }
+
+      // res.json({ product: product })
+      // }
+
+      // if(insertedCount > 0){
+      //   let cta = await CategoryCollection.findOne(
+      //     {_id: new ObjectId(cursor.ops[0].category_id)},
+      //     {name: 1}
+      //   )
+      //   res.json({ products: cursor.ops })
+      // } else{
+      //   res.json({ message: 'not save product' })
       // }
     // })
 

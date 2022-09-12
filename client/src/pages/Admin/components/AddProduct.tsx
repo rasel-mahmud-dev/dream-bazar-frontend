@@ -8,7 +8,7 @@ import SelectGroup from "UI/Form/SelectGroup";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
 import apis from "src/apis";
-import {fetchFlatCategories} from "actions/productAction";
+import {fetchFlatCategories, fetchProduct, fetchProductForUpdate} from "actions/productAction";
 import {ACTION_TYPES} from "store/types";
 import {Button} from "UI/index";
 import errorMessageCatch from "src/utills/errorMessageCatch";
@@ -47,17 +47,37 @@ const AddProduct: FC<Props> = (props) => {
         })();
     }, [])
     
+    useEffect(()=>{
+        if(params.id && params.id.length === 24) {
+            fetchProductForUpdate(params.id, function (err, result){
+                if(!err){
+                    let updateProductData = {...state.productData};
+                    for (let updateProductDataKey in updateProductData) {
+                        if(result[updateProductDataKey]) {
+                            updateProductData[updateProductDataKey].value = result[updateProductDataKey]
+                        }
+                    }
+                    
+                    setState({
+                        ...state,
+                        productData: updateProductData
+                    })
+                }
+            })
+        }
+    }, [params.id])
+    
     const [state, setState] = useState({
         httpResponse: "",
         httpStatus: 200,
         productData: {
-            title: { value: "asdsad", errorMessage: "" },
+            title: { value: "", errorMessage: "" },
             coverPhoto: { value: "", errorMessage: "" },
-            categoryId: { value: "60df5e546419f56b97610602", errorMessage: "" },
-            brandId: { value: "61356bd9a937c621233341d9", errorMessage: "" },
-            price: { value: "23432", errorMessage: "" },
-            qty: { value: "234234", errorMessage: "" },
-            discount: { value: "234234", errorMessage: "" }
+            categoryId: { value: "", errorMessage: "" },
+            brandId: { value: "", errorMessage: "" },
+            price: { value: "", errorMessage: "" },
+            qty: { value: "", errorMessage: "" },
+            discount: { value: "", errorMessage: "" }
         }
     })
     
@@ -113,18 +133,6 @@ const AddProduct: FC<Props> = (props) => {
                         payload.append(item, productData[item].value, productData[item].value?.name)
                     }
                 }
-            } else if (item === "forCategory") {
-                let categoryIds = []
-                if (productData[item].value && Array.isArray(productData[item].value) && productData[item].value.length) {
-                    for (let cat of productData[item].value) {
-                        categoryIds.push(cat.id)
-                    }
-                } else {
-                    productData[item].errorMessage = "Please select brand for category "
-                }
-            
-                payload.append(item, JSON.stringify(categoryIds))
-            
             } else {
                 if (!productData[item].value) {
                     isComplete = false;
@@ -177,36 +185,6 @@ const AddProduct: FC<Props> = (props) => {
                 setState(updateState)
             })
         }
-    
-        
-        
-      
-        
-        // updateState = {...state}
-        
-        // if(isShowForm === "new"){
-        //     let g = {
-        //         ...productData,
-        //         sold: 0,
-        //         views: 0
-        //     }
-        //     let response = await api.post("/api/products", {...g})
-        //     let returnProduct: any = response.data
-        //     setProducts([returnProduct])
-        //
-        // } else if(isShowForm === "update"){
-        //     let g: any = {
-        //         ...updatedProductCopy,
-        //         ...productData,
-        //     }
-        //     const {brand, category, _id, ...rest} = g
-        //
-        //     let { data } = await api.put(`/api/products/${updatedProductCopy._id}`, {...rest})
-        //     let index = oldProducts.findIndex(p=>p._id === updatedProductCopy._id )
-        //     oldProducts[index] = data.product
-        //     setProducts(oldProducts)
-        // }
-        
     }
     
     

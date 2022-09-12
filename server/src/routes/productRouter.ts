@@ -15,7 +15,7 @@ import {
   updateProductPutReq,
   uploadHandler,
   productFiltersGetV2,
-  getHomepageSectionProducts
+  getHomepageSectionProducts, productUpdateForAttributeChange, updateProduct
 
 } from "../controllers/productController"
 
@@ -47,6 +47,7 @@ export default function (app){
   app.get("/api/products/filter", productFilters)
   app.post("/api/products/filter", productFiltersPost)
 
+  // delete product route, action can handle by ["ADMIN", "PRODUCT_MANAGER", "SITE_DESIGNER"]
   app.delete("/api/product/:id", deleteProduct)
   
   // this route i use worker_threads
@@ -61,7 +62,10 @@ export default function (app){
 
   app.post("/api/products/home-section", getHomepageSectionProducts)
 
-  app.post("/api/products/update/:id", productUpdate)
+  // app.patch("/api/product/:id", productUpdateForAttributeChange)
+
+  app.patch("/api/product/:id", updateProduct)
+
   app.get("/api/products/category-product/:categoryId", fetchCategoryProducts)
   
   app.get("/api/products", getProducts)
@@ -73,7 +77,9 @@ export default function (app){
 
 
   app.post("/api/products/copy", saveProductsAsDuplicate)
-  app.get("/api/products/:id", getProduct)
+
+  app.get("/api/product/:id", getProduct)
+
   app.put("/api/products/:id", updateProductPutReq)
   app.post("/api/upload", uploadHandler)
   

@@ -18,6 +18,17 @@ export const fetchProduct = (id) => async (dispatch, getState, api) => {
   })
 }
 
+export const fetchProductForUpdate = (id, cb: (err: string, result: any)=>void)=> {
+   apis.get(`/api/product/${id}`).then(({status,data})=>{
+     if(status === 200){
+       cb(null, data)
+     }
+   }).catch(ex=>{
+     cb(errorMessageCatch(ex), null)
+   })
+}
+
+
 export const fetchBrandForCategory=(current_category_id)=> async (dispatch, getState: ()=>RootState, api)=>{
   let data = await api.get("/api/brands", )
   
