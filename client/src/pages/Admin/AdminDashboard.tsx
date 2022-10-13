@@ -99,7 +99,7 @@ const AdminDashboard = (props) => {
     
     React.useEffect(()=>{
         
-        let a = location.pathname.lastIndexOf("/");
+        let a: any = location.pathname.lastIndexOf("/");
     
         if(a !== -1){
             a =   location.pathname.slice(a)
@@ -109,7 +109,7 @@ const AdminDashboard = (props) => {
         sidebarData.forEach(item=>{
             
             if(item.to){
-                let index = item.to.indexOf(a)
+                let index = item.to.indexOf(a as any)
              
                 if(index !== -1){
                    setCurrentPage(item.id.toString())
@@ -120,7 +120,7 @@ const AdminDashboard = (props) => {
            
                     if(!isFound && item.subMenu) {
                         item.subMenu.forEach(subItem => {
-                            if (subItem.to && subItem.to.indexOf(a) !== -1) {
+                            if (subItem.to && subItem.to.indexOf(a as any) !== -1) {
                                 if(subItem.id) {
                                     setCurrentPage(subItem.id.toString())
                                     return;
@@ -222,6 +222,7 @@ const AdminDashboard = (props) => {
         
         return auth && (
             <div className={`sidebar bg-white dark:bg-neutral-800 ${isInline ? "inline-mode" : ""}`}>
+             
              <div className="sidebar_content custom_scrollbar">
                  
                  <div className="p-2 md:p-5 bg-neutral-100 dark:bg-neutral-700">
@@ -242,7 +243,7 @@ const AdminDashboard = (props) => {
                           <Menu.SubMenu
                               onClickOnItem={toggleCollapseSubMenu} className="pt-1 px-4"
                               key={data.id.toString()}
-                              item={data}
+                              item={data as any}
                               activeId={currentPage}
                               renderInlineMode={renderInlineMode}
                               label={<h1 className="text-green-400 font-medium mt-3 ml-2 mb-1">{data.label}</h1>}>

@@ -7,3 +7,4 @@ deploy.sh
 src/static
 src/db.json
 src/config
+.vercel

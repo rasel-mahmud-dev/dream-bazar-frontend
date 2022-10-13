@@ -41,6 +41,7 @@ const MyRoutes = () => {
             <Route path="/p" element={<ProductFilterPage/>}/>
 			
           <Route path="/auth/join" element={<JoinHome/>}>
+	          {/* @ts-ignore */}
               <Route path="login" element={<Login/>}/>
               <Route path="registration" element={<Registration/>}/>
               <Route path="reset-password" element={<ResetPassword/>}/>

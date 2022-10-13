@@ -162,7 +162,10 @@ const initialState: ProductStateType = {
   
   brands: {},
   
-  selectCategory: {}
+  selectCategory: {
+    root: null,
+    tree: null
+  }
   
   
 }

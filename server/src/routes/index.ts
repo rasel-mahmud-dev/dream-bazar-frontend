@@ -1,4 +1,4 @@
-
+import express from "express"
 
 import productRouter from "./productRouter"
 import categoryRouter from "./categoryRouter"
@@ -10,18 +10,18 @@ import reviewRouter  from "./reviewRouter";
 import uiDataRouter  from "./uiDataRouter";
 import sellerRouter  from "./sellerRouter";
 
+const router = express.Router()
 
-const routes = (app)=>{
-  productRouter(app)
-  categoryRouter(app)
-  brandRouter(app)
-  authRouter(app)
-  shippingAddressRouter(app)
-  orderRouter(app)
-  reviewRouter(app)
-  uiDataRouter(app)
-  sellerRouter(app)
-}
+productRouter(router)
+categoryRouter(router)
+brandRouter(router)
+authRouter(router)
+shippingAddressRouter(router)
+orderRouter(router)
+reviewRouter(router)
+uiDataRouter(router)
+sellerRouter(router)
 
-export default routes
-module.exports = routes
+
+
+export default router

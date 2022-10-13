@@ -1,6 +1,6 @@
 import React from 'react' 
 import {useParams, Link, useNavigate} from "react-router-dom"
-import {Button, Spin, Input} from "components/UI"
+import {Button, Spin} from "components/UI"
 import {connect, useDispatch} from "react-redux"
 import { fetchProduct, toggleLoader } from "actions/productAction"
 
@@ -41,7 +41,7 @@ const OrderPage = (props) => {
     return (
       <div style={{textAlign: "center"}}>
         { loadingState && loadingState.isLoading 
-           && <Spin size={50} />
+           && <Spin />
         }
       </div>
     )

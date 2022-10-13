@@ -4,7 +4,6 @@ import {Button , Image} from "components/UI"
 import {connect, useDispatch} from "react-redux"
 import { fetchProduct, toggleLoader } from "actions/productAction"
 import {ACTION_TYPES} from "store/types"
-import {isEn} from "src/lang/i18n"
 
 import Title from 'src/components/UI/typography/Title';
 
@@ -38,7 +37,7 @@ const CartPage = (props) => {
     return (
       <div style={{textAlign: "center"}}>
         { loadingState && loadingState.isLoading 
-           && <Spin size={50} />
+           && <Spin  />
         }
       </div>
     )
@@ -96,7 +95,7 @@ const CartPage = (props) => {
         </table>
         
         
-        <h4 className="t-end">{isEn(selectedLang)?'Total Price':lang.total_price} {calculateTotalPrice(cartState.cartProducts)}</h4>
+        <h4 className="t-end">Total Price {calculateTotalPrice(cartState.cartProducts)}</h4>
       
       </div>
     )
@@ -110,13 +109,13 @@ const CartPage = (props) => {
         
         <div  >
           <div className="cart_items">
-            <h3 className="t-center"> {isEn(selectedLang) ? "Your Cart" : lang.cart_title}</h3>
+            <h3 className="t-center"> Your Cart</h3>
             
             { cartState.cartProducts && cartState.cartProducts.length > 0
             && renderCartItems()}
             
             <div >
-              <Button onClick={handlePushBack}>{isEn(selectedLang) ? "Back to Shop" : lang.continue_to_shop}  </Button>
+              <Button onClick={handlePushBack}>{"Back to Shop"}  </Button>
               <Link to="/shopping/cart/checkout">
                 <Button className="right" >Go to Checkout</Button>
               </Link>

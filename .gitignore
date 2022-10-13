@@ -3,8 +3,10 @@
 
 client/.gita
 client/antd/node_modules
+client/node_modules
 client/src/asserts/fontawesome-pro-5.14.0-web
 client/images
+client/dist
 client/.vscode
 client/.idea
 client/gallery.html
@@ -27,5 +29,8 @@ server/README.MD
 
 
 # Local Netlify folder
+node_modules
 server/.netlify
 .netlify
+
+bac

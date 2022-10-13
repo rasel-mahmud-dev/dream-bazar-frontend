@@ -148,6 +148,7 @@ function Navigation(props) {
         setLanguage(e.target.value, contextDispatch)
     }
     
+    // @ts-ignore
     return (
         <div className={["navigation", isFixed ? "nav_fixed" : ""].join(" ")}>
             {/* top navigation */}
@@ -162,8 +163,10 @@ function Navigation(props) {
                     </div>
 
                     <div className="col-span-8">
+                        {/* @ts-ignore */}
                         <marquee>
                             <h6 className="dark:text-white">{news}</h6>
+                            {/* @ts-ignore */}
                         </marquee>
                     </div>
 
@@ -171,8 +174,8 @@ function Navigation(props) {
                         <li className="flex items-center justify-end dark:text-white">
                             <IoLanguageOutline className="text-md" />
                             <select onChange={handleChangeLanguage} name="" id="" value={contextState.lang} className="dark:bg-neutral-600 dark:text-white">
-                                <option value="bn">{l('Bangla', 'Bangla')}</option>
-                                <option value="en">{l('English', 'English')}</option>
+                                <option value="bn">{l('Bangla')}</option>
+                                <option value="en">{l('English')}</option>
                             </select>
                         </li>
                          <li className="flex items-center justify-end dark:text-white">

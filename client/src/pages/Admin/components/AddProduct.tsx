@@ -130,7 +130,11 @@ const AddProduct: FC<Props> = (props) => {
                         payload.append(item, productData[item].value)
                     } else {
                         // when value is blob image
-                        payload.append(item, productData[item].value, productData[item].value?.name)
+                        let blobName  = ""
+                        if(productData[item].value){
+                            blobName = (productData[item].value as any).name
+                        }
+                        payload.append(item, productData[item].value, blobName)
                     }
                 }
             } else {
@@ -201,7 +205,7 @@ const AddProduct: FC<Props> = (props) => {
                     
                     <ActionInfo
                         message={state.httpResponse}
-                        statusCode={state.httpStatus}
+                        statusCode={state.httpStatus as any}
                         className="mt-4"
                     />
                     
@@ -241,7 +245,7 @@ const AddProduct: FC<Props> = (props) => {
                         options={() => (
                             <>
                             <option value="0">Select category parent ID</option>
-                                {flatCategories?.filter(cat=>cat.isProductLevel == 1).map((cat) => (
+                                {flatCategories?.filter((cat: any)=>cat.isProductLevel == 1).map((cat) => (
                                     <option className="cursor-pointer py-1 menu-item"  value={cat.id}>{cat.name}</option>
                                 ))}
                         </>

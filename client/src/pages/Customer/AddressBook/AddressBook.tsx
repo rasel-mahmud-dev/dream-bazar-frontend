@@ -3,7 +3,7 @@ import { useParams,  Link } from "react-router-dom"
 
 
 import {Button, 
-Menu,Input,  Badge} from "components/UI"
+Menu,  Badge} from "components/UI"
 import {connect, useDispatch} from "react-redux"
 
 
@@ -70,91 +70,84 @@ const AddressBook = (props) => {
     
   }
   
-  function renderShippingAddress(){
-    return (
-      <div> 
-        <h2>{typeof isShowAddShippingForm === "boolean" ? "Add New Shipping Address" : "Update Shipping Address" }</h2>
-        <Input 
-          name="name" 
-          label="Your Full Name" 
-          value={shippingAddress.name}
-          onChange={handleChange}
-          />    
-        <Input 
-          name="phone" 
-          value={shippingAddress.phone}
-          label="Your Mobile Number" 
-          type="number"
-          onChange={handleChange}
-          />  
-        <Input 
-        
-          name="region" 
-          value={shippingAddress.region}
-          label="Region" 
-          type="text"
-          onChange={handleChange}
-          />  
-        <Input 
-          name="city" 
-          value={shippingAddress.city}
-          label="City" 
-          type="text"
-          onChange={handleChange}
-          />  
-        <Input 
-          name="area" 
-          value={shippingAddress.area}
-          label="Area" 
-          type="text"
-          onChange={handleChange}
-          />  
-        <Input 
-          name="zip_code" 
-          value={shippingAddress.zip_code}
-          label="Zip Code" 
-          type="number"
-          onChange={handleChange}
-          />  
-        <Input 
-          type="textarea"
-          value={shippingAddress.address}
-          name="address" 
-          label="Address" 
-          onChange={handleChange}
-          />  
-        
-        <Input 
-          type="checkbox"
-          // value={shippingAddress.address} 
-          value={shippingAddress.is_default}
-          checked={shippingAddress.is_default}
-          name="is_default" 
-          label="Make Default Shipping Address" 
-          onChange={handleChange}
-          />  
-        
-          <div className="d-flex">
-            <Button onClick={()=> setShowAddShippingForm(false)}>Cancel</Button> 
-            <Button onClick={handleSave}>{typeof isShowAddShippingForm === "boolean" ? "Save Shipping Address" : "Update" }</Button> 
-          </div> 
-        </div> 
-    )
-  }
+  // function renderShippingAddress(){
+  //   return (
+  //     <div>
+  //       <h2>{typeof isShowAddShippingForm === "boolean" ? "Add New Shipping Address" : "Update Shipping Address" }</h2>
+  //       <Input
+  //         name="name"
+  //         label="Your Full Name"
+  //         value={shippingAddress.name}
+  //         onChange={handleChange}
+  //         />
+  //       <Input
+  //         name="phone"
+  //         value={shippingAddress.phone}
+  //         label="Your Mobile Number"
+  //         type="number"
+  //         onChange={handleChange}
+  //         />
+  //       <Input
+  //
+  //         name="region"
+  //         value={shippingAddress.region}
+  //         label="Region"
+  //         type="text"
+  //         onChange={handleChange}
+  //         />
+  //       <Input
+  //         name="city"
+  //         value={shippingAddress.city}
+  //         label="City"
+  //         type="text"
+  //         onChange={handleChange}
+  //         />
+  //       <Input
+  //         name="area"
+  //         value={shippingAddress.area}
+  //         label="Area"
+  //         type="text"
+  //         onChange={handleChange}
+  //         />
+  //       <Input
+  //         name="zip_code"
+  //         value={shippingAddress.zip_code}
+  //         label="Zip Code"
+  //         type="number"
+  //         onChange={handleChange}
+  //         />
+  //       <Input
+  //         type="textarea"
+  //         value={shippingAddress.address}
+  //         name="address"
+  //         label="Address"
+  //         onChange={handleChange}
+  //         />
+  //
+  //       <Input
+  //         type="checkbox"
+  //         // value={shippingAddress.address}
+  //         value={shippingAddress.is_default}
+  //         checked={shippingAddress.is_default}
+  //         name="is_default"
+  //         label="Make Default Shipping Address"
+  //         onChange={handleChange}
+  //         />
+  //
+  //         <div className="d-flex">
+  //           <Button onClick={()=> setShowAddShippingForm(false)}>Cancel</Button>
+  //           <Button onClick={handleSave}>{typeof isShowAddShippingForm === "boolean" ? "Save Shipping Address" : "Update" }</Button>
+  //         </div>
+  //       </div>
+  //   )
+  // }
   
 
   return (
       <div className="container"> 
           <Button 
             onClick={()=> setShowAddShippingForm(true)}
-            bg="#c9ffd656" 
-            color="red"
-            m={0}
-            p={0}
-            block={true}
-            radius={'4px'}
-            size="large"
-            border="1.5px dashed #aaffa0d7" >+ Add Address
+            >+ Add Address
           </Button> 
           {/*<Divider lineHeight={1} lineColor="#d9d9d" />*/}
         
@@ -168,7 +161,7 @@ const AddressBook = (props) => {
                 <h4>{sp.phone}</h4>
                 <p>
                  <Badge
-                  count={"Home"}
+                  
                   style={{ 
                     backgroundColor: '#797ffeed', 
                     color: '#fff', 
@@ -177,14 +170,14 @@ const AddressBook = (props) => {
                   />
                   west tekani Sonatola Bogra
                 </p>
-                <Badge
-                  count={"Default Shipping Address"}
-                  style={{ 
-                    backgroundColor: '#fff', 
-                    color: 'black', 
-                   boxShadow: '0 0 0 1px #d9d9d9 inset' 
-                  }}
-                  />
+                {/*<Badge*/}
+                {/*  count={"Default Shipping Address"}*/}
+                {/*  style={{ */}
+                {/*    backgroundColor: '#fff', */}
+                {/*    color: 'black', */}
+                {/*   boxShadow: '0 0 0 1px #d9d9d9 inset' */}
+                {/*  }}*/}
+                {/*  />*/}
               </div> 
               <div className="edit_shipping_button">
                 <i onClick={()=>updateShippingFormHandle(sp._id)}  className="fa fa-pen" />
@@ -192,7 +185,7 @@ const AddressBook = (props) => {
           </div>
           ))}
         
-          { isShowAddShippingForm && renderShippingAddress() }
+          {/*{ isShowAddShippingForm && renderShippingAddress() }*/}
           
           
       </div>

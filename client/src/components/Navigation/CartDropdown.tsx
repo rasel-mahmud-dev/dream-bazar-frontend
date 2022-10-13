@@ -1,7 +1,7 @@
 import React, {FC, HTMLAttributes} from 'react';
 import {Button, Menu, Popup} from "UI/index";
 import {Link} from "react-router-dom";
-import {BiTrash, BiUser, FaSignInAlt, GrOrderedList, MdFavorite} from "react-icons/all";
+import {BiTrash, BiUser, FaSignInAlt, FiShoppingCart, GrOrderedList, MdFavorite} from "react-icons/all";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
 import {logoutAction} from "actions/authAction";
@@ -48,12 +48,25 @@ const CartDropdown: FC<Props> = (props) => {
 			className={`bg-white dark:bg-neutral-800 w-[700px] ${props.className}`}
 			inProp={props.isShow}>
 				
-	            <div className="text-neutral-700 dark:text-neutral-50 flex flex-col items-center my-3 ml-2 font-medium ">
+	            <div className="text-neutral-700 dark:text-neutral-50 flex flex-col my-3 ml-2 font-medium ">
+		            
+		            <div className="px-4 flex items-center justify-between mb-3">
+			            <div className="flex items-center">
+				            <FiShoppingCart className="text-lg mr-2" />
+		                    <h2 className="h4">Your cart items</h2>
+			            </div>
+		                <h3 className="h4">Total ({cartState.cartProducts.length})</h3>
+		            </div>
+		            
 		            <Table
 			            className=""
 			            theadClass={{th: "py-2 px-4"}}
 			            tbodyClass={{tr: "hover:bg-green-100/50 cursor-pointer", td: "px-4 py-1"}}
 			            dataSource={cartState.cartProducts ? cartState.cartProducts : []} columns={headers}/>
+		            
+		            <div className="ml-auto ">
+			            <Button to="/auth/customer/dashboard/cart" className="bg-green-450 mr-4 mt-4">Go to Cart Page</Button>
+		            </div>
 		            
 	            </div>
 			

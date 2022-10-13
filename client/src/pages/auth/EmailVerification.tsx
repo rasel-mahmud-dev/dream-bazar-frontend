@@ -2,7 +2,7 @@ import React from 'react'
 import {useParams, Link, useNavigate} from "react-router-dom"
 import qs from "query-string"  
 
-import {Button, Spin, Input} from "components/UI"
+import {Button, Spin} from "components/UI"
 import {connect, useDispatch} from "react-redux"
 
 import redirect from "src/redirects"
@@ -89,12 +89,12 @@ const EmailVerification = (props) => {
   function renderPhoneVerification(){
     return (
       <form onSubmit={handleSave}>
-        <Input 
-          name="code" 
-          label="Enter CODE" 
-          type="number"
-          onChange={handleChange}
-        />
+        {/*<Input */}
+        {/*  name="code" */}
+        {/*  label="Enter CODE" */}
+        {/*  type="number"*/}
+        {/*  onChange={handleChange}*/}
+        {/*/>*/}
         <Button type="submit">Verify Phone</Button>
       </form> 
     )
@@ -105,7 +105,7 @@ const EmailVerification = (props) => {
     return (
       <div style={{textAlign: "center"}}>
         { loadingState && loadingState.isLoading 
-           && <Spin size={50} />
+           && <Spin  />
         }
       </div>
     )

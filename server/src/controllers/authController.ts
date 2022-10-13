@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express"
 import dbConnect from "../database"
 import {RequestWithAuth} from "../types";
-import {collections} from "../services/mongodb/database.service";
+import {collections, mongoConnect} from "../services/mongodb/database.service";
 import User, {Roles} from "../models/User";
 import {createHash, hashCompare} from "../hash";
 
@@ -24,11 +24,13 @@ export const login = async (req: Request, res: Response, next: NextFunction)=>{
 
   try{
 
+    const database = await mongoConnect();
+
     if(!(email && password)){
       return errorResponse(next, 'Please provide valid credential', 404)
     }
 
-    let user = await collections.users.findOne<User>({email})
+    let user = await database.collection("users").findOne<User>({email})
     if(!user){
       return errorResponse(next, 'You are not registered', 404)
     }
@@ -60,7 +62,9 @@ export const registration = async (req: Request, res: Response, next: NextFuncti
   try{
     const { email, firstName, lastName, password } = req.body
 
-    const user = await collections.users.findOne<User>({email})
+    const database = await mongoConnect();
+
+    const user = await database.collection("users").findOne<User>({email})
     if(user){
       return next({message: "User already registered", status: 401})
     }
@@ -78,12 +82,21 @@ export const registration = async (req: Request, res: Response, next: NextFuncti
       newUser.password = hashPassword;
     }
 
-    const doc: mongoDB.InsertOneResult = await collections.users.insertOne(newUser)
+    const doc: mongoDB.InsertOneResult = await database.collection("users").insertOne(newUser)
 
     if(doc.insertedId){
-      res.status(200).json({user: newUser })
+
+      let token = createToken(user._id)
+      delete newUser.password;
+      newUser._id = doc.insertedId
+
+      successResponse(res, 201, {
+        user: newUser,
+        token
+      })
+
     } else {
-      return next("Registration fail. please try again.")
+      return errorResponse(next, "Registration fail. please try again.")
     }
 
   } catch(ex){
@@ -95,13 +108,16 @@ export const registration = async (req: Request, res: Response, next: NextFuncti
 export const currentAuth = async (req: RequestWithAuth, res: Response, next: NextFunction)=>{
 
   try{
-    const user = await collections.users.findOne<User>({_id: ObjectId(req.userId)})
+    const database = await mongoConnect();
+    const user = await database.collection("users").findOne<User>({_id: ObjectId(req.userId)})
+
     if(!user){
-      return next("Please login.")
+      return errorResponse(next, "Please login.", 401)
     }
 
     delete user.password
     successResponse(res, 200, user)
+
   } catch(ex){
     next(ex)
   }

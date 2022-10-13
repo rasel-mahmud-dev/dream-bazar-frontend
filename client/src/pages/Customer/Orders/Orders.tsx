@@ -6,7 +6,7 @@ import {
   Button,
   Menu,
   Image,
-  Spin, Input, Modal,  Badge
+  Spin,  Modal,  Badge
 } from "components/UI"
 import {connect, useDispatch} from "react-redux"
 import { fetchProduct, toggleLoader } from "actions/productAction"

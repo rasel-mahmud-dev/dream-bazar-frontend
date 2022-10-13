@@ -4,6 +4,7 @@ import {AppContext} from "store/AppContext";
 
 function useLanguage(Context?: any){
 	const a =  useContext(Context || AppContext);
+	// @ts-ignore
 	let translations = a.contextState.translations
 	
 	const chooseToken = (token: string, fallback?: string)=>{

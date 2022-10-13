@@ -284,7 +284,7 @@ const Products: FC<ProductProps> = (props) => {
                             </div>  
                               <div style={{textAlign: "center"}}>
                              { loadingStatus === "loadStart" ? (
-                                <Spin size={20} />
+                                <Spin />
                               ) : (
                                   filteredProducts.length !== totalItems && <Button onClick={loadMoreProductHandler} >Load More</Button>
                                 )

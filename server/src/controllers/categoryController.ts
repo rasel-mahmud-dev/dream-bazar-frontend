@@ -30,6 +30,7 @@ export const getCategoriesCount = async (req: Request, res: Response, next: Next
 
 export const getCategories =  async (req: Request, res: Response, next: NextFunction)=>{
   try {
+
     // fs.readFile(path.resolve( dataDir + "/ui-data/product_categories.json"), function (err, data){
     //   if(err){
     //     errorResponse(res, 500, err.message)
@@ -57,7 +58,7 @@ export const getCategory =  async (req: Request, res: Response, next: NextFuncti
 
         if (err || !data) {
           console.log(err)
-          errorResponse(res, 404, "category not found")
+          errorResponse(next, "category not found", 404)
         }
         res.send(data)
       })
@@ -67,7 +68,7 @@ export const getCategory =  async (req: Request, res: Response, next: NextFuncti
 
         if (err || !data) {
           console.log(err)
-          errorResponse(res, 404, "category not found")
+          errorResponse(next, "category not found", 404)
         }
         res.send(data)
       })

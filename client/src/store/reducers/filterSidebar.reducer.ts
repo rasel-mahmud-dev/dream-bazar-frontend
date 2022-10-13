@@ -12,13 +12,13 @@ export default (state: ProductStateType, action)=>{
       return updateState
     
     case "SET_SELECTED_CATEGORY_SECTIONS" :
-      updateState.selectedCatSections = action.payload
+      // updateState.selectedCatSections = action.payload
       return updateState
     
     // this is cat_tree last selected category...
     case "SET_CURRENT_NESTED_SUBCATEGORY" :
-      console.log(action.payload)
-      updateState.currentNestedSubCategory = action.payload
+
+      // updateState.currentNestedSubCategory = action.payload
       return updateState
     
     case "SET_FILTER_SECTION_TOGGLE_EXPAND" :

@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { toggleModal } from "src/store/slices/appSlice"
 
 import { FaTimes } from "react-icons/fa"
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useLocation} from "react-router-dom";
 
 import "./style.scss"
 import {BiHome, CgHome} from "react-icons/all";
-import {createContext} from "vm";
+import scrollTo from "src/utills/scrollTo";
 
 
 // import OTPValidate from './OTPValidate';
@@ -25,6 +25,8 @@ function JoinHome() {
 
     const dispatch = useDispatch()
 
+    const location = useLocation()
+    
     const [state, setState] = useState({
         userData: {
             firstName: { value: "", errorMessage: "" },
@@ -85,6 +87,10 @@ function JoinHome() {
         })
     }
     
+    // scroll top for all auth component
+    useEffect(()=>{
+        scrollTo(0)
+    }, [location.pathname])
     
 
     return (

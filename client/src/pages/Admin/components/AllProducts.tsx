@@ -23,9 +23,11 @@ import {useNavigate} from "react-router-dom";
   
   React.useEffect(()=>{
     (async function (){
-      const countRes = await api.get(`/api/products/count`)
-      setCount(countRes.data.count)
-      const { data } = await api.get("/api/products/?_for=admin")
+      
+      // const countRes = await api.get(`/api/products/count`)
+      // setCount(countRes.data.count)
+      
+      const { data } = await api.get("/api/products")
       setProducts(data.products)
   
       const d = await api.get("/api/categories/?type=lastLevel")
@@ -33,22 +35,27 @@ import {useNavigate} from "react-router-dom";
   
       const dd = await api.get("/api/brands")
       setBrands(dd.data.brands)
+      
+      
+      
     }())
+    
+    
   }, [])
   
   const [productData, setProductData] = React.useState({})
   const [updatedProductCopy, setUpdateProductCopy] = React.useState<any>({})
   
   function productFetchForUpdate(product){
-    setShowForm("update");
-    let updatedProductData = {...productData}
-    for(let i=0; i<d.length; i++){
-      if(product[d[i].name]){
-          updatedProductData[d[i].name] = product[d[i].name]
-        }
-      }
-    setProductData(updatedProductData)
-    setUpdateProductCopy(product)
+    // setShowForm("update");
+    // let updatedProductData = {...productData}
+    // for(let i=0; i<d.length; i++){
+    //   if(product[d[i].name]){
+    //       updatedProductData[d[i].name] = product[d[i].name]
+    //     }
+    //   }
+    // setProductData(updatedProductData)
+    // setUpdateProductCopy(product)
   }  
 
 
@@ -99,11 +106,11 @@ function fetchStaticFiles(){
     return <Modal>
           <Tabs defaultActiveKey="1" onChange={handleTabChange}>
             <TabPane tab="Upload a new image" key="1">
-              <Input 
-                name="logo" 
-                label="Logo image cdn link" 
-                onChange={handleChangeLogo} 
-                />
+              {/*<Input */}
+              {/*  name="logo" */}
+              {/*  label="Logo image cdn link" */}
+              {/*  onChange={handleChangeLogo} */}
+              {/*  />*/}
               <span>or</span>
               <File 
                 type="file" 
@@ -172,7 +179,7 @@ function fetchStaticFiles(){
       : <Button onClick={(e)=> setShowForm("")}>Cancel</Button>
       }
       
-      { isShowForm !== "" &&  addProduct() }
+      {/*{ isShowForm !== "" &&  addProduct() }*/}
       
       
         <h3>Products fetch {products.length} of {count} </h3>

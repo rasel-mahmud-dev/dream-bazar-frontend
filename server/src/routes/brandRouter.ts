@@ -10,6 +10,7 @@ import {
    updateBrand
 } from "../controllers/brandController"
 
+
 export default function (app){
   
   app.get("/api/brands/count", getBrandsCount)

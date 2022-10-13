@@ -219,7 +219,7 @@ function mapStateToProps(state: RootState){
   return {
     //@ts-ignore
     lastSelectedCategory: state.productState.lastSelectedCategory,
-    selectedCatSections: state.productState.selectedCatSections
+    // selectedCatSections: state.productState.selectedCatSections
   }
 }
 

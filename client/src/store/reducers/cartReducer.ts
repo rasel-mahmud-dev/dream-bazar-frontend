@@ -9,10 +9,10 @@ interface CartStateType {
     quantity: number,
     unitPrice: number,
     image: string
-  }[]
+  }[] | any
 }
 
-const initialState = {
+const initialState: CartStateType = {
   cartProducts: [
     {title: "Iphone 11", id:1, total: 123, color: "red", size: "big", qty: 10 , img: "/images/products/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg"},
     {title: "Jeans 11", id:11232, total: 123, color: "red", size: "big", qty: 10, img: "/images/products/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg" },
@@ -22,7 +22,7 @@ const initialState = {
 }
 
 
-const cartReducer = (state: CartStateType = initialState, action)=>{
+const cartReducer = (state= initialState, action)=>{
   let updatedState = {...state}
   
   switch(action.type){

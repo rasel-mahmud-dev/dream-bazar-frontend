@@ -1,15 +1,19 @@
-import React, {FC, HTMLAttributes} from 'react';
-import {Menu, Popup} from "UI/index";
-import {Link} from "react-router-dom";
-import {BiUser, FaSignInAlt, GrOrderedList, MdFavorite} from "react-icons/all";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "src/store";
-import {logoutAction} from "actions/authAction";
-import {Roles} from "store/types";
-
+import React, { FC, HTMLAttributes } from "react";
+import { Menu, Popup } from "UI/index";
+import { Link } from "react-router-dom";
+import {
+    BiUser,
+    FaSignInAlt,
+    GrOrderedList,
+    MdFavorite,
+} from "react-icons/all";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "src/store";
+import { logoutAction } from "actions/authAction";
+import { Roles } from "store/types";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-	isShow: boolean
+    isShow: boolean;
 }
 
 const AuthDropdown: FC<Props> = (props) => {
@@ -21,6 +25,7 @@ const AuthDropdown: FC<Props> = (props) => {
 	function handleLogout() {
 		dispatch(logoutAction());
 	}
+	
 	
 	
 	return (
@@ -41,29 +46,32 @@ const AuthDropdown: FC<Props> = (props) => {
             </div>
 
             <Menu>
-                <Menu.Item className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
-                    {auth ? (
-                        <>
-                         <BiUser />
-                            <Link
-                                to={`${
-	                                (auth.roles.length === 1 && auth.roles.includes(Roles.CUSTOMER))
-		                                ? "/auth/customer/dashboard"
-		                                : "/auth/admin/dashboard"
-                                }`}
-                            >
-                                My Profile
-                            </Link>
-                         </>
-                    ) : (
-                        <>
-                            <BiUser />
-                            <Link to="/auth/join/login/?redirect=dashboard">
-                                My Profile
-                            </Link>
-                        </>
+	            { auth ? (
+             
+					<>
+						<Menu.Item className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
+							<BiUser />
+							{ auth.roles.length === 1 && auth.roles.includes(Roles.ADMIN) ? (
+								<Link to={`/auth/admin/dashboard`}>Admin Dashboard</Link>
+							) : (
+								<Link to= "/auth/customer/dashboard">Profile</Link>
+							) }
+						</Menu.Item>
+			
+			            <Menu.Item className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
+							<BiUser />
+				            <Link to= "/auth/customer/dashboard">Profile</Link>
+						</Menu.Item>
+					</>
+		           
+	            ) : (
+		            <Menu.Item className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
+                        <BiUser />
+                        <Link to="/auth/join/login/?redirect=dashboard">My Profile</Link>
+                      
+					</Menu.Item>
+		            
                     )}
-                </Menu.Item>
                 
                 <Menu.Item className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
                        <GrOrderedList />

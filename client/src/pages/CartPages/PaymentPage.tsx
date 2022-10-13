@@ -1,6 +1,6 @@
 import React from 'react' 
 import { useParams, Link } from "react-router-dom"
-import {Button, Spin, Input} from "components/UI"
+import {Button, Spin} from "components/UI"
 import {connect, useDispatch} from "react-redux"
 import { fetchProduct, toggleLoader } from "actions/productAction"
 
@@ -52,7 +52,7 @@ const PaymentPage = (props) => {
     return (
       <div style={{textAlign: "center"}}>
         { loadingState && loadingState.isLoading 
-           && <Spin size={50} />
+           && <Spin />
         }
       </div>
     )
@@ -64,27 +64,27 @@ const PaymentPage = (props) => {
           <h1 className="t-center">Payment</h1> 
           <div>
             <h4>Choose Payment Method</h4>
-              <Input 
-                onChange={handleChange}
-                type="radio"
-                label="Bkash"
-                value="bkash" 
-                name="payment_method" 
-                />
-              <Input 
-                onChange={handleChange}
-                label="Nagod"
-                type="radio" 
-                value="nagod" 
-                name="payment_method" 
-                />
-              <Input
-                onChange={handleChange}
-                label="Cash on Delivery"
-                type="radio" 
-                value="cash-on-delivery" 
-                name="payment_method" 
-              />
+              {/*<Input */}
+              {/*  onChange={handleChange}*/}
+              {/*  type="radio"*/}
+              {/*  label="Bkash"*/}
+              {/*  value="bkash" */}
+              {/*  name="payment_method" */}
+              {/*  />*/}
+              {/*<Input */}
+              {/*  onChange={handleChange}*/}
+              {/*  label="Nagod"*/}
+              {/*  type="radio" */}
+              {/*  value="nagod" */}
+              {/*  name="payment_method" */}
+              {/*  />*/}
+              {/*<Input*/}
+              {/*  onChange={handleChange}*/}
+              {/*  label="Cash on Delivery"*/}
+              {/*  type="radio" */}
+              {/*  value="cash-on-delivery" */}
+              {/*  name="payment_method" */}
+              {/*/>*/}
               
           </div> 
           

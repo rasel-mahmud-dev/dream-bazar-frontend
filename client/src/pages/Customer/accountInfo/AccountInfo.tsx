@@ -3,7 +3,7 @@ import { useParams, } from "react-router-dom"
 import "./accountInfo.scss"
 import blobToBase64 from "src/utills/blobToBase64"
 import fullLink from "src/utills/fullLink"
-import {Button, Input,  Popup, Password} from "components/UI"
+import {Button,   Popup, Password} from "components/UI"
 
 import {connect, useDispatch} from "react-redux"
 import apis from "src/apis";

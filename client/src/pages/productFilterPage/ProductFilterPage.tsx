@@ -21,7 +21,7 @@ import {LastSelectedCategoryProps, PaginationWhereEnum, SelectedCatSectionType} 
 import RenderBreadcrumb from "components/renderBreadcrumb/RenderBreadcrumb";
 // import {Dispatch} from "redux";
 import {toggleLoader} from "actions/productAction";
-import {toggleAppMask} from "actions/appAction";
+// import {toggleAppMask} from "actions/appAction";
 import calculateDiscount from "src/utills/calculateDiscount";
 import apis from "src/apis";
 import {getPagination} from "actions/localActions";
@@ -819,7 +819,7 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
     return (
       <div className="">
         { loadingState && loadingState.isLoading
-        && <Spin size={30} loaderColor="#502cff" borderWidth={4}  />
+        && <Spin  />
         }
       </div>
     )
@@ -895,5 +895,5 @@ function mapStateToProps(state: RootState){
 
 
 
-export default connect(mapStateToProps, {toggleLoader,toggleAppMask})(ProductFilter)
+export default connect(mapStateToProps, {toggleLoader})(ProductFilter)
 

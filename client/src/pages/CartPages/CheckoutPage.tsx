@@ -1,7 +1,7 @@
 import React from 'react' 
 import { useParams,  Link } from "react-router-dom"
 
-import {Button, Spin, Input, Modal} from "components/UI"
+import {Button, Spin,  Modal} from "components/UI"
 import {connect, useDispatch} from "react-redux"
 import { fetchProduct, toggleLoader } from "actions/productAction"
 import {ACTION_TYPES} from "store/types"
@@ -96,48 +96,48 @@ const CheckoutPage = (props) => {
   function renderShippingAddress(){
     return (
       <div> 
-        <Input 
-          name="name" 
-          label="Your Name" 
-          value={shippingAddress.name}
-          onChange={handleChange}
-          />    
-        <Input 
-          name="phone" 
-          value={shippingAddress.phone}
-          label="Your Mobile Number" 
-          type="number"
-          onChange={handleChange}
-          />  
-        <Input 
+        {/*<Input */}
+        {/*  name="name" */}
+        {/*  label="Your Name" */}
+        {/*  value={shippingAddress.name}*/}
+        {/*  onChange={handleChange}*/}
+        {/*  />    */}
+        {/*<Input */}
+        {/*  name="phone" */}
+        {/*  value={shippingAddress.phone}*/}
+        {/*  label="Your Mobile Number" */}
+        {/*  type="number"*/}
+        {/*  onChange={handleChange}*/}
+        {/*  />  */}
+        {/*<Input */}
         
-          name="distric" 
-          value={shippingAddress.distric}
-          label="Distric" 
-          type="text"
-          onChange={handleChange}
-          />  
-        <Input 
-          name="thana" 
-          value={shippingAddress.thana}
-          label="Thana" 
-          type="text"
-          onChange={handleChange}
-          />  
-        <Input 
-          name="postCode" 
-          value={shippingAddress.postCode}
-          label="Post Code" 
-          type="number"
-          onChange={handleChange}
-          />  
-        <Input 
-          type="textarea"
-          value={shippingAddress.address}
-          name="address" 
-          label="Address" 
-          onChange={handleChange}
-          />  
+        {/*  name="distric" */}
+        {/*  value={shippingAddress.distric}*/}
+        {/*  label="Distric" */}
+        {/*  type="text"*/}
+        {/*  onChange={handleChange}*/}
+        {/*  />  */}
+        {/*<Input */}
+        {/*  name="thana" */}
+        {/*  value={shippingAddress.thana}*/}
+        {/*  label="Thana" */}
+        {/*  type="text"*/}
+        {/*  onChange={handleChange}*/}
+        {/*  />  */}
+        {/*<Input */}
+        {/*  name="postCode" */}
+        {/*  value={shippingAddress.postCode}*/}
+        {/*  label="Post Code" */}
+        {/*  type="number"*/}
+        {/*  onChange={handleChange}*/}
+        {/*  />  */}
+        {/*<Input */}
+        {/*  type="textarea"*/}
+        {/*  value={shippingAddress.address}*/}
+        {/*  name="address" */}
+        {/*  label="Address" */}
+        {/*  onChange={handleChange}*/}
+        {/*  />  */}
         
         <Button onClick={handleSave}>Save Shipping Address</Button> 
          
@@ -150,7 +150,7 @@ const CheckoutPage = (props) => {
     return (
       <div style={{textAlign: "center"}}>
         { loadingState && loadingState.isLoading 
-           && <Spin size={50} />
+           && <Spin  />
         }
       </div>
     )
@@ -162,16 +162,16 @@ const CheckoutPage = (props) => {
           
           <h3>Shipping Address</h3>  
           
-          { recentShippingAddress && recentShippingAddress.map((recentShipAddr, i)=>(
-            <Input 
-              type="radio" 
-              name="shipping-address"
-              value={i}
-              checked={true}
-              label={recentShipAddr.label}
-              />
-          ))
-          }
+          {/*{ recentShippingAddress && recentShippingAddress.map((recentShipAddr, i)=>(*/}
+          {/*  <Input */}
+          {/*    type="radio" */}
+          {/*    name="shipping-address"*/}
+          {/*    value={i}*/}
+          {/*    checked={true}*/}
+          {/*    label={recentShipAddr.label}*/}
+          {/*    />*/}
+          {/*))*/}
+          {/*}*/}
           <Button onClick={()=> setShowAddShippingForm(!isShowAddShippingForm) }>Add Another shipping address </Button>
           { isShowAddShippingForm && <Modal>{renderShippingAddress()} </Modal> }
           

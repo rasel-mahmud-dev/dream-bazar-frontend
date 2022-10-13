@@ -11,6 +11,7 @@ interface Props extends HTMLAttributes<HTMLInputElement>{
     inputClass?: string
     defaultValue?: string
     errorMessage?: string
+    onChange: any
 }
 
 const FileUpload:FC<Props> = (props)=>{

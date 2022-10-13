@@ -152,7 +152,7 @@ const HomePage = (props) => {
       return (
         <div style={{display: "flex", justifyContent: "center"}}>
           { loadingState && loadingState.isLoading 
-             ? <Spin size={20} borderWidth={2} loaderColor="green"  />
+             ? <Spin  />
              : <Button onClick={()=>handler(where)}>{btnLabel}</Button>
           }
         </div>

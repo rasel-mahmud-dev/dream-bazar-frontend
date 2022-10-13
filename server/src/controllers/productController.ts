@@ -3,13 +3,13 @@ import Product, {ProductType} from "../models/Product";
 import Validator from "../utilities/validator";
 import ProductDescription, {ProductDescriptionType} from "../models/ProductDescription";
 
-import { ObjectId }  from "mongodb"
+import {MongoClient, ObjectId} from "mongodb"
 const isObjectId = require("../utilities/isObjectId")
 
 import dbConnect from "../database/index"
 
 import fileUploadHandler from "../utilities/fileUpload";
-import {collections, connectToDatabase, db} from "../services/mongodb/database.service";
+import {collections, connectToDatabase, db, mongoConnect} from "../services/mongodb/database.service";
 
 import fileUpload from "../utilities/fileUpload";
 import {errorResponse, successResponse} from "../response";
@@ -17,33 +17,40 @@ import fs from "fs";
 import staticDir from "../utilities/staticDir";
 
 export const getProductCount = async (req: Request, res: Response, next: NextFunction) => {
-  const {category_id} = req.query
-  let client;
-  try{
-      const { c: ProductCollection, client: cc} = await dbConnect("products")
-    client = cc
-    let r;
-    if(category_id){
-      r = await ProductCollection.countDocuments({category_id: new ObjectId(category_id)})
-      
-    } else {
-      r = await ProductCollection.countDocuments({})
-      
-    }
-    res.status(200).json({count:r})
-    
-
-  } catch(ex){
-    console.log(ex)
-    next(ex)
-  } finally{
-    client?.close()
-  }
+  // const {category_id} = req.query
+  // let client;
+  // try{
+  //     const { c: ProductCollection, client: cc} = await dbConnect("products")
+  //   client = cc
+  //   let r;
+  //   if(category_id){
+  //     r = await ProductCollection.countDocuments({category_id: new ObjectId(category_id)})
+  //
+  //   } else {
+  //     r = await ProductCollection.countDocuments({})
+  //
+  //   }
+  //   res.status(200).json({count:r})
+  //
+  //
+  // } catch(ex){
+  //   console.log(ex)
+  //   next(ex)
+  // } finally{
+  //   client?.close()
+  // }
 }
 
 export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
   
   const { pageNumber=1, perPage=10 } = req.query
+
+  // const mongoClient = new MongoClient(process.env.DB_CONN_STRING);
+  // const clientPromise = mongoClient.connect();
+  // const database = (await clientPromise).db(process.env.MONGODB_DATABASE);
+  // const collection = database.collection("products");
+  // const results = await collection.find({}).limit(10).toArray();
+  // res.send(results)
 
   const now = Date.now()
 
@@ -91,7 +98,15 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
     //     {$limit: Number(perPage)}
     // ])
 
-    const docs = await collections.products.find().toArray();
+    const database = await mongoConnect();
+
+    // const docs = await database.model.products.find().toArray();
+
+    const docs = await database.collection("products").find().toArray();
+
+    res.json({time: Date.now() - now, total: docs.length, products: docs})
+
+
     // const docs = await ProductModel.find()
 
     // let filePath = dataDir + "/products.json"
@@ -134,7 +149,7 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
     // let docs = await  Product.findOne({ qty: 5 })
 
 
-    res.json({time: Date.now() - now, total: docs.length, products: docs})
+    // res.json({time: Date.now() - now, total: docs.length, products: docs})
 
     // let cursor;
       // cursor = ProductCollection.aggregate([
@@ -162,8 +177,6 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
       // ])
     
   } catch (ex){
-    console.log(ex)
-    
     next(ex)
 
   } finally {
@@ -407,108 +420,108 @@ export const updateProductPutReq = async (req, res, next)=>{
     
     
     
-    fileUploadHandler(req, "src/static/upload", "image", async (err, ctx)=>{
-      if(err){
-        throw new Error(err.message)
-      }
-	  
-	  
-	  let uploadedImages: string[] = []
-
-      if(ctx?.files?.image){
-        for (let i = 0; i < ctx.files.image.length; i++) {
-          const link = ctx.files.image[i];
-          uploadedImages.push(link.path)
-        }
-      }
-      
-
-      let { images, removePhoto, cover_photo, details, highlight,  seller_rules, description, attributes, ...other } = ctx.fields
-  
-      let updatedProduct : ProductType = {
-        title: other.title,
-        price: Number(other.price),
-        qty: Number(other.qty),
-        sold: Number(other.sold),
-        views: Number(other.views),
-        discount: Number(other.discount),
-        cover_photo: "",
-        category_id: new ObjectId(other.category_id),
-        brand_id: new ObjectId(other.brand_id),
-        updated_at: new Date(),
-        seller_id: new ObjectId(other.seller_id),
-        images: []
-      }
-      if(attributes){
-        updatedProduct.attributes = JSON.parse(attributes)
-      }
-   
-      if(images && typeof images === "string"){
-        uploadedImages.push(...JSON.parse(images))
-      }
-      
-      if(cover_photo) {
-        // if not cover photo an blob image name.......
-        if (cover_photo.indexOf("/") !== -1) {
-          updatedProduct.cover_photo = cover_photo
-        } else {
-          // if cover photo an blob image name. now search upload photo with blob name and make it as a cover photo
-          uploadedImages.forEach(i => {
-            if (i.indexOf(cover_photo) !== -1) {
-              updatedProduct.cover_photo = i
-            }
-          })
-        }
-      } else {
-        updatedProduct.cover_photo = uploadedImages[0]
-      }
-
-      updatedProduct.images = uploadedImages
-
-      let doc = await ProductCollection.findOneAndUpdate({
-        _id: new ObjectId(id)
-      }, {
-        // @ts-ignore
-        $set: updatedProduct
-      })
-      
-      let updated: ProductDescriptionType = {
-        description: description,
-        updated_at: new Date()
-      }
-
-      if(highlight && typeof highlight === "string" && highlight !== "{}"){
-        updated.highlight =  JSON.parse(highlight)
-      }
-      if(seller_rules && typeof seller_rules === "string" && seller_rules !== "{}"){
-        updated.seller_rules = JSON.parse(seller_rules)
-      }
-     
-      if(details && typeof details === "string"){
-        updated.details = JSON.parse(details)
-      }
-
-
-      let doc2: any = await ProductDescriptionCollection.updateOne(
-        { product_id: new ObjectId(id) },
-        { $set: updated }
-      )
-
-      if(doc2.modifiedCount === 0){
-        let {_id, ...otherUpdated} = updated
-        doc2 = await ProductDescriptionCollection.insertOne({
-          ...otherUpdated,
-          updated_at: new Date(),
-          created_at: new Date(),
-          product_id: new ObjectId(id)
-        })
-      }
-
-      res.send(doc)
-     
-      client?.close()
-
-    })
+    // fileUploadHandler(req, "src/static/upload", "image", async (err, ctx)=>{
+    //   if(err){
+    //     throw new Error(err.message)
+    //   }
+	//
+	//
+	//   let uploadedImages: string[] = []
+    //
+    //   if(ctx?.files?.image){
+    //     for (let i = 0; i < ctx.files.image.length; i++) {
+    //       const link = ctx.files.image[i];
+    //       uploadedImages.push(link.path)
+    //     }
+    //   }
+    //
+    //
+    //   let { images, removePhoto, cover_photo, details, highlight,  seller_rules, description, attributes, ...other } = ctx.fields
+    //
+    //   let updatedProduct : ProductType = {
+    //     title: other.title,
+    //     price: Number(other.price),
+    //     qty: Number(other.qty),
+    //     sold: Number(other.sold),
+    //     views: Number(other.views),
+    //     discount: Number(other.discount),
+    //     cover_photo: "",
+    //     category_id: new ObjectId(other.category_id),
+    //     brand_id: new ObjectId(other.brand_id),
+    //     updated_at: new Date(),
+    //     seller_id: new ObjectId(other.seller_id),
+    //     images: []
+    //   }
+    //   if(attributes){
+    //     updatedProduct.attributes = JSON.parse(attributes)
+    //   }
+    //
+    //   if(images && typeof images === "string"){
+    //     uploadedImages.push(...JSON.parse(images))
+    //   }
+    //
+    //   if(cover_photo) {
+    //     // if not cover photo an blob image name.......
+    //     if (cover_photo.indexOf("/") !== -1) {
+    //       updatedProduct.cover_photo = cover_photo
+    //     } else {
+    //       // if cover photo an blob image name. now search upload photo with blob name and make it as a cover photo
+    //       uploadedImages.forEach(i => {
+    //         if (i.indexOf(cover_photo) !== -1) {
+    //           updatedProduct.cover_photo = i
+    //         }
+    //       })
+    //     }
+    //   } else {
+    //     updatedProduct.cover_photo = uploadedImages[0]
+    //   }
+    //
+    //   updatedProduct.images = uploadedImages
+    //
+    //   let doc = await ProductCollection.findOneAndUpdate({
+    //     _id: new ObjectId(id)
+    //   }, {
+    //     // @ts-ignore
+    //     $set: updatedProduct
+    //   })
+    //
+    //   let updated: ProductDescriptionType = {
+    //     description: description,
+    //     updated_at: new Date()
+    //   }
+    //
+    //   if(highlight && typeof highlight === "string" && highlight !== "{}"){
+    //     updated.highlight =  JSON.parse(highlight)
+    //   }
+    //   if(seller_rules && typeof seller_rules === "string" && seller_rules !== "{}"){
+    //     updated.seller_rules = JSON.parse(seller_rules)
+    //   }
+    //
+    //   if(details && typeof details === "string"){
+    //     updated.details = JSON.parse(details)
+    //   }
+    //
+    //
+    //   let doc2: any = await ProductDescriptionCollection.updateOne(
+    //     { product_id: new ObjectId(id) },
+    //     { $set: updated }
+    //   )
+    //
+    //   if(doc2.modifiedCount === 0){
+    //     let {_id, ...otherUpdated} = updated
+    //     doc2 = await ProductDescriptionCollection.insertOne({
+    //       ...otherUpdated,
+    //       updated_at: new Date(),
+    //       created_at: new Date(),
+    //       product_id: new ObjectId(id)
+    //     })
+    //   }
+    //
+    //   res.send(doc)
+    //
+    //   client?.close()
+    //
+    // })
 
 
   }catch (ex){
@@ -1086,273 +1099,274 @@ export const saveProductsAsDuplicate = async (req, res, next)=>{
 
   let client;
   
-  try{
-    fileUploadHandler(req, "src/static/upload", "image", async (err, ctx)=> {
-      
-      if (err) {
-        console.log(err.message)
-        throw new Error(err.message)
-      }
-  
-      let {
-        title,
-        price,
-        discount,
-        brand_id,
-        category_id,
-        seller_id,
-        qty,
-        sold,
-        views,
-        attributes,
-        cover_photo,
-        images,
-        removePhoto
-      } = ctx.fields
-      
-      try {
-  
-        let validate = new Validator({
-          title: {type: "text", required: true},
-          price: {type: "number", required: true},
-          discount: {type: "number", required: true},
-          brand_id: {type: "text", required: true},
-          category_id: {type: "text", required: true},
-          seller_id: {type: "text", required: true},
-          updated_at: {type: "text", required: true},
-          created_at: {type: "text", required: true},
-          qty: {type: "number", required: true},
-          sold: {type: "number", required: true},
-          views: {type: "number", required: true},
-          attributes: {type: "object", required: true},
-          cover_photo: {type: "text", required: true, errorMessage: "not allowed"},
-          image: {type: "text", required: true}
-        }, {abortEarly: true})
-        
-        let errors = validate.validate({
-          title,
-          price,
-          discount,
-          brand_id,
-          category_id,
-          seller_id,
-          qty,
-          sold,
-          views,
-          attributes: attributes && attributes !== "" ? JSON.parse(attributes) : {}
-        })
-    
-  
-        // if(errors){
-        //   res.status(409).json({message: errors})
-        //   return
-        // }
-  
-        let newProduct: any = {
-          title,
-          price: Number(price),
-          discount: Number(discount),
-          brand_id: new ObjectId(brand_id),
-          category_id: new ObjectId(category_id),
-          seller_id: new ObjectId("6165b0ecd28d389c0a4dbc57"),
-          updated_at: new Date(),
-          created_at: new Date(),
-          qty: Number(qty),
-          sold: Number(sold),
-          views: Number(views),
-          attributes: attributes && attributes !== "" ? JSON.parse(attributes) : {}
-        }
-  
-        let uploadedImages: string[] = []
-  
-        if (ctx.files.image) {
-          ctx.files.image.forEach(link => {
-            uploadedImages.push(link.path)
-          })
-        }
-  
-        if (images && typeof images === "string") {
-          uploadedImages.push(...JSON.parse(images))
-        }
-  
-  
-        newProduct.images = uploadedImages
-        if (cover_photo) {
-          if (cover_photo.indexOf("/") !== -1) {
-            newProduct.cover_photo = cover_photo
-          } else {
-            newProduct.images.forEach(i => {
-              if (i.indexOf(cover_photo)) {
-                newProduct.cover_photo = i
-              }
-            })
-          }
-        } else {
-          newProduct.cover_photo = uploadedImages[0]
-        }
-  
-        let r = await Product.insertInto(newProduct)
-        let product_id = r.insertedId
-  
-  
-        const {
-          description,
-          seller_rules,
-          highlight,
-          details
-        } = ctx.fields
-  
-        let productDescriptionValidator = new Validator({
-          description: {type: "text", required: true},
-          seller_rules: {type: "object", required: true},
-          highlight: {type: "object", required: false},
-          details: {type: "object", required: false},
-          product_id: {type: "object", required: false}
-        })
-  
-        let e = productDescriptionValidator.validate({
-          description,
-          seller_rules: JSON.parse(seller_rules),
-          highlight: JSON.parse(highlight),
-          details: JSON.parse(details),
-          product_id: product_id
-        })
-        if (e) {
-          return res.send("product adding fail")
-        }
-  
-        let des = await ProductDescription.insertInto({
-          description,
-          seller_rules: JSON.parse(seller_rules),
-          highlight: JSON.parse(highlight),
-          details: JSON.parse(details),
-          product_id: product_id
-        })
-  
-        res.status(200).json({message: "Product Successfully Added"})
-  
-      } catch (ex){
-        await client?.close()
-        console.log(ex)
-        res.json({ message: ex.message + ' not save product' })
-      } finally {
-        await client?.close()
-      }
-    })
-    
-    
-    // const {  db, client: cc} = await dbConnect()
-    // client = cc
-    //
-    // const ProductCollection  = db.collection("products")
-    // const ProductDescriptionCollection = db.collection("product_descriptions")
-    //
-    //
-    //
-    // let imagesLink = []
-    // let cover_photo = ""
-    //
-    // fileUploadHandler(req, "upload", "image", async (err, ctx)=>{
-    //   if(err){
-    //     throw new Error(r)
-    //   }
-    //
-    //
-    //   if(ctx?.files?.image){
-    //     for (let i = 0; i < ctx.files.image.length; i++) {
-    //       const link = ctx.files.image[i];
-    //       imagesLink.push(link.path)
-    //       if(ctx?.fields?.cover_photo){
-    //         let match = link.path.lastIndexOf(ctx.fields.cover_photo)
-    //         if(match !== -1){
-    //           cover_photo = link.path
-    //         }
-    //       }
-    //     }
-    //   }
-    //
-    //
-    //   const { _id, details, highlight, description, attributes, ...other } = ctx.fields
-    //
-    //   // console.log(other);
-    //   // console.log(details, highlight, description);
-    //
-    //   let newProduct = {}
-    //   newProduct.title = other.title
-    //   newProduct.price = Number(other.price)
-    //   newProduct.qty = Number(other.qty)
-    //   newProduct.sold = Number(other.sold)
-    //   newProduct.views = Number(other.views)
-    //   newProduct.discount = Number(other.discount)
-    //   newProduct.images = imagesLink
-    //   newProduct.cover_photo = cover_photo
-    //   if(attributes && JSON.parse(attributes)){
-    //     newProduct.attributes = JSON.parse(attributes)
-    //   }
-    //
-    //   newProduct.category_id =  new ObjectId(other.category_id)
-    //   newProduct.brand_id =  new ObjectId(other.brand_id)
-    //   newProduct.created_at = new Date()
-    //   newProduct.updated_at = new Date()
-    //
-    //
-    //   let resposnse = await ProductCollection.insertOne(newProduct)
-    //   if(resposnse.acknowledged){
-    //     let respons = await ProductDescriptionCollection.insertOne({
-    //       details: JSON.parse(details),
-    //       highlight: JSON.parse(highlight),
-    //       description: description,
-    //       product_id: resposnse.insertedId
-    //     })
-    //
-    //     if(respons.acknowledged){
-    //       // let product = {...respons.ops[0] }
-    //       console.log(respons);
-    //     }
-    //   }
+  // try{
+  //   fileUploadHandler(req, "src/static/upload", "image", async (err, ctx)=> {
+  //
+  //     if (err) {
+  //       console.log(err.message)
+  //       throw new Error(err.message)
+  //     }
+  //
+  //     let {
+  //       title,
+  //       price,
+  //       discount,
+  //       brand_id,
+  //       category_id,
+  //       seller_id,
+  //       qty,
+  //       sold,
+  //       views,
+  //       attributes,
+  //       cover_photo,
+  //       images,
+  //       removePhoto
+  //     } = ctx.fields
+  //
+  //     try {
+  //
+  //       let validate = new Validator({
+  //         title: {type: "text", required: true},
+  //         price: {type: "number", required: true},
+  //         discount: {type: "number", required: true},
+  //         brand_id: {type: "text", required: true},
+  //         category_id: {type: "text", required: true},
+  //         seller_id: {type: "text", required: true},
+  //         updated_at: {type: "text", required: true},
+  //         created_at: {type: "text", required: true},
+  //         qty: {type: "number", required: true},
+  //         sold: {type: "number", required: true},
+  //         views: {type: "number", required: true},
+  //         attributes: {type: "object", required: true},
+  //         cover_photo: {type: "text", required: true, errorMessage: "not allowed"},
+  //         image: {type: "text", required: true}
+  //       }, {abortEarly: true})
+  //
+  //       let errors = validate.validate({
+  //         title,
+  //         price,
+  //         discount,
+  //         brand_id,
+  //         category_id,
+  //         seller_id,
+  //         qty,
+  //         sold,
+  //         views,
+  //         attributes: attributes && attributes !== "" ? JSON.parse(attributes) : {}
+  //       })
+  //
+  //
+  //       // if(errors){
+  //       //   res.status(409).json({message: errors})
+  //       //   return
+  //       // }
+  //
+  //       let newProduct: any = {
+  //         title,
+  //         price: Number(price),
+  //         discount: Number(discount),
+  //         brand_id: new ObjectId(brand_id),
+  //         category_id: new ObjectId(category_id),
+  //         seller_id: new ObjectId("6165b0ecd28d389c0a4dbc57"),
+  //         updated_at: new Date(),
+  //         created_at: new Date(),
+  //         qty: Number(qty),
+  //         sold: Number(sold),
+  //         views: Number(views),
+  //         attributes: attributes && attributes !== "" ? JSON.parse(attributes) : {}
+  //       }
+  //
+  //       let uploadedImages: string[] = []
+  //
+  //       if (ctx.files.image) {
+  //         ctx.files.image.forEach(link => {
+  //           uploadedImages.push(link.path)
+  //         })
+  //       }
+  //
+  //       if (images && typeof images === "string") {
+  //         uploadedImages.push(...JSON.parse(images))
+  //       }
+  //
+  //
+  //       newProduct.images = uploadedImages
+  //       if (cover_photo) {
+  //         if (cover_photo.indexOf("/") !== -1) {
+  //           newProduct.cover_photo = cover_photo
+  //         } else {
+  //           newProduct.images.forEach(i => {
+  //             if (i.indexOf(cover_photo)) {
+  //               newProduct.cover_photo = i
+  //             }
+  //           })
+  //         }
+  //       } else {
+  //         newProduct.cover_photo = uploadedImages[0]
+  //       }
+  //
+  //       let r = await Product.insertInto(newProduct)
+  //       let product_id = r.insertedId
+  //
+  //
+  //       const {
+  //         description,
+  //         seller_rules,
+  //         highlight,
+  //         details
+  //       } = ctx.fields
+  //
+  //       let productDescriptionValidator = new Validator({
+  //         description: {type: "text", required: true},
+  //         seller_rules: {type: "object", required: true},
+  //         highlight: {type: "object", required: false},
+  //         details: {type: "object", required: false},
+  //         product_id: {type: "object", required: false}
+  //       })
+  //
+  //       let e = productDescriptionValidator.validate({
+  //         description,
+  //         seller_rules: JSON.parse(seller_rules),
+  //         highlight: JSON.parse(highlight),
+  //         details: JSON.parse(details),
+  //         product_id: product_id
+  //       })
+  //       if (e) {
+  //         return res.send("product adding fail")
+  //       }
+  //
+  //       let des = await ProductDescription.insertInto({
+  //         description,
+  //         seller_rules: JSON.parse(seller_rules),
+  //         highlight: JSON.parse(highlight),
+  //         details: JSON.parse(details),
+  //         product_id: product_id
+  //       })
+  //
+  //       res.status(200).json({message: "Product Successfully Added"})
+  //
+  //     } catch (ex){
+  //       await client?.close()
+  //       console.log(ex)
+  //       res.json({ message: ex.message + ' not save product' })
+  //     } finally {
+  //       await client?.close()
+  //     }
+  //   })
+  //
+  //
+  //   // const {  db, client: cc} = await dbConnect()
+  //   // client = cc
+  //   //
+  //   // const ProductCollection  = db.collection("products")
+  //   // const ProductDescriptionCollection = db.collection("product_descriptions")
+  //   //
+  //   //
+  //   //
+  //   // let imagesLink = []
+  //   // let cover_photo = ""
+  //   //
+  //   // fileUploadHandler(req, "upload", "image", async (err, ctx)=>{
+  //   //   if(err){
+  //   //     throw new Error(r)
+  //   //   }
+  //   //
+  //   //
+  //   //   if(ctx?.files?.image){
+  //   //     for (let i = 0; i < ctx.files.image.length; i++) {
+  //   //       const link = ctx.files.image[i];
+  //   //       imagesLink.push(link.path)
+  //   //       if(ctx?.fields?.cover_photo){
+  //   //         let match = link.path.lastIndexOf(ctx.fields.cover_photo)
+  //   //         if(match !== -1){
+  //   //           cover_photo = link.path
+  //   //         }
+  //   //       }
+  //   //     }
+  //   //   }
+  //   //
+  //   //
+  //   //   const { _id, details, highlight, description, attributes, ...other } = ctx.fields
+  //   //
+  //   //   // console.log(other);
+  //   //   // console.log(details, highlight, description);
+  //   //
+  //   //   let newProduct = {}
+  //   //   newProduct.title = other.title
+  //   //   newProduct.price = Number(other.price)
+  //   //   newProduct.qty = Number(other.qty)
+  //   //   newProduct.sold = Number(other.sold)
+  //   //   newProduct.views = Number(other.views)
+  //   //   newProduct.discount = Number(other.discount)
+  //   //   newProduct.images = imagesLink
+  //   //   newProduct.cover_photo = cover_photo
+  //   //   if(attributes && JSON.parse(attributes)){
+  //   //     newProduct.attributes = JSON.parse(attributes)
+  //   //   }
+  //   //
+  //   //   newProduct.category_id =  new ObjectId(other.category_id)
+  //   //   newProduct.brand_id =  new ObjectId(other.brand_id)
+  //   //   newProduct.created_at = new Date()
+  //   //   newProduct.updated_at = new Date()
+  //   //
+  //   //
+  //   //   let resposnse = await ProductCollection.insertOne(newProduct)
+  //   //   if(resposnse.acknowledged){
+  //   //     let respons = await ProductDescriptionCollection.insertOne({
+  //   //       details: JSON.parse(details),
+  //   //       highlight: JSON.parse(highlight),
+  //   //       description: description,
+  //   //       product_id: resposnse.insertedId
+  //   //     })
+  //   //
+  //   //     if(respons.acknowledged){
+  //   //       // let product = {...respons.ops[0] }
+  //   //       console.log(respons);
+  //   //     }
+  //   //   }
+  //
+  //
+  //     // if(response.insertedCount > 0){
+  //
+  //     //   let product = {...response.ops[0] }
+  //
+  //     //   let brandData = await BrandCollection.findOne(
+  //     //     {_id: new ObjectId(product.brand_id)})
+  //
+  //     //   let categoryData = await CategoryCollection.findOne(
+  //     //     {_id: new ObjectId(product.category_id)})
+  //
+  //     //   product = {
+  //     //     ...product,
+  //     //     brand: {name: brandData.name },
+  //     //     category: { name: categoryData.name  }
+  //     //   }
+  //
+  //
+  //
+  //     //   res.json({ product: product })
+  //     // }
+  //
+  //
+  //     // if(insertedCount > 0){
+  //     //   let cta = await CategoryCollection.findOne(
+  //     //     {_id: new ObjectId(cursor.ops[0].category_id)},
+  //     //     {name: 1}
+  //     //   )
+  //     //   res.json({ products: cursor.ops })
+  //     // } else{
+  //     //   res.json({ message: 'not save product' })
+  //     // }
+  //
+  //
+  //   // })
+  //
+  // } catch(ex){
+  //   console.log(ex.message)
+  //   next(ex)
+  // } finally {
+  //   // client?.close()
+  // }
 
-
-      // if(response.insertedCount > 0){
-      
-      //   let product = {...response.ops[0] }
-      
-      //   let brandData = await BrandCollection.findOne(
-      //     {_id: new ObjectId(product.brand_id)})
-      
-      //   let categoryData = await CategoryCollection.findOne(
-      //     {_id: new ObjectId(product.category_id)})
-      
-      //   product = {
-      //     ...product,
-      //     brand: {name: brandData.name },
-      //     category: { name: categoryData.name  }
-      //   }
-      
-      
-      
-      //   res.json({ product: product })
-      // }
-      
-      
-      // if(insertedCount > 0){
-      //   let cta = await CategoryCollection.findOne(
-      //     {_id: new ObjectId(cursor.ops[0].category_id)},
-      //     {name: 1}
-      //   )
-      //   res.json({ products: cursor.ops })
-      // } else{
-      //   res.json({ message: 'not save product' })
-      // }
-
-      
-    // })
-
-  } catch(ex){
-    console.log(ex.message)
-    next(ex)
-  } finally {
-    // client?.close()
-  }
 }
 
 
@@ -1841,6 +1855,9 @@ export const getHomepageSectionProducts = async (req: Request<ResponseData>, res
   let result: { [key: string]: { values: ProductType[], type: string } } = {}
 
    try {
+
+     let database = await mongoConnect()
+
      data.forEach((item, index)=> {
 
        (async function(){
@@ -1860,17 +1877,17 @@ export const getHomepageSectionProducts = async (req: Request<ResponseData>, res
          let cursor;
 
          if (other.sold) {
-           cursor = collections.products.aggregate([
+           cursor = database.collection("products").aggregate([
              {$sort: {sold: Number(other.sold)}},
              {$limit: 20}
            ])
          } else if (other.discount) {
-           cursor = collections.products.aggregate([
+           cursor = database.collection("products").aggregate([
              {$sort: {discount: Number(other.discount)}},
              {$limit: 20}
            ])
          } else if (other.views) {
-           cursor = collections.products.aggregate([
+           cursor = database.collection("products").aggregate([
              {$sort: {views: Number(other.views)}},
              {$limit: 20}
            ])
@@ -2543,31 +2560,31 @@ export const uploadHandler = async(req, res, next)=>{
 
   try{
 
-    fileUploadHandler(req, "upload", "image", (err, r)=>{
-      
-      if(err){
-        throw new Error(err)
-      }
-
-      let imagesLink = [] 
-      let cover_photo = ""
-
-      if(r?.files?.image){
-        for (let i = 0; i < r.files.image.length; i++) {
-          const link = r.files.image[i];
-          imagesLink.push(link.path) 
-          if(r?.fields?.cover_photo){
-            let match = link.path.lastIndexOf(r.fields.cover_photo)   
-            if(match !== -1){
-              cover_photo = link.path
-            }
-          }
-        }
-      }
-      
-      console.log(r);
-
-    })
+    // fileUploadHandler(req, "upload", "image", (err, r)=>{
+    //
+    //   if(err){
+    //     throw new Error(err)
+    //   }
+    //
+    //   let imagesLink = []
+    //   let cover_photo = ""
+    //
+    //   if(r?.files?.image){
+    //     for (let i = 0; i < r.files.image.length; i++) {
+    //       const link = r.files.image[i];
+    //       imagesLink.push(link.path)
+    //       if(r?.fields?.cover_photo){
+    //         let match = link.path.lastIndexOf(r.fields.cover_photo)
+    //         if(match !== -1){
+    //           cover_photo = link.path
+    //         }
+    //       }
+    //     }
+    //   }
+    //
+    //   console.log(r);
+    //
+    // })
 
   } catch(ex){
     console.log(ex);

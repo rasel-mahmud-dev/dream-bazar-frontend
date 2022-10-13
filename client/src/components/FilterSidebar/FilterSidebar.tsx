@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from 'react'
 import "./FilterSidebar.scss"
 import {connect, useDispatch} from "react-redux"
 import {ACTION_TYPES} from "store/types"
-import {Button, Input} from "components/UI"
+import {Button} from "components/UI"
 
 
 import {fetchBrandForCategory} from "actions/productAction";
@@ -789,15 +789,15 @@ const FilterSidebar = (props: FilterSidebarProps) => {
           
               <div className="brand_search_input_row">
                 <div className="div">
-                  <Input.Menu
-                    placeholder="Search brands..."
-                    addonAfter={<i className="far fa-search"/>}
-                    dropdownMenu={findBrands.brands ? findBrands.brands : []}
-                    handleEnterButton={handleEnterButton}
-                    // suffix={<i className="fa fa-search"/>}
-                    // prefix={<i className="fa fa-search"/>}
-                    // addonBefore={<i className="fal fa-search"/>}
-                  />
+                  {/*<Input.Menu*/}
+                  {/*  placeholder="Search brands..."*/}
+                  {/*  addonAfter={<i className="far fa-search"/>}*/}
+                  {/*  dropdownMenu={findBrands.brands ? findBrands.brands : []}*/}
+                  {/*  handleEnterButton={handleEnterButton}*/}
+                  {/*  // suffix={<i className="fa fa-search"/>}*/}
+                  {/*  // prefix={<i className="fa fa-search"/>}*/}
+                  {/*  // addonBefore={<i className="fal fa-search"/>}*/}
+                  {/*/>*/}
             
                 </div>
               </div>

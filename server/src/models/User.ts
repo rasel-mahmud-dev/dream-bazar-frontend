@@ -1,5 +1,4 @@
 import {ObjectId} from "mongodb";
-import {collections} from "../services/mongodb/database.service";
 import {IndexType} from "../services/mongodb/models.index.types";
 
 
@@ -14,6 +13,7 @@ interface UserType {
     updatedAt?: Date
     roles: Roles[]
     avatar?: string
+    accountStatus?: boolean
 }
 
 export enum Roles {
@@ -37,6 +37,7 @@ class User implements UserType{
     public updatedAt: Date
     public avatar: string
     public roles: Roles[]
+    public accountStatus?: boolean
 
     static indexes: IndexType = {
         email: {
@@ -57,7 +58,7 @@ class User implements UserType{
         this.createdAt = new Date()
         this.updatedAt = new Date()
         this.roles = data.roles;
-
+        this.accountStatus =  false
     }
 }
 

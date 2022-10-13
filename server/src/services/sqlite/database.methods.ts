@@ -1,13 +1,11 @@
 import {getSqliteDb} from "./database.service";
-import {errorResponse} from "../../response";
 
-
-export function findOne(sql: string, params: any[]){
-    return new Promise<[err: any, result: any]>(async (resolve, reject)=>{
+export function findOne<T>(sql: string, params: any[]){
+    return new Promise<[err: any, result: T]>(async (resolve, reject)=>{
         const db = await getSqliteDb();
-        db.get(sql, params, (err, result)=>{
+        db.get(sql, params, (err: any, result: T)=>{
             if(err){
-                resolve([err, null])
+                resolve([err, result])
             } else {
                 resolve([null, result])
             }
@@ -16,12 +14,12 @@ export function findOne(sql: string, params: any[]){
 }
 
 
-export function findAll(sql: string){
-    return new Promise<[err: any, result: any]>(async (resolve, reject)=>{
+export function findAll<T>(sql: string){
+    return new Promise<[err: any, result: T]>(async (resolve, reject)=>{
         const db = await getSqliteDb();
-        db.all(sql, function (err, data) {
+        db.all(sql, function (err: any, data: T) {
             if (err) {
-                resolve([err, null])
+                resolve([err, data])
                 return;
             }
             resolve([null, data])

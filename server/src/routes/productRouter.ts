@@ -1,31 +1,32 @@
-const productsFilter = require("../workers/productsFilter")
+// const productsFilter = require("../workers/productsFilter")
 
 import {
   deleteProduct,
   fetchCategoryProducts,
+  getHomepageSectionProducts,
   getProduct,
-  getProductCount, getProducts,
-  productFilterHomePage,
+  getProductCount,
+  getProducts,
   productFilters,
+  productFiltersGetV2,
   productFiltersPost,
   productFiltersPostV2,
-  saveProductsAsDuplicate,
-  productUpdate,
   saveProduct,
+  saveProductsAsDuplicate,
+  updateProduct,
   updateProductPutReq,
-  uploadHandler,
-  productFiltersGetV2,
-  getHomepageSectionProducts, productUpdateForAttributeChange, updateProduct
-
+  uploadHandler
 } from "../controllers/productController"
 
 
 import {
-  getProductDetail,
+  deleteProductDescription,
   getProductDescriptions,
-  deleteProductDescription
+  getProductDetail
 } from "../controllers/productDescriptionController"
-
+import permission from "../middlewares/permission";
+import {Roles} from "../models/User";
+import isAuth from "../middlewares/isAuth";
 
 
 export default function (app){
@@ -68,7 +69,7 @@ export default function (app){
 
   app.get("/api/products/category-product/:categoryId", fetchCategoryProducts)
   
-  app.get("/api/products", getProducts)
+  app.get("/api/products", isAuth, permission([Roles.ADMIN, Roles.PRODUCT_MANAGER, Roles.SITE_DESIGNER]),  getProducts)
 
 
   // add new product route

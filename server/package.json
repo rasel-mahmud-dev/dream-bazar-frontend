@@ -1,14 +1,16 @@
 {
-  "name": "digital-store-server",
+  "name": "digital-bazar",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc && node copy-dir.js",
+    "build": "tsc",
+    "build2": "tsc && node copy-dir.js",
     "clean": "rm -rf ./dist",
     "start": "node dist/server.js",
-    "dev2": "set NODE_ENV=development&ts-node-dev --respawn --transpile-only src/server.ts",
-    "dev": "set NODE_ENV=development&ts-node-dev --respawn --transpile-only src/local-server.ts"
+    "dev2": "set NODE_ENV=development&ts-node-dev --respawn --transpile-only functions/app.ts",
+    "dev3": "set NODE_ENV=development&ts-node-dev --respawn --transpile-only src/local-server.ts",
+    "dev": "set NODE_ENV=development&ts-node-dev --respawn --transpile-only index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -17,19 +19,21 @@
     "express": "^4.18.1",
     "formidable": "^2.0.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.5.4",
+    "mongodb": "^4.9.1",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth": "^2.0.0",
     "serverless-http": "^3.0.2",
-    "sqlite3": "^5.0.11"
+    "sqlite3": "^5.1.0"
   },
   "devDependencies": {
-    "@types/express": "^4.17.13",
+    "@types/express": "^4.17.14",
+    "@types/morgan": "^1.9.3",
     "@types/node": "^16.11.0",
     "fs-extra": "^10.1.0",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.13",
     "ts-node-dev": "^1.1.8",
-    "typescript": "^4.8.2"
+    "typescript": "^4.8.4"
   }
 }

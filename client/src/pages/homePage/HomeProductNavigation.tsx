@@ -498,43 +498,43 @@ const HomeProductNavigation = () => {
     let sub = d
     if(sub && sub.sub_menu){
       return (
-        <Popup style={popupStyle} bg="white"  inProp={d.id === openItemId}>
+        <Popup style={popupStyle} inProp={d.id === openItemId}>
           <Menu
             selectedKeys={["mail"]}
             defaultOpenKeys={subMenuIds}
           >
-            { sub.sub_menu.map((s)=>(
-              s.sub_menu ? (
-                <SubMenu
-                  key={s.id}
-                  onMouseOver={()=>handleClickSubMenu(s.id, "enter")}
-                  onMouseLeave={()=>handleClickSubMenu(s.id, "leave")}
-                  title={
-                    <span>
-                        <i className="fa fa-heart" />
-                        <span>{s.name}</span>
-                      </span>
-                  }>
-                  {s.sub_menu && s.sub_menu.map(nsb=>(
-                    <Menu.Item
-                      key={nsb.id}>
-                      <Link
-                        to={`/p?cat=${d.id}&cat_tree=${nsb.id}`}>
-                        {nsb.name}
-                      </Link>
-                    </Menu.Item>
-                  ))}
-                
-                </SubMenu>
-              )  : (
-                <Menu.Item
-                  icon="fa fa-heart"
-                  key={s.id}>
-                  <Link to={`/p?cat=${s.id}&cat_tree=${d.id}`}>{s.name}</Link>
-                </Menu.Item>
-              )
-            ))
-            }
+            {/*{ sub.sub_menu.map((s)=>(*/}
+            {/*  s.sub_menu ? (*/}
+            {/*    <SubMenu*/}
+            {/*      key={s.id}*/}
+            {/*      onMouseOver={()=>handleClickSubMenu(s.id, "enter")}*/}
+            {/*      onMouseLeave={()=>handleClickSubMenu(s.id, "leave")}*/}
+            {/*      title={*/}
+            {/*        <span>*/}
+            {/*            <i className="fa fa-heart" />*/}
+            {/*            <span>{s.name}</span>*/}
+            {/*          </span>*/}
+            {/*      }>*/}
+            {/*      {s.sub_menu && s.sub_menu.map(nsb=>(*/}
+            {/*        <Menu.Item*/}
+            {/*          key={nsb.id}>*/}
+            {/*          <Link*/}
+            {/*            to={`/p?cat=${d.id}&cat_tree=${nsb.id}`}>*/}
+            {/*            {nsb.name}*/}
+            {/*          </Link>*/}
+            {/*        </Menu.Item>*/}
+            {/*      ))}*/}
+            {/*    */}
+            {/*    </SubMenu>*/}
+            {/*  )  : (*/}
+            {/*    <Menu.Item*/}
+            {/*      icon="fa fa-heart"*/}
+            {/*      key={s.id}>*/}
+            {/*      <Link to={`/p?cat=${s.id}&cat_tree=${d.id}`}>{s.name}</Link>*/}
+            {/*    </Menu.Item>*/}
+            {/*  )*/}
+            {/*))*/}
+            {/*}*/}
           </Menu>
         </Popup>
       )

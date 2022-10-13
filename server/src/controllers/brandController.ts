@@ -1,4 +1,3 @@
-import dbConnect from "../database"
 import {NextFunction, Request, Response} from "express"
 
 import {errorResponse, successResponse} from "../response";
@@ -9,76 +8,30 @@ import staticDir from "../utilities/staticDir";
 import uuid from "../utilities/uuid";
 
 import {deleteOneById, findAll, findOne, insertOne, update} from "../services/sqlite/database.methods";
-import {ObjectId} from "mongodb";
 
-const isObjectId = require("../utilities/isObjectId")
+import Brand from "../models/Brand";
 
 
 export const getBrandsCount = async (req: Request, res: Response, next: NextFunction) => {
     const {_id} = req.query
-    let client;
-    try {
-        const {c: BrandCollection, client: cc} = await dbConnect("brands")
-        client = cc
-
-        const doc = await BrandCollection.countDocuments({})
-        res.status(200).json({count: doc})
-    } catch (ex) {
-        next()
-        console.log(ex)
-    } finally {
-        client?.close()
-    }
+ 
+    
 }
 
 export const fetchBrandsWithFilter = async (req: Request, res: Response, next: NextFunction) => {
-
     let client;
     const {brands = [], forCategoryIds} = req.body
-
-    try {
-        const {c: brandCollection, client: cc} = await dbConnect("brands")
-        client = cc
-        let brandIds = []
-        brands.forEach(b => {
-            if (isObjectId(b)) {
-                brandIds.push(new ObjectId(b))
-            }
-        })
-
-        let cursor;
-        if (forCategoryIds) {
-            let catIds = []
-            forCategoryIds.forEach(cat => {
-                catIds.push(new ObjectId(cat))
-            })
-            cursor = brandCollection.find({for_category: {$in: catIds}})
-
-        } else {
-            cursor = brandCollection.find({_id: {$in: brandIds}})
-        }
-        let allBrands = []
-        await cursor.forEach(brand => {
-            allBrands.push(brand)
-        })
-        res.status(200).json({brands: allBrands})
-    } catch (ex) {
-        next()
-        console.log(ex)
-    } finally {
-        client?.close()
-    }
 }
 
 
 export const getBrands = async (req: Request, res: Response, next: NextFunction) => {
-
-    let {perPage = 10, pageNumber = 1} = req.query
-
-
+    
+    let { perPage = 10, pageNumber = 1 } = req.query
+    
     try {
+        // let Skip = (perPage as number) * (pageNumber as number - 1)
 
-        let [err, result] = await findAll(`SELECT * FROM brands`)
+        let [err, result] = await findAll<Brand[]>(`SELECT * FROM brands LIMIT 100`)
         if (!err) {
             successResponse(res, 200, result)
         } else {
@@ -93,10 +46,10 @@ export const getBrands = async (req: Request, res: Response, next: NextFunction)
     }
 }
 
-export const getBrand = async (req: Request, res: Response, next: NextFunction) => {
 
+export const getBrand = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        let [err, result] = await findOne("SELECT * FROM brands where id = ?", [req.params.id])
+        let [err, result] = await findOne<Brand>("SELECT * FROM brands where id = ?", [req.params.id])
         if (!err && result) {
             successResponse(res, 200, result)
         } else {
@@ -110,31 +63,15 @@ export const getBrand = async (req: Request, res: Response, next: NextFunction) 
 
 export const getBrandsByIds = async (req: Request, res: Response, next: NextFunction) => {
     const {ids} = req.body
-    let client;
+  
     try {
-        const {c: BrandCollection, client: cc} = await dbConnect("brands")
-        client = cc
-        let brandIds = []
-        let cursor;
-        ids && ids.forEach(stringId => {
-            brandIds.push(new ObjectId(stringId))
-        })
-
-        cursor = BrandCollection.find(
-            {_id: {$in: brandIds}}
-        )
-
-        let brands = []
-        await cursor.forEach(brand => {
-            brands.push(brand)
-        })
-        res.json({brands: brands})
+    
 
     } catch (ex) {
         next()
         console.log(ex)
     } finally {
-        client?.close()
+    
     }
 }
 
@@ -256,8 +193,10 @@ export const updateBrand = async (req: Request, res: Response, next: NextFunctio
         let data = []
         let a = {logo: newPath, name, forCategory};
         for (const key in a) {
+            // @ts-ignore
             if (a[key]) {
                 sql += `${key} = ?, `
+                // @ts-ignore
                 data.push(a[key])
             }
         }
@@ -290,7 +229,7 @@ export const updateBrand = async (req: Request, res: Response, next: NextFunctio
     }
 }
 
-export const deleteBrand = async (req, res, next) => {
+export const deleteBrand = async (req: Request, res: Response, next: NextFunction) => {
 
     const {id} = req.params
 

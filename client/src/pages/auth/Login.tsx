@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, {FC, useEffect, useState} from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import qs from "query-string";
 import apis, { backend } from "src/apis";
@@ -9,19 +9,20 @@ import { connect, useDispatch } from "react-redux";
 import { loginAction} from "actions/authAction";
 
 import { toggleLoader } from "actions/productAction";
-import { toggleAppMask } from "actions/appAction";
-
+// import { toggleAppMask } from "actions/appAction";
+//
 import { InputGroup } from "UI/Form";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import { BsFacebook, BsGoogle } from "react-icons/all";
 import useLanguage from "src/hooks/useLanguage";
 import {AppContext} from "store/AppContext";
+import scrollTo from "src/utills/scrollTo";
 
 interface LoginPageProps {
     toggleLoader?: any;
     toggleAppMask?: any;
     loadingStates: any;
-    cartState: any;
+    // cartState: any;
     login: any;
 }
 
@@ -38,7 +39,7 @@ const Login: FC<LoginPageProps> = (props) => {
 
     const [loadings, setLoading] = React.useState([]);
 
-    const { loadingStates, cartState } = props;
+    const { loadingStates } = props;
 
     const [state, setState] = useState({
         httpResponse: "",
@@ -50,7 +51,7 @@ const Login: FC<LoginPageProps> = (props) => {
             remember: { value: "", errorMessage: "" },
         },
     });
-
+    
     
     async function loginHandler(e) {
         e.preventDefault();

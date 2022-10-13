@@ -21,7 +21,7 @@ import apis from  "src/apis"
 // import avatar from "src/asserts/images/avatar/avatar-1.jpg"
 
 import fullLink from "src/utills/fullLink";
-import {toggleAppMask} from "actions/appAction";
+// import {toggleAppMask} from "actions/appAction";
 import calculateDiscount from "src/utills/calculateDiscount";
 
 interface ProductDetailsProps{
@@ -187,7 +187,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
     return (
       <div className="text-center">
         { loadingState && loadingState.isLoading
-        && <Spin size={30} loaderColor="green" borderWidth={4}  />
+        && <Spin  />
         }
       </div>
     )
@@ -294,8 +294,8 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
               </div>
               
               <div  className="mt-5">
-                <Button onClick={()=>addToCartHandler(product)} size="large" theme="orange" >Add To Cart</Button>
-                <Button size="large" theme="yellow">Buy Now</Button>
+                <Button onClick={()=>addToCartHandler(product)} >Add To Cart</Button>
+                <Button >Buy Now</Button>
               </div>
             </div>
             
@@ -547,7 +547,7 @@ function mapStateToProps(state){
 export default connect(mapStateToProps, {
   fetchProduct,
   toggleLoader,
-  toggleAppMask,
+  // toggleAppMask,
   addToCart
 })(ProductDetails)
 

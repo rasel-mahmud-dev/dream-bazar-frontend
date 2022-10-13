@@ -8,8 +8,6 @@ import {Button,  Image, } from "components/UI";
 // import Slider from "components/slider/Slider";
 import apis from "src/apis";
 import {Link} from  "react-router-dom"
-import {isEn} from "src/lang/i18n";
-import qstring from "query-string";
 // import json from "src/breadcrumbData.json";
 import {connect, useDispatch } from  "react-redux"
 
@@ -245,23 +243,23 @@ const Store = (props: StorePropsType)=>{
   return (
     <div >
       
-      {renderStoreHeader()}
-      { store ? (
-          <div className="content-container">
+      {/*{renderStoreHeader()}*/}
+      {/*{ store ? (*/}
+      {/*    <div className="content-container">*/}
       
-            <div onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseOver} className="top_brands_wrapper my-5 shadow-2">
-              {renderTopBrand()}
-              {isShowTopBrandBtn && <Button onClick={()=>topBrandRef.current.scrollLeft += 300 } hover={false} className="scroll_button" icon="next-brand-btn-icon fa fa-angle-right"  /> }
-            </div>
-            <div>
-              { storeDesc.banner_image && <Image src={fullLink(storeDesc.banner_image)}  maxWidth={100}/>}
-            </div>
-            <div className="store-sections">
-              { renderStoreSectionProduct() }
-            </div>
-          </div>
-        ) : null
-      }
+      {/*      <div onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseOver} className="top_brands_wrapper my-5 shadow-2">*/}
+      {/*        {renderTopBrand()}*/}
+      {/*        {isShowTopBrandBtn && <Button onClick={()=>topBrandRef.current.scrollLeft += 300 } hover={false} className="scroll_button" icon="next-brand-btn-icon fa fa-angle-right"  /> }*/}
+      {/*      </div>*/}
+      {/*      <div>*/}
+      {/*        { storeDesc.banner_image && <Image src={fullLink(storeDesc.banner_image)}  maxWidth={100}/>}*/}
+      {/*      </div>*/}
+      {/*      <div className="store-sections">*/}
+      {/*        { renderStoreSectionProduct() }*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*  ) : null*/}
+      {/*}*/}
     </div>
   )
 }

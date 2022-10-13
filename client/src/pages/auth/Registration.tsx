@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
     useParams,
     Link,
@@ -16,6 +16,7 @@ import { BsFacebook, BsGoogle } from "react-icons/all";
 import { RootState } from "src/store";
 import ResponseMessage from "UI/ResponseMessage";
 import {registrationAction} from "actions/authAction";
+import scrollTo from "src/utills/scrollTo";
 
 const Registration = (props) => {
     const {} = useSelector((state: RootState) => state);
@@ -32,6 +33,7 @@ const Registration = (props) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
 
     const [loadings, setLoading] = React.useState([]);
 
