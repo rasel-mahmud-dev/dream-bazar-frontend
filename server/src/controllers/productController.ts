@@ -97,13 +97,11 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
     //     {$skip: perPage * (pageNumber - 1)},
     //     {$limit: Number(perPage)}
     // ])
-
-    const database = await mongoConnect();
+    
 
     // const docs = await database.model.products.find().toArray();
 
-    const docs = await database.collection("products").find().toArray();
-
+    const docs = await Product.find<Product[]>();
     res.json({time: Date.now() - now, total: docs.length, products: docs})
 
 
@@ -191,7 +189,7 @@ export const getProduct = async (req, res, next)=>{
   }
 
   try {
-    let product = await collections.products.findOne({ _id: new ObjectId(req.params.id)})
+    let product = await Product.findOne<Product>({ _id: new ObjectId(req.params.id)})
     successResponse(res, 200, product)
 
   } catch (ex){
@@ -615,7 +613,7 @@ export const saveProduct = async (req: Request, res: Response, next: NextFunctio
 
     newProduct.coverPhoto = newPath
 
-    let doc = await collections.products.insertOne(newProduct)
+    let doc = await newProduct.save()
     if(doc && doc.insertedId){
       successResponse(res, 201, {
         message: "Product added",
@@ -894,15 +892,9 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
 
     updateProduct.coverPhoto = newPath
 
-    let doc = await collections.products.updateOne({_id: new ObjectId(id)}, {
-      $set: {
-          ...updateProduct
-      }
-    })
-
-    if(doc.modifiedCount === 1) {
+    let doc = await Product.findOneAndUpdate({_id: new ObjectId(id)}, updateProduct)
+    if(doc.ok) {
       successResponse(res, 201, {message: "product updated", updateProduct})
-
     } else {
       errorResponse(next, "product update fail", 500)
     }

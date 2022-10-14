@@ -2,14 +2,14 @@ import BaseSQLite from "./BaseSQLite";
 
 export interface BrandType {
     id?: number | string
-    name: string
+    name?: string
     logo?: string
     forCategory?: string[] |  string
 }
 
 class Brand extends BaseSQLite implements BrandType {
     id?: number | string
-    name: string
+    name?: string
     logo?: string
     forCategory?: string[] | string
     

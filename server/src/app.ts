@@ -4,7 +4,7 @@ import  morgan from "morgan"
 const bodyParser = require("body-parser")
 const cors = require("cors");
 
-// const passport = require('passport');
+const passport = require('passport');
 
 require('dotenv').config()
 
@@ -16,8 +16,8 @@ import {initialConnectionMongodb} from "./services/mongodb/database.service";
 
 // import dbConnect from "./database";
 
-// // passport config initial...
-// require('./passport/google.js')
+// passport config initial...
+require('./passport/google')
 // require('./passport/facebook.js')
 
 // import dataDir from "../src/utilities/dataDir";
@@ -47,6 +47,7 @@ app.use(cors(process.env.NODE_ENV !== "development" ? corsOptions : {}))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
+app.use(passport.initialize())
 
 // database connection init
 // initialConnectionMongodb().then((_)=>{
@@ -62,11 +63,6 @@ app.use(bodyParser.urlencoded({extended: true}))
 // sqlDatabase().then(res=>{}).catch(ex=>{
 //     console.log(ex.message)
 // })
-
-
-// passport.initialize()
-// app.use(passport.session());
-
 
 
 app.use(routes)

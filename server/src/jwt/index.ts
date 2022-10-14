@@ -1,9 +1,12 @@
+import {Roles} from "../models/User";
+
 const jwt = require('jsonwebtoken')
 
-exports.createToken = (_id, email)=> {
+export const createToken = (_id: string, email: string, roles: Roles[])=> {
  let token = jwt.sign({
       _id: _id,
       email: email,
+     roles: roles
     }, 
     process.env.SECRET, { expiresIn: '5h' }
   );
@@ -11,7 +14,7 @@ exports.createToken = (_id, email)=> {
   return token
 }
 
-exports.parseToken = (token, cb)=> {
+export const parseToken = (token: string, cb: any)=> {
    jwt.verify(token, process.env.SECRET, (err, d)=>{
      if(err){
        return cb(err, null)

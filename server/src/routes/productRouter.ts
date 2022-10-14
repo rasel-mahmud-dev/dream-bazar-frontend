@@ -70,7 +70,7 @@ export default function (app: Router){
 
   app.get("/api/products/category-product/:categoryId", fetchCategoryProducts)
   
-  app.get("/api/products", isAuth, permission([Roles.ADMIN, Roles.PRODUCT_MANAGER, Roles.SITE_DESIGNER]),  getProducts)
+  app.get("/api/products",  permission([Roles.ADMIN, Roles.PRODUCT_MANAGER, Roles.SITE_DESIGNER]),  getProducts)
 
 
   // add new product route

@@ -110,7 +110,6 @@ class BaseSQLite {
         })
     }
     
-    
     static deleteOne<T>(filter: BrandType){
         return new Promise<[err: any, result: any]>(async (resolve, reject)=>{
             
@@ -128,6 +127,32 @@ class BaseSQLite {
             
             db.run(sql, function (err: any, data: T) {
               
+                if (err) {
+                    resolve([err, null])
+                    return;
+                }
+                resolve([null, data])
+            })
+        })
+    }
+    
+    static run(sql: string){
+        return new Promise<[err: any, result: any]>(async (resolve, reject)=>{
+            const db = await getSqliteDb();
+            db.run(sql, function (err: any, data: any) {
+                if (err) {
+                    resolve([err, null])
+                    return;
+                }
+                resolve([null, data])
+            })
+        })
+    }
+   
+    static get(sql: string){
+        return new Promise<[err: any, result: any]>(async (resolve, reject)=>{
+            const db = await getSqliteDb();
+            db.get(sql, function (err: any, data: any) {
                 if (err) {
                     resolve([err, null])
                     return;

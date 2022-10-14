@@ -4,6 +4,8 @@ import {IndexType} from "../services/mongodb/models.index.types";
 
 interface UserType {
     _id?: ObjectId
+    googleId?: string
+    facebookId?: string
     username: string
     firstName: string
     lastName?: string
@@ -27,12 +29,14 @@ export enum Roles {
 }
 
 class User implements UserType{
-    public _id: ObjectId
+    public _id?: ObjectId
+    public googleId?: string
+    public facebookId?: string
     public username: string
     public firstName: string
-    public lastName:  string
+    public lastName?:  string
     public email: string
-    public password: string
+    public password?: string
     public createdAt: Date
     public updatedAt: Date
     public avatar: string
@@ -51,6 +55,8 @@ class User implements UserType{
     constructor(data: UserType) {
         this.username = data.username
         this.firstName = data.firstName
+        this.facebookId = data.facebookId
+        this.googleId = data.googleId
         this.lastName = data.lastName
         this.email = data.email
         this.password = data.password

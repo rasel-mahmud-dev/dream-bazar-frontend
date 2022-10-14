@@ -1,6 +1,7 @@
 
 import {ObjectId} from "mongodb";
 import {IndexType} from "../services/mongodb/models.index.types";
+import Base from "./Base";
 
 export interface ProductType{
   _id?: ObjectId | string,
@@ -23,8 +24,8 @@ export interface ProductType{
 }
 
 
-class Product implements ProductType{
-  public _id: ObjectId
+class Product extends Base implements ProductType {
+  public _id?: ObjectId
   public title: string
   public price: number
   public discount: number
@@ -33,7 +34,7 @@ class Product implements ProductType{
   public images: string[]
   public updatedAt: Date
   public qty: number
-  isApproved: boolean
+  public isApproved: boolean
   public sold: number
   public views: number
   public brandId: string | ObjectId
@@ -51,8 +52,12 @@ class Product implements ProductType{
     views: {},
     sold: {}
   }
+  static collectionName = "products"
+  
+  
 
   constructor(data: ProductType) {
+    super(Product.collectionName)
     this.title = data.title
     this.price = data.price
     this.discount = data.discount

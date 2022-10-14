@@ -1,13 +1,14 @@
 import {Request} from "express";
 import { IncomingMessage, ServerResponse} from "http";
+import {Roles} from "../models/User";
 
 
 
 export interface RequestWithAuth extends Request{
-    userId?: string,
-    user: {
-        userId: string,
-        role: string
+    user?: {
+        _id: string,
+        roles: Roles[]
+        email: string
     } | null
 }
 

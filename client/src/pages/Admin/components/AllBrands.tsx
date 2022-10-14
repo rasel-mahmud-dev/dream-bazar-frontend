@@ -59,7 +59,7 @@ const AllBrands = (props) => {
         ])
         .then((result)=>{
                 if(result[0].status === "fulfilled"){
-                    setBrands(result[0].value.data)
+                    setTotalBrands(result[0].value.data)
                 }
                 if(result[1].status === "fulfilled"){
                     setBrands(result[1].value.data);

@@ -3,6 +3,7 @@ import {Router} from "express";
 const passport = require("passport")
 const {createToken} = require("../jwt")
 import isAuth from "../middlewares/isAuth"
+import {googleLoginController} from "../controllers/authController";
 
 const authController = require("../controllers/authController")
 
@@ -25,7 +26,6 @@ export default function (app: Router){
 //   will redirect the user back to this application at /auth/google/callback
 
 
-
 // route call via react js
 app.get('/api/auth/google',
   passport.authenticate('google', { scope : ['profile', 'email'] }));
@@ -38,14 +38,7 @@ app.get('/api/auth/google',
 //   which, in this example, will redirect the user to the home page.
 
 // call by react js when google callback 
-app.get('/api/auth/callback/google', 
-  passport.authenticate('google'),
-  function(req, res) {
-    let user = {...req.user}
-    req.user = null
-    let token = createToken(user.email)
-    res.json({user, token})
-  })
+app.get('/auth/callback/google', passport.authenticate('google'), googleLoginController)
 
 
 app.get('/api/auth/facebook',

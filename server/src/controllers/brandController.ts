@@ -10,16 +10,13 @@ import uuid from "../utilities/uuid";
 
 import Brand from "../models/Brand";
 
-
 export const getBrandsCount = async (req: Request, res: Response, next: NextFunction) => {
-    const {_id} = req.query
-    
-    successResponse(res, 500, {count: 400})
-}
-
-export const fetchBrandsWithFilter = async (req: Request, res: Response, next: NextFunction) => {
-    let client;
-    const {brands = [], forCategoryIds} = req.body
+    let [err, doc] = await Brand.get(`SELECT COUNT(*) as count from brands`)
+    if(!err && doc){
+        successResponse(res, 200, doc.count)
+    } else {
+        errorResponse(next, "brands row count fail")
+    }
 }
 
 
@@ -43,7 +40,6 @@ export const getBrands = async (req: Request, res: Response, next: NextFunction)
 
     }
 }
-
 
 export const getBrand = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -261,10 +257,9 @@ export const deleteBrand = async (req: Request, res: Response, next: NextFunctio
 
     try {
 
-        let [err, result] = await Brand.deleteOne<string>({id: "oc2zko1hg1", name: "a2"})
-        console.log(result)
+        let [err, result] = await Brand.deleteOne<string>({id})
         if (err) {
-            errorResponse(next, "Brand delete fail", 500)
+            errorResponse(next, "Brand delete fail")
         } else {
             successResponse(res, 201, {message: "Brand deleted", id});
         }

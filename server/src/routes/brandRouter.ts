@@ -1,7 +1,6 @@
 
 import {
   deleteBrand,
-  fetchBrandsWithFilter,
   getBrand,
   getBrands,
   getBrandsByIds,
@@ -31,6 +30,4 @@ export default function (app: Router){
   app.patch("/api/brand/:id", updateBrand)
 
   app.delete("/api/brand/:id", deleteBrand)
-
-  app.post("/api/fetch-brands", fetchBrandsWithFilter)
 }

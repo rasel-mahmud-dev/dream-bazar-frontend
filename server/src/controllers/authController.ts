@@ -1,21 +1,15 @@
 import {NextFunction, Request, Response} from "express"
 import dbConnect from "../database"
 import {RequestWithAuth} from "../types";
-import {collections, mongoConnect} from "../services/mongodb/database.service";
+import {mongoConnect} from "../services/mongodb/database.service";
 import User, {Roles} from "../models/User";
 import {createHash, hashCompare} from "../hash";
 
 const {ObjectId} = require("mongodb")
-const formidable = require('formidable');
-const path = require("path")
-const { copyFile, mkdir, rm, slats } = require('fs/promises');
-const fileUpload = require("../utilities/fileUpload")
 const {errorResponse, successResponse} = require("../response")
 
 import * as mongoDB from "mongodb"
-
-
-const { createToken, getToken, parseToken} = require("../jwt")
+import {createToken} from "../jwt";
 
 
 export const login = async (req: Request, res: Response, next: NextFunction)=>{
@@ -56,7 +50,17 @@ export const login = async (req: Request, res: Response, next: NextFunction)=>{
   } catch(ex) {
     next(ex)
   }
-} 
+}
+
+export const googleLoginController = async (req: RequestWithAuth, res: Response, next: NextFunction)=>{
+  
+  if(!req.user){
+    return errorResponse(next, "Login fail")
+  }
+  
+  let token = createToken(req.user._id, req.user.email,req.user.roles)
+  successResponse(res, 201, {user: req.user, token: token})
+}
 
 export const registration = async (req: Request, res: Response, next: NextFunction)=>{
   try{
@@ -104,7 +108,6 @@ export const registration = async (req: Request, res: Response, next: NextFuncti
   }
 } 
 
-
 export const currentAuth = async (req: RequestWithAuth, res: Response, next: NextFunction)=>{
 
   try{
@@ -123,7 +126,6 @@ export const currentAuth = async (req: RequestWithAuth, res: Response, next: Nex
   }
 }
 
-
 export const fetchProfile = async (req: RequestWithAuth, res: Response, next: NextFunction)=>{
   let client;
   try{
@@ -137,4 +139,6 @@ export const fetchProfile = async (req: RequestWithAuth, res: Response, next: Ne
   } finally{
     client?.close()
   }
-} 
+}
+
+
