@@ -45,25 +45,33 @@ const AllBrands = (props) => {
     const {formData, isShowForm, updateId} = state
     
     
-    React.useEffect(() => {
-        (async function () {
-            const { data } = await apis.get("/api/brands/count");
-            setTotalBrands(data.count);
-
-            const dd = await apis.get("/api/brands");
-            setBrands(dd.data);
+    async function fetchAllCategoryBrand(flatCategories){
+        if(!flatCategories) {
+            return fetchFlatCategories();
+        }
+    }
     
-            try{
-                let a = await fetchFlatCategories();
-                if(!flatCategories) {
+    React.useEffect(() => {
+        Promise.allSettled([
+            apis.get("/api/brands/count"),
+            apis.get("/api/brands"),
+            fetchAllCategoryBrand(flatCategories)
+        ])
+        .then((result)=>{
+                if(result[0].status === "fulfilled"){
+                    setBrands(result[0].value.data)
+                }
+                if(result[1].status === "fulfilled"){
+                    setBrands(result[1].value.data);
+                }
+                if(result[2].status === "fulfilled"){
                     dispatch({
                         type: ACTION_TYPES.FETCH_CATEGORIES,
-                        payload: a
+                        payload: result[2].value
                     })
                 }
-            } catch (ex){}
-            
-        })();
+               
+            })
     }, []);
     
 

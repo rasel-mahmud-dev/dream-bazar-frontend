@@ -7,15 +7,14 @@ import fs from "fs";
 import staticDir from "../utilities/staticDir";
 import uuid from "../utilities/uuid";
 
-import {deleteOneById, findAll, findOne, insertOne, update} from "../services/sqlite/database.methods";
 
 import Brand from "../models/Brand";
 
 
 export const getBrandsCount = async (req: Request, res: Response, next: NextFunction) => {
     const {_id} = req.query
- 
     
+    successResponse(res, 500, {count: 400})
 }
 
 export const fetchBrandsWithFilter = async (req: Request, res: Response, next: NextFunction) => {
@@ -30,12 +29,11 @@ export const getBrands = async (req: Request, res: Response, next: NextFunction)
     
     try {
         // let Skip = (perPage as number) * (pageNumber as number - 1)
-
-        let [err, result] = await findAll<Brand[]>(`SELECT * FROM brands LIMIT 100`)
+        let [err, result] = await Brand.findAll<Brand[]>(`SELECT * FROM brands LIMIT 100`)
         if (!err) {
             successResponse(res, 200, result)
         } else {
-            successResponse(res, 200, [])
+            errorResponse(next, err, 500)
         }
 
     } catch (ex) {
@@ -49,7 +47,7 @@ export const getBrands = async (req: Request, res: Response, next: NextFunction)
 
 export const getBrand = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        let [err, result] = await findOne<Brand>("SELECT * FROM brands where id = ?", [req.params.id])
+        let [err, result] = await Brand.findOne<Brand>("SELECT * FROM brands where id = ?", [req.params.id])
         if (!err && result) {
             successResponse(res, 200, result)
         } else {
@@ -88,7 +86,31 @@ export const saveBrands = async (req: Request, res: Response, next: NextFunction
     //       CONSTRAINT "brands_pk" PRIMARY KEY("name", "id")
     // )
     //  `
-
+    
+    
+    // let id = uuid(10)
+    // let newBrand = new Brand({
+    //     id: id,
+    //     name: "ASD",
+    //     logo: "ASDDDD",
+    //     forCategory: JSON.stringify([])
+    // })
+    //
+    // await newBrand.insertOne()
+    //
+    // console.log(newBrand)
+    // let [err2] = await newBrand.insertOne(
+    //     "INSERT INTO brands (id, name, logo, forCategory) Values(?, ?, ?, ?)",
+    //     [id, name, newPath, JSON.stringify(for_category)]
+    // )
+    //
+    // if (err2) {
+    //     return errorResponse(next, "Internal error. Please try Again")
+    // }
+    
+    // return res.send(newBrand)
+    
+    
     try {
         // parse formdata
         let {err, fields, file, fileName} = await fileUpload(req, "logo");
@@ -99,7 +121,7 @@ export const saveBrands = async (req: Request, res: Response, next: NextFunction
         const {name, forCategory} = fields as any
 
         // check it this brand already exists or not
-        let [findErr, result] = await findOne("SELECT * FROM brands where name = ?", [name])
+        let [findErr, result] = await Brand.findOne("SELECT * FROM brands where name = ?", [name])
         if (!findErr && result) {
             return errorResponse(next, "Brand already exists", 401)
         }
@@ -125,11 +147,15 @@ export const saveBrands = async (req: Request, res: Response, next: NextFunction
         }
 
         let id = uuid(10)
-        let [err2] = await insertOne(
-            "INSERT INTO brands (id, name, logo, forCategory) Values(?, ?, ?, ?)",
-            [id, name, newPath, JSON.stringify(for_category)]
-        )
-
+        let newBrand = new Brand({
+            id: id,
+            name,
+            logo: newPath,
+            forCategory: JSON.stringify(for_category)
+        })
+        
+        let [err2, doc] = await newBrand.insertOne()
+        console.log(newBrand)
         if (err2) {
             return errorResponse(next, "Internal error. Please try Again")
         }
@@ -144,7 +170,6 @@ export const saveBrands = async (req: Request, res: Response, next: NextFunction
             }
         })
 
-
     } catch (ex) {
         return errorResponse(next, "Internal error. Please try Again")
 
@@ -157,7 +182,7 @@ export const updateBrand = async (req: Request, res: Response, next: NextFunctio
 
     try {
 
-        let [findErr, result] = await findOne('select * from brands where id = ?', [req.params.id])
+        let [findErr, result] = await Brand.findOne('select * from brands where id = ?', [req.params.id])
         if (findErr || !result) {
             return errorResponse(next, "Brand Not found")
         }
@@ -204,7 +229,7 @@ export const updateBrand = async (req: Request, res: Response, next: NextFunctio
 
         sql = "UPDATE brands SET " + sql + " WHERE id = ?"
 
-        let [errRes] = await update(sql, [...data, req.params.id])
+        let [errRes] = await Brand.update(sql, [...data, req.params.id])
 
         if (errRes) {
             errorResponse(next, "Brand update fail")
@@ -229,13 +254,15 @@ export const updateBrand = async (req: Request, res: Response, next: NextFunctio
     }
 }
 
+
 export const deleteBrand = async (req: Request, res: Response, next: NextFunction) => {
 
     const {id} = req.params
 
     try {
 
-        let [err, result] = await deleteOneById("brands", id)
+        let [err, result] = await Brand.deleteOne<string>({id: "oc2zko1hg1", name: "a2"})
+        console.log(result)
         if (err) {
             errorResponse(next, "Brand delete fail", 500)
         } else {

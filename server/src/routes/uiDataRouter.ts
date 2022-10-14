@@ -12,7 +12,9 @@
 
 // const getStaticPhotosWorker = require("../workers/getStaticPhotosWorker")
 
-export default function (app){
+import {Router} from "express";
+
+export default function (app: Router){
   // app.get("/api/ui-data/:filename", getUiCategory)
   // // app.post("/api/ui-data/:filename", updateUiCategory)
   //

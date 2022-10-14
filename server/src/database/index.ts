@@ -59,6 +59,6 @@ function dbConnect(collectionName?: string){
 //   })
 // }
 //
-//
+
 export default dbConnect
-//
+

@@ -9,9 +9,10 @@ import {
   saveBrands,
    updateBrand
 } from "../controllers/brandController"
+import {Router} from "express";
 
 
-export default function (app){
+export default function (app: Router){
   
   app.get("/api/brands/count", getBrandsCount)
 

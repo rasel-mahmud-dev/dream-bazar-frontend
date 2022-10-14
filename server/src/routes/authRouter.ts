@@ -1,3 +1,5 @@
+import {Router} from "express";
+
 const passport = require("passport")
 const {createToken} = require("../jwt")
 import isAuth from "../middlewares/isAuth"
@@ -5,7 +7,7 @@ import isAuth from "../middlewares/isAuth"
 const authController = require("../controllers/authController")
 
 
-export default function (app){
+export default function (app: Router){
   
   app.post("/api/auth/login", authController.login)
 

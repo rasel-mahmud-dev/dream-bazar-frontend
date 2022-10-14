@@ -27,9 +27,10 @@ import {
 import permission from "../middlewares/permission";
 import {Roles} from "../models/User";
 import isAuth from "../middlewares/isAuth";
+import {Router} from "express";
 
 
-export default function (app){
+export default function (app: Router){
   
   app.get("/api/products/descriptions", getProductDescriptions)
   app.delete("/api/products/descriptions/:id", deleteProductDescription)

@@ -12,10 +12,11 @@ import {
   saveCategory,
   updateCategory
 } from "../controllers/categoryController"
+import {Router} from "express";
 
 // const filterItemsController = require("../controllers/filterItemsController")
 
-export default function (app){
+export default function (app: Router){
   // app.get("/api/categories/count", getCategoriesCount)
 
   app.get("/api/categories", getCategories)

@@ -123,6 +123,7 @@ class Base {
       })
     
   }
+  
   static findOne(attr={}){
     
     // new this("")
@@ -166,6 +167,7 @@ class Base {
       }
     })
   }
+  
   static aggregate(pipeline: any){
     return new Promise(async (resolve, reject)=>{
       let client;
@@ -189,5 +191,6 @@ class Base {
     })
   }
 }
+
 
 export  default Base
