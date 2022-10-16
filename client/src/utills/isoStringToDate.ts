@@ -1,7 +1,8 @@
 export default function isoStringToDate(dateString: string){
     let result: string = ""
     if (dateString){
-        result = new Date(dateString).toDateString();
+        let date  = new Date(dateString)
+        result = date.toDateString() + "  " + date.toLocaleTimeString()
     }
     
     return result

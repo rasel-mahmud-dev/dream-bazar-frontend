@@ -113,6 +113,7 @@ export const saveBrands = async (req: Request, res: Response, next: NextFunction
         if (err) {
             return errorResponse(next, "Internal Error. Please try Again")
         }
+        
 
         const {name, forCategory} = fields as any
 
@@ -121,7 +122,7 @@ export const saveBrands = async (req: Request, res: Response, next: NextFunction
         if (!findErr && result) {
             return errorResponse(next, "Brand already exists", 401)
         }
-
+        
 
         let newPath = ""
 

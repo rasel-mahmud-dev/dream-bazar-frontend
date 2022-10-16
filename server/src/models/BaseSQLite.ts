@@ -1,5 +1,6 @@
 import {getSqliteDb} from "../services/sqlite/database.service";
 import  {BrandType} from "./Brand";
+import {productFiltersGetV2} from "../controllers/productController";
 
 
 class BaseSQLite {
@@ -65,13 +66,9 @@ class BaseSQLite {
             for (const dataKey in data) {
                 // ignore tableName field
                 if (dataKey !== "tableName") {
-                    if (!data[dataKey]) {
-                        delete data[dataKey];
-                    } else {
-                        fieldName = fieldName + ", " + dataKey;
-                        values.push(data[dataKey])
-                        valuesPlaceholder += "?, "
-                    }
+                    fieldName = fieldName + ", " + dataKey;
+                    values.push(data[dataKey])
+                    valuesPlaceholder += "?, "
                 }
             }
         
@@ -82,6 +79,48 @@ class BaseSQLite {
                 
                 const db = await getSqliteDb();
                 db.run(sql, values, function (err: any, data: any) {
+                    if (err) {
+                        resolve([err, null])
+                        return;
+                    }
+                    resolve([null, data])
+                })
+                
+            } catch (ex) {
+                throw ex;
+            }
+        })
+    }
+    
+    updateOne(id: string | number){
+        return new Promise<[err: any, result: any]>(async (resolve, reject)=>{
+    
+            
+            let fieldName = "";
+            
+            let values = []
+        
+            const data = { ...this };
+            
+            
+            for (const dataKey in data) {
+                // ignore tableName field
+                
+                if (dataKey !== "tableName"  &&  dataKey !== "id" && dataKey !== "createdAt") {
+                    fieldName += `'${dataKey}' = ?, `;
+                    values.push(data[dataKey])
+                }
+            }
+            
+            try {
+                let tableName = BaseSQLite.tableName;
+                
+                // UPDATE categories SET 'parentId' = ?, 'name' = ?, 'isProductLevel' = ?, 'ideals' = ?, 'updatedAt' = ? WHERE id = ?
+                let sql = `UPDATE ${tableName} SET ${fieldName.slice(0, fieldName.lastIndexOf(","))} WHERE id = ?`;
+                console.log(sql, values)
+                const db = await getSqliteDb();
+
+                db.run(sql, [...values, id], function (err: any, data: any) {
                     if (err) {
                         resolve([err, null])
                         return;

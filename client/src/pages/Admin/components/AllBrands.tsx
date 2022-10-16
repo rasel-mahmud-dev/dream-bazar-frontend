@@ -363,7 +363,11 @@ const AllBrands = (props) => {
         {
             title: "CreatedAt",
             dataIndex: "createdAt",
-            sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0,
+            sorter: (a: string, b: string)=> {
+                let aDate = new Date(a)
+                let bDate = new Date(b)
+                return aDate > bDate ? 1 : aDate < bDate ? -1 : 0
+            },
             render: (item)=>(
                 <div>{isoStringToDate(item.createdAt)}</div>
             )
@@ -371,7 +375,16 @@ const AllBrands = (props) => {
         },
         {
             title: "UpdatedAt",
-            dataIndex: "updatedAt", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
+            dataIndex: "updatedAt",
+            sorter: (a: string, b: string) => {
+                let aDate = new Date(a)
+                let bDate = new Date(b)
+                return aDate > bDate ? 1 : aDate < bDate ? -1 : 0
+            },
+            render: (item)=>(
+                <div>{isoStringToDate(item.createdAt)}</div>
+            )
+        },
         {
             title: "Action",
             dataIndex: "",

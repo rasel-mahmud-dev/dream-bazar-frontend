@@ -16,6 +16,7 @@ import { BsPencilSquare, FcEmptyTrash } from "react-icons/all";
 import Table, {Column} from "UI/table/Table";
 import SelectGroup from "UI/Form/SelectGroup";
 import Checkbox from "UI/Form/checkbox/Checkbox";
+import isoStringToDate from "src/utills/isoStringToDate";
 
 const AllCategory = (props) => {
     const {
@@ -296,6 +297,31 @@ const AllCategory = (props) => {
     const columns: Column[] = [
         { title: "Name", dataIndex: "name", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
         { title: "Is Product Level", dataIndex: "isProductLevel", render: (item: any) => <span>{item.isProductLevel === 1 ? "True": "False" }</span> },
+        {
+            title: "CreatedAt",
+            dataIndex: "createdAt",
+            sorter: (a: string, b: string)=> {
+                let aDate = new Date(a)
+                let bDate = new Date(b)
+                return aDate > bDate ? 1 : aDate < bDate ? -1 : 0
+            },
+            render: (item)=>(
+                <div>{isoStringToDate(item.createdAt)}</div>
+            )
+        
+        },
+        {
+            title: "UpdatedAt",
+            dataIndex: "updatedAt",
+            sorter: (a: string, b: string) => {
+                let aDate = new Date(a)
+                let bDate = new Date(b)
+                return aDate > bDate ? 1 : aDate < bDate ? -1 : 0
+            },
+            render: (item)=>(
+                <div>{isoStringToDate(item.createdAt)}</div>
+            )
+        },
         {
             title: "Action",
             dataIndex: "",
