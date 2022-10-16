@@ -151,7 +151,7 @@ export const saveBrands = async (req: Request, res: Response, next: NextFunction
         })
         
         let [err2, doc] = await newBrand.insertOne()
-        console.log(newBrand)
+       
         if (err2) {
             return errorResponse(next, "Internal error. Please try Again")
         }
@@ -211,8 +211,15 @@ export const updateBrand = async (req: Request, res: Response, next: NextFunctio
         }
 
         let sql = ''
+        let updatedDate =  new Date().toISOString();
         let data = []
-        let a = {logo: newPath, name, forCategory};
+        let a = {
+            logo: newPath,
+            name,
+            updatedAt: updatedDate,
+            forCategory
+        };
+        
         for (const key in a) {
             // @ts-ignore
             if (a[key]) {
@@ -235,6 +242,7 @@ export const updateBrand = async (req: Request, res: Response, next: NextFunctio
                 brand: {
                     id: req.params.id,
                     logo: newPath,
+                    updatedAt: updatedDate,
                     name,
                     forCategory: for_category
                 }

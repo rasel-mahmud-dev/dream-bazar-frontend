@@ -10,7 +10,7 @@ import {
 } from "react-icons/all";
 import {useDispatch, useSelector} from "react-redux";
 import { toggleBackdrop} from "actions/appAction";
-import {RootState} from "src/store";
+
 import {InputGroup} from "UI/Form";
 import FileUpload from "UI/Form/File/FileUpload";
 import MultiSelect from "UI/Form/multiSelect/MultiSelect";
@@ -18,6 +18,8 @@ import {ACTION_TYPES} from "store/types";
 import {deleteBrandAction, fetchFlatCategories} from "actions/productAction";
 import ActionInfo from "components/ActionInfo/ActionInfo";
 import errorMessageCatch from "src/utills/errorMessageCatch";
+import {RootState} from "src/store";
+import isoStringToDate from "src/utills/isoStringToDate";
 
 
 
@@ -359,6 +361,18 @@ const AllBrands = (props) => {
         },
         { title: "Name", dataIndex: "name", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
         {
+            title: "CreatedAt",
+            dataIndex: "createdAt",
+            sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0,
+            render: (item)=>(
+                <div>{isoStringToDate(item.createdAt)}</div>
+            )
+            
+        },
+        {
+            title: "UpdatedAt",
+            dataIndex: "updatedAt", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
+        {
             title: "Action",
             dataIndex: "",
             className: "center_in_div",
@@ -409,7 +423,7 @@ const AllBrands = (props) => {
                        tr: "hover:bg-green-500/10",
                    }}
                    fixed={true}
-                   scroll={{x: 300, y: 600}}
+                   scroll={{x: 500, y: 600}}
                 />
             </div>
         </div>
