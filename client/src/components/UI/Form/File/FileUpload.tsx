@@ -9,6 +9,7 @@ interface Props extends HTMLAttributes<HTMLInputElement>{
     preview?: string,
     labelClass?: string
     inputClass?: string
+    previewImageClass?: string
     defaultValue?: string
     errorMessage?: string
     onChange: any
@@ -16,7 +17,7 @@ interface Props extends HTMLAttributes<HTMLInputElement>{
 
 const FileUpload:FC<Props> = (props)=>{
     
-    const {name, label, preview=true, inputClass="", labelClass="", defaultValue, errorMessage, placeholder, onChange, className} = props
+    const {name, previewImageClass="", label, preview=true, inputClass="", labelClass="", defaultValue, errorMessage, placeholder, onChange, className} = props
     
     const imageInputRef = useRef()
     
@@ -72,10 +73,10 @@ const FileUpload:FC<Props> = (props)=>{
                 </div>
 
                 { preview && base64 && (
-                    <img onLoad={handleCompress} src={base64} className=""  alt="" />
+                    <img onLoad={handleCompress} src={base64} className={previewImageClass}  alt="" />
                 ) }
                 { defaultValue && typeof defaultValue === "string" && !base64 && (
-                    <img src={staticImagePath(defaultValue)} className=""  alt=""/>
+                    <img src={staticImagePath(defaultValue)} className={previewImageClass}  alt=""/>
                 ) }
 
             </div>

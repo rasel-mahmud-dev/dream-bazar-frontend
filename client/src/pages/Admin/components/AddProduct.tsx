@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, SyntheticEvent, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import api from "src/apis";
 import ActionInfo from "components/ActionInfo/ActionInfo";
@@ -14,6 +14,8 @@ import {Button, Modal, Tabs} from "UI/index";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import fullLink from "src/utills/fullLink";
 import staticImagePath from "src/utills/staticImagePath";
+import {Popup} from "components/UI";
+import ModalWithBackdrop from "src/components/ModalWithBackdrop/ModalWithBackdrop";
 
 
 
@@ -80,10 +82,12 @@ const AddProduct: FC<Props> = (props) => {
             price: { value: "", errorMessage: "" },
             qty: { value: "", errorMessage: "" },
             discount: { value: "", errorMessage: "" }
-        }
+        },
+        isShowStaticChooser: false,
+        staticImages: []
     })
     
-    const {productData } = state
+    const {productData, staticImages, isShowStaticChooser } = state
     
     function handleChange(e) {
         const { name, value } = e.target
@@ -99,7 +103,6 @@ const AddProduct: FC<Props> = (props) => {
                 }
             }
         } else {
-            console.log(value)
             updateProductData = {
                 ...updateProductData,
                 [name]: {
@@ -109,10 +112,11 @@ const AddProduct: FC<Props> = (props) => {
                 }
             }
         }
-        setState({
-            ...state,
+        setState(prev=>({
+            ...prev,
             productData: updateProductData
-        })
+        }))
+        
     }
     
     
@@ -194,6 +198,36 @@ const AddProduct: FC<Props> = (props) => {
     }
     
     
+    function handleToggleStaticImageChooserModal(isOpen: boolean){
+        if(isOpen && state.staticImages.length === 0){
+             //  load all static files...
+            api.get("/api/files/static-files").then((response) => {
+                setState(prev=>({
+                    ...prev,
+                    isShowStaticChooser: isOpen,
+                    staticImages: response.data
+                }));
+            });
+        } else {
+            setState(prev=>({
+                ...prev,
+                isShowStaticChooser: isOpen,
+            }));
+        }
+    }
+    
+    function handleChooseImage(imagePath: string){
+ 
+        let updateProductData = { ...productData}
+        updateProductData.coverPhoto = {
+            value: imagePath,
+            errorMessage: ""
+        }
+        setState(prev=>({
+            ...prev,
+            productData: updateProductData
+        }))
+    }
     
     return (
         <div className="container">
@@ -232,10 +266,23 @@ const AddProduct: FC<Props> = (props) => {
                         defaultValue={productData.coverPhoto.value}
                         labelClass="dark:text-white !mb-2"
                         errorMessage={productData.coverPhoto.errorMessage}
+                        previewImageClass="max-w-sm"
                         className={"!flex-col"}
                     />
-                    <h2><Button type="button" className="btn bg-green-500 !py-1.5 mt-2">Or Select Static Photos</Button></h2>
-                    <StaticPhotoChooser />
+                    <h2>
+                        <Button
+                            onClick={()=>handleToggleStaticImageChooserModal(!isShowStaticChooser)}
+                            type="button"
+                            className="btn bg-green-500 !py-1.5 mt-2">Or Select Static Photos</Button>
+                    </h2>
+                    
+                    <StaticPhotoChooser
+                        staticImages={staticImages}
+                        onChooseImage={handleChooseImage}
+                        isShowStaticChooser={isShowStaticChooser}
+                        onClose={()=>handleToggleStaticImageChooserModal(false)}
+                    />
+                    
                     <SelectGroup
                         name="categoryId"
                         labelClass="dark:text-white !mb-2"
@@ -324,100 +371,30 @@ const AddProduct: FC<Props> = (props) => {
 };
 
 
-const StaticPhotoChooser = ()=>{
-    
-    const [staticImages, setStaticImages] = useState([])
-    
-    //  load all static files...
-    useEffect(()=>{
-        api.get("/api/files/static-files").then((response) => {
-            setStaticImages(response.data);
-        });
-    }, [])
-    
-    
-    // when choose new image form modal inside File Input
-    // function handleChangeLogo(e) {
-    //     if (e.target.type === "file") {
-    //         setProductData({
-    //             ...productData,
-    //             [e.target.name]: e.target.file,
-    //             fileName: e.target.fileName,
-    //         });
-    //     } else {
-    //         setProductData({
-    //             ...productData,
-    //             [e.target.name]: e.target.value,
-    //         });
-    //     }
-    // }
-    
-    // render photo handler modal that an image can upload or get cdn link
-    function showPhotoHandler() {
-        // key ===  2 contains all static image files
-        function handleTabChange(key) {
-            // if(key === "2") fetchStaticFiles()
-        }
-        return (
-            <Modal>
-				{/*<Tabs defaultActiveKey="1" onChange={handleTabChange}>*/}
-				{/*	<TabPane tab="Upload a new image" key="1">*/}
-				{/*		/!*<Input *!/*/}
-                {/*        /!*  name="logo" *!/*/}
-                {/*        /!*  label="Logo image cdn link" *!/*/}
-                {/*        /!*  onChange={handleChangeLogo} *!/*/}
-                {/*        /!*  />*!/*/}
-                {/*        <span>or</span>*/}
-				{/*		<File*/}
-                {/*            type="file"*/}
-                {/*            name="logo"*/}
-                {/*            onChange={handleChangeLogo}*/}
-                {/*            label="Choose a photo"*/}
-                {/*        />*/}
-				{/*	</TabPane>*/}
-    
-				{/*	<TabPane tab="Images Gallery" key="2">*/}
-				{/*		<div className="d-flex">*/}
-				{/*			{staticImages.map((path) => (*/}
-                {/*                <div className="static-image-thumbs">*/}
-				{/*					<img*/}
-                {/*                        // onClick={()=>chooseImageFromStatic(path)}*/}
-                {/*                        src={fullLink(path)}*/}
-                {/*                    />*/}
-				{/*				</div>*/}
-                {/*            ))}*/}
-				{/*		</div>*/}
-				{/*	</TabPane>*/}
-				{/*</Tabs>*/}
-                
-                {/*<Button onClick={()=>setShowLogoHandler(false)}>Cancel</Button>*/}
-                
-                <Button>Save</Button>
-			</Modal>
-        );
-    }
-    
-    
-    
+const StaticPhotoChooser = ({onClose, onChooseImage, staticImages, isShowStaticChooser})=>{
     return (
         <div>
-            <Modal>
-                 <div className="d-flex">
-                    {staticImages.map((path) => (
-                        <div className="static-image-thumbs">
-                            <img
-                                // onClick={()=>chooseImageFromStatic(path)}
-                                src={staticImagePath(path)}
-                             alt={path}/>
+            <ModalWithBackdrop isOpen={isShowStaticChooser} onCloseModal={onClose} maxHeight={400}>
+                    <div>
+                         <div className="flex flex-wrap gap-2">
+                            {staticImages.map((path) => (
+                                <div className="cursor-pointer">
+                                    <img
+                                        className="w-10"
+                                        onClick={()=>onChooseImage(path)}
+                                        src={staticImagePath(path)}
+                                        alt=""/>
+                                </div>
+                            ))}
                         </div>
-                    ))}
                 </div>
                 
-                <Button>Save</Button>
-			</Modal>
+           </ModalWithBackdrop>
         </div>
-        
     )
 }
+
+
+
 
 export default AddProduct;
