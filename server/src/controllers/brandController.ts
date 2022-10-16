@@ -9,6 +9,8 @@ import uuid from "../utilities/uuid";
 
 
 import Brand from "../models/Brand";
+import sqlDatabase from "../services/sqlite/database.service";
+import dataDir from "../utilities/dataDir";
 
 export const getBrandsCount = async (req: Request, res: Response, next: NextFunction) => {
     let [err, doc] = await Brand.get(`SELECT COUNT(*) as count from brands`)
@@ -23,7 +25,7 @@ export const getBrandsCount = async (req: Request, res: Response, next: NextFunc
 export const getBrands = async (req: Request, res: Response, next: NextFunction) => {
     
     let { perPage = 10, pageNumber = 1 } = req.query
-    
+
     try {
         // let Skip = (perPage as number) * (pageNumber as number - 1)
         let [err, result] = await Brand.findAll<Brand[]>(`SELECT * FROM brands LIMIT 100`)
@@ -34,11 +36,13 @@ export const getBrands = async (req: Request, res: Response, next: NextFunction)
         }
 
     } catch (ex) {
+
         next(ex)
 
     } finally {
 
     }
+    
 }
 
 export const getBrand = async (req: Request, res: Response, next: NextFunction) => {
@@ -53,6 +57,8 @@ export const getBrand = async (req: Request, res: Response, next: NextFunction) 
     } catch (ex) {
         next(ex)
     }
+    
+   
 }
 
 export const getBrandsByIds = async (req: Request, res: Response, next: NextFunction) => {

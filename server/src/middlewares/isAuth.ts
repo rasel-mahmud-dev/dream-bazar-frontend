@@ -16,8 +16,7 @@ async function isAuth (req: RequestWithAuth, res: Response, next: NextFunction){
              const database = await mongoConnect()
              let user = await database.collection("users").findOne({_id: new ObjectId(data._id)})
              if(user){
-                 req.userId = data._id
-                 req.user = {roles: user.roles, _id: user._id, email: user.email}
+                 req.user = {roles: user.roles, _id: data._id, email: user.email}
                  next()
              } else {
                  errorResponse(next, "Unauthorized. Your are not a member", 403)

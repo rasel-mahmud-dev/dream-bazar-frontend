@@ -10,7 +10,7 @@
     "start": "node dist/server.js",
     "dev2": "set NODE_ENV=development&ts-node-dev --respawn --transpile-only functions/app.ts",
     "dev3": "set NODE_ENV=development&ts-node-dev --respawn --transpile-only src/local-server.ts",
-    "dev": "set NODE_ENV=development&ts-node-dev --respawn --transpile-only index.js"
+    "dev": "set NODE_ENV=development&ts-node-dev --respawn --transpile-only ./src/server.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -23,7 +23,7 @@
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth": "^2.0.0",
-    "serverless-http": "^3.0.2",
+    "serverless-http": "^3.0.3",
     "sqlite3": "^5.1.0"
   },
   "devDependencies": {

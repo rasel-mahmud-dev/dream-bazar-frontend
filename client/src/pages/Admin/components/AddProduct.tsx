@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import api from "src/apis";
 import ActionInfo from "components/ActionInfo/ActionInfo";
-import {InputGroup} from "UI/Form";
+import {File, InputGroup} from "UI/Form";
 import FileUpload from "UI/Form/File/FileUpload";
 import SelectGroup from "UI/Form/SelectGroup";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,8 +10,10 @@ import {RootState} from "src/store";
 import apis from "src/apis";
 import {fetchFlatCategories, fetchProduct, fetchProductForUpdate} from "actions/productAction";
 import {ACTION_TYPES} from "store/types";
-import {Button} from "UI/index";
+import {Button, Modal, Tabs} from "UI/index";
 import errorMessageCatch from "src/utills/errorMessageCatch";
+import fullLink from "src/utills/fullLink";
+import staticImagePath from "src/utills/staticImagePath";
 
 
 
@@ -232,7 +234,8 @@ const AddProduct: FC<Props> = (props) => {
                         errorMessage={productData.coverPhoto.errorMessage}
                         className={"!flex-col"}
                     />
-                    
+                    <h2><Button type="button" className="btn bg-green-500 !py-1.5 mt-2">Or Select Static Photos</Button></h2>
+                    <StaticPhotoChooser />
                     <SelectGroup
                         name="categoryId"
                         labelClass="dark:text-white !mb-2"
@@ -319,5 +322,102 @@ const AddProduct: FC<Props> = (props) => {
         </div>
     );
 };
+
+
+const StaticPhotoChooser = ()=>{
+    
+    const [staticImages, setStaticImages] = useState([])
+    
+    //  load all static files...
+    useEffect(()=>{
+        api.get("/api/files/static-files").then((response) => {
+            setStaticImages(response.data);
+        });
+    }, [])
+    
+    
+    // when choose new image form modal inside File Input
+    // function handleChangeLogo(e) {
+    //     if (e.target.type === "file") {
+    //         setProductData({
+    //             ...productData,
+    //             [e.target.name]: e.target.file,
+    //             fileName: e.target.fileName,
+    //         });
+    //     } else {
+    //         setProductData({
+    //             ...productData,
+    //             [e.target.name]: e.target.value,
+    //         });
+    //     }
+    // }
+    
+    // render photo handler modal that an image can upload or get cdn link
+    function showPhotoHandler() {
+        // key ===  2 contains all static image files
+        function handleTabChange(key) {
+            // if(key === "2") fetchStaticFiles()
+        }
+        return (
+            <Modal>
+				{/*<Tabs defaultActiveKey="1" onChange={handleTabChange}>*/}
+				{/*	<TabPane tab="Upload a new image" key="1">*/}
+				{/*		/!*<Input *!/*/}
+                {/*        /!*  name="logo" *!/*/}
+                {/*        /!*  label="Logo image cdn link" *!/*/}
+                {/*        /!*  onChange={handleChangeLogo} *!/*/}
+                {/*        /!*  />*!/*/}
+                {/*        <span>or</span>*/}
+				{/*		<File*/}
+                {/*            type="file"*/}
+                {/*            name="logo"*/}
+                {/*            onChange={handleChangeLogo}*/}
+                {/*            label="Choose a photo"*/}
+                {/*        />*/}
+				{/*	</TabPane>*/}
+    
+				{/*	<TabPane tab="Images Gallery" key="2">*/}
+				{/*		<div className="d-flex">*/}
+				{/*			{staticImages.map((path) => (*/}
+                {/*                <div className="static-image-thumbs">*/}
+				{/*					<img*/}
+                {/*                        // onClick={()=>chooseImageFromStatic(path)}*/}
+                {/*                        src={fullLink(path)}*/}
+                {/*                    />*/}
+				{/*				</div>*/}
+                {/*            ))}*/}
+				{/*		</div>*/}
+				{/*	</TabPane>*/}
+				{/*</Tabs>*/}
+                
+                {/*<Button onClick={()=>setShowLogoHandler(false)}>Cancel</Button>*/}
+                
+                <Button>Save</Button>
+			</Modal>
+        );
+    }
+    
+    
+    
+    return (
+        <div>
+            <Modal>
+                 <div className="d-flex">
+                    {staticImages.map((path) => (
+                        <div className="static-image-thumbs">
+                            <img
+                                // onClick={()=>chooseImageFromStatic(path)}
+                                src={staticImagePath(path)}
+                             alt={path}/>
+                        </div>
+                    ))}
+                </div>
+                
+                <Button>Save</Button>
+			</Modal>
+        </div>
+        
+    )
+}
 
 export default AddProduct;

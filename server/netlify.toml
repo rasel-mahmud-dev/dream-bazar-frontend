@@ -1,0 +1,11 @@
+[functions]
+  # Specifies `esbuild` for functions bundling
+  node_bundler = "esbuild"
+
+  # Includes all Markdown files inside the "files/" directory.
+  included_files = ["src/**"]
+
+[build]
+  command = "npm run build"
+  functions = "functions"
+  publish = "public"

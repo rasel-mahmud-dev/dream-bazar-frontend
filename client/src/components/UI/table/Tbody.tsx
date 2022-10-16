@@ -22,7 +22,7 @@ const Tbody: FC<Props> = (props) => {
 							style={{ width: col.colWidth }}
 						>
 							{col.render
-								? col.render(data)
+								? col.render(data[col.dataIndex as any], data)
 								: data[col.dataIndex as any]}
 						</td>
 					))}

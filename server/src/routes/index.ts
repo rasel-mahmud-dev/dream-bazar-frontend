@@ -9,6 +9,7 @@ import orderRouter  from "./orderRouter";
 import reviewRouter  from "./reviewRouter";
 import uiDataRouter  from "./uiDataRouter";
 import sellerRouter  from "./sellerRouter";
+import filesRouter  from "./filesRouter";
 
 const router = express.Router()
 
@@ -21,7 +22,7 @@ orderRouter(router)
 reviewRouter(router)
 uiDataRouter(router)
 sellerRouter(router)
-
+filesRouter(router)
 
 
 export default router

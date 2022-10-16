@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import staticImagePath from "src/utills/staticImagePath";
-import {BiTrash, FiDelete} from "react-icons/all";
 import {Button} from "UI/index";
 import ButtonGroup from "UI/Button/ButtonGroup";
 import InputGroup from "UI/Form/InputGroup";
@@ -9,16 +8,16 @@ import Table from "UI/table/Table";
 const ShoppingCart = () => {
     
     const columns = [
-        {title: "Image", dataIndex: "img",  render: (item) => (
+        {title: "Image", dataIndex: "img",  render: (img) => (
             <div className="w-20 h-20 bg-neutral-300/20 flex justify-center items-center">
-                <img className="" src={staticImagePath(item.img)}/>
+                <img className="" src={staticImagePath(img)}/>
             </div>
             )},
         {title: "Details", dataIndex: "title"},
         {title: "No of Products", dataIndex: "qty"},
         {title: "Total", dataIndex: "total"},
         {
-            title: "Action", dataIndex: "", className: "text-center", render: (item) => (
+            title: "Action", dataIndex: "", className: "text-center", render: (_, item) => (
                 <ButtonGroup className="m-auto">
                     <Button className="bg-green-450 text-white rounded-r-none !px-4">-</Button>
                         <div><h1 className="px-3 font-medium ">{item.qty}</h1></div>

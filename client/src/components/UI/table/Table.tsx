@@ -11,7 +11,7 @@ export interface Column extends HTMLAttributes<HTMLElement> {
     className?: string;
     colWidth?: number;
     sorter?: (args1: any, args2: any) => any;
-    render?: (key: string) => React.ReactNode;
+    render?: (value: any, data: any) => React.ReactNode;
 }
 [];
 

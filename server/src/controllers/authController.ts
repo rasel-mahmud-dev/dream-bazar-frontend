@@ -38,7 +38,7 @@ export const login = async (req: Request, res: Response, next: NextFunction)=>{
       return errorResponse(next, 'Password Error', 409)
     }
 
-    let token = createToken(user._id)
+    let token = createToken(user._id as any, user.email, user.roles)
 
     delete user.password;
 
@@ -90,7 +90,7 @@ export const registration = async (req: Request, res: Response, next: NextFuncti
 
     if(doc.insertedId){
 
-      let token = createToken(user._id)
+      let token = createToken(doc.insertedId as any, user.email, user.roles)
       delete newUser.password;
       newUser._id = doc.insertedId
 
@@ -111,8 +111,11 @@ export const registration = async (req: Request, res: Response, next: NextFuncti
 export const currentAuth = async (req: RequestWithAuth, res: Response, next: NextFunction)=>{
 
   try{
+      if(!req.user){
+                return errorResponse(next, "Please login.", 401)
+      }
     const database = await mongoConnect();
-    const user = await database.collection("users").findOne<User>({_id: ObjectId(req.userId)})
+    const user = await database.collection("users").findOne<User>({_id: ObjectId(req.user._id)})
 
     if(!user){
       return errorResponse(next, "Please login.", 401)
@@ -131,11 +134,10 @@ export const fetchProfile = async (req: RequestWithAuth, res: Response, next: Ne
   try{
     const { c: UserCollection, client: cc } = await dbConnect("users")  
     client = cc
-    let user = await UserCollection.findOne({_id: ObjectId(req.user.userId) })
+    let user = await UserCollection.findOne({_id: ObjectId(req.user._id) })
     res.json({user})
   } catch(ex){
     next(ex)
-    console.log(ex) 
   } finally{
     client?.close()
   }

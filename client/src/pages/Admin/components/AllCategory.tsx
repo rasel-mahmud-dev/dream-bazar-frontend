@@ -296,7 +296,9 @@ const AllCategory = (props) => {
 
     const columns: Column[] = [
         { title: "Name", dataIndex: "name", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
-        { title: "Is Product Level", dataIndex: "isProductLevel", render: (item: any) => <span>{item.isProductLevel === 1 ? "True": "False" }</span> },
+        { title: "ID", dataIndex: "id", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
+        { title: "ParentID", dataIndex: "parentId", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
+        { title: "Is Product Level", dataIndex: "isProductLevel", render: (isProductLevel: any) => <span>{isProductLevel === 1 ? "True": "False" }</span> },
         {
             title: "CreatedAt",
             dataIndex: "createdAt",
@@ -305,8 +307,8 @@ const AllCategory = (props) => {
                 let bDate = new Date(b)
                 return aDate > bDate ? 1 : aDate < bDate ? -1 : 0
             },
-            render: (item)=>(
-                <div>{isoStringToDate(item.createdAt)}</div>
+            render: (createdAt)=>(
+                <div>{isoStringToDate(createdAt)}</div>
             )
         
         },
@@ -318,15 +320,15 @@ const AllCategory = (props) => {
                 let bDate = new Date(b)
                 return aDate > bDate ? 1 : aDate < bDate ? -1 : 0
             },
-            render: (item)=>(
-                <div>{isoStringToDate(item.createdAt)}</div>
+            render: (updatedAt)=>(
+                <div>{isoStringToDate(updatedAt)}</div>
             )
         },
         {
             title: "Action",
             dataIndex: "",
             className: "text-center",
-            render: (item: any) => (
+            render: (_, item: any) => (
                 <div className="flex justify-center items-center gap-x-2">
                     <BsPencilSquare
                         className="text-md cursor-pointer"

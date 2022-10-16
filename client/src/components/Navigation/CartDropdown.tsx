@@ -26,12 +26,12 @@ const CartDropdown: FC<Props> = (props) => {
 	}
 	
 	const headers = [
-		{title: "Image", dataIndex: "img", render: (item) => <img className="w-5" src={staticImagePath(item.img)}/>},
+		{title: "Image", dataIndex: "img", render: (img) => <img className="w-5" src={staticImagePath(img)}/>},
 		{title: "Details", dataIndex: "title"},
 		{title: "Quantity", dataIndex: "qty"},
 		{title: "Total", dataIndex: "total"},
 		{
-			title: "Action", dataIndex: "", className: "text-center", render: (item) => (
+			title: "Action", dataIndex: "", className: "text-center", render: (_, item) => (
 				<ButtonGroup className="m-auto">
                     <Button className="bg-green-450 text-white rounded-r-none !px-4">-</Button>
                         <div><h1 className="px-3 font-medium ">{item.qty}</h1></div>
@@ -60,8 +60,8 @@ const CartDropdown: FC<Props> = (props) => {
 		            
 		            <Table
 			            className=""
-			            theadClass={{th: "py-2 px-4"}}
-			            tbodyClass={{tr: "hover:bg-green-100/50 cursor-pointer", td: "px-4 py-1"}}
+			            // theadClass={{th: "py-2 px-4"}}
+			            tbodyClass={{tr: "hover:bg-green-100/50 cursor-pointer", td: "px-4 py-0"}}
 			            dataSource={cartState.cartProducts ? cartState.cartProducts : []} columns={headers}/>
 		            
 		            <div className="ml-auto ">

@@ -55,14 +55,13 @@ class BaseSQLite {
     }
     
     
-    insertOne(){
-        return new Promise<[err: any, result: any]>(async (resolve, reject)=>{
-    
+    insertOne<T>(){
+        return new Promise<[err: any, result: T | null]>(async (resolve, reject)=>{
             let fieldName = "";
             let values = []
             let valuesPlaceholder = "";
         
-            const data = { ...this };
+            const data: T | any = { ...this };
             for (const dataKey in data) {
                 // ignore tableName field
                 if (dataKey !== "tableName") {
@@ -78,7 +77,7 @@ class BaseSQLite {
                 let sql = `insert into ${tableName}( ${fieldName.slice(2)} ) Values(${valuesPlaceholder.slice(0, valuesPlaceholder.length - 2)})`;
                 
                 const db = await getSqliteDb();
-                db.run(sql, values, function (err: any, data: any) {
+                db.run(sql, values, function (err: any, result: any) {
                     if (err) {
                         resolve([err, null])
                         return;
@@ -92,15 +91,14 @@ class BaseSQLite {
         })
     }
     
-    updateOne(id: string | number){
-        return new Promise<[err: any, result: any]>(async (resolve, reject)=>{
-    
+    updateOne<T>(id: string | number){
+        return new Promise<[err: any, result: T | null]>(async (resolve, reject)=>{
             
             let fieldName = "";
             
             let values = []
         
-            const data = { ...this };
+            let data: any = this
             
             
             for (const dataKey in data) {
@@ -117,14 +115,15 @@ class BaseSQLite {
                 
                 // UPDATE categories SET 'parentId' = ?, 'name' = ?, 'isProductLevel' = ?, 'ideals' = ?, 'updatedAt' = ? WHERE id = ?
                 let sql = `UPDATE ${tableName} SET ${fieldName.slice(0, fieldName.lastIndexOf(","))} WHERE id = ?`;
-                console.log(sql, values)
+      
                 const db = await getSqliteDb();
-
-                db.run(sql, [...values, id], function (err: any, data: any) {
+                
+                db.run(sql, [...values, id], function (err: any, _: any) {
                     if (err) {
                         resolve([err, null])
                         return;
                     }
+                    data["id"] = id
                     resolve([null, data])
                 })
                 

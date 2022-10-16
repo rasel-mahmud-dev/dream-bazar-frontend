@@ -353,9 +353,9 @@ const AllBrands = (props) => {
         {
             title: "Logo",
             dataIndex: "logo",
-            render: (item) => (
+            render: (logo) => (
                 <div className="w-8">
-                    <img src={staticImagePath(item.logo)} alt="" />
+                    <img src={staticImagePath(logo)} alt="" />
                 </div>
             ),
         },
@@ -368,8 +368,8 @@ const AllBrands = (props) => {
                 let bDate = new Date(b)
                 return aDate > bDate ? 1 : aDate < bDate ? -1 : 0
             },
-            render: (item)=>(
-                <div>{isoStringToDate(item.createdAt)}</div>
+            render: (createdAt)=>(
+                <div>{isoStringToDate(createdAt)}</div>
             )
             
         },
@@ -381,8 +381,8 @@ const AllBrands = (props) => {
                 let bDate = new Date(b)
                 return aDate > bDate ? 1 : aDate < bDate ? -1 : 0
             },
-            render: (item)=>(
-                <div>{isoStringToDate(item.createdAt)}</div>
+            render: (updatedAt)=>(
+                <div>{isoStringToDate(updatedAt)}</div>
             )
         },
         {

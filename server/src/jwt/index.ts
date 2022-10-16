@@ -37,11 +37,11 @@ export const parseToken = (token: string, cb: any)=> {
 // }
 
 
-exports.getToken = (req)=> {
+export const getToken = (req)=> {
   let token = req.headers["authorization"]
   return token
 }
 
-exports.isValid = ()=> {
-  
+export const isValid = ()=> {
+
 }

@@ -3,10 +3,11 @@ import axios from "axios"
 
 
 // export const backend = "https://dream-bazar.vercel.app"
-export const backend = import.meta.env.DEV ? "http://localhost:3000" : "https://dream-bazar.vercel.app"
+// export const backend = import.meta.env.DEV ? "http://localhost:3000" : "/"
+export const backend = import.meta.env.DEV ? "http://localhost:8888/.netlify/functions/app" : "/.netlify/functions/app"
+// export const staticOrigin = "/"
 
 // export const backend = "https://localhost"
-// export const staticOrigin = "https://localhost"
 
 const token = window.localStorage.getItem("token")  
 const apis = axios.create({

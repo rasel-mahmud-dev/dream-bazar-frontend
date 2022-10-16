@@ -165,12 +165,7 @@ export const saveCategory = async (req: Request, res: Response, next: NextFuncti
         }
         successResponse(res, 201, {
             message: "category created",
-            category: {
-                id,
-                name,
-                parentId,
-                isProductLevel: isProductLevel ? 1 : 0
-            }
+            category: doc
         })
     } catch (ex) {
         next(ex)
@@ -179,305 +174,300 @@ export const saveCategory = async (req: Request, res: Response, next: NextFuncti
     
 }
     
-    export const updateCategory = async (req: Request, res: Response, next: NextFunction) => {
-        const {id} = req.params
+export const updateCategory = async (req: Request, res: Response, next: NextFunction) => {
+    const {id} = req.params
+    
+    const {name, parentId, isProductLevel, ideals} = req.body
+    
+    try {
         
-        const {name, parentId, isProductLevel, ideals} = req.body
-        
-        try {
-            
-            let [err, result] = await Category.findOne<Category>("SELECT name FROM categories where id = ?", [id])
-            if (err || !result) {
-                return errorResponse(next, "Category not found")
-            }
-            
-            let category = new Category({
-                name: name,
-                parentId: parentId,
-                isProductLevel: isProductLevel ? 1 : 0,
-                logo: "",
-                ideals: ideals ?? '[]'
-            })
-            
-            
-            category.updatedAt = new Date().toISOString()
-            
-            let [updateErr, updateResult] = await category.updateOne(id)
-            
-            if (updateErr) {
-                return errorResponse(next, "category update fail")
-            }
-            
-            successResponse(res, 201, {
-                message: "category updated",
-                category: {
-                    id: req.params.id,
-                    name,
-                    parentId,
-                    isProductLevel: isProductLevel ? 1 : 0
-                }
-            })
-            
-        } catch (ex) {
-            errorResponse(next, "category update fail")
-            
-        } finally {
-        
+        let [err, result] = await Category.findOne<Category>("SELECT name FROM categories where id = ?", [id])
+        if (err || !result) {
+            return errorResponse(next, "Category not found")
         }
-    }
-    
-    
-    export const deleteCategory = async (req: Request, res: Response, next: NextFunction) => {
-        const {id} = req.params
         
-        try {
-            
-            let [err, result] = await Category.deleteOneById(id)
-            if (err) {
-                errorResponse(next, "Category delete fail", 500)
-            } else {
-                successResponse(res, 201, {message: "Category deleted", id});
-            }
-            
-        } catch (ex) {
-            next(ex)
-        } finally {
+        let category = new Category({
+            name: name,
+            parentId: parentId,
+            isProductLevel: isProductLevel ? 1 : 0,
+            logo: "",
+            ideals: ideals ?? '[]'
+        })
         
+        
+        category.updatedAt = new Date().toISOString()
+        
+        let [updateErr, updateResult] = await category.updateOne<Category>(id)
+        
+        if (updateErr) {
+            return errorResponse(next, "category update fail")
         }
+        
+        successResponse(res, 201, {
+            message: "category updated",
+            category: updateResult
+        })
+        
+    } catch (ex) {
+        errorResponse(next, "category update fail")
+        
+    } finally {
+    
     }
+}
+
+
+export const deleteCategory = async (req: Request, res: Response, next: NextFunction) => {
+    const {id} = req.params
     
-    
-    export const getCategoryByIds = async (req: Request, res: Response, next: NextFunction) => {
-        let client;
-        const {type, ids} = req.body
-        try {
-            const {c: CategoryCollection, client: cc} = await dbConnect("categories")
-            client = cc
-            let categoryIds = []
-            let cursor;
-            // if(type && type === "fetch-top-categories"){
-            ids && ids.forEach(stringId => {
-                categoryIds.push(ObjectId(stringId))
-            })
-            // res.send(categoryIds)
-            cursor = CategoryCollection.find(
-                {_id: {$in: categoryIds}},
-                // { top: 0 } // projection need mongodb 4.4
-            )
-            // }
-            let categories = []
-            await cursor.forEach(cat => {
-                categories.push(cat)
-            })
-            
-            res.json({categories: categories})
-        } catch (ex) {
-            next(ex)
-            console.log(ex)
-        } finally {
-            client?.close()
+    try {
+        
+        let [err, result] = await Category.deleteOneById(id)
+        if (err) {
+            errorResponse(next, "Category delete fail", 500)
+        } else {
+            successResponse(res, 201, {message: "Category deleted", id});
         }
+        
+    } catch (ex) {
+        next(ex)
+    } finally {
+    
     }
+}
+
+
+export const getCategoryByIds = async (req: Request, res: Response, next: NextFunction) => {
+    let client;
+    const {type, ids} = req.body
+    try {
+        const {c: CategoryCollection, client: cc} = await dbConnect("categories")
+        client = cc
+        let categoryIds = []
+        let cursor;
+        // if(type && type === "fetch-top-categories"){
+        ids && ids.forEach(stringId => {
+            categoryIds.push(ObjectId(stringId))
+        })
+        // res.send(categoryIds)
+        cursor = CategoryCollection.find(
+            {_id: {$in: categoryIds}},
+            // { top: 0 } // projection need mongodb 4.4
+        )
+        // }
+        let categories = []
+        await cursor.forEach(cat => {
+            categories.push(cat)
+        })
+        
+        res.json({categories: categories})
+    } catch (ex) {
+        next(ex)
+        console.log(ex)
+    } finally {
+        client?.close()
+    }
+}
 
 
 // category Filter for varies type filter for [ homepage, filter-sidebar ] 
 // fetch all child category for parent category that id given
+
+export const filterCategoryFetch = async (req: Request, res: Response, next: NextFunction) => {
     
-    export const filterCategoryFetch = async (req: Request, res: Response, next: NextFunction) => {
-        
-        const {type, categoryId} = req.query
-        let client;
-        try {
-            const {c: CategoryCollection, client: cc} = await dbConnect("categories")
-            client = cc
-            let categoriesDocs = []
-            if (type && type === "top-categories") {
-                let cursor = CategoryCollection.find(
-                    {is_top: false},
-                    // { top: 0 } // projection need mongodb 4.4
-                )
-                
-                if (await cursor.count() === 0) {
-                    return res.json({categories: []})
-                }
-                
-                await cursor.forEach((i) => {
-                    categoriesDocs.push(i)
-                })
+    const {type, categoryId} = req.query
+    let client;
+    try {
+        const {c: CategoryCollection, client: cc} = await dbConnect("categories")
+        client = cc
+        let categoriesDocs = []
+        if (type && type === "top-categories") {
+            let cursor = CategoryCollection.find(
+                {is_top: false},
+                // { top: 0 } // projection need mongodb 4.4
+            )
+            
+            if (await cursor.count() === 0) {
+                return res.json({categories: []})
             }
             
-            if (categoryId) {
-                // fetch this category and its all sub_categories
-                let categoriesCursor = await CategoryCollection.find({parent_id: ObjectId(categoryId)})
-                let selectedCategories = []
-                await categoriesCursor.forEach((i) => {
-                    selectedCategories.push(i)
-                })
-                return res.json({categories: selectedCategories})
-            }
-            
-            res.json({categories: categoriesDocs})
-            
-        } catch (ex) {
-            next(ex)
-            console.log(ex)
-            
-        } finally {
-            client?.close()
+            await cursor.forEach((i) => {
+                categoriesDocs.push(i)
+            })
         }
-    }
-    
-    
-    export const fetchCategoryWithFilter = async (req: Request, res: Response, next: NextFunction) => {
         
-        const {type, is_product_level} = req.body
-        
-        let client;
-        
-        
-        try {
-            const {c: CategoryCollection, client: cc} = await dbConnect("categories")
-            client = cc
-            
-            let filterObject = {}
-            
-            if (typeof is_product_level !== "undefined") {
-                filterObject["is_product_level"] = !!is_product_level
-            }
-            
-            
-            let categoriesCursor = CategoryCollection.find(filterObject)
-            
+        if (categoryId) {
             // fetch this category and its all sub_categories
-            // let categoriesCursor = await CategoryCollection.find({parent_id: ObjectId(categoryId)}, {is_top: 0})
-            
+            let categoriesCursor = await CategoryCollection.find({parent_id: ObjectId(categoryId)})
             let selectedCategories = []
             await categoriesCursor.forEach((i) => {
                 selectedCategories.push(i)
             })
-            
-            res.json({categories: selectedCategories})
-            
-            
-        } catch (ex) {
-            client?.close()
-            console.log("---------++++++++++--------");
-            // console.log(ex)
-            next(ex)
-            
-        } finally {
-            client?.close()
-            
-            
+            return res.json({categories: selectedCategories})
         }
+        
+        res.json({categories: categoriesDocs})
+        
+    } catch (ex) {
+        next(ex)
+        console.log(ex)
+        
+    } finally {
+        client?.close()
     }
+}
+
+
+export const fetchCategoryWithFilter = async (req: Request, res: Response, next: NextFunction) => {
+    
+    const {type, is_product_level} = req.body
+    
+    let client;
     
     
-    export const getCategoryFilterSection = async (req: Request, res: Response, next: NextFunction) => {
-        const {id} = req.params
-        let client;
+    try {
+        const {c: CategoryCollection, client: cc} = await dbConnect("categories")
+        client = cc
+        
+        let filterObject = {}
+        
+        if (typeof is_product_level !== "undefined") {
+            filterObject["is_product_level"] = !!is_product_level
+        }
         
         
-        try {
-            
-            const {c: CategoryCollection, client: cc} = await dbConnect("categories")
-            client = cc
-            let cursor;
-            
-            let plusIndex = id.indexOf("+")
-            if (plusIndex !== -1) {
-                let arrOfCatIds = []
-                let catIds = id.split('+')
-                catIds && catIds.forEach(id => {
-                    arrOfCatIds.push(ObjectId(id))
-                })
-                
-                
-                cursor = CategoryCollection.aggregate([
-                    {
-                        $match:
-                            {_id: {$in: arrOfCatIds}}
-                        
-                    },
-                    {
-                        $lookup: {
-                            from: "brands",
-                            localField: "_id",
-                            foreignField: "for_category",
-                            as: "brands"
-                        }
-                    },
-                    {
-                        $project: {
-                            brands: {name: 1, _id: 1},
-                            name: 1,
-                            filters: 1,
-                            is_top: 1,
-                            last_level: 1,
-                            parent_id: 1,
-                            updated_at: 1,
-                            _id: 1
-                        }
-                    }
-                ])
-                
-            } else {
-                
-                cursor = CategoryCollection.aggregate([
-                    {$match: {_id: ObjectId(id)}},
-                    
-                    {
-                        $lookup: {
-                            from: "brands",
-                            localField: "_id",
-                            foreignField: "for_category",
-                            as: "brands"
-                        }
-                    },
-                    {
-                        $project: {
-                            brands: {name: 1, _id: 1},
-                            name: 1,
-                            filters: 1,
-                            is_top: 1,
-                            last_level: 1,
-                            parent_id: 1,
-                            updated_at: 1,
-                            _id: 1
-                        }
-                    }
-                ])
-                
-            }
-            
-            let r: any = []
-            let b = []
-            await cursor.forEach(cat => {
-                r.push(cat)
-                b.push(...cat.brands)
+        let categoriesCursor = CategoryCollection.find(filterObject)
+        
+        // fetch this category and its all sub_categories
+        // let categoriesCursor = await CategoryCollection.find({parent_id: ObjectId(categoryId)}, {is_top: 0})
+        
+        let selectedCategories = []
+        await categoriesCursor.forEach((i) => {
+            selectedCategories.push(i)
+        })
+        
+        res.json({categories: selectedCategories})
+        
+        
+    } catch (ex) {
+        client?.close()
+        console.log("---------++++++++++--------");
+        // console.log(ex)
+        next(ex)
+        
+    } finally {
+        client?.close()
+        
+        
+    }
+}
+
+
+export const getCategoryFilterSection = async (req: Request, res: Response, next: NextFunction) => {
+    const {id} = req.params
+    let client;
+    
+    
+    try {
+        
+        const {c: CategoryCollection, client: cc} = await dbConnect("categories")
+        client = cc
+        let cursor;
+        
+        let plusIndex = id.indexOf("+")
+        if (plusIndex !== -1) {
+            let arrOfCatIds = []
+            let catIds = id.split('+')
+            catIds && catIds.forEach(id => {
+                arrOfCatIds.push(ObjectId(id))
             })
-            if (r.length > 1) {
-                r.brands = b
-                res.json({category: [{brands: b}]})
-            } else {
-                res.json({category: r})
-            }
             
-        } catch (ex) {
             
-            next(ex)
-            console.log(ex)
+            cursor = CategoryCollection.aggregate([
+                {
+                    $match:
+                        {_id: {$in: arrOfCatIds}}
+                    
+                },
+                {
+                    $lookup: {
+                        from: "brands",
+                        localField: "_id",
+                        foreignField: "for_category",
+                        as: "brands"
+                    }
+                },
+                {
+                    $project: {
+                        brands: {name: 1, _id: 1},
+                        name: 1,
+                        filters: 1,
+                        is_top: 1,
+                        last_level: 1,
+                        parent_id: 1,
+                        updated_at: 1,
+                        _id: 1
+                    }
+                }
+            ])
             
-        } finally {
-            client?.close()
+        } else {
+            
+            cursor = CategoryCollection.aggregate([
+                {$match: {_id: ObjectId(id)}},
+                
+                {
+                    $lookup: {
+                        from: "brands",
+                        localField: "_id",
+                        foreignField: "for_category",
+                        as: "brands"
+                    }
+                },
+                {
+                    $project: {
+                        brands: {name: 1, _id: 1},
+                        name: 1,
+                        filters: 1,
+                        is_top: 1,
+                        last_level: 1,
+                        parent_id: 1,
+                        updated_at: 1,
+                        _id: 1
+                    }
+                }
+            ])
+            
         }
         
+        let r: any = []
+        let b = []
+        await cursor.forEach(cat => {
+            r.push(cat)
+            b.push(...cat.brands)
+        })
+        if (r.length > 1) {
+            r.brands = b
+            res.json({category: [{brands: b}]})
+        } else {
+            res.json({category: r})
+        }
         
+    } catch (ex) {
+        
+        next(ex)
+        console.log(ex)
+        
+    } finally {
+        client?.close()
     }
+    
+    
+}
 
 
 //! Here nested array of lookup bug...
-    export const getCategoryExpand = async (req: Request, res: Response, next: NextFunction) => {
+export const getCategoryExpand = async (req: Request, res: Response, next: NextFunction) => {
         let client;
         
         try {
