@@ -1,38 +1,87 @@
-table tr th{
-    text-align: start;
+.rsl-table{
+    box-sizing: border-box;
 }
 
+.rsl-table table{
+    width: 100%;
+    box-sizing: border-box;
+    border-spacing: 0;
+}
+
+.rsl-table table tr th{
+    padding: 10px;
+}
+
+.rsl-table thead .thead-item{
+    display: flex;
+    align-items: center;
+}
 
 .table-fixed {
-    width: 100%;
+    /*max-height: 300px;*/
+    overflow: auto;
 }
 
 .table-fixed table {
-     width: 100%;
+
 }
 
-.table-fixed thead,
-.table-fixed tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
 
 .table-fixed tbody {
-    display: block;
-    overflow-y: auto;
-    table-layout: fixed;
-    max-height: 200px;
+
 }
-.table-fixed thead  {
-    margin-left : 0;
+
+.table-fixed thead tr  {
+    position: sticky !important;
+    top: 0;
+    z-index: 1;
+    background: white;
 }
-.table-fixed tbody::-webkit-scrollbar {
+
+
+
+.table-fixed tbody::-webkit-scrollbar,
+.rsl-table::-webkit-scrollbar {
     width: 4px;
+    height: 4px;
+    overflow: hidden;
 }
-.table-fixed tbody::-webkit-scrollbar-track {
+.table-fixed tbody::-webkit-scrollbar-track , .rsl-table::-webkit-scrollbar-track {
     background: rgba(194, 194, 194, 0.11);
+    border-radius: 10px;
 }
-.table-fixed tbody::-webkit-scrollbar-thumb {
+.table-fixed tbody::-webkit-scrollbar-thumb,
+.rsl-table::-webkit-scrollbar-thumb {
     background: rgba(66, 206, 114, 0.67);
+    border-radius: 10px;
+}
+
+.table-cell{
+    word-break: break-word;
+    padding: 10px;
+}
+.pagination{
+    margin-top: 40px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+.pagination-item{
+    width: 40px;
+    height: 40px;
+    background: orange;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+}
+.pagination-item-active{
+    background: #4f57ff;
+}
+
+.sort-icon{
+    margin-right: 5px;
 }

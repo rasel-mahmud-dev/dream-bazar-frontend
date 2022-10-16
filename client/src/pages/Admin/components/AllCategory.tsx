@@ -13,7 +13,7 @@ import MultiSelect from "UI/Form/multiSelect/MultiSelect";
 import { Button } from "UI/index";
 import staticImagePath from "src/utills/staticImagePath";
 import { BsPencilSquare, FcEmptyTrash } from "react-icons/all";
-import Table from "UI/table/Table";
+import Table, {Column} from "UI/table/Table";
 import SelectGroup from "UI/Form/SelectGroup";
 import Checkbox from "UI/Form/checkbox/Checkbox";
 
@@ -293,15 +293,14 @@ const AllCategory = (props) => {
         );
     }
 
-    const columns = [
-        { title: "Name", dataIndex: "name" },
-        { title: "CreatedAt", dataIndex: "createdAt", render: (item) => <span>{new Date(item.createdAt).toDateString()}</span> },
-        { title: "Is Product Level", dataIndex: "isProductLevel", render: (item) => <span>{item.isProductLevel === 1 ? "True": "False" }</span> },
+    const columns: Column[] = [
+        { title: "Name", dataIndex: "name", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
+        { title: "Is Product Level", dataIndex: "isProductLevel", render: (item: any) => <span>{item.isProductLevel === 1 ? "True": "False" }</span> },
         {
             title: "Action",
             dataIndex: "",
             className: "text-center",
-            render: (item) => (
+            render: (item: any) => (
                 <div className="flex justify-center items-center gap-x-2">
                     <BsPencilSquare
                         className="text-md cursor-pointer"
@@ -351,19 +350,18 @@ const AllCategory = (props) => {
             </h3>
 
             <div className="card">
-                <div className='table-wrapper'>
+     
                     <Table
-                        className="table-fixed "
+                        className=""
                         dataSource={flatCategories ? flatCategories : []}
                         columns={columns}
                         tbodyClass={{
-                            tbody: "!max-h-96",
-                            td: "py-2 px-2",
                             tr: "hover:bg-green-500/10",
                         }}
-                        theadClass={{th: "p-2"}}
+                        fixed={true}
+                        scroll={{x: 700, y: 600}}
                     />
-                </div>
+             
             </div>
         </div>
     );

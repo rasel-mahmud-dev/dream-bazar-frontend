@@ -331,20 +331,21 @@ const AllBrands = (props) => {
 
                 <div className="flex items-center gap-x-4" >
                     <Button type="submit" className="bg-secondary-300 mt-4" loaderClass="!border-white" loading={state.httpResponse === "pending"}>
-                    {!updateId ? "Save Brand" : "Update Brand"}
-                </Button>
+                        {!updateId ? "Save Brand" : "Update Brand"}
+                    </Button>
 
-                <Button
-                    type="button"
-                    className="bg-secondary-300 mt-4"
-                    onClick={() => handleShowAddForm(false)}
-                >
+                    <Button
+                        type="button"
+                        className="bg-secondary-300 mt-4"
+                        onClick={() => handleShowAddForm(false)}
+                    >
                     Cancel
-                </Button>
+                     </Button>
                 </div>
             </form>
         );
     }
+    
     
     const columns = [
         {
@@ -356,12 +357,11 @@ const AllBrands = (props) => {
                 </div>
             ),
         },
-        { title: "Name", dataIndex: "name" },
-        { title: "CreatedAt", dataIndex: "createdAt" },
+        { title: "Name", dataIndex: "name", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
         {
             title: "Action",
             dataIndex: "",
-            className: "text-center",
+            className: "center_in_div",
             render: (item) => (
                 <div className="flex justify-center items-center gap-x-2">
                     <BsPencilSquare className="text-md cursor-pointer" onClick={()=>setUpdateBrandHandler(item)} />
@@ -402,7 +402,15 @@ const AllBrands = (props) => {
             </h3>
 
             <div className="card">
-                <Table dataSource={brands ? brands : []} columns={columns} tbodyClass={{td: "py-2 px-2", tr: "hover:bg-green-500/10"}} />
+                <Table
+                dataSource={brands ? brands : []}
+                   columns={columns}
+                   tbodyClass={{
+                       tr: "hover:bg-green-500/10",
+                   }}
+                   fixed={true}
+                   scroll={{x: 300, y: 600}}
+                />
             </div>
         </div>
     );
