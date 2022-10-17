@@ -6,6 +6,7 @@ client/antd/node_modules
 client/node_modules
 client/src/asserts/fontawesome-pro-5.14.0-web
 client/images
+client/public/static
 client/dist
 client/.vscode
 client/.idea

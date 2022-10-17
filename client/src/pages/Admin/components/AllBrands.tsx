@@ -20,12 +20,13 @@ import ActionInfo from "components/ActionInfo/ActionInfo";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import {RootState} from "src/store";
 import isoStringToDate from "src/utills/isoStringToDate";
+import { fetchAdminBrandsAction} from "actions/adminProductAction";
 
 
 
 const AllBrands = (props) => {
     
-    const { appState, productState : { flatCategories }} = useSelector((state: RootState)=>state)
+    const { appState, productState : { flatCategories, adminBrands }} = useSelector((state: RootState)=>state)
     
     const [totalBrands, setTotalBrands] = React.useState<number>(0);
     const [brands, setBrands] = React.useState<any[]>([]);
@@ -43,7 +44,9 @@ const AllBrands = (props) => {
             forCategory: {value: [], errorMessage: ""},
         }
     });
-
+    
+  
+    
     const {formData, isShowForm, updateId} = state
     
     
@@ -54,26 +57,29 @@ const AllBrands = (props) => {
     }
     
     React.useEffect(() => {
-        Promise.allSettled([
-            apis.get("/api/brands/count"),
-            apis.get("/api/brands"),
-            fetchAllCategoryBrand(flatCategories)
-        ])
-        .then((result)=>{
-                if(result[0].status === "fulfilled"){
-                    setTotalBrands(result[0].value.data)
-                }
-                if(result[1].status === "fulfilled"){
-                    setBrands(result[1].value.data);
-                }
-                if(result[2].status === "fulfilled"){
-                    dispatch({
-                        type: ACTION_TYPES.FETCH_CATEGORIES,
-                        payload: result[2].value
-                    })
-                }
-               
-            })
+    
+        fetchAdminBrandsAction(adminBrands, dispatch)
+        
+        // Promise.allSettled([
+        //     apis.get("/api/brands/count"),
+        //     apis.get("/api/brands"),
+        //     fetchAllCategoryBrand(flatCategories)
+        // ])
+        // .then((result)=>{
+        //         if(result[0].status === "fulfilled"){
+        //             setTotalBrands(result[0].value.data)
+        //         }
+        //         if(result[1].status === "fulfilled"){
+        //             setBrands(result[1].value.data);
+        //         }
+        //         if(result[2].status === "fulfilled"){
+        //             dispatch({
+        //                 type: ACTION_TYPES.FETCH_CATEGORIES,
+        //                 payload: result[2].value
+        //             })
+        //         }
+        //
+        //     })
     }, []);
     
 
@@ -430,7 +436,7 @@ const AllBrands = (props) => {
 
             <div className="card">
                 <Table
-                dataSource={brands ? brands : []}
+                dataSource={adminBrands.cached ? adminBrands.cached : []}
                    columns={columns}
                    tbodyClass={{
                        tr: "hover:bg-green-500/10",

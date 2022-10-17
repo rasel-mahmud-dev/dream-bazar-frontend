@@ -14,8 +14,9 @@ export default function (app: Router){
 
   // app.post("/api/auth/registration", authController.registration)
   //
-  // app.get("/api/auth/current-auth", isAuth,  authController.currentAuth)
-  //
+  // @ts-ignore
+    app.get("/api/auth/current-auth", isAuth,  authController.currentAuth)
+  
   // app.get("/api/auth/fetch-profile/:user_id", isAuth, authController.fetchProfile)
   //
 

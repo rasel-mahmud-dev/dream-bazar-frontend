@@ -2,21 +2,23 @@ import {errorResponse} from "../response";
 import {mongoConnect} from "../services/mongodb/database.service";
 import {ObjectId} from "mongodb";
 import {NextFunction, Response} from "express";
-import {RequestWithAuth} from "../types";
 
 const {getToken, parseToken} = require("../jwt")
 
 
-function isAuth (req: RequestWithAuth, res: Response, next: NextFunction){
+function isAuth (req: Request, res: Response, next: NextFunction){
   const token = getToken(req)
+ 
   if(token){
    parseToken(token, async (err, data)=>{
      if(!err){
          try{
+           
              const database = await mongoConnect()
              let user = await database.collection("users").findOne({_id: new ObjectId(data._id)})
              if(user){
-                 req.user = {roles: user.roles, _id: data._id, email: user.email}
+                 // @ts-ignore
+                 req.authUser = {roles: user.roles, _id: data._id, email: user.email}
                  next()
              } else {
                  errorResponse(next, "Unauthorized. Your are not a member", 403)

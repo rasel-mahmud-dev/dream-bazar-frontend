@@ -10,6 +10,7 @@ require('dotenv').config()
 
 
 import routes from "../routes"
+import path from "path";
 
 // import * as path from "path";
 // import {initialConnectionMongodb} from "./services/mongodb/database.service";
@@ -28,8 +29,6 @@ const app = express()
 app.use(bodyParser.json());
 app.use(morgan("dev"))
 
-// app.use(express.static(path.resolve('/public')));
-// app.use(express.static("public"))
 
 const allowedOrigin = ["http://localhost:4000", "http://localhost:3000"]
 
@@ -86,7 +85,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 })
 
 
-// app.use(express.static(path.resolve('public')));
 
 export default app;
 module.exports  = app;

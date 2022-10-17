@@ -4,7 +4,7 @@ import Validator from "../utilities/validator";
 
 import { ObjectId } from "mongodb";
 
-const isObjectId = require("../utilities/isObjectId");
+import isObjectId from "../utilities/isObjectId";
 
 
 import fileUpload from "../utilities/fileUpload";
@@ -478,12 +478,11 @@ export const saveProduct = async (
 			isApproved: false,
 			authorId: new ObjectId("000000000000000000000000"),
 		});
-
+  
 		let newPath: string;
-
 		// move file to our static dir
 		if (file) {
-			newPath = "upload/" + fileName;
+			newPath =  fileName;
 			try {
 				fs.cpSync(file, staticDir + "/" + newPath);
 			} catch (ex) {}
@@ -766,7 +765,7 @@ export const updateProduct = async (
 
 		// move file to our static dir
 		if (file) {
-			newPath = "upload/" + fileName;
+			newPath =  fileName;
 			try {
 				fs.cpSync(file, staticDir + "/" + newPath);
 			} catch (ex) {}
@@ -1719,28 +1718,26 @@ export const getHomepageSectionProducts = async (
 					other = { [a[0]]: a[1] };
 				}
 
-				let products;
+				let products: any = [];
 
 				if (other.sold) {
-					products = ProductCollection.aggregate([
+					products = await ProductCollection.aggregate([
 							{ $sort: { sold: Number(other.sold) } },
 							{ $limit: 20 },
 						]).toArray()
 				} else if (other.discount) {
-					products = ProductCollection.aggregate([
+					products = await ProductCollection.aggregate([
 							{ $sort: { discount: Number(other.discount) } },
 							{ $limit: 20 },
-						]);
+						]).toArray()
 				} else if (other.views) {
-					products = ProductCollection.aggregate([
+					products = await ProductCollection.aggregate([
 							{ $sort: { views: Number(other.views) } },
 							{ $limit: 20 },
-						]);
+						]).toArray()
 				}
-
-			
-				
-				result[item.name] = { values: products as any, type: "products" };
+  		
+				result[item.name] = { values: products, type: "products" };
 
 				if (index === data.length - 1) {
 					res.json(result);
@@ -1748,7 +1745,7 @@ export const getHomepageSectionProducts = async (
 			})();
 		});
 	} catch (ex) {
-		res.status(500).send([]);
+		next(ex)
 	} finally {
 	
 	}

@@ -1,5 +1,5 @@
 import React, {FC, SyntheticEvent, useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import api from "src/apis";
 import ActionInfo from "components/ActionInfo/ActionInfo";
 import {File, InputGroup} from "UI/Form";
@@ -16,6 +16,11 @@ import fullLink from "src/utills/fullLink";
 import staticImagePath from "src/utills/staticImagePath";
 import {Popup} from "components/UI";
 import ModalWithBackdrop from "src/components/ModalWithBackdrop/ModalWithBackdrop";
+import {
+    fetchAdminBrandsAction,
+    fetchAdminProductsAction,
+    fetchAdminStaticFilesAction
+} from "actions/adminProductAction";
 
 
 
@@ -26,18 +31,20 @@ interface Props {
 
 const AddProduct: FC<Props> = (props) => {
     
+    
     const params = useParams();
     const dispatch = useDispatch();
     
-    const {productState: { flatCategories } } = useSelector((state: RootState)=>state)
+    const navigate = useNavigate()
+    
+    const {productState: { flatCategories, adminBrands, adminCategories, adminStaticFiles } } = useSelector((state: RootState)=>state)
     
     const [brands, setBrands] = useState([])
     
     useEffect(()=>{
         (async function () {
-            const dd = await apis.get("/api/brands");
-            setBrands(dd.data);
-        
+            fetchAdminBrandsAction(adminBrands, dispatch)
+    
             try{
                 let a = await fetchFlatCategories();
                 if(!flatCategories) {
@@ -172,7 +179,7 @@ const AddProduct: FC<Props> = (props) => {
                 if (status === 201) {
                     updateState.httpResponse = data.message
                     updateState.httpStatus = 200
-                    // setBrands([...brands, data.products])
+                    navigate(-1)
                 }
             }).catch(ex => {
                 updateState.httpResponse = errorMessageCatch(ex);
@@ -186,7 +193,7 @@ const AddProduct: FC<Props> = (props) => {
                 if (status === 201) {
                     updateState.httpResponse = data.message
                     updateState.httpStatus = 200
-                    // setBrands([...brands, data.products])
+                    navigate(-1)
                 }
             }).catch(ex => {
                 updateState.httpResponse = errorMessageCatch(ex);
@@ -199,25 +206,15 @@ const AddProduct: FC<Props> = (props) => {
     
     
     function handleToggleStaticImageChooserModal(isOpen: boolean){
-        if(isOpen && state.staticImages.length === 0){
-             //  load all static files...
-            api.get("/api/files/static-files").then((response) => {
-                setState(prev=>({
-                    ...prev,
-                    isShowStaticChooser: isOpen,
-                    staticImages: response.data
-                }));
-            });
-        } else {
-            setState(prev=>({
-                ...prev,
-                isShowStaticChooser: isOpen,
-            }));
-        }
+         //  load all static files...
+        fetchAdminStaticFilesAction(adminStaticFiles, dispatch)
+        setState(prev=>({
+            ...prev,
+            isShowStaticChooser: !prev.isShowStaticChooser,
+        }));
     }
     
     function handleChooseImage(imagePath: string){
- 
         let updateProductData = { ...productData}
         updateProductData.coverPhoto = {
             value: imagePath,
@@ -225,7 +222,8 @@ const AddProduct: FC<Props> = (props) => {
         }
         setState(prev=>({
             ...prev,
-            productData: updateProductData
+            productData: updateProductData,
+            isShowStaticChooser: false
         }))
     }
     
@@ -275,9 +273,9 @@ const AddProduct: FC<Props> = (props) => {
                             type="button"
                             className="btn bg-green-500 !py-1.5 mt-2">Or Select Static Photos</Button>
                     </h2>
-                    
+                    {adminStaticFiles.length}
                     <StaticPhotoChooser
-                        staticImages={staticImages}
+                        staticImages={adminStaticFiles ? adminStaticFiles : []}
                         onChooseImage={handleChooseImage}
                         isShowStaticChooser={isShowStaticChooser}
                         onClose={()=>handleToggleStaticImageChooserModal(false)}
@@ -314,7 +312,7 @@ const AddProduct: FC<Props> = (props) => {
                         options={() => (
                             <>
                             <option value="0">Select brandId ID</option>
-                                {brands?.map((cat) => (
+                                {adminBrands.cached && adminBrands.cached?.map((cat: any) => (
                                     <option className="cursor-pointer py-1 menu-item"  value={cat.id}>{cat.name}</option>
                                 ))}
                         </>
@@ -372,6 +370,7 @@ const AddProduct: FC<Props> = (props) => {
 
 
 const StaticPhotoChooser = ({onClose, onChooseImage, staticImages, isShowStaticChooser})=>{
+    console.log(staticImages)
     return (
         <div>
             <ModalWithBackdrop isOpen={isShowStaticChooser} onCloseModal={onClose} maxHeight={400}>

@@ -24,7 +24,7 @@ const BrandList = () => {
 	
 	function handleChangeBrand(brand) {
 		let updatedBrands = [...filters.brands]
-		let selectedBrandIndex = updatedBrands.findIndex(br=>br.id ===brand.id)
+		let selectedBrandIndex = updatedBrands.findIndex((br: any)=>br.id ===brand.id)
 		if(selectedBrandIndex !== -1){
 			updatedBrands.splice(selectedBrandIndex, 1)
 		} else{
@@ -40,7 +40,7 @@ const BrandList = () => {
 	
 	function isChecked(brandId: string){
 		if(filters.brands){
-			let selectedBrandIndex = filters.brands.findIndex(b=>b.id === brandId)
+			let selectedBrandIndex = filters.brands.findIndex((b: any)=>b.id === brandId)
 			return selectedBrandIndex !== -1;
 		}
 		return false

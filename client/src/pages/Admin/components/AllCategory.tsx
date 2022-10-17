@@ -47,8 +47,8 @@ const AllCategory = (props) => {
     React.useEffect(() => {
         (async function () {
             try {
-                let a = await fetchFlatCategories();
                 if (!flatCategories) {
+                    let a = await fetchFlatCategories();
                     dispatch({
                         type: ACTION_TYPES.FETCH_CATEGORIES,
                         payload: a,

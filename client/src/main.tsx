@@ -12,7 +12,7 @@ const store = createStore()
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    // <React.StrictMode>
+    <React.StrictMode>
         <Provider store={store}>
             <AppContextProvider>
                 <HashRouter>
@@ -20,6 +20,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                 </HashRouter>
             </AppContextProvider>
         </Provider>
-    // </React.StrictMode>
+    </React.StrictMode>
 )
 

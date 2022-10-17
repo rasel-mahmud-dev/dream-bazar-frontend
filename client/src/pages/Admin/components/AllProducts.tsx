@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Button, Modal, Select, File, Tabs } from "components/UI";
 import api from "src/apis";
 import fullLink from "src/utills/fullLink";
@@ -7,6 +7,10 @@ import staticImagePath from "src/utills/staticImagePath";
 import { BsPencilSquare, FcEmptyTrash } from "react-icons/all";
 import { useNavigate } from "react-router-dom";
 import isoStringToDate from "src/utills/isoStringToDate";
+import {useDispatch, useSelector} from "react-redux";
+import {ACTION_TYPES} from "store/types";
+import {RootState} from "src/store";
+import { fetchAdminBrandsAction, fetchAdminProductsAction} from "actions/adminProductAction";
 
 const { TabPane } = Tabs;
 
@@ -20,26 +24,35 @@ const AllProducts = (props) => {
 	const [staticImages, setStaticImages] = React.useState([]);
 	const [isShowCoverPhotoHandler, setShowCoverPhotoHandler] = React.useState(false);
 
+    const {adminProducts, adminBrands} = useSelector((state: RootState)=> state.productState )
+    
+    const dispatch = useDispatch()
+    
 	React.useEffect(() => {
+        
+        fetchAdminProductsAction(adminProducts, 1, dispatch)
+        fetchAdminBrandsAction(adminBrands, dispatch)
+        
+        
 		Promise.allSettled([
-			api.get("/api/products?perPage=200"),
 			api.get("/api/categories/?type=lastLevel"),
-			api.get("/api/brands"),
-		]).then((result) => {
-			console.log(result);
+		]).then((result: any) => {
 			if (result[0].status === "fulfilled") {
-				setCount(result[0].value.data.total);
-				setProducts(result[0].value.data.products);
-			}
-			if (result[1].status === "fulfilled") {
 				setCategories(result[1].value.data.categories);
-			}
-			if (result[2].status === "fulfilled") {
-				setBrands(result[2].value.data.brands);
 			}
 		});
 	}, []);
 
+    useEffect(()=>{
+        let updatedProducts = []
+        for (let cachedKey in adminProducts.cached) {
+            if(cachedKey){
+                updatedProducts.push(...adminProducts.cached[cachedKey])
+            }
+        }
+        setProducts(updatedProducts)
+    }, [adminProducts.cached])
+    
 	const [productData, setProductData] = React.useState({});
 	const [updatedProductCopy, setUpdateProductCopy] = React.useState<any>({});
 
@@ -143,7 +156,8 @@ const AllProducts = (props) => {
 			),
 		},
 	];
-
+ 
+ 
 	return (
 		<div className="container">
 			{isShowForm === "" ? (
@@ -157,7 +171,7 @@ const AllProducts = (props) => {
 			{/*{ isShowForm !== "" &&  addProduct() }*/}
 
 			<h3>
-				Products fetch {products.length} of {count}{" "}
+				Products fetch {products.length} of {adminProducts.total}{" "}
 			</h3>
 
 			<div className="card">

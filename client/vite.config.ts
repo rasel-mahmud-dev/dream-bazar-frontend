@@ -18,5 +18,14 @@ export default defineConfig({
       "components": path.resolve(__dirname, "./src/components"),
       "UI": path.resolve(__dirname, "./src/components/UI")
     }
-  }
+  },
+    define: {
+        'process.env.BASE_URL': '"/"',
+    },
+    build: {
+        commonjsOptions: {
+            transformMixedEsModules: true,
+            exclude: ['node_modules/naive-ui/**'],
+        },
+    }
 })

@@ -3,9 +3,9 @@ import axios from "axios"
 
 
 // export const backend = "https://dream-bazar.vercel.app"
-export const backend = import.meta.env.DEV ? "http://localhost:3000" : "https://dream-bazar.vercel.app"
+export const backend = import.meta.env.DEV ? "http://localhost:3000" : "https://server-raselmr.vercel.app"
 // export const backend = import.meta.env.DEV ? "http://localhost:8888/.netlify/functions/app" : "/.netlify/functions/app"
-export const staticOrigin = "http://localhost:3000/static"
+
 
 // export const backend = "https://localhost"
 
