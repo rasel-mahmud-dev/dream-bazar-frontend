@@ -25,23 +25,23 @@ export interface ProductType{
 
 
 class Product extends Base implements ProductType {
-  public _id?: ObjectId
-  public title: string
-  public price: number
-  public discount: number
-  public attributes: object
-  public coverPhoto: string
-  public images: string[]
-  public updatedAt: Date
-  public qty: number
-  public isApproved: boolean
-  public sold: number
-  public views: number
-  public brandId: string | ObjectId
-  public categoryId: string | ObjectId
-  public sellerId: ObjectId | string
-  public authorId: ObjectId | string
-  public createdAt: Date
+    public _id?: ObjectId | string
+    public title: string
+    public price: number
+    public discount?: number
+    public attributes?: object
+    public coverPhoto: string
+    public images?: string[]
+    public qty: number
+    public sold?: number
+    public views?: number
+    public brandId?: string | ObjectId
+    public categoryId?: string | ObjectId
+    public sellerId?: ObjectId | string
+    public authorId: ObjectId | string
+    public createdAt?: Date
+    public updatedAt?: Date
+    public isApproved: boolean
 
   static indexes: IndexType = {
     title: {},

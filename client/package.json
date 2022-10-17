@@ -1,11 +1,11 @@
 {
-  "name": "vite-project",
+  "name": "dream-bazar-client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && node public/copy.js",
+    "build": "tsc && vite build",
     "cp": "node public/copy.js",
     "preview": "vite preview"
   },

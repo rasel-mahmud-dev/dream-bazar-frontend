@@ -1,6 +1,5 @@
 import {getSqliteDb} from "../services/sqlite/database.service";
 import  {BrandType} from "./Brand";
-import {productFiltersGetV2} from "../controllers/productController";
 
 
 class BaseSQLite {
@@ -16,7 +15,7 @@ class BaseSQLite {
     static findOne<T>(sql: string, params: any[]){
         return new Promise<[err: string | null, result: T]>(async (resolve, reject)=>{
             const db = await getSqliteDb();
-            db.get(sql, params, (err: any, result: T)=>{
+            db.get(sql, params, (err, result: T)=>{
                 if(err){
                     resolve([err, result])
                 } else {
@@ -29,7 +28,7 @@ class BaseSQLite {
     static findAll<T>(sql: string){
         return new Promise<[err: any, result: T]>(async (resolve, reject)=>{
             const db = await getSqliteDb();
-            db.all(sql, function (err: any, data: T) {
+            db.all(sql, function (err, data: T) {
                 if (err) {
                     resolve([err, data])
                     return;
@@ -44,7 +43,7 @@ class BaseSQLite {
         return new Promise<[err: string | null, result: any]>(async (resolve, reject)=>{
             const db = await getSqliteDb();
             
-            db.run(sql, params, function (err: any, data: T) {
+            db.run(sql, params, function (err, data: T) {
                 if (err) {
                     resolve([err, null])
                     return;
@@ -58,7 +57,7 @@ class BaseSQLite {
     insertOne<T>(){
         return new Promise<[err: any, result: T | null]>(async (resolve, reject)=>{
             let fieldName = "";
-            let values = []
+            let values: any[] = []
             let valuesPlaceholder = "";
         
             const data: T | any = { ...this };
@@ -77,7 +76,7 @@ class BaseSQLite {
                 let sql = `insert into ${tableName}( ${fieldName.slice(2)} ) Values(${valuesPlaceholder.slice(0, valuesPlaceholder.length - 2)})`;
                 
                 const db = await getSqliteDb();
-                db.run(sql, values, function (err: any, result: any) {
+                db.run(sql, values, function (err, result) {
                     if (err) {
                         resolve([err, null])
                         return;
@@ -96,7 +95,7 @@ class BaseSQLite {
             
             let fieldName = "";
             
-            let values = []
+            let values: any[] = []
         
             let data: any = this
             
@@ -118,7 +117,7 @@ class BaseSQLite {
       
                 const db = await getSqliteDb();
                 
-                db.run(sql, [...values, id], function (err: any, _: any) {
+                db.run(sql, [...values, id], function (err, _) {
                     if (err) {
                         resolve([err, null])
                         return;
@@ -138,7 +137,7 @@ class BaseSQLite {
         return new Promise<[err: any, result: string]>(async (resolve, reject)=>{
             const db = await getSqliteDb();
             let sql = 'DELETE FROM ' + this.tableName + " WHERE id = ? ";
-            db.run(sql, [id], function (err: any, _) {
+            db.run(sql, [id], function (err, _) {
                 if (err) {
                     resolve([err, ""])
                     return;
@@ -163,7 +162,7 @@ class BaseSQLite {
             
             sql += filterStr.slice(0, filterStr.length - 4);
             
-            db.run(sql, function (err: any, data: T) {
+            db.run(sql, function (err, data: T) {
               
                 if (err) {
                     resolve([err, null])
@@ -177,7 +176,7 @@ class BaseSQLite {
     static run(sql: string){
         return new Promise<[err: any, result: any]>(async (resolve, reject)=>{
             const db = await getSqliteDb();
-            db.run(sql, function (err: any, data: any) {
+            db.run(sql, function (err, data) {
                 if (err) {
                     resolve([err, null])
                     return;

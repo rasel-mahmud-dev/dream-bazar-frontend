@@ -19,34 +19,34 @@ const COLLECTIONS_NAME = [
 
 export let db: mongoDB.Db
 
-export async function connectToDatabase () {
+// export async function connectToDatabase () {
+//
+//    try{
+//        const client: mongoDB.MongoClient = new mongoDB.MongoClient(process.env.DB_CONN_STRING);
+//
+//        await client.connect();
+//
+//        db = client.db(process.env.DB_NAME);
+//
+//        COLLECTIONS_NAME.forEach((colItem)=>{
+//            let collection =  db.collection(colItem.name)
+//            collections[colItem.name] = collection
+//            let indexes = colItem.model.indexes;
+//
+//            for (let indexesKey in indexes) {
+//                collection.createIndex( [indexesKey], indexes[indexesKey] as any)
+//            }
+//        })
+//
+//        console.log(`Successfully connected to database: ${db.databaseName}`);
+//
+//    } catch (ex){
+//        console.log(ex)
+//    }
+// }
 
-   try{
-       const client: mongoDB.MongoClient = new mongoDB.MongoClient(process.env.DB_CONN_STRING);
 
-       await client.connect();
-
-       db = client.db(process.env.DB_NAME);
-
-       COLLECTIONS_NAME.forEach((colItem)=>{
-           let collection =  db.collection(colItem.name)
-           collections[colItem.name] = collection
-           let indexes = colItem.model.indexes;
-
-           for (let indexesKey in indexes) {
-               collection.createIndex( [indexesKey], indexes[indexesKey] as any)
-           }
-       })
-
-       console.log(`Successfully connected to database: ${db.databaseName}`);
-
-   } catch (ex){
-       console.log(ex)
-   }
-}
-
-
-const mongoClient = new MongoClient(process.env.DB_CONN_STRING);
+const mongoClient = new MongoClient(process.env.DB_CONN_STRING as string);
 const clientPromise = mongoClient.connect();
 
 interface Database extends mongoDB.Db {

@@ -27,7 +27,7 @@ export const uploadImage = (imagePath: string, dir?: string)=>{
           overwrite: false
         })
       resolve(s)
-    } catch (ex){
+    } catch (ex: any){
    
       if(ex.message){
         if(typeof ex.message === "string"){

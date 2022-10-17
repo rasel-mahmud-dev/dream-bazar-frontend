@@ -12,12 +12,12 @@ export default function (app: Router){
   
   app.post("/api/auth/login", authController.login)
 
-  app.post("/api/auth/registration", authController.registration)
-
-  app.get("/api/auth/current-auth", isAuth,  authController.currentAuth)
-
-  app.get("/api/auth/fetch-profile/:user_id", isAuth, authController.fetchProfile)
-  
+  // app.post("/api/auth/registration", authController.registration)
+  //
+  // app.get("/api/auth/current-auth", isAuth,  authController.currentAuth)
+  //
+  // app.get("/api/auth/fetch-profile/:user_id", isAuth, authController.fetchProfile)
+  //
 
 // GET /auth/google
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -38,7 +38,7 @@ app.get('/api/auth/google',
 //   which, in this example, will redirect the user to the home page.
 
 // call by react js when google callback 
-app.get('/auth/callback/google', passport.authenticate('google'), googleLoginController)
+// app.get('/auth/callback/google', passport.authenticate('google'), googleLoginController)
 
 
 app.get('/api/auth/facebook',

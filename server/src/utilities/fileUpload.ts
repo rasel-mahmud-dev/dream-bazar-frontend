@@ -72,7 +72,7 @@ function fileUploadHandler(req: Request, uploadDir: string, fieldName: string, c
         
         if(Array.isArray(files[fieldName])){
     
-          let newFiles = [] 
+          let newFiles: any = []
           let len = files[fieldName].length
           
           files[fieldName].map(async (file, i)=>{  

@@ -1,40 +1,29 @@
-// const productsFilter = require("../workers/productsFilter")
-
 import {
-  deleteProduct,
-  fetchCategoryProducts,
-  getHomepageSectionProducts,
-  getProduct,
-  getProductCount,
-  getProducts,
-  productFilters,
-  productFiltersGetV2,
-  productFiltersPost,
-  productFiltersPostV2,
-  saveProduct,
-  saveProductsAsDuplicate,
-  updateProduct,
-  updateProductPutReq,
-  uploadHandler
+    deleteProduct,
+    fetchCategoryProducts,
+    getHomepageSectionProducts,
+    getProduct,
+    getProductCount,
+    getProducts,
+    productFilters,
+    productFiltersGetV2,
+    productFiltersPost,
+    productFiltersPostV2,
+    saveProduct,
+    saveProductsAsDuplicate,
+    updateProduct,
+    updateProductPutReq,
+    uploadHandler
 } from "../controllers/productController"
 
-
-import {
-  deleteProductDescription,
-  getProductDescriptions,
-  getProductDetail
-} from "../controllers/productDescriptionController"
-import permission from "../middlewares/permission";
-import {Roles} from "../models/User";
-import isAuth from "../middlewares/isAuth";
 import {Router} from "express";
 
 
 export default function (app: Router){
   
-  app.get("/api/products/descriptions", getProductDescriptions)
-  app.delete("/api/products/descriptions/:id", deleteProductDescription)
-  app.get("/api/products/details/:productId", getProductDetail)
+  // app.get("/api/products/descriptions", getProductDescriptions)
+  // app.delete("/api/products/descriptions/:id", deleteProductDescription)
+  // app.get("/api/products/details/:productId", getProductDetail)
   
   app.get("/api/products/count", getProductCount)
   
@@ -70,7 +59,8 @@ export default function (app: Router){
 
   app.get("/api/products/category-product/:categoryId", fetchCategoryProducts)
   
-  app.get("/api/products",  permission([Roles.ADMIN, Roles.PRODUCT_MANAGER, Roles.SITE_DESIGNER]),  getProducts)
+  // app.get("/api/products",  permission([Roles.ADMIN, Roles.PRODUCT_MANAGER, Roles.SITE_DESIGNER]),  getProducts)
+  app.get("/api/products",   getProducts)
 
 
   // add new product route
@@ -87,9 +77,6 @@ export default function (app: Router){
   
   
   // app.post("/api/toggle-wishlist", isAuth, productController)
-  
-  
-
   
 }
 

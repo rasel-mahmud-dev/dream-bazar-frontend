@@ -7,10 +7,10 @@ import {RequestWithAuth} from "../types";
 const {getToken, parseToken} = require("../jwt")
 
 
-async function isAuth (req: RequestWithAuth, res: Response, next: NextFunction){
+function isAuth (req: RequestWithAuth, res: Response, next: NextFunction){
   const token = getToken(req)
   if(token){
-   parseToken(token, async (err, data: any)=>{
+   parseToken(token, async (err, data)=>{
      if(!err){
          try{
              const database = await mongoConnect()

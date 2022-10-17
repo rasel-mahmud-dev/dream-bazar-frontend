@@ -1,22 +1,15 @@
 import {Request} from "express";
 import { IncomingMessage, ServerResponse} from "http";
-import {Roles} from "../models/User";
 
 
 
 export interface RequestWithAuth extends Request{
-    user?: {
-        _id: string,
-        roles: Roles[]
-        email: string
-    } | null
+
 }
 
 export type ObjectFlags<Type> = {
     [Property in keyof Type]: any;
 };
-
-
 
 
 declare type Send<T> = (body: T) => void;

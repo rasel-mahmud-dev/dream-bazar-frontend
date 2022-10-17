@@ -15,7 +15,7 @@ export const createToken = (_id: string, email: string, roles: Roles[])=> {
 }
 
 export const parseToken = (token: string, cb: any)=> {
-   jwt.verify(token, process.env.SECRET, (err, d)=>{
+   jwt.verify(token, process.env.SECRET, (err: any, d: any)=>{
      if(err){
        return cb(err, null)
      }
@@ -37,9 +37,11 @@ export const parseToken = (token: string, cb: any)=> {
 // }
 
 
-export const getToken = (req)=> {
-  let token = req.headers["authorization"]
-  return token
+export const getToken = (req: Request)=> {
+    // @ts-ignore
+        let token = req.headers["authorization"]
+        return token
+        
 }
 
 export const isValid = ()=> {

@@ -1,5 +1,4 @@
 import {NextFunction, Request, Response} from "express"
-import dbConnect from "../database"
 import {RequestWithAuth} from "../types";
 import {mongoConnect} from "../services/mongodb/database.service";
 import User, {Roles} from "../models/User";
@@ -58,7 +57,7 @@ export const googleLoginController = async (req: RequestWithAuth, res: Response,
     return errorResponse(next, "Login fail")
   }
   
-  let token = createToken(req.user._id, req.user.email,req.user.roles)
+  let token = createToken(req.authUser._id, req.authUser.email,req.authUser.roles)
   successResponse(res, 201, {user: req.user, token: token})
 }
 
@@ -90,7 +89,7 @@ export const registration = async (req: Request, res: Response, next: NextFuncti
 
     if(doc.insertedId){
 
-      let token = createToken(doc.insertedId as any, user.email, user.roles)
+      let token = createToken(doc.insertedId as any, newUser.email, newUser.roles)
       delete newUser.password;
       newUser._id = doc.insertedId
 
@@ -115,7 +114,7 @@ export const currentAuth = async (req: RequestWithAuth, res: Response, next: Nex
                 return errorResponse(next, "Please login.", 401)
       }
     const database = await mongoConnect();
-    const user = await database.collection("users").findOne<User>({_id: ObjectId(req.user._id)})
+    const user = await database.collection("users").findOne<User>({_id: ObjectId(req.authUser._id)})
 
     if(!user){
       return errorResponse(next, "Please login.", 401)
@@ -130,17 +129,17 @@ export const currentAuth = async (req: RequestWithAuth, res: Response, next: Nex
 }
 
 export const fetchProfile = async (req: RequestWithAuth, res: Response, next: NextFunction)=>{
-  let client;
-  try{
-    const { c: UserCollection, client: cc } = await dbConnect("users")  
-    client = cc
-    let user = await UserCollection.findOne({_id: ObjectId(req.user._id) })
-    res.json({user})
-  } catch(ex){
-    next(ex)
-  } finally{
-    client?.close()
-  }
+  // let client;
+  // try{
+  //   const { c: UserCollection, client: cc } = await dbConnect("users")
+  //   client = cc
+  //   let user = await UserCollection.findOne({_id: ObjectId(req.user._id) })
+  //   res.json({user})
+  // } catch(ex){
+  //   next(ex)
+  // } finally{
+  //   client?.close()
+  // }
 }
 
 

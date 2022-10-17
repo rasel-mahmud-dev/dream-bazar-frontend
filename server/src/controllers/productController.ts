@@ -1,22 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import Product, { ProductType } from "../models/Product";
 import Validator from "../utilities/validator";
-import ProductDescription, {
-	ProductDescriptionType,
-} from "../models/ProductDescription";
 
-import { MongoClient, ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
+
 const isObjectId = require("../utilities/isObjectId");
 
-import dbConnect from "../database/index";
-
-import fileUploadHandler from "../utilities/fileUpload";
-import {
-	collections,
-	connectToDatabase,
-	db,
-	mongoConnect,
-} from "../services/mongodb/database.service";
 
 import fileUpload from "../utilities/fileUpload";
 import { errorResponse, successResponse } from "../response";
@@ -49,52 +38,11 @@ export const getProducts = async (
 	// const collection = database.collection("products");
 	// const results = await collection.find({}).limit(10).toArray();
 	// res.send(results)
-
+ 
 	const now = Date.now();
 
 	try {
-		// let docs: any = await Product.aggregate([
-		//   {
-		//       $lookup: {
-		//         from: "categories",
-		//         localField: "category_id",
-		//         foreignField: "_id",
-		//         as: "category"
-		//       }
-		//     },
-		//     { $unwind: {path: "$category", preserveNullAndEmptyArrays: true } },
-		//     {
-		//       $lookup: {
-		//         from: "brands",
-		//         localField: "brand_id",
-		//         foreignField: "_id",
-		//         as: "brand"
-		//       }
-		//     },
-		//     { $unwind: {path: "$brand", preserveNullAndEmptyArrays: true } },
-		//     {
-		//       $project: {
-		//         title: 1,
-		//         created_at: 1,
-		//         price: 1,
-		//         cover_photo: 1,
-		//         category_id: 1,
-		//         category: {
-		//           title: 1,
-		//           logo: 1,
-		//           name: 1
-		//         },
-		//         brand_id: 1,
-		//         brand: {
-		//           _id: 1,
-		//           name: 1,
-		//         }
-		//       }
-		//     },
-		//     {$skip: perPage * (pageNumber - 1)},
-		//     {$limit: Number(perPage)}
-		// ])
-
+		
 		const Collection = await Product.collection();
 
 		let counts = 0;
@@ -109,69 +57,7 @@ export const getProducts = async (
 
 		res.json({ time: Date.now() - now, total: counts, products: docs });
 
-		// let filePath = dataDir + "/products.json"
-		// let data = fs.readFileSync(filePath);
-		// let p = JSON.parse(data.toString());
-		// p.forEach(pp=>{
-		//   // console.log(pp)
-		//   setTimeout(()=>{
-		//     collections.products.insertOne({
-		//       ...pp,
-		//       _id: new ObjectId(pp._id),
-		//       sellerId:  new ObjectId(pp.sellerId),
-		//     }).then().catch(ex=>{
-		//       console.log(ex.message)
-		//     })
-		//   }, 200)
-		// })
-
-		// let a = await db.createCollection("products")
-		// console.log(a);
-
-		//   collections.products.createIndex({
-		//         categoryId: 1,
-		//       },
-		//       {
-		//         unique: false
-		//       }
-		//   )
-		//
-		// collections.products.createIndex({
-		//         brandId: 1,
-		//       },
-		//       {
-		//         unique: false
-		//       }
-		//   )
-
-		// let docs = await  Product.findOne({ qty: 5 })
-
-		// res.json({time: Date.now() - now, total: docs.length, products: docs})
-
-		// let cursor;
-		// cursor = ProductCollection.aggregate([
-		//   {
-		//     $lookup: {
-		//       from: "categories",
-		//       localField: "category_id",
-		//       foreignField: "_id",
-		//       as: "category"
-		//     }
-		//   },
-		//   {$unwind: {path: "$category", preserveNullAndEmptyArrays: true}},
-		//   {
-		//     $lookup: {
-		//       from: "brands",
-		//       localField: "brand_id",
-		//       foreignField: "_id",
-		//       as: "brand"
-		//     }
-		//   },
-		//   {$unwind: {path: "$brand", preserveNullAndEmptyArrays: true}},
-		//   {$skip: perPage * (pageNumber - 1)},
-		//   {$limit: Number(perPage)},
-		//   {$project: {'category.filters': 0}}
-		// ])
+		
 	} catch (ex) {
 		next(ex);
 	} finally {
@@ -179,7 +65,7 @@ export const getProducts = async (
 	}
 };
 
-export const getProduct = async (req, res, next) => {
+export const getProduct = async (req: Request, res: Response, next: NextFunction) => {
 	if (!isObjectId(req.params.id)) {
 		return res.send("please send product id");
 	}
@@ -195,7 +81,7 @@ export const getProduct = async (req, res, next) => {
 	}
 };
 
-//
+
 // export const getProduct = async (req, res, next)=>{
 //
 //   if(!isObjectId(req.params.id)){
@@ -361,52 +247,46 @@ export const getProduct = async (req, res, next) => {
 //
 // }
 
-export const productUpdateForAttributeChange = async (req, res, next) => {
+// export const productUpdateForAttributeChange = async (req: Request, res: Response, next: NextFunction) => {
+// 	const { id } = req.params;
+// 	const { type, quantity } = req.body;
+// 	let client;
+// 	try {
+// 		const { c: ProductCollection, client: cc } = await dbConnect("products");
+// 		client = cc;
+// 		let response;
+// 		if (type === "product_view_increase") {
+// 			response = await ProductCollection.findOneAndUpdate(
+// 				{ _id: new ObjectId(id) },
+// 				{ $inc: { views: 1 } }
+// 				// { returnDocument: true}
+// 			);
+// 		} else if (type === "product_stock_increase") {
+// 			response = await ProductCollection.findOneAndUpdate(
+// 				{ _id: new ObjectId(id) },
+// 				{ $inc: { qty: quantity ? Number(quantity) : 1 } }
+// 				// { returnNewDocument: true}
+// 			);
+// 		} else if (type === "product_stock_decrease") {
+// 			response = await ProductCollection.findOneAndUpdate(
+// 				{ _id: new ObjectId(id) },
+// 				{ $inc: { qty: quantity ? Number(quantity) : -1 } }
+// 				// { returnNewDocument: true}
+// 			);
+// 		}
+//
+// 		res.status(201).json({ product: response.value });
+// 	} catch (ex) {
+// 		next(ex);
+// 	} finally {
+// 		client?.close();
+// 	}
+// };
+
+export const updateProductPutReq = async (req: Request, res: Response, next: NextFunction) => {
 	const { id } = req.params;
-	const { type, quantity } = req.body;
-	let client;
+ 
 	try {
-		const { c: ProductCollection, client: cc } = await dbConnect("products");
-		client = cc;
-		let response;
-		if (type === "product_view_increase") {
-			response = await ProductCollection.findOneAndUpdate(
-				{ _id: new ObjectId(id) },
-				{ $inc: { views: 1 } }
-				// { returnDocument: true}
-			);
-		} else if (type === "product_stock_increase") {
-			response = await ProductCollection.findOneAndUpdate(
-				{ _id: new ObjectId(id) },
-				{ $inc: { qty: quantity ? Number(quantity) : 1 } }
-				// { returnNewDocument: true}
-			);
-		} else if (type === "product_stock_decrease") {
-			response = await ProductCollection.findOneAndUpdate(
-				{ _id: new ObjectId(id) },
-				{ $inc: { qty: quantity ? Number(quantity) : -1 } }
-				// { returnNewDocument: true}
-			);
-		}
-
-		res.status(201).json({ product: response.value });
-	} catch (ex) {
-		next(ex);
-	} finally {
-		client?.close();
-	}
-};
-
-export const updateProductPutReq = async (req, res, next) => {
-	const { id } = req.params;
-
-	let client;
-	try {
-		const { db, client: cc } = await dbConnect();
-		client = cc;
-
-		const ProductCollection = db.collection("products");
-		const ProductDescriptionCollection = db.collection("product_descriptions");
 
 		// fileUploadHandler(req, "src/static/upload", "image", async (err, ctx)=>{
 		//   if(err){
@@ -1087,7 +967,7 @@ export const updateProduct = async (
 };
 
 // make duplicate product
-export const saveProductsAsDuplicate = async (req, res, next) => {
+export const saveProductsAsDuplicate = async (req: Request, res: Response, next: NextFunction) => {
 	let client;
 
 	// try{
@@ -1359,451 +1239,451 @@ export const saveProductsAsDuplicate = async (req, res, next) => {
 	// }
 };
 
-export const fetchCategoryProducts = async (req, res, next) => {
+export const fetchCategoryProducts = async (req: Request, res: Response, next: NextFunction) => {
 	const { categoryId } = req.params;
 	const fetchEachSectionItems = 10;
 
 	let client;
 
-	try {
-		const { db, client: cc } = await dbConnect();
-		client = cc;
-		const CategoryCollection = db.collection("categories");
-		const ProductCollection = db.collection("products");
-
-		// find category that cliked in frontend.  and see it last level category, or not.
-		// last level category must have property filters array required
-		let findCategory = await CategoryCollection.findOne({
-			_id: new ObjectId(categoryId),
-		});
-
-		// when this category under more categor....
-		if (!findCategory.filters) {
-			// get child categories....
-			let categoryCursor = CategoryCollection.find({
-				parent_id: new ObjectId(categoryId),
-			});
-
-			let childCategoriesObj = {}; // { "32423432" : "Motherboard", "4234324": "Ram"}
-			// /
-			// let cat = {}
-			function r() {
-				return new Promise(async (re, s) => {
-					let cat = {};
-					await categoryCursor.forEach((item) => {
-						(async function () {
-							// now find Products where category id === each childCategory
-							let productsCursors = ProductCollection.find({
-								category_id: new ObjectId(item._id),
-							}).limit(2);
-
-							await productsCursors.forEach((p) => {
-								if (cat[item.name]) {
-									cat[item.name].push(p);
-								} else {
-									cat[item.name] = [p];
-								}
-							});
-							re(cat);
-						})();
-					});
-				});
-			}
-
-			r().then((y) => {
-				// console.log(y)
-				if (Object.keys(y).length > 0) {
-					// this return only frist loop of category
-					res.json({ categoryProduct: y });
-				}
-			});
-
-			// childCategoriesObj[item._id] = item.name
-			// productFilterArray.push(item._id)
-
-			// console.log(cat)
-			// res.send(cat)
-
-			// now find Products where category id === each childCategory
-			// let productsCursors = ProductCollection.find({ category_id: { $in: [...productFilterArray]}})
-			// let productsWithChildCategory = []  // all product that category_id === each childCategory
-			// await productsCursors.forEach(p=>{
-			//   productsWithChildCategory.push(p)
-			// })
-
-			// console.log(childCategories)
-
-			// make category key and products array like  {"Motherboard": [{product}]}
-			// let o = {}
-
-			// productsWithChildCategory.forEach(prod=>{
-			//   for(let catId in childCategoriesObj){
-
-			//       if(catId == prod.category_id ){
-			//       if(o[childCategoriesObj[catId]]){
-			//         o[childCategoriesObj[catId]].push(prod)
-			//       } else{
-			//         o[childCategoriesObj[catId]] = [prod]
-			//       }
-			//     }
-			//   }
-			// })
-
-			// res.send({ categoryProduct: o })
-		} else {
-			const cursor = ProductCollection.find({
-				category_id: new ObjectId(categoryId),
-			});
-			let pp = [];
-			await cursor.forEach((p) => {
-				pp.push(p);
-			});
-			return res.json({ products: pp });
-		}
-	} catch (ex) {
-		console.error(ex);
-		next(ex);
-	} finally {
-		client?.close();
-	}
+	// try {
+	// 	const { db, client: cc } = await dbConnect();
+	// 	client = cc;
+	// 	const CategoryCollection = db.collection("categories");
+	// 	const ProductCollection = db.collection("products");
+    //
+	// 	// find category that cliked in frontend.  and see it last level category, or not.
+	// 	// last level category must have property filters array required
+	// 	let findCategory = await CategoryCollection.findOne({
+	// 		_id: new ObjectId(categoryId),
+	// 	});
+    //
+	// 	// when this category under more categor....
+	// 	if (!findCategory.filters) {
+	// 		// get child categories....
+	// 		let categoryCursor = CategoryCollection.find({
+	// 			parent_id: new ObjectId(categoryId),
+	// 		});
+    //
+	// 		let childCategoriesObj = {}; // { "32423432" : "Motherboard", "4234324": "Ram"}
+	// 		// /
+	// 		// let cat = {}
+	// 		function r() {
+	// 			return new Promise(async (re, s) => {
+	// 				let cat = {};
+	// 				await categoryCursor.forEach((item) => {
+	// 					(async function () {
+	// 						// now find Products where category id === each childCategory
+	// 						let productsCursors = ProductCollection.find({
+	// 							category_id: new ObjectId(item._id),
+	// 						}).limit(2);
+    //
+	// 						await productsCursors.forEach((p) => {
+	// 							if (cat[item.name]) {
+	// 								cat[item.name].push(p);
+	// 							} else {
+	// 								cat[item.name] = [p];
+	// 							}
+	// 						});
+	// 						re(cat);
+	// 					})();
+	// 				});
+	// 			});
+	// 		}
+    //
+	// 		r().then((y) => {
+	// 			// console.log(y)
+	// 			if (Object.keys(y).length > 0) {
+	// 				// this return only frist loop of category
+	// 				res.json({ categoryProduct: y });
+	// 			}
+	// 		});
+    //
+	// 		// childCategoriesObj[item._id] = item.name
+	// 		// productFilterArray.push(item._id)
+    //
+	// 		// console.log(cat)
+	// 		// res.send(cat)
+    //
+	// 		// now find Products where category id === each childCategory
+	// 		// let productsCursors = ProductCollection.find({ category_id: { $in: [...productFilterArray]}})
+	// 		// let productsWithChildCategory = []  // all product that category_id === each childCategory
+	// 		// await productsCursors.forEach(p=>{
+	// 		//   productsWithChildCategory.push(p)
+	// 		// })
+    //
+	// 		// console.log(childCategories)
+    //
+	// 		// make category key and products array like  {"Motherboard": [{product}]}
+	// 		// let o = {}
+    //
+	// 		// productsWithChildCategory.forEach(prod=>{
+	// 		//   for(let catId in childCategoriesObj){
+    //
+	// 		//       if(catId == prod.category_id ){
+	// 		//       if(o[childCategoriesObj[catId]]){
+	// 		//         o[childCategoriesObj[catId]].push(prod)
+	// 		//       } else{
+	// 		//         o[childCategoriesObj[catId]] = [prod]
+	// 		//       }
+	// 		//     }
+	// 		//   }
+	// 		// })
+    //
+	// 		// res.send({ categoryProduct: o })
+	// 	} else {
+	// 		const cursor = ProductCollection.find({
+	// 			category_id: new ObjectId(categoryId),
+	// 		});
+	// 		let pp = [];
+	// 		await cursor.forEach((p) => {
+	// 			pp.push(p);
+	// 		});
+	// 		return res.json({ products: pp });
+	// 	}
+	// } catch (ex) {
+	// 	console.error(ex);
+	// 	next(ex);
+	// } finally {
+	// 	client?.close();
+	// }
 };
 
 // product filter for client Frontend Home Page
-export const productFilterHomePage = async (req, res, next) => {
-	const { pageNumber = 1, perPage = 10, type } = req.query;
+// export const productFilterHomePage = async (req: Request, res: Response, next: NextFunction) => {
+// 	const { pageNumber = 1, perPage = 10, type } = req.query;
+//
+// 	let client;
+//
+// 	try {
+// 		const { c: ProductCollection, client: cc } = await dbConnect("products");
+// 		client = cc;
+// 		// console.log(type)
+// 		let cursor;
+//
+// 		if (type === "most-popular") {
+// 			// sort by views and pick 5 to 10 frist item from database
+// 			cursor = ProductCollection.aggregate([
+// 				{ $sort: { views: -1 } },
+// 				{ $skip: perPage * (pageNumber - 1) },
+// 				{ $limit: Number(perPage) },
+// 			]);
+// 		} else if (type === "most-updated") {
+// 			cursor = ProductCollection.aggregate([
+// 				{ $sort: { created_at: -1 } },
+// 				{ $skip: perPage * (pageNumber - 1) },
+// 				{ $limit: Number(perPage) },
+// 			]);
+// 		} else if (type === "top-selling") {
+// 			cursor = ProductCollection.aggregate([
+// 				{ $sort: { sold: -1 } },
+// 				{ $skip: perPage * (pageNumber - 1) },
+// 				{ $limit: Number(perPage) },
+// 			]);
+// 		} else if (type === "top-views") {
+// 			cursor = ProductCollection.aggregate([
+// 				{ $sort: { views: -1 } },
+// 				{ $skip: perPage * (pageNumber - 1) },
+// 				{ $limit: Number(perPage) },
+// 			]);
+// 		} else if (type === "top-views-length") {
+// 			cursor = ProductCollection.aggregate([
+// 				{ $sort: { views: -1 } }, // sort deasce order,
+// 				{ $limit: 100 }, // choose 1 to 100 item
+// 				{
+// 					/// count document
+// 					$group: {
+// 						_id: null,
+// 						count: { $sum: 1 },
+// 					},
+// 				},
+// 			]);
+//
+// 			let ppp = [];
+// 			await cursor.forEach((p) => {
+// 				ppp.push(p);
+// 			});
+// 			return res.send(ppp[0]);
+// 		} else if (type === "top-selling-length") {
+// 			cursor = ProductCollection.aggregate([
+// 				{ $sort: { sold: -1 } }, // sort deasce order,
+// 				{ $limit: 100 }, // choose 1 to 100 item
+// 				{
+// 					/// count document
+// 					$group: {
+// 						_id: null,
+// 						count: { $sum: 1 },
+// 					},
+// 				},
+// 			]);
+//
+// 			let ppp = [];
+// 			await cursor.forEach((p) => {
+// 				ppp.push(p);
+// 			});
+// 			return res.send(ppp[0]);
+// 		}
+//
+// 		let pp = [];
+// 		await cursor.forEach((p) => {
+// 			pp.push(p);
+// 		});
+//
+// 		res.json({ products: pp });
+// 	} catch (ex) {
+// 		console.log(ex);
+// 		next(ex);
+// 	} finally {
+// 		client?.close();
+// 	}
+// };
 
-	let client;
-
-	try {
-		const { c: ProductCollection, client: cc } = await dbConnect("products");
-		client = cc;
-		// console.log(type)
-		let cursor;
-
-		if (type === "most-popular") {
-			// sort by views and pick 5 to 10 frist item from database
-			cursor = ProductCollection.aggregate([
-				{ $sort: { views: -1 } },
-				{ $skip: perPage * (pageNumber - 1) },
-				{ $limit: Number(perPage) },
-			]);
-		} else if (type === "most-updated") {
-			cursor = ProductCollection.aggregate([
-				{ $sort: { created_at: -1 } },
-				{ $skip: perPage * (pageNumber - 1) },
-				{ $limit: Number(perPage) },
-			]);
-		} else if (type === "top-selling") {
-			cursor = ProductCollection.aggregate([
-				{ $sort: { sold: -1 } },
-				{ $skip: perPage * (pageNumber - 1) },
-				{ $limit: Number(perPage) },
-			]);
-		} else if (type === "top-views") {
-			cursor = ProductCollection.aggregate([
-				{ $sort: { views: -1 } },
-				{ $skip: perPage * (pageNumber - 1) },
-				{ $limit: Number(perPage) },
-			]);
-		} else if (type === "top-views-length") {
-			cursor = ProductCollection.aggregate([
-				{ $sort: { views: -1 } }, // sort deasce order,
-				{ $limit: 100 }, // choose 1 to 100 item
-				{
-					/// count document
-					$group: {
-						_id: null,
-						count: { $sum: 1 },
-					},
-				},
-			]);
-
-			let ppp = [];
-			await cursor.forEach((p) => {
-				ppp.push(p);
-			});
-			return res.send(ppp[0]);
-		} else if (type === "top-selling-length") {
-			cursor = ProductCollection.aggregate([
-				{ $sort: { sold: -1 } }, // sort deasce order,
-				{ $limit: 100 }, // choose 1 to 100 item
-				{
-					/// count document
-					$group: {
-						_id: null,
-						count: { $sum: 1 },
-					},
-				},
-			]);
-
-			let ppp = [];
-			await cursor.forEach((p) => {
-				ppp.push(p);
-			});
-			return res.send(ppp[0]);
-		}
-
-		let pp = [];
-		await cursor.forEach((p) => {
-			pp.push(p);
-		});
-
-		res.json({ products: pp });
-	} catch (ex) {
-		console.log(ex);
-		next(ex);
-	} finally {
-		client?.close();
-	}
-};
-
-export const productFiltersPost = async (req, res, next) => {
+export const productFiltersPost = async (req: Request, res: Response, next: NextFunction) => {
 	const { pageNumber, perPage, type, ids } = req.body;
 
 	let client;
 
-	try {
-		const { db, client: cc } = await dbConnect();
-		client = cc;
-
-		const ProductCollection = db.collection("products");
-		const CategoryCollection = db.collection("categories");
-
-		if (type === "category") {
-			let categoryIds = [];
-			ids &&
-				ids.forEach((id) => {
-					categoryIds.push(new ObjectId(id));
-				});
-
-			const c = ProductCollection.find({
-				category_id: { $in: categoryIds },
-			});
-			let pp = [];
-			await c.forEach((p) => {
-				pp.push(p);
-			});
-			res.send(pp);
-		}
-	} catch (ex) {
-		next(ex);
-	} finally {
-		client?.close();
-	}
+	// try {
+	// 	const { db, client: cc } = await dbConnect();
+	// 	client = cc;
+    //
+	// 	const ProductCollection = db.collection("products");
+	// 	const CategoryCollection = db.collection("categories");
+    //
+	// 	if (type === "category") {
+	// 		let categoryIds = [];
+	// 		ids &&
+	// 			ids.forEach((id) => {
+	// 				categoryIds.push(new ObjectId(id));
+	// 			});
+    //
+	// 		const c = ProductCollection.find({
+	// 			category_id: { $in: categoryIds },
+	// 		});
+	// 		let pp = [];
+	// 		await c.forEach((p) => {
+	// 			pp.push(p);
+	// 		});
+	// 		res.send(pp);
+	// 	}
+	// } catch (ex) {
+	// 	next(ex);
+	// } finally {
+	// 	client?.close();
+	// }
 };
 
-async function findEntryLevel_Cat(category_id) {
+// async function findEntryLevel_Cat(category_id) {
+// 	let client;
+// 	try {
+// 		const { c: CategoryCollection, client: cc } = await dbConnect("categories");
+// 		client = cc;
+//
+// 		let cursor = await CategoryCollection.aggregate([
+// 			{
+// 				$match: { _id: new ObjectId(category_id) },
+// 			},
+// 			{
+// 				$lookup: {
+// 					from: "categories",
+// 					let: { categoryId: "$_id" }, // it first query doc _id ..
+// 					pipeline: [
+// 						{
+// 							$match: {
+// 								$expr: {
+// 									$and: [
+// 										{ $eq: ["$parent_id", "$$categoryId"] }, // $parent_id from sub_category
+// 									],
+// 								},
+// 							},
+// 						},
+// 						{
+// 							$lookup: {
+// 								from: "categories",
+// 								let: { subCatId: "$_id" },
+// 								pipeline: [
+// 									{
+// 										$match: {
+// 											$expr: {
+// 												$and: [{ $eq: ["$parent_id", "$$subCatId"] }],
+// 											},
+// 										},
+// 									},
+// 									{
+// 										$lookup: {
+// 											from: "categories",
+// 											let: { subSubCatId: "$_id" },
+// 											pipeline: [
+// 												{
+// 													$match: {
+// 														$expr: {
+// 															$and: [{ $eq: ["$parent_id", "$$subSubCatId"] }],
+// 														},
+// 													},
+// 												},
+// 											],
+// 											as: "sub_cat",
+// 										},
+// 									},
+// 								],
+// 								as: "sub_cat",
+// 							},
+// 						},
+// 					],
+// 					as: "sub_cat",
+// 				},
+// 			},
+// 			{
+// 				// reduce unnecessary field
+// 				$project: {
+// 					_id: 1,
+// 					is_product_level: 1,
+// 					sub_cat: {
+// 						_id: 1,
+// 						is_product_level: 1,
+// 						sub_cat: {
+// 							_id: 1,
+// 							is_product_level: 1,
+// 							sub_cat: {
+// 								_id: 1,
+// 								is_product_level: 1,
+// 							},
+// 						},
+// 					},
+// 				},
+// 			},
+// 		]);
+//
+// 		let c = [];
+// 		await cursor.forEach((cat) => {
+// 			c.push(cat);
+// 		});
+//
+// 		client?.close();
+// 		return c;
+// 	} catch (ex) {
+// 		console.log("-------", ex.message);
+// 	} finally {
+// 		client?.close();
+// 	}
+// }
+
+// function mapCategoryProductLevel(categoryList) {
+// 	let categories = [];
+// 	categoryList &&
+// 		categoryList.length > 0 &&
+// 		categoryList.map((c) => {
+// 			if (c.is_product_level) {
+// 				categories.push(c._id);
+// 			}
+// 			if (c.sub_cat && c.sub_cat.length > 0) {
+// 				c.sub_cat.map((cc) => {
+// 					if (cc.is_product_level) {
+// 						categories.push(cc._id);
+// 					}
+// 					if (cc.sub_cat && cc.sub_cat.length > 0) {
+// 						cc.sub_cat.map((ccc) => {
+// 							if (ccc.is_product_level) {
+// 								categories.push(ccc._id);
+// 							}
+// 							if (ccc.sub_cat && ccc.sub_cat.length > 0) {
+// 								ccc.sub_cat.map((cccc) => {
+// 									if (cccc.is_product_level) {
+// 										categories.push(cccc._id);
+// 									}
+// 								});
+// 							}
+// 						});
+// 					}
+// 				});
+// 			}
+// 		});
+//
+// 	return categories;
+// }
+
+// const getNestedCategoryIds = async (req, res) => {
+// 	let client;
+// 	// any of category id
+// 	const { category_id, category_ids } = req.body;
+//
+// 	try {
+// 		// const {c: CategoryCollection, client: cc} = dbConnect("categories")
+// 		// client = cc
+//
+// 		let allCategory = [];
+//
+// 		let categoryIds = [];
+//
+// 		if (category_id) {
+// 			let c = await findEntryLevel_Cat(category_id);
+// 			allCategory.push(...c);
+// 		} else if (category_ids) {
+// 			for (let item of category_ids) {
+// 				let c = await findEntryLevel_Cat(item);
+// 				if (c) {
+// 					allCategory.push(...c);
+// 				}
+// 			}
+// 		}
+//
+// 		categoryIds = mapCategoryProductLevel(allCategory);
+//
+// 		client?.close();
+// 		return categoryIds;
+// 	} catch (ex) {
+// 		console.log("message", ex.message);
+// 		return null;
+// 	} finally {
+// 		client?.close();
+// 	}
+// };
+
+export const productFiltersGetV2 = async (req: Request, res: Response, next: NextFunction) => {
 	let client;
-	try {
-		const { c: CategoryCollection, client: cc } = await dbConnect("categories");
-		client = cc;
 
-		let cursor = await CategoryCollection.aggregate([
-			{
-				$match: { _id: new ObjectId(category_id) },
-			},
-			{
-				$lookup: {
-					from: "categories",
-					let: { categoryId: "$_id" }, // it first query doc _id ..
-					pipeline: [
-						{
-							$match: {
-								$expr: {
-									$and: [
-										{ $eq: ["$parent_id", "$$categoryId"] }, // $parent_id from sub_category
-									],
-								},
-							},
-						},
-						{
-							$lookup: {
-								from: "categories",
-								let: { subCatId: "$_id" },
-								pipeline: [
-									{
-										$match: {
-											$expr: {
-												$and: [{ $eq: ["$parent_id", "$$subCatId"] }],
-											},
-										},
-									},
-									{
-										$lookup: {
-											from: "categories",
-											let: { subSubCatId: "$_id" },
-											pipeline: [
-												{
-													$match: {
-														$expr: {
-															$and: [{ $eq: ["$parent_id", "$$subSubCatId"] }],
-														},
-													},
-												},
-											],
-											as: "sub_cat",
-										},
-									},
-								],
-								as: "sub_cat",
-							},
-						},
-					],
-					as: "sub_cat",
-				},
-			},
-			{
-				// reduce unnecessary field
-				$project: {
-					_id: 1,
-					is_product_level: 1,
-					sub_cat: {
-						_id: 1,
-						is_product_level: 1,
-						sub_cat: {
-							_id: 1,
-							is_product_level: 1,
-							sub_cat: {
-								_id: 1,
-								is_product_level: 1,
-							},
-						},
-					},
-				},
-			},
-		]);
-
-		let c = [];
-		await cursor.forEach((cat) => {
-			c.push(cat);
-		});
-
-		client?.close();
-		return c;
-	} catch (ex) {
-		console.log("-------", ex.message);
-	} finally {
-		client?.close();
-	}
-}
-
-function mapCategoryProductLevel(categoryList) {
-	let categories = [];
-	categoryList &&
-		categoryList.length > 0 &&
-		categoryList.map((c) => {
-			if (c.is_product_level) {
-				categories.push(c._id);
-			}
-			if (c.sub_cat && c.sub_cat.length > 0) {
-				c.sub_cat.map((cc) => {
-					if (cc.is_product_level) {
-						categories.push(cc._id);
-					}
-					if (cc.sub_cat && cc.sub_cat.length > 0) {
-						cc.sub_cat.map((ccc) => {
-							if (ccc.is_product_level) {
-								categories.push(ccc._id);
-							}
-							if (ccc.sub_cat && ccc.sub_cat.length > 0) {
-								ccc.sub_cat.map((cccc) => {
-									if (cccc.is_product_level) {
-										categories.push(cccc._id);
-									}
-								});
-							}
-						});
-					}
-				});
-			}
-		});
-
-	return categories;
-}
-
-const getNestedCategoryIds = async (req, res) => {
-	let client;
-	// any of category id
-	const { category_id, category_ids } = req.body;
-
-	try {
-		// const {c: CategoryCollection, client: cc} = dbConnect("categories")
-		// client = cc
-
-		let allCategory = [];
-
-		let categoryIds = [];
-
-		if (category_id) {
-			let c = await findEntryLevel_Cat(category_id);
-			allCategory.push(...c);
-		} else if (category_ids) {
-			for (let item of category_ids) {
-				let c = await findEntryLevel_Cat(item);
-				if (c) {
-					allCategory.push(...c);
-				}
-			}
-		}
-
-		categoryIds = mapCategoryProductLevel(allCategory);
-
-		client?.close();
-		return categoryIds;
-	} catch (ex) {
-		console.log("message", ex.message);
-		return null;
-	} finally {
-		client?.close();
-	}
-};
-
-export const productFiltersGetV2 = async (req, res, next) => {
-	let client;
-
-	try {
-		const { c: ProductCollection, client: cc } = await dbConnect("products");
-		client = cc;
-
-		let query = req.query;
-
-		let { pagePage, perPage, ...other } = query;
-
-		let cursor;
-
-		if (other.sold) {
-			cursor = ProductCollection.aggregate([
-				{ $sort: { sold: Number(other.sold) } },
-				{ $limit: 20 },
-			]);
-		} else if (other.discount) {
-			cursor = ProductCollection.aggregate([
-				{ $sort: { discount: Number(other.discount) } },
-				{ $limit: 20 },
-			]);
-		} else if (other.views) {
-			cursor = ProductCollection.aggregate([
-				{ $sort: { views: Number(other.views) } },
-				{ $limit: 20 },
-			]);
-		} else if (other.updated_at) {
-			cursor = ProductCollection.aggregate([
-				{ $sort: { updated_at: Number(other.updated_at) } },
-				{ $limit: 20 },
-			]);
-		}
-		let p = [];
-		await cursor.forEach((c) => {
-			p.push(c);
-		});
-
-		res.send(p);
-	} catch (ex) {
-		console.log(ex);
-		res.send([]);
-	} finally {
-		client?.close();
-	}
+	// try {
+	// 	const { c: ProductCollection, client: cc } = await dbConnect("products");
+	// 	client = cc;
+    //
+	// 	let query = req.query;
+    //
+	// 	let { pagePage, perPage, ...other } = query;
+    //
+	// 	let cursor;
+    //
+	// 	if (other.sold) {
+	// 		cursor = ProductCollection.aggregate([
+	// 			{ $sort: { sold: Number(other.sold) } },
+	// 			{ $limit: 20 },
+	// 		]);
+	// 	} else if (other.discount) {
+	// 		cursor = ProductCollection.aggregate([
+	// 			{ $sort: { discount: Number(other.discount) } },
+	// 			{ $limit: 20 },
+	// 		]);
+	// 	} else if (other.views) {
+	// 		cursor = ProductCollection.aggregate([
+	// 			{ $sort: { views: Number(other.views) } },
+	// 			{ $limit: 20 },
+	// 		]);
+	// 	} else if (other.updated_at) {
+	// 		cursor = ProductCollection.aggregate([
+	// 			{ $sort: { updated_at: Number(other.updated_at) } },
+	// 			{ $limit: 20 },
+	// 		]);
+	// 	}
+	// 	let p = [];
+	// 	await cursor.forEach((c) => {
+	// 		p.push(c);
+	// 	});
+    //
+	// 	res.send(p);
+	// } catch (ex) {
+	// 	console.log(ex);
+	// 	res.send([]);
+	// } finally {
+	// 	client?.close();
+	// }
 };
 
 type ResponseData = {
@@ -1819,10 +1699,10 @@ export const getHomepageSectionProducts = async (
 
 	const data: { params: string; type: string; name: string }[] = req.body.data;
 
-	let result: { [key: string]: { values: ProductType[]; type: string } } = {};
+	let result: { [key: string]: { values: Product[]; type: string } } = {};
 
 	try {
-		let database = await mongoConnect();
+		const ProductCollection = await Product.collection()
 
 		data.forEach((item, index) => {
 			(async function () {
@@ -1839,37 +1719,28 @@ export const getHomepageSectionProducts = async (
 					other = { [a[0]]: a[1] };
 				}
 
-				let cursor;
+				let products;
 
 				if (other.sold) {
-					cursor = database
-						.collection("products")
-						.aggregate([
+					products = ProductCollection.aggregate([
 							{ $sort: { sold: Number(other.sold) } },
 							{ $limit: 20 },
-						]);
+						]).toArray()
 				} else if (other.discount) {
-					cursor = database
-						.collection("products")
-						.aggregate([
+					products = ProductCollection.aggregate([
 							{ $sort: { discount: Number(other.discount) } },
 							{ $limit: 20 },
 						]);
 				} else if (other.views) {
-					cursor = database
-						.collection("products")
-						.aggregate([
+					products = ProductCollection.aggregate([
 							{ $sort: { views: Number(other.views) } },
 							{ $limit: 20 },
 						]);
 				}
 
-				let p: ProductType[] = [];
-				await cursor.forEach((c) => {
-					p.push(c);
-				});
-
-				result[item.name] = { values: p, type: "products" };
+			
+				
+				result[item.name] = { values: products as any, type: "products" };
 
 				if (index === data.length - 1) {
 					res.json(result);
@@ -1879,7 +1750,7 @@ export const getHomepageSectionProducts = async (
 	} catch (ex) {
 		res.status(500).send([]);
 	} finally {
-		// client?.close()
+	
 	}
 
 	// try{
@@ -1929,7 +1800,7 @@ export const getHomepageSectionProducts = async (
 	// }
 };
 
-export const productFiltersPostV2 = async (req, res, next) => {
+export const productFiltersPostV2 = async (req: Request, res: Response, next: NextFunction) => {
 	//   {
 	//       "product_ids": ["60df5e546419f56b97610633"]
 	//       "categoryIds": string[],
@@ -1955,544 +1826,544 @@ export const productFiltersPostV2 = async (req, res, next) => {
 
 	let client;
 
-	try {
-		const { db, client: cc } = await dbConnect();
-		client = cc;
-
-		const ProductCollection = db.collection("products");
-		const CategoryCollection = db.collection("categories");
-
-		let pipe = [];
-		let productIds = [];
-		// let idealForIds = []
-
-		if (product_ids && product_ids) {
-			product_ids.forEach((id) => {
-				productIds.push(new ObjectId(id));
-			});
-		}
-
-		let attributesValues = {};
-		if (attributes && Object.keys(attributes).length > 0) {
-			for (let attr in attributes) {
-				if (attributes[attr] && attributes[attr].length > 0) {
-					attributesValues[`attributes.${attr}`] = { $in: attributes[attr] };
-				}
-			}
-		}
-
-		// console.log(req.body)
-		// { $match: { "attributes.form_factor": { $in: ["mini_itx"]  }} }
-		// categoryIds && categoryIds.length > 0 ? category_id: { $in: [...categoryIds] } } : [{}]
-
-		pipe = [
-			...pipe,
-			{ $match: productIds.length > 0 ? { _id: { $in: productIds } } : {} },
-			// {$match: categoryId ? { category_id: categoryId} : {}},
-			{
-				$match: {
-					$and: [
-						categoryIds && categoryIds.length > 0
-							? {
-									category_id: { $in: [...categoryIds] },
-							  }
-							: {},
-						brandIds && brandIds.length > 0
-							? {
-									brand_id: { $in: [...brandIds] },
-							  }
-							: {},
-					],
-					$or: [
-						Object.keys(attributesValues).length > 0
-							? {
-									...attributesValues,
-							  }
-							: {},
-					],
-				},
-			},
-		];
-
-		if (count) {
-			pipe = [
-				...pipe,
-				{
-					$group: {
-						_id: null,
-						total: { $sum: 1 },
-					},
-				},
-			];
-		}
-
-		let sortingStage = { $sort: {} };
-		let sortBy = {};
-		if (sort_by && sort_by.length > 0) {
-			sort_by.map((sort) => {
-				sortingStage["$sort"][sort.field] = sort.order;
-			});
-			pipe = [...pipe, { ...sortingStage }];
-		}
-
-		// {                                                                                           attributes: {
-		//   generation: [ 9, 1 ],                                                                     processor_type: [ 'intel' ],
-		//   form_factor: [ 'mini_itx' ]                                                             },
-		// category_ids: [ '60df5e546419f56b97610608' ]                                            }
-
-		// [
-		//     {
-		//       $match: {
-		//         $or: [
-		//             {"attributes.generation": {$in: [ 9, 1 ]} } ,
-		//             {"attributes.form_factor": {$in: [ 'mini_itx' ]}},
-		//           ],
-		//         "category_id": {$in: [ new ObjectId("60df5e546419f56b97610608") ]}
-		//       }
-		//     }
-		//   ]
-
-		//let cursor = ProductCollection.aggregate(pipe)
-
-		// console.log(categoryIds)
-
-		// let categories = await getNestedCategoryIds(req, res)
-		let products = await collections.products
-			.aggregate([
-				// ...pipe,
-				{
-					$match: {
-						categoryId: { $in: categoryIds }, // category id
-					},
-				},
-
-				// { $skip: perPage * (pageNumber - 1) },
-				// { $limit: Number(perPage) },
-			])
-			.toArray();
-
-		res.send({ products });
-
-		// let cursor;
-		// if(category_id){
-		//   cursor = ProductCollection.aggregate([
-		//     ...pipe,
-		//     {
-		//       $match: {
-		//         category_id: { $in: [...categories]} // category id
-		//       }
-		//     },
-		//     { $skip: perPage * (pageNumber - 1) },
-		//     { $limit: Number(perPage) },
-		//   ])
-		// }
-		//
-		// let products = []
-		//
-		// if(cursor){
-		//   await cursor.forEach(p=>{
-		//     products.push(p)
-		//   })
-		//   res.send(products)
-		// } else {
-		//   console.log("hiiiiiiii");
-		// }
-		//
-
-		// getNestedCategoryIds(req, res, async (categories)=>{
-
-		//   if(categories.length > 0) {
-		//     pipe = [
-		//       ...pipe,
-		//       {
-		//         $match: {
-		//           category_id: { $in: categories } // here we got array of entry level category ids
-		//         }
-		//       }
-		//     ]
-		//   }
-
-		//   let cursor = ProductCollection.aggregate([
-		//     ...pipe,
-		//     { $skip: perPage * (pageNumber - 1) },
-		//     { $limit: Number(perPage) },
-		//   ])
-
-		//   // cursor = await ProductCollection.aggregate([
-		//   //   { $match: { category_id: { $in: categories } }}
-		//   // ])
-
-		//   let products = []
-
-		//   await cursor.forEach(p=>{
-		//     products.push(p)
-		//   })
-
-		//   res.send(products)
-
-		// })
-
-		// ***************** if it not last level category (END) ******************
-
-		// (async function (body){
-		//
-		//   const {
-		//     sort_by,
-		//     category_ids,
-		//     product_ids,
-		//     category_id,
-		//     brand_ids,
-		//     attributes,
-		//     pageNumber=1,
-		//     perPage=10,
-		//     documentCount
-		//   } = body
-		//
-		//   let client;
-		//
-		//
-		//   try{
-		//     const { db, client: cc } = await dbConnect()
-		//     client = cc
-		//     const ProductCollection = db.collection("products")
-		//     const CategoryCollection = db.collection("categories")
-		//
-		//     let pipe = []
-		//     let categoryIds = []
-		//     let categoryId;
-		//     let brandIds = []
-		//     let productIds = []
-		//     // let idealForIds = []
-		//
-		//     if(category_id){
-		//       categoryId = ObjectId(category_id)
-		//     }
-		//
-		//     if(category_ids && category_ids.length > 0){
-		//       category_ids.forEach(id=>{
-		//         categoryIds.push(ObjectId(id))
-		//       })
-		//     }
-		//     if(brand_ids && brand_ids.length > 0){
-		//       brand_ids.forEach(id=>{
-		//         brandIds.push(ObjectId(id))
-		//       })
-		//     }
-		//     if(product_ids && product_ids){
-		//       product_ids.forEach(id=>{
-		//         productIds.push(ObjectId(id))
-		//       })
-		//     }
-		//
-		//
-		//     let attributesValues = {}
-		//     if(attributes && Object.keys(attributes).length > 0 ){
-		//       for(let attr in attributes){
-		//
-		//         if(attributes[attr] && attributes[attr].length > 0){
-		//           attributesValues[`attributes.${attr}`] = { $in: attributes[attr] }
-		//         }
-		//
-		//       }
-		//     }
-		//
-		//     // console.log(req.body)
-		//     // { $match: { "attributes.form_factor": { $in: ["mini_itx"]  }} }
-		//     // categoryIds && categoryIds.length > 0 ? category_id: { $in: [...categoryIds] } } : [{}]
-		//
-		//     pipe = [
-		//       ...pipe,
-		//       {$match: productIds.length > 0 ? { _id: { $in: productIds } } : {}},
-		//       // {$match: categoryId ? { category_id: categoryId} : {}},
-		//       { $match : {
-		//           $and: [
-		//             // categoryIds && categoryIds.length > 0 ? {
-		//             //   category_id: { $in: [...categoryIds] }
-		//             // } : {},
-		//             brandIds && brandIds.length > 0 ? {
-		//               brand_id: { $in: [...brandIds] }
-		//             } : {}
-		//           ],
-		//           $or: [
-		//             Object.keys(attributesValues).length > 0 ? {
-		//               ...attributesValues,
-		//             } : {}
-		//           ]
-		//         }
-		//       }
-		//
-		//     ]
-		//     //
-		//     // if(count){
-		//     //   pipe = [
-		//     //     ...pipe,
-		//     //     { $group: {
-		//     //         _id: null, total: { $sum: 1 } }
-		//     //     }
-		//     //   ]
-		//     // }
-		//
-		//     let sortingStage = { $sort: {} }
-		//     let sortBy = {}
-		//     if(sort_by && sort_by.length > 0){
-		//       sort_by.map(sort=>{
-		//         sortingStage["$sort"][sort.field] = sort.order
-		//       })
-		//       pipe = [
-		//         ...pipe,
-		//         {...sortingStage},
-		//       ]
-		//     }
-		//
-		//     let categories = await getNestedCategoryIds(body)
-		//     // console.log(JSON.stringify(pipe))
-		//
-		//
-		//
-		//     if(documentCount) {
-		//
-		//
-		//
-		//
-		//       // client?.close()
-		//       // parentPort.postMessage(JSON.stringify(products));
-		//       // parentPort.close()
-		//       // process.exit(0);
-		//
-		//       let cursor  = ProductCollection.aggregate([
-		//         ...pipe,
-		//         {
-		//           $match: {
-		//             category_id: {$in: categories} // category id
-		//           }
-		//         },
-		//         {
-		//           $lookup: {
-		//             from: "brands",
-		//             localField: "brand_id",
-		//             foreignField: "_id",
-		//             as: "brand"
-		//           }
-		//         },
-		//         {$unwind: {path: "$brand", preserveNullAndEmptyArrays: true}},
-		//         { $group: {
-		//             _id: null, total: { $sum: 1 } }
-		//         }
-		//       ])
-		//       let doc = {}
-		//       await cursor.forEach(c=>{
-		//         doc =  {...c}
-		//       })
-		//       client?.close()
-		//       parentPort.postMessage(JSON.stringify({total: doc.total}));
-		//       parentPort.close()
-		//       process.exit(0);
-		//     } else {
-		//       let cursor  = ProductCollection.aggregate([
-		//         ...pipe,
-		//         {
-		//           $match: {
-		//             category_id: {$in: categories} // category id
-		//           }
-		//         },
-		//         {
-		//           $lookup: {
-		//             from: "brands",
-		//             localField: "brand_id",
-		//             foreignField: "_id",
-		//             as: "brand"
-		//           }
-		//         },
-		//         {$unwind: {path: "$brand", preserveNullAndEmptyArrays: true}},
-		//         {$skip: perPage * (pageNumber - 1)},
-		//         {$limit: Number(perPage)},
-		//       ])
-		//
-		//       let products = []
-		//       await cursor.forEach(p=>{
-		//         products.push(p)
-		//       })
-		//       client?.close()
-		//       parentPort.postMessage(JSON.stringify(products));
-		//       parentPort.close()
-		//       process.exit(0);
-		//     }
-		//
-		//
-		//   } catch(ex){
-		//
-		//   } finally{
-		//     client?.close()
-		//   }
-		//
-		// }(workerData.body))
-	} catch (ex) {
-		console.log(ex);
-		next(ex);
-	} finally {
-		client?.close();
-	}
+	// try {
+	// 	const { db, client: cc } = await dbConnect();
+	// 	client = cc;
+    //
+	// 	const ProductCollection = db.collection("products");
+	// 	const CategoryCollection = db.collection("categories");
+    //
+	// 	let pipe = [];
+	// 	let productIds = [];
+	// 	// let idealForIds = []
+    //
+	// 	if (product_ids && product_ids) {
+	// 		product_ids.forEach((id) => {
+	// 			productIds.push(new ObjectId(id));
+	// 		});
+	// 	}
+    //
+	// 	let attributesValues = {};
+	// 	if (attributes && Object.keys(attributes).length > 0) {
+	// 		for (let attr in attributes) {
+	// 			if (attributes[attr] && attributes[attr].length > 0) {
+	// 				attributesValues[`attributes.${attr}`] = { $in: attributes[attr] };
+	// 			}
+	// 		}
+	// 	}
+    //
+	// 	// console.log(req.body)
+	// 	// { $match: { "attributes.form_factor": { $in: ["mini_itx"]  }} }
+	// 	// categoryIds && categoryIds.length > 0 ? category_id: { $in: [...categoryIds] } } : [{}]
+    //
+	// 	pipe = [
+	// 		...pipe,
+	// 		{ $match: productIds.length > 0 ? { _id: { $in: productIds } } : {} },
+	// 		// {$match: categoryId ? { category_id: categoryId} : {}},
+	// 		{
+	// 			$match: {
+	// 				$and: [
+	// 					categoryIds && categoryIds.length > 0
+	// 						? {
+	// 								category_id: { $in: [...categoryIds] },
+	// 						  }
+	// 						: {},
+	// 					brandIds && brandIds.length > 0
+	// 						? {
+	// 								brand_id: { $in: [...brandIds] },
+	// 						  }
+	// 						: {},
+	// 				],
+	// 				$or: [
+	// 					Object.keys(attributesValues).length > 0
+	// 						? {
+	// 								...attributesValues,
+	// 						  }
+	// 						: {},
+	// 				],
+	// 			},
+	// 		},
+	// 	];
+    //
+	// 	if (count) {
+	// 		pipe = [
+	// 			...pipe,
+	// 			{
+	// 				$group: {
+	// 					_id: null,
+	// 					total: { $sum: 1 },
+	// 				},
+	// 			},
+	// 		];
+	// 	}
+    //
+	// 	let sortingStage = { $sort: {} };
+	// 	let sortBy = {};
+	// 	if (sort_by && sort_by.length > 0) {
+	// 		sort_by.map((sort) => {
+	// 			sortingStage["$sort"][sort.field] = sort.order;
+	// 		});
+	// 		pipe = [...pipe, { ...sortingStage }];
+	// 	}
+    //
+	// 	// {                                                                                           attributes: {
+	// 	//   generation: [ 9, 1 ],                                                                     processor_type: [ 'intel' ],
+	// 	//   form_factor: [ 'mini_itx' ]                                                             },
+	// 	// category_ids: [ '60df5e546419f56b97610608' ]                                            }
+    //
+	// 	// [
+	// 	//     {
+	// 	//       $match: {
+	// 	//         $or: [
+	// 	//             {"attributes.generation": {$in: [ 9, 1 ]} } ,
+	// 	//             {"attributes.form_factor": {$in: [ 'mini_itx' ]}},
+	// 	//           ],
+	// 	//         "category_id": {$in: [ new ObjectId("60df5e546419f56b97610608") ]}
+	// 	//       }
+	// 	//     }
+	// 	//   ]
+    //
+	// 	//let cursor = ProductCollection.aggregate(pipe)
+    //
+	// 	// console.log(categoryIds)
+    //
+	// 	// let categories = await getNestedCategoryIds(req, res)
+	// 	let products = await collections.products
+	// 		.aggregate([
+	// 			// ...pipe,
+	// 			{
+	// 				$match: {
+	// 					categoryId: { $in: categoryIds }, // category id
+	// 				},
+	// 			},
+    //
+	// 			// { $skip: perPage * (pageNumber - 1) },
+	// 			// { $limit: Number(perPage) },
+	// 		])
+	// 		.toArray();
+    //
+	// 	res.send({ products });
+    //
+	// 	// let cursor;
+	// 	// if(category_id){
+	// 	//   cursor = ProductCollection.aggregate([
+	// 	//     ...pipe,
+	// 	//     {
+	// 	//       $match: {
+	// 	//         category_id: { $in: [...categories]} // category id
+	// 	//       }
+	// 	//     },
+	// 	//     { $skip: perPage * (pageNumber - 1) },
+	// 	//     { $limit: Number(perPage) },
+	// 	//   ])
+	// 	// }
+	// 	//
+	// 	// let products = []
+	// 	//
+	// 	// if(cursor){
+	// 	//   await cursor.forEach(p=>{
+	// 	//     products.push(p)
+	// 	//   })
+	// 	//   res.send(products)
+	// 	// } else {
+	// 	//   console.log("hiiiiiiii");
+	// 	// }
+	// 	//
+    //
+	// 	// getNestedCategoryIds(req, res, async (categories)=>{
+    //
+	// 	//   if(categories.length > 0) {
+	// 	//     pipe = [
+	// 	//       ...pipe,
+	// 	//       {
+	// 	//         $match: {
+	// 	//           category_id: { $in: categories } // here we got array of entry level category ids
+	// 	//         }
+	// 	//       }
+	// 	//     ]
+	// 	//   }
+    //
+	// 	//   let cursor = ProductCollection.aggregate([
+	// 	//     ...pipe,
+	// 	//     { $skip: perPage * (pageNumber - 1) },
+	// 	//     { $limit: Number(perPage) },
+	// 	//   ])
+    //
+	// 	//   // cursor = await ProductCollection.aggregate([
+	// 	//   //   { $match: { category_id: { $in: categories } }}
+	// 	//   // ])
+    //
+	// 	//   let products = []
+    //
+	// 	//   await cursor.forEach(p=>{
+	// 	//     products.push(p)
+	// 	//   })
+    //
+	// 	//   res.send(products)
+    //
+	// 	// })
+    //
+	// 	// ***************** if it not last level category (END) ******************
+    //
+	// 	// (async function (body){
+	// 	//
+	// 	//   const {
+	// 	//     sort_by,
+	// 	//     category_ids,
+	// 	//     product_ids,
+	// 	//     category_id,
+	// 	//     brand_ids,
+	// 	//     attributes,
+	// 	//     pageNumber=1,
+	// 	//     perPage=10,
+	// 	//     documentCount
+	// 	//   } = body
+	// 	//
+	// 	//   let client;
+	// 	//
+	// 	//
+	// 	//   try{
+	// 	//     const { db, client: cc } = await dbConnect()
+	// 	//     client = cc
+	// 	//     const ProductCollection = db.collection("products")
+	// 	//     const CategoryCollection = db.collection("categories")
+	// 	//
+	// 	//     let pipe = []
+	// 	//     let categoryIds = []
+	// 	//     let categoryId;
+	// 	//     let brandIds = []
+	// 	//     let productIds = []
+	// 	//     // let idealForIds = []
+	// 	//
+	// 	//     if(category_id){
+	// 	//       categoryId = ObjectId(category_id)
+	// 	//     }
+	// 	//
+	// 	//     if(category_ids && category_ids.length > 0){
+	// 	//       category_ids.forEach(id=>{
+	// 	//         categoryIds.push(ObjectId(id))
+	// 	//       })
+	// 	//     }
+	// 	//     if(brand_ids && brand_ids.length > 0){
+	// 	//       brand_ids.forEach(id=>{
+	// 	//         brandIds.push(ObjectId(id))
+	// 	//       })
+	// 	//     }
+	// 	//     if(product_ids && product_ids){
+	// 	//       product_ids.forEach(id=>{
+	// 	//         productIds.push(ObjectId(id))
+	// 	//       })
+	// 	//     }
+	// 	//
+	// 	//
+	// 	//     let attributesValues = {}
+	// 	//     if(attributes && Object.keys(attributes).length > 0 ){
+	// 	//       for(let attr in attributes){
+	// 	//
+	// 	//         if(attributes[attr] && attributes[attr].length > 0){
+	// 	//           attributesValues[`attributes.${attr}`] = { $in: attributes[attr] }
+	// 	//         }
+	// 	//
+	// 	//       }
+	// 	//     }
+	// 	//
+	// 	//     // console.log(req.body)
+	// 	//     // { $match: { "attributes.form_factor": { $in: ["mini_itx"]  }} }
+	// 	//     // categoryIds && categoryIds.length > 0 ? category_id: { $in: [...categoryIds] } } : [{}]
+	// 	//
+	// 	//     pipe = [
+	// 	//       ...pipe,
+	// 	//       {$match: productIds.length > 0 ? { _id: { $in: productIds } } : {}},
+	// 	//       // {$match: categoryId ? { category_id: categoryId} : {}},
+	// 	//       { $match : {
+	// 	//           $and: [
+	// 	//             // categoryIds && categoryIds.length > 0 ? {
+	// 	//             //   category_id: { $in: [...categoryIds] }
+	// 	//             // } : {},
+	// 	//             brandIds && brandIds.length > 0 ? {
+	// 	//               brand_id: { $in: [...brandIds] }
+	// 	//             } : {}
+	// 	//           ],
+	// 	//           $or: [
+	// 	//             Object.keys(attributesValues).length > 0 ? {
+	// 	//               ...attributesValues,
+	// 	//             } : {}
+	// 	//           ]
+	// 	//         }
+	// 	//       }
+	// 	//
+	// 	//     ]
+	// 	//     //
+	// 	//     // if(count){
+	// 	//     //   pipe = [
+	// 	//     //     ...pipe,
+	// 	//     //     { $group: {
+	// 	//     //         _id: null, total: { $sum: 1 } }
+	// 	//     //     }
+	// 	//     //   ]
+	// 	//     // }
+	// 	//
+	// 	//     let sortingStage = { $sort: {} }
+	// 	//     let sortBy = {}
+	// 	//     if(sort_by && sort_by.length > 0){
+	// 	//       sort_by.map(sort=>{
+	// 	//         sortingStage["$sort"][sort.field] = sort.order
+	// 	//       })
+	// 	//       pipe = [
+	// 	//         ...pipe,
+	// 	//         {...sortingStage},
+	// 	//       ]
+	// 	//     }
+	// 	//
+	// 	//     let categories = await getNestedCategoryIds(body)
+	// 	//     // console.log(JSON.stringify(pipe))
+	// 	//
+	// 	//
+	// 	//
+	// 	//     if(documentCount) {
+	// 	//
+	// 	//
+	// 	//
+	// 	//
+	// 	//       // client?.close()
+	// 	//       // parentPort.postMessage(JSON.stringify(products));
+	// 	//       // parentPort.close()
+	// 	//       // process.exit(0);
+	// 	//
+	// 	//       let cursor  = ProductCollection.aggregate([
+	// 	//         ...pipe,
+	// 	//         {
+	// 	//           $match: {
+	// 	//             category_id: {$in: categories} // category id
+	// 	//           }
+	// 	//         },
+	// 	//         {
+	// 	//           $lookup: {
+	// 	//             from: "brands",
+	// 	//             localField: "brand_id",
+	// 	//             foreignField: "_id",
+	// 	//             as: "brand"
+	// 	//           }
+	// 	//         },
+	// 	//         {$unwind: {path: "$brand", preserveNullAndEmptyArrays: true}},
+	// 	//         { $group: {
+	// 	//             _id: null, total: { $sum: 1 } }
+	// 	//         }
+	// 	//       ])
+	// 	//       let doc = {}
+	// 	//       await cursor.forEach(c=>{
+	// 	//         doc =  {...c}
+	// 	//       })
+	// 	//       client?.close()
+	// 	//       parentPort.postMessage(JSON.stringify({total: doc.total}));
+	// 	//       parentPort.close()
+	// 	//       process.exit(0);
+	// 	//     } else {
+	// 	//       let cursor  = ProductCollection.aggregate([
+	// 	//         ...pipe,
+	// 	//         {
+	// 	//           $match: {
+	// 	//             category_id: {$in: categories} // category id
+	// 	//           }
+	// 	//         },
+	// 	//         {
+	// 	//           $lookup: {
+	// 	//             from: "brands",
+	// 	//             localField: "brand_id",
+	// 	//             foreignField: "_id",
+	// 	//             as: "brand"
+	// 	//           }
+	// 	//         },
+	// 	//         {$unwind: {path: "$brand", preserveNullAndEmptyArrays: true}},
+	// 	//         {$skip: perPage * (pageNumber - 1)},
+	// 	//         {$limit: Number(perPage)},
+	// 	//       ])
+	// 	//
+	// 	//       let products = []
+	// 	//       await cursor.forEach(p=>{
+	// 	//         products.push(p)
+	// 	//       })
+	// 	//       client?.close()
+	// 	//       parentPort.postMessage(JSON.stringify(products));
+	// 	//       parentPort.close()
+	// 	//       process.exit(0);
+	// 	//     }
+	// 	//
+	// 	//
+	// 	//   } catch(ex){
+	// 	//
+	// 	//   } finally{
+	// 	//     client?.close()
+	// 	//   }
+	// 	//
+	// 	// }(workerData.body))
+	// } catch (ex) {
+	// 	console.log(ex);
+	// 	next(ex);
+	// } finally {
+	// 	client?.close();
+	// }
 };
 
-export const productFilters = async (req, res, next) => {
+export const productFilters = async (req: Request, res: Response, next: NextFunction) => {
 	const { type, id, pageNumber = 1, perPage = 10 } = req.query;
 
 	let client;
 
-	try {
-		const { db, client: cc } = await dbConnect();
-		client = cc;
-
-		const ProductCollection = db.collection("products");
-		const CategoryCollection = db.collection("categories");
-
-		if (type === "category") {
-			// const products = ProductCollection.aggregate([
-			//   { $match: {} },
-			//   { $lookup: {
-			//     from: "categories",
-			//     localField: "category_id",
-			//     foreignField: "_id",
-			//     as: "category"
-			//   }},
-			//   { $unwind: { path: "$category", preserveNullAndEmptyArrays: true } },
-			//   { $lookup: {
-			//     from: "categories",
-			//     localField: "category.parent_id",
-			//     foreignField: "_id",
-			//     as: "category.category"
-			//   }},
-			//   { $unwind: { path: "$category.category", preserveNullAndEmptyArrays: true } },
-			//   { $lookup: {
-			//     from: "categories",
-			//     localField: "category.category.parent_id",
-			//     foreignField: "_id",
-			//     as: "category.category.category"
-			//   }},
-			//   { $unwind: { path: "$category.category.category", preserveNullAndEmptyArrays: true } },
-
-			//   { $lookup: {
-			//     from: "categories",
-			//     localField: "category.category.category.parent_id",
-			//     foreignField: "_id",
-			//     as: "category.category.category.category"
-			//   }},
-			//   { $unwind: { path: "$category.category.category.category", preserveNullAndEmptyArrays: true } },
-			//   { $match: { 'category.category.category.category._id': new ObjectId(id) } },
-			//   {$limit: 20},
-			//   {$sort: {views: 1}},
-			//   { $project: {
-			//       category: 0
-			//     }
-			//   }
-			// ])
-
-			// sort by views and pick 5 to 10 frist item from database
-
-			// let category = await CategoryCollection.findOne({_id: new ObjectId(id)})
-			// if(!category.parent_id){
-			//   let c = CategoryCollection.find({parent_id: new ObjectId(id)})
-			//   await c.forEach(p=>{
-			//     console.log(p)
-			//   })
-			// }
-
-			if (!isObjectId(id)) {
-				return res.send("please provide object id");
-			}
-			const category = await CategoryCollection.findOne({
-				_id: new ObjectId(id),
-			});
-
-			if (category.is_product_level) {
-				const products = ProductCollection.aggregate([
-					{ $match: { category_id: new ObjectId(id) } },
-					{ $sort: { views: -1 } },
-					{ $skip: perPage * (pageNumber - 1) },
-					{ $limit: Number(perPage) },
-				]);
-				let pp = [];
-				await products.forEach((p) => {
-					pp.push(p);
-				});
-				return res.json({ products: pp, is_product_level: true });
-			} else {
-				return res.json({ products: [], is_product_level: false });
-			}
-		}
-
-		res.send("not type");
-	} catch (ex) {
-		next(ex);
-	} finally {
-		client?.close();
-	}
+	// try {
+	// 	const { db, client: cc } = await dbConnect();
+	// 	client = cc;
+    //
+	// 	const ProductCollection = db.collection("products");
+	// 	const CategoryCollection = db.collection("categories");
+    //
+	// 	if (type === "category") {
+	// 		// const products = ProductCollection.aggregate([
+	// 		//   { $match: {} },
+	// 		//   { $lookup: {
+	// 		//     from: "categories",
+	// 		//     localField: "category_id",
+	// 		//     foreignField: "_id",
+	// 		//     as: "category"
+	// 		//   }},
+	// 		//   { $unwind: { path: "$category", preserveNullAndEmptyArrays: true } },
+	// 		//   { $lookup: {
+	// 		//     from: "categories",
+	// 		//     localField: "category.parent_id",
+	// 		//     foreignField: "_id",
+	// 		//     as: "category.category"
+	// 		//   }},
+	// 		//   { $unwind: { path: "$category.category", preserveNullAndEmptyArrays: true } },
+	// 		//   { $lookup: {
+	// 		//     from: "categories",
+	// 		//     localField: "category.category.parent_id",
+	// 		//     foreignField: "_id",
+	// 		//     as: "category.category.category"
+	// 		//   }},
+	// 		//   { $unwind: { path: "$category.category.category", preserveNullAndEmptyArrays: true } },
+    //
+	// 		//   { $lookup: {
+	// 		//     from: "categories",
+	// 		//     localField: "category.category.category.parent_id",
+	// 		//     foreignField: "_id",
+	// 		//     as: "category.category.category.category"
+	// 		//   }},
+	// 		//   { $unwind: { path: "$category.category.category.category", preserveNullAndEmptyArrays: true } },
+	// 		//   { $match: { 'category.category.category.category._id': new ObjectId(id) } },
+	// 		//   {$limit: 20},
+	// 		//   {$sort: {views: 1}},
+	// 		//   { $project: {
+	// 		//       category: 0
+	// 		//     }
+	// 		//   }
+	// 		// ])
+    //
+	// 		// sort by views and pick 5 to 10 frist item from database
+    //
+	// 		// let category = await CategoryCollection.findOne({_id: new ObjectId(id)})
+	// 		// if(!category.parent_id){
+	// 		//   let c = CategoryCollection.find({parent_id: new ObjectId(id)})
+	// 		//   await c.forEach(p=>{
+	// 		//     console.log(p)
+	// 		//   })
+	// 		// }
+    //
+	// 		if (!isObjectId(id)) {
+	// 			return res.send("please provide object id");
+	// 		}
+	// 		const category = await CategoryCollection.findOne({
+	// 			_id: new ObjectId(id),
+	// 		});
+    //
+	// 		if (category.is_product_level) {
+	// 			const products = ProductCollection.aggregate([
+	// 				{ $match: { category_id: new ObjectId(id) } },
+	// 				{ $sort: { views: -1 } },
+	// 				{ $skip: perPage * (pageNumber - 1) },
+	// 				{ $limit: Number(perPage) },
+	// 			]);
+	// 			let pp = [];
+	// 			await products.forEach((p) => {
+	// 				pp.push(p);
+	// 			});
+	// 			return res.json({ products: pp, is_product_level: true });
+	// 		} else {
+	// 			return res.json({ products: [], is_product_level: false });
+	// 		}
+	// 	}
+    //
+	// 	res.send("not type");
+	// } catch (ex) {
+	// 	next(ex);
+	// } finally {
+	// 	client?.close();
+	// }
 };
 
-export const deleteProduct = async (req, res, next) => {
+export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
 	const { id } = req.params;
 
-	try {
-		let doc = await collections.products.deleteOne({ _id: new ObjectId(id) });
-		if (doc.deletedCount > 0) {
-			// await ProductDescriptionCollection.deleteOne({product_id: new ObjectId(id)})
-			successResponse(res, 201, "product deleted");
-		} else {
-			errorResponse(next, "product not deleted", 422);
-		}
-	} catch (ex) {
-		next(ex);
-	}
+	// try {
+	// 	let doc = await collections.products.deleteOne({ _id: new ObjectId(id) });
+	// 	if (doc.deletedCount > 0) {
+	// 		// await ProductDescriptionCollection.deleteOne({product_id: new ObjectId(id)})
+	// 		successResponse(res, 201, "product deleted");
+	// 	} else {
+	// 		errorResponse(next, "product not deleted", 422);
+	// 	}
+	// } catch (ex) {
+	// 	next(ex);
+	// }
 };
 
-export const toggleWishList = async (req, res, next) => {
-	const { id } = req.params;
-	let client;
-	const { productId } = req.body;
-	try {
-		const { db, client: cc } = await dbConnect();
-		client = cc;
-		const UsersCollection = db.collection("users");
-		const ProductCollection = db.collection("products");
+// export const toggleWishList = async (req: Request, res: Response, next: NextFunction) => {
+// 	const { id } = req.params;
+// 	let client;
+// 	const { productId } = req.body;
+// 	try {
+// 		const { db, client: cc } = await dbConnect();
+// 		client = cc;
+// 		const UsersCollection = db.collection("users");
+// 		const ProductCollection = db.collection("products");
+//
+// 		if (req.user_id) {
+// 			let user: any = await UsersCollection.findOne({
+// 				_id: new ObjectId(req.user_id),
+// 			});
+// 			let exist = false;
+// 			await user.wishlist.forEach((w) => {
+// 				exist = w === productId;
+// 			});
+// 			// console.log(exist)
+// 			let u: any = { result: { nModified: 0 } };
+// 			if (!exist) {
+// 				u = await UsersCollection.updateOne(
+// 					{ _id: new ObjectId(req.user_id) },
+// 					{ $push: { wishlist: new ObjectId(productId) } }
+// 				);
+// 			} else {
+// 				u = await UsersCollection.updateOne(
+// 					{ _id: new ObjectId(req.user_id) },
+// 					{ $pull: { wishlist: new ObjectId(productId) } }
+// 				);
+// 			}
+//
+// 			if (u.result.nModified > 0) {
+// 			}
+//
+// 			res.send(u);
+// 		} else {
+// 			res.status(403).send("Please login first");
+// 			// send unauthorize response
+// 		}
+// 	} catch (ex) {
+// 		next(ex);
+// 	} finally {
+// 		client?.close();
+// 	}
+// };
 
-		if (req.user_id) {
-			let user: any = await UsersCollection.findOne({
-				_id: new ObjectId(req.user_id),
-			});
-			let exist = false;
-			await user.wishlist.forEach((w) => {
-				exist = w === productId;
-			});
-			// console.log(exist)
-			let u: any = { result: { nModified: 0 } };
-			if (!exist) {
-				u = await UsersCollection.updateOne(
-					{ _id: new ObjectId(req.user_id) },
-					{ $push: { wishlist: new ObjectId(productId) } }
-				);
-			} else {
-				u = await UsersCollection.updateOne(
-					{ _id: new ObjectId(req.user_id) },
-					{ $pull: { wishlist: new ObjectId(productId) } }
-				);
-			}
-
-			if (u.result.nModified > 0) {
-			}
-
-			res.send(u);
-		} else {
-			res.status(403).send("Please login first");
-			// send unauthorize response
-		}
-	} catch (ex) {
-		next(ex);
-	} finally {
-		client?.close();
-	}
-};
-
-export const uploadHandler = async (req, res, next) => {
+export const uploadHandler = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		// fileUploadHandler(req, "upload", "image", (err, r)=>{
 		//

@@ -1,17 +1,17 @@
 import express, {NextFunction, Request, Response} from "express";
-import  morgan from "morgan"
+import morgan from "morgan"
 
 const bodyParser = require("body-parser")
 const cors = require("cors");
 
-const passport = require('passport');
+import passport from 'passport';
 
 require('dotenv').config()
 
 
 import routes from "../routes"
 
-import * as path from "path";
+// import * as path from "path";
 // import {initialConnectionMongodb} from "./services/mongodb/database.service";
 
 // import dbConnect from "./database";
@@ -24,12 +24,12 @@ require('../passport/google')
 // import {connectToDatabase} from "../src/services/mongodb/database.service";
 // import sqlDatabase from "../src/services/sqlite/database.service";
 
-
 const app = express()
 app.use(bodyParser.json());
 app.use(morgan("dev"))
-app.use(express.static(path.resolve('/public')));
-app.use(express.static("public"))
+
+// app.use(express.static(path.resolve('/public')));
+// app.use(express.static("public"))
 
 const allowedOrigin = ["http://localhost:4000", "http://localhost:3000"]
 
@@ -86,7 +86,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 })
 
 
-app.use(express.static(path.resolve('public')));
+// app.use(express.static(path.resolve('public')));
 
 export default app;
 module.exports  = app;
