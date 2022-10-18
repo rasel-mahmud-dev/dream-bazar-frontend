@@ -19,7 +19,7 @@ import ModalWithBackdrop from "src/components/ModalWithBackdrop/ModalWithBackdro
 import {
     fetchAdminBrandsAction,
     fetchAdminProductsAction,
-    fetchAdminStaticFilesAction
+    fetchAdminStaticFilesAction, updateProductAction
 } from "actions/adminProductAction";
 
 
@@ -37,9 +37,8 @@ const AddProduct: FC<Props> = (props) => {
     
     const navigate = useNavigate()
     
-    const {productState: { flatCategories, adminBrands, adminCategories, adminStaticFiles } } = useSelector((state: RootState)=>state)
+    const {productState: { flatCategories, adminBrands, adminProducts, adminCategories, adminStaticFiles } } = useSelector((state: RootState)=>state)
     
-    const [brands, setBrands] = useState([])
     
     useEffect(()=>{
         (async function () {
@@ -175,18 +174,20 @@ const AddProduct: FC<Props> = (props) => {
         updateState = {...state}
     
         if (params.id) {
-            apis.patch("/api/product/"+params.id, payload).then(({status, data}) => {
+            try {
+                let [status, data] = await updateProductAction<any>(adminProducts, params.id, payload, dispatch)
                 if (status === 201) {
                     updateState.httpResponse = data.message
                     updateState.httpStatus = 200
                     navigate(-1)
                 }
-            }).catch(ex => {
+            }catch (ex){
                 updateState.httpResponse = errorMessageCatch(ex);
                 updateState.httpStatus = 500
-            }).finally(() => {
+            } finally {
                 setState(updateState)
-            })
+            }
+            
         } else {
             // add as a new product
             apis.post("/api/product", payload).then(({status, data}) => {
@@ -273,7 +274,7 @@ const AddProduct: FC<Props> = (props) => {
                             type="button"
                             className="btn bg-green-500 !py-1.5 mt-2">Or Select Static Photos</Button>
                     </h2>
-                    {adminStaticFiles.length}
+                  
                     <StaticPhotoChooser
                         staticImages={adminStaticFiles ? adminStaticFiles : []}
                         onChooseImage={handleChooseImage}
@@ -370,7 +371,6 @@ const AddProduct: FC<Props> = (props) => {
 
 
 const StaticPhotoChooser = ({onClose, onChooseImage, staticImages, isShowStaticChooser})=>{
-    console.log(staticImages)
     return (
         <div>
             <ModalWithBackdrop isOpen={isShowStaticChooser} onCloseModal={onClose} maxHeight={400}>

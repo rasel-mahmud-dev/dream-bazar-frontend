@@ -6,6 +6,28 @@ export default (state: ProductStateType, action)=>{
     let updateState = {...state}
  
     switch (action.type){
+        
+        case ACTION_TYPES.UPDATE_PRODUCT:
+            let {_id } = action.payload
+            let cacheKey: any =""
+            let findIndex = -1
+            let pCaches = updateState.adminProducts.cached
+            for (let pCachesKey in pCaches) {
+                findIndex = pCaches[pCachesKey].findIndex(p=>p._id === _id);
+                if(findIndex !== -1){
+                    cacheKey = pCachesKey
+                    break;
+                }
+            }
+            if(cacheKey && (findIndex !== -1)) {
+                updateState.adminProducts.cached[cacheKey][findIndex] = {
+                    ...updateState.adminProducts.cached[cacheKey][findIndex],
+                    ...action.payload
+                }
+            }
+            // updateState.adminProducts.cached
+            return updateState
+       
         case ACTION_TYPES.FETCH_ADMIN_PRODUCTS:
             let {total, products, pageNumber} = action.payload
    

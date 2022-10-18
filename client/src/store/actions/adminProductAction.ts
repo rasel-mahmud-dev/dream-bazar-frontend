@@ -1,6 +1,7 @@
 import apis from "src/apis";
 import {ACTION_TYPES} from "store/types";
 import api from "src/apis";
+import errorMessageCatch from "src/utills/errorMessageCatch";
 
 export function fetchAdminBrandsAction(adminBrands, dispatch){
     if(!adminBrands.cached || adminBrands.cached.length === 0) {
@@ -29,7 +30,8 @@ export function fetchAdminProductsAction(adminProducts, pageNumber, dispatch){
         })
     }
     
-}export function fetchAdminStaticFilesAction(adminStaticFiles,  dispatch){
+}
+export function fetchAdminStaticFilesAction(adminStaticFiles,  dispatch){
     if(!adminStaticFiles || adminStaticFiles.length === 0) {
         api.get("/api/files/static-files").then(({data}) => {
             dispatch({
@@ -39,4 +41,26 @@ export function fetchAdminProductsAction(adminProducts, pageNumber, dispatch){
         });
     }
     
+}
+
+
+export function updateProductAction<T>(adminProducts, productId: string, updatedProduct,  dispatch){
+    
+    return new Promise<[status: number, data: T]>(async (resolve, reject)=>{
+        try{
+            const {data, status} = await apis.patch("/api/product/"+productId, updatedProduct)
+            if(status === 201){
+                dispatch({
+                    type: ACTION_TYPES.UPDATE_PRODUCT,
+                    payload: {
+                        _id: productId,
+                        ...data.updateProduct
+                    }
+                })
+            }
+            resolve([status, data])
+        } catch (ex){
+            reject(ex)
+        }
+    })
 }
