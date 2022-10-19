@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "react-helmet": "^6.1.0"
   }
 }

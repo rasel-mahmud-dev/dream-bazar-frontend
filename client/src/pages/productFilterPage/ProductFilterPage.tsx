@@ -31,6 +31,7 @@ import BrandList from "pages/productFilterPage/BrandList";
 import staticImagePath from "src/utills/staticImagePath";
 import {FaHeart} from "react-icons/all";
 import Product from "components/product/Product";
+import SEO from "components/SEO/SEO";
 
 
 let initialLoad = true
@@ -94,6 +95,8 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
     flatCategories
   } = productState
   
+
+    const params = useParams()
   
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -829,6 +832,13 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
 
   return (
     <div >
+    
+    
+    <SEO
+        title={`p/${params.pId}/${params.treeId}`}
+        description="Product filter"
+    />
+    
 
       <div className="spin-fixed top-1/4 ">
         {/*<div className="backdrop-filter backdrop-blur-md w-52 h-20 flex items-center justify-center">*/}

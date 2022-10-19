@@ -14,6 +14,7 @@ import staticImagePath from "src/utills/staticImagePath";
 import AppContextProvider, {AppContext} from "store/AppContext";
 import useLanguage from "src/hooks/useLanguage";
 import {BiCart, FaList, MdFavorite} from "react-icons/all";
+import SEO from "components/SEO/SEO";
 // import "slick-carousel/slick/slick-theme.css";
 
 let id;
@@ -200,6 +201,12 @@ const HomePage = (props) => {
   
   return (
       <div className="homepage">
+        
+            
+        <SEO
+            title={`Dream Bazar online ecommerce shop`}
+            description="Product filter"
+        />
         
         <HomeProductNavigation/>
 

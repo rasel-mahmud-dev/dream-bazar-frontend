@@ -38,7 +38,7 @@ const MyRoutes = () => {
 		<Routes>
             <Route path="/" element={<HomePage/>}>
             </Route>
-            <Route path="/p/:pId/:treeId" element={<ProductFilterPage/>}/>
+            <Route path="/p/:pId" element={<ProductFilterPage/>}/>
 			
           <Route path="/auth/join" element={<JoinHome/>}>
 	          {/* @ts-ignore */}

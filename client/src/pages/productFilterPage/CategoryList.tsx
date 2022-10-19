@@ -2,7 +2,7 @@ import qstring from "query-string";
 
 import {useEffect,  useState} from "react";
 import apis from "src/apis";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {FaAngleRight, FaTimes} from "react-icons/all";
 import {ACTION_TYPES, CategoryType} from "store/types";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,6 +10,7 @@ import {RootState} from "src/store";
 import {fetchFlatCategories} from "actions/productAction";
 import {Button} from "UI/index";
 import login from "pages/auth/Login";
+import SEO from "components/SEO/SEO";
 
 
 const ctg = [
@@ -969,8 +970,13 @@ const ctg = [
 function CategoryList(props) {
     
     const dispatch = useDispatch();
-    
+    const location = useLocation();
+    const qs = qstring.parse(location.pathname)
+
     const { flatCategories, nestedCategoriesCache, brands } = useSelector((state: RootState)=>state.productState)
+    let [searchParams, setSearchParams] = useSearchParams();
+    
+    let catTree = searchParams.get("catTree")
     
     /*
     * 1 => []
@@ -1208,7 +1214,7 @@ function CategoryList(props) {
         sub: [],
         levelNumber: 0
     })
-    console.log(lastParentSubCategories)
+ 
     
     useEffect(()=>{
         
@@ -1380,11 +1386,11 @@ function CategoryList(props) {
     
         getCat()
         
-    }, [params.pId])
+    }, [params.pId, catTree])
     
     async function getCat(){
         
-        console.time("start")
+        console.time("category-find-time")
         
         let updateSidebarCategory = {
             ...sidebarCategory
@@ -1401,7 +1407,7 @@ function CategoryList(props) {
     
      
             // find both category tree
-            if(params.pId && params.treeId){
+            if(params.pId && catTree){
             
                 // base category name
                 let rootCategoryName = params.pId
@@ -1422,29 +1428,12 @@ function CategoryList(props) {
                 // get pId root category that is given in url first params
                 // and set expand true that expanded and other make false
                  rootCategory = setExpand(rootCategories, rootCategoryName)
-           
-            
-                // find parent subCategory
-                let subCats = findChildCategory(a, rootCategory.id)
-                // level should be 2. because 1 level already stored
-                
-                // it is second level nested category of root category. so we store in object with key 2
-                // { 2 : [{…}, {…}, {…}, {…}, {…}, {…}, {…}] }
-                // levelNumber++
-                // updateSidebarCategory[levelNumber] = subCats
                 
                 
                 // now find last category that is passed url params 2
                 
-                let isMatch = subCats.find(subName=> subName.name === params.treeId);
-                if(isMatch) {
-                    console.log("matched")
-                    return;
-                }
-                
-                
                 // find last n level category
-                let getLastLevelCategory = a.find(item => item.name === params.treeId)
+                let getLastLevelCategory = a.find(item => item.name === catTree)
                 if(getLastLevelCategory){
                     // find another nested category
                     // levelNumber++
@@ -1522,7 +1511,7 @@ function CategoryList(props) {
             //     })
             // }
     
-        console.timeEnd("start")
+        console.timeEnd("category-find-time")
     }
     
     
@@ -1589,11 +1578,6 @@ function CategoryList(props) {
         
         return selectedItem
     }
-    
-    
-
-    
-
 
     
     function handleChangeBrand(item: {name: string, _id: string}){
@@ -1644,7 +1628,6 @@ function CategoryList(props) {
     
     function clickOnCategoryItem(item: CategoryType, levelNumber){
         
-        
         let lastSub = ctg.filter(cat=>cat.parentId === item.id)
     
         let updatedSidebarCategory = {...sidebarCategory}
@@ -1666,39 +1649,62 @@ function CategoryList(props) {
             lastParentId: item.id,
             sub: lastSub
         }))
-        
+        if(params.pId === item.name) {
+            navigate(`/p/${params.pId}`)
+        } else {
+            navigate(`/p/${params.pId}?catTree=${item.name}`)
+        }
         setSidebarCategory(updatedSidebarCategory)
     }
     
-    function handleExpandCategory(itemName, lastSubItems,  levelNumber) {
+    function handleExpandCategory(item,   levelNumber) {
+
+        // find all sub categories for currently clicked item
+        // that is set for last parent sub categories sub arr
+        const lastClickedSub = ctg.filter(ct=>ct.parentId === item.id)
         
         let updatedSidebarCategory = {...sidebarCategory}
-        let s = (sidebarCategory[levelNumber].find(sCat=>sCat.last))
-        if(s) {
-            s.last = false;
-            lastSubItems.forEach((lastItem=>{
-                if(lastItem.name === itemName){
-                    lastItem.last = true
-                    lastItem.expand = true
-                } else{
-                    lastItem.last = false
-                    lastItem.expand = false
-                }
-            }));
-     
-            updatedSidebarCategory[levelNumber + 1] = lastSubItems
-            setLastParentSubCategories(prevState => ({
-               ...prevState,
-               sub: null
-            }))
-        }
         
+        // find parent of clicked category
+        let parentCat = updatedSidebarCategory[levelNumber].find(sCat=>item.parentId === sCat.id)
+        if(!parentCat){
+            return setSidebarCategory(updatedSidebarCategory)
+        }
+    
+        parentCat.last = false;
+    
+        // find parent sub categories for next level nested category
+        let lastParentSub = ctg.filter(ct=>ct.parentId === parentCat.id)
+        
+        // set nest level category like
+        // updatedSidebarCategory[4 + 1] = []
+        updatedSidebarCategory[levelNumber + 1] = lastParentSub
+    
+        // update all last and expand property from preview level category
+        lastParentSub.forEach((lastItem=>{
+            if(lastItem.name === item.name){
+                lastItem.last = true
+                lastItem.expand = true
+            } else{
+                lastItem.last = false
+                lastItem.expand = false
+            }
+        }));
+     
+        setLastParentSubCategories(prevState => ({
+           ...prevState,
+            sub: lastClickedSub.length === 0 ? null : lastClickedSub,
+            levelNumber: levelNumber + 1,
+            lastParentId: parentCat.id
+        }))
         setSidebarCategory(updatedSidebarCategory)
+        navigate(`/p/${params.pId}?catTree=${item.name}`)
     }
 
     
       return (
-        <div className="hidden md:block col-span-3 ">
+        <div className="md:block col-span-3 ">
+            
             <div className="grid px-4">
                 
                 <h1 className="font-semibold text-xl mt-8">Category</h1>
@@ -1763,7 +1769,7 @@ function CategoryList(props) {
                 <div className="ml-4">
                     { lastParentSubCategories.sub && lastParentSubCategories.sub.map(item=>(
                         <div>
-                        <h1 onClick={()=>handleExpandCategory(item.name,  lastParentSubCategories.sub, lastParentSubCategories.levelNumber)}
+                        <h1 onClick={()=>handleExpandCategory(item,  lastParentSubCategories.levelNumber)}
                             className={`cursor-pointer text-green-450`}>{item.name}</h1>
                     </div>
                     )) }

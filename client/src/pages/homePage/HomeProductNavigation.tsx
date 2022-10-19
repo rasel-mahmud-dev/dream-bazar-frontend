@@ -583,15 +583,15 @@ const HomeProductNavigation = () => {
       let to;
       if(subName.ideal){
         if(subName.cat_id) {
-          to = `/p?cat=${subName.cat_id}&cat_tree=${subName.id}&ideal=${subName.ideal}`
+          to = `/${subName.cat_id}&catTree=${subName.id}&ideal=${subName.ideal}`
         } else {
-          to = `/p?cat=${nav.id}&cat_tree=${subName.id}&ideal=${subName.ideal}`
+          to = `/${nav.id}&catTree=${subName.id}&ideal=${subName.ideal}`
         }
       } else {
         if(subName.cat_id) {
-          to = `/p?cat=${subName.cat_id}&cat_tree=${subName.id}`
+          to = `/${subName.cat_id}&catTree=${subName.id}`
         } else {
-          to = `/p?cat=${subName.id}&cat_tree=${subName.id}`
+          to = `/${subName.id}&catTree=${subName.id}`
         }
       }
       if(forCategory){
