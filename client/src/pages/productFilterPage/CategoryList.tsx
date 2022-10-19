@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
 import {fetchFlatCategories} from "actions/productAction";
 import {Button} from "UI/index";
+import login from "pages/auth/Login";
 
 
 const ctg = [
@@ -1202,6 +1203,12 @@ function CategoryList(props) {
         }
     }
     
+    const [lastParentSubCategories, setLastParentSubCategories] = useState({
+        lastParentId: "",
+        sub: [],
+        levelNumber: 0
+    })
+    console.log(lastParentSubCategories)
     
     useEffect(()=>{
         
@@ -1441,7 +1448,7 @@ function CategoryList(props) {
                 if(getLastLevelCategory){
                     // find another nested category
                     // levelNumber++
-                    getLastLevelCategory.active = true;
+                    // getLastLevelCategory.active = true;
                 }
                 
                 /**
@@ -1458,8 +1465,10 @@ function CategoryList(props) {
                 */
                 // this function make each nested sub category make array of object which key is its parent id;
                 getLastLevelCategory.expand = true
+                getLastLevelCategory.last = true
+                
                 findUpperParentRecur(getLastLevelCategory, rootCategoryName, a, temp)
-            
+                
                 
                 // now we found all level nested level category that store in temp object.
                 let arrId = []
@@ -1473,7 +1482,15 @@ function CategoryList(props) {
                     levelNumber++
                     updateSidebarCategory[levelNumber] = temp[id]
                 }
-          
+    
+                setLastParentSubCategories({
+                    lastParentId: getLastLevelCategory.id,
+                    sub: a.filter(item => getLastLevelCategory.id === item.parentId),
+                    levelNumber: levelNumber,
+                })
+    
+    
+    
             } else if(params.pId){
             
                 let rootCategories =  getCategoriesLocal('parentId=0', a)
@@ -1574,56 +1591,11 @@ function CategoryList(props) {
     }
     
     
-    function clickOnCategoryItem(item: CategoryType, levelNumber){
 
-        let updateSidebarCategory = {
-            ...sidebarCategory
-        }
-        
-        // find all child category of clicked category
-        
-        let subCats: CategoryType[];
-        
-        if(updateSidebarCategory[levelNumber + 1]){
-            // toggle prev state
-            subCats = findChildCategory(flatCategories, item.parentId)
-            updateSidebarCategory[levelNumber] = subCats;
-            let keys = Object.keys(updateSidebarCategory);
-            keys.filter(k=> k > levelNumber).forEach(key=>{
-                delete updateSidebarCategory[key]
-            })
-        } else {
-    
-            // expand new sub category
-            subCats = findChildCategory(flatCategories, item.id)
-            updateSidebarCategory[levelNumber + 1] = subCats;
-            
-            // set active category inside clicked category for detect expand.
-            updateSidebarCategory[levelNumber].forEach(upper => {
-                if (upper.id === item.id) {
-                    upper.expand = true
-                } else {
-                    upper.expand = false
-                }
-            })
-        }
-        
-        if(levelNumber === 1){
-            navigate(`/p?cat=${item.name}`)
-        } else {
-            let rootExpand = updateSidebarCategory[1].find(item=>item.expand)
-            if(rootExpand) {
-                navigate(`/p?cat=${rootExpand.name}&cat_tree=${item.name}`)
-            }
-        }
-        
-        setSidebarCategory(updateSidebarCategory)
-    }
     
 
 
     
-
     function handleChangeBrand(item: {name: string, _id: string}){
         // let updatedBrands = [...state.filter.brands]
         //
@@ -1669,7 +1641,61 @@ function CategoryList(props) {
         // })
     }
     
-    console.log(sidebarCategory)
+    
+    function clickOnCategoryItem(item: CategoryType, levelNumber){
+        
+        
+        let lastSub = ctg.filter(cat=>cat.parentId === item.id)
+    
+        let updatedSidebarCategory = {...sidebarCategory}
+        let s = updatedSidebarCategory[levelNumber].find(sCat=>sCat.id === item.id)
+        if(s) {
+            s.last = true;
+        }
+        let keyNumbers = Object.keys(updatedSidebarCategory);
+        keyNumbers.forEach(key=>{
+            if(levelNumber < key ){
+                // delete all nested of parent
+                delete updatedSidebarCategory[key]
+            }
+        })
+        
+        setLastParentSubCategories(prevState => ({
+            ...prevState,
+            levelNumber: levelNumber,
+            lastParentId: item.id,
+            sub: lastSub
+        }))
+        
+        setSidebarCategory(updatedSidebarCategory)
+    }
+    
+    function handleExpandCategory(itemName, lastSubItems,  levelNumber) {
+        
+        let updatedSidebarCategory = {...sidebarCategory}
+        let s = (sidebarCategory[levelNumber].find(sCat=>sCat.last))
+        if(s) {
+            s.last = false;
+            lastSubItems.forEach((lastItem=>{
+                if(lastItem.name === itemName){
+                    lastItem.last = true
+                    lastItem.expand = true
+                } else{
+                    lastItem.last = false
+                    lastItem.expand = false
+                }
+            }));
+     
+            updatedSidebarCategory[levelNumber + 1] = lastSubItems
+            setLastParentSubCategories(prevState => ({
+               ...prevState,
+               sub: null
+            }))
+        }
+        
+        setSidebarCategory(updatedSidebarCategory)
+    }
+
     
       return (
         <div className="hidden md:block col-span-3 ">
@@ -1690,28 +1716,58 @@ function CategoryList(props) {
                 </div>
     
                 { sidebarCategory[1]?.map(cat=> (!sidebarCategory[2] || cat.expand)  && (
-                    <div key={cat.id} className="flex justify-between">
-                        <li onClick={()=>clickOnCategoryItem(cat, 1)} className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": ""}`}>{cat.name}</li>
+                    <div key={cat.id} className="ml-2 flex justify-between">
+                        <li onClick={()=>clickOnCategoryItem(cat, 1)} className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": "hidden"}`}>{cat.name}</li>
                     </div>
                 ))}
     
                 { sidebarCategory["2"]?.map(cat=> (!sidebarCategory[3] || cat.expand) && (
                     <div key={cat.id} className="ml-2">
-                        <li onClick={()=>clickOnCategoryItem(cat, 2)} className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": ""}`}>{cat.name}</li>
+                        <li onClick={()=>clickOnCategoryItem(cat, 2)} className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": "hidden"}`}>{cat.name}</li>
                     </div>
                 )) }
                 
                 { sidebarCategory["3"]?.map(cat=>  (!sidebarCategory[4]  || cat.expand) && (
-                    <div key={cat.id} className="ml-4">
-                        <li onClick={()=>clickOnCategoryItem(cat, 3)} className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": ""}`}>{cat.name}</li>
+                    <div key={cat.id} className="ml-2">
+                        <li onClick={()=>clickOnCategoryItem(cat, 3)} className={`cursor-pointer
+                        ${(cat.active || cat.expand) ? "expanded-category": "hidden"}
+                        ${cat.last ? "last-expand-category": ""}
+                        
+                        `}>{cat.name}</li>
                     </div>
                 )) }
+    
+                {/*{ sidebarCategory["4"] && sidebarCategory["3"]?.map(cat=> (!sidebarCategory[5]  || cat.expand) &&  (*/}
+                {/*    <div key={cat.id} className="ml-4">*/}
+                {/*        <li onClick={()=>clickOnCategoryItem(cat, 4)}*/}
+                {/*            className={`cursor-pointer ${(cat.expand) ? "expanded-category": "hidden"}`}>*/}
+                {/*            {cat.name}*/}
+                {/*        </li>*/}
+                {/*    </div>*/}
+                {/*)) }*/}
+    
+         
                 
                 { sidebarCategory["4"]?.map(cat=> (!sidebarCategory[5]  || cat.expand) &&  (
-                    <div key={cat.id} className="ml-8">
-                        <li onClick={()=>clickOnCategoryItem(cat, 4)} className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": ""}`}>{cat.name}</li>
+                    <div key={cat.id} className="ml-2">
+                        <li onClick={()=>clickOnCategoryItem(cat, 4)}
+                            className={`cursor-pointer ${(cat.expand) ? "expanded-category": "hidden"}
+                                        ${cat.last ? "last-expand-category": ""}
+                            `}>
+                            {cat.name}
+                        </li>
                     </div>
                 )) }
+    
+    
+                <div className="ml-4">
+                    { lastParentSubCategories.sub && lastParentSubCategories.sub.map(item=>(
+                        <div>
+                        <h1 onClick={()=>handleExpandCategory(item.name,  lastParentSubCategories.sub, lastParentSubCategories.levelNumber)}
+                            className={`cursor-pointer text-green-450`}>{item.name}</h1>
+                    </div>
+                    )) }
+                </div>
                 
                 
             </div>
