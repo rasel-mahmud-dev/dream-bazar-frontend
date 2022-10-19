@@ -593,8 +593,8 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
 
   async function filterProductWithState(data, isCount: boolean, cb){
 
-    !isCount && props.toggleAppMask(true)
-    !isCount && (props.toggleLoader && props.toggleLoader("product-filter", true))
+    // !isCount && props.toggleAppMask(true)
+    // !isCount && (props.toggleLoader && props.toggleLoader("product-filter", true))
 
     const {
       currentNestedSubCategory,

@@ -373,13 +373,13 @@ const AddProduct: FC<Props> = (props) => {
 const StaticPhotoChooser = ({onClose, onChooseImage, staticImages, isShowStaticChooser})=>{
     return (
         <div>
-            <ModalWithBackdrop isOpen={isShowStaticChooser} onCloseModal={onClose} maxHeight={400}>
+            <ModalWithBackdrop isOpen={isShowStaticChooser} onCloseModal={onClose} maxHeight={600} maxWidth={900}>
                     <div>
                          <div className="flex flex-wrap gap-2">
                             {staticImages.map((path) => (
                                 <div className="cursor-pointer">
                                     <img
-                                        className="w-10"
+                                        className="w-20"
                                         onClick={()=>onChooseImage(path)}
                                         src={staticImagePath(path)}
                                         alt=""/>

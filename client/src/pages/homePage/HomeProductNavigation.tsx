@@ -20,9 +20,9 @@ const HomeProductNavigation = () => {
   const [moreHomeNavData, setMoreHomeNavData] = React.useState<moreHomeNavDataType | null>(null)
   
   const homeNavData = [
-    {name: 'Top Offer', logo: "/images/nav-images/f15c02bfeb02d15d.png", id: "kj98759e347"},
+    {name: 'Top Offer', logo: "f15c02bfeb02d15d.png", id: "kj98759e347"},
     {
-      name: 'Computers', logo: "/images/nav-images/69c6589653afdb9a.png", id: "Electronics",
+      name: 'Computers', logo: "69c6589653afdb9a.png", id: "Electronics",
       sub_menu: [
         {
           name: 'Computer Components',
@@ -30,7 +30,7 @@ const HomeProductNavigation = () => {
           id:"computer components",
           sub_menu: [
             {name: "All", id: "computer components"},
-            {name: "Motherboard", id: "motherboard"},
+            {name: "Motherboard", id: "Motherboard"},
             {name: "Ram", id: "ram"},
             {name: "Processor", id: "processor"},
             {name: "SSD", id: "ssd"},
@@ -53,11 +53,11 @@ const HomeProductNavigation = () => {
         }
       ]
     },
-    {name: 'Mobiles', logo: "/images/nav-images/22fddf3c7da4c4f4.png", id: "mobiles-store", type: "store"},
+    {name: 'Mobiles', logo: "22fddf3c7da4c4f4.png", id: "mobiles-store", type: "store"},
     {
       name: 'Fashions',
       id: "clothing and accessories",
-      logo: "/images/nav-images/82b3ca5fb2301045.png",
+      logo: "82b3ca5fb2301045.png",
       sub_menu: [
         {
           name: "Men's Top Wear",
@@ -250,7 +250,7 @@ const HomeProductNavigation = () => {
     {
       name: 'Electronics',
       id: "electronics",
-      logo: "/images/nav-images/69c6589653afdb9a.png",
+      logo: "69c6589653afdb9a.png",
       sub_menu: [
         {name: "Audio", id: "audio and video", _id: "",
           sub_menu: [
@@ -332,10 +332,10 @@ const HomeProductNavigation = () => {
         {name: "Tablets", id: "Tablets", _id: ""},
       ]
     },
-    // {name: 'Laptops', logo: "/images/nav-images/69c6589653afdb9a.png", id: "laptop-store", type: "store"},
+    // {name: 'Laptops', logo: "69c6589653afdb9a.png", id: "laptop-store", type: "store"},
     {name:
         'Appliances',
-      logo: "/images/nav-images/0ff199d1bd27eb98.png",
+      logo: "0ff199d1bd27eb98.png",
       id: "home entertainment",
       cat_tree: "televisions",
       sub_menu: [
@@ -417,10 +417,10 @@ const HomeProductNavigation = () => {
         }
       ]
     },
-    {name: "Home & Kitchen", id: "home & kitchen", logo: "/images/nav-images/ab7e2b022a4587dd.jpg"},
-    {name: 'Glosses', logo: "/images/nav-images/29327f40e9c4d26b.png", id: "kj98e759347"},
-    {name: 'Travels', logo: "/images/nav-images/71050627a56b4693.png", id: "kj98e759347"},
-    {name: 'Beauty, Toys & more', logo: "/images/nav-images/dff3f7adcf3a90c6.png", id: "kj98e759347"},
+    {name: "Home & Kitchen", id: "home & kitchen", logo: "ab7e2b022a4587dd.jpg"},
+    {name: 'Glosses', logo: "29327f40e9c4d26b.png", id: "kj98e759347"},
+    {name: 'Travels', logo: "71050627a56b4693.png", id: "kj98e759347"},
+    {name: 'Beauty, Toys & more', logo: "dff3f7adcf3a90c6.png", id: "kj98e759347"},
   ]
   
   

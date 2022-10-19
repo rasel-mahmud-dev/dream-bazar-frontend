@@ -8,9 +8,9 @@ import {RootState} from "src/store";
 const BrandList = () => {
 	const dispatch = useDispatch()
 	const {brands, filters} = useSelector((state:RootState)=>state.productState)
-	
-	
+ 
 	useEffect(()=>{
+  
 		apis.get("/api/brands").then(res=>{
 			dispatch({
 				type: ACTION_TYPES.FETCH_BRANDS,
@@ -21,7 +21,7 @@ const BrandList = () => {
 			})
 		})
 	}, [])
-	
+ 
 	function handleChangeBrand(brand) {
 		let updatedBrands = [...filters.brands]
 		let selectedBrandIndex = updatedBrands.findIndex((br: any)=>br.id ===brand.id)
@@ -67,7 +67,7 @@ const BrandList = () => {
 				
 				
 				<div className="">
-                    <div className="flex flex-wrap gap-2 mt-4">
+                    <div className="mt-4">
                     {  brands["all"] && brands["all"].map((brand, index)=>(
 	                    <li onClick={() => handleChangeBrand(brand)} className="flex  items-center hover:text-green-400 cursor-pointer select-none">
                                 <input type="checkbox" checked={isChecked(brand.id)} />

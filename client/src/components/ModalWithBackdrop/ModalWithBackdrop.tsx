@@ -10,10 +10,11 @@ type Props2 = {
     modalClass?: string
     backdropClass?: string
     maxHeight?: number
+    maxWidth?: number
 }
 
 const ModalWithBackdrop:FC<Props2> = (props) => {
-    const { isOpen, maxHeight, backdropClass, modalClass, onCloseModal } = props
+    const { isOpen, maxHeight, maxWidth, backdropClass, modalClass, onCloseModal } = props
     
     function handleCloseModal(e: SyntheticEvent) {
         let el = e.target as HTMLDivElement
@@ -28,7 +29,9 @@ const ModalWithBackdrop:FC<Props2> = (props) => {
             className={`modal-backdrop ${backdropClass} ${isOpen ? '' : 'modal-backdrop__close'}  `}
             onClick={handleCloseModal}
         >
-            <div className={`${modalClass} modal`} style={{maxHeight: maxHeight ? maxHeight: 'auto' }}>{props.children}</div>
+            <div className={`${modalClass} modal`}
+                 style={{maxHeight: maxHeight ? maxHeight: 'auto', maxWidth: maxWidth ? maxWidth : "auto", width: maxWidth ? "100%" : "auto", }}>
+                {props.children}</div>
         </div>
     
     )

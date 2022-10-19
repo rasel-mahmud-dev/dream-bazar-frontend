@@ -3,6 +3,7 @@ import sqlDatabase from "../database/sqlDatabase";
 import {NextFunction, Request, Response} from "express";
 import uuid from "../utilities/uuid";
 import Category from "../models/Category";
+import CategoryJson from "../models/CategoryJson";
 
 const {ObjectId} = require("mongodb")
 
@@ -141,7 +142,65 @@ export const saveCategory = async (req: Request, res: Response, next: NextFuncti
     }
     
 }
+
+export const addCategoryCache = async (req: Request, res: Response, next: NextFunction) => {
     
+    const { rootId, data } = req.body
+    
+    try {
+        
+        let [findErr, result] = await Category.findOne('select * from categories_cache where rootId = ?', [rootId])
+        if (!findErr && result) {
+            return errorResponse(next, "Category already exist")
+        }
+        
+        let newCategoryCache = new CategoryJson({
+            rootId: rootId,
+            arr: JSON.stringify(data)
+        })
+    
+        let [err2, doc] = await newCategoryCache.insertOne()
+        
+        if (err2) {
+            return errorResponse(next, "Internal error. Please try Again")
+        }
+        successResponse(res, 201, {
+            message: "category created",
+            category: doc
+        })
+    } catch (ex) {
+        next(ex)
+        
+    }
+    
+}
+
+export const getCategoryCache = async (req: Request, res: Response, next: NextFunction) => {
+    
+    const { rootId } = req.params
+    
+    try {
+        
+        let [er, cat] = await Category.findOne('select * from categories where name = ?', [rootId])
+        if(!cat){
+            return errorResponse(next, "Category Cache not found ")
+        }
+        let [findErr, result] = await Category.findOne('select * from categories_cache where rootId = ?', [cat.id])
+        if (findErr) {
+            return errorResponse(next, "Category Cache not found ")
+        }
+        // @ts-ignore
+        successResponse(res, 201, {
+            categoryCache: result
+        })
+        
+    } catch (ex) {
+        next(ex)
+        
+    }
+    
+}
+
 export const updateCategory = async (req: Request, res: Response, next: NextFunction) => {
     const {id} = req.params
     

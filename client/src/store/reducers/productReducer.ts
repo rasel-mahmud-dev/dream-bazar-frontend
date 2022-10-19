@@ -108,6 +108,9 @@ export interface ProductStateType {
         filterItem_sections?: { attribute_name: string, name: string, values: { name: string, value: string | object } }[]
     },
     flatCategories: CategoryType[] | null
+    nestedCategoriesCache: {
+        [key: string] : any
+    }
     brands: {
         total: number,
         cached: any[]
@@ -212,6 +215,10 @@ const initialState: ProductStateType = {
     filterItem_sections_data: {},
     flatCategories: null,
     
+    nestedCategoriesCache: {
+        categoryName: []
+    },
+    
     brands: {
         total: 0,
         cached: []
@@ -221,8 +228,6 @@ const initialState: ProductStateType = {
         root: null,
         tree: null
     }
-    
-    
 }
 
 
@@ -324,6 +329,12 @@ const productReducer = (state: ProductStateType = initialState, action) => {
         
         case ACTION_TYPES.ADD_FLAT_CATEGORY :
             updatedState.flatCategories = [...updatedState.flatCategories, action.payload]
+            
+            return updatedState
+        
+            
+        case ACTION_TYPES.ADD_NESTED_CATEGORY_CACHE :
+            updatedState.nestedCategoriesCache[action.payload.name] =  action.payload.arr
             
             return updatedState
         

@@ -1,16 +1,17 @@
 
   
 import {
-  deleteCategory,
-  fetchCategoryWithFilter,
-  filterCategoryFetch,
-  getCategories,
-  getCategoriesCount,
-  getCategory,
-  getCategoryExpand,
-  getCategoryFilterSection,
-  saveCategory,
-  updateCategory
+    addCategoryCache,
+    deleteCategory,
+    fetchCategoryWithFilter,
+    filterCategoryFetch,
+    getCategories,
+    getCategoriesCount,
+    getCategory, getCategoryCache,
+    getCategoryExpand,
+    getCategoryFilterSection,
+    saveCategory,
+    updateCategory
 } from "../controllers/categoryController"
 import {Router} from "express";
 
@@ -26,6 +27,9 @@ export default function (app: Router){
   // app.post("/api/categories/filter", fetchCategoryWithFilter)
 
   app.post("/api/category", saveCategory)
+  app.post("/api/category/add-cache", addCategoryCache)
+  
+  app.get("/api/category/cache/:rootId", getCategoryCache)
 
   app.patch("/api/category/:id", updateCategory)
 
