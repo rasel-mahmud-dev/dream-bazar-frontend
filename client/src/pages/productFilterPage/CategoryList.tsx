@@ -1,5 +1,3 @@
-import qstring from "query-string";
-
 import {useEffect,  useState} from "react";
 import apis from "src/apis";
 import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
@@ -9,9 +7,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
 import {fetchFlatCategories} from "actions/productAction";
 import {Button} from "UI/index";
-import login from "pages/auth/Login";
-import SEO from "components/SEO/SEO";
-
 
 const ctg = [
     {
@@ -970,8 +965,6 @@ const ctg = [
 function CategoryList(props) {
     
     const dispatch = useDispatch();
-    const location = useLocation();
-    const qs = qstring.parse(location.pathname)
 
     const { flatCategories, nestedCategoriesCache, brands } = useSelector((state: RootState)=>state.productState)
     let [searchParams, setSearchParams] = useSearchParams();
@@ -1142,16 +1135,7 @@ function CategoryList(props) {
         })
         return items
     }
-
-    // function findRootCategories(categories: {id: string, parentId: string}[]) {
-    //     let items: {[key: string]: CategoryType} = {}
-    //     categories.filter((cat: any)=>{
-    //         if(!cat.parentId || cat.parentId === '0'){
-    //             items[cat.id] = cat
-    //         }
-    //     })
-    //     return items
-    // }
+    
     
     function  getCategoriesLocal(filter: string, data: CategoryType[]){
         return data.filter(function (item){
@@ -1217,176 +1201,9 @@ function CategoryList(props) {
  
     
     useEffect(()=>{
-        
-    
-        // if(params.pId && params.treeId) {
-        //     // base category name
-        //     let rootCategoryName = params.pId
-        //     if(nestedCategoriesCache[params.pId]){
-        //         console.log(nestedCategoriesCache[params.pId])
-        //     } else {
-        //         apis.get(`/api/category/cache/${params.pId}`).then(({data}) => {
-        //             dispatch({
-        //                 type: ACTION_TYPES.ADD_NESTED_CATEGORY_CACHE,
-        //                 payload: {
-        //                     name: data.categoryCache.name,
-        //                     arr: JSON.parse(data.categoryCache.arr)
-        //                 }
-        //             })
-        //         }).catch(ex => {
-        //             console.log(ex)
-        //         })
-        //     }
-        //
-            // let temp = {}
-            // // default category nested level
-            // let levelNumber = 1;
-            //
-            // // root level or base level all categories
-            // let rootCategories =  getCategoriesLocal('parentId=0', a)
-            //
-            //
-            // // set expand true that expanded and other make false
-            // let selectedRooCat: CategoryType = setExpand(rootCategories, rootCategoryName)
-            // root = selectedRooCat
-        // }
-        
-        
-        // (async function(){
-        //
-        //     let data = qstring.parse(location.hash)
-        //
-        //     let updateSidebarCategory = {
-        //         ...sidebarCategory
-        //     }
-        //
-        //     let root = {}
-        //
-        //     let a;
-        //     if(flatCategories) {
-        //         a = flatCategories;
-        //     } else {
-        //         a = await fetchFlatCategories();
-        //     }
-        //
-        //
-        //     if(a){
-        //         // find both category tree
-        //         if(params.pId && params.treeId){
-        //
-        //             // base category name
-        //             let rootCategoryName = params.pId
-        //
-        //             let temp = {}
-        //             // default category nested level
-        //             let levelNumber = 1;
-        //
-        //             // root level or base level all categories
-        //             let rootCategories =  getCategoriesLocal('parentId=0', a)
-        //
-        //
-        //             // set expand true that expanded and other make false
-        //             let selectedRooCat: CategoryType = setExpand(rootCategories, rootCategoryName)
-        //             root = selectedRooCat
-        //
-        //             // find parent subCategory
-        //             let subCats = findChildCategory(a, selectedRooCat.id)
-        //             updateSidebarCategory[levelNumber] = rootCategories
-        //             // level should be 2
-        //             levelNumber++
-        //             updateSidebarCategory[levelNumber] = subCats
-        //
-        //
-        //
-        //             let catTree = params.treeId;
-        //
-        //
-        //             let isReach = subCats.find(subName=> subName.name === catTree);
-        //
-        //             if(!isReach) {
-        //                 let findCatTreeItem = a.find(item => item.name === catTree)
-        //                 if(findCatTreeItem){
-        //                     // find another nested category
-        //                     levelNumber++
-        //                     findCatTreeItem.active = true;
-        //                 }
-        //
-        //
-        //                 // this function make each nested sub category make array of object which key is its parent id;
-        //                 findNerestParentRecur(findCatTreeItem, rootCategoryName, a)
-        //
-        //                 foundNestedFormObject(subCats, temp)
-        //
-        //                 function foundNestedFormObject(subCats, temp,) {
-        //                     if (subCats) {
-        //                         subCats.forEach(cat => {
-        //                             let nested = temp[cat.id]
-        //                             if (nested) {
-        //                                 let lastSelected = setExpand(subCats, cat.name)
-        //                                 updateSidebarCategory[levelNumber] = nested
-        //                                 // increase sub nested number
-        //                                 levelNumber++
-        //
-        //                                 foundNestedFormObject(nested, temp);
-        //                             }
-        //                         })
-        //                     }
-        //                 }
-        //             }
-        //
-        //
-        //
-        //             function findNerestParentRecur(parent,  rootCategoryName,  arr){
-        //                 let parentItem = arr.find(item=>item.id === parent.parentId)
-        //                 if(parentItem) {
-        //                     let parentItemSub = getCategoriesLocal("parentId=" + parentItem.id, arr);
-        //                     if(parentItemSub) {
-        //                         temp[parentItem.id] = parentItemSub
-        //                     }
-        //                     if (rootCategoryName !== parentItem.name) {
-        //                         findNerestParentRecur(parentItem, rootCategoryName, arr)
-        //                     }
-        //                 }
-        //             }
-        //
-        //
-        //         } else if("/p?cat" in data){
-        //
-        //             let rootCategories =  getCategoriesLocal('parentId=0', a)
-        //             let selectedRootCat: CategoryType = setExpand(rootCategories, data["/p?cat"])
-        //             root = selectedRootCat
-        //             let subCats = findChildCategory(a, selectedRootCat.id)
-        //             updateSidebarCategory[1] = rootCategories
-        //             updateSidebarCategory[2] = subCats
-        //
-        //         } else {
-        //             let rootCategories =  getCategoriesLocal('parentId=0', a)
-        //             updateSidebarCategory[1] = rootCategories
-        //         }
-        //
-        //         dispatch({
-        //             type: "SET_SELECT_CATEGORY",
-        //             payload: {
-        //                 root: root,
-        //                 tree: {}
-        //             }
-        //         })
-        //
-        //         setSidebarCategory(updateSidebarCategory);
-        //
-        //         if(!flatCategories) {
-        //             dispatch({
-        //                 type: ACTION_TYPES.FETCH_CATEGORIES,
-        //                 payload: a
-        //             })
-        //         }
-        //     }
-        // }())
-    
-    
         getCat()
-        
     }, [params.pId, catTree])
+    
     
     async function getCat(){
         
@@ -1482,13 +1299,18 @@ function CategoryList(props) {
     
             } else if(params.pId){
             
-                let rootCategories =  getCategoriesLocal('parentId=0', a)
-                let selectedRootCat: CategoryType = setExpand(rootCategories, params.pId)
-                rootCategory = selectedRootCat
-                let subCats = findChildCategory(a, selectedRootCat.id)
+                let rootCategories =  getCategoriesLocal('name='+params.pId, ctg)
                 updateSidebarCategory[1] = rootCategories
-                updateSidebarCategory[2] = subCats
-            
+                const rootCat = rootCategories.find(c=>c.name === params.pId)
+                rootCat.expand = true
+                rootCat.last = true
+                const subCat = getCategoriesLocal("parentId="+ rootCat.id, ctg )
+                setLastParentSubCategories({
+                    lastParentId: rootCat.id,
+                    sub: subCat,
+                    levelNumber: 1
+                })
+                
             } else {
                 let rootCategories =  getCategoriesLocal('parentId=0', a)
                 updateSidebarCategory[1] = rootCategories
@@ -1503,6 +1325,7 @@ function CategoryList(props) {
             })
         
             setSidebarCategory(updateSidebarCategory);
+        
         
             // if(!flatCategories) {
             //     dispatch({
@@ -1723,13 +1546,19 @@ function CategoryList(props) {
     
                 { sidebarCategory[1]?.map(cat=> (!sidebarCategory[2] || cat.expand)  && (
                     <div key={cat.id} className="ml-2 flex justify-between">
-                        <li onClick={()=>clickOnCategoryItem(cat, 1)} className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": "hidden"}`}>{cat.name}</li>
+                        <li onClick={()=>clickOnCategoryItem(cat, 1)}
+                            className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": "hidden"}
+                          ${cat.last ? "last-expand-category": ""}`}>
+                            {cat.name}</li>
                     </div>
                 ))}
     
                 { sidebarCategory["2"]?.map(cat=> (!sidebarCategory[3] || cat.expand) && (
                     <div key={cat.id} className="ml-2">
-                        <li onClick={()=>clickOnCategoryItem(cat, 2)} className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": "hidden"}`}>{cat.name}</li>
+                        <li onClick={()=>clickOnCategoryItem(cat, 2)}
+                            className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": "hidden"}
+                                   ${cat.last ? "last-expand-category": ""}
+                            `}>{cat.name}</li>
                     </div>
                 )) }
                 
@@ -1742,17 +1571,6 @@ function CategoryList(props) {
                         `}>{cat.name}</li>
                     </div>
                 )) }
-    
-                {/*{ sidebarCategory["4"] && sidebarCategory["3"]?.map(cat=> (!sidebarCategory[5]  || cat.expand) &&  (*/}
-                {/*    <div key={cat.id} className="ml-4">*/}
-                {/*        <li onClick={()=>clickOnCategoryItem(cat, 4)}*/}
-                {/*            className={`cursor-pointer ${(cat.expand) ? "expanded-category": "hidden"}`}>*/}
-                {/*            {cat.name}*/}
-                {/*        </li>*/}
-                {/*    </div>*/}
-                {/*)) }*/}
-    
-         
                 
                 { sidebarCategory["4"]?.map(cat=> (!sidebarCategory[5]  || cat.expand) &&  (
                     <div key={cat.id} className="ml-2">
@@ -1766,6 +1584,7 @@ function CategoryList(props) {
                 )) }
     
     
+                {/************ Show last all sub categories *************/}
                 <div className="ml-4">
                     { lastParentSubCategories.sub && lastParentSubCategories.sub.map(item=>(
                         <div>
