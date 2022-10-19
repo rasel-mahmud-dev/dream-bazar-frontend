@@ -1423,8 +1423,8 @@ function CategoryList(props) {
                 
                 // it is second level nested category of root category. so we store in object with key 2
                 // { 2 : [{…}, {…}, {…}, {…}, {…}, {…}, {…}] }
-                levelNumber++
-                updateSidebarCategory[levelNumber] = subCats
+                // levelNumber++
+                // updateSidebarCategory[levelNumber] = subCats
                 
                 
                 // now find last category that is passed url params 2
@@ -1440,7 +1440,7 @@ function CategoryList(props) {
                 let getLastLevelCategory = a.find(item => item.name === params.treeId)
                 if(getLastLevelCategory){
                     // find another nested category
-                    levelNumber++
+                    // levelNumber++
                     getLastLevelCategory.active = true;
                 }
                 
@@ -1457,28 +1457,23 @@ function CategoryList(props) {
                  * Motherboard ->  Computer Components -> Computer and Laptop Accessories -> Electronics [end loop]
                 */
                 // this function make each nested sub category make array of object which key is its parent id;
+                getLastLevelCategory.expand = true
                 findUpperParentRecur(getLastLevelCategory, rootCategoryName, a, temp)
             
                 
-                // // now we found all level nested level category that store in temp object.
-                // let arrId = []
-                // for (let tempKey in temp) {
-                //     arrId.push(tempKey)
-                // }
-                //
-                // arrId = arrId.reverse();
-                //
-                // for (let id of arrId) {
-                //     levelNumber++
-                //     updateSidebarCategory[levelNumber] = temp[id]
-                //     // increase sub nested number
-                //     // console.log(levelNumber, temp[id])
-                // }
-                // // console.log(updateSidebarCategory)
-                
-                foundNestedFormObject(subCats, temp, updateSidebarCategory, levelNumber)
-                
-            
+                // now we found all level nested level category that store in temp object.
+                let arrId = []
+                for (let tempKey in temp) {
+                    arrId.push(tempKey)
+                }
+               
+                arrId = arrId.reverse();
+    
+                for (let id of arrId) {
+                    levelNumber++
+                    updateSidebarCategory[levelNumber] = temp[id]
+                }
+          
             } else if(params.pId){
             
                 let rootCategories =  getCategoriesLocal('parentId=0', a)
@@ -1514,7 +1509,7 @@ function CategoryList(props) {
     }
     
     
-    function findUpperParentRecur(parent: {parentId: string, id: string, name: string },  rootCategoryName: string,  arr, temp){
+    function findUpperParentRecur(parent: {parentId: string, id: string, name: string, expand?: boolean },  rootCategoryName: string,  arr, temp){
         /**
          step 1 parent = Motherboard
          step 2 parent = Computer Components
@@ -1524,8 +1519,10 @@ function CategoryList(props) {
         */
         // find upper parent
         let upperParent = arr.find(item=>item.id === parent.parentId)
-   
+    
         if(upperParent) {
+            // sign that only expand
+            upperParent.expand = true
             // find upper parent ar sub categories
             let upperParentOfSub = getCategoriesLocal("parentId=" + upperParent.id, arr);
             /**
@@ -1544,22 +1541,6 @@ function CategoryList(props) {
             if (rootCategoryName !== upperParent.name) {
                 findUpperParentRecur(upperParent, rootCategoryName, arr, temp)
             }
-        }
-    }
-    
-    function foundNestedFormObject(subCats, temp, updateSidebarCategory, levelNumber) {
-        if (subCats) {
-            subCats.forEach(cat => {
-                let nested = temp[cat.id]
-                if (nested) {
-                    let lastSelected = setExpand(subCats, cat.name)
-                    updateSidebarCategory[levelNumber] = nested
-                    // increase sub nested number
-                    levelNumber++
-
-                    foundNestedFormObject(nested, temp, updateSidebarCategory, levelNumber);
-                }
-            })
         }
     }
     
@@ -1639,6 +1620,8 @@ function CategoryList(props) {
         setSidebarCategory(updateSidebarCategory)
     }
     
+
+
     
 
     function handleChangeBrand(item: {name: string, _id: string}){
@@ -1685,7 +1668,8 @@ function CategoryList(props) {
         //
         // })
     }
- 
+    
+    console.log(sidebarCategory)
     
       return (
         <div className="hidden md:block col-span-3 ">
@@ -1705,37 +1689,30 @@ function CategoryList(props) {
                     </div> }
                 </div>
     
-                { sidebarCategory[1]?.map(cat=> !(sidebarCategory[2] && !cat.expand) && (
+                { sidebarCategory[1]?.map(cat=> (!sidebarCategory[2] || cat.expand)  && (
                     <div key={cat.id} className="flex justify-between">
-                        <li onClick={()=>clickOnCategoryItem(cat, 1)} className={`cursor-pointer ${(cat.active || cat.expand) ? "text-red-500 font-medium": ""}`}>{cat.name}</li>
+                        <li onClick={()=>clickOnCategoryItem(cat, 1)} className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": ""}`}>{cat.name}</li>
                     </div>
                 ))}
     
-                { sidebarCategory[2]?.map(cat=> !(sidebarCategory[3] && !cat.expand) && (
-                    <div key={cat.id} className="ml-4">
-                        <li onClick={()=>clickOnCategoryItem(cat, 2)} className={`cursor-pointer ${(cat.active || cat.expand) ? "text-red-500 font-medium": ""}`}>{cat.name}</li>
+                { sidebarCategory["2"]?.map(cat=> (!sidebarCategory[3] || cat.expand) && (
+                    <div key={cat.id} className="ml-2">
+                        <li onClick={()=>clickOnCategoryItem(cat, 2)} className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": ""}`}>{cat.name}</li>
                     </div>
                 )) }
                 
-                { sidebarCategory[2]?.map(cat=> !(sidebarCategory[3] && !cat.expand) && (
+                { sidebarCategory["3"]?.map(cat=>  (!sidebarCategory[4]  || cat.expand) && (
                     <div key={cat.id} className="ml-4">
-                        <li onClick={()=>clickOnCategoryItem(cat, 2)} className={`cursor-pointer ${(cat.active || cat.expand) ? "text-red-500 font-medium": ""}`}>{cat.name}</li>
-                    </div>
-                )) }
-    
-                { sidebarCategory["3"]?.map(cat=>  !(sidebarCategory[4] && !cat.expand) &&  (
-                    <div key={cat.id} className="ml-10">
-                        <li onClick={()=>clickOnCategoryItem(cat, 3)} className={`cursor-pointer ${(cat.active || cat.expand) ? "text-red-500 font-medium": ""}`}>{cat.name}</li>
+                        <li onClick={()=>clickOnCategoryItem(cat, 3)} className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": ""}`}>{cat.name}</li>
                     </div>
                 )) }
                 
-                { sidebarCategory["4"]?.map(cat=>  !(sidebarCategory[5] && !cat.expand) &&  (
-                    <div key={cat.id} className="ml-14">
-                        <li onClick={()=>clickOnCategoryItem(cat, 4)}
-                            className={`cursor-pointer ${(cat.active || cat.expand) ? "text-red-500 font-medium": ""}`}>
-                            {cat.name}</li>
+                { sidebarCategory["4"]?.map(cat=> (!sidebarCategory[5]  || cat.expand) &&  (
+                    <div key={cat.id} className="ml-8">
+                        <li onClick={()=>clickOnCategoryItem(cat, 4)} className={`cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": ""}`}>{cat.name}</li>
                     </div>
                 )) }
+                
                 
             </div>
         </div>
