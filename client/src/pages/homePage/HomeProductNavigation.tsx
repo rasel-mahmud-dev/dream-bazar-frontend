@@ -633,9 +633,9 @@ const HomeProductNavigation = () => {
               { moreHomeNavData.items && moreHomeNavData.items.length > 0 && moreHomeNavData.items.map((moreNav: any, index)=>(
                 <div className="dropdown_panel--item" key={index}>
                   { moreNav.ideal ? (
-                    <Link to={`/p?cat=${nav.id}&cat_tree=${moreNav.id}&ideal=${moreNav.ideal}`}>{moreNav.name}</Link>
+                    <Link to={`/p/${nav.id}/?catTree=${moreNav.id}&ideal=${moreNav.ideal}`}>{moreNav.name}</Link>
                   ) : (
-                    <Link to={`/p?cat=${nav.id}&cat_tree=${moreNav.id}`}>{moreNav.name}</Link>
+                    <Link to={`/p/${nav.id}?catTree=${moreNav.id}`}>{moreNav.name}</Link>
                   )
                   }
                 </div>

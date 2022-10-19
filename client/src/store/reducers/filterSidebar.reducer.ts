@@ -1,9 +1,23 @@
 
+import {ACTION_TYPES} from "store/types";
 import {ProductStateType} from "reducers/productReducer";
 
 export default (state: ProductStateType, action)=>{
   let updateState = {...state}
   switch (action.type){
+    
+    
+    case ACTION_TYPES.CHANGE_CATEGORY:
+      updateState.filters = {
+          ...updateState.filters,
+          category: {
+              selected: action.payload.selected,
+              allNestedIds: action.payload.allNestedIds
+          }
+      }
+      return updateState
+     
+      
     case "SET_FILTER_ITEM_SECTIONS" :
       updateState.filterItem_sections_data = {
         category_id: action.payload.category_id,
@@ -36,7 +50,7 @@ export default (state: ProductStateType, action)=>{
       }
     
     default :
-      return state
+      return updateState
   }
 }
 

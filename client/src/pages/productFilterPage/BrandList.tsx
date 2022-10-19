@@ -50,7 +50,7 @@ const BrandList = () => {
 		<div>
 			
 			<div className="grid px-4">
-                <h1 className="font-bold text-2xl mt-8">Brands</h1>
+                <h1 className="heading-3 mt-8">Brands</h1>
 				
 				{/*Selected brands  */}
 				{/*{brands && <div className="flex flex-wrap gap-2 mt-4">*/}
@@ -69,9 +69,9 @@ const BrandList = () => {
 				<div className="">
                     <div className="mt-4">
                     {  brands["all"] && brands["all"].map((brand, index)=>(
-	                    <li onClick={() => handleChangeBrand(brand)} className="flex  items-center hover:text-green-400 cursor-pointer select-none">
+	                    <li onClick={() => handleChangeBrand(brand)} className="flex text-neutral-200 items-center hover:text-green-400 cursor-pointer select-none">
                                 <input type="checkbox" checked={isChecked(brand.id)} />
-                                <label className="font-medium cursor-pointer ml-2">{brand.name}</label>
+                                <label className="cursor-pointer ml-2">{brand.name}</label>
                             </li>
                     ))}
                     </div>

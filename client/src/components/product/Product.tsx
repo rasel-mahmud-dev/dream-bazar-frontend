@@ -27,7 +27,7 @@ const Product: FC<Props> = (props) => {
 	const {product, handleAddToWishList, isWished, renderProductAtt} = props;
 	
 	return (
-		<div className="">
+	
 			<div className="single-product shadow-md rounded-md px-3 py-4" >
 	           
 	            {/*<FaHeart onClick={()=>handleAddToWishList(product)} className={`add_wish_list_btn  fa fa-heart  ${isWished(product)? 'wish': ''} `} />*/}
@@ -73,7 +73,7 @@ const Product: FC<Props> = (props) => {
 	                     </div>
 		            )}
 	            </div>
-	          </div>
+	          
         </div>
 	);
 };

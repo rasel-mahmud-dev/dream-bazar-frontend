@@ -1,6 +1,6 @@
 import {lazy} from "react"
 
-import {Routes, Route,} from "react-router-dom"
+import {Routes, Route, RouterProvider, createBrowserRouter} from "react-router-dom"
 import ResetPassword from "pages/auth/ResetPassword";
 import JoinHome from "pages/auth/JoinHome";
 import ForgetPassword from "pages/auth/ForgetPassword";
@@ -11,6 +11,8 @@ import Login from "pages/auth/Login";
 
 import adminDashboardRoutes from "pages/Admin/adminDashboardRoutes";
 import customerDashboardRoutes from "pages/Customer/customerDashboardRoutes";
+import NotFoundPage from "components/notFoundPage/NotFoundPage";
+import App from "src/App";
 
 const HomePage = lazy(() => import("pages/homePage/HomePage"))
 const Products = lazy(() => import("src/pages/products/Products"))
@@ -32,44 +34,63 @@ const EmailAndPhoneVerification = lazy(() => import("src/pages/auth/EmailVerific
 const ProductFilterPage: any = lazy(() => import("src/pages/productFilterPage/ProductFilterPage"))
 const StorePage = lazy(() => import("src/pages/storePage/StorePage"))
 
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <App />,
+        errorElement: <NotFoundPage />,
+        children: [
+            {
+                path: "/",
+                element: <HomePage />,
+            },
+            {
+                path: "p/:pId",
+                element: <ProductFilterPage />,
+            },
+        ],
+    },
+]);
+
 
 const MyRoutes = () => {
-	return (
-		<Routes>
-            <Route path="/" element={<HomePage/>}>
-            </Route>
-            <Route path="/p/:pId" element={<ProductFilterPage/>}/>
-			
-          <Route path="/auth/join" element={<JoinHome/>}>
-	          {/* @ts-ignore */}
-              <Route path="login" element={<Login/>}/>
-              <Route path="registration" element={<Registration/>}/>
-              <Route path="reset-password" element={<ResetPassword/>}/>
-              <Route path="forget-password" element={<ForgetPassword/>}/>
-              <Route path="opt-validate" element={<OTPValidate/>}/>
-          </Route>
-			
-			{ customerDashboardRoutes.map(route=>(
-				<Route path={route.path} element={<route.element />}>
-					{ route.children?.map(ch=>(
-						<Route path={ch.path} element={<ch.element />} />
-					)) }
-				</Route>
-			)) }
-			
-			{ adminDashboardRoutes.map(route=>(
-				<Route path={route.path} element={<route.element />}>
-					{ route.children?.map(ch=>(
-						<Route path={ch.path} element={<ch.element />} />
-					)) }
-				</Route>
-			)) }
-			
-			{/*<Route path="/auth/customer/dashboard" element={} />*/}
-			{/*<CustomerDashboardRoutes />*/}
-			
-			
-      </Routes>
+	return ( <RouterProvider router={router} />
+		// <Routes>
+      //       <Route path="/" element={<HomePage/>}>
+      //       </Route>
+      //       <Route path="/p/:pId" element={<ProductFilterPage/>}/>
+		//
+      //         <Route path="/auth/join" element={<JoinHome/>}>
+      //             {/* @ts-ignore */}
+      //             <Route path="login" element={<Login/>}/>
+      //             <Route path="registration" element={<Registration/>}/>
+      //             <Route path="reset-password" element={<ResetPassword/>}/>
+      //             <Route path="forget-password" element={<ForgetPassword/>}/>
+      //             <Route path="opt-validate" element={<OTPValidate/>}/>
+      //         </Route>
+      //
+		// 	{ customerDashboardRoutes.map(route=>(
+		// 		<Route path={route.path} element={<route.element />}>
+		// 			{ route.children?.map(ch=>(
+		// 				<Route path={ch.path} element={<ch.element />} />
+		// 			)) }
+		// 		</Route>
+		// 	)) }
+		//
+		// 	{ adminDashboardRoutes.map(route=>(
+		// 		<Route path={route.path} element={<route.element />}>
+		// 			{ route.children?.map(ch=>(
+		// 				<Route path={ch.path} element={<ch.element />} />
+		// 			)) }
+		// 		</Route>
+		// 	)) }
+		//
+		// 	{/*<Route path="/auth/customer/dashboard" element={} />*/}
+		// 	{/*<CustomerDashboardRoutes />*/}
+		//
+		// 	<Route path="*" element={<NotFoundPage />} />
+      //
+      // </Routes>
 	)
 }
 

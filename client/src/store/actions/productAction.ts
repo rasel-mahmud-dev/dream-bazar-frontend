@@ -2,6 +2,7 @@ import {ACTION_TYPES, CategoryType} from "store/types"
 import apis from "src/apis";
 import {RootState} from "src/store";
 import errorMessageCatch from "src/utills/errorMessageCatch";
+import api from "src/apis";
 
 
 export const fetchProducts = () => async (dispatch, getState, api) => {
@@ -35,13 +36,106 @@ export const fetchBrandForCategory=(current_category_id)=> async (dispatch, getS
 }
 
 
-export const fetchFlatCategories = ()=>{
-  return new Promise<CategoryType[] | undefined>(async (resolve, reject)=>{
-    let response = await apis.get<CategoryType[] | undefined>(`/api/categories`)
-    if(response) {
-      resolve(response.data)
+// only count total filtered products. if changed these state
+
+export function filterProductsAction(payload, isCount: boolean, dispatch, cb){
+    
+    // !isCount && props.toggleAppMask(true)
+    // !isCount && (props.toggleLoader && props.toggleLoader("product-filter", true))
+    
+    const {
+        brands,
+        filteredAttributes,
+        sortBy,
+        paginate,
+    } = payload
+    
+    let attributes = {}
+    if(filteredAttributes.length > 0 ){
+        filteredAttributes.forEach(attr=>{
+            let attrValArr: any = []
+            attr.values.forEach(attrVal=>{
+                attrValArr.push(attrVal.value)
+            })
+            attributes[attr.attribute_name] =  attrValArr
+        })
+    }
+    
+    let brandIds : string[] = []
+    if(brands){
+        brands.forEach((brand: any)=>{
+            brandIds.push(brand.id)
+        })
+    }
+    
+    interface bodyDataType {
+        categoryId?: string,
+        categoryIds?: string[],
+        pageNumber: any;
+        perPage: any;
+        brandIds: string[];
+        attributes: {};
+        sortBy?: any
+    }
+    
+    let bodyData: bodyDataType = {
+        attributes: attributes,
+        categoryIds: payload.categoryIds,
+        brandIds: brandIds.length > 0 ? brandIds : [],
+        sortBy: sortBy && sortBy.length > 0 ? sortBy : [],
+        // category_id: currentCategorySelected._id,
+        pageNumber: paginate && paginate.currentPage,
+        perPage: paginate && paginate.perPage
+    }
+    
+    
+    // if(currentNestedSubCategory && selectCategory.tree){
+    //     bodyData.categoryIds =  getAllChildrenId(selectCategory.tree.id, flatCategories)
+    // } else if(selectCategory && selectCategory.root){
+    //     bodyData.categoryIds =  getAllChildrenId(selectCategory.root.id, flatCategories)
+    // }
+    //
+    // let response = await api.post(`/api/products/filter/v2`, bodyData)
+    //
+    // props.toggleAppMask(false)
+    // props.toggleLoader("product-filter", false)
+    //
+    // cb(response.data)
+    
+    
+    return new Promise(async function(resolve, reject){
+        try {
+            
+            let {status, data} = await api.post(`/api/products/filter/v2`, bodyData)
+            if (status === 200) {
+                dispatch({
+                  type: ACTION_TYPES.FETCH_FILTER_PRODUCTS,
+                  payload: data
+                })
+                resolve(data)
+            }
+           
+        } catch (ex){
+            console.log(ex)
+        }
+    })
+}
+
+
+
+
+
+export const fetchFlatCategoriesAction = (dispatch)=>{
+  return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
+    let {data, status} = await apis.get<CategoryType[] | null>(`/api/categories`)
+    if(status === 200) {
+        dispatch({
+            type: ACTION_TYPES.FETCH_FLAT_CATEGORIES,
+            payload: data
+        })
+      resolve(data)
     } else{
-      resolve(undefined)
+      resolve(null)
     }
   })
 }

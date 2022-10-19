@@ -4,7 +4,7 @@ import { useState, Suspense, useContext } from "react";
 import { useDispatch, connect } from "react-redux";
 import "./App.scss";
 import "./styles/shared.scss";
-import { Route, Link } from "react-router-dom";
+import {Route, Link, Outlet} from "react-router-dom";
 import { Modal, TopProgressBar, Tooltip } from "components/UI";
 
 import MyRoutes from "./MyRoutes";
@@ -208,7 +208,7 @@ function App(props) {
 				</Modal>
 
 				<Suspense fallback={<TopProgressBar />}>
-					<MyRoutes />
+					<Outlet />
 					{/*{ routes.map((route, i)=> <Route key={i} {...route} /> ) }*/}
 				</Suspense>
 

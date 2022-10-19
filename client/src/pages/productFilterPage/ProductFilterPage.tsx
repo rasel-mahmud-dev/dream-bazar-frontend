@@ -20,18 +20,18 @@ import SidebarRenderCategory from "components/SidebarRenderCategory/SidebarRende
 import {LastSelectedCategoryProps, PaginationWhereEnum, SelectedCatSectionType} from "reducers/productReducer";
 import RenderBreadcrumb from "components/renderBreadcrumb/RenderBreadcrumb";
 // import {Dispatch} from "redux";
-import {toggleLoader} from "actions/productAction";
+import {filterProductsAction, toggleLoader} from "actions/productAction";
 // import {toggleAppMask} from "actions/appAction";
 import calculateDiscount from "src/utills/calculateDiscount";
 import apis from "src/apis";
 import {getPagination} from "actions/localActions";
-import CategoryList from "pages/productFilterPage/CategoryList";
 import {RootState} from "src/store";
 import BrandList from "pages/productFilterPage/BrandList";
 import staticImagePath from "src/utills/staticImagePath";
 import {FaHeart} from "react-icons/all";
 import Product from "components/product/Product";
 import SEO from "components/SEO/SEO";
+import CategoryList from "components/categoryList/CategoryList";
 
 
 let initialLoad = true
@@ -84,7 +84,7 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
   
   const {
     paginations,
-    products,
+      filterProducts,
     totalProduct,
     totalFilterAbleProductCount,
     currentCategorySelected,
@@ -95,8 +95,8 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
     flatCategories
   } = productState
   
-
-    const params = useParams()
+  
+const params = useParams()
   
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -525,31 +525,45 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
   React.useEffect(()=>{
    
     let data = {
+        categoryIds: [],
         brands: filters.brands,
         selectCategory,
         filteredAttributes,
         // sortBy,
         paginate: {currentPage: pagination ? pagination.currentPage : 1, perPage: pagination ? pagination.perPage : 20},
       }
+      
+      if(filters.category){
+          if(filters.category.allNestedIds && filters.category.allNestedIds.length > 0){
+              data.categoryIds = filters.category.allNestedIds.map(a=>a.id)
+          } else if(filters.category.selected) {
+              data.categoryIds = [filters.category.selected.id]
+          }
+      }
+    
+      filterProductsAction(data,  false,  dispatch, function (data) {
+          // console.log(data)
+        // dispatch({
+        //   type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
+        //   payload: data.products
+        // })
+        // dispatch({
+        //   type: ACTION_TYPES.FETCH_FILTER_PRODUCTS,
+        //   payload: data.products
+        // })
 
-      filterProductWithState(data,  false, function (data) {
-        dispatch({
-          type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
-          payload: data.products
-        })
-        dispatch({
-          type: ACTION_TYPES.FETCH_FILTER_PRODUCTS,
-          payload: data.products
-        })
-        
         // dispatch({
         //   type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
         //   payload: data.total
         // })
       })
     
-  }, [selectCategory.root, selectCategory.tree, filters.brands])
-  
+
+      
+  }, [selectCategory.root, selectCategory.tree, filters.brands, filters.category])
+    
+    // console.log(filters)
+    
   
   function getAllChildrenId(id, arr){
     let aa = []
@@ -592,95 +606,7 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
     // })
   }, [paginations])
 
-  // only count total filtered products. if changed these state
 
-  async function filterProductWithState(data, isCount: boolean, cb){
-
-    // !isCount && props.toggleAppMask(true)
-    // !isCount && (props.toggleLoader && props.toggleLoader("product-filter", true))
-
-    const {
-      currentNestedSubCategory,
-      selectCategory,
-      brands,
-      filteredAttributes,
-      sortBy,
-      paginate,
-    } = data
-
-    let attributes = {}
-    if(filteredAttributes.length > 0 ){
-      filteredAttributes.forEach(attr=>{
-        let attrValArr: any = []
-        attr.values.forEach(attrVal=>{
-          attrValArr.push(attrVal.value)
-        })
-        attributes[attr.attribute_name] =  attrValArr
-      })
-    }
-
-    let brandIds : string[] = []
-    if(brands){
-      brands.forEach((brand: any)=>{
-        brandIds.push(brand.id)
-      })
-    }
-
-    interface bodyDataType {
-      categoryId?: string,
-      categoryIds?: string[],
-      pageNumber: any;
-      perPage: any;
-      brandIds: string[];
-      attributes: {};
-      sortBy?: any
-    }
-
-    let bodyData: bodyDataType = {
-      attributes: attributes,
-      categoryIds: [],
-      brandIds: brandIds.length > 0 ? brandIds : [],
-      sortBy: sortBy && sortBy.length > 0 ? sortBy : [],
-      // category_id: currentCategorySelected._id,
-      pageNumber: paginate && paginate.currentPage,
-      perPage: paginate && paginate.perPage
-    }
-  
-    
-    if(currentNestedSubCategory && selectCategory.tree){
-      bodyData.categoryIds =  getAllChildrenId(selectCategory.tree.id, flatCategories)
-    } else if(selectCategory && selectCategory.root){
-      bodyData.categoryIds =  getAllChildrenId(selectCategory.root.id, flatCategories)
-    }
-  
-    let response = await api.post(`/api/products/filter/v2`, bodyData)
-    
-    props.toggleAppMask(false)
-    props.toggleLoader("product-filter", false)
-   
-    cb(response.data)
-   
-    
-    
-    // console.log(bodyData)
-    // try {
-    //   if(isCount){
-    //     let {data} = await api.post(`/api/products/filter/v2`, {...bodyData, documentCount: true})
-    //     cb(data)
-    //   } else {
-    //     let {data} = await api.post(`/api/products/filter/v2`, bodyData)
-    //     if (data) {
-    //       props.toggleAppMask(false)
-    //       props.toggleLoader("product-filter", false)
-    //       cb(data)
-    //     }
-    //   }
-    // } catch (ex){
-    //   console.log(ex)
-    // }
-  }
-  
-  
 
   function renderProducts(){
 
@@ -717,8 +643,8 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
       // )
 
     return (
-      <div className="products-views-ssd grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        { products && products.length > 0 ? products.map((product, i)=>(
+      <div className="products-views-ssds grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+        { filterProducts && filterProducts.length > 0 ? filterProducts.map((product, i)=>(
           <Product key={i} product={product} handleAddToWishList={handleAddToWishList} isWished={isWished} renderProductAtt={renderProductAtt} />
         )) : (
           <NotFoundProduct title="Product not found on this Category " />
@@ -834,10 +760,10 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
     <div >
     
     
-    <SEO
-        title={`p/${params.pId}/${params.treeId}`}
-        description="Product filter"
-    />
+        <SEO
+            title={`p/${params.pId}/${params.treeId}`}
+            description="Product filter"
+        />
     
 
       <div className="spin-fixed top-1/4 ">
@@ -847,13 +773,13 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
       </div>
 
       <div className="product-filter-page--layout">
-        <div className="sidebar">
+        <div className="sidebar bg-body">
           {/*{ss}*/}
           <CategoryList />
           <BrandList />
         </div>
 
-        <div className="content content-container">
+        <div className="content w-full content-container bg-body">
           {/*<RenderBreadcrumb*/}
           {/*  dispatch={dispatch}*/}
           {/*  selectedCatSections={selectedCatSections}*/}

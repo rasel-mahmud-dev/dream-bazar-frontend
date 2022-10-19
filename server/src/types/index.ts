@@ -7,6 +7,11 @@ export interface RequestWithAuth extends Request{
 
 }
 
+export interface TypedRequestBody<T> extends Request {
+    body: T
+}
+
+
 export type ObjectFlags<Type> = {
     [Property in keyof Type]: any;
 };

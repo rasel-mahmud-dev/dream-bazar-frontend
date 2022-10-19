@@ -234,7 +234,7 @@ const HomePage = (props) => {
         
             { Object.keys(productSectionsWithProduct) && Object.keys(productSectionsWithProduct).map((sectionName, index: number)=>(
               <>
-              <div className="bg-white dark:bg-neutral-800 mt-10 shadow-card-deep dark:shadow-md" key={index}>
+              <div className="bg-body mt-10" key={index}>
                   <div className="flex items-center justify-between py-2 px-4 mb-8 border-b border-b-neutral-900/10 dark:border-neutral-600 ">
                     <h1 className="text-neutral-800 dark:text-white font-medium text-md md:text-lg lg:text-2xl">{l(sectionName)}</h1>
                     { productSectionsWithProduct[sectionName].type === "products"
@@ -246,7 +246,7 @@ const HomePage = (props) => {
                     </Button>
                   </div>
         
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                   {productSectionsWithProduct[sectionName]
                   && productSectionsWithProduct[sectionName].values
                   && productSectionsWithProduct[sectionName].values.length > 0 ? productSectionsWithProduct[sectionName].values.map((pp, index) => (

@@ -79,7 +79,7 @@ export interface ProductStateType {
     oneTypeProductsLength: any;
     totalProduct: number,
     totalFilterAbleProductCount: number,
-    products: any
+    filterProducts: any
     category: { // this is need for filter sidebar
         // filters: {name: string, values: {name: "string", value: any}[]}[]
         brands: { _id: string, name: string }[] // populated from brands collections
@@ -91,6 +91,10 @@ export interface ProductStateType {
         _id: string
     } | {},
     filters: {
+        category: {
+          selected?: {name: string, id: string, parentId?: string},
+          allNestedIds?: string[]
+        },
         price: any
         brands: { name: string, logo: string, _id: string }[]
         sortBy: { field: string, id: string, order: number }[]
@@ -129,7 +133,7 @@ const initialState: ProductStateType = {
     ui_filterItems: [],
     totalProduct: 0,
     totalFilterAbleProductCount: 0,
-    products: [{title: 'Reduce State Product', _id: "34324"}],
+    filterProducts: [{title: 'Reduce State Product', _id: "34324"}],
     adminProducts: {
         total: 0,
         cached: {
@@ -206,6 +210,10 @@ const initialState: ProductStateType = {
     /// make caching brand for individual category
     brandsForCategory: [],
     filters: {
+        category: {
+            selected: null,
+            allNestedIds: []
+        },
         price: [10, 100],
         brands: [],
         sortBy: [{field: "views", order: -1, id: "1"}],
@@ -287,7 +295,7 @@ const productReducer = (state: ProductStateType = initialState, action) => {
         
         
         case ACTION_TYPES.FETCH_FILTER_PRODUCTS :
-            updatedState.products = action.payload
+            updatedState.filterProducts = action.payload
             return updatedState
         
         
@@ -301,7 +309,7 @@ const productReducer = (state: ProductStateType = initialState, action) => {
             return updatedState
         
         
-        case ACTION_TYPES.FETCH_CATEGORIES :
+        case ACTION_TYPES.FETCH_FLAT_CATEGORIES :
             updatedState.flatCategories = action.payload
             return updatedState
         
@@ -350,8 +358,8 @@ const productReducer = (state: ProductStateType = initialState, action) => {
         
         // if change page number then call this
         case ACTION_TYPES.FETCH_PRODUCTS_APPEND :
-            updatedState.products = [...updatedState.products, ...action.payload]
-            return updatedState
+            // updatedState.products = [...updatedState.products, ...action.payload]
+            // return updatedState
         
         
         case "COUNT_FETCHED_PRODUCTS" :
@@ -522,7 +530,7 @@ const productReducer = (state: ProductStateType = initialState, action) => {
             // pass switch case to another function........
             // this function should be return updated state
             updatedState  = filterSidebar(state, action)
-            updatedState  = adminProductReducer(state, action)
+            updatedState  = adminProductReducer(updatedState, action)
             return updatedState
     }
 }
