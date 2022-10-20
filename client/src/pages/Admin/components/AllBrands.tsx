@@ -14,13 +14,12 @@ import { toggleBackdrop} from "actions/appAction";
 import {InputGroup} from "UI/Form";
 import FileUpload from "UI/Form/File/FileUpload";
 import MultiSelect from "UI/Form/multiSelect/MultiSelect";
-import {ACTION_TYPES} from "store/types";
 import {deleteBrandAction} from "actions/productAction";
 import ActionInfo from "components/ActionInfo/ActionInfo";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import {RootState} from "src/store";
 import isoStringToDate from "src/utills/isoStringToDate";
-import { fetchAdminBrandsAction} from "actions/adminProductAction";
+import {fetchAdminBrandsAction, fetchFlatCategoriesAction} from "actions/adminProductAction";
 
 
 
@@ -50,11 +49,6 @@ const AllBrands = (props) => {
     const {formData, isShowForm, updateId} = state
     
     
-    async function fetchAllCategoryBrand(flatCategories){
-        if(!flatCategories) {
-            return fetchFlatCategories();
-        }
-    }
     
     React.useEffect(() => {
     
@@ -86,7 +80,7 @@ const AllBrands = (props) => {
     function deleteItem(id: any) {
         deleteBrandAction(dispatch, id, function(err, data){
             if(!err){
-                setBrands(brands.filter(b=>b.id !== id))
+                setBrands(brands.filter(b=>b._id !== id))
             } else {
                 console.log(err)
             }
@@ -184,7 +178,7 @@ const AllBrands = (props) => {
                     updateState.httpStatus = 200
                     
                     let updateBrands = brands
-                    let index = updateBrands.findIndex(b=>b.id === updateId)
+                    let index = updateBrands.findIndex(b=>b._id === updateId)
                     if(index !== -1){
                         brands[index] = {
                             ...brands[index],
@@ -256,8 +250,8 @@ const AllBrands = (props) => {
         if(brand.forCategory){
             if(typeof brand.forCategory === "string"){
                 try {
-                    let b = JSON.parse(brand.forCategory)
-                    let items = flatCategories.filter(c=> b.includes(c.id))
+                    let b = brand.forCategory
+                    let items = flatCategories.filter(c=> b.includes(c._id))
                     updateFormData.forCategory = {value: items, errorMessage: ""}
                     
                 } catch (_){}
@@ -267,7 +261,7 @@ const AllBrands = (props) => {
         setState({
             ...state,
             isShowForm: true,
-            updateId: brand.id,
+            updateId: brand._id,
             formData: updateFormData
         })
         dispatch(
@@ -277,6 +271,12 @@ const AllBrands = (props) => {
             })
         );
         
+    }
+    
+    function handleCollapseCategory(e){
+        if(!flatCategories){
+            fetchFlatCategoriesAction(dispatch).then(r => {}).catch(ex=>{})
+        }
     }
     
     function addBrandForm() {
@@ -329,9 +329,10 @@ const AllBrands = (props) => {
                     inputClass="input-group"
                     placeholder="for category"
                     onChange={handleChange}
+                    onClick={handleCollapseCategory}
                     state={formData}
                     options={(onClick)=> <div className="bg-neutral-100 px-2 absolute top-0 left-0 w-full">
-                        {flatCategories.map(cat=>(
+                        {flatCategories?.map(cat=>(
                                 <li onClick={()=>onClick(cat)} className="cursor-pointer py-1 menu-item">{cat.name}</li>
                             ))}
                             </div>}
@@ -395,10 +396,10 @@ const AllBrands = (props) => {
             title: "Action",
             dataIndex: "",
             className: "center_in_div",
-            render: (item) => (
+            render: (_, item) => (
                 <div className="flex justify-center items-center gap-x-2">
                     <BsPencilSquare className="text-md cursor-pointer" onClick={()=>setUpdateBrandHandler(item)} />
-                    <FcEmptyTrash className="text-xl cursor-pointer" onClick={()=>deleteItem(item.id)}/>
+                    <FcEmptyTrash className="text-xl cursor-pointer" onClick={()=>deleteItem(item._id)}/>
                 </div>
             ),
         },
@@ -436,7 +437,7 @@ const AllBrands = (props) => {
 
             <div className="card">
                 <Table
-                dataSource={adminBrands.cached ? adminBrands.cached : []}
+                    dataSource={adminBrands.cached ? adminBrands.cached : []}
                    columns={columns}
                    tbodyClass={{
                        tr: "hover:bg-green-500/10",

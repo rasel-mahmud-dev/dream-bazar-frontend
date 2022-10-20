@@ -1,27 +1,32 @@
-import BaseSQLite from "./BaseSQLite";
+import Base from "./Base";
+import {IndexType} from "../services/mongodb/models.index.types";
 
 export interface BrandType {
-    id?: number | string
+    _id?: string
     name?: string
     logo?: string
-    forCategory?: string[] |  string
+    forCategory?: string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
 }
 
-class Brand extends BaseSQLite implements BrandType {
-    id?: number | string
+class Brand extends Base implements BrandType {
+    _id?:  string
     name?: string
     logo?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    forCategory?: string[] | string
+    forCategory?: string[]
     
-    static tableName = "brands"
+    static indexes: IndexType = {
+        name: {}
+    }
     
+    static collectionName = "brands"
     
     constructor(data: BrandType) {
-        let dateString =  new Date().toISOString();
-        super(Brand.tableName)
-        this.id = data.id ?? ""
+        let dateString =  new Date()
+        super(Brand.collectionName)
         this.name = data.name
         this.logo =  data.logo
         this.createdAt = dateString
