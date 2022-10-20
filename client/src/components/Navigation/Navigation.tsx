@@ -1,18 +1,9 @@
-import React, {lazy, useContext, Suspense} from "react";
+import React, {lazy, Suspense, useContext} from "react";
 import "./Navigation.scss";
-import { Link } from "react-router-dom";
-import {useDispatch, connect, useSelector} from "react-redux";
-import {
-    OnScroll,
-    Button,
-    Menu,
-    Popup,
-    Badge,
-    Typography,
-    Image,
-} from "components/UI";
+import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {Badge, Button, Image, OnScroll, Popup, Typography,} from "components/UI";
 // import ProductCategoryDropdown from "components/ProductCategoryDropdown/ProductCategoryDropdown"
-import { ACTION_TYPES } from "store/types";
 import fullLink from "src/utills/fullLink";
 
 import {
@@ -22,26 +13,27 @@ import {
     FaFacebook,
     FaHeart,
     FaLanguage,
+    FiMoon,
     GiShoppingBag,
-    IoLanguageOutline, FiMoon, FaSignInAlt, GrOrderedList, MdFavorite,
+    IoLanguageOutline,
 } from "react-icons/all";
 
 import {RootState} from "src/store";
 import {setLanguage, toggleTheme} from "actions/appContextActions";
-import  {AppContext} from "store/AppContext";
+import {AppContext} from "store/AppContext";
 
 import useLanguage from "src/hooks/useLanguage";
 import staticImagePath from "src/utills/staticImagePath";
 import CartDropdown from "components/Navigation/CartDropdown";
 
-const AuthDropdown  = lazy(()=>import("components/Navigation/AuthDropdown"));
-const MoreDropdown  = lazy(()=>import("components/Navigation/MoreDropdown"));
+const AuthDropdown = lazy(() => import("components/Navigation/AuthDropdown"));
+const MoreDropdown = lazy(() => import("components/Navigation/MoreDropdown"));
 
 const Title = Typography.Title.default;
 
 function Navigation(props) {
     
-    const { authState: { auth }, appState, cartState } = useSelector((state: RootState)=>state);
+    const {authState: {auth}, appState, cartState} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
     
     
@@ -66,15 +58,15 @@ function Navigation(props) {
             setFixed(false);
         }
     }, [props.offsetTop]);
-
+    
     function renderCartProduct(top: number, isShow: boolean) {
         let totalPrice: number = 0;
-
+        
         function calculateTotalPrice(item) {
             let perItemPrice = item.quantity * item.unitPrice;
             totalPrice += perItemPrice;
         }
-
+        
         // @ts-ignore
         return (
             <Popup
@@ -83,7 +75,7 @@ function Navigation(props) {
                 inProp={isShow}
             >
                 <div
-                    style={{ padding: "5px 10px" }}
+                    style={{padding: "5px 10px"}}
                     className="render_cart d-flex align-center fs-14"
                 >
                     <div>
@@ -139,12 +131,12 @@ function Navigation(props) {
             </Popup>
         );
     }
-
-    function handleChangeTheme(e){
+    
+    function handleChangeTheme(e) {
         toggleTheme(e.target.value, contextDispatch)
     }
     
-    function handleChangeLanguage(e){
+    function handleChangeLanguage(e) {
         setLanguage(e.target.value, contextDispatch)
     }
     
@@ -155,11 +147,11 @@ function Navigation(props) {
             <div className="bg-white dark:bg-neutral-800  py-1 ">
                 <div className="grid grid-cols-12 justify-between w-full max-w-8xl mx-auto px-4">
                     <div className="col-span-2 flex items-center gap-x-4  dark:text-white">
-                        <FaFacebook />
-                        <BsGithub />
-                        <FaFacebook />
-                        <BsGithub />
-                        <FaLanguage />
+                        <FaFacebook/>
+                        <BsGithub/>
+                        <FaFacebook/>
+                        <BsGithub/>
+                        <FaLanguage/>
                     </div>
 
                     <div className="col-span-8">
@@ -172,15 +164,17 @@ function Navigation(props) {
 
                     <div className="col-span-2 flex w-full gap-x-4">
                         <li className="flex items-center justify-end dark:text-white">
-                            <IoLanguageOutline className="text-md" />
-                            <select onChange={handleChangeLanguage} name="" id="" value={contextState.lang} className="dark:bg-neutral-600 dark:text-white">
+                            <IoLanguageOutline className="text-md"/>
+                            <select onChange={handleChangeLanguage} name="" id="" value={contextState.lang}
+                                    className="dark:bg-neutral-600 dark:text-white">
                                 <option value="bn">{l('Bangla')}</option>
                                 <option value="en">{l('English')}</option>
                             </select>
                         </li>
                          <li className="flex items-center justify-end dark:text-white">
-                            <FiMoon className="text-md" />
-                            <select onChange={handleChangeTheme} name="" id="" value={contextState.theme} className="dark:bg-neutral-600 dark:text-white">
+                            <FiMoon className="text-md"/>
+                            <select onChange={handleChangeTheme} name="" id="" value={contextState.theme}
+                                    className="dark:bg-neutral-600 dark:text-white">
                                 <option value="dark">{l("Dark", "Dark")}</option>
                                 <option value="light">{l("Light", "Light")}</option>
                                 <option value="system">{l("System", "System")}</option>
@@ -199,19 +193,26 @@ function Navigation(props) {
                         
                         <div className="col-span-2 logo">
                             <Link to="/" className="flex items-center">
-                                <img src="/logo-2.png" alt="" />
-                                <h4 className="text-white font-semibold text-xl">
-                                    DreamShop
+                                <img src="/logo-2.png" alt="" className="w-9 md:w-11"/>
+                                <h4 className="text-white font-semibold text-lg md:text-xl   md:block">
+                                    DreamBajar
                                 </h4>
                             </Link>
                         </div>
 
+                        
+                        
                         <div className="col-span-6 flex w-full  ">
                             {/* <ProductCategoryDropdown /> */}
-                            <div className="flex items-center  w-full">
-                                <div className="bg-white/30 py-2 px-4 flex justify-between items-center rounded-full w-full">
+    
+    
+                            {/***** search bar *******/}
+                            <div className="hidden items-center  w-full  lg:flex">
+                                <div
+                                    className="bg-white/30 py-2 px-4 flex justify-between items-center rounded-full w-full">
                                     <div className="flex items-center border-r border-white pr-2">
-                                        <select name="" id="" className="bg-transparent text-white outline-none border-none w-auto placeholder-white">
+                                        <select name="" id=""
+                                                className="bg-transparent text-white outline-none border-none w-auto placeholder-white">
                                             <option value="">All</option>
                                             <option value="">Title</option>
                                             <option value="">Brand</option>
@@ -222,7 +223,7 @@ function Navigation(props) {
                                         placeholder="Search for products, brand and more"
                                         className="bg-transparent w-full outline-none text-white placeholder-white ml-2 "
                                     />
-                                    <BiSearch className="text-white text-xl" />
+                                    <BiSearch className="text-white text-xl"/>
                                 </div>
                             </div>
                         </div>
@@ -230,99 +231,63 @@ function Navigation(props) {
                         <div className="col-span-4 justify-self-end">
                             
                             <div className="flex gap-x-4 ">
+                                
+                                 {/*** mobile search icon *****/}
+                                 <li className="md:hidden relative flex items-center gap-x-2 py-5">
+                                    <div className="flex justify-end ">
+                                        <BiSearch className="text-2xl text-white"/>
+                                    </div>
+                                 </li>
+                                
                                 <li className="relative flex items-center gap-x-2 py-5"
-                                    onMouseEnter={()=>setState({...state, openDropdown: "cart"})}
-                                    onMouseLeave={()=>setState({...state, openDropdown: ""})}
-                                >
+                                    onMouseEnter={() => setState({...state, openDropdown: "cart"})}
+                                    onMouseLeave={() => setState({...state, openDropdown: ""})}>
+                                    
+                                    
                                  
                                     <Badge className="bg-red-500">
                                         10
                                     </Badge>
                                     
-                                    <GiShoppingBag className="text-white text-2xl " />
-                                    <span className="font-medium text-white">
-                                        {l("In Cart", "In Cart") }
+                                    <GiShoppingBag className="text-white text-2xl "/>
+                                    <span className="font-medium text-white hidden md:block">
+                                        {l("In Cart")}
                                     </span>
                                     <Suspense fallback={<h1>loading</h1>}>
-                                        <CartDropdown className="-right-40 top-14" isShow={state.openDropdown === "cart"}  />
+                                        <CartDropdown className="-right-40 top-14"
+                                                      isShow={state.openDropdown === "cart"}/>
                                     </Suspense>
                                 </li>
                                 
                                 <li className="flex items-center gap-x-2 py-5 ">
-                                    <FaHeart className="text-white text-2xl" />
-                                    <span className="font-medium text-white">
-                                        {l("Favorite", "Favorite") }
+                                    <FaHeart className="text-white text-2xl"/>
+                                    <span className="font-medium text-white hidden md:block">
+                                        {l("Favorite")}
                                     </span>
                                 </li>
                                 
                                 <li className="relative flex items-center gap-x-2 py-5 "
-                                    onMouseEnter={()=>setState({...state, openDropdown: "auth"})}
-                                    onMouseLeave={()=>setState({...state, openDropdown: ""})}
+                                    onMouseEnter={() => setState({...state, openDropdown: "auth"})}
+                                    onMouseLeave={() => setState({...state, openDropdown: ""})}
                                 >
                                     {auth && auth.avatar ? (
                                         <div className="w-6">
-                                            <img className="rounded-full" src={staticImagePath(auth.avatar )} alt=""/>
+                                            <img className="rounded-full" src={staticImagePath(auth.avatar)} alt=""/>
                                         </div>
-                                        ) : <BiUser className="text-white text-2xl" />
+                                    ) : <BiUser className="text-white text-2xl"/>
                                     }
-                                    
-                                    <span className="font-medium text-white">
-                                        {auth ? auth.firstName : l("Account") }
+    
+                                    <span className="font-medium text-white hidden md:block">
+                                        {auth ? auth.firstName : l("Account")}
                                     </span>
                                     <Suspense fallback={<h1>loading</h1>}>
-                                         <AuthDropdown className="right-0 top-14" isShow={state.openDropdown === "auth"}  />
+                                         <AuthDropdown className="right-0 top-14"
+                                                       isShow={state.openDropdown === "auth"}/>
                                     </Suspense>
                                 </li>
                             </div>
                             
-                            
-                            
-                            {/*<div*/}
-                            {/*    className="relative"*/}
-                            {/*    data-id="cart"*/}
-                            {/*    onClick={handleMouseHover}*/}
-                            {/*>*/}
-                            {/*    <i className="relative far fa-shopping-bag event-none">*/}
-                            {/*        <Badge*/}
-                            {/*            count={12}*/}
-                            {/*            style={{*/}
-                            {/*                background: "#955afd",*/}
-                            {/*                position: "absolute",*/}
-                            {/*                top: -15,*/}
-                            {/*                left: 5,*/}
-                            {/*            }}*/}
-                            {/*        />*/}
-                            {/*    </i>*/}
-                            {/*    {renderCartProduct(30, isShow === "cart")}*/}
-                            {/*</li>*/}
-
-                            {/*/!*<Link to="/cart" className="cart_menu">*!/*/}
-                            {/*/!*  <i className="far fa-shopping-bag" />*!/*/}
-                            {/*/!*  <span className="badge">{props.cartItems}</span>*!/*/}
-                            {/*/!*</Link>*!/*/}
-                            {/*/!*<span>Cart</span>*!/*/}
-
-                            {/*<Button*/}
-                            {/*    className="relative auth_nav_item bg-primary px-5"*/}
-                            {/*    onMouseEnter={handleMouseHover}*/}
-                            {/*    onMouseLeave={handleMouseLeave}*/}
-                            {/*    data-id="auth_menu"*/}
-                            {/*>*/}
-                            {/*    {authState._id && authState.avatar ? (*/}
-                            {/*        <img*/}
-                            {/*            className="user-avatar"*/}
-                            {/*            src={fullLink(authState.avatar)}*/}
-                            {/*        />*/}
-                            {/*    ) : (*/}
-                            {/*        <i className="far fa-user-circle" />*/}
-                            {/*    )}*/}
-                            {/*    <span>*/}
-                            {/*        {authState._id && authState.username}*/}
-                            {/*    </span>*/}
-                            {/*    {renderAuthMenu(20, isShow === "auth_menu")}*/}
-                            {/*</Button>*/}
                         </div>
-                        
                     </div>
                 </div>
             </div>
