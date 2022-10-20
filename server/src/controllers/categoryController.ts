@@ -103,7 +103,7 @@ export const updateCategory = async (req: Request, res: Response, next: NextFunc
         category = new Category({
             name: name,
             parentId: parentId,
-            isProductLevel: isProductLevel,
+            isProductLevel: isProductLevel ? isProductLevel : false,
             logo: "",
             ideals: ideals ?? []
         })

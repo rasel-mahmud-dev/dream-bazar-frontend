@@ -1848,16 +1848,22 @@ export const productFiltersPostV2 = async (req: TypedRequestBody<{
                 }
             }
         }
+    
+        let categoryIdsOBjs: ObjectId[] = []
+        categoryIds?.forEach((id)=>{
+            categoryIdsOBjs.push(new ObjectId(id))
+        })
         
         const db = await mongoConnect()
         let collection = db.collection("products")
         const result = await collection.aggregate([
             {
+         
                 $match: {
                     $and: [
                         categoryIds && categoryIds.length > 0
                             ? {
-                                    categoryId: { $in: categoryIds },
+                                    categoryId: { $in: categoryIdsOBjs },
                               }
                             : {},
                         brandIds && brandIds.length > 0

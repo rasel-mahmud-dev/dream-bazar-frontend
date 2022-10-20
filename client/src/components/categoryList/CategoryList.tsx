@@ -5,10 +5,10 @@ import {FaAngleRight, FaTimes} from "react-icons/all";
 import {ACTION_TYPES, CategoryType} from "store/types";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
-import { fetchFlatCategoriesAction} from "actions/productAction";
 import {Button} from "UI/index";
 
 import "./styles.scss"
+import {fetchFlatCategoriesAction} from "actions/adminProductAction";
 
 
 function CategoryList(props) {
@@ -172,60 +172,15 @@ function CategoryList(props) {
     const navigate = useNavigate()
     const params = useParams()
     
-    function  getCategoriesLocal(filter: string, data: CategoryType[]){
+    function getCategoriesLocal(filter: string, data: CategoryType[]){
         return data.filter(function (item){
             if(filter){
                 let f = filter.split("=");
-                if(item[f[0]] === f[1]){
+                if(item[f[0]] == f[1]){
                     return item;
                 }
             }
         })
-    }
-    
-    function find(items, parentId, lastId) {
-        let rootItem = [];
-        
-        for (let i = 0; i < items.length; i++) {
-            let cat = items[i];
-            
-            if (cat.parentId == "0") {
-                // only store that match with parentId
-                if (cat.id === parentId) {
-                    cat.sub = []
-                    rootItem.push(cat);
-                }
-            } else {
-                nested(rootItem,  lastId, items)
-            }
-        }
-        return rootItem;
-    }
-    
-    
-    function nested(rootItemElement, lastId, items){
-        
-        for (const rootItemElement1 of items) {
-            for (let subItem of rootItemElement){
-                if(subItem.id === rootItemElement1.parentId){
-                    
-                    if(subItem.sub){
-                        if(subItem.sub.findIndex(s=>s.id === rootItemElement1.id) === -1) {
-                            subItem.sub.push(rootItemElement1)
-                        }
-                    } else {
-                        subItem.sub = [rootItemElement1]
-                    }
-                    
-                    if(lastId ===  rootItemElement1.id){
-                        return;
-                    }
-                    // repeated task
-                    nested(subItem.sub, lastId, items)
-                    
-                }
-            }
-        }
     }
     
     const [lastParentSubCategories, setLastParentSubCategories] = useState({
@@ -237,16 +192,14 @@ function CategoryList(props) {
     
     useEffect(()=>{
         (async function(){
-            if(!flatCategories){
-                await fetchFlatCategoriesAction(dispatch)
-            }
-            getCat()
+            let c = await fetchFlatCategoriesAction(dispatch, flatCategories)
+            getCat(c)
         }())
    
     }, [params.pId, catTree, flatCategories])
     
  
-    function getCat(){
+    function getCat(flatCategories){
 
         console.time("category-find-time")
         
@@ -256,28 +209,19 @@ function CategoryList(props) {
         
         let rootCategory = {}
         
-        let a = flatCategories
-        // if(flatCategories) {
-        //     a = flatCategories;
-        // } else {
-        //     a = await fetchFlatCategories();
-        // }
-        
-        
         // find both category tree
         if(params.pId && catTree){
             
             // base category name
             let rootCategoryName = params.pId
-            
+
             let temp = {}
             
             // default category nested level
             let levelNumber = 1;
             
             // root level or base level all categories where parent id is = 0
-            let rootCategories =  getCategoriesLocal('parentId=0', a)
-            
+            let rootCategories =  flatCategories.filter(a=>a.parentId === null)
             // store it state so that we will render in jsx
             // it first level category / root level
             // { 1 : [{…}, {…}, {…}, {…}, {…}, {…}, {…}] }
@@ -292,7 +236,7 @@ function CategoryList(props) {
             // now find last category that is passed url params 2
             
             // find last n level category
-            let getLastLevelCategory = a.find(item => item.name === catTree)
+            let getLastLevelCategory = flatCategories.find(item => item.name === catTree)
             
             /**
              if nested last n level category not found.
@@ -300,9 +244,10 @@ function CategoryList(props) {
              */
             if(!getLastLevelCategory){
                 setSidebarCategory(updateSidebarCategory);
-                const subCat = getCategoriesLocal("parentId=" + rootCategory.id, flatCategories)
+                // const subCat = getCategoriesLocal("parentId=" + rootCategory._id, flatCategories)
+                const subCat = flatCategories.filter(a=>a.parentId === rootCategory._id)
                 setLastParentSubCategories({
-                    lastParentId: rootCategory.id,
+                    lastParentId: rootCategory._id,
                     sub: subCat,
                     levelNumber: 1
                 })
@@ -326,9 +271,9 @@ function CategoryList(props) {
             getLastLevelCategory.expand = true
             getLastLevelCategory.last = true
             
-            handleChangeCategory(getLastLevelCategory)
+            // handleChangeCategory(getLastLevelCategory)
             
-            findUpperParentRecur(getLastLevelCategory, rootCategoryName, a, temp)
+            findUpperParentRecur(getLastLevelCategory, rootCategoryName, flatCategories, temp)
             
             
             // now we found all level nested level category that store in temp object.
@@ -345,8 +290,8 @@ function CategoryList(props) {
             }
             
             setLastParentSubCategories({
-                lastParentId: getLastLevelCategory.id,
-                sub: a.filter(item => getLastLevelCategory.id === item.parentId),
+                lastParentId: getLastLevelCategory._id,
+                sub: flatCategories.filter(item => getLastLevelCategory._id === item.parentId),
                 levelNumber: levelNumber,
             })
             
@@ -359,7 +304,7 @@ function CategoryList(props) {
             
             // if not match root category then show all root level category
             if(rootCategories.length === 0){
-                rootCategories = getCategoriesLocal('parentId=0', flatCategories)
+                rootCategories = getCategoriesLocal('parentId=null', flatCategories)
                 updateSidebarCategory[1] = rootCategories
                 setLastParentSubCategories({
                     lastParentId: "0",
@@ -374,37 +319,22 @@ function CategoryList(props) {
                 rootCat.expand = true
                 rootCat.last = true
                 // get sub category of root level category
-                const subCat = getCategoriesLocal("parentId=" + rootCat.id, flatCategories)
+                const subCat = getCategoriesLocal("parentId=" + rootCat._id, flatCategories)
                 setLastParentSubCategories({
-                    lastParentId: rootCat.id,
+                    lastParentId: rootCat._id,
                     sub: subCat,
                     levelNumber: 1
                 })
             }
         }
         
-        // dispatch({
-        //     type: "SET_SELECT_CATEGORY",
-        //     payload: {
-        //         root: rootCategory,
-        //         tree: {}
-        //     }
-        // })
-        
         setSidebarCategory(updateSidebarCategory);
-        
-        // if(!flatCategories) {
-        //     dispatch({
-        //         type: ACTION_TYPES.FETCH_CATEGORIES,
-        //         payload: a
-        //     })
-        // }
         
         console.timeEnd("category-find-time")
     }
     
     
-    function findUpperParentRecur(parent: {parentId: string, id: string, name: string, expand?: boolean },  rootCategoryName: string,  arr, temp){
+    function findUpperParentRecur(parent: {parentId: string, _id: string, name: string, expand?: boolean },  rootCategoryName: string,  arr, temp){
         /**
          step 1 parent = Motherboard
          step 2 parent = Computer Components
@@ -413,13 +343,13 @@ function CategoryList(props) {
          step 5 parent = undefined [recursion stop]
          */
             // find upper parent
-        let upperParent = arr.find(item=>item.id === parent.parentId)
+        let upperParent = arr.find(item=>item._id === parent.parentId)
         
         if(upperParent) {
             // sign that only expand
             upperParent.expand = true
             // find upper parent ar sub categories
-            let upperParentOfSub = getCategoriesLocal("parentId=" + upperParent.id, arr);
+            let upperParentOfSub = getCategoriesLocal("parentId=" + upperParent._id, arr);
             /**
              find upper parent ar sub categories
              Ex: Computer Components ar under all category
@@ -429,7 +359,7 @@ function CategoryList(props) {
             if(upperParentOfSub) {
                 // store upper parent or sub categories with in key upper category id and value sub category.
                 // end of we get temp reverse to get level category
-                temp[upperParent.id] = upperParentOfSub
+                temp[upperParent._id] = upperParentOfSub
             }
             
             // check if it not reaches root level category
@@ -506,10 +436,10 @@ function CategoryList(props) {
         
         // find all sub categories for currently clicked item
         // that is set for last parent sub categories sub arr
-        let lastSub = flatCategories.filter(cat=>cat.parentId === item.id)
+        let lastSub = flatCategories.filter(cat=>cat.parentId === item._id)
         
         let updatedSidebarCategory = {...sidebarCategory}
-        let s = updatedSidebarCategory[levelNumber].find(sCat=>sCat.id === item.id)
+        let s = updatedSidebarCategory[levelNumber].find(sCat=>sCat._id === item._id)
         if(s) {
             s.last = true;
         }
@@ -531,7 +461,7 @@ function CategoryList(props) {
         setLastParentSubCategories(prevState => ({
             ...prevState,
             levelNumber: levelNumber,
-            lastParentId: item.id,
+            lastParentId: item._id,
             sub: lastSub
         }))
         if(params.pId === item.name) {
@@ -547,7 +477,7 @@ function CategoryList(props) {
         
         // find all sub categories for currently clicked item
         // that is set for last parent sub categories sub arr
-        const lastClickedSub = flatCategories.filter(ct=>ct.parentId === item.id)
+        const lastClickedSub = flatCategories.filter(ct=>ct.parentId === item._id)
         
         let updatedSidebarCategory = {...sidebarCategory}
         
@@ -555,11 +485,11 @@ function CategoryList(props) {
         let parentCat = null
         
         if(levelNumber === 0){
-            parentCat =updatedSidebarCategory[1].find(sCat=>sCat.id === item.id)
+            parentCat =updatedSidebarCategory[1].find(sCat=>sCat._id === item._id)
             
         } else {
             // find parent of clicked category
-            parentCat = updatedSidebarCategory[levelNumber].find(sCat=>item.parentId === sCat.id)
+            parentCat = updatedSidebarCategory[levelNumber].find(sCat=>item.parentId === sCat._id)
         }
         
         
@@ -573,7 +503,7 @@ function CategoryList(props) {
         parentCat.last = false;
         
         // find parent sub categories for next level nested category
-        let lastParentSub = flatCategories.filter(ct=>ct.parentId === parentCat.id)
+        let lastParentSub = flatCategories.filter(ct=>ct.parentId === parentCat._id)
         
         // set nest level category like
         // updatedSidebarCategory[4 + 1] = []
@@ -594,7 +524,7 @@ function CategoryList(props) {
             ...prevState,
             sub: lastClickedSub.length === 0 ? null : lastClickedSub,
             levelNumber: levelNumber + 1,
-            lastParentId: parentCat.id
+            lastParentId: parentCat._id
         }))
         setSidebarCategory(updatedSidebarCategory)
         handleChangeCategory(item)
@@ -610,7 +540,7 @@ function CategoryList(props) {
     function handleChangeCategory(item: {name: string,parentId?: string,id: string, isProductLevel?: number}) {
     
         let all = []
-        if (item.isProductLevel !== 1) {
+        if (!item.isProductLevel) {
             findAllNestedCat(item, all, flatCategories)
         }
         
@@ -620,7 +550,7 @@ function CategoryList(props) {
             payload: {
                 selected: {
                     name: item.name,
-                    id: item.id,
+                    id: item._id,
                     parentId: item.parentId
                 },
                 allNestedIds:  all.length > 0 ? all : []
@@ -629,19 +559,21 @@ function CategoryList(props) {
     }
     
     function findAllNestedCat(item, result, flatCategories){
-        let allNested = flatCategories.filter(ct=>ct.parentId === item.id);
-        allNested.forEach(nested=>{
-            findAllNestedCat(nested, result, flatCategories)
-        })
-        let aa = allNested.map((a)=>{
-            return {
-                name: a.name,
-                id: a.id,
-                parentId: a.parentId
-                
-            }
-        })
-        result.push(...aa)
+        let allNested = flatCategories.filter(ct=>ct.parentId === item._id);
+        if(allNested && allNested.length) {
+            allNested.forEach(nested => {
+                findAllNestedCat(nested, result, flatCategories)
+            })
+            let aa = allNested.map((a) => {
+                return {
+                    name: a.name,
+                    id: a._id,
+                    parentId: a.parentId
+
+                }
+            })
+            result.push(...aa)
+        }
     }
     
     
@@ -664,7 +596,7 @@ function CategoryList(props) {
                 </div>
     
                 { sidebarCategory[1]?.map(cat=> (!sidebarCategory[2] || cat.expand)  && (
-                    <div key={cat.id} className="ml-2 flex justify-between">
+                    <div key={cat._id} className="ml-2 flex justify-between">
                         <li onClick={()=>clickOnCategoryItem(cat, 1)}
                             className={`category-item cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": "hidden"}
                           ${cat.last ? "last-expand-category": ""}`}>
@@ -673,7 +605,7 @@ function CategoryList(props) {
                 ))}
     
                 { sidebarCategory["2"]?.map(cat=> (!sidebarCategory[3] || cat.expand) && (
-                    <div key={cat.id} className="ml-2">
+                    <div key={cat._id} className="ml-2">
                         <li onClick={()=>clickOnCategoryItem(cat, 2)}
                             className={`category-item cursor-pointer ${(cat.active || cat.expand) ? "expanded-category": "hidden"}
                                    ${cat.last ? "last-expand-category": ""}
@@ -682,7 +614,7 @@ function CategoryList(props) {
                 )) }
     
                 { sidebarCategory["3"]?.map(cat=>  (!sidebarCategory[4]  || cat.expand) && (
-                    <div key={cat.id} className="ml-2">
+                    <div key={cat._id} className="ml-2">
                         <li onClick={()=>clickOnCategoryItem(cat, 3)} className={`category-item cursor-pointer
                         ${(cat.active || cat.expand) ? "expanded-category": "hidden"}
                         ${cat.last ? "last-expand-category": ""}
@@ -692,7 +624,7 @@ function CategoryList(props) {
                 )) }
     
                 { sidebarCategory["4"]?.map(cat=> (!sidebarCategory[5]  || cat.expand) &&  (
-                    <div key={cat.id} className="ml-2">
+                    <div key={cat._id} className="ml-2">
                         <li onClick={()=>clickOnCategoryItem(cat, 4)}
                             className={`category-item cursor-pointer ${(cat.expand) ? "expanded-category": "hidden"}
                                         ${cat.last ? "last-expand-category": ""}

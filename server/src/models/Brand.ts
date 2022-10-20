@@ -1,11 +1,12 @@
 import Base from "./Base";
 import {IndexType} from "../services/mongodb/models.index.types";
+import {ObjectId} from "mongodb";
 
 export interface BrandType {
     _id?: string
     name?: string
     logo?: string
-    forCategory?: string[]
+    forCategory?:  string[] | ObjectId[]
     createdAt?: Date | string
     updatedAt?: Date | string
 }
@@ -16,7 +17,7 @@ class Brand extends Base implements BrandType {
     logo?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    forCategory?: string[]
+    forCategory?: string[] | ObjectId[]
     
     static indexes: IndexType = {
         name: {}

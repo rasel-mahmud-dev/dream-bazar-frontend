@@ -2,16 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store";
 import apis from "src/apis";
-import {deleteBrandAction, deleteFlatCategoryAction} from "actions/productAction";
+import { deleteFlatCategoryAction} from "actions/productAction";
 import { ACTION_TYPES } from "store/types";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import { toggleBackdrop } from "actions/appAction";
 import ActionInfo from "components/ActionInfo/ActionInfo";
 import { InputGroup } from "UI/Form";
-import FileUpload from "UI/Form/File/FileUpload";
-import MultiSelect from "UI/Form/multiSelect/MultiSelect";
 import { Button } from "UI/index";
-import staticImagePath from "src/utills/staticImagePath";
 import { BsPencilSquare, FcEmptyTrash } from "react-icons/all";
 import Table, {Column} from "UI/table/Table";
 import SelectGroup from "UI/Form/SelectGroup";
@@ -24,10 +21,6 @@ const AllCategory = (props) => {
         appState,
         productState: { flatCategories },
     } = useSelector((state: RootState) => state);
-
-    const [totalBrands, setTotalBrands] = React.useState<number>(0);
-
-    const [brands, setBrands] = React.useState<any[]>([]);
 
     const dispatch = useDispatch();
 
@@ -48,10 +41,9 @@ const AllCategory = (props) => {
     React.useEffect(() => {
         (async function () {
             try {
-                if (!flatCategories) {
-                    await fetchFlatCategoriesAction(dispatch);
-                    
-                }
+           
+                await fetchFlatCategoriesAction(dispatch, flatCategories);
+                
             } catch (ex) {}
         })();
     }, []);
@@ -202,7 +194,7 @@ const AllCategory = (props) => {
             updateFormData.parentId = { value: cat.parentId, errorMessage: "" };
         }
         if (cat.isProductLevel) {
-            updateFormData.isProductLevel = { value: cat.isProductLevel === 1, errorMessage: "" };
+            updateFormData.isProductLevel = { value: cat.isProductLevel, errorMessage: "" };
         }
         
         setState({
@@ -297,7 +289,12 @@ const AllCategory = (props) => {
         { title: "Name", dataIndex: "name", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
         { title: "ID", dataIndex: "_id", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
         { title: "ParentID", dataIndex: "parentId", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
-        { title: "Is Product Level", dataIndex: "isProductLevel", render: (isProductLevel: any) => <span>{isProductLevel ? "True": "False" }</span> },
+        { title: "Is Product Level", dataIndex: "isProductLevel",
+            sorter: (a: string, b: string)=> {
+                console.log(a, b)
+            return a > b ? 1 : 0
+            },
+            render: (isProductLevel: any) => <span>{isProductLevel ? "True": "False" }</span> },
         {
             title: "CreatedAt",
             dataIndex: "createdAt",

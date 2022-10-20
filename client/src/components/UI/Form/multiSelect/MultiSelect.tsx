@@ -45,10 +45,10 @@ const MultiSelect: FC<Props> = ({
     
     function handleClick(item, e) {
         e && e.stopPropagation();
+        
         let updateState = [...selectedItem]
         
         let index = updateState.findIndex(v => v[dataKey.key] === item[dataKey.key]);
-        
         if (index === -1) {
             updateState.push(item)
         } else {

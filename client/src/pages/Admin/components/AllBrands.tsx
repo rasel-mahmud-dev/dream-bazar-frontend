@@ -1,4 +1,4 @@
-import React, {} from "react";
+import React, {useEffect} from "react";
 import { Button } from "components/UI";
 import apis from "src/apis";
 import Table from "UI/table/Table";
@@ -44,38 +44,12 @@ const AllBrands = (props) => {
         }
     });
     
-  
+    useEffect(()=>{
+        fetchAdminBrandsAction(adminBrands, dispatch)
+    }, [])
+    
     
     const {formData, isShowForm, updateId} = state
-    
-    
-    
-    React.useEffect(() => {
-    
-        fetchAdminBrandsAction(adminBrands, dispatch)
-        
-        // Promise.allSettled([
-        //     apis.get("/api/brands/count"),
-        //     apis.get("/api/brands"),
-        //     fetchAllCategoryBrand(flatCategories)
-        // ])
-        // .then((result)=>{
-        //         if(result[0].status === "fulfilled"){
-        //             setTotalBrands(result[0].value.data)
-        //         }
-        //         if(result[1].status === "fulfilled"){
-        //             setBrands(result[1].value.data);
-        //         }
-        //         if(result[2].status === "fulfilled"){
-        //             dispatch({
-        //                 type: ACTION_TYPES.FETCH_CATEGORIES,
-        //                 payload: result[2].value
-        //             })
-        //         }
-        //
-        //     })
-    }, []);
-    
 
     function deleteItem(id: any) {
         deleteBrandAction(dispatch, id, function(err, data){
@@ -87,9 +61,9 @@ const AllBrands = (props) => {
         })
     }
     
-    
     function handleChange(e) {
         const { name, value } = e.target
+        
         let updateFormData = { ...state.formData }
 
         if(name === "logo") {
@@ -116,7 +90,7 @@ const AllBrands = (props) => {
             formData: updateFormData
         })
     }
-
+    
     async function handleAdd(e) {
     
         let updateState = {...state}
@@ -125,7 +99,7 @@ const AllBrands = (props) => {
     
         let isComplete = true
         let payload = new FormData();
-        
+       
         for (let item in formData) {
             
             if(item === "logo"){
@@ -140,7 +114,7 @@ const AllBrands = (props) => {
                 let categoryIds = []
                 if(formData[item].value && Array.isArray(formData[item].value) && formData[item].value.length){
                     for(let cat of formData[item].value){
-                        categoryIds.push(cat.id)
+                        categoryIds.push(cat._id)
                     }
                 } else {
                     formData[item].errorMessage = "Please select brand for category "
@@ -170,7 +144,7 @@ const AllBrands = (props) => {
         setState(updateState)
         
         updateState = {...state}
- 
+        
         if(updateId){
             apis.patch("/api/brand/"+updateId, payload).then(({status, data})=>{
                 if(status === 201) {
@@ -212,7 +186,6 @@ const AllBrands = (props) => {
         }
     }
     
-    
     function clearField(){
         let update = {...formData}
         for (let updateKey in update) {
@@ -239,7 +212,7 @@ const AllBrands = (props) => {
         );
     }
     
-    function setUpdateBrandHandler(brand){
+    async function setUpdateBrandHandler(brand){
         let updateFormData = { ...state.formData }
         if(brand.name) {
             updateFormData.name = {value: brand.name, errorMessage: ""}
@@ -248,14 +221,16 @@ const AllBrands = (props) => {
             updateFormData.logo= {value: brand.logo, errorMessage: ""}
         }
         if(brand.forCategory){
-            if(typeof brand.forCategory === "string"){
-                try {
-                    let b = brand.forCategory
-                    let items = flatCategories.filter(c=> b.includes(c._id))
-                    updateFormData.forCategory = {value: items, errorMessage: ""}
-                    
-                } catch (_){}
+            try {
+                let b = brand.forCategory
+                let categories = await fetchFlatCategoriesAction(dispatch, flatCategories)
+                let items = categories.filter(c=> b.includes(c._id))
+                updateFormData.forCategory = {value: items, errorMessage: ""}
+                
+            } catch (ex){
+                console.log(ex)
             }
+        
         }
         
         setState({
@@ -322,7 +297,7 @@ const AllBrands = (props) => {
                 <MultiSelect
                     name="forCategory"
                     labelClass="dark:text-white !mb-2"
-                    dataKey={{title: "name", key: "id"}}
+                    dataKey={{title: "name", key: "_id"}}
                     className={"!flex-col"}
                     value={formData.forCategory.value}
                     label="Select for Category"

@@ -19,7 +19,7 @@ import ModalWithBackdrop from "src/components/ModalWithBackdrop/ModalWithBackdro
 import {
     fetchAdminBrandsAction,
     fetchAdminProductsAction,
-    fetchAdminStaticFilesAction, updateProductAction
+    fetchAdminStaticFilesAction, fetchFlatCategoriesAction, updateProductAction
 } from "actions/adminProductAction";
 
 
@@ -43,17 +43,7 @@ const AddProduct: FC<Props> = (props) => {
     useEffect(()=>{
         (async function () {
             fetchAdminBrandsAction(adminBrands, dispatch)
-    
-            try{
-                // let a = await fetchFlatCategories();
-                // if(!flatCategories) {
-                //     dispatch({
-                //         type: ACTION_TYPES.FETCH_CATEGORIES,
-                //         payload: a
-                //     })
-                // }
-            } catch (ex){}
-        
+            fetchFlatCategoriesAction(dispatch, flatCategories)
         })();
     }, [])
     
@@ -294,8 +284,8 @@ const AddProduct: FC<Props> = (props) => {
                         options={() => (
                             <>
                             <option value="0">Select category parent ID</option>
-                                {flatCategories?.filter((cat: any)=>cat.isProductLevel == 1).map((cat) => (
-                                    <option className="cursor-pointer py-1 menu-item"  value={cat.id}>{cat.name}</option>
+                                {flatCategories?.filter((cat: any)=>cat.isProductLevel == 1).map((cat: any) => (
+                                    <option className="cursor-pointer py-1 menu-item"  value={cat._id}>{cat.name}</option>
                                 ))}
                         </>
                         )}
@@ -314,7 +304,7 @@ const AddProduct: FC<Props> = (props) => {
                             <>
                             <option value="0">Select brandId ID</option>
                                 {adminBrands.cached && adminBrands.cached?.map((cat: any) => (
-                                    <option className="cursor-pointer py-1 menu-item"  value={cat.id}>{cat.name}</option>
+                                    <option className="cursor-pointer py-1 menu-item"  value={cat._id}>{cat.name}</option>
                                 ))}
                         </>
                         )}

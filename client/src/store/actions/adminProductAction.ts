@@ -1,36 +1,44 @@
 import apis from "src/apis";
 import {ACTION_TYPES, CategoryType} from "store/types";
 import api from "src/apis";
-import errorMessageCatch from "src/utills/errorMessageCatch";
 
 
-export const fetchFlatCategoriesAction = (dispatch)=>{
+export const fetchFlatCategoriesAction = (dispatch, flatCategories)=>{
     return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
-        let {data, status} = await apis.get<CategoryType[] | null>(`/api/categories`)
-        if(status === 200) {
-            dispatch({
-                type: ACTION_TYPES.FETCH_FLAT_CATEGORIES,
-                payload: data
-            })
-            resolve(data)
-        } else{
-            resolve(null)
+        if(flatCategories){
+            resolve(flatCategories)
+        } else {
+            let {data, status} = await apis.get<CategoryType[] | null>(`/api/categories`)
+            if (status === 200) {
+                dispatch({
+                    type: ACTION_TYPES.FETCH_FLAT_CATEGORIES,
+                    payload: data
+                })
+                resolve(data)
+            } else {
+                resolve(null)
+            }
         }
     })
 }
 
 export function fetchAdminBrandsAction(adminBrands, dispatch){
-    if(!adminBrands.cached || adminBrands.cached.length === 0) {
-        apis.get("/api/brands").then(({data, status}) => {
-            dispatch({
-                type: ACTION_TYPES.FETCH_ADMIN_BRANDS,
-                payload: {
-                    total: data.length,
-                    brands: data
-                }
+    return new Promise((resolve, reject)=>{
+        if(!adminBrands.cached || adminBrands.cached.length === 0) {
+            apis.get("/api/brands").then(({data, status}) => {
+                dispatch({
+                    type: ACTION_TYPES.FETCH_ADMIN_BRANDS,
+                    payload: {
+                        total: data.length,
+                        brands: data
+                    }
+                })
+                resolve(data)
             })
-        })
-    }
+        } else {
+            resolve(adminBrands.cached)
+        }
+    })
 }
 
 export function fetchAdminProductsAction(adminProducts, pageNumber, dispatch){

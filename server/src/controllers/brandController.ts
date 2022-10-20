@@ -5,12 +5,9 @@ import fileUpload from "../utilities/fileUpload"
 import fs from "fs";
 
 import staticDir from "../utilities/staticDir";
-import uuid from "../utilities/uuid";
 
+import Brand from "../models/Brand";
 
-import Brand, {BrandType} from "../models/Brand";
-import sqlDatabase from "../services/sqlite/database.service";
-import dataDir from "../utilities/dataDir";
 import {ObjectId} from "mongodb";
 
 export const getBrandsCount = async (req: Request, res: Response, next: NextFunction) => {
@@ -61,7 +58,7 @@ export const saveBrands = async (req: Request, res: Response, next: NextFunction
         let {err, fields, file, fileName} = await fileUpload(req, "logo");
         if (err) return errorResponse(next, "Internal Error. Please try Again")
 
-        const {name, forCategory} = fields as any
+        const {name, forCategory = "[]"} = fields as any
 
         // check it this brand already exists or not
         let result = await Brand.findOne({name: name})
@@ -79,10 +76,12 @@ export const saveBrands = async (req: Request, res: Response, next: NextFunction
             }
         }
         
+        let c = JSON.parse(forCategory)
+        
         let newBrand = new Brand({
             name,
             logo: newPath,
-            forCategory: forCategory
+            forCategory: c
         })
     
         newBrand = await newBrand.save() as any
@@ -105,37 +104,38 @@ export const updateBrand = async (req: Request, res: Response, next: NextFunctio
         
         let result = await Brand.findOne({_id: new ObjectId(req.params.id)})
         if (!result) return errorResponse(next, "Brand Not found")
-        
-        
+
+
         let {err, fields, file, fileName} = await fileUpload(req, "logo");
-        
+
         if (err) return errorResponse(next, "Internal Error. Please try Again")
-        
-        const {name, forCategory, logo = ""} = fields as any
+
+        const {name, forCategory= '[]', logo = ""} = fields as any
         let newPath = logo;
-        
+
+
         if (file) {
             newPath = "upload/" + fileName
             try {
                 fs.cpSync(file, staticDir + "/" + newPath)
-            } catch (ex) {
-            }
+            } catch (ex) {}
         }
-        
+
+        let c = JSON.parse(forCategory)
         let updatedBrandData = new Brand({})
         if (name) updatedBrandData.name = name
-        if (forCategory) updatedBrandData.forCategory = forCategory
+        if (forCategory) updatedBrandData.forCategory = c
         if (logo) updatedBrandData.logo = logo
         updatedBrandData.updatedAt = new Date();
-        
+
         let doc = await updatedBrandData.updateOne(req.params.id, {
             $set: {
                 ...updatedBrandData
             }
         })
-        
+
         if (!doc) return errorResponse(next, "Brand update fail")
-        
+
         updatedBrandData._id = req.params.id
         successResponse(res, 201, {
             message: "brand updated",
