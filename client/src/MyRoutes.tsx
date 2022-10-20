@@ -9,10 +9,12 @@ import Registration from "pages/auth/Registration";
 import Login from "pages/auth/Login";
 
 
-import adminDashboardRoutes from "pages/Admin/adminDashboardRoutes";
-import customerDashboardRoutes from "pages/Customer/customerDashboardRoutes";
+import adminDashboardRoutes from "pages/Admin/adminDashboardRoute";
+import customerDashboardRoutes from "pages/Customer/customerDashboardRoute";
 import NotFoundPage from "components/notFoundPage/NotFoundPage";
 import App from "src/App";
+import adminDashboardRoute from "pages/Admin/adminDashboardRoute";
+import customerDashboardRoute from "pages/Customer/customerDashboardRoute";
 
 const HomePage = lazy(() => import("pages/homePage/HomePage"))
 const Products = lazy(() => import("src/pages/products/Products"))
@@ -48,9 +50,23 @@ const router = createBrowserRouter([
                 path: "p/:pId",
                 element: <ProductFilterPage />,
             },
+            {
+                path: "/auth/join",
+                element: <JoinHome />,
+                children: [
+                    {path: "login", element: <Login />},
+                    {path: "registration", element: <Registration/>},
+                    {path: "reset-password", element: <ResetPassword/>},
+                    {path: "forget-password", element: <ForgetPassword/>},
+                    {path: "opt-validate", element: <OTPValidate/>},
+                ]
+            },
+            adminDashboardRoute,
+            customerDashboardRoute,
         ],
     },
 ]);
+
 
 
 const MyRoutes = () => {

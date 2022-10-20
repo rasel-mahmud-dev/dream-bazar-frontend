@@ -558,7 +558,7 @@ const params = useParams()
         // })
       })
     
-
+      console.log(filters.category)
       
   }, [selectCategory.root, selectCategory.tree, filters.brands, filters.category])
     

@@ -1852,7 +1852,6 @@ export const productFiltersPostV2 = async (req: TypedRequestBody<{
         const db = await mongoConnect()
         let collection = db.collection("products")
         const result = await collection.aggregate([
-            
             {
                 $match: {
                     $and: [

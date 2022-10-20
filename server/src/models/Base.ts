@@ -16,20 +16,45 @@ class Base {
         Base.collectionName = collectionName;
     }
     
-    save() {
-        return new Promise<mongoDB.InsertOneResult>(async (resolve, reject) => {
+    save<T>() {
+        return new Promise<T | null>(async (resolve, reject) => {
             try {
                 let database = await mongoConnect();
                 let collection = await database.collection(Base.collectionName);
                 
-                let {...other} = this;
-                let cursor = await collection?.insertOne({
+                let {...other}  = this;
+                let doc = await collection?.insertOne({
                     ...other,
                     createdAt: new Date(),
                     updatedAt: new Date(),
                 });
                 
-                resolve(cursor);
+                if(doc.insertedId){
+                    (other as any)._id = doc.insertedId
+                    resolve(other as T)
+                } else {
+                    resolve(null);
+                }
+            } catch (ex) {
+                reject(ex);
+            }
+        });
+    }
+    
+    updateOne<T>(id: string, update: Partial<mongoDB.Document> | mongoDB.UpdateFilter<mongoDB.Document>) {
+        return new Promise<T | null>(async (resolve, reject) => {
+            try {
+                let database = await mongoConnect();
+                let collection = await database.collection(Base.collectionName);
+                
+                let {...other}  = this;
+                let doc = await collection?.updateOne({_id: new ObjectId(id)},update);
+                if(doc){
+                    (other as any)._id = id
+                    resolve(other as T)
+                } else {
+                    resolve(null);
+                }
             } catch (ex) {
                 reject(ex);
             }

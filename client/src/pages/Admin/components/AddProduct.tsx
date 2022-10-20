@@ -8,7 +8,7 @@ import SelectGroup from "UI/Form/SelectGroup";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
 import apis from "src/apis";
-import {fetchFlatCategories, fetchProduct, fetchProductForUpdate} from "actions/productAction";
+import { fetchProduct, fetchProductForUpdate} from "actions/productAction";
 import {ACTION_TYPES} from "store/types";
 import {Button, Modal, Tabs} from "UI/index";
 import errorMessageCatch from "src/utills/errorMessageCatch";
@@ -45,13 +45,13 @@ const AddProduct: FC<Props> = (props) => {
             fetchAdminBrandsAction(adminBrands, dispatch)
     
             try{
-                let a = await fetchFlatCategories();
-                if(!flatCategories) {
-                    dispatch({
-                        type: ACTION_TYPES.FETCH_CATEGORIES,
-                        payload: a
-                    })
-                }
+                // let a = await fetchFlatCategories();
+                // if(!flatCategories) {
+                //     dispatch({
+                //         type: ACTION_TYPES.FETCH_CATEGORIES,
+                //         payload: a
+                //     })
+                // }
             } catch (ex){}
         
         })();

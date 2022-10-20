@@ -1,36 +1,39 @@
-import BaseSQLite from "./BaseSQLite";
+import Base from "./Base";
+import {IndexType} from "../services/mongodb/models.index.types";
 
 export interface CategoryType {
-    id?: number | string
+    _id?: string
     name?: string
     parentId?: string
-    isProductLevel?: number
+    isProductLevel?: boolean
     ideals?: string | []
     logo?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     forCategory?: string[] | string
-    
 }
 
-class Category extends BaseSQLite implements CategoryType {
-    id?: number | string
+class Category extends Base implements CategoryType {
+    _id?: string
     name?: string
     parentId?: string
-    isProductLevel?: number
+    isProductLevel?: boolean
     ideals?: string | []
     logo?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     forCategory?: string[] | string
     
-    static tableName = "categories"
+    static indexes: IndexType = {
+        name: {},
+        isProductLevel: {}
+    }
+    static collectionName = "categories"
     
     
     constructor(data: CategoryType) {
-        let dateString =  new Date().toISOString();
-        super(Category.tableName)
-        this.id = data.id ?? ""
+        let dateString =  new Date();
+        super(Category.collectionName)
         this.parentId = data.parentId ?? ""
         this.name = data.name
         this.logo =  data.logo
@@ -40,5 +43,6 @@ class Category extends BaseSQLite implements CategoryType {
         this.updatedAt = dateString
     }
 }
+
 
 export default Category

@@ -306,6 +306,7 @@ function CategoryList(props) {
                     sub: subCat,
                     levelNumber: 1
                 })
+                handleChangeCategory(rootCategory)
                 return;
             }
             
@@ -324,6 +325,8 @@ function CategoryList(props) {
             // this function make each nested sub category make array of object which key is its parent id;
             getLastLevelCategory.expand = true
             getLastLevelCategory.last = true
+            
+            handleChangeCategory(getLastLevelCategory)
             
             findUpperParentRecur(getLastLevelCategory, rootCategoryName, a, temp)
             
@@ -604,9 +607,13 @@ function CategoryList(props) {
     }
     
 
-    function handleChangeCategory(item: {name: string,parentId?: string,id: string}){
+    function handleChangeCategory(item: {name: string,parentId?: string,id: string, isProductLevel?: number}) {
+    
         let all = []
-        findAllNestedCat(item, all, flatCategories)
+        if (item.isProductLevel !== 1) {
+            findAllNestedCat(item, all, flatCategories)
+        }
+        
         
         dispatch({
             type: ACTION_TYPES.CHANGE_CATEGORY,
@@ -616,7 +623,7 @@ function CategoryList(props) {
                     id: item.id,
                     parentId: item.parentId
                 },
-                allNestedIds: all.length > 0 ? all : []
+                allNestedIds:  all.length > 0 ? all : []
             }
         })
     }

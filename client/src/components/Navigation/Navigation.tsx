@@ -242,20 +242,18 @@ function Navigation(props) {
                                 <li className="relative flex items-center gap-x-2 py-5"
                                     onMouseEnter={() => setState({...state, openDropdown: "cart"})}
                                     onMouseLeave={() => setState({...state, openDropdown: ""})}>
-                                    
-                                    
                                  
-                                    <Badge className="bg-red-500">
-                                        10
-                                    </Badge>
+                                    <Badge className="bg-red-500">{cartState.cartProducts.length > 0 ? cartState.cartProducts.length : ""}</Badge>
                                     
                                     <GiShoppingBag className="text-white text-2xl "/>
                                     <span className="font-medium text-white hidden md:block">
                                         {l("In Cart")}
                                     </span>
                                     <Suspense fallback={<h1>loading</h1>}>
-                                        <CartDropdown className="-right-40 top-14"
-                                                      isShow={state.openDropdown === "cart"}/>
+                                        <CartDropdown
+                                            className="-right-40 top-14"
+                                            isShow={state.openDropdown === "cart"}
+                                        />
                                     </Suspense>
                                 </li>
                                 

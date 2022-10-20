@@ -21,9 +21,9 @@ import scrollTo from "src/utills/scrollTo";
 interface LoginPageProps {
     toggleLoader?: any;
     toggleAppMask?: any;
-    loadingStates: any;
+    loadingStates?: any;
     // cartState: any;
-    login: any;
+    login?: any;
 }
 
 const Login: FC<LoginPageProps> = (props) => {

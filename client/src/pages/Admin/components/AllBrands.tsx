@@ -15,7 +15,7 @@ import {InputGroup} from "UI/Form";
 import FileUpload from "UI/Form/File/FileUpload";
 import MultiSelect from "UI/Form/multiSelect/MultiSelect";
 import {ACTION_TYPES} from "store/types";
-import {deleteBrandAction, fetchFlatCategories} from "actions/productAction";
+import {deleteBrandAction} from "actions/productAction";
 import ActionInfo from "components/ActionInfo/ActionInfo";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import {RootState} from "src/store";

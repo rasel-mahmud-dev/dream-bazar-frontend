@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store";
 import apis from "src/apis";
-import {deleteBrandAction, deleteFlatCategoryAction, fetchFlatCategories} from "actions/productAction";
+import {deleteBrandAction, deleteFlatCategoryAction} from "actions/productAction";
 import { ACTION_TYPES } from "store/types";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import { toggleBackdrop } from "actions/appAction";
@@ -17,6 +17,7 @@ import Table, {Column} from "UI/table/Table";
 import SelectGroup from "UI/Form/SelectGroup";
 import Checkbox from "UI/Form/checkbox/Checkbox";
 import isoStringToDate from "src/utills/isoStringToDate";
+import {fetchFlatCategoriesAction} from "actions/adminProductAction";
 
 const AllCategory = (props) => {
     const {
@@ -38,7 +39,7 @@ const AllCategory = (props) => {
         formData: {
             name: { value: "", errorMessage: "" },
             isProductLevel: { value: false,  errorMessage: "" },
-            parentId: { value: "0", errorMessage: "" }
+            parentId: { value: "", errorMessage: "" }
         },
     });
 
@@ -48,11 +49,8 @@ const AllCategory = (props) => {
         (async function () {
             try {
                 if (!flatCategories) {
-                    let a = await fetchFlatCategories();
-                    dispatch({
-                        type: ACTION_TYPES.FETCH_CATEGORIES,
-                        payload: a,
-                    });
+                    await fetchFlatCategoriesAction(dispatch);
+                    
                 }
             } catch (ex) {}
         })();
@@ -84,7 +82,6 @@ const AllCategory = (props) => {
                         : updateFormData[name].errorMessage,
                 },
             };
-        
         setState({
             ...state,
             formData: updateFormData,
@@ -98,7 +95,8 @@ const AllCategory = (props) => {
 
         let isComplete = true;
         let payload = {}
-
+        
+        
         for (let item in formData) {
             if(item === "name") {
                 if (!formData[item].value) {
@@ -106,9 +104,10 @@ const AllCategory = (props) => {
                     formData[item].errorMessage = "Please enter " + item;
                 }
             }
+            
             payload[item] = formData[item].value
-          
         }
+       
 
         if (!isComplete) {
             updateState.httpStatus = 500;
@@ -209,7 +208,7 @@ const AllCategory = (props) => {
         setState({
             ...state,
             isShowForm: true,
-            updateId: cat.id,
+            updateId: cat._id,
             formData: updateFormData,
         });
         dispatch(
@@ -259,7 +258,7 @@ const AllCategory = (props) => {
                         <>
                             <option value="0">Select category parent ID</option>
                             {flatCategories.map((cat) => (
-                                <option className="cursor-pointer py-1 menu-item"  value={cat.id}>{cat.name}</option>
+                                <option className="cursor-pointer py-1 menu-item" value={cat._id}>{cat.name}</option>
                             ))}
                         </>
                     )}
@@ -296,9 +295,9 @@ const AllCategory = (props) => {
 
     const columns: Column[] = [
         { title: "Name", dataIndex: "name", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
-        { title: "ID", dataIndex: "id", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
+        { title: "ID", dataIndex: "_id", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
         { title: "ParentID", dataIndex: "parentId", sorter: (a: string, b: string)=> a > b ? 1 : a < b ? -1 : 0 },
-        { title: "Is Product Level", dataIndex: "isProductLevel", render: (isProductLevel: any) => <span>{isProductLevel === 1 ? "True": "False" }</span> },
+        { title: "Is Product Level", dataIndex: "isProductLevel", render: (isProductLevel: any) => <span>{isProductLevel ? "True": "False" }</span> },
         {
             title: "CreatedAt",
             dataIndex: "createdAt",
@@ -336,7 +335,7 @@ const AllCategory = (props) => {
                     />
                     <FcEmptyTrash
                         className="text-xl cursor-pointer"
-                        onClick={() => deleteItem(item.id)}
+                        onClick={() => deleteItem(item._id)}
                     />
                 </div>
             ),
@@ -373,8 +372,8 @@ const AllCategory = (props) => {
             </div>
 
             <h3 className="p">
-                {/*Category fetch {flatCategories?.length} of{" "}*/}
-                {/*{flatCategories.length}{" "}*/}
+                Category fetch {flatCategories?.length} of{" "}
+                {flatCategories?.length}{" "}
             </h3>
 
             <div className="card">

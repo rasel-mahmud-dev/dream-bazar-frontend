@@ -89,6 +89,7 @@ export function filterProductsAction(payload, isCount: boolean, dispatch, cb){
     }
     
     
+    
     // if(currentNestedSubCategory && selectCategory.tree){
     //     bodyData.categoryIds =  getAllChildrenId(selectCategory.tree.id, flatCategories)
     // } else if(selectCategory && selectCategory.root){
@@ -125,20 +126,7 @@ export function filterProductsAction(payload, isCount: boolean, dispatch, cb){
 
 
 
-export const fetchFlatCategoriesAction = (dispatch)=>{
-  return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
-    let {data, status} = await apis.get<CategoryType[] | null>(`/api/categories`)
-    if(status === 200) {
-        dispatch({
-            type: ACTION_TYPES.FETCH_FLAT_CATEGORIES,
-            payload: data
-        })
-      resolve(data)
-    } else{
-      resolve(null)
-    }
-  })
-}
+
 
 export function deleteBrandAction(dispatch, brandId, callback){
   
