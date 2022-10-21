@@ -40,7 +40,7 @@ const BrandList = () => {
 	
 	function isChecked(brandId: string){
 		if(filters.brands){
-			let selectedBrandIndex = filters.brands.findIndex((b: any)=>b.id === brandId)
+			let selectedBrandIndex = filters.brands.findIndex((b: any)=>b._id === brandId)
 			return selectedBrandIndex !== -1;
 		}
 		return false
@@ -69,10 +69,12 @@ const BrandList = () => {
 				<div className="">
                     <div className="mt-4">
                     {  brands["all"] && brands["all"].map((brand, index)=>(
-	                    <li onClick={() => handleChangeBrand(brand)} className="flex text-neutral-200 items-center hover:text-green-400 cursor-pointer select-none">
-                                <input type="checkbox" checked={isChecked(brand.id)} />
+	                    <li key={index}
+                            onClick={() => handleChangeBrand(brand)}
+                            className="flex text-neutral-200 items-center hover:text-green-400 cursor-pointer select-none">
+                                <input onChange={()=>{}} type="checkbox" checked={isChecked(brand._id)} />
                                 <label className="cursor-pointer ml-2">{brand.name}</label>
-                            </li>
+                        </li>
                     ))}
                     </div>
                 </div>

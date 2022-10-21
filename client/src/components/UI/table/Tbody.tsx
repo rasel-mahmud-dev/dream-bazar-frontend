@@ -13,7 +13,7 @@ const Tbody: FC<Props> = (props) => {
 	return (
 		<tbody className={tbodyClass?.tbody}>
 			{dataSource.map((data: any, i: number) => (
-				<tr className={tbodyClass?.tr}>
+				<tr className={tbodyClass?.tr} key={i}>
 					{columns?.map((col: Column) => (
 						<td
 							className={`table-cell ${

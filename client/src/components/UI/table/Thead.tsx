@@ -56,8 +56,8 @@ const Thead: FC<Props> = (props) => {
     return (
         <thead className={theadClass.thead}>
             <tr className={theadClass.tr}>
-                {columns?.map((column: Column) => (
-                    <th
+                {columns?.map((column: Column, i) => (
+                    <th key={i}
                         className={`${column.className ? column.className : ""} ${theadClass.th}`}
                         style={{ width: column.colWidth }}
                     >

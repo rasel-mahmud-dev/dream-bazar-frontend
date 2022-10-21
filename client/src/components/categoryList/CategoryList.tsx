@@ -191,15 +191,17 @@ function CategoryList(props) {
     
     
     useEffect(()=>{
+    
+        
         (async function(){
             let c = await fetchFlatCategoriesAction(dispatch, flatCategories)
-            getCat(c)
+            getCat(c, params)
+
         }())
-   
-    }, [params.pId, catTree, flatCategories])
+    }, [])
     
  
-    function getCat(flatCategories){
+    function getCat(flatCategories, params){
 
         console.time("category-find-time")
         
@@ -208,7 +210,7 @@ function CategoryList(props) {
         }
         
         let rootCategory = {}
-        
+      
         // find both category tree
         if(params.pId && catTree){
             
@@ -243,7 +245,7 @@ function CategoryList(props) {
              then show parent sub category 2 level.
              */
             if(!getLastLevelCategory){
-                setSidebarCategory(updateSidebarCategory);
+    
                 // const subCat = getCategoriesLocal("parentId=" + rootCategory._id, flatCategories)
                 const subCat = flatCategories.filter(a=>a.parentId === rootCategory._id)
                 setLastParentSubCategories({
@@ -251,7 +253,9 @@ function CategoryList(props) {
                     sub: subCat,
                     levelNumber: 1
                 })
+                setSidebarCategory(updateSidebarCategory);
                 handleChangeCategory(rootCategory)
+                
                 return;
             }
             
@@ -271,7 +275,7 @@ function CategoryList(props) {
             getLastLevelCategory.expand = true
             getLastLevelCategory.last = true
             
-            // handleChangeCategory(getLastLevelCategory)
+    
             
             findUpperParentRecur(getLastLevelCategory, rootCategoryName, flatCategories, temp)
             
@@ -294,43 +298,48 @@ function CategoryList(props) {
                 sub: flatCategories.filter(item => getLastLevelCategory._id === item.parentId),
                 levelNumber: levelNumber,
             })
-            
-            
+    
+            handleChangeCategory(getLastLevelCategory)
             
         } else if(params.pId){
-            
+        
             /// get root level all categories
-            let rootCategories =  getCategoriesLocal('name='+params.pId, flatCategories)
-            
+            let rootCategories = flatCategories.filter(c=>c.name === params.pId)
+      
             // if not match root category then show all root level category
             if(rootCategories.length === 0){
-                rootCategories = getCategoriesLocal('parentId=null', flatCategories)
+                
+                rootCategories = flatCategories.filter(c=>c.parentId === null)
+                
                 updateSidebarCategory[1] = rootCategories
                 setLastParentSubCategories({
                     lastParentId: "0",
                     sub: rootCategories,
                     levelNumber: 0
                 })
+                handleChangeCategory(null, rootCategories)
                 
             } else {
                 
                 updateSidebarCategory[1] = rootCategories
                 const rootCat = rootCategories.find(c => c.name === params.pId)
+     
+                // set base category in filter category
+                
                 rootCat.expand = true
                 rootCat.last = true
                 // get sub category of root level category
-                const subCat = getCategoriesLocal("parentId=" + rootCat._id, flatCategories)
+                const subCat = flatCategories.filter(c=>c.parentId === rootCat._id)
                 setLastParentSubCategories({
                     lastParentId: rootCat._id,
                     sub: subCat,
                     levelNumber: 1
                 })
+                handleChangeCategory(rootCat)
             }
         }
         
         setSidebarCategory(updateSidebarCategory);
-        
-        console.timeEnd("category-find-time")
     }
     
     
@@ -473,6 +482,7 @@ function CategoryList(props) {
         setSidebarCategory(updatedSidebarCategory)
     }
     
+    
     function handleExpandCategory(item,   levelNumber) {
         
         // find all sub categories for currently clicked item
@@ -527,7 +537,9 @@ function CategoryList(props) {
             lastParentId: parentCat._id
         }))
         setSidebarCategory(updatedSidebarCategory)
+        
         handleChangeCategory(item)
+        
         // change url params
         if(levelNumber === 0) {
             navigate(`/p/${item.name}`)
@@ -537,13 +549,14 @@ function CategoryList(props) {
     }
     
 
-    function handleChangeCategory(item: {name: string,parentId?: string,id: string, isProductLevel?: number}) {
-    
+    function handleChangeCategory(item: {name: string,parentId?: string,id: string, isProductLevel?: number}, rootLevel?: any[] ) {
         let all = []
+        
+        if(!item) return;
+    
         if (!item.isProductLevel) {
             findAllNestedCat(item, all, flatCategories)
         }
-        
         
         dispatch({
             type: ACTION_TYPES.CHANGE_CATEGORY,
@@ -559,6 +572,7 @@ function CategoryList(props) {
     }
     
     function findAllNestedCat(item, result, flatCategories){
+        if(!flatCategories) return;
         let allNested = flatCategories.filter(ct=>ct.parentId === item._id);
         if(allNested && allNested.length) {
             allNested.forEach(nested => {
@@ -638,10 +652,10 @@ function CategoryList(props) {
                 {/************ Show last all sub categories *************/}
                 <div className="ml-4">
                     { lastParentSubCategories.sub && lastParentSubCategories.sub.map(item=>(
-                        <div>
-                        <h1 onClick={()=>handleExpandCategory(item,  lastParentSubCategories.levelNumber)}
-                            className={`category-item cursor-pointer text-green-450`}>{item.name}</h1>
-                    </div>
+                        <div key={item._id}>
+                            <h1 onClick={()=>handleExpandCategory(item,  lastParentSubCategories.levelNumber)}
+                                className={`category-item cursor-pointer text-green-450`}>{item.name}</h1>
+                        </div>
                     )) }
                 </div>
                 
