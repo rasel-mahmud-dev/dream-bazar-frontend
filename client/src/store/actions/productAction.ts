@@ -89,7 +89,6 @@ export function filterProductsAction(payload, isCount: boolean, dispatch, cb){
     }
     
     
-    
     // if(currentNestedSubCategory && selectCategory.tree){
     //     bodyData.categoryIds =  getAllChildrenId(selectCategory.tree.id, flatCategories)
     // } else if(selectCategory && selectCategory.root){
@@ -106,7 +105,6 @@ export function filterProductsAction(payload, isCount: boolean, dispatch, cb){
     
     return new Promise(async function(resolve, reject){
         try {
-            
             let {status, data} = await api.post(`/api/products/filter/v2`, bodyData)
             if (status === 200) {
                 dispatch({

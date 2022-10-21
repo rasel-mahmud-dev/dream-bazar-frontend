@@ -558,6 +558,7 @@ function CategoryList(props) {
             findAllNestedCat(item, all, flatCategories)
         }
         
+        
         dispatch({
             type: ACTION_TYPES.CHANGE_CATEGORY,
             payload: {
@@ -596,10 +597,10 @@ function CategoryList(props) {
             
             <div className="grid px-4">
                 
-                <h1 className="heading-3 font-semibold text-xl mt-8">Category</h1>
+                <h1 className="heading-5  mt-8">PICK A CATEGORY</h1>
 
-                <div className='mb-2'>
-                    {selectedCategory && <div className="flex flex-wrap gap-2 mt-2">
+                <div className=''>
+                    {selectedCategory && <div className="flex flex-wrap gap-2 mt-2 mb-2">
                         <div
 	                        onClick={() => handleRemoveCategory(selectedCategory)}
 	                        className="bg-blue-500/20 font-medium px-4 py-2 rounded flex justify-between items-center">

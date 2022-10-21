@@ -21,6 +21,7 @@ import BrandList from "pages/productFilterPage/BrandList";
 import Product from "components/product/Product";
 import SEO from "components/SEO/SEO";
 import CategoryList from "components/categoryList/CategoryList";
+import apis from "src/apis";
 
 
 let initialLoad = true
@@ -78,6 +79,7 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
         totalFilterAbleProductCount,
         currentCategorySelected,
         filteredAttributes,
+        brandsForCategory,
         loadingStates,
         filters,
         selectCategory,
@@ -278,50 +280,78 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
     //
     // }, [filters.brands, filteredAttributes, filters.sortBy, currentNestedSubCategory])
     
-    useEffect(() => {
     
-        console.log(filters.category)
-        
-        // if (!filters.category.selected || filters.category.allNestedIds.length == 0) return
-        
-        let data = {
-            categoryIds: [],
-            brands: filters.brands,
-            selectCategory,
-            filteredAttributes,
-            // sortBy,
-            paginate: {
-                currentPage: pagination ? pagination.currentPage : 1,
-                perPage: pagination ? pagination.perPage : 20
-            },
-        }
-        
-        if (filters.category) {
-            if (filters.category.allNestedIds && filters.category.allNestedIds.length > 0) {
-                data.categoryIds = filters.category.allNestedIds.map(a => a.id)
-            } else if (filters.category.selected) {
-                data.categoryIds = [filters.category.selected.id]
+    useEffect(() => {
+        if (filters.category.selected || filters.category.allNestedIds.length > 0) {
+            let data = {
+                categoryIds: [],
+                brands: filters.brands,
+                selectCategory,
+                filteredAttributes,
+                // sortBy,
+                paginate: {
+                    currentPage: pagination ? pagination.currentPage : 1,
+                    perPage: pagination ? pagination.perPage : 20
+                },
             }
+            let allCatName = ""
+            if (filters.category) {
+                if (filters.category.allNestedIds && filters.category.allNestedIds.length > 0) {
+                    data.categoryIds = filters.category.allNestedIds.map(a => a.id)
+                    allCatName = filters.category.allNestedIds.map(a => a.name).join("_")
+                } else if (filters.category.selected) {
+                    data.categoryIds = [filters.category.selected.id]
+                    allCatName = filters.category.selected.name
+                }
+            }
+    
+            /******************* Fetch brand for category ***************/
+            /**
+             * add brands for each category
+             * example
+             Mobiles: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+             Mobiles and Tablet: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+             Tablets: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+             Motherboard: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+             Motherboard_Processor_Ram_Keyboard_power-supply : (19) [{…}, {…}, {…}, {…}, {…}]
+             */
+            
+            // check if brand already fetched or not
+            if(!brandsForCategory[allCatName]) {
+                apis.post("/api/brands/for-category", {forCategory: data.categoryIds}).then(({status, data}) => {
+                    if (status === 200) {
+                        dispatch({
+                            type: ACTION_TYPES.FETCH_CATEGORY_BRANDS,
+                            payload: {
+                                brands: data.brands,
+                                categoryName: allCatName
+                            }
+                        })
+                    }
+                })
+            }
+            /******************* Fetch brand for category END ***************/
+    
+            
+            filterProductsAction(data, false, dispatch, function (data) {
+                // console.log(data)
+                // dispatch({
+                //   type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
+                //   payload: data.products
+                // })
+                // dispatch({
+                //   type: ACTION_TYPES.FETCH_FILTER_PRODUCTS,
+                //   payload: data.products
+                // })
+        
+                // dispatch({
+                //   type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
+                //   payload: data.total
+                // })
+            })
         }
         
-        filterProductsAction(data, false, dispatch, function (data) {
-            // console.log(data)
-            // dispatch({
-            //   type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
-            //   payload: data.products
-            // })
-            // dispatch({
-            //   type: ACTION_TYPES.FETCH_FILTER_PRODUCTS,
-            //   payload: data.products
-            // })
-            
-            // dispatch({
-            //   type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
-            //   payload: data.total
-            // })
-        })
-        
-    }, [filters.category, filters.category.allNestedIds])
+    }, [filters.category.selected, filters.category.allNestedIds])
     
     // console.log(filters)
     

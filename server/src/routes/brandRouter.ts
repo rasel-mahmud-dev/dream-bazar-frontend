@@ -1,4 +1,12 @@
-import {deleteBrand, getBrand, getBrands, getBrandsCount, saveBrands, updateBrand} from "../controllers/brandController"
+import {
+    deleteBrand,
+    getBrand,
+    getBrands,
+    getBrandsCount,
+    getBrandsForCategory,
+    saveBrands,
+    updateBrand
+} from "../controllers/brandController"
 import {Router} from "express";
 
 
@@ -14,6 +22,9 @@ export default function (app: Router) {
     
     // save brand in collection
     app.post("/api/brand", saveBrands)
+    
+    // get brand for category
+    app.post("/api/brands/for-category", getBrandsForCategory)
     
     // update brand in collection
     app.patch("/api/brand/:id", updateBrand)

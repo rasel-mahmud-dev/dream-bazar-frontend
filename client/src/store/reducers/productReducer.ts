@@ -1,4 +1,4 @@
-import {ACTION_TYPES, CategoryType} from "src/store/types"
+import {ACTION_TYPES, Brand, CategoryType} from "src/store/types"
 
 import filterSidebar from "./filterSidebar.reducer"
 import adminProductReducer from "reducers/adminProductReducer";
@@ -106,7 +106,7 @@ export interface ProductStateType {
     oneTypeFetchProducts: { name?: "", values?: [{}] }
     expandFilterItems_sectionIds: string[]
     brandsForCurrentCategory: any
-    brandsForCategory: { id: string, brands: [] }[]
+    brandsForCategory: { [key: string]: Brand[] }
     filterItem_sections_data: {
         category_id?: string,
         filterItem_sections?: { attribute_name: string, name: string, values: { name: string, value: string | object } }[]
@@ -208,7 +208,9 @@ const initialState: ProductStateType = {
     brandsForCurrentCategory: [],
     
     /// make caching brand for individual category
-    brandsForCategory: [],
+    brandsForCategory: {
+    
+    },
     filters: {
         category: {
             selected: null,

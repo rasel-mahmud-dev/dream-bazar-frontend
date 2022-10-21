@@ -9,6 +9,8 @@ import staticDir from "../utilities/staticDir";
 import Brand from "../models/Brand";
 
 import {ObjectId} from "mongodb";
+import {mongoConnect} from "../services/mongodb/database.service";
+import isObjectId from "../utilities/isObjectId";
 
 export const getBrandsCount = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -19,6 +21,29 @@ export const getBrandsCount = async (req: Request, res: Response, next: NextFunc
     }
 }
 
+export const getBrandsForCategory = async (req: Request, res: Response, next: NextFunction) => {
+    
+    const { forCategory } = req.body
+    
+    try {
+        const collection = await Brand.collection()
+        
+        if (forCategory) {
+            let allBrands = await collection.find({
+                forCategory: {
+                    $in: forCategory
+                }
+            }).toArray();
+            
+            res.status(200).json({brands: allBrands})
+        } else {
+            res.status(200).json({brands: []})
+        }
+        
+    } catch (ex) {
+        next(ex)
+    }
+}
 
 export const getBrands = async (req: Request, res: Response, next: NextFunction) => {
     
