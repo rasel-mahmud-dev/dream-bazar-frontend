@@ -46,8 +46,8 @@ const Login: FC<LoginPageProps> = (props) => {
         httpStatus: 0,
         userData: {
             phone: { value: "", errorMessage: "" },
-            email: { value: "", errorMessage: "" },
-            password: { value: "", errorMessage: "" },
+            email: { value: "rasel.mahmud.dev@gmail.com", errorMessage: "" },
+            password: { value: "1", errorMessage: "" },
             remember: { value: "", errorMessage: "" },
         },
     });
@@ -66,7 +66,7 @@ const Login: FC<LoginPageProps> = (props) => {
         let payload = {};
 
         for (let key in loginData) {
-            if (!updatedUserData[key].tauch || !updatedUserData[key].value) {
+            if (!updatedUserData[key].value) {
                 updatedUserData[key].errorMessage = `${key} is required`;
                 isCompleted = false;
             } else {

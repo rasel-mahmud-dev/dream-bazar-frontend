@@ -15,6 +15,17 @@
 }
 
 
+.homepage_slider{
+   @include get_down(600px){
+       img{
+           min-height: 250px;
+           object-fit: cover;
+       }
+   }
+
+}
+
+
 .product-detail-link{
   text-decoration: none;
   display: block;

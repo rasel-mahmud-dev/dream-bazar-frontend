@@ -3,7 +3,7 @@ import React, {FC, useEffect} from "react"
 import {Pagination, Spin} from "components/UI"
 import {useLocation, useNavigate, useParams} from "react-router-dom"
 import api from "src/apis"
-import {connect, useDispatch} from "react-redux"
+import {connect, useDispatch, useSelector} from "react-redux"
 import {ACTION_TYPES} from "store/types"
 import "./productFilterPage.scss"
 import {nonInitialEffect} from "src/reactTools"
@@ -22,6 +22,7 @@ import Product from "components/product/Product";
 import SEO from "components/SEO/SEO";
 import CategoryList from "components/categoryList/CategoryList";
 import apis from "src/apis";
+import WithWidth from "UI/withWidth/withWidth";
 
 
 let initialLoad = true
@@ -45,8 +46,7 @@ interface ProductFilterType {
     currentCategorySelected: { id?: string, _id?: string, name?: string }
     products: {}[]
     currentCategoryRoot: { name: "", id: "", _id: "", sub_menu: [] }[],
-    productState: any
-    appState: any
+    innerWidth: number
 }
 
 interface ExpandSubMenuProps {
@@ -69,22 +69,20 @@ interface ExpandSubMenuProps {
 
 let ss;
 
-const ProductFilter: FC<ProductFilterType> = (props) => {
-    let {productState, appState} = props
+const ProductFilter: FC<ProductFilterType> = ({innerWidth}) => {
     
     const {
-        paginations,
-        filterProducts,
-        totalProduct,
-        totalFilterAbleProductCount,
-        currentCategorySelected,
-        filteredAttributes,
-        brandsForCategory,
-        loadingStates,
-        filters,
-        selectCategory,
-        flatCategories
-    } = productState
+        productState: {
+            paginations,
+            filterProducts,
+            totalProduct,
+            filteredAttributes,
+            brandsForCategory,
+            loadingStates,
+            filters,
+            selectCategory},
+        appState: {isOpenLeftBar}
+    } = useSelector((state: RootState)=> state)
     
     
     const params = useParams()
@@ -108,21 +106,21 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
     })
     
     
-    function resetPaginationValue() {
-        let updatedPaginations = [...paginations]
-        let findex = updatedPaginations.findIndex(pg => pg.where === "filter_products_page")
-        if (findex !== -1) {
-            updatedPaginations[findex].currentPage = 1
-        }
-        dispatch({
-            type: "SET_PAGINATIONS",
-            payload: updatedPaginations
-        })
-        setPaginate({
-            perPage: 20,
-            currentPage: 1
-        })
-    }
+    // function resetPaginationValue() {
+    //     let updatedPaginations = [...paginations]
+    //     let findex = updatedPaginations.findIndex(pg => pg.where === "filter_products_page")
+    //     if (findex !== -1) {
+    //         updatedPaginations[findex].currentPage = 1
+    //     }
+    //     dispatch({
+    //         type: "SET_PAGINATIONS",
+    //         payload: updatedPaginations
+    //     })
+    //     setPaginate({
+    //         perPage: 20,
+    //         currentPage: 1
+    //     })
+    // }
     
     const [breadcrumbData, setBrandcrumbData] = React.useState({})
     const [categoryData, setCategoryData] = React.useState<{ expand?: boolean, id?: string, name?: string, sub_menu?: [] }>({})
@@ -482,7 +480,7 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
         })
     }
     
-    React.useEffect(() => {
+    // React.useEffect(() => {
         
         // let qs = qstring.parse(history.location.search)
         // let updatedCategory: any  = {...categoryData}
@@ -506,7 +504,7 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
         //
         // setCategoryData(updatedCategory)
         
-    }, [location.search, props.appState.ui_categories])
+    // }, [location.search, props.appState.ui_categories])
     
     function callbackHandler(jsx) {
         ss = jsx
@@ -526,6 +524,13 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
     
     let pagination = getPagination(paginations, PaginationWhereEnum.filter_products_page)
     
+    function handleClickSidebarBackdrop(e){
+        dispatch({
+            type: ACTION_TYPES.TOGGLE_LEFT_BAR
+        })
+    }
+    
+    
     return (
         <div>
     
@@ -543,11 +548,15 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
       </div>
 
       <div className="product-filter-page--layout">
-        <div className="sidebar bg-body">
-          {/*{ss}*/}
-            <CategoryList/>
-          <BrandList/>
-        </div>
+            {isOpenLeftBar && <div onClick={handleClickSidebarBackdrop} className="sidebar-overlay"></div> }
+            <div className={`sidebar bg-body ${ isOpenLeftBar ? 'sidebar-mobile_show': 'sidebar-mobile_hide'} ${innerWidth <= 764 ? 'sidebar-mobile' : ''} ` }>
+                {/*<div className="sidebar-overlay"></div>*/}
+              {/*{ss}*/}
+                <CategoryList/>
+                <BrandList/>
+            </div>
+      
+        
 
         <div className="content w-full content-container bg-body">
           {/*<RenderBreadcrumb*/}
@@ -590,15 +599,5 @@ const ProductFilter: FC<ProductFilterType> = (props) => {
     // )
 }
 
-
-function mapStateToProps(state: RootState) {
-    
-    return {
-        productState: state.productState,
-        appState: state.appState
-    }
-}
-
-
-export default connect(mapStateToProps, {toggleLoader})(ProductFilter)
+export default WithWidth(ProductFilter)
 

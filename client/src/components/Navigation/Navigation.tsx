@@ -9,7 +9,7 @@ import fullLink from "src/utills/fullLink";
 import {
     BiSearch,
     BiUser,
-    BsGithub,
+    BsGithub, FaBars,
     FaFacebook,
     FaHeart,
     FaLanguage,
@@ -25,6 +25,7 @@ import {AppContext} from "store/AppContext";
 import useLanguage from "src/hooks/useLanguage";
 import staticImagePath from "src/utills/staticImagePath";
 import CartDropdown from "components/Navigation/CartDropdown";
+import {ACTION_TYPES} from "store/types";
 
 const AuthDropdown = lazy(() => import("components/Navigation/AuthDropdown"));
 const MoreDropdown = lazy(() => import("components/Navigation/MoreDropdown"));
@@ -140,11 +141,20 @@ function Navigation(props) {
         setLanguage(e.target.value, contextDispatch)
     }
     
+    function handleToggleLeftBar(){
+        dispatch({
+            type: ACTION_TYPES.TOGGLE_LEFT_BAR
+        })
+    }
+    
     // @ts-ignore
     return (
         <div className={["navigation", isFixed ? "nav_fixed" : ""].join(" ")}>
             {/* top navigation */}
             <div className="bg-white dark:bg-neutral-800  py-1 ">
+                
+             
+                
                 <div className="grid grid-cols-12 justify-between w-full max-w-8xl mx-auto px-4">
                     <div className="col-span-2 flex items-center gap-x-4  dark:text-white">
                         <FaFacebook/>
@@ -187,25 +197,28 @@ function Navigation(props) {
             </div>
 
             <div className="main-nav bg-green-450">
-                <div className="max-w-8xl mx-auto px-4">
+                <div className="max-w-8xl mx-auto px-4 flex items-center">
+                    
+                    <div className="md:hidden block mr-3 ">
+                        <FaBars className="text-xl" onClick={handleToggleLeftBar} />
+                    </div>
                     
                     <div className="grid grid-cols-12 items-center w-full">
                         
                         <div className="col-span-2 logo">
+                            
                             <Link to="/" className="flex items-center">
                                 <img src="/logo-2.png" alt="" className="w-9 md:w-11"/>
                                 <h4 className="text-white font-semibold text-lg md:text-xl   md:block">
-                                    DreamBajar
+                                     DreamBajar
                                 </h4>
                             </Link>
                         </div>
-
-                        
+                  
                         
                         <div className="col-span-6 flex w-full  ">
                             {/* <ProductCategoryDropdown /> */}
-    
-    
+                            
                             {/***** search bar *******/}
                             <div className="hidden items-center  w-full  lg:flex">
                                 <div

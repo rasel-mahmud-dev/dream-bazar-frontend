@@ -30,6 +30,7 @@ export enum ACTION_TYPES {
     LOGOUT = "LOGOUT",
     
     CHOOSE_LANGUAGE = "CHOOSE_LANGUAGE",
+    TOGGLE_LEFT_BAR = "TOGGLE_LEFT_BAR",
     TOGGLE_NOTIFY = "TOGGLE_NOTIFY",
     ADD_FILTER = "ADD_FILTER",
     SET_filtered_Attributes = "SET_filtered_Attributes",
