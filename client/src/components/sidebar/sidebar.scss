@@ -1,0 +1,67 @@
+@import "src/styles/--breakpoint";
+
+//.sidebar{
+//    min-width: 250px;
+//    background: white;
+//    box-shadow: 2px 8px 10px 2px #e1e1e1a6;
+//    display: flex;
+//    padding: 20px;
+//}
+
+.sidebar-root {
+
+    .sidebar-overlay {
+        width: 100%;
+        height: 100%;
+        background: rgba(101, 101, 101, 0.53);
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 300;
+        display: block;
+    }
+
+
+    .sidebar {
+        width: 350px;
+        height: 110%;
+        overflow-y: auto;
+        box-shadow: 2px 8px 15px -5px rgba(77, 77, 77, 0.65);
+        background: white;
+        &::-webkit-scrollbar {
+            height: 1px;
+            width: 3px;
+        }
+
+        &::-webkit-scrollbar-track {
+            //background: #f1f1f1;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #e2e2e2;
+        }
+
+
+        &.sidebar-mobile {
+            transition: all .4s;
+            @include get_down(980px) {
+                position: fixed;
+                left: -100%;
+                z-index: 301;
+                width: 250px;
+                top: 0px;
+            }
+
+
+        }
+
+        &.sidebar-mobile_show {
+            left: 0;
+
+        }
+
+        &.sidebar-mobile_hide {
+            left: -100%;
+        }
+    }
+}

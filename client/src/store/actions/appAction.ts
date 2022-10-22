@@ -17,6 +17,14 @@ export const closeNotify=()=>{
 }
 
 
+
+export const toggleLeftSidebarAction=(dispatch)=>{
+    dispatch({
+        type: ACTION_TYPES.TOGGLE_LEFT_BAR
+    })
+}
+
+
 export const toggleBackdrop=(data: {isOpen: boolean, scope: "app" | "global" | "custom"})=>{
   if(data.isOpen){
     document.body.classList.add("block-page")}

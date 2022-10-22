@@ -34,57 +34,6 @@
 .product-filter-page--layout{
   display: flex;
   width: 100%;
-    .sidebar-overlay {
-        width: 100%;
-        height: 100%;
-        background: rgba(73, 73, 73, 0.71);
-        position: fixed;
-        left: 0;
-        top: 0;
-        z-index: 300;
-        display: block;
-    }
-
-  .sidebar{
-    width: 350px;
-    height: 100%;
-    overflow-y: auto;
-    box-shadow: $shadow-3;
-    &::-webkit-scrollbar{
-      height: 1px;
-      width: 3px;
-    }
-    &::-webkit-scrollbar-track{
-      //background: #f1f1f1;
-    }
-    &::-webkit-scrollbar-thumb{
-      background: #e2e2e2;
-    }
-
-
-
-      &.sidebar-mobile {
-          transition: all .4s;
-          @include get_down(980px) {
-              position: fixed;
-              left: -100%;
-              z-index: 301;
-              width: 250px;
-              top: 0px;
-          }
-
-
-
-      }
-      &.sidebar-mobile_show{
-          left: 0;
-
-      }
-      &.sidebar-mobile_hide{
-          left: -100%;
-      }
-
-  }
 
   .content-container{
     padding-left: 10px;

@@ -24,6 +24,7 @@ interface LoginPageProps {
     loadingStates?: any;
     // cartState: any;
     login?: any;
+    title: string
 }
 
 const Login: FC<LoginPageProps> = (props) => {
@@ -39,7 +40,7 @@ const Login: FC<LoginPageProps> = (props) => {
 
     const [loadings, setLoading] = React.useState([]);
 
-    const { loadingStates } = props;
+    const { title } = props;
 
     const [state, setState] = useState({
         httpResponse: "",
@@ -224,7 +225,7 @@ const Login: FC<LoginPageProps> = (props) => {
 
     return (
         <div>
-            <h1 className="card-title">Login Here</h1>
+            <h1 className="card-title">{title}</h1>
 
             {/*{renderLoader("login-user")}*/}
 
@@ -276,8 +277,8 @@ const Login: FC<LoginPageProps> = (props) => {
             </form>
             <p className="my-5 text-center text-neutral-600">Or sign in with</p>
 
-            <div className="flex justify-between items-center gap-x-2">
-                <button className="bg-red-500 px-4 py-2 border-none text-white font-semibold text-md rounded-xl">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-2">
+                <button className="bg-red-500 justify-center items-center flex w-full px-4 py-3 border-none text-white font-semibold text-md rounded-xl">
                     <a
                         href={`${backend}/api/auth/google`}
                         className="flex items-center"
@@ -287,7 +288,7 @@ const Login: FC<LoginPageProps> = (props) => {
                     </a>
                 </button>
 
-                <button className="bg-facebook px-4 py-2 border-none text-white font-semibold text-md rounded-xl">
+                <button className="bg-facebook justify-center items-center flex w-full px-4 py-3 border-none text-white font-semibold text-md rounded-xl">
                     <a
                         href={`${backend}/api/auth/facebook`}
                         className="flex items-center"
@@ -298,7 +299,7 @@ const Login: FC<LoginPageProps> = (props) => {
                 </button>
             </div>
 
-            <p className="text-center mb-4 mt-6 dark:text-neutral-400">
+            <p className="text-center  mb-4 mt-6 dark:text-neutral-400">
                 {l('Not a member')}?
                 <Link
                     to="/auth/join/registration"

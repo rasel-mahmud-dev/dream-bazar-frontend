@@ -23,9 +23,11 @@ const authReducer = (state=initialState, action)=>{
       if(action.payload){
         updatedState.auth = action.payload
       }
+      updatedState.authChecked = true
       return updatedState
     
-    case ACTION_TYPES.FETCH_CURRENT_AUTH: 
+    case ACTION_TYPES.FETCH_CURRENT_AUTH:
+        updatedState.authChecked = true
       return updatedState
     
     case ACTION_TYPES.LOGOUT:

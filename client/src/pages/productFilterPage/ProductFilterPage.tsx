@@ -23,6 +23,7 @@ import SEO from "components/SEO/SEO";
 import CategoryList from "components/categoryList/CategoryList";
 import apis from "src/apis";
 import WithWidth from "UI/withWidth/withWidth";
+import Sidebar from "components/sidebar/Sidebar";
 
 
 let initialLoad = true
@@ -552,14 +553,12 @@ const ProductFilter: FC<ProductFilterType> = ({innerWidth}) => {
       </div>
 
       <div className="product-filter-page--layout">
-            {isOpenLeftBar && <div onClick={handleClickSidebarBackdrop} className="sidebar-overlay"></div> }
-            <div className={`sidebar bg-body ${ isOpenLeftBar ? 'sidebar-mobile_show': 'sidebar-mobile_hide'} ${innerWidth <= 764 ? 'sidebar-mobile' : ''} ` }>
-                {/*<div className="sidebar-overlay"></div>*/}
+          
+          <Sidebar isOpen={isOpenLeftBar} onClickOnBackdrop={handleClickSidebarBackdrop}>
               {/*{ss}*/}
                 <CategoryList/>
                 <BrandList/>
-            </div>
-      
+         </Sidebar>
         
 
         <div className="content w-full content-container bg-body">

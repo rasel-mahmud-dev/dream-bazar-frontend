@@ -74,6 +74,10 @@ body{
 }
 
 
+.container{
+    @apply px-4
+}
+
 h1, h2, h3, h4, h5, h6{
   margin: 0;
   padding: 0;
@@ -441,39 +445,39 @@ table td {
     margin: auto;
   }
 
-  .sidebar {
-    color: #2f2f2f;
-    position: sticky;
-    top: var(--header-height);
-    bottom: 0;
-    height: 100%;
-    transition: width .3s ease;
-    box-shadow: 2px 0 9px -3px #2c2c2ca1;
-
-    @include get_down(800px) {
-      position: relative;
-      top: auto;
-      .sidebar_content {
-        overflow: visible;
-        height: 100%;
-        //width: 300px;
-        //overflow-y: auto;
-        //height: calc(100vh - var(--header-height));
-      }
-    }
-
-    &.inline-mode {
-      .sidebar_content {
-        width: 60px;
-      }
-    }
-
-    &_content {
-      width: 300px;
-      overflow-y: auto;
-      height: calc(100vh - var(--header-height));
-    }
-  }
+  //.sidebar {
+  //  color: #2f2f2f;
+  //  position: sticky;
+  //  top: var(--header-height);
+  //  bottom: 0;
+  //  height: 100%;
+  //  transition: width .3s ease;
+  //  box-shadow: 2px 0 9px -3px #2c2c2ca1;
+  //
+  //  @include get_down(800px) {
+  //    position: relative;
+  //    top: auto;
+  //    .sidebar_content {
+  //      overflow: visible;
+  //      height: 100%;
+  //      //width: 300px;
+  //      //overflow-y: auto;
+  //      //height: calc(100vh - var(--header-height));
+  //    }
+  //  }
+  //
+  //  &.inline-mode {
+  //    .sidebar_content {
+  //      width: 60px;
+  //    }
+  //  }
+  //
+  //  &_content {
+  //    width: 300px;
+  //    overflow-y: auto;
+  //    height: calc(100vh - var(--header-height));
+  //  }
+  //}
 
 
   .content {
