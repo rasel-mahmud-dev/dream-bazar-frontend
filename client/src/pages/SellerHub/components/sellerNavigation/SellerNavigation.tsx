@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { toggleLeftSidebarAction } from "actions/appAction";
 import { useDispatch } from "react-redux";
 import staticImagePath from "src/utills/staticImagePath";
+import Circle from "UI/Circle/Circle";
 
 
 const MoreDropdown = lazy(()=>import("pages/SellerHub/components/sellerNavigation/MoreDropdown"));
@@ -27,15 +28,16 @@ const SellerNavigation = ({auth}) => {
     }
 
 	return (
-		<div className="px-5 shadow-xxs bg-white">
-			<header className="flex items-center justify-between py-4">
+		<div>
+            <div className="px-5 shadow-xxs bg-white fixed w-full">
+			<header className="flex items-center justify-between py-3">
 				<div className="logo flex items-center">
-					<div className="md:hidden block mr-3 ">
-						<FaBars
-							className="text-xl"
-							onClick={handleToggleLeftBar}
-						/>
-					</div>
+					<Circle
+                        className="md:hidden block mr-3"
+                        onClick={handleToggleLeftBar}
+                    >
+						<FaBars className="text-sm" />
+					</Circle>
 
 					<Link to="/seller/dashboard" className="flex items-center">
 						<img src="/logo-2.png" alt="" className="w-9 md:w-11" />
@@ -45,45 +47,64 @@ const SellerNavigation = ({auth}) => {
 					</Link>
 				</div>
 				<div className="flex items-center gap-x-4">
-                    <li
-                        className="bg-gray-400/20 w-7 h-7 flex items-center justify-center rounded-full cursor-pointer"
-                        onMouseEnter={() => setState({...state, openDropdown: "more"})}
-                        onMouseLeave={() => setState({...state, openDropdown: ""})}>
-                            <BiChevronsDown />
-                            <Suspense fallback={<h1>loading</h1>}>
-                                <MoreDropdown
-                                    className="right-0 top-14 !shadow-xxs rounded-xl"
-                                    isShow={state.openDropdown === "more"}
-                                />
-                            </Suspense>
-					</li>
+					<Circle
+                        className="relative"
+                        onMouseEnter={() =>
+                            setState({ ...state, openDropdown: "more" })
+                        }
+                        onMouseLeave={() =>
+                            setState({ ...state, openDropdown: "" })
+                        }
+                    >
+						<BiChevronsDown />
+						<Suspense fallback={<h1>loading</h1>}>
+							<MoreDropdown
+                                className="right-0 top-10 !shadow-xl rounded-xl"
+                                isShow={state.openDropdown === "more"}
+                            />
+						</Suspense>
+					</Circle>
 					<li
-                        onMouseEnter={() => setState({...state, openDropdown: "auth"})}
-                        onMouseLeave={() => setState({...state, openDropdown: ""})}>
-                    
+                        className="relative"
+                        onMouseEnter={() =>
+                            setState({ ...state, openDropdown: "auth" })
+                        }
+                        onMouseLeave={() =>
+                            setState({ ...state, openDropdown: "" })
+                        }
+                    >
 						<Link
-							to="/seller/login"
-							state={{redirect: location.pathname}}
-						>
-                            {auth && auth.avatar ? (
-                                    <div className="w-7">
-                                            <img className="rounded-full" src={staticImagePath(auth.avatar)} alt=""/>
-                                        </div>
-                                ) :
-                                <FaUser className="text-lg"></FaUser> }
+                            to="/seller/login"
+                            state={{ redirect: location.pathname }}
+                        >
+							{auth && auth.avatar ? (
+                                <div className="w-9">
+									<img
+                                        className="rounded-full"
+                                        src={staticImagePath(auth.avatar)}
+                                        alt=""
+                                    />
+								</div>
+                            ) : (
+                                <Circle>
+									<FaUser className="text-lg"></FaUser>
+								</Circle>
+                            )}
 						</Link>
-                        
-                        <Suspense fallback={<h1>loading</h1>}>
-                            <AuthDropdown
+
+						<Suspense fallback={<h1>loading</h1>}>
+							<AuthDropdown
                                 auth={auth}
-                                className="right-4 top-12 p-4 !shadow-xxs rounded-xl"
+                                className="right-0 top-10 p-4 !shadow-xl rounded-xl"
                                 isShow={state.openDropdown === "auth"}
                             />
-                        </Suspense>
+						</Suspense>
 					</li>
 				</div>
 			</header>
 		</div>
+            <div className="h-16"></div>
+        </div>
 	);
 };
 

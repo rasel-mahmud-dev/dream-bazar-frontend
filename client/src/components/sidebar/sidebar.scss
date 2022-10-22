@@ -1,18 +1,16 @@
 @import "src/styles/--breakpoint";
 
-//.sidebar{
-//    min-width: 250px;
-//    background: white;
-//    box-shadow: 2px 8px 10px 2px #e1e1e1a6;
-//    display: flex;
-//    padding: 20px;
-//}
+
+:root{
+    --sidebar-width: 350px;
+    --sidebar-width-mobile: 250px
+}
 
 .sidebar-root {
 
     .sidebar-overlay {
         width: 100%;
-        height: 100%;
+        height: 110%;
         background: rgba(101, 101, 101, 0.53);
         position: fixed;
         left: 0;
@@ -23,7 +21,7 @@
 
 
     .sidebar {
-        width: 350px;
+        width: var(--sidebar-width);
         height: 110%;
         overflow-y: auto;
         box-shadow: 2px 8px 15px -5px rgba(77, 77, 77, 0.65);
@@ -48,7 +46,7 @@
                 position: fixed;
                 left: -100%;
                 z-index: 301;
-                width: 250px;
+                width: var(--sidebar-width-mobile);
                 top: 0px;
             }
 
@@ -63,5 +61,12 @@
         &.sidebar-mobile_hide {
             left: -100%;
         }
+
+        .sidebar-fixed-bar{
+            width: var(--sidebar-width-mobile);
+            position: fixed;
+            @apply shadow-xxs;
+        }
+
     }
 }

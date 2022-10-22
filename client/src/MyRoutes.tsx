@@ -79,7 +79,7 @@ const router = createBrowserRouter([
 
 const MyRoutes = () => {
 	return (
-        <Suspense fallback={<h1>sddddddd</h1>}>
+        <Suspense fallback={<h1 className="text-center mt-10">Loading</h1>}>
             <RouterProvider router={router} />
         </Suspense>
 		// <Routes>

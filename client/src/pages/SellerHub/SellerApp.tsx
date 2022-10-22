@@ -6,6 +6,7 @@ import {currentAuthAction} from "actions/authAction";
 import Sidebar from "components/sidebar/Sidebar";
 import {toggleLeftSidebarAction} from "actions/appAction";
 import {RootState} from "src/store";
+import SellerSidebar from "pages/SellerHub/components/selllerSidebar/SellerSidebar";
 
 const SellerApp = () => {
     
@@ -15,10 +16,7 @@ const SellerApp = () => {
     useEffect(()=>{
         currentAuthAction(dispatch)
     }, [])
-    
-    function toggleSidebar(){
-        toggleLeftSidebarAction(dispatch)
-    }
+
     
     return (
         <div>
@@ -26,12 +24,8 @@ const SellerApp = () => {
             <div className="flex ">
                 {/*<SellerAuthRequired>*/}
     
-                {auth && <Sidebar isOpen={isOpenLeftBar} onClickOnBackdrop={toggleSidebar}>
-                        <div>
-                            <h1 className="heading-3">Dashboard</h1>
-                        </div>
-                    </Sidebar>
-                }
+                <SellerSidebar isOpenLeftBar={isOpenLeftBar} auth={auth} />
+                
                 {/*</SellerAuthRequired>*/}
                 <div className="w-full">
                     <Outlet />

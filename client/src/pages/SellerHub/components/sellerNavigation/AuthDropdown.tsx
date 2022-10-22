@@ -39,8 +39,14 @@ const AuthDropdown: FC<Props> = (props) => {
 			</div>
             
             <div className="mt-2">
-                <li className="text-xs py-2"><Link to="/settings">Settings</Link></li>
-                <li className="text-xs py-2" onClick={handleLogout}>Sign out</li>
+                { auth ? (
+                    <>
+                        <li className="text-xs pb-2"><Link to="/settings">Settings</Link></li>
+                        <li className="text-xs pb-2" onClick={handleLogout}>Sign out</li>
+                    </>
+                ): (<>
+                    <li className="text-xs"><Link to="/seller/login">Sign In</Link></li>
+                </>) }
             </div>
             
 		</Popup>
