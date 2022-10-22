@@ -88,7 +88,7 @@ const Login: FC<LoginPageProps> = (props) => {
             setState({ ...state, httpResponse: "pending" });
             loginAction(payload, dispatch, function (data, errorMessage){
                 if(!errorMessage) {
-                    navigate("/")
+                    location.state?.redirect && navigate(location.state?.redirect)
                 }
             })
         } catch (ex) {

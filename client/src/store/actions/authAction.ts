@@ -53,7 +53,10 @@ export const currentAuthAction = async(dispatch) =>{
       payload: data
     })
   } catch(ex){
-  
+      dispatch({
+          type: ACTION_TYPES.LOGIN,
+          payload: null
+      })
   }
   
 }

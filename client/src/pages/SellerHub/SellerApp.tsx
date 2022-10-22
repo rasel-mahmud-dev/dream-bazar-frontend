@@ -10,7 +10,7 @@ import {RootState} from "src/store";
 const SellerApp = () => {
     
     const dispatch  = useDispatch();
-    const { isOpenLeftBar }  = useSelector((state: RootState)=>state.appState)
+    const {appState: { isOpenLeftBar }, authState: {auth}}  = useSelector((state: RootState)=>state)
     
     useEffect(()=>{
         currentAuthAction(dispatch)
@@ -22,14 +22,17 @@ const SellerApp = () => {
     
     return (
         <div>
-            <SellerNavigation />
+            <SellerNavigation auth={auth} />
             <div className="flex ">
-                <Sidebar isOpen={isOpenLeftBar} onClickOnBackdrop={toggleSidebar}>
-                    <div>
-                        <h1 className="heading-3">Dashboard</h1>
-                    </div>
-                    
-                </Sidebar>
+                {/*<SellerAuthRequired>*/}
+    
+                {auth && <Sidebar isOpen={isOpenLeftBar} onClickOnBackdrop={toggleSidebar}>
+                        <div>
+                            <h1 className="heading-3">Dashboard</h1>
+                        </div>
+                    </Sidebar>
+                }
+                {/*</SellerAuthRequired>*/}
                 <div className="w-full">
                     <Outlet />
                 </div>

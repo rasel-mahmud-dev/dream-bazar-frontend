@@ -12,7 +12,7 @@ import {
     BsGithub, FaBars,
     FaFacebook,
     FaHeart,
-    FaLanguage,
+    FaLanguage, FaStoreAlt,
     FiMoon,
     GiShoppingBag,
     IoLanguageOutline,
@@ -153,8 +153,6 @@ function Navigation(props) {
             {/* top navigation */}
             <div className="bg-white dark:bg-neutral-800  py-1 ">
                 
-             
-                
                 <div className="grid grid-cols-12 justify-between w-full max-w-8xl mx-auto px-4">
                     <div className="col-span-2 flex items-center gap-x-4  dark:text-white">
                         <FaFacebook/>
@@ -206,7 +204,6 @@ function Navigation(props) {
                     <div className="grid grid-cols-12 items-center w-full">
                         
                         <div className="col-span-2 logo">
-                            
                             <Link to="/" className="flex items-center">
                                 <img src="/logo-2.png" alt="" className="w-9 md:w-11"/>
                                 <h4 className="text-white font-semibold text-lg md:text-xl   md:block">
@@ -214,10 +211,9 @@ function Navigation(props) {
                                 </h4>
                             </Link>
                         </div>
-                  
                         
-                        <div className="col-span-6 flex w-full  ">
-                            {/* <ProductCategoryDropdown /> */}
+                        <div className="col-span-6 flex w-full">
+                            {/******* <ProductCategoryDropdown /> ********/}
                             
                             {/***** search bar *******/}
                             <div className="hidden items-center  w-full  lg:flex">
@@ -244,6 +240,16 @@ function Navigation(props) {
                         <div className="col-span-4 justify-self-end">
                             
                             <div className="flex gap-x-4 ">
+                                
+                                {/***** go to seller page **********/}
+                                 <li className=" py-5 cursor-pointer">
+                                    <Link className="flex items-center gap-x-2" to="/seller/dashboard">
+                                        <FaStoreAlt className="text-white text-2xl"/>
+                                      <span className="font-medium text-white hidden md:block">
+                                        {l("Seller")}
+                                    </span>
+                                          </Link>
+                                </li>
                                 
                                  {/*** mobile search icon *****/}
                                  <li className="md:hidden relative flex items-center gap-x-2 py-5">
