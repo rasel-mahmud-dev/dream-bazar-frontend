@@ -1,7 +1,8 @@
+import {lazy} from "react";
 
-import Dashboard from "pages/Customer/Dashboard";
-import Wishlist from "pages/Customer/wishlist/Wishlist";
-import ShoppingCart from "pages/Customer/cart/ShoppingCart";
+const Dashboard = lazy(()=>import("pages/Customer/Dashboard"));
+const Wishlist = lazy(()=>import("pages/Customer/wishlist/Wishlist"));
+const ShoppingCart = lazy(()=>import("pages/Customer/cart/ShoppingCart"));
 
 
 const CustomerDashboardRoute  = {

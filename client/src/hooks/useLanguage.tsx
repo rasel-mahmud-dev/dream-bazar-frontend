@@ -6,7 +6,7 @@ function useLanguage(Context?: any){
 	const a =  useContext(Context || AppContext);
 	// @ts-ignore
 	let translations = a.contextState.translations
-	
+    console.log(translations)
 	const chooseToken = (token: string, fallback?: string)=>{
 		if(translations[token]){
 			return translations[token]
@@ -17,7 +17,7 @@ function useLanguage(Context?: any){
 		}
 	}
 	
-	return [chooseToken]
+	return chooseToken
 }
 
 export default useLanguage

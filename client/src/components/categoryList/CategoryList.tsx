@@ -9,11 +9,14 @@ import {Button} from "UI/index";
 
 import "./styles.scss"
 import {fetchFlatCategoriesAction} from "actions/adminProductAction";
+import useLanguage from "src/hooks/useLanguage";
 
 
 function CategoryList(props) {
     
     const dispatch = useDispatch();
+    
+    const l = useLanguage()
     
     const { flatCategories, nestedCategoriesCache, filters, brands } = useSelector((state: RootState)=>state.productState)
     let [searchParams, setSearchParams] = useSearchParams();
@@ -442,7 +445,7 @@ function CategoryList(props) {
     
     
     function clickOnCategoryItem(item: CategoryType, levelNumber){
-        
+   
         // find all sub categories for currently clicked item
         // that is set for last parent sub categories sub arr
         let lastSub = flatCategories.filter(cat=>cat.parentId === item._id)
@@ -597,7 +600,7 @@ function CategoryList(props) {
             
             <div className="grid px-4">
                 
-                <h1 className="heading-5  mt-8">PICK A CATEGORY</h1>
+                <h1 className="heading-5  mt-8">{l("PICK A CATEGORY")}</h1>
 
                 <div className=''>
                     {selectedCategory && <div className="flex flex-wrap gap-2 mt-2 mb-2">

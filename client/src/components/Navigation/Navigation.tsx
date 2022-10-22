@@ -40,7 +40,7 @@ function Navigation(props) {
     
     const {contextState, contextDispatch} = useContext<any>(AppContext)
     
-    const [l] = useLanguage(AppContext)
+    const l = useLanguage(AppContext)
     
     const news = "From Yesterday our Online Shop will be Shutdown until Government don't declare next info.";
     

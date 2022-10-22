@@ -1,4 +1,4 @@
-import {lazy} from "react"
+import {lazy, Suspense} from "react"
 
 import {Routes, Route, RouterProvider, createBrowserRouter} from "react-router-dom"
 import ResetPassword from "pages/auth/ResetPassword";
@@ -13,8 +13,10 @@ import adminDashboardRoutes from "pages/Admin/adminDashboardRoute";
 import customerDashboardRoutes from "pages/Customer/customerDashboardRoute";
 import NotFoundPage from "components/notFoundPage/NotFoundPage";
 import App from "src/App";
-import adminDashboardRoute from "pages/Admin/adminDashboardRoute";
+
+import adminDashboardRoute  from "pages/Admin/adminDashboardRoute"
 import customerDashboardRoute from "pages/Customer/customerDashboardRoute";
+import sellerRoute from "pages/SellerHub/sellerRoute";
 
 const HomePage = lazy(() => import("pages/homePage/HomePage"))
 const Products = lazy(() => import("src/pages/products/Products"))
@@ -35,6 +37,8 @@ const StoreList = lazy(() => import("src/pages/SellerHub/StoreList/StoreList"))
 const EmailAndPhoneVerification = lazy(() => import("src/pages/auth/EmailVerification"))
 const ProductFilterPage: any = lazy(() => import("src/pages/productFilterPage/ProductFilterPage"))
 const StorePage = lazy(() => import("src/pages/storePage/StorePage"))
+
+
 
 const router = createBrowserRouter([
     {
@@ -65,12 +69,19 @@ const router = createBrowserRouter([
             customerDashboardRoute,
         ],
     },
+    {
+        ...sellerRoute
+    }
 ]);
 
 
 
+
 const MyRoutes = () => {
-	return ( <RouterProvider router={router} />
+	return (
+        <Suspense fallback={<h1>sddddddd</h1>}>
+            <RouterProvider router={router} />
+        </Suspense>
 		// <Routes>
       //       <Route path="/" element={<HomePage/>}>
       //       </Route>

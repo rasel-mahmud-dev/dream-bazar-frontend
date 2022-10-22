@@ -2,11 +2,14 @@ import React, {useEffect} from 'react';
 import {ACTION_TYPES} from "store/types";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
+import useLanguage from "src/hooks/useLanguage";
 
 
 const BrandList = () => {
     const dispatch = useDispatch()
     const {brandsForCategory, filters} = useSelector((state: RootState) => state.productState)
+    
+    const l = useLanguage();
     
     // useEffect(()=>{
     // 	// apis.get("/api/brands").then(res=>{
@@ -60,7 +63,7 @@ const BrandList = () => {
         <div>
 			
 			<div className="grid px-4">
-                <h1 className="heading-3 mt-8">Brands</h1>
+                <h1 className="heading-3 mt-8">{l("BRANDS")}</h1>
                 
                 {/*Selected brands  */}
                 
@@ -92,9 +95,12 @@ const BrandList = () => {
                             && filters.category.selected
                             && brandsForCategory[filters.category.selected.name]
                             && brandsForCategory[filters.category.selected.name].map(brand => (
-                            <div>
-                                <h1>{brand.name}</h1>
-                            </div>
+                                <li key={brand._id}
+                                onClick={() => handleChangeBrand(brand)}
+                                className="flex text-neutral-600 items-center hover:text-green-400 cursor-pointer select-none py-1">
+                                    <input onChange={()=>{}} type="checkbox" checked={isChecked(brand._id)} />
+                                    <label className="cursor-pointer ml-2">{brand.name}</label>
+                            </li>
                         ))}
                         
                     </div>

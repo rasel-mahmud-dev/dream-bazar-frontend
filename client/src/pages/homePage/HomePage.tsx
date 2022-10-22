@@ -26,7 +26,7 @@ const HomePage = (props) => {
   
   const navigate = useNavigate();
   
-  const [l] = useLanguage(AppContext)
+  const l = useLanguage()
 
   const {
     homePageSectionsData,

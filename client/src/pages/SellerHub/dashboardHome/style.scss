@@ -1,0 +1,16 @@
+
+
+.slat-item{
+    &:nth-child(1),&:nth-child(5), &:nth-child(8){
+        .slat-value{@apply text-green-450;}
+    }
+    &:nth-child(2),&:nth-child(5){
+        .slat-value{@apply text-green-450;}
+    }
+    &:nth-child(1),&:nth-child(6){
+        .slat-value{@apply text-blue-400;}
+    }
+    &:nth-child(3),&:nth-child(4),&:nth-child(7){
+        .slat-value{@apply text-orange-400;}
+    }
+}

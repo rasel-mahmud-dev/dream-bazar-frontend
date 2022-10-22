@@ -163,7 +163,7 @@ function App(props) {
 		console.log(e.target.value);
 	}
 
-	const [t] = useLanguage(AppContext);
+	const t = useLanguage(AppContext);
 
 	return (
 		<div className={`App`}>

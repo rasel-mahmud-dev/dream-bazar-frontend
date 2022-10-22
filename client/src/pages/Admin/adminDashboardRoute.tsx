@@ -1,8 +1,10 @@
-import AdminDashboard from "pages/Admin/AdminDashboard";
-import AllProducts from "pages/Admin/components/AllProducts";
-import AllBrands from "pages/Admin/components/AllBrands";
-import AddProduct from "pages/Admin/components/AddProduct";
-import AllCategory from "pages/Admin/components/AllCategory";
+import {lazy} from "react";
+
+const AdminDashboard = lazy(()=>import("pages/Admin/AdminDashboard"));
+const AllProducts = lazy(()=>import("pages/Admin/components/AllProducts"));
+const AllBrands = lazy(()=>import("pages/Admin/components/AllBrands"));
+const AddProduct = lazy(()=>import("pages/Admin/components/AddProduct"));
+const AllCategory = lazy(()=>import("pages/Admin/components/AllCategory"));
 
 
 const adminDashboardRoute  =  {

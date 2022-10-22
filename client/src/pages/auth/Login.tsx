@@ -29,7 +29,7 @@ interface LoginPageProps {
 const Login: FC<LoginPageProps> = (props) => {
     let params = useParams();
     
-    const [l] = useLanguage(AppContext)
+    const l = useLanguage()
 
     const location = useLocation();
 

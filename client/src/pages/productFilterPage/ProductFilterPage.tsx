@@ -296,7 +296,11 @@ const ProductFilter: FC<ProductFilterType> = ({innerWidth}) => {
             if (filters.category) {
                 if (filters.category.allNestedIds && filters.category.allNestedIds.length > 0) {
                     data.categoryIds = filters.category.allNestedIds.map(a => a.id)
-                    allCatName = filters.category.allNestedIds.map(a => a.name).join("_")
+                    if(filters.category.selected){
+                        allCatName = filters.category.selected.name
+                    } else {
+                        allCatName = filters.category.allNestedIds.map(a => a.name).join("_")
+                    }
                 } else if (filters.category.selected) {
                     data.categoryIds = [filters.category.selected.id]
                     allCatName = filters.category.selected.name
