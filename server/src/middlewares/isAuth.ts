@@ -6,7 +6,7 @@ import {NextFunction, Response} from "express";
 const {getToken, parseToken} = require("../jwt")
 
 
-function isAuth (req: Request, res: Response, next: NextFunction){
+function isAuth (req: any, res: any, next: NextFunction){
   const token = getToken(req)
  
   if(token){

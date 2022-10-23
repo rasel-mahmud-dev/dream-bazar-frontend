@@ -2,7 +2,11 @@
 const staticImagePath = (fileName: string)=>{
     let fullUrl =  ""
     if(import.meta.env.DEV){
-        fullUrl =  "/static/"  + fileName
+        if(fileName && fileName.startsWith("http")) {
+            fullUrl = fileName;
+        }else{
+            fullUrl = "/static/" + fileName
+        }
     } else {
         if(fileName.startsWith("http")){
             fullUrl =  fileName

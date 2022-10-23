@@ -13,9 +13,13 @@ const SellerAuthRequired = (props) => {
     
 	if (!authChecked) {
 		return <h1>Loading</h1>;
-	} else if (authChecked && (!auth || !auth.roles.includes(Roles.SELLER))) {
-		return <Navigate to="/seller/login" state={{redirect: location.pathname}} />;
-	}
+	} else if (authChecked) {
+        if (!auth) {
+            return <Navigate to="/seller/login" state={{redirect: location.pathname}}/>;
+        } else if(!auth.roles.includes(Roles.SELLER)){
+            return  "not allowed"
+        }
+    }
 
 	return <div>{props.children}</div>;
 };

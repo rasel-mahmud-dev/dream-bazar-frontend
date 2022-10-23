@@ -1,4 +1,3 @@
-
 import {ObjectId} from "mongodb";
 import {IndexType} from "../services/mongodb/models.index.types";
 import Base from "./Base";
@@ -53,8 +52,6 @@ class Product extends Base implements ProductType {
     sold: {}
   }
   static collectionName = "products"
-  
-  
 
   constructor(data: ProductType) {
     super(Product.collectionName)
@@ -77,9 +74,7 @@ class Product extends Base implements ProductType {
   }
 }
 
-
-export default Product
-
+export default Product;
 
 
 

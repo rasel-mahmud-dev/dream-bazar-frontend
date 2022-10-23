@@ -43,7 +43,7 @@ React js and Mongodb
 ## Functional analysis.
 ### Models
 
-**User**
+**User2**
 - _id?: ObjectId
 - username: string
 - firstName: string
@@ -81,5 +81,5 @@ React js and Mongodb
 
 ### Endpoint
 
-User endpoint
+User2 endpoint
  - POST /auth/login [public]

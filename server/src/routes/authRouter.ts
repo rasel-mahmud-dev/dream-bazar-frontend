@@ -4,8 +4,10 @@ const passport = require("passport")
 const {createToken} = require("../jwt")
 import isAuth from "../middlewares/isAuth"
 import {googleLoginController} from "../controllers/authController";
+import Base from "../models/Base";
 
 const authController = require("../controllers/authController")
+
 
 
 export default function (app: Router){

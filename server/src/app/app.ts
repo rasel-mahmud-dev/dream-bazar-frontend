@@ -10,7 +10,7 @@ require('dotenv').config()
 
 
 import routes from "../routes"
-import path from "path";
+
 
 // import * as path from "path";
 // import {initialConnectionMongodb} from "./services/mongodb/database.service";
@@ -24,6 +24,7 @@ require('../passport/google')
 // import dataDir from "../src/utilities/dataDir";
 // import {connectToDatabase} from "../src/services/mongodb/database.service";
 // import sqlDatabase from "../src/services/sqlite/database.service";
+
 
 const app = express()
 app.use(bodyParser.json());
@@ -66,6 +67,7 @@ app.use(passport.initialize())
 // })
 
 
+
 app.use(routes)
 
 
@@ -83,7 +85,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
         })
     }
 })
-
 
 
 export default app;

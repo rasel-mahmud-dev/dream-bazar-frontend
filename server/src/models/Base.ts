@@ -2,20 +2,12 @@ import * as mongoDB from "mongodb";
 import {Collection, ObjectId} from "mongodb";
 import {mongoConnect} from "../services/mongodb/database.service";
 
-interface TT {
-    collection?: mongoDB.Collection;
-    client: mongoDB.MongoClient;
-}
-
 class Base {
-    // getCollection with Static Method............
-    
+
     static collectionName: string;
-    
     constructor(collectionName: string) {
         Base.collectionName = collectionName;
     }
-    
     save<T>() {
         return new Promise<T | null>(async (resolve, reject) => {
             try {
@@ -40,7 +32,6 @@ class Base {
             }
         });
     }
-    
     updateOne<T>(id: string, update: Partial<mongoDB.Document> | mongoDB.UpdateFilter<mongoDB.Document>) {
         return new Promise<T | null>(async (resolve, reject) => {
             try {
@@ -60,7 +51,6 @@ class Base {
             }
         });
     }
-    
     static findOneAndUpdate(
         filter: mongoDB.Filter<mongoDB.Document>,
         values: any
@@ -87,7 +77,6 @@ class Base {
             }
         );
     }
-    
     static deleteById(id: string) {
         return new Promise<mongoDB.DeleteResult>(async (resolve, reject) => {
             if (!id) {
@@ -173,4 +162,4 @@ class Base {
     }
 }
 
-export default Base;
+export default Base

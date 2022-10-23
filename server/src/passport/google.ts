@@ -1,6 +1,6 @@
 import passport from  'passport'
 import GoogleOAuth2Strategy from 'passport-google-oauth';
-import User from "../models/User";
+import User2 from "../models/User";
 import { mongoConnect} from "../services/mongodb/database.service";
 const GoogleStrategy = GoogleOAuth2Strategy.OAuth2Strategy
 
@@ -61,6 +61,6 @@ passport.serializeUser(function(user, cb) {
    cb(null, user);
 });
 
-passport.deserializeUser(function(obj: User, cb) {
+passport.deserializeUser(function(obj: User2, cb) {
   cb(null, obj);
 });

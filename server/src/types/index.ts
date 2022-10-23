@@ -54,3 +54,14 @@ export declare type ApiResponse<T = any> = ServerResponse & {
 //     };
 //     body: T
 // }
+
+export enum Roles {
+    CUSTOMER = "CUSTOMER",
+    SALES_MANAGER = "SALES_MANAGER",
+    PRODUCT_MANAGER = "PRODUCT_MANAGER",
+    ORDER_MANAGER = "ORDER_MANAGER",
+    FULFILLMENT_AGENT = "FULFILLMENT_AGENT",
+    SITE_DESIGNER = "SITE_DESIGNER",
+    ADMIN = "ADMIN",
+    SELLER = "SELLER"
+}

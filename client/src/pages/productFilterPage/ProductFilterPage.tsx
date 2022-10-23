@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from "react"
 // import json from "src/breadcrumbData.json"
 import {Pagination, Spin} from "components/UI"
-import {useLocation, useNavigate, useParams} from "react-router-dom"
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom"
 import api from "src/apis"
 import {connect, useDispatch, useSelector} from "react-redux"
 import {ACTION_TYPES} from "store/types"
@@ -24,6 +24,8 @@ import CategoryList from "components/categoryList/CategoryList";
 import apis from "src/apis";
 import WithWidth from "UI/withWidth/withWidth";
 import Sidebar from "components/sidebar/Sidebar";
+import Circle from "UI/Circle/Circle";
+import {FaAngleLeft} from "react-icons/all";
 
 
 let initialLoad = true
@@ -554,11 +556,47 @@ const ProductFilter: FC<ProductFilterType> = ({innerWidth}) => {
 
       <div className="product-filter-page--layout">
           
-          <Sidebar isOpen={isOpenLeftBar} onClickOnBackdrop={handleClickSidebarBackdrop}>
-              {/*{ss}*/}
-                <CategoryList/>
-                <BrandList/>
-         </Sidebar>
+          <Sidebar
+              isOpen={isOpenLeftBar}
+              onClickOnBackdrop={handleClickSidebarBackdrop}>
+                <div className="">
+                    {/**** sidebar fixed navigation ******/}
+                    <div className="sidebar-fixed-bar top-0 bg-white py-3 px-4 md:hidden">
+                        <div className="logo flex items-center  ">
+                        <div className="md:hidden block mr-3 ">
+                            <Circle onClick={handleClickSidebarBackdrop}>
+                                <FaAngleLeft
+                                    className="text-lg"
+
+                                />
+                            </Circle>
+                        </div>
+
+                        <Link
+                            to="/seller/dashboard"
+                            className="flex items-center"
+                        >
+                            <img
+                                src="/logo-2.png"
+                                alt=""
+                                className="w-9 md:w-11"
+                            />
+                            <h4 className="text-neutral-900 font-semibold text-lg md:text-xl   md:block">
+                                Dream Bazar
+                            </h4>
+                        </Link>
+                    </div>
+                    </div>
+                    
+                    {/**** sidebar content ******/}
+                    <div className="mt-20 md:mt-4 px-3">
+                           {/*{ss}*/}
+                        <CategoryList/>
+                         <BrandList/>
+                    </div>
+                </div>
+          </Sidebar>
+         
         
 
         <div className="content w-full content-container bg-body">

@@ -1,6 +1,3 @@
-
-import * as mongoDB from "mongodb"
-import{ ObjectId} from "mongodb"
 import Base from "./Base";
 
 export interface ProductDescriptionType{

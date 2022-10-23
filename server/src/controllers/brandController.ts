@@ -1,5 +1,4 @@
 import {NextFunction, Request, Response} from "express"
-
 import {errorResponse, successResponse} from "../response";
 import fileUpload from "../utilities/fileUpload"
 import fs from "fs";
@@ -7,10 +6,8 @@ import fs from "fs";
 import staticDir from "../utilities/staticDir";
 
 import Brand from "../models/Brand";
-
 import {ObjectId} from "mongodb";
-import {mongoConnect} from "../services/mongodb/database.service";
-import isObjectId from "../utilities/isObjectId";
+
 
 export const getBrandsCount = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -22,38 +19,38 @@ export const getBrandsCount = async (req: Request, res: Response, next: NextFunc
 }
 
 export const getBrandsForCategory = async (req: Request, res: Response, next: NextFunction) => {
-    
+
     const { forCategory } = req.body
-    
+
     try {
         const collection = await Brand.collection()
-        
+
         if (forCategory) {
             let allBrands = await collection.find({
                 forCategory: {
                     $in: forCategory
                 }
             }).toArray();
-            
+
             res.status(200).json({brands: allBrands})
         } else {
             res.status(200).json({brands: []})
         }
-        
+
     } catch (ex) {
         next(ex)
     }
 }
 
 export const getBrands = async (req: Request, res: Response, next: NextFunction) => {
-    
+
     let { perPage = 10, pageNumber = 1 } = req.query
 
     try {
         // let Skip = (perPage as number) * (pageNumber as number - 1)
         let brands= await Brand.find<Brand[]>({})
         successResponse(res, 200, brands)
-        
+
     } catch (ex) {
         next(ex)
     }
@@ -71,8 +68,8 @@ export const getBrand = async (req: Request, res: Response, next: NextFunction) 
     } catch (ex) {
         next(ex)
     }
-    
-   
+
+
 }
 
 
@@ -88,7 +85,7 @@ export const saveBrands = async (req: Request, res: Response, next: NextFunction
         // check it this brand already exists or not
         let result = await Brand.findOne({name: name})
         if (result)  return errorResponse(next, "Brand already exists", 401)
-        
+
 
         let newPath = ""
 
@@ -100,19 +97,19 @@ export const saveBrands = async (req: Request, res: Response, next: NextFunction
             } catch (ex) {
             }
         }
-        
+
         let c = JSON.parse(forCategory)
-        
+
         let newBrand = new Brand({
             name,
             logo: newPath,
             forCategory: c
         })
-    
+
         newBrand = await newBrand.save() as any
-       
+
         if (!newBrand) return errorResponse(next, "Internal error. Please try Again")
-        
+
         successResponse(res, 201, {
             message: "brand added",
             brand: newBrand
@@ -124,9 +121,9 @@ export const saveBrands = async (req: Request, res: Response, next: NextFunction
 }
 
 export const updateBrand = async (req: Request, res: Response, next: NextFunction) => {
-    
+
     try {
-        
+
         let result = await Brand.findOne({_id: new ObjectId(req.params.id)})
         if (!result) return errorResponse(next, "Brand Not found")
 
@@ -166,8 +163,8 @@ export const updateBrand = async (req: Request, res: Response, next: NextFunctio
             message: "brand updated",
             brand: updatedBrandData
         })
-        
-        
+
+
     } catch (ex) {
         errorResponse(next, "Brand update fail")
     }

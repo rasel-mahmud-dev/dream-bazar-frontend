@@ -7,6 +7,7 @@ import {Badge, Button, Image, OnScroll, Popup, Typography,} from "components/UI"
 import fullLink from "src/utills/fullLink";
 
 import {
+    BiChevronsDown,
     BiSearch,
     BiUser,
     BsGithub, FaBars,
@@ -26,6 +27,7 @@ import useLanguage from "src/hooks/useLanguage";
 import staticImagePath from "src/utills/staticImagePath";
 import CartDropdown from "components/Navigation/CartDropdown";
 import {ACTION_TYPES} from "store/types";
+import Circle from "UI/Circle/Circle";
 
 const AuthDropdown = lazy(() => import("components/Navigation/AuthDropdown"));
 const MoreDropdown = lazy(() => import("components/Navigation/MoreDropdown"));
@@ -239,17 +241,36 @@ function Navigation(props) {
 
                         <div className="col-span-4 justify-self-end">
                             
-                            <div className="flex gap-x-4 ">
+                            <div className="flex gap-x-4 items-center ">
                                 
                                 {/***** go to seller page **********/}
-                                 <li className=" py-5 cursor-pointer">
-                                    <Link className="flex items-center gap-x-2" to="/seller/dashboard">
-                                        <FaStoreAlt className="text-white text-2xl"/>
-                                      <span className="font-medium text-white hidden md:block">
-                                        {l("Seller")}
-                                    </span>
-                                          </Link>
-                                </li>
+    
+                                <div
+                                    className="relative  relative"
+                                    onMouseEnter={() =>
+                                        setState({ ...state, openDropdown: "more" })
+                                    }
+                                    onMouseLeave={() =>
+                                        setState({ ...state, openDropdown: "" })
+                                    }
+                                    >
+                                    <BiChevronsDown />
+                                        <Suspense fallback={<h1>loading</h1>}>
+                                            <MoreDropdown
+                                                className="left-1/2 -translate-x-1/2 top-8 !shadow-xl rounded-lg p-4"
+                                                isShow={state.openDropdown === "more"}
+                                            />
+                                        </Suspense>
+                                    </div>
+                                
+                                {/* <li className=" py-5 cursor-pointer">*/}
+                                {/*    <Link className="flex items-center gap-x-2" to="/seller/dashboard">*/}
+                                {/*        <FaStoreAlt className="text-white text-2xl"/>*/}
+                                {/*      <span className="font-medium text-white hidden md:block">*/}
+                                {/*        {l("Seller")}*/}
+                                {/*    </span>*/}
+                                {/*          </Link>*/}
+                                {/*</li>*/}
                                 
                                  {/*** mobile search icon *****/}
                                  <li className="md:hidden relative flex items-center gap-x-2 py-5">

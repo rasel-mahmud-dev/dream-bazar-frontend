@@ -1,8 +1,10 @@
 import {ObjectId} from "mongodb";
 import {IndexType} from "../services/mongodb/models.index.types";
+import Base from "./Base";
+import {Roles} from "../types";
 
 
-interface UserType {
+export interface UserType {
     _id?: ObjectId
     googleId?: string
     facebookId?: string
@@ -18,17 +20,9 @@ interface UserType {
     accountStatus?: boolean
 }
 
-export enum Roles {
-    CUSTOMER = "CUSTOMER",
-    SALES_MANAGER = "SALES_MANAGER",
-    PRODUCT_MANAGER = "PRODUCT_MANAGER",
-    ORDER_MANAGER = "ORDER_MANAGER",
-    FULFILLMENT_AGENT = "FULFILLMENT_AGENT",
-    SITE_DESIGNER = "SITE_DESIGNER",
-    ADMIN = "ADMIN"
-}
 
-class User implements UserType{
+
+class User extends Base implements UserType{
     public _id?: ObjectId
     public googleId?: string
     public facebookId?: string
@@ -52,7 +46,10 @@ class User implements UserType{
         }
     }
 
+    static collectionName = "users"
+
     constructor(data: UserType) {
+        super(User.collectionName);
         this.username = data.username
         this.firstName = data.firstName
         this.facebookId = data.facebookId
@@ -67,5 +64,6 @@ class User implements UserType{
         this.accountStatus =  false
     }
 }
+
 
 export default User

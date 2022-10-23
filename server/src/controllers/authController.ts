@@ -6,8 +6,8 @@ import {createHash, hashCompare} from "../hash";
 import * as mongoDB from "mongodb"
 import {createToken} from "../jwt";
 
-const {ObjectId} = require("mongodb")
-const {errorResponse, successResponse} = require("../response")
+import {ObjectId} from "mongodb"
+import {errorResponse, successResponse} from "../response"
 
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {

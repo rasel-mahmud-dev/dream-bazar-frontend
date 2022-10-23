@@ -62,7 +62,7 @@ const Product: FC<Props> = (props) => {
 		            <RatingStar rating={{rate: 10}} className="mt-2"/>
 		
 		            <div className="product__price_row flex items-center mt-1">
-		                <h5 className="text-red-500 font-medium">TK {calculateDiscount(product.discount, product.price)}</h5>
+		                <h5 className="text-red-500 font-medium">TK {calculateDiscount(product.discount, product.price).toFixed(2)}</h5>
 				            {product.discount !== 0 && <span className="text-neutral-400 font-medium line-through ml-3">TK{product.price}</span>}
 	                 </div>
 		

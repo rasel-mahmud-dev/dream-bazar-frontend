@@ -1,14 +1,17 @@
 import {Router} from "express";
 
 
-const sellerController = require("../controllers/sellerController")
+import {getSeller, getSellerProducts} from "../controllers/sellerController";
+import permission from "../middlewares/permission";
+import {Roles} from "../types";
+import isAuth from "../middlewares/isAuth";
+
 
 export default function (app: Router){
   
-  // app.get("/api/seller/:customer_id", sellerController.getSeller)
-  // app.get("/api/brands", brandController.getBrands)
-
+  // app.get("/api/seller/:sellerId", getSeller)
   
   
+  app.get("/api/seller/products", isAuth, permission([Roles.ADMIN, Roles.SELLER]), getSellerProducts)
   
 }

@@ -1,6 +1,7 @@
-import Base from "./Base";
+
 import {IndexType} from "../services/mongodb/models.index.types";
 import {ObjectId} from "mongodb";
+import Base from "./Base";
 
 export interface BrandType {
     _id?: string
@@ -10,6 +11,7 @@ export interface BrandType {
     createdAt?: Date | string
     updatedAt?: Date | string
 }
+
 
 class Brand extends Base implements BrandType {
     _id?:  string

@@ -22,10 +22,7 @@ const SellerNavigation = ({auth}) => {
     function handleToggleLeftBar() {
 		toggleLeftSidebarAction(dispatch);
 	}
-    
-    function handleSignOut(e){
-    
-    }
+ 
 
 	return (
 		<div>

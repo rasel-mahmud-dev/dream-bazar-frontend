@@ -12,7 +12,6 @@ import {errorResponse, successResponse} from "../response";
 import fs from "fs";
 import staticDir from "../utilities/staticDir";
 import {TypedRequestBody} from "../types";
-import {connectToDatabase} from "../../../bac/src/services/mongodb/database.service";
 import {mongoConnect} from "../services/mongodb/database.service";
 
 export const getProductCount = async (
@@ -496,7 +495,7 @@ export const saveProduct = async (
         
         newProduct.coverPhoto = newPath;
         
-        let doc = await newProduct.save();
+        let doc = await newProduct.save<any>();
         if (doc && doc.insertedId) {
             successResponse(res, 201, {
                 message: "Product added",
