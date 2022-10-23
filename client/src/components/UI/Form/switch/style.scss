@@ -1,0 +1,35 @@
+
+.switch{
+    background: #e5e5e5;
+    width: 37px;
+    position: relative;
+    border-radius: 14px;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    transition: all .2s linear;
+    input{
+        opacity: 0;
+        display: none;
+    }
+
+    .thumb{
+        width: 16px;
+        height: 16px;
+        background: #ffffff;
+        border-radius: 10px;
+        display: inline-block;
+        cursor: pointer;
+        transform: translateX(0);
+        transition: all .2s linear;
+    }
+
+    &-on{
+        background: #33b03a;
+        .thumb{
+            transition: all .2s linear;
+            transform: translateX(calc(100% - -1px));
+        }
+    }
+}
+

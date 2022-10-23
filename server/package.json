@@ -8,10 +8,7 @@
     "build2": "tsc && node copy-dir.js",
     "clean": "rm -rf ./dist",
     "start": "node dist/server.js",
-    "dev2": "set NODE_ENV=development&ts-node-dev --respawn --transpile-only functions/app.ts",
-    "dev3": "set NODE_ENV=development&ts-node-dev --respawn --transpile-only src/local-server.ts",
-    "dev4": "set NODE_ENV=development&ts-node-dev --respawn --transpile-only ./src/server.ts",
-    "dev": "ts-node ./src/server.ts"
+    "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -35,7 +32,6 @@
     "fs-extra": "^10.1.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.13",
-    "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.8.4"
   }

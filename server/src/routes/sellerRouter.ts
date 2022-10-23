@@ -1,7 +1,7 @@
 import {Router} from "express";
 
 
-import {getSeller, getSellerProducts} from "../controllers/sellerController";
+import { getSellerProducts} from "../controllers/sellerController";
 import permission from "../middlewares/permission";
 import {Roles} from "../types";
 import isAuth from "../middlewares/isAuth";
