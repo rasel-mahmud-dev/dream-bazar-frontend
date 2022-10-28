@@ -12,6 +12,7 @@ import Card from "UI/Form/Card/Card";
 import FileUpload from "UI/Form/File/FileUpload";
 import {Button} from "UI/index";
 import MultipleFileChooser from "UI/Form/File/MultipleFileChooser";
+import generateSku from "src/utills/generateSku";
 
 const AddProduct = () => {
     const params = useParams();
@@ -41,6 +42,7 @@ const AddProduct = () => {
             price: {value: "", errorMessage: ""},
             qty: {value: "", errorMessage: ""},
             discount: {value: "", errorMessage: ""},
+            sku: {value: "", errorMessage: ""},
         },
         isShowStaticChooser: false,
         staticImages: [],
@@ -54,8 +56,45 @@ const AddProduct = () => {
     }, []);
     
     function handleChange(e) {
+        const { name, value } = e.target
+        let updateProductData = { ...productData}
+        
+        if(name === "logo") {
+            updateProductData = {
+                ...updateProductData,
+                [name]: {
+                    ...updateProductData[name],
+                    value: value,
+                    errorMessage: updateProductData[name] ? "" : updateProductData[name].errorMessage
+                }
+            }
+        } else {
+            updateProductData = {
+                ...updateProductData,
+                [name]: {
+                    ...updateProductData[name],
+                    value: value,
+                    errorMessage: updateProductData[name] ? "" : updateProductData[name].errorMessage
+                }
+            }
+        }
+        setState(prev=>({
+            ...prev,
+            productData: updateProductData
+        }))
+        
     }
     
+    function generateNewProductSku(){
+        setState(prev=>{
+            let updateProductData = {...prev.productData}
+            updateProductData.sku = {value: generateSku(), errorMessage: ""}
+            return {
+                ...prev,
+                productData: updateProductData
+            }
+        })
+    }
     
     
     return (
@@ -149,13 +188,17 @@ const AddProduct = () => {
                         />
                         
                         <InputGroup
-                            name="title"
-                            label="Product Code Sku * Generate Code"
+                            name="sku"
+                            label="Product Code Sku"
+                            labelAddition={()=> (
+                                <span className="text-blue-500 cursor-pointer font-medium active:text-blue-400 " onClick={generateNewProductSku}>Generate Code</span>
+                            )}
+                            required={true}
                             className="!flex-col bg-white "
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
-                            labelClass="dark:text-white !mb-2 w-full"
+                            labelClass="dark:text-white !mb-2"
                             state={productData}
-                            placeholder="Product Description"
+                            placeholder="Code"
                             onChange={handleChange}
                         />
                         
