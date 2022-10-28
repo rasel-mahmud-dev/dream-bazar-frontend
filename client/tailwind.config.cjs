@@ -55,6 +55,9 @@ module.exports = {
 	      "xxs": "0 5px 10px rgb(51 66 87 / 5%)"
       }
     },
+	  container:  {
+		screens: {sm: "1400px"}
+	  }
   },
   plugins: [],
 }

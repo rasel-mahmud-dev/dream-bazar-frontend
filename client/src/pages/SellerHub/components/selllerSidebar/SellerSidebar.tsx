@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Sidebar from "components/sidebar/Sidebar";
 import {toggleLeftSidebarAction} from "actions/appAction";
 import {useDispatch} from "react-redux";
-import {BiCart, BiNote, FaAngleLeft, FaBars, FiMail} from "react-icons/all";
+import {BiCart, BiNote, BiPlug, BiPlus, FaAngleLeft, FaBars, FiMail} from "react-icons/all";
 import {Link,   useNavigate} from "react-router-dom";
 import Circle from "UI/Circle/Circle";
 
@@ -44,6 +44,7 @@ const SellerSidebar = ({auth, isOpenLeftBar}) => {
             section: "PRODUCT MANAGEMENT",
             items: [
                 {name: "Products", to: "/seller/products", icon: <BiCart />},
+                {name: "Add", to: "/seller/product/add", icon: <BiPlus />},
                 {name: "Bulk import", to: "/", icon: <BiNote />},
             ],
         },

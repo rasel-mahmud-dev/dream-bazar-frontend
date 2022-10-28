@@ -1,9 +1,10 @@
 import apis from "src/apis";
 import {ACTION_TYPES, CategoryType} from "store/types";
 import api from "src/apis";
+import {Dispatch} from "redux";
 
 
-export const fetchFlatCategoriesAction = (flatCategories, dispatch)=>{
+export const fetchFlatCategoriesAction = (flatCategories, dispatch: Dispatch)=>{
     return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
         if(flatCategories){
             resolve(flatCategories)
@@ -22,7 +23,7 @@ export const fetchFlatCategoriesAction = (flatCategories, dispatch)=>{
     })
 }
 
-export function fetchAdminBrandsAction(adminBrands, dispatch){
+export function fetchAdminBrandsAction(adminBrands, dispatch: Dispatch){
     return new Promise((resolve, reject)=>{
         if(!adminBrands.cached || adminBrands.cached.length === 0) {
             apis.get("/api/brands").then(({data, status}) => {
@@ -41,7 +42,7 @@ export function fetchAdminBrandsAction(adminBrands, dispatch){
     })
 }
 
-export function fetchAdminProductsAction(adminProducts, pageNumber, dispatch){
+export function fetchAdminProductsAction(adminProducts, pageNumber, dispatch: Dispatch){
     if(!adminProducts.cached[pageNumber] || adminProducts.cached[pageNumber].length === 0) {
         api.get(`/api/products?perPage=200&pageNumber=${pageNumber}`).then(({data, status}) => {
             dispatch({
@@ -57,7 +58,7 @@ export function fetchAdminProductsAction(adminProducts, pageNumber, dispatch){
     
 }
 
-export function fetchAdminStaticFilesAction(adminStaticFiles,  dispatch){
+export function fetchAdminStaticFilesAction(adminStaticFiles,  dispatch: Dispatch){
     if(!adminStaticFiles || adminStaticFiles.length === 0) {
         api.get("/api/files/static-files").then(({data}) => {
             dispatch({

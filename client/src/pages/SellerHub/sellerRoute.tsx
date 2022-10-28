@@ -18,7 +18,8 @@ export default {
         { path: "login", element: <SellerLogin /> },
         { path: "registration", element: <SellerRegistration /> },
         { path: "products", element: <SellerProducts /> },
-        { path: "product/edit/:productId", element: <AddProduct /> }
+        { path: "product/edit/:productId", element: <AddProduct /> },
+        { path: "product/add", element: <AddProduct /> }
     ]
 }
 

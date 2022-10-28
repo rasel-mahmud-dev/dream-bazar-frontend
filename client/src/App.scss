@@ -18,7 +18,6 @@ html{
         @apply text-green-450 bg-green-450/10;
         li{ @apply text-green-450 }
     }
-
 }
 
 .dark{
@@ -29,7 +28,8 @@ html{
 }
 body{
   //background: #f0f3f8;
-  background: #f9fff9;
+  //background: #f9fff9;
+  background: #ebfaf059;
   font-weight: 300;
   font-size: 14px;
   color: #212121;
@@ -84,14 +84,10 @@ body{
 
 
 .container{
-    @apply px-4
+    @apply px-3 md:px-4 mx-auto;
 }
 
-h1, h2, h3, h4, h5, h6{
-  margin: 0;
-  padding: 0;
-  
-}
+
 img{ font-size: 12px}
 
 .text-link{
@@ -120,14 +116,7 @@ img{ font-size: 12px}
   }
 }
 
-@media screen and (min-width: 1024px) and (orientation: landscape){
-  .f{
-    display: none;
-  }
-};
 
-
-.bg-transparent{background: transparent !important }
 .bg-primary{background: $primary;}
 .bg-secondary{background: $secondary;}
 .bg-danger{background: $danger;}
@@ -196,82 +185,12 @@ i:hover{
 }
 
 
-table{
-  border: none;
-  border-collapse: none;
-tr{
-  &:nth-child(odd){
-    //background: #ccffcc;
-  }
-}
-
-td{
-  margin: 5px 0;
-  /* background: red; */
-  padding: 10px;
-  img{
-    display: flex;
-  }
-}
-
-.brand_logo{
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  img{
-    width: 100%;
-  //  height: 100%;
-  }
-}
-}
-.static-image-thumbs{
-  width: 100px;
-  margin: 10px       ;
-  img{
-    width: 100%;
-    
-  }
-}
-
-.product-gallley{
-  display: flex; 
-  flex-wrap: wrap;
-  h1{
-    font-size: 16px;
-  }
-}
-
-
-.console_root{
-  /* position: relative; */
-}
-.log-close-btn{
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
 .error_popup{
   background: #e74b07;
   margin: auto;
   margin-top: 30px;
   color: white;
   i{ color: white;}
-}
-
-
-
-//.p-relative{
-//  position: relative;
-//}
-//
-//.d-flex{
-//  display: flex;
-//}
-
-h1, h2, h3, h4,h5,h6, ul, li, p{
-  margin: 0;
-  padding: 0;
 }
 
 

@@ -24,8 +24,7 @@
         width: var(--sidebar-width);
         height: 110%;
         overflow-y: auto;
-        box-shadow: 2px 8px 15px -5px rgba(77, 77, 77, 0.65);
-        background: white;
+        @apply shadow-card rounded-lg bg-white;
         &::-webkit-scrollbar {
             height: 1px;
             width: 3px;
@@ -49,8 +48,6 @@
                 width: var(--sidebar-width-mobile);
                 top: 0px;
             }
-
-
         }
 
         &.sidebar-mobile_show {

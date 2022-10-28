@@ -1,6 +1,7 @@
 import React from 'react';
 import "./style.scss";
 import {FaMailBulk} from "react-icons/all";
+import Card from "UI/Form/Card/Card";
 
 const DashboardHome = () => {
     
@@ -14,7 +15,7 @@ const DashboardHome = () => {
     
     return (
         <div className="my-10">
-            <div className="bg-white shadow-card p-5 m-4 rounded-xl">
+            <Card>
                 <h3 className="text-neutral-800 font-semibold text-xl">Business Analytics </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 slats-list mt-5">
                     {stats.map((slat, i)=>(
@@ -24,8 +25,8 @@ const DashboardHome = () => {
                         </div>
                     ))}
                 </div>
-            </div>
-            <div className="bg-white shadow-card p-5 m-4 rounded-xl">
+            </Card>
+            <Card>
                 <h3 className="text-neutral-800 font-semibold text-xl">Seller Wallet </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5">
                     
@@ -48,10 +49,10 @@ const DashboardHome = () => {
                         </div>
                     ))}
                 </div>
-            </div>
+            </Card>
             
   
-            <div className="bg-white shadow-card p-5 m-4 rounded-xl">
+            <Card>
                 <h3 className="text-neutral-800 font-semibold text-xl">Top Selling Products</h3>
                 <div className="flex flex-col gap-5 mt-5">
                     {stats.map((slat, i)=>(
@@ -67,8 +68,8 @@ const DashboardHome = () => {
                         </div>
                     ))}
                 </div>
-            </div>
-            <div className="bg-white shadow-card p-5 m-4 rounded-xl">
+            </Card>
+            <Card>
                 <h3 className="text-neutral-800 font-semibold text-xl">Most Popular Products</h3>
                 <div className="flex flex-col gap-5 mt-5">
                     {stats.map((slat, i)=>(
@@ -84,7 +85,7 @@ const DashboardHome = () => {
                         </div>
                     ))}
                 </div>
-            </div>
+            </Card>
             
   </div>
     );

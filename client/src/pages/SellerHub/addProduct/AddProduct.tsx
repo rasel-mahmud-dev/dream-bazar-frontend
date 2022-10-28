@@ -13,6 +13,7 @@ import FileUpload from "UI/Form/File/FileUpload";
 import {Button} from "UI/index";
 import MultipleFileChooser from "UI/Form/File/MultipleFileChooser";
 import generateSku from "src/utills/generateSku";
+import {fetchProductForUpdate} from "actions/productAction";
 
 const AddProduct = () => {
     const params = useParams();
@@ -42,18 +43,39 @@ const AddProduct = () => {
             price: {value: "", errorMessage: ""},
             qty: {value: "", errorMessage: ""},
             discount: {value: "", errorMessage: ""},
+            videoLink: {value: "", errorMessage: ""},
             sku: {value: "", errorMessage: ""},
         },
         isShowStaticChooser: false,
         staticImages: [],
     });
-    
+
     const {productData, staticImages, isShowStaticChooser} = state;
     
-    useEffect(() => {
-        fetchFlatCategoriesAction(flatCategories, dispatch);
-        fetchAdminBrandsAction(adminBrands, dispatch);
-    }, []);
+    useEffect(()=>{
+        fetchAdminBrandsAction(adminBrands, dispatch)
+        fetchFlatCategoriesAction(flatCategories, dispatch)
+    }, [])
+    
+    useEffect(()=>{
+        if(params.productId && params.productId.length === 24) {
+            fetchProductForUpdate(params.productId, function (err, result){
+                if(!err){
+                    let updateProductData = {...state.productData};
+                    for (let updateProductDataKey in updateProductData) {
+                        if(result[updateProductDataKey]) {
+                            updateProductData[updateProductDataKey].value = result[updateProductDataKey]
+                        }
+                    }
+                    
+                    setState({
+                        ...state,
+                        productData: updateProductData
+                    })
+                }
+            })
+        }
+    }, [params.productId])
     
     function handleChange(e) {
         const { name, value } = e.target
@@ -97,8 +119,9 @@ const AddProduct = () => {
     }
     
     
+    
     return (
-        <div className="p-4">
+        <div className="">
 			<h1 className="heading-4">
 				{params.productId ? "Update Product" : "Add Product"}
 			</h1>
@@ -107,6 +130,7 @@ const AddProduct = () => {
 				<Card>
 					<InputGroup
                         name="title"
+                        required={true}
                         label="Product Title"
                         className="!flex-col bg-white  "
                         inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
@@ -116,8 +140,9 @@ const AddProduct = () => {
                         onChange={handleChange}
                     />
 					<InputGroup
-                        name="title"
+                        name="Description"
                         label="Description"
+                        required={true}
                         className="!flex-col bg-white "
                         inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                         labelClass="dark:text-white !mb-2"
@@ -127,11 +152,13 @@ const AddProduct = () => {
                     />
 				</Card>
 
+                {/*********** General Information **********/}
 				<Card>
 					<h5 className="heading-5">General Information</h5>
 
 					<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
 						<SelectGroup
+                            required={true}
                             name="categoryId"
                             labelClass="dark:text-white !mb-2"
                             className={"!flex-col"}
@@ -143,12 +170,12 @@ const AddProduct = () => {
                             options={() => (
                                 <>
 									<option value="0">
-										Select category parent ID
+										Category
 									</option>
                                     {flatCategories
                                     ?.filter(
                                         (cat: any) =>
-                                            cat.isProductLevel == 1
+                                            cat.isProductLevel
                                     )
                                     .map((cat: any) => (
                                         <option
@@ -167,13 +194,14 @@ const AddProduct = () => {
                             labelClass="dark:text-white !mb-2"
                             className={"!flex-col"}
                             label="Brand"
+                            required={true}
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             placeholder="brandId"
                             onChange={handleChange}
                             state={productData}
                             options={() => (
                                 <>
-									<option value="0">Select brandId ID</option>
+									<option value="0">Brand</option>
                                     {adminBrands.cached &&
                                         adminBrands.cached?.map((cat: any) => (
                                             <option
@@ -205,107 +233,130 @@ const AddProduct = () => {
 					</div>
 				</Card>
 
+                {/******* Product Price and Stock **************/}
 				<Card>
 					<h5 className="heading-5">Product Price and Stock</h5>
-
-					<InputGroup
-                        name="discount"
-                        label="discount"
-                        type="number"
-                        className="!flex-col"
-                        inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
-                        labelClass="dark:text-white !mb-2"
-                        state={productData}
-                        placeholder="discount"
-                        onChange={handleChange}
-                    />
-					<InputGroup
-                        name="price"
-                        label="Price"
-                        type="number"
-                        className="!flex-col"
-                        inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
-                        labelClass="dark:text-white !mb-2"
-                        state={productData}
-                        placeholder="Price"
-                        onChange={handleChange}
-                    />
-					<InputGroup
-                        name="tax"
-                        label="Tax"
-                        type="number"
-                        className="!flex-col"
-                        inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
-                        labelClass="dark:text-white !mb-2"
-                        state={productData}
-                        placeholder="Tax"
-                        onChange={handleChange}
-                    />
-
-					<InputGroup
-                        name="qty"
-                        label="Total Quantity"
-                        type="number"
-                        className="!flex-col"
-                        inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
-                        labelClass="dark:text-white !mb-2"
-                        state={productData}
-                        placeholder="qty"
-                        onChange={handleChange}
-                    />
-
-					<InputGroup
-                        name="qty"
-                        label="Minimum Order Quantity"
-                        type="number"
-                        className="!flex-col"
-                        inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
-                        labelClass="dark:text-white !mb-2 w-full"
-                        state={productData}
-                        placeholder="Minimum order quantity"
-                        onChange={handleChange}
-                    />
-					<InputGroup
-                        name="qty"
-                        label="Shipping Cost"
-                        type="number"
-                        className="!flex-col"
-                        inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
-                        labelClass="dark:text-white !mb-2"
-                        state={productData}
-                        placeholder="Shipping cost"
-                        onChange={handleChange}
-                    />
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <InputGroup
+                            name="discount"
+                            label="Discount"
+                            type="number"
+                            className="!flex-col"
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            labelClass="dark:text-white !mb-2"
+                            state={productData}
+                            placeholder="Discount"
+                            onChange={handleChange}
+                        />
+                        <InputGroup
+                            required={true}
+                            name="price"
+                            label="Price"
+                            type="number"
+                            className="!flex-col"
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            labelClass="dark:text-white !mb-2"
+                            state={productData}
+                            placeholder="Price"
+                            onChange={handleChange}
+                        />
+                        <InputGroup
+                            name="tax"
+                            label="Tax"
+                            type="number"
+                            className="!flex-col"
+                            labelAddition={()=><span className="badge bg-teal-400/10 text-teal-400 font-medium px-1 py-px rounded text-xs">Percent %</span>}
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            labelClass="dark:text-white !mb-2"
+                            state={productData}
+                            placeholder="Tax"
+                            onChange={handleChange}
+                        />
+    
+                        <InputGroup
+                            name="qty"
+                            required={true}
+                            label="Total Quantity"
+                            type="number"
+                            className="!flex-col"
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            labelClass="dark:text-white !mb-2"
+                            state={productData}
+                            placeholder="qty"
+                            onChange={handleChange}
+                        />
+    
+                        <InputGroup
+                            name="qty"
+                            required={true}
+                            label="Minimum Order Quantity"
+                            type="number"
+                            className="!flex-col"
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            labelClass="dark:text-white !mb-2 w-full"
+                            state={productData}
+                            placeholder="Minimum order quantity"
+                            onChange={handleChange}
+                        />
+                        <InputGroup
+                            name="qty"
+                            label="Shipping Cost"
+                            type="number"
+                            className="!flex-col"
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            labelClass="dark:text-white !mb-2"
+                            state={productData}
+                            placeholder="Shipping cost"
+                            onChange={handleChange}
+                        />
+                    </div>
+					
 				</Card>
 
+                {/******** Product Cover and Photos **********/}
+                
 				<Card>
 					<h5 className="heading-5">Product Cover and Photos</h5>
-
-					<MultipleFileChooser
-                        name="images"
-                        label="Upload Product Images"
-                        inputClass="input-group"
-                        onChange={handleChange}
-                        defaultValue={productData.images.value}
-                        labelClass="dark:text-white !mb-2"
-                        errorMessage={productData.images.errorMessage}
-                        previewImageClass="max-w-sm w-full"
-                        className={"!flex-col"}
-                    />
                     
-                    {/*********** Cover **************/}
-                    <FileUpload
-                        name="coverPhoto"
-                        label="coverPhoto"
-                        inputClass="input-group"
-                        placeholder="Choose Cover Photo"
-                        onChange={handleChange}
-                        defaultValue={productData.coverPhoto.value}
-                        labelClass="dark:text-white !mb-2"
-                        errorMessage={productData.coverPhoto.errorMessage}
-                        previewImageClass="max-w-sm w-full"
-                        className={"!flex-col"}
-                    />
+                     <InputGroup
+                         name="videoLink"
+                         label="Youtube Video Link"
+                         className="!flex-col"
+                         inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                         labelClass="dark:text-white !mb-2"
+                         state={productData}
+                         placeholder="EX: https://www.youtube.com/embed/5Rdsf45"
+                         onChange={handleChange}
+                     />
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                        <MultipleFileChooser
+                            name="images"
+                            label="Upload Product Images"
+                            labelAddition={()=><span className="text-xs font-medium">Ratio (1:1)</span>}
+                            inputClass="input-group"
+                            onChange={handleChange}
+                            defaultValue={productData.images.value}
+                            labelClass="dark:text-white !mb-2"
+                            className={"mt-4 col-span-3"}
+                        />
+    
+                        {/*********** Cover **************/}
+                        <FileUpload
+                            name="coverPhoto"
+                            label="Upload Thumbnail"
+                            required={true}
+                            labelAddition={()=><span className="text-xs font-medium">Ratio (1:1)</span>}
+                            inputClass="input-group"
+                            placeholder="Choose Cover Photo"
+                            onChange={handleChange}
+                            defaultValue={productData.coverPhoto.value}
+                            labelClass="dark:text-white !mb-2"
+                            previewImageClass="max-w-sm w-full"
+                            className={"!flex-col col-span-2"}
+                        />
+                    </div>
+					
 					<h2>
 						<Button
                             // onClick={()=>handleToggleStaticImageChooserModal(!isShowStaticChooser)}
@@ -315,7 +366,14 @@ const AddProduct = () => {
 							Or Select Static Photos
 						</Button>
 					</h2>
+                    
+                    
+                    <Button type="submit" className="bg-secondary-300 mt-4" loaderClass="!border-white" loading={state.httpResponse === "pending"}>
+                        {!params.productId ? "Add Product" : "Update Product"}
+                    </Button>
+                    
 				</Card>
+    
 			</form>
 		</div>
     );

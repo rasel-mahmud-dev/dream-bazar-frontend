@@ -31,7 +31,6 @@ interface Props {
 
 const AddProduct: FC<Props> = (props) => {
     
-    
     const params = useParams();
     const dispatch = useDispatch();
     

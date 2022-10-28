@@ -26,8 +26,8 @@ const SellerNavigation = ({auth}) => {
 
 	return (
 		<div>
-            <div className="px-5 shadow-xxs bg-white fixed w-full">
-			<header className="flex items-center justify-between py-3">
+            <div className="shadow-xxs bg-white fixed w-full">
+			<header className="container flex items-center justify-between py-3">
 				<div className="logo flex items-center">
 					<Circle
                         className="md:hidden block mr-3"
