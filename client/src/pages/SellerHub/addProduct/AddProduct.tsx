@@ -162,6 +162,27 @@ const AddProduct = () => {
                             name="categoryId"
                             labelClass="dark:text-white !mb-2"
                             className={"!flex-col"}
+                            label="Product Type"
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            placeholder="categoryId"
+                            onChange={handleChange}
+                            state={productData}
+                            options={() => (
+                                <>
+                                    <option className="cursor-pointer py-1 menu-item" value="Physical">
+                                        Physical
+                                    </option>
+                                    <option className="cursor-pointer py-1 menu-item" value="digital">
+                                        Digital
+                                    </option>
+                                </>
+                            )}
+                        />
+                        <SelectGroup
+                            required={true}
+                            name="categoryId"
+                            labelClass="dark:text-white !mb-2"
+                            className={"!flex-col"}
                             label="Category"
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             placeholder="categoryId"
@@ -352,7 +373,6 @@ const AddProduct = () => {
                             onChange={handleChange}
                             defaultValue={productData.coverPhoto.value}
                             labelClass="dark:text-white !mb-2"
-                            previewImageClass="max-w-sm w-full"
                             className={"!flex-col col-span-2"}
                         />
                     </div>

@@ -58,7 +58,7 @@ const FileUpload: FC<Props> = (props) => {
 
 	return (
 		<div className={twMerge(`mt-4 flex items-start flex-col md:flex-row`, className)}>
-			<div className={`flex items-center gap-x-2 mb-2 md:mb-0 ${labelClass}`}>
+			<div className={`flex flex-wrap items-center gap-x-2 mb-2 md:mb-0 ${labelClass}`}>
 				{label && (
 					<label htmlFor={name} className={twMerge(`block font-medium text-gray-900  flex items-center`)}>
 						{label}
