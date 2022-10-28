@@ -1,6 +1,7 @@
 import React, {lazy} from "react";
 import SellerAuthRequired from "pages/SellerHub/protectedRoute/SellerAuthRequired";
 import NotFoundPage from "components/notFoundPage/NotFoundPage";
+import AddProduct from "pages/SellerHub/addProduct/AddProduct";
 
 const SellerLogin  = lazy(()=>import("pages/SellerHub/auth/SellerLogin"));
 const SellerRegistration = lazy(()=>import("pages/SellerHub/auth/SellerRegistration"));
@@ -16,7 +17,8 @@ export default {
         { path: "dashboard", element: <SellerAuthRequired> <DashboardHome /> </SellerAuthRequired> },
         { path: "login", element: <SellerLogin /> },
         { path: "registration", element: <SellerRegistration /> },
-        { path: "products", element: <SellerProducts /> }
+        { path: "products", element: <SellerProducts /> },
+        { path: "product/edit/:productId", element: <AddProduct /> }
     ]
 }
 

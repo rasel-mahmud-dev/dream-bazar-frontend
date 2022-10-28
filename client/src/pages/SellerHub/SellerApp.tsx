@@ -15,6 +15,8 @@ const SellerApp = () => {
     
     useEffect(()=>{
         currentAuthAction(dispatch)
+        
+        
     }, [])
 
     

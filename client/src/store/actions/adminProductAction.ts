@@ -3,7 +3,7 @@ import {ACTION_TYPES, CategoryType} from "store/types";
 import api from "src/apis";
 
 
-export const fetchFlatCategoriesAction = (dispatch, flatCategories)=>{
+export const fetchFlatCategoriesAction = (flatCategories, dispatch)=>{
     return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
         if(flatCategories){
             resolve(flatCategories)

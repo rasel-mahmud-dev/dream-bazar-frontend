@@ -6,6 +6,9 @@ import {BiCart, BiNote, FaAngleLeft, FaBars, FiMail} from "react-icons/all";
 import {Link,   useNavigate} from "react-router-dom";
 import Circle from "UI/Circle/Circle";
 
+import "./sellerSideBar.scss";
+
+
 const SellerSidebar = ({auth, isOpenLeftBar}) => {
     const dispatch = useDispatch();
     const navigate  = useNavigate()
@@ -74,6 +77,7 @@ const SellerSidebar = ({auth, isOpenLeftBar}) => {
         <div>
 			{auth && (
                 <Sidebar
+                    className="seller-sidebar"
                     isOpen={isOpenLeftBar}
                     onClickOnBackdrop={toggleSidebar}
                 >

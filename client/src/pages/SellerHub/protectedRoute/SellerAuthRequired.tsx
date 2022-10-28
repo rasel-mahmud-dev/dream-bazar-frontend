@@ -21,7 +21,7 @@ const SellerAuthRequired = (props) => {
         }
     }
 
-	return <div>{props.children}</div>;
+	return props.children
 };
 
 export default SellerAuthRequired;

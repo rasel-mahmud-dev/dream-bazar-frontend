@@ -7,9 +7,13 @@ import Box from "UI/Box/Box";
 import {FaTrash, FiEye, HiPencil, IoPencil} from "react-icons/all";
 import {Badge} from "UI/index";
 import Switch from "UI/Form/switch/Switch";
+import {useNavigate} from "react-router-dom";
 
 const SellerProducts = () => {
 	const [products, setProducts] = useState([]);
+    
+    const navigate = useNavigate();
+    
 
 	useEffect(() => {
 		getApi()
@@ -46,11 +50,11 @@ const SellerProducts = () => {
 		{
 			dataIndex: "",
 			title: "Actions",
-			render: () => (
+			render: (_, product) => (
 				<div className="flex gap-x-3">
 					<Box className="border border-green-500"><FiEye className="text-green-500 text-xs" /></Box>
-					<Box className="border border-blue-600"><IoPencil className="text-blue-600 text-xs" /></Box>
-					<Box className="border border-red-500"><FaTrash className="text-red-500 text-xs" /></Box>
+					<Box className="border border-blue-600" onClick={()=>navigate(`/seller/product/edit/${product._id}`)}><IoPencil className="text-blue-600 text-xs" /></Box>
+					<Box className="border border-red-500" onClick={()=>navigate(`/seller/product/edit/${product._id}`)}><FaTrash className="text-red-500 text-xs" /></Box>
 				</div>
 			),
 		},
