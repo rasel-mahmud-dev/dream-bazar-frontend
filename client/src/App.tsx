@@ -21,7 +21,7 @@ import throttle from "src/utills/throttle";
 import useLanguage from "src/hooks/useLanguage";
 import { setLanguage, toggleTheme } from "actions/appContextActions";
 import { currentAuthAction } from "actions/authAction";
-import { ACTION_TYPES } from "store/types";
+import {ACTION_TYPES, Scope} from "store/types";
 
 function App(props) {
 	const { appState } = props;
@@ -52,7 +52,7 @@ function App(props) {
 
 	React.useEffect(() => {
 		(async function () {
-			currentAuthAction(dispatch);
+			currentAuthAction(dispatch, Scope.USER);
 
 			/**
         we change this fetch all data once, we fetch individual category when we need it  .

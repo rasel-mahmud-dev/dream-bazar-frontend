@@ -10,7 +10,7 @@ import Circle from "UI/Circle/Circle";
 const MoreDropdown = lazy(()=>import("pages/SellerHub/components/sellerNavigation/MoreDropdown"));
 const AuthDropdown = lazy(()=>import("pages/SellerHub/components/sellerNavigation/AuthDropdown"));
 
-const SellerNavigation = ({auth}) => {
+const SellerNavigation = ({seller}) => {
 	const location = useLocation();
 	const dispatch = useDispatch();
     
@@ -64,7 +64,7 @@ const SellerNavigation = ({auth}) => {
 					<li
                         className="relative"
                         onMouseEnter={() =>
-                            setState({ ...state, openDropdown: "auth" })
+                            setState({ ...state, openDropdown: "seller" })
                         }
                         onMouseLeave={() =>
                             setState({ ...state, openDropdown: "" })
@@ -74,11 +74,11 @@ const SellerNavigation = ({auth}) => {
                             to="/seller/login"
                             state={{ redirect: location.pathname }}
                         >
-							{auth && auth.avatar ? (
+							{seller && seller.avatar ? (
                                 <div className="w-9">
 									<img
                                         className="rounded-full"
-                                        src={staticImagePath(auth.avatar)}
+                                        src={staticImagePath(seller.avatar)}
                                         alt=""
                                     />
 								</div>
@@ -91,9 +91,9 @@ const SellerNavigation = ({auth}) => {
 
 						<Suspense fallback={<h1>loading</h1>}>
 							<AuthDropdown
-                                auth={auth}
+                                auth={seller}
                                 className="right-0 top-10 p-4 !shadow-xl rounded-xl"
-                                isShow={state.openDropdown === "auth"}
+                                isShow={state.openDropdown === "seller"}
                             />
 						</Suspense>
 					</li>

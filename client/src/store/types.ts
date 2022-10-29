@@ -59,8 +59,14 @@ export enum ACTION_TYPES {
     UPDATE_FLAT_CATEGORY = "UPDATE_FLAT_CATEGORY",
     DELETE_FLAT_CATEGORY = "DELETE_FLAT_CATEGORY",
     
-    DELETE_BRAND = "DELETE_BRAND"
+    DELETE_BRAND = "DELETE_BRAND",
     
+    
+    
+    
+    /********Seller Actions Types ***********/
+    FETCH_SELLER_SHOP = "FETCH_SELLER_SHOP",
+    SELLER_LOGIN = "SELLER_LOGIN"
 }
 
 export enum Roles {
@@ -71,6 +77,12 @@ export enum Roles {
     FULFILLMENT_AGENT = "FULFILLMENT_AGENT",
     SITE_DESIGNER = "SITE_DESIGNER",
     ADMIN = "ADMIN"
+}
+
+export enum Scope {
+    SELLER_DASHBOARD = "SELLER_DASHBOARD",
+    ADMIN_DASHBOARD = "ADMIN_DASHBOARD",
+    USER = "USER"
 }
 
 

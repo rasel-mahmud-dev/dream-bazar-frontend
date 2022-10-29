@@ -8,6 +8,7 @@ import {Button} from "UI/index";
 import Card from "UI/Form/Card/Card";
 import apis from "src/apis";
 import errorMessageCatch from "src/utills/errorMessageCatch";
+import HttpResponse from "components/HttpResponse/HttpResponse";
 
 const SellerRegistration = (props) => {
     const {auth} = useSelector((state: RootState) => state.authState);
@@ -90,10 +91,8 @@ const SellerRegistration = (props) => {
 			<form onSubmit={handleSubmit}>
 				<h3 className="heading-2 text-center">Create a Seller Account</h3>
                 
-                {httpResponse.message && <Card
-                    className={`font-semibold ${httpResponse.isSuccess ? "bg-green-500/20 text-green-700 " : "bg-red-500/10 text-red-500"}`}>
-                    <p>{httpResponse.message }</p>
-                </Card> }
+    
+                <HttpResponse httpResponse={httpResponse} />
                 
 
 				<Card>

@@ -65,3 +65,9 @@ export enum Roles {
     ADMIN = "ADMIN",
     SELLER = "SELLER"
 }
+
+export enum Scope {
+    SELLER_DASHBOARD = "SELLER_DASHBOARD",
+    ADMIN_DASHBOARD = "ADMIN_DASHBOARD",
+    USER = "USER"
+}

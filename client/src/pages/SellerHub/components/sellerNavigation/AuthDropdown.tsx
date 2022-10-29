@@ -4,7 +4,8 @@ import { Popup } from "UI/index";
 import { useDispatch } from "react-redux";
 import { logoutAction } from "actions/authAction";
 import staticImagePath from "src/utills/staticImagePath";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Scope } from "store/types";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
 	isShow: boolean;
@@ -17,7 +18,7 @@ const AuthDropdown: FC<Props> = (props) => {
 	const { auth } = props;
 
 	function handleLogout() {
-		dispatch(logoutAction());
+		logoutAction(dispatch, Scope.SELLER_DASHBOARD)
         navigate("/seller/login", {state: "/seller/dashboard"})
 	}
 

@@ -1,8 +1,6 @@
 import React from 'react';
 import { useNavigate, useRouteError } from "react-router-dom";
 import { Button } from '../UI';
-import Navigation from "components/Navigation/Navigation";
-
 
 const NotFoundPage = () => {
     
@@ -11,7 +9,6 @@ const NotFoundPage = () => {
   
     return (
         <div>
-            <Navigation />
             <div className="flex justify-center items-center h-screen">
             <div className="text-center text-neutral-800  text-xl">
                 <h1 className="text-neutral-800 font-bold text-6xl">Oops!</h1>

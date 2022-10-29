@@ -20,11 +20,11 @@ export default {
         { path: "dashboard", element: <SellerAuthRequired> <DashboardHome /> </SellerAuthRequired> },
         { path: "login", element: <SellerLogin /> },
         { path: "registration", element: <SellerRegistration /> },
-        { path: "products", element: <SellerProducts /> },
-        { path: "product/edit/:productId", element: <AddProduct /> },
-        { path: "product/add", element: <AddProduct /> },
-        { path: "shop/view", element: <ShopInfo /> },
-        { path: "shop/edit", element: <UpdateShopInfo /> }
+        { path: "products", element: <SellerAuthRequired><SellerProducts /></SellerAuthRequired> },
+        { path: "product/edit/:productId", element: <SellerAuthRequired><AddProduct /></SellerAuthRequired> },
+        { path: "product/add", element:<SellerAuthRequired> <AddProduct /></SellerAuthRequired> },
+        { path: "shop/view", element:<SellerAuthRequired> <ShopInfo /> </SellerAuthRequired> },
+        { path: "shop/edit", element: <SellerAuthRequired><UpdateShopInfo /></SellerAuthRequired> }
     ]
 }
 

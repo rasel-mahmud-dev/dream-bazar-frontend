@@ -1,8 +1,9 @@
 import {Roles} from "../models/User";
+import {ObjectId} from "mongodb";
 
 const jwt = require('jsonwebtoken')
 
-export const createToken = (_id: string, email: string, roles: Roles[])=> {
+export const createToken = (_id: string | ObjectId, email: string, roles: Roles[])=> {
  let token = jwt.sign({
       _id: _id,
       email: email,

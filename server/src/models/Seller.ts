@@ -1,10 +1,11 @@
 import {ObjectId} from "mongodb";
 import {IndexType} from "../services/mongodb/models.index.types";
 import Base from "./Base";
+import {Roles} from "../types";
 
 
 interface SellerType {
-    _id?: ObjectId
+    _id?: ObjectId | string
     firstName: string
     lastName?: string
     email: string
@@ -14,12 +15,13 @@ interface SellerType {
     isActive?: boolean
     isSuspense?: boolean
     createdAt?: Date
+    roles: Roles[]
     updatedAt?: Date
 }
 
 
 class Seller extends Base implements SellerType{
-    public _id?: ObjectId
+    public _id?: ObjectId | string
     public firstName: string
     public lastName?: string
     public email: string
@@ -30,6 +32,7 @@ class Seller extends Base implements SellerType{
     public isSuspense?: boolean
     public createdAt?: Date
     public updatedAt?: Date
+    public roles: Roles[]
     
     
     static collectionName = "sellers"
@@ -43,7 +46,6 @@ class Seller extends Base implements SellerType{
         }
     }
     
-    
     constructor(data: SellerType) {
         super(Seller.collectionName)
         this.firstName = data.firstName
@@ -53,6 +55,7 @@ class Seller extends Base implements SellerType{
         this.password = data.password
         this.avatar = data.avatar
         this.isActive = false
+        this.roles = [Roles.SELLER]
         this.isSuspense = false
         this.createdAt = new Date()
         this.updatedAt = new Date()

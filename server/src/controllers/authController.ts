@@ -114,7 +114,7 @@ export const currentAuth = async (req: RequestWithAuth, res: Response, next: Nex
         }
         
         const database = await mongoConnect();
-        const user = await database.collection("users").findOne<User>({_id: ObjectId(req.authUser._id)})
+        const user = await database.collection("users").findOne<User>({_id: new ObjectId(req.authUser._id)})
         
         if (!user) {
             return errorResponse(next, "Please login.", 401)
