@@ -68,7 +68,7 @@ const SellerRegistration = (props) => {
     }
     
     return (
-        <div className="max-w-3xl mx-auto py-10 container">
+        <div className="max-w-3xl mx-auto py-10">
 			<form onSubmit={handleSubmit}>
 				<h3 className="heading-2 text-center">Create a Seller Account</h3>
 

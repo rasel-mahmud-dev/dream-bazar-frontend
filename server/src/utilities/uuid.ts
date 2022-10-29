@@ -1,4 +1,4 @@
-export default function uuid(count=8) {
+export default function uuid(count= 8) {
 
     let symbols = 'abcdefghijklmnopqrstuvwxyz1234567890'
     let result = '';
