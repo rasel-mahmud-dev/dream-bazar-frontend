@@ -10,16 +10,12 @@ require('dotenv').config()
 
 
 import routes from "../routes"
-import {initialConnectionMongodb} from "../services/mongodb/database.service";
 
-// import * as path from "path";
+import {initialMongodbIndexes} from "../services/mongodb/database.service";
 
 
-initialConnectionMongodb().then(r => {
-    console.log("db connected...")
-}).catch(ex=>{
-    console.log(ex)
-})
+// create all mongodb collection indexes
+// initialMongodbIndexes()
 
 // passport config initial...
 require('../passport/google')
@@ -54,23 +50,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.use(passport.initialize())
-
-// database connection init
-// initialConnectionMongodb().then((_)=>{
-//     console.log("database connected")
-// }).catch(ex=>{
-//     console.log("database connected fail")
-//     console.log(ex.message)
-//     process.exit(1)
-// })
-
-
-// // database sqlite database init
-// sqlDatabase().then(res=>{}).catch(ex=>{
-//     console.log(ex.message)
-// })
-
-
 
 app.use(routes)
 

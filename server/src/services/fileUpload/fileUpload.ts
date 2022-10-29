@@ -18,13 +18,17 @@ export function fileUpload(req: Request, callback: (err: any, obj: ResultType)=>
         
         if(Object.keys(files).length > 0){
             let renamed = {}
-            for (let filesKey in files) {
-                let newPath = files[filesKey].filepath.replace(files[filesKey].newFilename, files[filesKey].originalFilename)
-                await rename(files[filesKey].filepath, newPath)
-                renamed[filesKey] = newPath
+            try{
+                for (let filesKey in files) {
+                    let newPath = files[filesKey].filepath.replace(files[filesKey].newFilename, files[filesKey].originalFilename)
+                    await rename(files[filesKey].filepath, newPath)
+                    renamed[filesKey] = newPath
+                }
+    
+                callback(false, {fields, files: renamed })
+            } catch (ex){
+                callback(false, {fields, files: false })
             }
-            
-            callback(false, {fields, files: renamed })
         } else {
             callback(false, {fields, files: false })
         }

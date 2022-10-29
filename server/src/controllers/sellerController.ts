@@ -29,6 +29,8 @@ export const createSeller = async (req, res, next) => {
             
             if (err) return errorResponse(res, "Form data parsing error")
             
+            if (!files) return errorResponse(res, "No File found error")
+            
             const {
                 firstName,
                 lastName,
@@ -59,29 +61,30 @@ export const createSeller = async (req, res, next) => {
                 return errorResponse(next, "Please provide valid credential", 409)
             }
             
-            let newSeller = await new Seller({
+            let newSeller: any = {
                 firstName,
                 lastName,
                 password,
                 email,
                 phone,
-            })
+                avatar: "",
+                createdAt: new Date(),
+                updatedAt: new Date()
+            }
             
-            let newShop = new Shop({
-                sellerId: newSeller._id as ObjectId,
+            let newShop: any = {
+                sellerId: "",
                 shopName,
                 shopAddress,
                 shopLogo: "",
                 shopBanner: ""
-            })
+            }
             
             
             let promises: Promise<any>[] = []
             for (let filesKey in files) {
                 promises.push(uploadImage(files[filesKey], {dir: "dream-bazar", fieldName: filesKey}))
             }
-            
-            promises.push(uploadImage(files["filesKey"], {dir: "dream-bazar", fieldName: "filesKey"}))
             
             try {
                 let all = await Promise.allSettled(promises)
@@ -93,23 +96,32 @@ export const createSeller = async (req, res, next) => {
                         } else {
                             newShop[photo.fieldName] = photo.secure_url
                         }
+                    } else {
+                        return errorResponse(next, "File Upload fail", 409)
                     }
                 })
             } catch (ex) {
+                return errorResponse(next, "File Upload fail", 409)
             }
             
-            let resultSeller = await newSeller.save<Seller>()
-            if (resultSeller) {
+            let {insertedId} = await SellerCollection.insertOne(newSeller)
+            if (insertedId) {
+                newSeller._id =  insertedId
                 try {
-                    newShop.sellerId = resultSeller._id as ObjectId
-                    let resultShop = await newShop.save();
-                    successResponse(res, 201, {
-                        seller: resultSeller,
-                        shop: resultShop
-                    })
+                    newShop.sellerId = insertedId
+                    let resultShop = await ShopCollection.insertOne(newShop);
+                    if(resultShop.insertedId) {
+                        successResponse(res, 201, {
+                            seller: newSeller,
+                            shop: {
+                                ...newShop,
+                                _id: resultShop.insertedId
+                            }
+                        })
+                    }
                 } catch (ex: any) {
                     errorResponse(next, ex.message as string)
-                    await Seller.deleteById(resultSeller._id as any)
+                    await Seller.deleteById(insertedId as any)
                 }
             }
         })
