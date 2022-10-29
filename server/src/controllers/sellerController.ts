@@ -14,6 +14,16 @@ import Product from "../models/Product";
 //   }
 // }
 
+export const createSeller = async (req, res, next)=>{
+
+  try{
+  
+  
+  } catch(ex){
+    next(ex)
+  }
+}
+
 
 export const getSellerProducts = async (req, res, next)=>{
     try{

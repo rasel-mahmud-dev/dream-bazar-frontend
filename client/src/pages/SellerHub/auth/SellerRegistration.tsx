@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useSelector} from "react-redux";
 import {Link, Navigate} from "react-router-dom";
 import {RootState} from "src/store";
@@ -6,134 +6,234 @@ import {InputGroup} from "UI/Form";
 import FileUpload from "UI/Form/File/FileUpload";
 import {Button} from "UI/index";
 import Card from "UI/Form/Card/Card";
+import {type} from "os";
+import apis from "src/apis";
 
-const SellerLogin = (props) => {
+const SellerRegistration = (props) => {
     const {auth} = useSelector((state: RootState) => state.authState);
     
     if (auth) {
         return <Navigate to={"/seller/dashboard"}/>;
     }
     
-    const shopInfo = {
-        name: {value: "", errorMessage: ""},
-        image: {value: "", errorMessage: ""},
-        banner: {value: "", errorMessage: ""},
-        address: {value: "", errorMessage: ""},
-        contact: {value: "", errorMessage: ""},
-    };
+    const [shopInfo, setShopInfo] = useState({
+        firstName: {value: "", errorMessage: "", required: true},
+        lastName: {value: "", errorMessage: "", required: false},
+        password: {value: "", errorMessage: "", required: true},
+        confirmPassword: {value: "", errorMessage: "", required: true},
+        email: {value: "", errorMessage: "", required: true},
+        phone: {value: "", errorMessage: "", required: true},
+        shopName: {value: "", errorMessage: "", required: true},
+        avatar: {value: null, errorMessage: "", required: true},
+        shopLogo: {value: null, errorMessage: "", required: false},
+        shopBanner: {value: null, errorMessage: "", required: false},
+        shopAddress: {value: "", errorMessage: "", required: true}
+    });
     
     function handleChange(e) {
+        const {name, value} = e.target;
+        setShopInfo((prevState) => {
+            let updateState = {...prevState};
+            updateState[name] = {
+                ...updateState[name],
+                value,
+                errorMessage: ""
+            };
+            return updateState;
+        });
     }
     
     function handleSubmit(e) {
         e.preventDefault();
+        let isCompleted = true;
+        let payload =  new FormData()
+        
+        let updateShopInfo = {...shopInfo};
+        for (let shopInfoKey in shopInfo) {
+            let item = shopInfo[shopInfoKey];
+            if (item.required && !item.value) {
+                item = {...item, errorMessage: `${shopInfoKey} is required`};
+                // isCompleted = false
+            }
+            if (isCompleted) {
+                payload.append(shopInfoKey, item.value)
+            }
+        }
+        
+        // if (!isCompleted) {
+            setShopInfo(updateShopInfo);
+        // }
+        
+        apis.post("/api/seller/create", payload)
     }
     
     return (
-        <div className="max-w-xl mx-auto py-10 container">
+        <div className="max-w-3xl mx-auto py-10 container">
 			<form onSubmit={handleSubmit}>
 				<h3 className="heading-2 text-center">Create a Seller Account</h3>
 
 				<Card>
 					<h5 className="heading-5">Seller Information</h5>
 
-					<InputGroup
-                        name="name"
-                        required={true}
-                        label="Seller Name"
-                        className="!flex-col bg-white  "
-                        inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
-                        labelClass="dark:text-white !mb-2"
-                        state={shopInfo}
-                        onChange={handleChange}
-                    />
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+						<InputGroup
+                            name="firstName"
+                            required={shopInfo.firstName.required}
+                            label="First Name"
+                            className="!flex-col bg-white  "
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            labelClass="dark:text-white !mb-2"
+                            state={shopInfo}
+                            onChange={handleChange}
+                        />
+						<InputGroup
+                            name="lastName"
+                            required={shopInfo.lastName.required}
+                            label="Last Name"
+                            className="!flex-col bg-white  "
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            labelClass="dark:text-white !mb-2"
+                            state={shopInfo}
+                            onChange={handleChange}
+                        />
+                        <InputGroup
+                            name="phone"
+                            required={shopInfo.phone.required}
+                            label="Last Name"
+                            className="!flex-col bg-white  "
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            labelClass="dark:text-white !mb-2"
+                            state={shopInfo}
+                            onChange={handleChange}
+                        />
+                        
+                        {/*********** Seller image **************/}
+                        <FileUpload
+                            name="avatar"
+                            label="Seller Avatar"
+                            required={shopInfo.avatar.required}
+                            labelAddition={() => <span className="text-xs font-medium">Ratio (1:1)</span>}
+                            inputClass="input-group"
+                            placeholder="Choose Cover Photo"
+                            onChange={handleChange}
+                            defaultValue={shopInfo.avatar.value}
+                            labelClass="dark:text-white !mb-2"
+                            previewImageClass="max-w-sm w-full"
+                            errorMessage={shopInfo.avatar.errorMessage}
+                            className={"!flex-col w-40"}
+                        />
+					</div>
+				</Card>
 
-					<InputGroup
-                        name="name"
-                        required={true}
-                        label="Seller Email"
-                        className="!flex-col bg-white  "
-                        inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
-                        labelClass="dark:text-white !mb-2"
-                        state={shopInfo}
-                        onChange={handleChange}
-                    />
+				<Card>
+					<h5 className="heading-5">Account Information </h5>
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+						<InputGroup
+                            name="email"
+                            required={shopInfo.email.required}
+                            label="Seller Email"
+                            className="!flex-col bg-white  "
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            labelClass="dark:text-white !mb-2"
+                            state={shopInfo}
+                            onChange={handleChange}
+                        />
 
-					<InputGroup
-                        name="address"
-                        label="Address"
-                        required={true}
-                        className="!flex-col bg-white "
-                        inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
-                        labelClass="dark:text-white !mb-2"
-                        state={shopInfo}
-                        onChange={handleChange}
-                    />
+						<InputGroup
+                            name="password"
+                            required={shopInfo.password.required}
+                            label="Password"
+                            type="password"
+                            className="!flex-col bg-white  "
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            labelClass="dark:text-white !mb-2"
+                            state={shopInfo}
+                            onChange={handleChange}
+                        />
+
+						<InputGroup
+                            name="confirmPassword"
+                            required={shopInfo.confirmPassword.required}
+                            label="Confirm Password"
+                            type="password"
+                            className="!flex-col bg-white  "
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            labelClass="dark:text-white !mb-2"
+                            state={shopInfo}
+                            onChange={handleChange}
+                        />
+					</div>
 				</Card>
 
 				<Card>
 					<h5 className="heading-5">Shop information</h5>
-
-					<InputGroup
-                        name="name"
-                        required={true}
-                        label="Shop Name"
-                        className="!flex-col bg-white  "
-                        inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
-                        labelClass="dark:text-white !mb-2"
-                        state={shopInfo}
-                        onChange={handleChange}
-                    />
-
-					<div className="flex gap-x-8">
-						{/*********** Image **************/}
-                        <FileUpload
-                            name="image"
-                            label="Upload Image"
-                            required={true}
-                            labelAddition={() => <span className="text-xs font-medium">Ratio (1:1)</span>}
-                            inputClass="input-group"
-                            placeholder="Choose Cover Photo"
-                            onChange={handleChange}
-                            defaultValue={shopInfo.image.value}
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+						<InputGroup
+                            name="shopName"
+                            required={shopInfo.shopName.required}
+                            label="Shop Name"
+                            className="!flex-col bg-white  "
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             labelClass="dark:text-white !mb-2"
-                            previewImageClass="max-w-sm w-full"
-                            className={"!flex-col w-40"}
-                        />
-                        {/*********** Banner **************/}
-                        <FileUpload
-                            name="banner"
-                            label="Upload Banner"
-                            required={true}
-                            labelAddition={() => <span className="text-xs font-medium">Ratio (1:1)</span>}
-                            inputClass="input-group"
-                            placeholder="Choose Cover Photo"
+                            state={shopInfo}
                             onChange={handleChange}
-                            defaultValue={shopInfo.banner.value}
-                            labelClass="dark:text-white !mb-2"
-                            previewImageClass="max-w-sm w-full"
-                            className={"!flex-col w-40"}
                         />
+						<InputGroup
+                            name="shopAddress"
+                            label="Shop Address"
+                            required={shopInfo.shopAddress.required}
+                            className="!flex-col bg-white "
+                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            labelClass="dark:text-white !mb-2"
+                            state={shopInfo}
+                            onChange={handleChange}
+                        />
+
+						<div className="flex gap-x-8">
+							{/*********** shopLogo **************/}
+                            <FileUpload
+                                name="shopLogo"
+                                label="Shop logo"
+                                required={shopInfo.shopLogo.required}
+                                labelAddition={() => <span className="text-xs font-medium">Ratio (1:1)</span>}
+                                inputClass="input-group"
+                                placeholder="Choose Cover Photo"
+                                onChange={handleChange}
+                                defaultValue={shopInfo.shopLogo.value}
+                                labelClass="dark:text-white !mb-2"
+                                previewImageClass="max-w-sm w-full"
+                                errorMessage={shopInfo.shopLogo.errorMessage}
+                                className={"!flex-col w-40"}
+                            />
+                            {/*********** shopBanner **************/}
+                            <FileUpload
+                                name="shopBanner"
+                                label="Shop banner"
+                                required={shopInfo.shopBanner.required}
+                                labelAddition={() => <span className="text-xs font-medium">Ratio (3:1)</span>}
+                                inputClass="input-group"
+                                placeholder="Choose Cover Photo"
+                                onChange={handleChange}
+                                defaultValue={shopInfo.shopBanner.value}
+                                errorMessage={shopInfo.shopBanner.errorMessage}
+                                labelClass="dark:text-white !mb-2"
+                                previewImageClass="max-w-sm w-full"
+                                className={"!flex-col w-40"}
+                            />
+						</div>
 					</div>
-                    
-                    
-                            <Button type="submit" className="bg-green-450 mt-6">
-					Create Seller
-				</Button>
-                    
-                     <p className="my-5  text-link">
-                    Already have an seller account?{" "}
-                         <Link to="/seller/login">login here</Link>
-                </p>
-                
-                
-    
-				</Card>
 
-			
+					<Button type="submit" className="bg-green-450 mt-6">
+						Create Seller
+					</Button>
+
+					<p className="my-5  text-link">
+						Already have an seller account? <Link to="/seller/login">login here</Link>
+					</p>
+				</Card>
 			</form>
 		</div>
     );
 };
 
-export default SellerLogin;
+export default SellerRegistration;
