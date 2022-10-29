@@ -45,4 +45,5 @@ class Category extends Base implements CategoryType {
 }
 
 
+module.exports = Category
 export default Category

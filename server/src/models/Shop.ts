@@ -40,4 +40,5 @@ class Shop extends Base implements ShopType{
     }
 }
 
+module.exports = Shop
 export default Shop

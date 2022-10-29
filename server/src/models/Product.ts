@@ -74,6 +74,7 @@ class Product extends Base implements ProductType {
   }
 }
 
+module.exports = Product;
 export default Product;
 
 

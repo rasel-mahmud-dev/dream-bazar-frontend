@@ -38,4 +38,5 @@ class Brand extends Base implements BrandType {
     }
 }
 
+module.exports = Brand
 export default Brand

@@ -10,12 +10,16 @@ require('dotenv').config()
 
 
 import routes from "../routes"
-
+import {initialConnectionMongodb} from "../services/mongodb/database.service";
 
 // import * as path from "path";
-// import {initialConnectionMongodb} from "./services/mongodb/database.service";
 
-// import dbConnect from "./database";
+
+initialConnectionMongodb().then(r => {
+    console.log("db connected...")
+}).catch(ex=>{
+    console.log(ex)
+})
 
 // passport config initial...
 require('../passport/google')

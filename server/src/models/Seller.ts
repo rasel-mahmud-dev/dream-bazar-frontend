@@ -59,4 +59,5 @@ class Seller extends Base implements SellerType{
     }
 }
 
+module.exports = Seller
 export default Seller

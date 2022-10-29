@@ -66,4 +66,5 @@ class User extends Base implements UserType{
 }
 
 
+module.exports = User
 export default User

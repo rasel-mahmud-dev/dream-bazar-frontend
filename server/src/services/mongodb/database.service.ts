@@ -1,8 +1,13 @@
 import * as mongoDB from "mongodb";
-// import Product from "../../models/Product";
-// import User from "../../models/User";
+
+
+
+
 import {MongoClient} from "mongodb";
 
+console.log("ASDDDDDDDDDDDDDDD")
+
+import Base from "../../models/Base";
 
 // interface Model {
 //     users?: mongoDB.Collection,
@@ -11,11 +16,8 @@ import {MongoClient} from "mongodb";
 
 // export const collections: Model = {}
 
-//
-// const COLLECTIONS_NAME = [
-//     {name: "users", model: User},
-//     {name: "products", model: Product}
-// ]
+
+
 
 // export let db: mongoDB.Db
 
@@ -79,45 +81,48 @@ export async function mongoConnect(){
 
 
 // for initial database connection and create indexes
-// export async function initialConnectionMongodb () {
-//     try{
-//         return new Promise<mongoDB.MongoClient>((async (resolve, reject) => {
-//             try {
-//                 let client  = (await clientPromise)
-//
-//                 let db = client.db(process.env.DB_NAME);
-//
-//                 COLLECTIONS_NAME.forEach((colItem)=>{
-//                     let collection =  db.collection(colItem.name)
-//
-//                     // collections[colItem.name] = collection
-//
-//                     let indexes = colItem.model.indexes;
-//
-//                     for (let indexesKey in indexes) {
-//                         collection.createIndex( [indexesKey], indexes[indexesKey] as any)
-//                     }
-//                 })
-//
-//                 // COLLECTIONS_NAME.forEach((colItem)=>{
-//                 //     let collection =  database.collection(colItem.name)
-//                 //     collections[colItem.name] = collection
-//                 //     let indexes = colItem.model.indexes;
-//                 //
-//                 //     for (let indexesKey in indexes) {
-//                 //         collection.createIndex( [indexesKey], indexes[indexesKey] as any)
-//                 //     }
-//                 // })
-//
-//                 // database["model"] = collections
-//
-//                 resolve(client)
-//             } catch (ex){
-//                 reject(ex)
-//             }
-//         }))
-//
-//     } catch (ex){
-//         console.log(ex)
-//     }
-// }
+export async function initialConnectionMongodb () {
+    
+    const Product = require( "../../models/Product");
+    const User = require( "../../models/User");
+    const Seller = require( "../../models/Seller");
+    const Shop = require( "../../models/Shop");
+    const Brand = require( "../../models/Shop");
+    const Category = require( "../../models/Shop");
+    const Review = require( "../../models/Review");
+    
+    const COLLECTIONS_NAME = [
+        {name: "users", model: User},
+        {name: "products", model: Product},
+        {name: "sellers", model: Seller},
+        {name: "shops", model: Shop},
+        {name: "products", model: Product},
+        {name: "categorise", model: Category},
+        {name: "brands", model: Brand},
+        {name: "reviews", model: Review},
+    ]
+    try{
+        return new Promise<mongoDB.MongoClient>((async (resolve, reject) => {
+            try {
+                let client  = (await clientPromise)
+
+                let db = client.db(process.env.DB_NAME);
+
+                COLLECTIONS_NAME.forEach((colItem)=>{
+                    let collection =  db.collection(colItem.name)
+                    let indexes = colItem.model.indexes;
+                    for (let indexesKey in indexes) {
+                        collection.createIndex( [indexesKey], indexes[indexesKey] as any)
+                        console.log(`${colItem.name} collection indexed completed`)
+                    }
+                })
+                resolve(client)
+            } catch (ex){
+                reject(ex)
+            }
+        }))
+
+    } catch (ex){
+        console.log(ex)
+    }
+}

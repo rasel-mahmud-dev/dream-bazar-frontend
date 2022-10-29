@@ -6,11 +6,17 @@ import {InputGroup} from "UI/Form";
 import FileUpload from "UI/Form/File/FileUpload";
 import {Button} from "UI/index";
 import Card from "UI/Form/Card/Card";
-import {type} from "os";
 import apis from "src/apis";
+import errorMessageCatch from "src/utills/errorMessageCatch";
 
 const SellerRegistration = (props) => {
     const {auth} = useSelector((state: RootState) => state.authState);
+    
+    const [httpResponse, setHttpResponse] = useState({
+        isSuccess: false,
+        message: "",
+        loading: false,
+    });
     
     if (auth) {
         return <Navigate to={"/seller/dashboard"}/>;
@@ -27,7 +33,7 @@ const SellerRegistration = (props) => {
         avatar: {value: null, errorMessage: "", required: true},
         shopLogo: {value: null, errorMessage: "", required: false},
         shopBanner: {value: null, errorMessage: "", required: false},
-        shopAddress: {value: "", errorMessage: "", required: true}
+        shopAddress: {value: "", errorMessage: "", required: true},
     });
     
     function handleChange(e) {
@@ -37,40 +43,58 @@ const SellerRegistration = (props) => {
             updateState[name] = {
                 ...updateState[name],
                 value,
-                errorMessage: ""
+                errorMessage: "",
             };
             return updateState;
         });
     }
     
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
+        
+        setHttpResponse({isSuccess: false, message: "", loading: false});
+        
         let isCompleted = true;
-        let payload =  new FormData()
+        let payload = new FormData();
         
         let updateShopInfo = {...shopInfo};
-        for (let shopInfoKey in shopInfo) {
-            let item = shopInfo[shopInfoKey];
-            if (item.required && !item.value) {
-                item = {...item, errorMessage: `${shopInfoKey} is required`};
-                // isCompleted = false
+
+        for (let shopInfoKey in updateShopInfo) {
+            
+            if (updateShopInfo[shopInfoKey].required && !updateShopInfo[shopInfoKey].value) {
+                updateShopInfo[shopInfoKey] = {
+                    ...updateShopInfo[shopInfoKey],
+                    errorMessage: `${shopInfoKey} is required`
+                };
+                isCompleted = false
             }
             if (isCompleted) {
-                payload.append(shopInfoKey, item.value)
+                payload.append(shopInfoKey, updateShopInfo[shopInfoKey].value);
             }
         }
         
-        // if (!isCompleted) {
-            setShopInfo(updateShopInfo);
-        // }
-        
-        apis.post("/api/seller/create", payload)
+        if(!isCompleted) {
+            return setShopInfo(updateShopInfo);
+        }
+        try {
+            setHttpResponse(p=>({...p, message: "", loading: true}));
+            let {data, status} = await apis.post("/api/seller/create", payload);
+            setHttpResponse({isSuccess: true, message: "ok", loading: false});
+        } catch (ex) {
+            setHttpResponse({isSuccess: false, message: errorMessageCatch(ex), loading: false});
+        }
     }
     
     return (
         <div className="max-w-3xl mx-auto py-10">
 			<form onSubmit={handleSubmit}>
 				<h3 className="heading-2 text-center">Create a Seller Account</h3>
+                
+                {httpResponse.message && <Card
+                    className={`font-semibold ${httpResponse.isSuccess ? "bg-green-500/20 text-green-700 " : "bg-red-500/10 text-red-500"}`}>
+                    <p>{httpResponse.message }</p>
+                </Card> }
+                
 
 				<Card>
 					<h5 className="heading-5">Seller Information</h5>
@@ -96,7 +120,7 @@ const SellerRegistration = (props) => {
                             state={shopInfo}
                             onChange={handleChange}
                         />
-                        <InputGroup
+						<InputGroup
                             name="phone"
                             required={shopInfo.phone.required}
                             label="Last Name"
