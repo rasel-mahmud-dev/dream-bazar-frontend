@@ -49,11 +49,18 @@ const AddProduct = () => {
         },
         isShowStaticChooser: false,
         staticImages: [],
-        filterAttributes: [], // string[]
-        attributesValues: null, // [{}]
+        categoryDetail: {
+            // _id: "",
+            // catId: "",
+            // catName: "",
+            // defaultExpand: [],
+            // filterAttributes: [],
+            // filterAttributesValues: [],
+            // renderProductAttr: []
+        },
     });
 
-    const {productData, filterAttributes, staticImages, isShowStaticChooser} = state;
+    const {productData,staticImages } = state;
     
     useEffect(()=>{
         fetchAdminBrandsAction(adminBrands, dispatch)
@@ -126,151 +133,24 @@ const AddProduct = () => {
         })
     }
     
-    const attributeValues = [
-        {
-            attributeName: "generation",
-            attributeLabel: "Generation",
-            options: [
-            {
-                "name": "1st Generation",
-                "value": 1
-            },
-            {
-                "name": "2nd Generation",
-                "value": 2
-            },
-            {
-                "name": "3rd Generation",
-                "value": 3
-            },
-            {
-                "name": "4th Generation",
-                "value": 4
-            },
-            {
-                "name": "5th Generation",
-                "value": 5
-            },
-            {
-                "name": "6th Generation",
-                "value": 6
-            },
-            {
-                "name": "7th Generation",
-                "value": 7
-            },
-            {
-                "name": "8th Generation",
-                "value": 8
-            },
-            {
-                "name": "9th Generation",
-                "value": 9
-            },
-            {
-                "name": "10th Generation",
-                "value": 10
-            },
-            {
-                "name": "11th Generation",
-                "value": 11
-            }
-        ]
-        },
-        {
-        attributeName: "ram",
-        attributeLabel: "Ram",
-        isMultiple: true,
-            options: [
-        {
-            "name": "1GB",
-            "value": 1
-        },
-        {
-            "name": "2GB",
-            "value": 2
-        },
-        {
-            "name": "3GB",
-            "value": 3
-        },
-        {
-            "name": "4GB",
-            "value": 4
-        },
-        {
-            "name": "6GB",
-            "value": 6
-        },
-        {
-            "name": "8GB",
-            "value": 8
-        },
-        {
-            "name": "16GB",
-            "value": 16
-        }
-    ]
-    },
-        {
-            "attributeName": "internalStorage",
-            "isMultiple": true,
-            "attributeLabel": "Internal Storage",
-            "options": [
-                {
-                    "name": "8GB",
-                    "value": 8
-                },
-                {
-                    "name": "16GB",
-                    "value": 16
-                },
-                {
-                    "name": "32GB",
-                    "value": 32
-                },
-                {
-                    "name": "64GB",
-                    "value": 64
-                },
-                {
-                    "name": "128GB",
-                    "value": 128
-                },
-                {
-                    "name": "256GB",
-                    "value": 256
-                }
-            ]
-        }
-    ]
     
     function selectFilterValues(categoryId){
         if(!categoryId) return undefined;
         
-        apis.get("/api/category/category-detail?categoryId="+categoryId).then(({data})=>{
-            let attributeValue = []
-            console.log(data)
+        apis.get("/api/category/category-detail?categoryId="+categoryId).then(({data, status})=>{
             
-            // for (let attributeName of data.filterAttributes){
-            //     attributeValue.push(...attributeValues.filter(av=>av.attributeName === attributeName))
-            // }
-                // console.log(attributeValue)
-        
-            // setState(prevState => ({
-            //     ...prevState,
-            //     attributesValues: attributeValue
-            // }))
+            if(status === 200){
+                setState(prevState => ({
+                    ...prevState,
+                    categoryDetail: data
+                }))
+            }
             
         }).catch(ex=>{
         
         })
     }
-    
-    
-    // console.log(state.attributesValues)
-    
-    
+
     return (
         <div className="">
 			<h1 className="heading-4">
@@ -408,11 +288,11 @@ const AddProduct = () => {
                 {/*********** Filter Attributes Information **********/}
                 <Card>
 					<h5 className="heading-5">Filter Attributes</h5>
-                    {!state.attributesValues && (
+                    {!state.categoryDetail?.filterAttributesValues && (
                         <h1>Please select a Category</h1>
                     ) }
-                    <div className="mt-4 grid grid-cols-2">
-                        {state.attributesValues?.map(attribute=>(
+                    <div className="mt-4 grid grid-cols-2 gap-4">
+                        {state.categoryDetail?.filterAttributesValues?.map(attribute=>(
                               <div>
                                   {attribute.options && (
                                       <div>
