@@ -1,5 +1,5 @@
-import {Roles} from "../models/User";
 import {ObjectId} from "mongodb";
+import {Roles} from "../types";
 
 const jwt = require('jsonwebtoken')
 

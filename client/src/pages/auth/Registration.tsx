@@ -17,6 +17,7 @@ import { RootState } from "src/store";
 import ResponseMessage from "UI/ResponseMessage";
 import {registrationAction} from "actions/authAction";
 import scrollTo from "src/utills/scrollTo";
+import {Scope} from "store/types";
 
 const Registration = (props) => {
     const {} = useSelector((state: RootState) => state);
@@ -75,7 +76,7 @@ const Registration = (props) => {
             return;
         }
         setParentState({...parentState, httpResponse: "pending"});
-        registrationAction(dispatch, payload,  function (data, errorMessage){
+        registrationAction(dispatch, Scope.USER, payload,  function (data, errorMessage){
             if(!errorMessage) {
                 navigate("/")
             }

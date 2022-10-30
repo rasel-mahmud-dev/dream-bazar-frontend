@@ -120,9 +120,11 @@ const SellerSidebar = ({auth, isOpenLeftBar}) => {
                         {/**** sidebar content ******/}
 						<div className="mt-20 md:mt-4 px-3">
 							
-                             <div className="li-item bg-green-450/10" >
+                             <Link to="/seller/dashboard" className="" >
+                             <div className="li-item bg-green-450/10 " >
                                  <li className="heading-5 uppercase text-green-450">Dashboard</li>
                              </div>
+                             </Link>
                             
                             { data.map(section=>(
                                 <div key={section.section} className="mt-10">

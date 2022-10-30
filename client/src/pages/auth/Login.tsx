@@ -1,30 +1,27 @@
-import React, {FC, useEffect, useState} from "react";
+import React, { FC, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import qs from "query-string";
-import apis, { backend } from "src/apis";
+import { backend } from "src/apis";
 
-import { Button, Popup, Spin } from "components/UI";
+import { Button, Popup } from "components/UI";
 
-import { connect, useDispatch } from "react-redux";
-import { loginAction} from "actions/authAction";
-
-import { toggleLoader } from "actions/productAction";
+import { useDispatch } from "react-redux";
+import { loginAction } from "actions/authAction";
 // import { toggleAppMask } from "actions/appAction";
 //
 import { InputGroup } from "UI/Form";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import { BsFacebook, BsGoogle } from "react-icons/all";
 import useLanguage from "src/hooks/useLanguage";
-import {AppContext} from "store/AppContext";
-import scrollTo from "src/utills/scrollTo";
+import { Scope } from "store/types";
 
 interface LoginPageProps {
-    toggleLoader?: any;
-    toggleAppMask?: any;
-    loadingStates?: any;
-    // cartState: any;
-    login?: any;
-    title: string
+	toggleLoader?: any;
+	toggleAppMask?: any;
+	loadingStates?: any;
+	// cartState: any;
+	login?: any;
+	title: string;
 }
 
 const Login: FC<LoginPageProps> = (props) => {
@@ -86,7 +83,7 @@ const Login: FC<LoginPageProps> = (props) => {
         
         try {
             setState({ ...state, httpResponse: "pending" });
-            loginAction(payload, dispatch, function (data, errorMessage){
+            loginAction(payload, dispatch, Scope.USER, function (data, errorMessage){
                 if(!errorMessage) {
                     location.state?.redirect && navigate(location.state?.redirect)
                 }

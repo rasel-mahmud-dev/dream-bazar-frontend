@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express"
-import {RequestWithAuth} from "../types";
+import {RequestWithAuth, Roles} from "../types";
 import {mongoConnect} from "../services/mongodb/database.service";
-import User, {Roles} from "../models/User";
+import User from "../models/User";
 import {createHash, hashCompare} from "../hash";
 import * as mongoDB from "mongodb"
 import {createToken} from "../jwt";

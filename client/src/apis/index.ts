@@ -1,5 +1,5 @@
-
-import axios from "axios" 
+import axios from "axios"
+import {Scope} from "store/types";
 
 
 // export const backend = "https://dream-bazar.vercel.app"
@@ -10,7 +10,7 @@ export const backend = import.meta.env.DEV ? "http://localhost:4000" : "https://
 
 // export const backend = "https://localhost"
 
-const token = window.localStorage.getItem("token")  
+const token = window.localStorage.getItem(Scope.USER)
 const apis = axios.create({
     baseURL: backend,
     headers: {
@@ -18,9 +18,8 @@ const apis = axios.create({
     }
 })
 
-export function getApi(){
-    const token = window.localStorage.getItem("token")
-    apis.defaults.headers["authorization"] = token;
+export function getApi(scope?: Scope){
+    apis.defaults.headers["authorization"] =  window.localStorage.getItem(scope)
     return apis;
 }
 

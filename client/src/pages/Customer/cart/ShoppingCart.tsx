@@ -4,6 +4,7 @@ import {Button} from "UI/index";
 import ButtonGroup from "UI/Button/ButtonGroup";
 import InputGroup from "UI/Form/InputGroup";
 import Table from "UI/table/Table";
+import Card from "UI/Form/Card/Card";
 
 const ShoppingCart = () => {
     
@@ -37,23 +38,23 @@ const ShoppingCart = () => {
     return <div className="mt-4">
         <h1 className="font-medium text-2xl text-neutral-800">Shopping Cart</h1>
         
-        <div className="card p-5">
+        <Card>
             <Table
                 theadClass={{th: "pt-2 px-4 pb-10"}}
                 tbodyClass={{tr: "hover:bg-green-100/50 cursor-pointer", td: "px-4 py-1"}}
                 dataSource={data} columns={columns}/>
-        </div>
+        </Card>
         
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 justify-between gap-8" >
-           <div className="card  p-5 w-full">
+            <Card>
                 <h1 className="font-medium text-neutral-800">Price Details</h1>
                 <form action="" className="mt-8">
                     <label htmlFor="">Enter your coupon code if you have one!</label>
                     <InputGroup placeholder="Enter coupon code" inputClass="!text-neutral-100 !bg-blue-100/50" name="coupon" state={{coupon: {value: ""}}} onChange={()=>{}} />
                     <Button className="ml-auto bg-green-450 mt-10">Apply Code</Button>
                 </form>
-            </div>
-            <div className="card  p-5 w-full">
+            </Card>
+                   <Card>
                 <h1 className="font-medium  text-neutral-800">Apply Coupon</h1>
                 <div  className="mt-8">
                     <li className="flex justify-between my-1">
@@ -79,13 +80,14 @@ const ShoppingCart = () => {
                     <p className="text-green-500 font-medium">Your Total Savings on this order $550</p>
                     
                 </div>
-            </div>
+              </Card>
         </div>
         
-        <div className="card p-5 w-full flex justify-end gap-x-8">
+        
+        <Card className="flex justify-end gap-x-8 mb-6">
             <Button className="bg-green-450 text-white">Continue Shopping</Button>
             <Button className="bg-green-450">Place Order</Button>
-        </div>
+        </Card>
         
     </div>;
 };

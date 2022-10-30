@@ -48,9 +48,11 @@ const AddProduct = () => {
         },
         isShowStaticChooser: false,
         staticImages: [],
+        filterAttributes: [], // string[]
+        attributesValues: [],
     });
 
-    const {productData, staticImages, isShowStaticChooser} = state;
+    const {productData, filterAttributes, staticImages, isShowStaticChooser} = state;
     
     useEffect(()=>{
         fetchAdminBrandsAction(adminBrands, dispatch)
@@ -100,12 +102,20 @@ const AddProduct = () => {
                 }
             }
         }
+        
+        let updatedAttributeValues = []
+        if(name === "categoryId"){
+            updatedAttributeValues  = selectFilterValues(value)
+        }
+    
         setState(prev=>({
             ...prev,
-            productData: updateProductData
+            productData: updateProductData,
+            attributesValues: updatedAttributeValues
         }))
-        
     }
+    
+    // console.log(state.attributesValues)
     
     function generateNewProductSku(){
         setState(prev=>{
@@ -118,7 +128,129 @@ const AddProduct = () => {
         })
     }
     
+    const attributeValues = [
+        {
+            attributeName: "generation",
+            attributeLabel: "Generation",
+            options: [
+            {
+                "name": "1st Generation",
+                "value": 1
+            },
+            {
+                "name": "2nd Generation",
+                "value": 2
+            },
+            {
+                "name": "3rd Generation",
+                "value": 3
+            },
+            {
+                "name": "4th Generation",
+                "value": 4
+            },
+            {
+                "name": "5th Generation",
+                "value": 5
+            },
+            {
+                "name": "6th Generation",
+                "value": 6
+            },
+            {
+                "name": "7th Generation",
+                "value": 7
+            },
+            {
+                "name": "8th Generation",
+                "value": 8
+            },
+            {
+                "name": "9th Generation",
+                "value": 9
+            },
+            {
+                "name": "10th Generation",
+                "value": 10
+            },
+            {
+                "name": "11th Generation",
+                "value": 11
+            }
+        ]
+        },
+        {
+        attributeName: "ram",
+        attributeLabel: "Ram",
+        isMultiple: true,
+            options: [
+        {
+            "name": "1GB",
+            "value": 1
+        },
+        {
+            "name": "2GB",
+            "value": 2
+        },
+        {
+            "name": "3GB",
+            "value": 3
+        },
+        {
+            "name": "4GB",
+            "value": 4
+        },
+        {
+            "name": "6GB",
+            "value": 6
+        },
+        {
+            "name": "8GB",
+            "value": 8
+        },
+        {
+            "name": "16GB",
+            "value": 16
+        }
+    ]
+    },
+    ]
     
+    let categoryDetails = [
+        {
+            catId: "60df5e546419f56b97610602",
+            render_product_attr: [],
+            filterAttributes: [
+                "ram",
+                "internalStorage",
+                "screen_size",
+                "discount",
+                "customer_rate",
+                "cpu_core",
+                "clock_speed",
+                "os_version",
+                "processor_brand",
+                "network_type",
+                "sim_type",
+                "primary_camera",
+                "os"
+            ]
+        },
+    ]
+    
+    function selectFilterValues(categoryId){
+         if(!categoryId) return undefined;
+        let catDetail = categoryDetails.find(cd=>cd.catId === categoryId)
+        if(catDetail){
+            let attributeValue = []
+            for (let attributeName of catDetail.filterAttributes){
+                attributeValue = attributeValues.filter(av=>av.attributeName === attributeName);
+            }
+            return attributeValues
+        } else {
+            return undefined
+        }
+    }
     
     return (
         <div className="">
@@ -252,6 +384,29 @@ const AddProduct = () => {
                         />
                         
 					</div>
+				</Card>
+                
+                {/*********** Filter Attributes Information **********/}
+                <Card>
+					<h5 className="heading-5">Filter Attributes</h5>
+                    <div className="mt-4 grid grid-cols-2">
+                        {state.attributesValues?.map(attribute=>(
+                              <div>
+                       
+                                  {attribute.options && (
+                                      <div>
+                                        <h4 className="heading-5">{attribute.attributeLabel}</h4>
+                                         <select className="border px-4 py-2" >
+                                              {attribute.options?.map((option)=>(
+                                                    <option value={option.value}>{option.name}</option>
+                                              ))}
+                                         </select>
+                                      </div>
+                                  )}
+                            </div>
+                        ))}
+                    </div>
+					
 				</Card>
 
                 {/******* Product Price and Stock **************/}

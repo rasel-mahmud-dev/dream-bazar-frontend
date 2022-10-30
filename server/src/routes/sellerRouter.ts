@@ -15,7 +15,8 @@ export default function (app: Router) {
     
     app.post("/api/seller/login", sellerLogin)
     app.post("/api/seller/create", createSeller)
-    app.get("/api/seller/products", isAuth(), permission([Roles.ADMIN, Roles.SELLER]), getSellerProducts)
+    
+    app.get("/api/seller/products", isAuth(Scope.SELLER_DASHBOARD), permission([Roles.ADMIN, Roles.SELLER]), getSellerProducts)
     
     
     app.post("/api/shop/update",isAuth(Scope.SELLER_DASHBOARD), permission([Roles.SELLER]),  updateShop)

@@ -17,7 +17,7 @@ export default function (app: Router){
   // app.post("/api/auth/registration", authController.registration)
   //
   // @ts-ignore
-    app.get("/api/auth/current-auth", isAuth,  authController.currentAuth)
+    app.get("/api/auth/current-auth", isAuth(),  authController.currentAuth)
   
   // app.get("/api/auth/fetch-profile/:user_id", isAuth, authController.fetchProfile)
   //
@@ -77,8 +77,6 @@ app.get('/api/auth/callback/facebook',
 //     // console.log(f)
 // })
 //   // passport.authenticate('google', { scope : ['profile', 'email'] }));
- 
-  
-  
+
 }
 

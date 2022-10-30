@@ -72,19 +72,13 @@ export const currentAuthAction = async (dispatch, scope: Scope) => {
     try {
         
         if (scope === Scope.SELLER_DASHBOARD) {
-            if(!apis.defaults.headers["authorization"]){
-                delete apis.defaults.headers["authorization"]
-            } else {
-                apis.defaults.headers["authorization"] = window.localStorage.getItem("SELLER_DASHBOARD")
-            }
-
-            let response = await apis.get("/api/auth/seller/current-auth")
+            let response = await getApi(scope).get("/api/auth/seller/current-auth")
             if (response.status === 200) {
                 loginHandler(response.data, scope, dispatch)
             }
             
         } else if (scope === Scope.USER) {
-            let response = await getApi().get("/api/auth/current-auth")
+            let response = await getApi(scope).get("/api/auth/current-auth")
             if (response.status === 200) {
                 loginHandler(response.data, scope, dispatch)
             }

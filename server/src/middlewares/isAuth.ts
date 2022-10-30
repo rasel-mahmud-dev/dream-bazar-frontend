@@ -10,9 +10,7 @@ const {getToken, parseToken} = require("../jwt")
 
 function isAuth (scope?: Scope){
   return function (req: any, res: any, next: NextFunction){
-      
       const token = getToken(req)
-    
       if(token){
           parseToken(token, async (err, data)=>{
               if(!err){

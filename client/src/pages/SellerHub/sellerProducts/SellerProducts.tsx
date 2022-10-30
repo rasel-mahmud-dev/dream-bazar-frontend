@@ -8,6 +8,7 @@ import {FaTrash, FiEye, HiPencil, IoPencil} from "react-icons/all";
 import {Badge} from "UI/index";
 import Switch from "UI/Form/switch/Switch";
 import {useNavigate} from "react-router-dom";
+import {Scope} from "store/types";
 
 const SellerProducts = () => {
 	const [products, setProducts] = useState([]);
@@ -16,7 +17,7 @@ const SellerProducts = () => {
     
 
 	useEffect(() => {
-		getApi()
+		getApi(Scope.SELLER_DASHBOARD)
 			.get("/api/seller/products")
 			.then(({ data, status }) => {
 				if (status === 200) {
