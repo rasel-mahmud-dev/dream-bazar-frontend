@@ -11,7 +11,6 @@ import {LastSelectedCategoryProps, SelectedCatSectionType, UI_CATEGORY_INFO_TYPE
 import getFilterItems from "src/utills/getFilterItems";
 import { removeAllFilteredValue } from "actions/filterSidebar.action";
 import qstring from "query-string";
-import apis from "src/apis";
 import {nonInitialEffect} from "src/reactTools/nonInitialEffect";
 import {useLocation, useNavigate} from "react-router-dom";
 

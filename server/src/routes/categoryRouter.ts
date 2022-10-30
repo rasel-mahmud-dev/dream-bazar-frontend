@@ -4,7 +4,7 @@ import {
     deleteCategory,
     getCategories,
     getCategoriesCount,
-    getCategory,
+    getCategory, getCategoryDetail,
     saveCategory,
     updateCategory
 } from "../controllers/categoryController"
@@ -24,5 +24,6 @@ export default function (app: Router){
   app.get("/api/category", getCategory)
 
   app.delete("/api/category/:id", deleteCategory)
-
+  
+  app.get("/api/category/category-detail", getCategoryDetail)
 }

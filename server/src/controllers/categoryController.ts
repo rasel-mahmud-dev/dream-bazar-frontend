@@ -2,10 +2,11 @@ import {errorResponse, successResponse} from "../response"
 import {NextFunction, Request, Response} from "express";
 import Category from "../models/Category";
 import isObjectId from "../utilities/isObjectId";
-import { TypedRequestBody} from "../types";
+import {TypedRequestBody} from "../types";
 
 import {ObjectId} from "mongodb"
-
+import CategoryDetail from "../models/CategoryDetail";
+import Attributes from "../models/Attributes";
 
 export const getCategoriesCount = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -15,7 +16,6 @@ export const getCategoriesCount = async (req: Request, res: Response, next: Next
         next(ex)
     }
 }
-
 
 export const getCategories = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -49,7 +49,6 @@ export const getCategory = async (req: Request, res: Response, next: NextFunctio
         
     }
 }
-
 
 // add a new category
 export const saveCategory = async (req: TypedRequestBody<{ name: string, parentId: string, isProductLevel: boolean }>, res: Response, next: NextFunction) => {
@@ -86,7 +85,6 @@ export const saveCategory = async (req: TypedRequestBody<{ name: string, parentI
     }
     
 }
-
 
 // update category
 export const updateCategory = async (req: Request, res: Response, next: NextFunction) => {
@@ -145,3 +143,27 @@ export const deleteCategory = async (req: Request, res: Response, next: NextFunc
     
     }
 }
+
+
+export const getCategoryDetail = async (req: Request, res: Response, next: NextFunction)=>{
+    try {
+        const {categoryId} = req.query
+        if(!isObjectId(categoryId)){
+            return errorResponse(next, "please provide valid category id")
+        }
+        let categoryDetail: any = await CategoryDetail.findOne({catId: new ObjectId(categoryId as string)})
+        if(!categoryDetail){
+            return errorResponse(next, "category details not found")
+        }
+
+        categoryDetail.filterAttributesValues = await Attributes.find({attributeName: {$in: [...categoryDetail.filterAttributes]}})
+        res.send(categoryDetail)
+        
+    } catch(ex){
+        next(ex)
+    }
+}
+
+
+
+

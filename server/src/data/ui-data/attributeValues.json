@@ -119,7 +119,7 @@
   {
     "name": "Internal Storage",
     "is_multiple": true,
-    "attribute_name": "internal_storage",
+    "attribute_name": "internalStorage",
     "values": [
       {
         "name": "8GB",

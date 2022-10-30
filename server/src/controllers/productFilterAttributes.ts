@@ -1,33 +1,31 @@
-import { ObjectId } from "mongodb";
-//
-// // Get All Filter Item Collection
-// export const getFilterItems = async (req, res)=>{
-//
-//   const {db, client} = await dbConnect()
-//   const FilterItemsCollection = db.collection("filter_items")
-//
-//   try {
-//     let cursor = FilterItemsCollection.find({})
-//     if(await cursor.count() === 0){
-//       return res.json({filter_items: []})
-//     }
-//
-//     let p = []
-//     await cursor.forEach((i)=>{
-//       p.push(i)
-//     })
-//
-//     res.json({filter_items: p})
-//
-//   } catch(ex){
-//
-//     console.error(ex)
-//   } finally {
-//     client?.close()
-//   }
-//
-// }
-//
+
+// Get All Filter Item Collection
+export const getFilterItems = async (req, res)=>{
+
+  const {db, client} = await dbConnect()
+  const FilterItemsCollection = db.collection("filter_items")
+
+  try {
+    // let cursor = FilterItemsCollection.find({})
+    // if(await cursor.count() === 0){
+    //   return res.json({filter_items: []})
+    // }
+    //
+    // let p = []
+    // await cursor.forEach((i)=>{
+    //   p.push(i)
+    // })
+    //
+    // res.json({filter_items: p})
+
+  } catch(ex){
+
+    console.error(ex)
+  } finally {
+    client?.close()
+  }
+}
+
 //
 //
 // export const getFilterItem = async (req, res) =>{

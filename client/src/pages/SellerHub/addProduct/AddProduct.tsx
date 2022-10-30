@@ -14,6 +14,7 @@ import {Button} from "UI/index";
 import MultipleFileChooser from "UI/Form/File/MultipleFileChooser";
 import generateSku from "src/utills/generateSku";
 import {fetchProductForUpdate} from "actions/productAction";
+import apis from "src/apis";
 
 const AddProduct = () => {
     const params = useParams();
@@ -49,7 +50,7 @@ const AddProduct = () => {
         isShowStaticChooser: false,
         staticImages: [],
         filterAttributes: [], // string[]
-        attributesValues: [],
+        attributesValues: null, // [{}]
     });
 
     const {productData, filterAttributes, staticImages, isShowStaticChooser} = state;
@@ -103,19 +104,16 @@ const AddProduct = () => {
             }
         }
         
-        let updatedAttributeValues = []
+
         if(name === "categoryId"){
-            updatedAttributeValues  = selectFilterValues(value)
+            selectFilterValues(value)
         }
     
         setState(prev=>({
             ...prev,
-            productData: updateProductData,
-            attributesValues: updatedAttributeValues
+            productData: updateProductData
         }))
     }
-    
-    // console.log(state.attributesValues)
     
     function generateNewProductSku(){
         setState(prev=>{
@@ -214,43 +212,64 @@ const AddProduct = () => {
         }
     ]
     },
-    ]
-    
-    let categoryDetails = [
         {
-            catId: "60df5e546419f56b97610602",
-            render_product_attr: [],
-            filterAttributes: [
-                "ram",
-                "internalStorage",
-                "screen_size",
-                "discount",
-                "customer_rate",
-                "cpu_core",
-                "clock_speed",
-                "os_version",
-                "processor_brand",
-                "network_type",
-                "sim_type",
-                "primary_camera",
-                "os"
+            "attributeName": "internalStorage",
+            "isMultiple": true,
+            "attributeLabel": "Internal Storage",
+            "options": [
+                {
+                    "name": "8GB",
+                    "value": 8
+                },
+                {
+                    "name": "16GB",
+                    "value": 16
+                },
+                {
+                    "name": "32GB",
+                    "value": 32
+                },
+                {
+                    "name": "64GB",
+                    "value": 64
+                },
+                {
+                    "name": "128GB",
+                    "value": 128
+                },
+                {
+                    "name": "256GB",
+                    "value": 256
+                }
             ]
-        },
+        }
     ]
     
     function selectFilterValues(categoryId){
-         if(!categoryId) return undefined;
-        let catDetail = categoryDetails.find(cd=>cd.catId === categoryId)
-        if(catDetail){
+        if(!categoryId) return undefined;
+        
+        apis.get("/api/category/category-detail?categoryId="+categoryId).then(({data})=>{
             let attributeValue = []
-            for (let attributeName of catDetail.filterAttributes){
-                attributeValue = attributeValues.filter(av=>av.attributeName === attributeName);
-            }
-            return attributeValues
-        } else {
-            return undefined
-        }
+            console.log(data)
+            
+            // for (let attributeName of data.filterAttributes){
+            //     attributeValue.push(...attributeValues.filter(av=>av.attributeName === attributeName))
+            // }
+                // console.log(attributeValue)
+        
+            // setState(prevState => ({
+            //     ...prevState,
+            //     attributesValues: attributeValue
+            // }))
+            
+        }).catch(ex=>{
+        
+        })
     }
+    
+    
+    // console.log(state.attributesValues)
+    
     
     return (
         <div className="">
@@ -389,14 +408,17 @@ const AddProduct = () => {
                 {/*********** Filter Attributes Information **********/}
                 <Card>
 					<h5 className="heading-5">Filter Attributes</h5>
+                    {!state.attributesValues && (
+                        <h1>Please select a Category</h1>
+                    ) }
                     <div className="mt-4 grid grid-cols-2">
                         {state.attributesValues?.map(attribute=>(
                               <div>
-                       
                                   {attribute.options && (
                                       <div>
                                         <h4 className="heading-5">{attribute.attributeLabel}</h4>
                                          <select className="border px-4 py-2" >
+                                                    <option value="">Select {attribute.attributeLabel}</option>
                                               {attribute.options?.map((option)=>(
                                                     <option value={option.value}>{option.name}</option>
                                               ))}

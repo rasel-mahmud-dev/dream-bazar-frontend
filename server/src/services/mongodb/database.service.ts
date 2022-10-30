@@ -1,5 +1,6 @@
 import * as mongoDB from "mongodb";
 import {MongoClient} from "mongodb";
+import Attributes from "../../models/Attributes";
 
 
 const mongoClient = new MongoClient(process.env.DB_CONN_STRING as string);
@@ -40,28 +41,22 @@ export async function initialMongodbIndexes () {
     const Shop = require( "../../models/Shop");
     const Brand = require( "../../models/Shop");
     const Category = require( "../../models/Shop");
+    const CategoryDetail = require( "../../models/CategoryDetail");
     const Review = require( "../../models/Review");
+    const Attributes = require( "../../models/Attributes");
     
-    const COLLECTIONS_NAME = [
-        {name: "users", model: User},
-        {name: "products", model: Product},
-        {name: "sellers", model: Seller},
-        {name: "shops", model: Shop},
-        {name: "products", model: Product},
-        {name: "categorise", model: Category},
-        {name: "brands", model: Brand},
-        {name: "reviews", model: Review},
-    ]
+    const COLLECTIONS = [User, Product, Seller, Shop, Product, Category, Brand, Review, CategoryDetail,Attributes ]
 
-    return new Promise((async (resolve, reject) => {
+    return new Promise((async () => {
         try {
             let client  = (await clientPromise)
 
             let db = client.db(process.env.DB_NAME);
-            
-            COLLECTIONS_NAME.forEach((colItem)=>{
-                let collection =  db.collection(colItem.name)
-                let indexes = colItem.model.indexes;
+    
+            COLLECTIONS.forEach((colItem)=>{
+                let collection =  db.collection(colItem.collectionName)
+                let indexes = colItem.indexes;
+                if(!indexes) return;
                 for (let indexesKey in indexes) {
                     collection.createIndex( [indexesKey], indexes[indexesKey] as any, (a)=>{
                         if(a){
