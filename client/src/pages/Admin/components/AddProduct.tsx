@@ -42,7 +42,7 @@ const AddProduct: FC<Props> = (props) => {
     useEffect(()=>{
         (async function () {
             fetchAdminBrandsAction(adminBrands, dispatch)
-            fetchFlatCategoriesAction(dispatch, flatCategories)
+            fetchFlatCategoriesAction( flatCategories, dispatch)
         })();
     }, [])
     

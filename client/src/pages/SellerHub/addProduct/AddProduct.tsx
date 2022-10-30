@@ -55,7 +55,7 @@ const AddProduct = () => {
             // catName: "",
             // defaultExpand: [],
             // filterAttributes: [],
-            // filterAttributesValues: [],
+            filterAttributesValues: null,
             // renderProductAttr: []
         },
     });

@@ -319,7 +319,7 @@ const productReducer = (state: ProductStateType = initialState, action) => {
         case ACTION_TYPES.UPDATE_FLAT_CATEGORY :
             let updateFlatCategories = [...updatedState.flatCategories];
             let index = updateFlatCategories.findIndex(
-                (b) => b.id === action.payload.id
+                (b) => b._id === action.payload.id
             );
             
             if (index !== -1) {
@@ -333,7 +333,7 @@ const productReducer = (state: ProductStateType = initialState, action) => {
         
         
         case ACTION_TYPES.DELETE_FLAT_CATEGORY :
-            updatedState.flatCategories = updatedState.flatCategories.filter(c => c.id !== action.payload)
+            updatedState.flatCategories = updatedState.flatCategories.filter(c => c._id !== action.payload)
             return updatedState
         
         
@@ -506,13 +506,13 @@ const productReducer = (state: ProductStateType = initialState, action) => {
         
         /// make caching brand for individual category
         case ACTION_TYPES.SET_BRAND_FOR_CATEGORY:
-            let updatesBrandForCategory = [...updatedState.brandsForCategory]
-            let hasBrandCatIdx = updatesBrandForCategory.findIndex(bforCat => bforCat.id === action.payload.id)
-            
-            if (hasBrandCatIdx === -1) {
-                updatesBrandForCategory = [...updatesBrandForCategory, action.payload]
-            }
-            updatedState.brandsForCategory = updatesBrandForCategory
+            // let updatesBrandForCategory = [...updatedState.brandsForCategory]
+            // let hasBrandCatIdx = updatesBrandForCategory.findIndex(bforCat => bforCat._id === action.payload.id)
+            //
+            // if (hasBrandCatIdx === -1) {
+            //     updatesBrandForCategory = [...updatesBrandForCategory, action.payload]
+            // }
+            // updatedState.brandsForCategory = updatesBrandForCategory
             
             return updatedState
         

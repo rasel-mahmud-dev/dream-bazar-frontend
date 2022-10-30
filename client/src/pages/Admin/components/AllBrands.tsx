@@ -223,7 +223,7 @@ const AllBrands = (props) => {
         if(brand.forCategory){
             try {
                 let b = brand.forCategory
-                let categories = await fetchFlatCategoriesAction(dispatch, flatCategories)
+                let categories = await fetchFlatCategoriesAction(flatCategories, dispatch )
                 let items = categories.filter(c=> b.includes(c._id))
                 updateFormData.forCategory = {value: items, errorMessage: ""}
                 
@@ -249,9 +249,7 @@ const AllBrands = (props) => {
     }
     
     function handleCollapseCategory(e){
-        if(!flatCategories){
-            fetchFlatCategoriesAction(dispatch).then(r => {}).catch(ex=>{})
-        }
+        fetchFlatCategoriesAction(flatCategories,dispatch).then(r => {}).catch(ex=>{})
     }
     
     function addBrandForm() {

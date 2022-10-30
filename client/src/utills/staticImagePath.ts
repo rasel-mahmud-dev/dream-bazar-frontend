@@ -8,7 +8,7 @@ const staticImagePath = (fileName: string)=>{
             fullUrl = "/static/" + fileName
         }
     } else {
-        if(fileName.startsWith("http")){
+        if(fileName && fileName.startsWith("http")){
             fullUrl =  fileName
         } else {
             fullUrl = "/static/" + fileName

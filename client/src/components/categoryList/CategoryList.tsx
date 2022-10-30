@@ -197,7 +197,7 @@ function CategoryList(props) {
     
         
         (async function(){
-            let c = await fetchFlatCategoriesAction(dispatch, flatCategories)
+            let c = await fetchFlatCategoriesAction(flatCategories, dispatch)
             getCat(c, params)
 
         }())
@@ -212,7 +212,7 @@ function CategoryList(props) {
             ...sidebarCategory
         }
         
-        let rootCategory = {}
+        let rootCategory: any = {}
       
         // find both category tree
         if(params.pId && catTree){
@@ -451,7 +451,7 @@ function CategoryList(props) {
         let lastSub = flatCategories.filter(cat=>cat.parentId === item._id)
         
         let updatedSidebarCategory = {...sidebarCategory}
-        let s = updatedSidebarCategory[levelNumber].find(sCat=>sCat._id === item._id)
+        let s: any = updatedSidebarCategory[levelNumber].find(sCat=>sCat._id === item._id)
         if(s) {
             s.last = true;
         }
@@ -481,7 +481,7 @@ function CategoryList(props) {
         } else {
             navigate(`/p/${params.pId}?catTree=${item.name}`)
         }
-        handleChangeCategory(item)
+        handleChangeCategory(item as any)
         setSidebarCategory(updatedSidebarCategory)
     }
     
@@ -523,7 +523,7 @@ function CategoryList(props) {
         updatedSidebarCategory[levelNumber + 1] = lastParentSub
         
         // update all last and expand property from preview level category
-        lastParentSub.forEach((lastItem=>{
+        lastParentSub.forEach(((lastItem: any)=>{
             if(lastItem.name === item.name){
                 lastItem.last = true
                 lastItem.expand = true
@@ -552,7 +552,7 @@ function CategoryList(props) {
     }
     
 
-    function handleChangeCategory(item: {name: string,parentId?: string,id: string, isProductLevel?: number}, rootLevel?: any[] ) {
+    function handleChangeCategory(item: {name: string,parentId?: string, _id: string, isProductLevel?: number}, rootLevel?: any[] ) {
         let all = []
         
         if(!item) return;

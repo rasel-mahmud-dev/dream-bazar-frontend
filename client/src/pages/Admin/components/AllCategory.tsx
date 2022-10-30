@@ -42,7 +42,7 @@ const AllCategory = (props) => {
         (async function () {
             try {
            
-                await fetchFlatCategoriesAction(dispatch, flatCategories);
+                await fetchFlatCategoriesAction(flatCategories, dispatch);
                 
             } catch (ex) {}
         })();

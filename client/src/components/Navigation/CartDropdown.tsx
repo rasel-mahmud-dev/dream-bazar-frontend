@@ -19,11 +19,7 @@ const CartDropdown: FC<Props> = (props) => {
 	
 	const dispatch = useDispatch()
 	const {cartState} = useSelector((state: RootState) => state)
-	
-	
-	function handleLogout() {
-		dispatch(logoutAction());
-	}
+ 
 	
 	const headers = [
 		{title: "Image", dataIndex: "img", render: (img) => <img className="w-5" src={staticImagePath(img)}/>},

@@ -94,6 +94,9 @@ export interface CategoryType {
     sub?: CategoryType[],
     expand?: boolean
     active?: boolean
+    
+    // other field
+    last?: boolean
 }
 
 

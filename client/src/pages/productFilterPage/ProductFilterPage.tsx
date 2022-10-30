@@ -298,11 +298,11 @@ const ProductFilter: FC<ProductFilterType> = ({innerWidth}) => {
             let allCatName = ""
             if (filters.category) {
                 if (filters.category.allNestedIds && filters.category.allNestedIds.length > 0) {
-                    data.categoryIds = filters.category.allNestedIds.map(a => a.id)
+                    data.categoryIds = filters.category.allNestedIds.map((a: any) => a.id)
                     if(filters.category.selected){
                         allCatName = filters.category.selected.name
                     } else {
-                        allCatName = filters.category.allNestedIds.map(a => a.name).join("_")
+                        allCatName = filters.category.allNestedIds.map((a: any) => a.name).join("_")
                     }
                 } else if (filters.category.selected) {
                     data.categoryIds = [filters.category.selected.id]
@@ -469,22 +469,22 @@ const ProductFilter: FC<ProductFilterType> = ({innerWidth}) => {
     }
     
     function handlePagination(pageNumber) {
-        let updatedPaginations = [...paginations]
-        let findex = updatedPaginations.findIndex(pg => pg.where === "filter_products_page")
-        if (findex !== -1) {
-            updatedPaginations[findex].currentPage = pageNumber
-        } else {
-            updatedPaginations.push({
-                currentPage: pageNumber,
-                where: "filter_products_page",
-                perPage: 3
-            })
-            
-        }
-        dispatch({
-            type: "SET_PAGINATIONS",
-            payload: updatedPaginations
-        })
+        // let updatedPaginations = [...paginations]
+        // let findex = updatedPaginations.findIndex(pg => pg.where === "filter_products_page")
+        // if (findex !== -1) {
+        //     updatedPaginations[findex].currentPage = pageNumber
+        // } else {
+        //     updatedPaginations.push({
+        //         currentPage: pageNumber,
+        //         where: "filter_products_page",
+        //         perPage: 3
+        //     })
+        //
+        // }
+        // dispatch({
+        //     type: "SET_PAGINATIONS",
+        //     payload: updatedPaginations
+        // })
     }
     
     // React.useEffect(() => {
