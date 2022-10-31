@@ -1,0 +1,18 @@
+@import "src/styles/--breakpoint";
+
+.seller-sidebar{
+    .sidebar{
+        @include get_down(1100px){
+            transition: all .4s ease;
+            left: -100% !important;
+            position: fixed;
+            left: -100%;
+            z-index: 301;
+            top: 0px;
+        }
+    }
+
+    .sidebar-mobile_show{
+        left: 0 !important;
+    }
+}

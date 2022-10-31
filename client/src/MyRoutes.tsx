@@ -1,80 +1,16 @@
 import {lazy, Suspense} from "react"
 
-import {Routes, Route, RouterProvider, createBrowserRouter} from "react-router-dom"
-import ResetPassword from "pages/auth/ResetPassword";
-import JoinHome from "pages/auth/JoinHome";
-import ForgetPassword from "pages/auth/ForgetPassword";
-import OTPValidate from "pages/auth/OTPValidate";
-import Registration from "pages/auth/Registration";
-import Login from "pages/auth/Login";
+import { RouterProvider, createBrowserRouter} from "react-router-dom"
 
-
-import adminDashboardRoutes from "pages/Admin/adminDashboardRoute";
-import customerDashboardRoutes from "pages/Customer/customerDashboardRoute";
-import NotFoundPage from "components/notFoundPage/NotFoundPage";
-import App from "src/App";
-
-import adminDashboardRoute  from "pages/Admin/adminDashboardRoute"
-import customerDashboardRoute from "pages/Customer/customerDashboardRoute";
-import sellerRoute from "pages/SellerHub/sellerRoute";
-
-const HomePage = lazy(() => import("pages/homePage/HomePage"))
-const Products = lazy(() => import("src/pages/products/Products"))
-const ProductDetails = lazy(() => import("src/pages/productDetails/ProductDetails"))
-const OneTypeProducts = lazy(() => import("src/pages/oneTypeProducts/OneTypeProducts"))
-const Dashboard = lazy(() => import("pages/Admin/AdminDashboard"))
-const CartPage = lazy(() => import("src/pages/CartPages/Index"))
-const CheckoutPage = lazy(() => import("src/pages/CartPages/CheckoutPage"))
-const PaymentPage = lazy(() => import("src/pages/CartPages/PaymentPage"))
-
-const RegistrationPage = lazy(() => import("pages/auth/Registration"))
-const CustomerDashboard = lazy(() => import("src/pages/Customer/Dashboard"))
-const TestPage = lazy(() => import("src/pages/Test/Test"))
-
-const SellerHub = lazy(() => import("src/pages/SellerHub/Index"))
-const StoreList = lazy(() => import("src/pages/SellerHub/StoreList/StoreList"))
-
-const EmailAndPhoneVerification = lazy(() => import("src/pages/auth/EmailVerification"))
-const ProductFilterPage: any = lazy(() => import("src/pages/productFilterPage/ProductFilterPage"))
-const StorePage = lazy(() => import("src/pages/storePage/StorePage"))
-
-
+import sellerRoute from "pages/sellerDashboard/sellerRoute";
+import publicSiteRoute from "pages/publicSite/publicSiteRoute";
+import adminDashboardRoute from "pages/adminDashboard/adminDashboardRoute";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <App />,
-        errorElement: <NotFoundPage />,
-        children: [
-            {
-                path: "/",
-                element: <HomePage />,
-            },
-            {
-                path: "p/:pId",
-                element: <ProductFilterPage />,
-            },
-            {
-                path: "/auth/join",
-                element: <JoinHome />,
-                children: [
-                    {path: "login", element: <Login  title=""/>},
-                    {path: "registration", element: <Registration/>},
-                    {path: "reset-password", element: <ResetPassword/>},
-                    {path: "forget-password", element: <ForgetPassword/>},
-                    {path: "opt-validate", element: <OTPValidate/>},
-                ]
-            },
-            adminDashboardRoute,
-            customerDashboardRoute,
-        ],
-    },
-    {
-        ...sellerRoute
-    }
+    publicSiteRoute,
+    adminDashboardRoute,
+    sellerRoute
 ]);
-
-
 
 
 const MyRoutes = () => {

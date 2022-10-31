@@ -20,6 +20,9 @@
         "paths": {
           "app/*": ["src/app/*"],
           "src/*": ["src/*"],
+          "sellerDashboard/*": ["src/sellerDashboard/*"],
+          "adminDashboard/*": ["src/adminDashboard/*"],
+          "publicSite/*": ["src/publicSite/*"],
           "apis/*": ["src/apis/*"],
           "scss/*": ["src/scss/*"],
           "store/*": ["src/store/*"],

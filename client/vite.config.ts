@@ -16,7 +16,10 @@ export default defineConfig({
       "reducers": path.resolve(__dirname, "./src/store/reducers"),
       "pages": path.resolve(__dirname, "./src/pages"),
       "components": path.resolve(__dirname, "./src/components"),
-      "UI": path.resolve(__dirname, "./src/components/UI")
+      "UI": path.resolve(__dirname, "./src/components/UI"),
+      "sellerDashboard": path.resolve(__dirname, "./src/sellerDashboard"),
+      "adminDashboard": path.resolve(__dirname, "./src/adminDashboard"),
+      "publicSite": path.resolve(__dirname, "./src/publicSite")
     }
   },
     define: {

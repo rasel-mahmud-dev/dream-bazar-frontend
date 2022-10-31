@@ -23,12 +23,26 @@ function setToken(token, scopeName) {
 
 export const loginAction = async (userData, dispatch, scope: Scope, cb: (data: object, errorMessage?: string) => void) => {
     try {
+    
+        if (scope === Scope.ADMIN_DASHBOARD) {
+            let {data, status} = await apis.post("/api/admin/login", userData);
+            if (status === 201) {
+                loginHandler(data.seller, scope, dispatch)
+                setToken(data.token, Scope.ADMIN_DASHBOARD.toLowerCase())
+                cb && cb(data.seller, "")
+            } else {
+                cb && cb({}, "unable to connect with server")
+            }
+        
+            //    login for ecommerce site
+        }
+    
         // login for seller dashboard
-        if (scope === Scope.SELLER_DASHBOARD) {
+        else if (scope === Scope.SELLER_DASHBOARD) {
             let {data, status} = await apis.post("/api/seller/login", userData);
             if (status === 201) {
                 loginHandler(data.seller, scope, dispatch)
-                setToken(data.token, Scope.SELLER_DASHBOARD)
+                setToken(data.token, Scope.SELLER_DASHBOARD.toLowerCase())
                 cb && cb(data.seller, "")
             } else {
                 cb && cb({}, "unable to connect with server")
@@ -39,7 +53,7 @@ export const loginAction = async (userData, dispatch, scope: Scope, cb: (data: o
             const {status, data} = await apis.post("/api/auth/login", userData);
             if (status === 201) {
                 loginHandler(data.user, scope, dispatch)
-                setToken(data.token, Scope.USER)
+                setToken(data.token, Scope.USER.toLowerCase())
                 cb && cb(data.user, "")
             } else {
                 cb && cb({}, "unable to connect with server")
