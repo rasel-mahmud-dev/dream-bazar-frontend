@@ -1,5 +1,7 @@
 .option-list{
-  background: red;
-  max-height: 500px;
-  overflow-y: auto;
+    max-height: 200px;
+    background-color: white;
+    overflow-y: auto;
+    box-shadow: 0 6px 9px -1px #6a6a6a;
+    z-index: 100;
 }

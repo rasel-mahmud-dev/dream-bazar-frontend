@@ -1,25 +1,42 @@
-import React from "react"  
-import { createPortal } from "react-dom" 
-import "./Modal.scss"
-import {CSSTransition} from "react-transition-group"
+import React, {FC, HTMLAttributes, SyntheticEvent} from "react";
 
+import "./Modal.scss";
+import {CSSTransition} from "react-transition-group";
 
+interface Props extends HTMLAttributes<HTMLDivElement> {
+    isOpen: boolean;
+    onCloseModal?: () => void;
+    children: React.ReactNode;
+    modalClass?: string;
+    backdropClass?: string;
+    contentSpaceY?: number
+}
 
-const Modal = (props)=>{ 
-  const { style, onClose, className, inProp, bg, ...attributes  } = props
-  
-  return createPortal(
-    <CSSTransition unmountOnExit in={inProp} timeout={1000} classNames="my-modal">
-      <div className={["modal", className?className:""  ].join(" ")} {...attributes}>
-        {props.children}
-        { onClose && <span className="modal-close_icon" onClick={onClose}
-          >
-          <i className="fa fa-times"/>
-          </span> }
-      </div>
-    </CSSTransition>,
-    document.getElementById("modal-root") as HTMLDivElement
-  )
+const Modal: FC<Props> = (props) => {
+    
+    const {isOpen, contentSpaceY= 10, backdropClass, modalClass, onCloseModal} = props
+    
+    function handleCloseModal(e: SyntheticEvent) {
+        let el = e.target as HTMLDivElement
+        if (el.classList.contains('modal-backdrop')) {
+            onCloseModal && onCloseModal()
+        }
+    }
+    
+    return (
+        <CSSTransition unmountOnExit in={isOpen} timeout={1000} classNames="my-modal">
+            <div
+                className={`modal-backdrop ${backdropClass} ${isOpen ? '' : 'modal-backdrop__close'}  `}
+                onClick={handleCloseModal}
+            >
+                <div className={`${modalClass} modal`} style={{maxHeight: `calc(100vh - ${contentSpaceY}px)`}}>
+                    {props.children}
+             
+                </div>
+            </div>
+            
+        </CSSTransition>
+    )
 }
 
 

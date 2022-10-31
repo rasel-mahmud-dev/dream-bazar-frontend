@@ -73,7 +73,7 @@ const MultiSelect: FC<Props> = ({
     
     return (
         <div className={["mt-4 flex items-start flex-col md:flex-row", className].join(" ")}>
-            <label htmlFor={name} className={`block w-40 font-medium mb-2 md:mb-0 ${labelClass}`}>{label}</label>
+            <label htmlFor={name} className={`block font-medium mb-2 md:mb-0 ${labelClass}`}>{label}</label>
             <div className="w-full">
 
                 {selectedItem && selectedItem.length ? <div className="flex flex-wrap gap-x-1 gap-y-1 mb-2">
@@ -95,7 +95,7 @@ const MultiSelect: FC<Props> = ({
                     onClick={handleToggleSelect}
                 >
                     {placeholder}
-                    {isOpen && <ul className="absolute top-12 left-0  w-full p-4 ">
+                    {isOpen && <ul className="option-list absolute top-12 left-0  w-full p-4 ">
                         {options(handleClick)}
                     </ul>}
                 </div>

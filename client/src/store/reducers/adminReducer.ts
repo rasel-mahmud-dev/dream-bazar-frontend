@@ -21,6 +21,9 @@ const adminReducer = (state: AdminStateType = initialState, action) => {
         case ACTION_TYPES.FETCH_CATEGORY_DETAILS:
             updatedState.categoryDetails = action.payload
             return updatedState
+        case ACTION_TYPES.REMOVE_CATEGORY_DETAIL:
+            updatedState.categoryDetails = [...updatedState.categoryDetails.filter(cd=>cd._id !== action.payload)]
+            return updatedState
         
         case ACTION_TYPES.FETCH_PRODUCT_ATTRIBUTES:
             updatedState.productAttributes = action.payload

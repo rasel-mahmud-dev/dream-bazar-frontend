@@ -3,6 +3,7 @@ import React, {FC} from 'react'
 interface Props{
     inputClass?: string
     labelClass?: string
+    onClick?: ()=>any
     name: string,
     label?: string,
     placeholder?: string,
@@ -14,7 +15,7 @@ interface Props{
 }
 
 
-const SelectGroup:FC<Props> = ({ name, required, inputClass, labelClass, state, label, placeholder, className, onChange, options, }) =>{
+const SelectGroup:FC<Props> = ({ name, onClick, required, inputClass, labelClass, state, label, placeholder, className, onChange, options, }) =>{
     return (
         <div className={["mt-4 flex items-start flex-col md:flex-row", className].join(" ")} >
             <label htmlFor={name}  className={`flex items-center font-medium mb-2 md:mb-0 ${labelClass}`} >
@@ -23,7 +24,8 @@ const SelectGroup:FC<Props> = ({ name, required, inputClass, labelClass, state, 
             </label>
             <div className="w-full">
                 <select
-                    className={`input ${inputClass} text-[15px]  rounded px-2 py-1.5 w-full placeholder:text-gray-700 text-gray-800 outline-none`}
+                    onClick={onClick ? onClick : ()=>{}}
+                    className={`my-input ${inputClass} text-[15px]  rounded px-2 py-1.5 w-full placeholder:text-gray-700 text-gray-800 outline-none`}
                     name={name}
                     value={state[name].value}
                     id={name}

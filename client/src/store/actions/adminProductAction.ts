@@ -43,6 +43,21 @@ export const fetchCategoryDetailsAction = (categoryDetails, dispatch: Dispatch)=
     })
 }
 
+
+export const deleteCategoryDetailsAction = (detailId, dispatch: Dispatch)=>{
+    return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
+       
+        let {data, status} = await getApi(Scope.ADMIN_DASHBOARD).delete(`/api/category/detail/${detailId}`)
+        if (status === StatusCode.Ok) {
+            dispatch({
+                type: ACTION_TYPES.REMOVE_CATEGORY_DETAIL,
+                payload: detailId
+            })
+            resolve(data)
+        }
+    })
+}
+
 export const fetchProductAttributesAction = (productAttributes, dispatch: Dispatch)=>{
     return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
         if(productAttributes && productAttributes.length > 0){
