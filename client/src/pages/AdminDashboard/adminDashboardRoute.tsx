@@ -1,6 +1,6 @@
 import {lazy} from "react";
 
-import AdminDashboardHome from "pages/adminDashboard/AdminDashboardHome";
+import DashboardHomePage from "pages/adminDashboard/dashboardHome/DashboardHomePage";
 import AdminLogin from "pages/adminDashboard/auth/AdminLogin";
 const AdminDashboard = lazy(()=>import("pages/adminDashboard/AdminDashboard"));
 const AllProducts = lazy(()=>import("pages/adminDashboard/components/AllProducts"));
@@ -12,7 +12,8 @@ const AllCategory = lazy(()=>import("pages/adminDashboard/components/AllCategory
 const adminDashboardRoute  =  {
     path :"/admin", element: <AdminDashboard/>,
     children: [
-      {path :"dashboard", element: <AdminDashboardHome />},
+      {path :"", element: <DashboardHomePage />},
+      {path :"dashboard", element: <DashboardHomePage />},
       {path :"products", element: <AllProducts />},
       {path :"add-product", element: <AddProduct/>},
       {path :"update-product/:id", element: <AddProduct/>},

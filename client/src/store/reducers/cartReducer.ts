@@ -14,10 +14,10 @@ interface CartStateType {
 
 const initialState: CartStateType = {
   cartProducts: [
-    {title: "Iphone 11", id:1, total: 123, color: "red", size: "big", qty: 10 , img: "/images/products/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg"},
-    {title: "Jeans 11", id:11232, total: 123, color: "red", size: "big", qty: 10, img: "/images/products/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg" },
-    {title: "Laptop 11", id:1123, total: 123, color: "red", size: "big", qty: 10 , img: "/images/products/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg"},
-    {title: "Mufti T-shart", id:11, total: 13, color: "green", size: "sm", qty: 10 , img: "/images/products/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg"},
+    {title: "Iphone 11", id:1, total: 123, color: "red", size: "big", qty: 10 , img: "/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg"},
+    {title: "Jeans 11", id:11232, total: 123, color: "red", size: "big", qty: 10, img: "/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg" },
+    {title: "Laptop 11", id:1123, total: 123, color: "red", size: "big", qty: 10 , img: "/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg"},
+    {title: "Mufti T-shart", id:11, total: 13, color: "green", size: "sm", qty: 10 , img: "/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg"},
   ]
 }
 

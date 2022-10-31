@@ -7,7 +7,6 @@
 }
 
 .sidebar-root {
-
     .sidebar-overlay {
         width: 100%;
         height: 110%;
@@ -18,13 +17,13 @@
         z-index: 300;
         display: block;
     }
-
-
     .sidebar {
         width: var(--sidebar-width);
         height: 110%;
         overflow-y: auto;
+        transition: all .4s ease;
         @apply shadow-card rounded-lg bg-white;
+
         &::-webkit-scrollbar {
             height: 1px;
             width: 3px;
@@ -65,5 +64,24 @@
             @apply shadow-xxs;
         }
 
+    }
+}
+
+.sidebar-right{
+    .sidebar {
+        &.sidebar-mobile {
+            @include get_down(980px) {
+                right: -100% !important;
+                transition: all .4s ease;
+            }
+        }
+        &.sidebar-mobile_show {
+            right: 0 !important;
+            left: auto;
+        }
+
+        &.sidebar-mobile_hide {
+            right: -100% !important;
+        }
     }
 }

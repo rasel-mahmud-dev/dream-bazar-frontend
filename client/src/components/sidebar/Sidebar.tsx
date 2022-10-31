@@ -7,13 +7,14 @@ interface Props {
     innerWidth: number
     onClickOnBackdrop: ()=> any
     className?: string
+    position?: "right" | "left"
 }
 
 const Sidebar: FC<Props> = (props) => {
-    const {isOpen, className="", innerWidth, onClickOnBackdrop, children} = props;
+    const {isOpen, position="right", className="", innerWidth, onClickOnBackdrop, children} = props;
     
     return (
-        <div className={`sidebar-root ${className} `}>
+        <div className={`sidebar-root ${className} sidebar-${position}`}>
             {isOpen && innerWidth <= 764 && <div onClick={onClickOnBackdrop} className="sidebar-overlay"></div> }
             <div className={`sidebar ${ isOpen ? 'sidebar-mobile_show': 'sidebar-mobile_hide'} ${innerWidth <= 764 ? 'sidebar-mobile' : ''} ` }>
                 {/*<div className={`sidebar ${isOpen ? "sidebar-open" : "sidebar-close"}`}>*/}

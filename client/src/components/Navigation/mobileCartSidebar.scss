@@ -1,0 +1,21 @@
+@import "src/styles/--breakpoint";
+
+.mobile-cart-sidebar{
+    @include get_up(1024px){
+        display: none;
+    }
+    .sidebar{
+        @include get_down(1024px){
+            transition: all .4s ease;
+            right: -100% !important;
+            position: fixed;
+            left: -100%;
+            z-index: 301;
+            top: 0px;
+        }
+    }
+
+    .sidebar-mobile_show{
+        right: 0 !important;
+    }
+}

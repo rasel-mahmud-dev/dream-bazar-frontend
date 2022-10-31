@@ -1,11 +1,11 @@
 import {useEffect,  useState} from "react";
-import apis from "src/apis";
+
 import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {FaAngleRight, FaTimes} from "react-icons/all";
 import {ACTION_TYPES, CategoryType} from "store/types";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
-import {Button} from "UI/index";
+
 
 import "./styles.scss"
 import {fetchFlatCategoriesAction} from "actions/adminProductAction";
@@ -13,6 +13,9 @@ import useLanguage from "src/hooks/useLanguage";
 
 
 function CategoryList(props) {
+    
+    const {onChangeCategory} = props;
+    
     
     const dispatch = useDispatch();
     
@@ -553,6 +556,8 @@ function CategoryList(props) {
     
 
     function handleChangeCategory(item: {name: string,parentId?: string, _id: string, isProductLevel?: number}, rootLevel?: any[] ) {
+        onChangeCategory()
+        
         let all = []
         
         if(!item) return;

@@ -3,7 +3,7 @@ import {BiCart, BiDollar, CgProductHunt} from "react-icons/all";
 
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Card from "UI/Form/Card/Card";
-import VisitorChart from "./components/visitorChart/VisitorChart"
+import VisitorChart from "./visitorChart/VisitorChart"
 
 const AdminDashboardHome = () => {
     
@@ -16,7 +16,7 @@ const AdminDashboardHome = () => {
     return (
         <div>
 			<h3 className="heading-2 py-4">Admin Dashboard</h3>
-			<div className="grid grid-cols-1 md:grid-cols-2">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4">
 				{slats.map((stat) => (
                     <Card>
 						<div className="flex items-center gap-x-4 py-3">
@@ -35,7 +35,7 @@ const AdminDashboardHome = () => {
                 ))}
 			</div>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 
                 <BarChartDemo />
             
@@ -125,7 +125,7 @@ function BarChartDemo(){
     
     
     return (
-        <Card className="bg-white shadow-xxs mt-8  !px-0 overflow-scroll">
+        <Card className="bg-white shadow-xxs !px-0 overflow-x-auto">
        
                 <h3 className="heading-4 mb-4 px-4">Business Analytics </h3>
             <BarChart
@@ -143,9 +143,9 @@ function BarChartDemo(){
           <XAxis dataKey="name"  className="rounded-full" />
           <YAxis className="rounded-full" />
           <Tooltip />
-          {/*<Legend />*/}
-          
-          <Bar dataKey="pv" fill="#8884d8" />
+                {/*<Legend />*/}
+    
+                <Bar dataKey="pv" fill="#8884d8" />
           <Bar dataKey="uv" fill="#82ca9d"  />
           
         </BarChart>

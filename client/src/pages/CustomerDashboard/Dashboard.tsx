@@ -25,7 +25,7 @@ import {
 import {AppContext, AppContextType, DeviceType} from "store/AppContext";
 
 
-import ShoppingCart from "pages/Customer/cart/ShoppingCart";
+
 import staticImagePath from "src/utills/staticImagePath";
 
 

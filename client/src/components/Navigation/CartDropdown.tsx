@@ -1,14 +1,12 @@
 import React, {FC, HTMLAttributes} from 'react';
-import {Button, Menu, Popup} from "UI/index";
-import {Link} from "react-router-dom";
-import {BiTrash, BiUser, FaSignInAlt, FiShoppingCart, GrOrderedList, MdFavorite} from "react-icons/all";
+import {Button} from "UI/index";
+import {FiShoppingCart} from "react-icons/all";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
-import {logoutAction} from "actions/authAction";
-import {Roles} from "store/types";
 import staticImagePath from "src/utills/staticImagePath";
 import ButtonGroup from "UI/Button/ButtonGroup";
 import Table from "UI/table/Table";
+import Dropdown from "components/Dropdown/Dropdown";
 
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -16,8 +14,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const CartDropdown: FC<Props> = (props) => {
-	
-	const dispatch = useDispatch()
+ 
 	const {cartState} = useSelector((state: RootState) => state)
  
 	
@@ -38,12 +35,9 @@ const CartDropdown: FC<Props> = (props) => {
 	]
 
 	return (
-		<Popup
-			timeout={500}
-			animationClass="nav-popup-menu"
-			className={`bg-white dark:bg-neutral-800 w-[700px] ${props.className}`}
-			inProp={props.isShow}>
-				
+		<Dropdown
+			className={`${props.className}`}
+			    isShow={props.isShow}>
 	            <div className="text-neutral-700 dark:text-neutral-50 flex flex-col my-3 ml-2 font-medium ">
 		            
 		            <div className="px-4 flex items-center justify-between mb-3">
@@ -66,7 +60,7 @@ const CartDropdown: FC<Props> = (props) => {
 		            
 	            </div>
 			
-	        </Popup>
+	        </Dropdown>
 	);
 	
 }

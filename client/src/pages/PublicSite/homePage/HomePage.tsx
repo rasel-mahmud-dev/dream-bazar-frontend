@@ -9,7 +9,7 @@ import {Button, Carousel,  Image, Menu, Popup, Spin} from "UI/index"
 import {closeNotify} from "actions/appAction"
 import fullLink from "src/utills/fullLink";
 
-import HomeProductNavigation from "pages/PublicSite/homePage/HomeProductNavigation";
+import HomeProductNavigation from "pages/publicSite/homePage/HomeProductNavigation";
 import staticImagePath from "src/utills/staticImagePath";
 import AppContextProvider, {AppContext} from "store/AppContext";
 import useLanguage from "src/hooks/useLanguage";

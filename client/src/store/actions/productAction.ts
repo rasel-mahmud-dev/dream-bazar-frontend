@@ -38,7 +38,7 @@ export const fetchBrandForCategory=(current_category_id)=> async (dispatch, getS
 
 // only count total filtered products. if changed these state
 
-export function filterProductsAction(payload, isCount: boolean, dispatch, cb){
+export function filterProductsAction(payload, isCount: boolean, dispatch){
     
     // !isCount && props.toggleAppMask(true)
     // !isCount && (props.toggleLoader && props.toggleLoader("product-filter", true))
@@ -111,11 +111,10 @@ export function filterProductsAction(payload, isCount: boolean, dispatch, cb){
                   type: ACTION_TYPES.FETCH_FILTER_PRODUCTS,
                   payload: data
                 })
-                resolve(data)
             }
-           
+            resolve(data)
         } catch (ex){
-            console.log(ex)
+            reject(ex)
         }
     })
 }

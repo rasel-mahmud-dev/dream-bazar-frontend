@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { BiChevronsDown, FaBars, FaUser } from "react-icons/all";
+import {BiBell, BiChevronsDown, BiSearch, BsBell, FaBars, FaBell, FaUser} from "react-icons/all";
 import { Link, useLocation } from "react-router-dom";
 import { toggleLeftSidebarAction } from "actions/appAction";
 import { useDispatch } from "react-redux";
@@ -8,6 +8,8 @@ import Circle from "UI/Circle/Circle";
 
 import AuthDropdown from "components/Dropdown/AuthDropdown";
 import MoreDropdown from "./MoreDropdown";
+import Dropdown from "components/Dropdown/Dropdown";
+import {Badge} from "components/UI";
 
 const AdminNavigation = ({ admin }) => {
 	const location = useLocation();
@@ -24,9 +26,9 @@ const AdminNavigation = ({ admin }) => {
 	return (
 		<div>
 			<div className="shadow-xxs bg-white fixed w-full">
-				<header className="container flex items-center justify-between py-3">
+				<header className="container flex items-center justify-between">
 					<div className="logo flex items-center">
-						<Circle className="md:hidden block mr-3" onClick={handleToggleLeftBar}>
+						<Circle className="md:hidden block hover:!bg-gray-100 bg-transparent mr-3" onClick={handleToggleLeftBar}>
 							<FaBars className="text-sm" />
 						</Circle>
 
@@ -35,22 +37,60 @@ const AdminNavigation = ({ admin }) => {
 							<h4 className="text-neutral-900 font-semibold text-lg md:text-xl   md:block">Dream Bazar</h4>
 						</Link>
 					</div>
-					<div className="flex items-center gap-x-4">
+                    
+                    <div className="hidden lg:flex items-center border px-2 py-2.5 w-4/12 mx-auto rounded-lg text-neutral-400 ">
+                        <BiSearch className="mr-1 text-lg" />
+                        <input type="text" placeholder="Search" className="w-full outline-none"/>
+                    </div>
+                    
+                    <BiSearch className="text-xl block ml-auto mr-2.5" />
+                    
+					<div className="flex items-center gap-x-1">
+                        <Circle
+                            className="relative hover:!bg-gray-100 bg-transparent py-3"
+                            onMouseEnter={() => setState({ ...state, openDropdown: "notification" })}
+                            onMouseLeave={() => setState({ ...state, openDropdown: "" })}
+                        >
+                            <Badge
+                                className="absolute -top-2 -right-1  rounded-full bg-green-450 px-1 text-white"
+                            >
+                                10
+                            </Badge>
+							<FaBell className="text-neutral-600 text-lg" />
+							<Suspense fallback={<h1>loading</h1>}>
+								<Dropdown
+                                    className="right-0 top-9 !shadow-xl rounded-xl"
+                                    isShow={state.openDropdown === "notification"}
+                                    >
+                                    <div className="p-4">
+                                        <h1>dfsssssssssss</h1>
+                                        <h1>dfsssssssssss</h1>
+                                        <h1>dfsssssssssss</h1>
+                                        <h1>dfsssssssssss</h1>
+                                        <h1>dfsssssssssss</h1>
+                                        <h1>dfsssssssssss</h1>
+                                        <h1>dfsssssssssss</h1>
+                                    </div>
+                                </Dropdown>
+							</Suspense>
+						</Circle>
+      
+      
 						<Circle
-							className="relative"
+							className="relative hover:!bg-gray-100 bg-transparent  py-3"
 							onMouseEnter={() => setState({ ...state, openDropdown: "more" })}
 							onMouseLeave={() => setState({ ...state, openDropdown: "" })}
 						>
-							<BiChevronsDown />
+							<BiChevronsDown className="text-neutral-600 text-xl" />
 							<Suspense fallback={<h1>loading</h1>}>
 								<MoreDropdown
-								    className="right-0 top-10 !shadow-xl rounded-xl"
+								    className="right-0 top-9 !shadow-xl rounded-xl"
 								    isShow={state.openDropdown === "more"}
 								/>
 							</Suspense>
 						</Circle>
 						<li
-							className="relative"
+							className="relative py-3"
 							onMouseEnter={() => setState({ ...state, openDropdown: "admin" })}
 							onMouseLeave={() => setState({ ...state, openDropdown: "" })}
 						>
@@ -60,7 +100,7 @@ const AdminNavigation = ({ admin }) => {
 										<img className="rounded-full" src={staticImagePath(admin.avatar)} alt="" />
 									</div>
 								) : (
-									<Circle>
+									<Circle className="hover:!bg-gray-100 bg-transparent">
 										<FaUser className="text-lg"></FaUser>
 									</Circle>
 								)}
@@ -69,7 +109,7 @@ const AdminNavigation = ({ admin }) => {
 							<Suspense fallback={<h1>loading</h1>}>
 								<AuthDropdown
 									auth={admin}
-									className="right-0 top-10 p-4 !shadow-xl rounded-xl"
+									className="right-0 top-12 p-4 !shadow-xl rounded-xl"
 									isShow={state.openDropdown === "admin"}
 								>
 									<div>
@@ -83,7 +123,7 @@ const AdminNavigation = ({ admin }) => {
 										) : (
 											<>
 												<li className="text-xs">
-													<Link to="/seller/login" state={{ redirect: location.pathname }}>Sign In</Link>
+													<Link to="/admin/login" state={{ redirect: location.pathname }}>Sign In</Link>
 												</li>
 											</>
 										)}

@@ -1,4 +1,4 @@
-import React, {lazy, Suspense, useContext} from "react";
+import React, {lazy, Suspense, useContext, useState} from "react";
 import "./Navigation.scss";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -31,6 +31,9 @@ import useLanguage from "src/hooks/useLanguage";
 import staticImagePath from "src/utills/staticImagePath";
 import CartDropdown from "components/Navigation/CartDropdown";
 import {ACTION_TYPES, Roles} from "store/types";
+import Circle from "UI/Circle/Circle";
+import MobileCartSidebar from "components/Navigation/MobileCartSidebar";
+import {getApi} from "src/apis";
 
 const AuthDropdown = lazy(() => import("../Dropdown/AuthDropdown"));
 const MoreDropdown = lazy(() => import("components/Navigation/MoreDropdown"));
@@ -48,10 +51,11 @@ function Navigation(props) {
     
     const news = "From Yesterday our Online Shop will be Shutdown until Government don't declare next info.";
     
-    const [isFixed, setFixed] = React.useState(false);
+    const [isFixed, setFixed] = useState(false);
     
-    const [state, setState] = React.useState({
-        openDropdown: ""
+    const [state, setState] = useState({
+        openDropdown: "",
+        openMobileRightSidebar: false
     })
     
     
@@ -151,11 +155,25 @@ function Navigation(props) {
         })
     }
     
+    function closeMobileRightSidebar(e: Event) {
+        e.stopPropagation();
+        setState({...state, openMobileRightSidebar: false})
+    }
+    
+    function openMobileRightSidebar() {
+        if(window.innerWidth < 1024){
+            setState((prevState=>({
+                ...prevState,
+                openMobileRightSidebar: true
+            })))
+        }
+    }
+    
     // @ts-ignore
     return (
         <div className={["navigation", isFixed ? "nav_fixed" : ""].join(" ")}>
             {/* top navigation */}
-            <div className="bg-white dark:bg-neutral-800 py-1 ">
+            <div className="bg-white dark:bg-neutral-800 py-1 hidden lg:block">
                 
                 <div className="grid grid-cols-12 justify-between w-full max-w-8xl mx-auto px-4">
                     <div className="col-span-2 flex items-center gap-x-4  dark:text-white">
@@ -202,7 +220,7 @@ function Navigation(props) {
                 <div className="max-w-8xl mx-auto px-4 flex items-center">
                     
                     <div className="md:hidden block mr-3 ">
-                        <FaBars className="text-xl" onClick={handleToggleLeftBar}/>
+                        <FaBars className="text-xl text-neutral-100" onClick={handleToggleLeftBar}/>
                     </div>
                     
                     <div className="grid grid-cols-12 items-center w-full ">
@@ -246,8 +264,7 @@ function Navigation(props) {
                                 
                                 {/***** go to seller page **********/}
     
-                                <div
-                                    className="relative  relative"
+                                <Circle className="relative hover:!bg-gray-100/20 bg-transparent  py-3"
                                     onMouseEnter={() =>
                                         setState({...state, openDropdown: "more"})
                                     }
@@ -255,14 +272,14 @@ function Navigation(props) {
                                         setState({...state, openDropdown: ""})
                                     }
                                 >
-                                    <BiChevronsDown/>
+                           				<BiChevronsDown className="text-neutral-50 text-xl" />
                                         <Suspense fallback={<h1>loading</h1>}>
                                             <MoreDropdown
-                                                className="left-1/2 -translate-x-1/2 top-8 !shadow-xl rounded-lg p-4"
+                                                className="left-0 top-8 !shadow-xl rounded-lg"
                                                 isShow={state.openDropdown === "more"}
                                             />
                                         </Suspense>
-                                    </div>
+                                    </Circle>
     
                                 {/* <li className=" py-5 cursor-pointer">*/}
                                 {/*    <Link className="flex items-center gap-x-2" to="/seller/dashboard">*/}
@@ -274,33 +291,38 @@ function Navigation(props) {
                                 {/*</li>*/}
     
                                 {/*** mobile search icon *****/}
-                                <li className="md:hidden relative flex items-center gap-x-2 py-5">
+                                <li className="md:hidden relative flex items-center gap-x-2">
                                     <div className="flex justify-end ">
                                         <BiSearch className="text-2xl text-white"/>
                                     </div>
                                  </li>
                                 
                                 <li className="relative flex items-center gap-x-2 py-5"
-                                    onMouseEnter={() => setState({...state, openDropdown: "cart"})}
-                                    onMouseLeave={() => setState({...state, openDropdown: ""})}>
+                                    onClick={openMobileRightSidebar}
+                                    onMouseEnter={() => window.innerWidth > 1024 && setState({...state, openDropdown: "cart"})}
+                                    onMouseLeave={() => window.innerWidth > 1024 && setState({...state, openDropdown: ""})}>
                                  
-                                    <Badge className="bg-red-500">{cartState.cartProducts.length > 0 ? cartState.cartProducts.length : ""}</Badge>
+                                    <Badge className="bg-blue-500 text-white rounded-full -right-2 px-1.5 absolute top-2">{cartState.cartProducts.length > 0 ? cartState.cartProducts.length : ""}</Badge>
                                     
                                     <GiShoppingBag className="text-white text-2xl "/>
+                                    
                                     <span className="font-medium text-white hidden md:block">
                                         {l("In Cart")}
                                     </span>
                                     <Suspense fallback={<h1>loading</h1>}>
                                         <CartDropdown
-                                            className="-right-40 top-14"
+                                            className="right-0 top-14"
                                             isShow={state.openDropdown === "cart"}
                                         />
                                     </Suspense>
+                                        <MobileCartSidebar
+                                            isOpen={state.openMobileRightSidebar}
+                                            handleClose={(e)=>closeMobileRightSidebar(e)} />
                                 </li>
                                 
-                                <li className="flex items-center gap-x-2 py-5 ">
+                                <li className="hidden md:flex items-center gap-x-2 py-5 ">
                                     <FaHeart className="text-white text-2xl"/>
-                                    <span className="font-medium text-white hidden md:block">
+                                    <span className="font-medium text-white hidden md:block whitespace-nowrap" >
                                         {l("Favorite")}
                                     </span>
                                 </li>

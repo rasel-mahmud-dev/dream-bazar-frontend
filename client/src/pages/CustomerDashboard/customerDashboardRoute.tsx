@@ -1,8 +1,8 @@
 import {lazy} from "react";
 
-const Dashboard = lazy(()=>import("pages/CustomerDashboard/Dashboard"));
-const Wishlist = lazy(()=>import("pages/CustomerDashboard/wishlist/Wishlist"));
-const ShoppingCart = lazy(()=>import("pages/CustomerDashboard/cart/ShoppingCart"));
+const Dashboard = lazy(()=>import("pages/customerDashboard/Dashboard"));
+const Wishlist = lazy(()=>import("pages/customerDashboard/wishlist/Wishlist"));
+const ShoppingCart = lazy(()=>import("pages/customerDashboard/cart/ShoppingCart"));
 
 
 const CustomerDashboardRoute  = {
