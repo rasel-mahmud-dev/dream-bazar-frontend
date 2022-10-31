@@ -74,16 +74,17 @@ const AdminLogin = (props) => {
 		if (!isCompleted) {
 			return setShopInfo(updateShopInfo);
 		}
-		try {
-			setHttpResponse((p) => ({ ...p, message: "", loading: true }));
-   
-			loginAction(payload, dispatch, Scope.ADMIN_DASHBOARD, (data, errorMessage)=>{
-                setHttpResponse({ isSuccess: true, message: "ok", loading: false });
-            });
-   
-		} catch (ex) {
-			setHttpResponse({ isSuccess: false, message: errorMessageCatch(ex), loading: false });
-		}
+
+        setHttpResponse((p) => ({ ...p, message: "", loading: true }));
+
+        loginAction(payload, dispatch, Scope.ADMIN_DASHBOARD, (data, errorMessage)=>{
+            if(!errorMessage) {
+                setHttpResponse({isSuccess: true, message: "ok", loading: false});
+            } else{
+                setHttpResponse({ isSuccess: false, message: errorMessage, loading: false });
+            }
+        });
+        
 	}
 
 	return (

@@ -15,11 +15,10 @@ const adminReducer = (state: AdminStateType = initialState, action) => {
     switch (action.type) {
         
         case ACTION_TYPES.FETCH_SELLER_SHOP:
-           
             return updatedState
         
-        case ACTION_TYPES.SELLER_LOGIN:
-
+        case ACTION_TYPES.ADMIN_LOGIN:
+            updatedState.admin = action.payload
             return updatedState
         
         default :

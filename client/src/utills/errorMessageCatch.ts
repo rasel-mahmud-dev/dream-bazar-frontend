@@ -8,9 +8,11 @@ function errorMessageCatch(ex){
 		} else {
 			message = ex.response.data
 		}
-	} else {
+	} else if (typeof ex === "object" && ex.message) {
 		message = ex.message
-	}
+	} else if (typeof ex === "string") {
+        message = ex
+    }
 	
 	return message
 }

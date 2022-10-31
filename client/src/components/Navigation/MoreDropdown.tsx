@@ -32,7 +32,7 @@ const MoreDropdown: FC<Props> = (props: {className: string, isShow: boolean}) =>
                     <Link to="/seller/registration">Create a Seller</Link>
                 </Menu.Item>
                 <Menu.Item key="6" className="text-green-500 hover:bg-green-900/40">
-                    <Link to="/store-list">Top Store</Link>
+                    <Link to="/admin/login">Admin Login</Link>
                 </Menu.Item>
                 <Menu.Item key="6" className="text-green-500 hover:bg-green-900/40">
                     <Link to="/store-list">store</Link>

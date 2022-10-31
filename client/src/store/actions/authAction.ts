@@ -3,17 +3,14 @@ import apis, {getApi} from "src/apis";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 
 export const loginHandler = (user, scope: Scope, dispatch) => {
-    if (scope === Scope.SELLER_DASHBOARD) {
-        dispatch({
-            type: ACTION_TYPES.SELLER_LOGIN,
-            payload: user,
-        });
-    } else {
-        dispatch({
-            type: ACTION_TYPES.LOGIN,
-            payload: user,
-        });
-    }
+   dispatch({
+        type: scope === Scope.SELLER_DASHBOARD
+            ? ACTION_TYPES.SELLER_LOGIN
+            : scope === Scope.ADMIN_DASHBOARD
+                ? ACTION_TYPES.ADMIN_LOGIN
+                : ACTION_TYPES.LOGIN,
+        payload: user,
+    });
 };
 
 function setToken(token, scopeName) {
@@ -27,14 +24,12 @@ export const loginAction = async (userData, dispatch, scope: Scope, cb: (data: o
         if (scope === Scope.ADMIN_DASHBOARD) {
             let {data, status} = await apis.post("/api/admin/login", userData);
             if (status === 201) {
-                loginHandler(data.seller, scope, dispatch)
+                loginHandler(data.admin, scope, dispatch)
                 setToken(data.token, Scope.ADMIN_DASHBOARD.toLowerCase())
-                cb && cb(data.seller, "")
+                cb && cb(data.admin, "")
             } else {
-                cb && cb({}, "unable to connect with server")
+                cb && cb({}, "Unable to connect with server")
             }
-        
-            //    login for ecommerce site
         }
     
         // login for seller dashboard
@@ -84,8 +79,14 @@ export const registrationAction = async (userData, scope: Scope, dispatch, cb: (
 
 export const currentAuthAction = async (dispatch, scope: Scope) => {
     try {
+    
+        if (scope === Scope.ADMIN_DASHBOARD) {
+            let response = await getApi(scope).get("/api/auth/admin/current-auth")
+            if (response.status === 200) {
+                loginHandler(response.data, scope, dispatch)
+            }
         
-        if (scope === Scope.SELLER_DASHBOARD) {
+        } else if (scope === Scope.SELLER_DASHBOARD) {
             let response = await getApi(scope).get("/api/auth/seller/current-auth")
             if (response.status === 200) {
                 loginHandler(response.data, scope, dispatch)
