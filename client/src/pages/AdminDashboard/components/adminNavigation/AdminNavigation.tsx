@@ -5,10 +5,9 @@ import { toggleLeftSidebarAction } from "actions/appAction";
 import { useDispatch } from "react-redux";
 import staticImagePath from "src/utills/staticImagePath";
 import Circle from "UI/Circle/Circle";
-import AuthDropdown from "components/Dropdown/AuthDropdown";
 
-// import MoreDropdown from "pages/SellerDashboard/components/adminNavigation/MoreDropdown";
-// import AuthDropdown from "pages/SellerDashboard/components/adminNavigation/AuthDropdown";
+import AuthDropdown from "components/Dropdown/AuthDropdown";
+import MoreDropdown from "./MoreDropdown";
 
 const AdminNavigation = ({ admin }) => {
 	const location = useLocation();
@@ -44,10 +43,10 @@ const AdminNavigation = ({ admin }) => {
 						>
 							<BiChevronsDown />
 							<Suspense fallback={<h1>loading</h1>}>
-								{/*<MoreDropdown*/}
-								{/*    className="right-0 top-10 !shadow-xl rounded-xl"*/}
-								{/*    isShow={state.openDropdown === "more"}*/}
-								{/*/>*/}
+								<MoreDropdown
+								    className="right-0 top-10 !shadow-xl rounded-xl"
+								    isShow={state.openDropdown === "more"}
+								/>
 							</Suspense>
 						</Circle>
 						<li
@@ -55,7 +54,7 @@ const AdminNavigation = ({ admin }) => {
 							onMouseEnter={() => setState({ ...state, openDropdown: "admin" })}
 							onMouseLeave={() => setState({ ...state, openDropdown: "" })}
 						>
-							<Link to="/admin/login" state={{ redirect: location.pathname }}>
+							<div>
 								{admin && admin.avatar ? (
 									<div className="w-9">
 										<img className="rounded-full" src={staticImagePath(admin.avatar)} alt="" />
@@ -65,7 +64,7 @@ const AdminNavigation = ({ admin }) => {
 										<FaUser className="text-lg"></FaUser>
 									</Circle>
 								)}
-							</Link>
+							</div>
 
 							<Suspense fallback={<h1>loading</h1>}>
 								<AuthDropdown
@@ -84,7 +83,7 @@ const AdminNavigation = ({ admin }) => {
 										) : (
 											<>
 												<li className="text-xs">
-													<Link to="/seller/login">Sign In</Link>
+													<Link to="/seller/login" state={{ redirect: location.pathname }}>Sign In</Link>
 												</li>
 											</>
 										)}

@@ -16,15 +16,10 @@ const MoreDropdown: FC<Props> = (props) => {
             <div
                 className="text-neutral-700 dark:text-neutral-50 p-4 font-medium ">
                 <li className="pb-2"><Link to="/">Browse to Shopping</Link></li>
-                <li className="py-2"><span>New Customer?</span></li>
-                <li className="py-2"><span>New Customer?</span></li>
-                <li className="py-2"><span>New Customer?</span></li>
-                <li className="py-2"><span>New Customer?</span></li>
-                <li className="py-2"><span>New Customer?</span></li>
+                <li className="py-2"><Link to="/admin/dashboard">Admin Dashboard</Link></li>
             </div>
         </Popup>
     );
-    
 };
 
 
