@@ -9,13 +9,14 @@ import { toggleBackdrop } from "actions/appAction";
 import ActionInfo from "components/ActionInfo/ActionInfo";
 import { InputGroup } from "UI/Form";
 import { Button } from "UI/index";
-import { BsPencilSquare, FcEmptyTrash } from "react-icons/all";
+import {BsPencilSquare, FaPenAlt, FaTimes, FcEmptyTrash} from "react-icons/all";
 import Table, { Column } from "UI/table/Table";
 import SelectGroup from "UI/Form/SelectGroup";
 import Checkbox from "UI/Form/checkbox/Checkbox";
 import isoStringToDate from "src/utills/isoStringToDate";
 import {fetchCategoryDetailsAction, fetchFlatCategoriesAction} from "actions/adminProductAction";
 import Card from "UI/Form/Card/Card";
+import Circle from "UI/Circle/Circle";
 
 const CategoryDetails = (props) => {
     const {
@@ -324,7 +325,7 @@ const CategoryDetails = (props) => {
             )}
             
             <div className="flex items-center justify-between mt-4">
-				<h1 className="heading-2">Product Categories</h1>
+				<h1 className="heading-2">Category Details</h1>
                 {!updateId ? (
                     <Button className="mt-4 bg-secondary-300" onClick={() => handleShowAddForm(true)}>
 						Add New Categories
@@ -335,19 +336,31 @@ const CategoryDetails = (props) => {
 			</div>
 			<Card>
 				<h3 className="heading-5">
-					Category fetch {categoryDetails?.length} of {categoryDetails?.length}{" "}
+					Fetch {categoryDetails?.length} of {categoryDetails?.length}{" "}
 				</h3>
-
-				<Table
-                    className=""
-                    dataSource={categoryDetails ? categoryDetails : []}
-                    columns={columns}
-                    tbodyClass={{
-                        tr: "hover:bg-green-500/10",
-                    }}
-                    fixed={true}
-                    scroll={{ x: 700, y: 600 }}
-                />
+                
+                { categoryDetails?.map(catDet=>(
+                    <div className="border my-10 rounded-md relative p-5">
+                       <div className="absolute right-2  top-2 flex gap-x-2">
+                           
+                           <Circle className=" !h-6 !w-6 hover:bg-green-450 hover:text-white">
+                                <FaPenAlt className="text-xs" />
+                            </Circle>
+                           
+                            <Circle className=" !h-6 !w-6 hover:bg-red-400 hover:text-white">
+                                <FaTimes className="text-xs" />
+                            </Circle>
+                           
+                       </div>
+                        <code className="whitespace-pre-line">
+                            <pre>
+                                {JSON.stringify(catDet, undefined, 2)}
+                            </pre>
+                        </code>
+                    </div>
+                )) }
+                
+				
 			</Card>
 		</div>
     );
