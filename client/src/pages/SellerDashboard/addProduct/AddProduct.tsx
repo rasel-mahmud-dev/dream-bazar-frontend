@@ -67,6 +67,7 @@ const AddProduct = () => {
         fetchFlatCategoriesAction(flatCategories, dispatch)
     }, [])
     
+    
     useEffect(()=>{
         if(params.productId && params.productId.length === 24) {
             fetchProductForUpdate(params.productId, function (err, result){
@@ -122,6 +123,10 @@ const AddProduct = () => {
         }))
     }
     
+    function handleSubmit(e){
+        e.preventDefault();
+    }
+    
     function generateNewProductSku(){
         setState(prev=>{
             let updateProductData = {...prev.productData}
@@ -132,6 +137,7 @@ const AddProduct = () => {
             }
         })
     }
+    
     
     
     function selectFilterValues(categoryId){
@@ -157,7 +163,7 @@ const AddProduct = () => {
 				{params.productId ? "Update Product" : "Add Product"}
 			</h1>
 
-			<form action="pages/SellerDashboard/addProduct/AddProduct">
+			<form onSubmit={handleSubmit}>
 				<Card>
 					<InputGroup
                         name="title"

@@ -1,6 +1,8 @@
 @import "src/styles/--breakpoint";
 
-.seller-sidebar{
+.admin-sidebar{
+    position: sticky;
+    top: var(--header-height);
     .sidebar{
         @include get_down(1100px){
             transition: all .4s ease;

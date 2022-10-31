@@ -1,14 +1,16 @@
 import { lazy } from "react";
-import ResetPassword from "pages/publicSite/auth/ResetPassword";
-import JoinHome from "pages/publicSite/auth/JoinHome";
-import ForgetPassword from "pages/publicSite/auth/ForgetPassword";
-import OTPValidate from "pages/publicSite/auth/OTPValidate";
-import Registration from "pages/publicSite/auth/Registration";
-import Login from "pages/publicSite/auth/Login";
+
+const ResetPassword = lazy(()=>import("pages/publicSite/auth/ResetPassword"));
+const JoinHome = lazy(()=>import("pages/publicSite/auth/JoinHome"));
+const ForgetPassword = lazy(()=>import("pages/publicSite/auth/ForgetPassword"));
+const OTPValidate = lazy(()=>import("pages/publicSite/auth/OTPValidate"));
+const Registration = lazy(()=>import("pages/publicSite/auth/Registration"));
+const Login = lazy(()=>import("pages/publicSite/auth/Login"));
+
 import NotFoundPage from "components/notFoundPage/NotFoundPage";
+
 import App from "src/App";
 
-import adminDashboardRoute from "pages/adminDashboard/adminDashboardRoute";
 import customerDashboardRoute from "pages/customerDashboard/customerDashboardRoute";
 
 const HomePage = lazy(() => import("pages/publicSite/homePage/HomePage"));

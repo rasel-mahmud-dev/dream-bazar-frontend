@@ -1,12 +1,14 @@
 import {lazy} from "react";
 
-import DashboardHomePage from "pages/adminDashboard/dashboardHome/DashboardHomePage";
-import AdminLogin from "pages/adminDashboard/auth/AdminLogin";
+const CategoryDetails  = lazy(()=>import("pages/adminDashboard/categoryList/CategoryDetails"));
+const ProductAttribute  = lazy(()=>import("pages/adminDashboard/productAttribute/ProductAttribute"));
+const DashboardHomePage = lazy(()=>import("pages/adminDashboard/dashboardHome/DashboardHomePage"));
+const AdminLogin =  lazy(()=>import("pages/adminDashboard/auth/AdminLogin"));
 const AdminDashboard = lazy(()=>import("pages/adminDashboard/AdminDashboard"));
-const AllProducts = lazy(()=>import("pages/adminDashboard/components/AllProducts"));
-const AllBrands = lazy(()=>import("pages/adminDashboard/components/AllBrands"));
+const ProductList = lazy(()=>import("pages/adminDashboard/productList/ProductList"));
+const BrandList = lazy(()=>import("pages/adminDashboard/brandList/Brands"));
 const AddProduct = lazy(()=>import("pages/adminDashboard/components/AddProduct"));
-const AllCategory = lazy(()=>import("pages/adminDashboard/components/AllCategory"));
+const CategoryList = lazy(()=>import("pages/adminDashboard/categoryList/Categories"));
 
 
 const adminDashboardRoute  =  {
@@ -14,11 +16,13 @@ const adminDashboardRoute  =  {
     children: [
       {path :"", element: <DashboardHomePage />},
       {path :"dashboard", element: <DashboardHomePage />},
-      {path :"products", element: <AllProducts />},
+      {path :"products", element: <ProductList />},
       {path :"add-product", element: <AddProduct/>},
       {path :"update-product/:id", element: <AddProduct/>},
-      {path :"categories", element: <AllCategory/>},
-      {path :"brands", element: <AllBrands/>},
+      {path :"categories", element: <CategoryList/>},
+      {path :"category-details", element: <CategoryDetails/>},
+      {path :"product-attribute", element: <ProductAttribute/>},
+      {path :"brands", element: <BrandList/>},
       {path :"login", element: <AdminLogin/>}
     ]
   }

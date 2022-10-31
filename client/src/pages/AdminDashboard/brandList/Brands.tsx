@@ -31,7 +31,7 @@ const AllBrands = (props) => {
     const [brands, setBrands] = React.useState<any[]>([]);
     
     const dispatch = useDispatch();
-
+    
     const [state, setState] = React.useState<any>({
         isShowForm: true,
         updateId: "",
@@ -50,7 +50,7 @@ const AllBrands = (props) => {
     
     
     const {formData, isShowForm, updateId} = state
-
+    
     function deleteItem(id: any) {
         deleteBrandAction(dispatch, id, function(err, data){
             if(!err){
@@ -65,7 +65,7 @@ const AllBrands = (props) => {
         const { name, value } = e.target
         
         let updateFormData = { ...state.formData }
-
+        
         if(name === "logo") {
             updateFormData = {
                 ...updateFormData,
@@ -92,14 +92,14 @@ const AllBrands = (props) => {
     }
     
     async function handleAdd(e) {
-    
+        
         let updateState = {...state}
         
         e.preventDefault();
-    
+        
         let isComplete = true
         let payload = new FormData();
-       
+        
         for (let item in formData) {
             
             if(item === "logo"){
@@ -230,7 +230,7 @@ const AllBrands = (props) => {
             } catch (ex){
                 console.log(ex)
             }
-        
+            
         }
         
         setState({
@@ -279,7 +279,7 @@ const AllBrands = (props) => {
                     onChange={handleChange}
                 />
                 {/*********** Cover **************/}
-  
+                
                 <FileUpload
                     name="logo"
                     label="Logo"
@@ -306,8 +306,8 @@ const AllBrands = (props) => {
                     state={formData}
                     options={(onClick)=> <div className="bg-neutral-100 px-2 absolute top-0 left-0 w-full">
                         {flatCategories?.map(cat=>(
-                                <li onClick={()=>onClick(cat)} className="cursor-pointer py-1 menu-item">{cat.name}</li>
-                            ))}
+                            <li onClick={()=>onClick(cat)} className="cursor-pointer py-1 menu-item">{cat.name}</li>
+                        ))}
                             </div>}
                 />
 
@@ -378,7 +378,7 @@ const AllBrands = (props) => {
         },
     ];
     
-
+    
     return (
         <div className="pr-4">
             
@@ -391,7 +391,7 @@ const AllBrands = (props) => {
             
             <div className="flex items-center justify-between mt-4">
                 <h1 className="h2">Brands</h1>
-
+                
                 {!updateId ? (
                     <Button
                         className="mt-4 bg-secondary-300"
@@ -411,12 +411,12 @@ const AllBrands = (props) => {
             <div className="card">
                 <Table
                     dataSource={adminBrands.cached ? adminBrands.cached : []}
-                   columns={columns}
-                   tbodyClass={{
-                       tr: "hover:bg-green-500/10",
-                   }}
-                   fixed={true}
-                   scroll={{x: 500, y: 600}}
+                    columns={columns}
+                    tbodyClass={{
+                        tr: "hover:bg-green-500/10",
+                    }}
+                    fixed={true}
+                    scroll={{x: 500, y: 600}}
                 />
             </div>
         </div>

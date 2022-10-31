@@ -3,10 +3,10 @@ import NotFoundPage from "components/notFoundPage/NotFoundPage";
 
 const SellerApp  = lazy(() => import("./SellerApp"));
 
-import SellerAuthRequired from "pages/sellerDashboard/protectedRoute/SellerAuthRequired";
-import AddProduct from "pages/sellerDashboard/addProduct/AddProduct";
-import ShopInfo from "pages/sellerDashboard/shop/ShopInfo";
-import UpdateShopInfo from "pages/sellerDashboard/shop/UpdateShopInfo";
+const SellerAuthRequired = lazy(()=>import("pages/sellerDashboard/protectedRoute/SellerAuthRequired"));
+const AddProduct = lazy(()=>import("pages/sellerDashboard/addProduct/AddProduct"));
+const ShopInfo = lazy(()=>import("pages/sellerDashboard/shop/ShopInfo"));
+const UpdateShopInfo = lazy(()=>import("pages/sellerDashboard/shop/UpdateShopInfo"));
 const SellerLogin  = lazy(()=>import("pages/sellerDashboard/auth/SellerLogin"));
 const SellerRegistration = lazy(()=>import("pages/sellerDashboard/auth/SellerRegistration"));
 const DashboardHome  = lazy(()=> import("./dashboardHome/DashboardHome"));

@@ -23,6 +23,8 @@ export enum ACTION_TYPES {
     FETCH_FLAT_CATEGORIES = "FETCH_FLAT_CATEGORIES",
     CHANGE_CATEGORY = "CHANGE_CATEGORY",
     FETCH_CATEGORY_BRANDS = "FETCH_CATEGORY_BRANDS",
+    FETCH_CATEGORY_DETAILS = "FETCH_CATEGORY_DETAILS",
+    FETCH_PRODUCT_ATTRIBUTES = "FETCH_PRODUCT_ATTRIBUTES",
     
     LOGIN = "LOGIN",
     ADMIN_LOGIN = "ADMIN_LOGIN",
@@ -131,4 +133,16 @@ export interface AdminType {
     createdAt?: Date
     updatedAt: Date
     username?: string
+}
+
+
+export enum StatusCode {
+    Ok = 200,
+    Created = 201,
+    Unauthorized = 401,
+    Forbidden = 403,
+    NotFound = 404,
+    Conflict = 409,
+    InternalServerError = 409,
+    UnprocessableEntity = 422,
 }

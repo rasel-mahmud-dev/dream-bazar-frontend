@@ -15,7 +15,7 @@ const AdminSidebar = ({auth, isOpenLeftBar}) => {
     const data = [
         {
             name: "Dashboard",
-            to: "/seller/products",
+            to: "/admin/dashboard",
             icon: <MdOutlineSpaceDashboard/>,
             iconClassName: "text-xl mr-1",
         },
@@ -53,9 +53,21 @@ const AdminSidebar = ({auth, isOpenLeftBar}) => {
         {
             section: "PRODUCT MANAGEMENT",
             items: [
-                {name: "Products", to: "/seller/products", icon: <BiCart/>},
-                {name: "Add", to: "/seller/product/add", icon: <BiPlus/>},
-                {name: "Bulk import", to: "/", icon: <BiNote/>},
+                {name: "Products", to: "/admin/products", icon: <BiCart/>},
+                {name: "Product Attribute", to: "/admin/product-attribute", icon: <BiPlus/>}
+            ],
+        },
+        {
+            section: "CATEGORY MANAGEMENT",
+            items: [
+                {name: "Categories", to: "/admin/categories", icon: <BiCart/>},
+                {name: "CategoryDetails", to: "/admin/category-details", icon: <BiCart/>}
+            ],
+        },
+        {
+            section: "BRAND MANAGEMENT",
+            items: [
+                {name: "Brands", to: "/admin/brands", icon: <BiCart/>}
             ],
         },
         {
@@ -90,7 +102,7 @@ const AdminSidebar = ({auth, isOpenLeftBar}) => {
     return (
         <div>
 			{auth && (
-                <Sidebar className="seller-sidebar" isOpen={isOpenLeftBar} onClickOnBackdrop={toggleSidebar}>
+                <Sidebar className="admin-sidebar" isOpen={isOpenLeftBar} onClickOnBackdrop={toggleSidebar}>
 					<div className="">
 						{/**** sidebar fixed navigation ******/}
                         <div className="sidebar-fixed-bar top-0 bg-white py-3 px-4 md:hidden">
@@ -109,8 +121,8 @@ const AdminSidebar = ({auth, isOpenLeftBar}) => {
                                 <div>
 									{section.section ? (
                                         <div key={section.section} className="mt-10">
-											<h6 className="heading-6 tracking-widest text-neutral-500">{section.section}</h6>
-											<div className="ml-2 mt-2">
+											<h6 className="tracking-wide text-xs font-medium text-green-600">{section.section}</h6>
+											<div className="mt-2">
 												{section?.items?.map((item) => (
                                                     <div onClick={() => handleClickItem(item)}>
 														<div
@@ -120,12 +132,12 @@ const AdminSidebar = ({auth, isOpenLeftBar}) => {
                                                             }`}
                                                         >
 															<div className="text-lg text-neutral-600">{item.icon}</div>
-															<li className="text-base text-neutral-600 font-medium">{item.name}</li>
+															<li className="text-base text-neutral-500 font-medium">{item.name}</li>
 														</div>
                                                         
                                                         {/* *** render sub items *****   */}
                                                         {state.openItem === item.name && (
-                                                            <div className="ml-4 p-4">
+                                                            <div className="">
 																{item?.subItems?.map((sub) => (
                                                                     <li className="flex justify-between">
 																		<span>{sub.label}</span>

@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, {Suspense, useEffect, useRef} from "react";
 import {BiBell, BiChevronsDown, BiSearch, BsBell, FaBars, FaBell, FaUser} from "react-icons/all";
 import { Link, useLocation } from "react-router-dom";
 import { toggleLeftSidebarAction } from "actions/appAction";
@@ -19,13 +19,21 @@ const AdminNavigation = ({ admin }) => {
 		openDropdown: "",
 	});
 
+    const headerRef = useRef<HTMLDivElement>()
+    
 	function handleToggleLeftBar() {
 		toggleLeftSidebarAction(dispatch);
 	}
+    
+    useEffect(()=>{
+        if(headerRef.current){
+            document.documentElement.style.setProperty(`--header-height`, headerRef.current.offsetHeight + "px")
+        }
+    }, [headerRef.current])
 
 	return (
 		<div>
-			<div className="shadow-xxs bg-white fixed w-full">
+			<div ref={headerRef} className="admin-navigation shadow-xxs bg-white fixed w-full">
 				<header className="container flex items-center justify-between">
 					<div className="logo flex items-center">
 						<Circle className="md:hidden block hover:!bg-gray-100 bg-transparent mr-3" onClick={handleToggleLeftBar}>
@@ -77,7 +85,7 @@ const AdminNavigation = ({ admin }) => {
       
       
 						<Circle
-							className="relative hover:!bg-gray-100 bg-transparent  py-3"
+							className="relative hover:!bg-gray-100 bg-transparent py-3"
 							onMouseEnter={() => setState({ ...state, openDropdown: "more" })}
 							onMouseLeave={() => setState({ ...state, openDropdown: "" })}
 						>
@@ -94,7 +102,7 @@ const AdminNavigation = ({ admin }) => {
 							onMouseEnter={() => setState({ ...state, openDropdown: "admin" })}
 							onMouseLeave={() => setState({ ...state, openDropdown: "" })}
 						>
-							<div>
+							<div className="">
 								{admin && admin.avatar ? (
 									<div className="w-9">
 										<img className="rounded-full" src={staticImagePath(admin.avatar)} alt="" />
@@ -134,7 +142,7 @@ const AdminNavigation = ({ admin }) => {
 					</div>
 				</header>
 			</div>
-			<div className="h-16"></div>
+			<div className="header-height"></div>
 		</div>
 	);
 };
