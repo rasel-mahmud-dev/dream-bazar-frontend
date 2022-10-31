@@ -2,7 +2,7 @@ import React, {lazy, Suspense, useContext} from "react";
 import "./Navigation.scss";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {Badge, Button, Image, OnScroll, Popup, Typography,} from "components/UI";
+import {Badge, Button, Image, Menu, OnScroll, Popup, Typography} from "components/UI";
 // import ProductCategoryDropdown from "components/ProductCategoryDropdown/ProductCategoryDropdown"
 import fullLink from "src/utills/fullLink";
 
@@ -10,13 +10,17 @@ import {
     BiChevronsDown,
     BiSearch,
     BiUser,
-    BsGithub, FaBars,
+    BsGithub,
+    FaBars,
     FaFacebook,
     FaHeart,
-    FaLanguage, FaStoreAlt,
+    FaLanguage,
+    FaSignInAlt,
     FiMoon,
     GiShoppingBag,
+    GrOrderedList,
     IoLanguageOutline,
+    MdFavorite,
 } from "react-icons/all";
 
 import {RootState} from "src/store";
@@ -26,10 +30,9 @@ import {AppContext} from "store/AppContext";
 import useLanguage from "src/hooks/useLanguage";
 import staticImagePath from "src/utills/staticImagePath";
 import CartDropdown from "components/Navigation/CartDropdown";
-import {ACTION_TYPES} from "store/types";
-import Circle from "UI/Circle/Circle";
+import {ACTION_TYPES, Roles} from "store/types";
 
-const AuthDropdown = lazy(() => import("components/Navigation/AuthDropdown"));
+const AuthDropdown = lazy(() => import("../Dropdown/AuthDropdown"));
 const MoreDropdown = lazy(() => import("components/Navigation/MoreDropdown"));
 
 const Title = Typography.Title.default;
@@ -38,7 +41,6 @@ function Navigation(props) {
     
     const {authState: {auth}, appState, cartState} = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
-    
     
     const {contextState, contextDispatch} = useContext<any>(AppContext)
     
@@ -143,7 +145,7 @@ function Navigation(props) {
         setLanguage(e.target.value, contextDispatch)
     }
     
-    function handleToggleLeftBar(){
+    function handleToggleLeftBar() {
         dispatch({
             type: ACTION_TYPES.TOGGLE_LEFT_BAR
         })
@@ -200,7 +202,7 @@ function Navigation(props) {
                 <div className="max-w-8xl mx-auto px-4 flex items-center">
                     
                     <div className="md:hidden block mr-3 ">
-                        <FaBars className="text-xl" onClick={handleToggleLeftBar} />
+                        <FaBars className="text-xl" onClick={handleToggleLeftBar}/>
                     </div>
                     
                     <div className="grid grid-cols-12 items-center w-full">
@@ -216,7 +218,7 @@ function Navigation(props) {
                         
                         <div className="col-span-6 flex w-full">
                             {/******* <ProductCategoryDropdown /> ********/}
-                            
+    
                             {/***** search bar *******/}
                             <div className="hidden items-center  w-full  lg:flex">
                                 <div
@@ -248,13 +250,13 @@ function Navigation(props) {
                                 <div
                                     className="relative  relative"
                                     onMouseEnter={() =>
-                                        setState({ ...state, openDropdown: "more" })
+                                        setState({...state, openDropdown: "more"})
                                     }
                                     onMouseLeave={() =>
-                                        setState({ ...state, openDropdown: "" })
+                                        setState({...state, openDropdown: ""})
                                     }
-                                    >
-                                    <BiChevronsDown />
+                                >
+                                    <BiChevronsDown/>
                                         <Suspense fallback={<h1>loading</h1>}>
                                             <MoreDropdown
                                                 className="left-1/2 -translate-x-1/2 top-8 !shadow-xl rounded-lg p-4"
@@ -262,7 +264,7 @@ function Navigation(props) {
                                             />
                                         </Suspense>
                                     </div>
-                                
+    
                                 {/* <li className=" py-5 cursor-pointer">*/}
                                 {/*    <Link className="flex items-center gap-x-2" to="/seller/dashboard">*/}
                                 {/*        <FaStoreAlt className="text-white text-2xl"/>*/}
@@ -271,9 +273,9 @@ function Navigation(props) {
                                 {/*    </span>*/}
                                 {/*          </Link>*/}
                                 {/*</li>*/}
-                                
-                                 {/*** mobile search icon *****/}
-                                 <li className="md:hidden relative flex items-center gap-x-2 py-5">
+    
+                                {/*** mobile search icon *****/}
+                                <li className="md:hidden relative flex items-center gap-x-2 py-5">
                                     <div className="flex justify-end ">
                                         <BiSearch className="text-2xl text-white"/>
                                     </div>
@@ -318,9 +320,89 @@ function Navigation(props) {
                                     <span className="font-medium text-white hidden md:block">
                                         {auth ? auth.firstName : l("Account")}
                                     </span>
+                                    
                                     <Suspense fallback={<h1>loading</h1>}>
-                                         <AuthDropdown className="right-0 top-14"
-                                                       isShow={state.openDropdown === "auth"}/>
+                                         <AuthDropdown
+                                             auth={auth}
+                                             className="right-0 top-10 p-4 !shadow-xl rounded-xl"
+                                             isShow={state.openDropdown === "auth"}
+                                         >
+                                             
+                                             {/*<div*/}
+                                             {/*    className="text-neutral-700 dark:text-neutral-50 flex items-center my-3 ml-2 font-medium ">*/}
+                                             {/*       <span>New Customer?</span>*/}
+                                             {/*       <Link*/}
+                                             {/*           to={`/auth/join/registration?redirect=/`}*/}
+                                             {/*           style={{ marginLeft: "10px" }}*/}
+                                             {/*       >*/}
+                                             {/*           Sign Up*/}
+                                             {/*       </Link>*/}
+                                             {/*   </div>*/}
+    
+                                             <Menu>
+                                                    {auth ? (
+    
+                                                        <>
+                                                            <Menu.Item
+                                                                className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
+                                                                <BiUser/>
+                                                                {auth.roles.length === 1 && auth.roles.includes(Roles.ADMIN) ? (
+                                                                    <Link to={`/auth/admin/dashboard`}>Admin Dashboard</Link>
+                                                                ) : (
+                                                                    <Link to="/auth/customer/dashboard">Profile</Link>
+                                                                )}
+                                                            </Menu.Item>
+                                                
+                                                            <Menu.Item
+                                                                className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
+                                                                <BiUser/>
+                                                                <Link to="/auth/customer/dashboard">Profile</Link>
+                                                            </Menu.Item>
+                                                        </>
+
+                                                    ) : (
+                                                        <Menu.Item
+                                                            className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
+                                                            <BiUser/>
+                                                            <Link to="/auth/join/login/?redirect=dashboard">My Profile</Link>
+                                                          
+                                                        </Menu.Item>
+
+                                                    )}
+        
+                                                 <Menu.Item
+                                                     className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
+                                                           <GrOrderedList/>
+                                                            <Link to="/auth/customer/dashboard/orders">Order</Link>
+                                                    </Menu.Item>
+                                                 {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
+        
+                                                 <Menu.Item
+                                                     className="text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
+                                                            <Link to="/auth/customer/dashboard/wishlist" className="flex gap-x-2 items-center ">
+                                                                <MdFavorite/>
+                                                                Wishlist
+                                                            </Link>
+                                                    </Menu.Item>
+                                                 {/*<Divider lineHeight="1" lineColor="#d1d3d25d"/>*/}
+        
+        
+                                                 {auth ? (
+                                                     <Menu.Item
+                                                         className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
+                                                            <FaSignInAlt/>
+                                                            Logout
+                                                        </Menu.Item>
+        
+                                                 ) : (
+                                                     <Menu.Item
+                                                         className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
+                                                            <FaSignInAlt/>
+                                                            <Link to="/auth/join/login/?redirect=home">Login</Link>
+                                                        </Menu.Item>
+                                                 )}
+                                                </Menu>
+                                         </AuthDropdown>
                                     </Suspense>
                                 </li>
                             </div>
