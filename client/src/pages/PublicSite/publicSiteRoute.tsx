@@ -13,6 +13,7 @@ import App from "src/App";
 
 import customerDashboardRoute from "pages/customerDashboard/customerDashboardRoute";
 import AuthCallback from "pages/publicSite/auth/AuthCallback";
+import ExcludeAuthRoute from "../../../middleware/ExcludeAuthRoute";
 
 const HomePage = lazy(() => import("pages/publicSite/homePage/HomePage"));
 const ProductFilterPage: any = lazy(() => import("src/pages/publicSite/productFilterPage/ProductFilterPage"));
@@ -32,7 +33,7 @@ const publicSiteRoute = {
 		},
 		{
 			path: "/auth/join",
-			element: <JoinHome />,
+            element: <ExcludeAuthRoute><JoinHome /></ExcludeAuthRoute>,
 			children: [
 				{ path: "login", element: <Login title="" /> },
 				{ path: "registration", element: <Registration /> },
@@ -43,7 +44,7 @@ const publicSiteRoute = {
 		},
         {
             path: "/auth/callback/:provider",
-            element: <AuthCallback />
+            element:  <ExcludeAuthRoute><AuthCallback /></ExcludeAuthRoute>
         },
         customerDashboardRoute,
 	],
