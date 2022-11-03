@@ -1,8 +1,7 @@
 import {ACTION_TYPES, AdminType, AuthType} from "src/store/types"
 
 
-
-export interface SellerType {
+export interface StoreType {
     _id?:  string
     firstName: string
     lastName?: string
@@ -20,15 +19,11 @@ export interface SellerType {
 interface AuthStateType {
   authChecked: boolean,
   auth: AuthType | null
-  admin: AdminType | null
-  seller: SellerType | null
 }
 
 const initialState: AuthStateType = {
   authChecked: false,
-  auth: null,
-  admin: null,
-  seller: null
+  auth: null
 }
 
 
@@ -37,19 +32,13 @@ const authReducer = (state=initialState, action)=>{
   
   switch(action.type){
     case ACTION_TYPES.LOGIN:
-        const {scope, authData} = action.payload
-        updatedState[scope] = authData
+        updatedState.auth = action.payload
         updatedState.authChecked = true
-        console.log(updatedState)
       return updatedState
       
       
     case ACTION_TYPES.RESET_AUTH_LOADING:
         updatedState.authChecked = false
-      return updatedState
-    
-    case ACTION_TYPES.LOGOUT:
-      updatedState[action.payload] = null;
       return updatedState
       
     default: 

@@ -10,6 +10,7 @@ import AuthDropdown from "components/Dropdown/AuthDropdown";
 import MoreDropdown from "./MoreDropdown";
 import Dropdown from "components/Dropdown/Dropdown";
 import {Badge} from "components/UI";
+import {logoutAction} from "actions/authAction";
 
 const AdminNavigation = ({ admin }) => {
 	const location = useLocation();
@@ -126,7 +127,7 @@ const AdminNavigation = ({ admin }) => {
 												<li className="text-xs pb-2">
 													<Link to="/settings">Settings</Link>
 												</li>
-												<li className="text-xs pb-2">Sign out</li>
+												<li className="text-xs pb-2" onClick={()=>logoutAction(dispatch)}>Sign out</li>
 											</>
 										) : (
 											<>

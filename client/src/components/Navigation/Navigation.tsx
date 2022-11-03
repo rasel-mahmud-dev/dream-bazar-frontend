@@ -412,7 +412,7 @@ function Navigation(props) {
                                                         <Menu.Item
                                                             className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
                                                             <BiUser/>
-                                                            <Link to="/auth/join/login/?redirect=dashboard">My Profile</Link>
+                                                            <Link to="/customer/join/login/?redirect=dashboard">My Profile</Link>
                                                           
                                                         </Menu.Item>
 
@@ -436,7 +436,7 @@ function Navigation(props) {
         
         
                                                  {auth ? (
-                                                     <Menu.Item onClick={()=>logoutAction(dispatch, Scope.USER)}
+                                                     <Menu.Item onClick={()=>logoutAction(dispatch)}
                                                          className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
                                                             <FaSignInAlt/>
                                                             Logout
@@ -446,7 +446,7 @@ function Navigation(props) {
                                                      <Menu.Item
                                                          className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
                                                             <FaSignInAlt/>
-                                                            <Link to="/auth/join/login/?redirect=home">Login</Link>
+                                                            <Link to="/customer/join/login/?redirect=home">Login</Link>
                                                         </Menu.Item>
                                                  )}
                                                 </Menu>

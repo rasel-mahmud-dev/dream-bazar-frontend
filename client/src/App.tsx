@@ -36,7 +36,7 @@ function App(props) {
     }, [props.innerWidth]);
     
     useEffect(() => {
-        currentAuthAction(dispatch, Scope.USER);
+        currentAuthAction(dispatch, Scope.CUSTOMER_USER);
         setLanguage("", contextDispatch);
         toggleTheme("", contextDispatch);
     }, []);

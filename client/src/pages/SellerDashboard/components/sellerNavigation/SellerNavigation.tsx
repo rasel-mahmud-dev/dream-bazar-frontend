@@ -7,6 +7,7 @@ import staticImagePath from "src/utills/staticImagePath";
 import Circle from "UI/Circle/Circle";
 import MoreDropdown from "./MoreDropdown";
 import AuthDropdown from "components/Dropdown/AuthDropdown";
+import {logoutAction} from "actions/authAction";
 
 
 const SellerNavigation = ({seller}) => {
@@ -74,12 +75,12 @@ const SellerNavigation = ({seller}) => {
 												<li className="text-xs pb-2">
 													<Link to="/settings">Settings</Link>
 												</li>
-												<li className="text-xs pb-2">Sign out</li>
+												<li className="text-xs pb-2" onClick={()=>logoutAction(dispatch)}>Sign out</li>
 											</>
                                         ) : (
                                             <>
 												<li className="text-xs">
-													<Link to="/seller/login" state={{redirect: location.pathname}}>Sign In</Link>
+													<Link to="/seller/join/login" state={{redirect: location.pathname}}>Sign In</Link>
 												</li>
 											</>
                                         )}

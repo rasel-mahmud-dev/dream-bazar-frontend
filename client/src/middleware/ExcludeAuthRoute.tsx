@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Loader from "src/components/UI/Loader/Loader";
+import Loader from "UI/Loader/Loader";
 import { RootState } from "src/store";
 import { Scope } from "store/types";
 
@@ -17,18 +17,18 @@ const ExcludeAuthRoute:FC<Props> = (props) => {
     
     const {scope} = props
 
-	const authState = useSelector((state: RootState)=>state.authState);
- 
-	if (!authState.authChecked) {
+	const {auth, authChecked} = useSelector((state: RootState)=>state.authState);
+
+	if (!authChecked) {
 		return <Loader />;
 	}
-	
-    let homePath = scope === Scope.USER  ? '/' :  '/' + scope
-    
-	if (authState[scope]) {
+ 
+    let homePath = scope === Scope.CUSTOMER_USER  ? '/' :  '/' + scope.toLowerCase()
+
+	if (auth) {
 		return <Navigate to={homePath}/>;
 	}
-	
+
 	return props.children;
 };
 

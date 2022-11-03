@@ -47,6 +47,7 @@ const AllProducts = (props) => {
 		setProducts(updatedProducts);
 	}, [adminProducts.cached]);
 
+ 
 	function updateProduct(productId, field) {
         const data = { ...field }
         let formData = new FormData()
@@ -57,7 +58,14 @@ const AllProducts = (props) => {
         // send toke for different scope user
 		getApi(Scope.ADMIN_DASHBOARD).patch(`/api/product/${productId}`, formData)
             .then(({data, status}) => {
-                console.log(data, status)
+                let updatedProducts = [...products]
+                let updatedProductIndex = updatedProducts.findIndex(p=>p._id === productId)
+                if(updatedProductIndex !== -1){
+                    for (let updateProductKey in data.updateProduct) {
+                        updatedProducts[updatedProductIndex][updateProductKey] = data.updateProduct[updateProductKey]
+                    }
+                   setProducts(updatedProducts)
+                }
             });
 	}
 

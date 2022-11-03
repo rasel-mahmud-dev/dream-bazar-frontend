@@ -1,9 +1,9 @@
 import React, {lazy} from "react";
 import NotFoundPage from "components/notFoundPage/NotFoundPage";
-import PrivateRoute from "../../../middleware/PrivateRoute";
+import PrivateRoute from "../../middleware/PrivateRoute";
 import {Scope} from "store/types";
 import {Outlet} from "react-router-dom";
-import ExcludeAuthRoute from "../../../middleware/ExcludeAuthRoute";
+import ExcludeAuthRoute from "../../middleware/ExcludeAuthRoute";
 
 const SellerApp  = lazy(() => import("./SellerApp"));
 
@@ -21,19 +21,19 @@ export default {
     element:  <SellerApp />,
     errorElement: <NotFoundPage />,
     children: [
-        { path: "", element: <PrivateRoute scope={Scope.SELLER_DASHBOARD}> <DashboardHome /> </PrivateRoute> },
-        { path: "dashboard", element: <PrivateRoute scope={Scope.SELLER_DASHBOARD}> <DashboardHome /> </PrivateRoute> },
-        { path: "products", element: <PrivateRoute scope={Scope.SELLER_DASHBOARD}><SellerProducts /></PrivateRoute> },
-        { path: "product/edit/:productId", element: <PrivateRoute scope={Scope.SELLER_DASHBOARD}><AddProduct /></PrivateRoute> },
-        { path: "product/add", element: <PrivateRoute scope={Scope.SELLER_DASHBOARD}> <AddProduct /></PrivateRoute> },
-        { path: "shop/view", element: <PrivateRoute scope={Scope.SELLER_DASHBOARD}> <ShopInfo /> </PrivateRoute> },
-        { path: "shop/edit", element: <PrivateRoute scope={Scope.SELLER_DASHBOARD}><UpdateShopInfo /></PrivateRoute> },
+        { path: "", element: <PrivateRoute scope={Scope.SELLER_USER}> <DashboardHome /> </PrivateRoute> },
+        { path: "dashboard", element: <PrivateRoute scope={Scope.SELLER_USER}> <DashboardHome /> </PrivateRoute> },
+        { path: "products", element: <PrivateRoute scope={Scope.SELLER_USER}><SellerProducts /></PrivateRoute> },
+        { path: "product/edit/:productId", element: <PrivateRoute scope={Scope.SELLER_USER}><AddProduct /></PrivateRoute> },
+        { path: "product/add", element: <PrivateRoute scope={Scope.SELLER_USER}> <AddProduct /></PrivateRoute> },
+        { path: "shop/view", element: <PrivateRoute scope={Scope.SELLER_USER}> <ShopInfo /> </PrivateRoute> },
+        { path: "shop/edit", element: <PrivateRoute scope={Scope.SELLER_USER}><UpdateShopInfo /></PrivateRoute> },
         { path: "join",
             element:  <Outlet />,
             children: [
-                { path: "", element: <ExcludeAuthRoute scope={Scope.SELLER_DASHBOARD}><SellerLogin /></ExcludeAuthRoute> },
-                { path: "login", element: <ExcludeAuthRoute scope={Scope.SELLER_DASHBOARD}><SellerLogin /></ExcludeAuthRoute> },
-                { path: "registration", element: <ExcludeAuthRoute scope={Scope.SELLER_DASHBOARD}><SellerRegistration /> </ExcludeAuthRoute>},
+                { path: "", element: <ExcludeAuthRoute scope={Scope.SELLER_USER}><SellerLogin /></ExcludeAuthRoute> },
+                { path: "login", element: <ExcludeAuthRoute scope={Scope.SELLER_USER}><SellerLogin /></ExcludeAuthRoute> },
+                { path: "registration", element: <ExcludeAuthRoute scope={Scope.SELLER_USER}><SellerRegistration /> </ExcludeAuthRoute>},
             ]
         }
     ]

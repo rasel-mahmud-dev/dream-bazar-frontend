@@ -10,7 +10,7 @@ import { loginAction } from "actions/authAction";
 import { Scope } from "store/types";
 
 const AdminLogin = (props) => {
-	const adminState = useSelector((state: RootState) => state.adminState);
+	const {auth} = useSelector((state: RootState) => state.authState);
 
     
     const navigate = useNavigate();
@@ -22,13 +22,6 @@ const AdminLogin = (props) => {
 		message: "",
 		loading: false,
 	});
-    
-    useEffect(()=>{
-        if(adminState.admin){
-            navigate("/admin/dashboard")
-        }
-    },[adminState.admin])
-    
 
 	const [shopInfo, setShopInfo] = useState({
 		password: { value: "", errorMessage: "", required: true },
@@ -77,11 +70,11 @@ const AdminLogin = (props) => {
 
         setHttpResponse((p) => ({ ...p, message: "", loading: true }));
 
-        loginAction(payload, dispatch, Scope.ADMIN_DASHBOARD, (data, errorMessage)=>{
-            if(!errorMessage) {
-                setHttpResponse({isSuccess: true, message: "ok", loading: false});
+        loginAction(payload, dispatch, Scope.ADMIN_USER, (data, errorMessage)=>{
+            if(errorMessage) {
+                setHttpResponse({isSuccess: false, message: errorMessage, loading: false});
             } else{
-                setHttpResponse({ isSuccess: false, message: errorMessage, loading: false });
+                setHttpResponse({isSuccess: true, message: "ok", loading: false});
             }
         });
         

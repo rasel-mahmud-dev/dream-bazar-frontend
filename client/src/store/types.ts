@@ -80,9 +80,9 @@ export enum Roles {
 }
 
 export enum Scope {
-    SELLER_DASHBOARD = "seller",
-    ADMIN_DASHBOARD = "admin",
-    USER = "auth"
+    SELLER_USER = "SELLER",
+    ADMIN_USER = "ADMIN",
+    CUSTOMER_USER = "CUSTOMER"
 }
 
 

@@ -19,7 +19,7 @@ const apis = axios.create({
 })
 
 export function getApi(scope?: Scope, token?: string){
-    apis.defaults.headers["authorization"] =  token ? token : window.localStorage.getItem(scope.toLowerCase())
+    apis.defaults.headers["authorization"] =  token ? token : window.localStorage.getItem("token")
     return apis;
 }
 

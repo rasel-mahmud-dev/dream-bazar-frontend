@@ -13,7 +13,7 @@ import App from "src/App";
 
 import customerDashboardRoute from "pages/customerDashboard/customerDashboardRoute";
 import AuthCallback from "pages/publicSite/auth/AuthCallback";
-import ExcludeAuthRoute from "../../../middleware/ExcludeAuthRoute";
+import ExcludeAuthRoute from "../../middleware/ExcludeAuthRoute";
 import {Scope} from "store/types";
 
 const HomePage = lazy(() => import("pages/publicSite/homePage/HomePage"));
@@ -33,8 +33,8 @@ const publicSiteRoute = {
 			element: <ProductFilterPage />,
 		},
 		{
-			path: "/auth/join",
-            element: <ExcludeAuthRoute scope={Scope.USER}><JoinHome /></ExcludeAuthRoute>,
+			path: "/customer/join",
+            element: <ExcludeAuthRoute scope={Scope.CUSTOMER_USER}><JoinHome /></ExcludeAuthRoute>,
 			children: [
 				{ path: "login", element: <Login title="" /> },
 				{ path: "registration", element: <Registration /> },
@@ -45,7 +45,7 @@ const publicSiteRoute = {
 		},
         {
             path: "/auth/callback/:provider",
-            element:  <ExcludeAuthRoute scope={Scope.USER}><AuthCallback /></ExcludeAuthRoute>
+            element:  <ExcludeAuthRoute scope={Scope.CUSTOMER_USER}><AuthCallback /></ExcludeAuthRoute>
         },
         customerDashboardRoute,
 	],

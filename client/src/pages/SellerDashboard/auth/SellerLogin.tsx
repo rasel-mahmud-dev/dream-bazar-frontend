@@ -24,12 +24,12 @@ const SellerLogin = (props) => {
 	});
     
     
-    
-    useEffect(()=>{
-        if(sellerState.seller){
-            navigate("/seller/dashboard")
-        }
-    },[sellerState.seller])
+    //
+    // useEffect(()=>{
+    //     if(sellerState.seller){
+    //         navigate("/seller/dashboard")
+    //     }
+    // },[sellerState.seller])
     
 
 	const [shopInfo, setShopInfo] = useState({
@@ -79,8 +79,12 @@ const SellerLogin = (props) => {
 		try {
 			setHttpResponse((p) => ({ ...p, message: "", loading: true }));
    
-			loginAction(payload, dispatch, Scope.SELLER_DASHBOARD, (data, errorMessage)=>{
-                setHttpResponse({ isSuccess: true, message: "ok", loading: false });
+			loginAction(payload, dispatch, Scope.SELLER_USER, (data, errorMessage)=>{
+                if(errorMessage) {
+                    setHttpResponse({isSuccess: false, message: errorMessage, loading: false});
+                } else{
+                    setHttpResponse({isSuccess: true, message: "ok", loading: false});
+                }
             });
    
 		} catch (ex) {
