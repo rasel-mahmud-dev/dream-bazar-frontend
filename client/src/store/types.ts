@@ -29,8 +29,7 @@ export enum ACTION_TYPES {
     RESET_AUTH_LOADING = "RESET_AUTH_LOADING",
     
     LOGIN = "LOGIN",
-    ADMIN_LOGIN = "ADMIN_LOGIN",
-    REGISTRATION = "REGISTRATION",
+
     FETCH_CURRENT_AUTH = "FETCH_CURRENT_AUTH",
     LOGOUT = "LOGOUT",
     
@@ -68,7 +67,6 @@ export enum ACTION_TYPES {
     
     /********Seller Actions Types ***********/
     FETCH_SELLER_SHOP = "FETCH_SELLER_SHOP",
-    SELLER_LOGIN = "SELLER_LOGIN"
 }
 
 export enum Roles {

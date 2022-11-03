@@ -1,14 +1,12 @@
 import {ACTION_TYPES, AdminType} from "src/store/types"
 
 export interface AdminStateType {
-    admin: AdminType
     categoryDetails: any[]
     productAttributes: any[]
 }
 
 
 const initialState: AdminStateType = {
-    admin: null,
     categoryDetails: [],
     productAttributes: []
 }
@@ -29,9 +27,6 @@ const adminReducer = (state: AdminStateType = initialState, action) => {
             updatedState.productAttributes = action.payload
             return updatedState
         
-        case ACTION_TYPES.ADMIN_LOGIN:
-            updatedState.admin = action.payload
-            return updatedState
         
         default :
             return updatedState

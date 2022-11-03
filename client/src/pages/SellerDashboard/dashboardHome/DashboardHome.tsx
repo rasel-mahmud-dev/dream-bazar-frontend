@@ -14,7 +14,8 @@ const DashboardHome = () => {
     
     
     return (
-        <div className="my-10">
+        <div className="">
+            <h2 className="heading-2 py-4">Seller Dashboard</h2>
             <Card>
                 <h3 className="text-neutral-800 font-semibold text-xl">Business Analytics </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 slats-list mt-5">

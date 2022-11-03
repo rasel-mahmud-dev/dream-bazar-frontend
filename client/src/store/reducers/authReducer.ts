@@ -1,5 +1,20 @@
 import {ACTION_TYPES, AdminType, AuthType} from "src/store/types"
-import {SellerType} from "reducers/sellerReducer";
+
+
+
+export interface SellerType {
+    _id?:  string
+    firstName: string
+    lastName?: string
+    email: string
+    phone: string
+    password?: string
+    avatar?: string
+    isActive?: boolean
+    isSuspense?: boolean
+    createdAt?: Date
+    updatedAt?: Date
+}
 
 
 interface AuthStateType {
@@ -8,8 +23,6 @@ interface AuthStateType {
   admin: AdminType | null
   seller: SellerType | null
 }
-
-
 
 const initialState: AuthStateType = {
   authChecked: false,

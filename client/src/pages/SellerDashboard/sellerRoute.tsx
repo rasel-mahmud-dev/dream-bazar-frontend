@@ -21,6 +21,7 @@ export default {
     element:  <SellerApp />,
     errorElement: <NotFoundPage />,
     children: [
+        { path: "", element: <PrivateRoute scope={Scope.SELLER_DASHBOARD}> <DashboardHome /> </PrivateRoute> },
         { path: "dashboard", element: <PrivateRoute scope={Scope.SELLER_DASHBOARD}> <DashboardHome /> </PrivateRoute> },
         { path: "products", element: <PrivateRoute scope={Scope.SELLER_DASHBOARD}><SellerProducts /></PrivateRoute> },
         { path: "product/edit/:productId", element: <PrivateRoute scope={Scope.SELLER_DASHBOARD}><AddProduct /></PrivateRoute> },
@@ -30,9 +31,9 @@ export default {
         { path: "join",
             element:  <Outlet />,
             children: [
-                { path: "", element: <SellerLogin /> },
+                { path: "", element: <ExcludeAuthRoute scope={Scope.SELLER_DASHBOARD}><SellerLogin /></ExcludeAuthRoute> },
                 { path: "login", element: <ExcludeAuthRoute scope={Scope.SELLER_DASHBOARD}><SellerLogin /></ExcludeAuthRoute> },
-                { path: "registration", element: <SellerRegistration /> },
+                { path: "registration", element: <ExcludeAuthRoute scope={Scope.SELLER_DASHBOARD}><SellerRegistration /> </ExcludeAuthRoute>},
             ]
         }
     ]

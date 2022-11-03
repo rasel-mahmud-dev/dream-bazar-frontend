@@ -27,7 +27,7 @@ const adminDashboardRoute  =  {
         {path :"category-details", element: <PrivateRoute scope={Scope.ADMIN_DASHBOARD}><CategoryDetails/></PrivateRoute>},
         {path :"product-attribute", element: <PrivateRoute scope={Scope.ADMIN_DASHBOARD}><ProductAttribute/></PrivateRoute>},
         {path :"brands", element: <PrivateRoute scope={Scope.ADMIN_DASHBOARD}><BrandList/></PrivateRoute>},
-        { path: "join",
+        {path: "join",
             element:  <Outlet />,
             children: [
                 { path: "", element: <ExcludeAuthRoute scope={Scope.ADMIN_DASHBOARD}> <AdminLogin /> </ExcludeAuthRoute>, },
