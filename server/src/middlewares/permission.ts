@@ -1,7 +1,8 @@
 import {errorResponse} from "../response";
+import {Roles} from "../types";
 
 
-function permission(roles){
+function permission(roles: Roles[]){
     return function (req, res, next){
         if(req.authUser?.roles && req.authUser?.roles.length){
             for(let r of req.authUser?.roles){

@@ -2,7 +2,7 @@ import {errorResponse, successResponse} from "../response"
 import {NextFunction, Request, Response} from "express";
 import Category from "../models/Category";
 import isObjectId from "../utilities/isObjectId";
-import {TypedRequestBody} from "../types";
+import {StatusCode, TypedRequestBody} from "../types";
 
 import {ObjectId} from "mongodb"
 import CategoryDetail from "../models/CategoryDetail";
@@ -145,6 +145,26 @@ export const deleteCategory = async (req: Request, res: Response, next: NextFunc
 }
 
 
+export const getAllCategoryDetails = async (req: Request, res: Response, next: NextFunction)=>{
+    try {
+        
+        let details = await CategoryDetail.aggregate([
+            { $lookup: {
+                from: "categories",
+                    localField: "catId",
+                    foreignField: "_id",
+                    as: "currentCategory"
+            } },
+            { $unwind: {path: "$currentCategory", preserveNullAndEmptyArrays: true } }
+        ])
+        console.log(details)
+        successResponse(res, StatusCode.Ok, details)
+        
+    } catch(ex){
+        next(ex)
+    }
+}
+
 export const getCategoryDetail = async (req: Request, res: Response, next: NextFunction)=>{
     try {
         const {categoryId} = req.query
@@ -158,6 +178,89 @@ export const getCategoryDetail = async (req: Request, res: Response, next: NextF
 
         categoryDetail.filterAttributesValues = await Attributes.find({attributeName: {$in: [...categoryDetail.filterAttributes]}})
         res.send(categoryDetail)
+        
+    } catch(ex){
+        next(ex)
+    }
+}
+
+
+export const updateCategoryDetail = async (req: Request, res: Response, next: NextFunction)=>{
+    try {
+        const {detailId} = req.params
+        if(!isObjectId(detailId)){
+            return errorResponse(next, "please provide valid category id")
+        }
+        
+        const {catId, defaultExpand, filterAttributes, catName} = req.body
+        
+        let updated = {}
+        if(catId) updated["catId"] = new ObjectId(catId)
+        if(defaultExpand) updated["defaultExpand"] = defaultExpand
+        if(filterAttributes) updated["filterAttributes"] = filterAttributes
+        if(catName) updated["catName"] = catName
+        
+        let doc = await CategoryDetail.findOneAndUpdate({
+                _id: new ObjectId(detailId as string)
+            },
+            {
+            $set: updated
+        })
+        
+        if(doc.ok){
+           successResponse(res, StatusCode.Created, updated)
+        } else {
+            errorResponse(next, "Update fail", StatusCode.InternalServerError)
+        }
+        
+    } catch(ex){
+        next(ex)
+    }
+}
+export const addCategoryDetail = async (req: Request, res: Response, next: NextFunction)=>{
+    try {
+        
+        const {catId, defaultExpand, filterAttributes, catName} = req.body
+        
+        if(!(catId && filterAttributes && filterAttributes.length > 0)){
+            return errorResponse(next, "Please provide valid credential", StatusCode.Forbidden)
+        }
+        
+        let cat = await CategoryDetail.findOne({catId: new ObjectId(catId)})
+        if(cat){
+            return errorResponse(next, "Already exists", StatusCode.Conflict)
+        }
+
+        let newCatDetail = new CategoryDetail({
+            catId: new ObjectId(catId),
+            defaultExpand, filterAttributes, catName,
+             renderProductAttr: []
+        })
+        
+        let doc = await newCatDetail.save()
+        if(doc){
+           successResponse(res, StatusCode.Created, doc)
+        } else {
+            errorResponse(next, "Create fail", StatusCode.InternalServerError)
+        }
+        
+    } catch(ex){
+        next(ex)
+    }
+}
+
+export const deleteCategoryDetail = async (req: Request, res: Response, next: NextFunction)=>{
+    try {
+        const {detailId} = req.params
+        if(!isObjectId(detailId)){
+            return errorResponse(next, "please provide valid category id")
+        }
+        let doc = await CategoryDetail.deleteById(detailId)
+        if(doc.deletedCount){
+           successResponse(res, StatusCode.Ok, "Deleted")
+        } else {
+            errorResponse(next, "Delete fail", StatusCode.InternalServerError)
+        }
         
     } catch(ex){
         next(ex)

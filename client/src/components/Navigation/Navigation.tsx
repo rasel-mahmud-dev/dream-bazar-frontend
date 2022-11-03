@@ -1,4 +1,4 @@
-import React, {lazy, Suspense, useContext, useState} from "react";
+import React, {lazy, Suspense, useContext, useEffect, useRef, useState} from "react";
 import "./Navigation.scss";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -25,7 +25,7 @@ import {
 
 import {RootState} from "src/store";
 import {setLanguage, toggleTheme} from "actions/appContextActions";
-import {AppContext} from "store/AppContext";
+import {AppContext, DeviceType} from "store/AppContext";
 
 import useLanguage from "src/hooks/useLanguage";
 import staticImagePath from "src/utills/staticImagePath";
@@ -33,7 +33,7 @@ import CartDropdown from "components/Navigation/CartDropdown";
 import {ACTION_TYPES, Roles} from "store/types";
 import Circle from "UI/Circle/Circle";
 import MobileCartSidebar from "components/Navigation/MobileCartSidebar";
-import {getApi} from "src/apis";
+import useWindowResize from "src/hooks/useWindowResize";
 
 const AuthDropdown = lazy(() => import("../Dropdown/AuthDropdown"));
 const MoreDropdown = lazy(() => import("components/Navigation/MoreDropdown"));
@@ -46,8 +46,10 @@ function Navigation(props) {
     const dispatch = useDispatch();
     
     const {contextState, contextDispatch} = useContext<any>(AppContext)
+
     
     const l = useLanguage(AppContext)
+    const windowWidth = useWindowResize()
     
     const news = "From Yesterday our Online Shop will be Shutdown until Government don't declare next info.";
     
@@ -58,6 +60,40 @@ function Navigation(props) {
         openMobileRightSidebar: false
     })
     
+    const headerRef = useRef<HTMLDivElement>()
+    
+    function handlerWindowResize() {
+        if (window.innerWidth > 600 && window.innerWidth < 1000) {
+            contextDispatch({
+                type: ACTION_TYPES.SET_DEVICE_TYPE,
+                payload: DeviceType.TABLET,
+            });
+        } else if (window.innerWidth < 600) {
+            contextDispatch({
+                type: ACTION_TYPES.SET_DEVICE_TYPE,
+                payload: DeviceType.MOBILE,
+            });
+        } else {
+            contextDispatch({
+                type: ACTION_TYPES.SET_DEVICE_TYPE,
+                payload: DeviceType.DESKTOP,
+            });
+        }
+        contextDispatch({
+            type: ACTION_TYPES.SET_WINDOW_WIDTH,
+            payload: window.innerWidth,
+        });
+    }
+    
+    // observation window resize
+    useEffect(() => {
+        if (headerRef.current) {
+            document.documentElement.style.setProperty(`--header-height`, headerRef.current.offsetHeight + "px")
+        }
+    
+        handlerWindowResize()
+        
+    }, [headerRef.current, windowWidth])
     
     React.useEffect(() => {
         //console.log(props.offsetTop)
@@ -161,8 +197,8 @@ function Navigation(props) {
     }
     
     function openMobileRightSidebar() {
-        if(window.innerWidth < 1024){
-            setState((prevState=>({
+        if (window.innerWidth < 1024) {
+            setState((prevState => ({
                 ...prevState,
                 openMobileRightSidebar: true
             })))
@@ -171,7 +207,8 @@ function Navigation(props) {
     
     // @ts-ignore
     return (
-        <div className={["navigation", isFixed ? "nav_fixed" : ""].join(" ")}>
+        <div className="header_space">
+        <div ref={headerRef} className={["navigation", isFixed ? "nav_fixed" : ""].join(" ")}>
             {/* top navigation */}
             <div className="bg-white dark:bg-neutral-800 py-1 hidden lg:block">
                 
@@ -265,14 +302,14 @@ function Navigation(props) {
                                 {/***** go to seller page **********/}
     
                                 <Circle className="relative hover:!bg-gray-100/20 bg-transparent  py-3"
-                                    onMouseEnter={() =>
-                                        setState({...state, openDropdown: "more"})
-                                    }
-                                    onMouseLeave={() =>
-                                        setState({...state, openDropdown: ""})
-                                    }
+                                        onMouseEnter={() =>
+                                            setState({...state, openDropdown: "more"})
+                                        }
+                                        onMouseLeave={() =>
+                                            setState({...state, openDropdown: ""})
+                                        }
                                 >
-                           				<BiChevronsDown className="text-neutral-50 text-xl" />
+                           				<BiChevronsDown className="text-neutral-50 text-xl"/>
                                         <Suspense fallback={<h1>loading</h1>}>
                                             <MoreDropdown
                                                 className="left-0 top-8 !shadow-xl rounded-lg"
@@ -302,7 +339,8 @@ function Navigation(props) {
                                     onMouseEnter={() => window.innerWidth > 1024 && setState({...state, openDropdown: "cart"})}
                                     onMouseLeave={() => window.innerWidth > 1024 && setState({...state, openDropdown: ""})}>
                                  
-                                    <Badge className="bg-blue-500 text-white rounded-full -right-2 px-1.5 absolute top-2">{cartState.cartProducts.length > 0 ? cartState.cartProducts.length : ""}</Badge>
+                                    <Badge
+                                        className="bg-blue-500 text-white rounded-full -right-2 px-1.5 absolute top-2">{cartState.cartProducts.length > 0 ? cartState.cartProducts.length : ""}</Badge>
                                     
                                     <GiShoppingBag className="text-white text-2xl "/>
                                     
@@ -317,12 +355,12 @@ function Navigation(props) {
                                     </Suspense>
                                         <MobileCartSidebar
                                             isOpen={state.openMobileRightSidebar}
-                                            handleClose={(e)=>closeMobileRightSidebar(e)} />
+                                            handleClose={(e) => closeMobileRightSidebar(e)}/>
                                 </li>
                                 
                                 <li className="hidden md:flex items-center gap-x-2 py-5 ">
                                     <FaHeart className="text-white text-2xl"/>
-                                    <span className="font-medium text-white hidden md:block whitespace-nowrap" >
+                                    <span className="font-medium text-white hidden md:block whitespace-nowrap">
                                         {l("Favorite")}
                                     </span>
                                 </li>
@@ -432,6 +470,7 @@ function Navigation(props) {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 }

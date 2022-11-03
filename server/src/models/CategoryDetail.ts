@@ -1,9 +1,10 @@
 import Base from "./Base";
 import {IndexType} from "../services/mongodb/models.index.types";
+import {ObjectId} from "mongodb";
 
 export interface CategoryDetailType {
     _id?: string
-    catId: string
+    catId: string | ObjectId
     catName: string
     filterAttributes: string[]
     defaultExpand: string[]
@@ -12,7 +13,7 @@ export interface CategoryDetailType {
 
 class CategoryDetail extends Base implements CategoryDetailType {
     _id?: string
-    catId: string
+    catId: string | ObjectId
     catName: string
     filterAttributes: string[]
     defaultExpand: string[]

@@ -11,8 +11,9 @@ import fileUpload from "../utilities/fileUpload";
 import {errorResponse, successResponse} from "../response";
 import fs from "fs";
 import staticDir from "../utilities/staticDir";
-import {TypedRequestBody} from "../types";
+import {StatusCode, TypedRequestBody} from "../types";
 import {mongoConnect} from "../services/mongodb/database.service";
+import Attributes from "../models/Attributes";
 
 export const getProductCount = async (
     req: Request,
@@ -2456,3 +2457,14 @@ export const uploadHandler = async (req: Request, res: Response, next: NextFunct
         console.log(ex);
     }
 };
+
+
+
+export async function getProductAttributes (req: Request, res: Response, next: NextFunction) {
+    try {
+        let attributes = await Attributes.find()
+        successResponse(res, StatusCode.Ok, attributes)
+    } catch (ex){
+        next(ex)
+    }
+}

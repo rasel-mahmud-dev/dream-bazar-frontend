@@ -1,23 +1,27 @@
 import {Router} from "express";
 
 const passport = require("passport")
-const {createToken} = require("../jwt")
 import isAuth from "../middlewares/isAuth"
+
+
+import {adminAuthLoading, adminLogin} from "../controllers/adminController";
 import {googleLoginController} from "../controllers/authController";
-import Base from "../models/Base";
 
 const authController = require("../controllers/authController")
-
 
 
 export default function (app: Router){
   
   app.post("/api/auth/login", authController.login)
+  
+  app.post("/api/admin/login", adminLogin)
 
-  // app.post("/api/auth/registration", authController.registration)
-  //
+  app.post("/api/auth/registration", authController.registration)
+
   // @ts-ignore
     app.get("/api/auth/current-auth", isAuth(),  authController.currentAuth)
+    
+    app.get("/api/auth/admin/current-auth",adminAuthLoading)
   
   // app.get("/api/auth/fetch-profile/:user_id", isAuth, authController.fetchProfile)
   //
@@ -41,7 +45,7 @@ app.get('/api/auth/google',
 //   which, in this example, will redirect the user to the home page.
 
 // call by react js when google callback 
-// app.get('/auth/callback/google', passport.authenticate('google'), googleLoginController)
+app.get('/api/auth/callback/google', passport.authenticate('google'), googleLoginController)
 
 
 app.get('/api/auth/facebook',

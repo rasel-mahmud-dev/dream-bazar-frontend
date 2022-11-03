@@ -73,15 +73,7 @@ const AdminSidebar = ({auth, isOpenLeftBar}) => {
         {
             section: "HELP & SUPPORT SECTION",
             items: [{name: "Messages", icon: <FiMail/>}],
-        },
-        {
-            section: "BUSINESS SECTION",
-            items: [
-                {name: "Withdraws", to: ""},
-                {name: "My Bank Info", to: ""},
-                {name: "My Shop", to: "/seller/shop/view"},
-            ],
-        },
+        }
     ];
     const [state, setState] = useState({
         openItem: "",

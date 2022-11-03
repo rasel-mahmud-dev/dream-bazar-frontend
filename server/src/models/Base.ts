@@ -51,24 +51,19 @@ class Base {
             }
         });
     }
+    
     static findOneAndUpdate(
         filter: mongoDB.Filter<mongoDB.Document>,
-        values: any
+        update:  mongoDB.UpdateFilter<mongoDB.Document>
     ) {
         return new Promise<mongoDB.ModifyResult<mongoDB.Document>>(
             async (resolve, reject) => {
                 try {
                     let database = await mongoConnect();
                     
-                    let {_id, ...other} = values;
                     let doc = await database
                     .collection(this.collectionName)
-                    .findOneAndUpdate(filter, {
-                        $set: {
-                            ...other,
-                            updatedAt: new Date(),
-                        },
-                    });
+                    .findOneAndUpdate(filter, update);
                     
                     resolve(doc);
                 } catch (ex) {

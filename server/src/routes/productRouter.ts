@@ -2,7 +2,7 @@ import {
     deleteProduct,
     fetchCategoryProducts,
     getHomepageSectionProducts,
-    getProduct,
+    getProduct, getProductAttributes,
     getProductCount,
     getProducts,
     productFilters,
@@ -17,6 +17,9 @@ import {
 } from "../controllers/productController"
 
 import {Router} from "express";
+import permission from "../middlewares/permission";
+import {Roles, Scope} from "../types";
+import isAuth from "../middlewares/isAuth";
 
 
 export default function (app: Router){
@@ -77,6 +80,11 @@ export default function (app: Router){
   
   
   // app.post("/api/toggle-wishlist", isAuth, productController)
-  
+    
+    
+    // get all product attributes
+    app.get("/api/product-attributes", isAuth(Scope.ADMIN_DASHBOARD), permission([Roles.ADMIN]), getProductAttributes)
+
+    
 }
 

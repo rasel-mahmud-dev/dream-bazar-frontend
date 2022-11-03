@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from "express"
-import {RequestWithAuth, Roles} from "../types";
+import {RequestWithAuth, Roles, StatusCode} from "../types";
 import {mongoConnect} from "../services/mongodb/database.service";
 import User from "../models/User";
 import {createHash, hashCompare} from "../hash";
@@ -19,7 +19,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         const database = await mongoConnect();
         
         if (!(email && password)) {
-            return errorResponse(next, 'Please provide valid credential', 404)
+            return errorResponse(next, 'Please provide valid credential', StatusCode.Forbidden)
         }
         
         let user = await database.collection("users").findOne<User>({email})
@@ -33,7 +33,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         
         const isMatched = hashCompare(password, user.password)
         if (!isMatched) {
-            return errorResponse(next, 'Password Error', 409)
+            return errorResponse(next, 'Password Error', 404)
         }
         
         let token = createToken(user._id as any, user.email, user.roles)
@@ -50,19 +50,14 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     }
 }
 
-export const googleLoginController = async (req: RequestWithAuth, res: Response, next: NextFunction) => {
-    
-    if (!req.user) {
-        return errorResponse(next, "Login fail")
-    }
-    
-    let token = createToken(req.authUser._id, req.authUser.email, req.authUser.roles)
-    successResponse(res, 201, {user: req.user, token: token})
-}
 
 export const registration = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const {email, firstName, lastName, password} = req.body
+        
+        if(!(email && firstName && password)){
+            return errorResponse(next, "Please provide valid credential", StatusCode.UnprocessableEntity)
+        }
         
         const database = await mongoConnect();
         
@@ -142,4 +137,15 @@ export const fetchProfile = async (req: RequestWithAuth, res: Response, next: Ne
     // }
 }
 
+
+
+
+export const googleLoginController = async (req: RequestWithAuth, res: Response, next: NextFunction) => {
+    if(req?.user){
+        const token = createToken(req.user._id, req.user.email, req.user.roles)
+        res.redirect((process.env.FRONT_END as string) + `?token=${token}`)
+    } else {
+        res.redirect((process.env.FRONT_END as string))
+    }
+}
 

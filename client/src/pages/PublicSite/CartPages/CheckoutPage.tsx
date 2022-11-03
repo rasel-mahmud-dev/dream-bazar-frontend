@@ -173,7 +173,7 @@ const CheckoutPage = (props) => {
           {/*))*/}
           {/*}*/}
           <Button onClick={()=> setShowAddShippingForm(!isShowAddShippingForm) }>Add Another shipping address </Button>
-          { isShowAddShippingForm && <Modal>{renderShippingAddress()} </Modal> }
+          {/*{ isShowAddShippingForm && <Modal>{renderShippingAddress()} </Modal> }*/}
           
           <div className="row justify-space-between">
             <Button onClick={handlePushBack}>Back to Cart </Button>

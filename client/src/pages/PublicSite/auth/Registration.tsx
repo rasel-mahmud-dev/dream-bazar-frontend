@@ -6,6 +6,7 @@ import {
     useNavigate,
     useOutletContext,
 } from "react-router-dom";
+
 import { Button, Spin, Popup } from "UI/index";
 import { useDispatch, useSelector } from "react-redux";
 import errorMessageCatch from "src/utills/errorMessageCatch";
@@ -16,7 +17,6 @@ import { BsFacebook, BsGoogle } from "react-icons/all";
 import { RootState } from "src/store";
 import ResponseMessage from "UI/ResponseMessage";
 import {registrationAction} from "actions/authAction";
-import scrollTo from "src/utills/scrollTo";
 import {Scope} from "store/types";
 
 const Registration = (props) => {
@@ -25,7 +25,7 @@ const Registration = (props) => {
     const { parentState, setParentState, handleChange } = useOutletContext<{
         parentState: any;
         setParentState: any;
-        handleChange: any;
+        handleChange: ()=>void;
     }>();
 
     let params = useParams();
@@ -50,7 +50,8 @@ const Registration = (props) => {
     
         let isCompleted = true;
         let updatedUserData = {...parentState.userData};
-    
+        
+        
         let loginData = {
             firstName: updatedUserData.firstName,
             lastName: updatedUserData.lastName,
@@ -76,9 +77,11 @@ const Registration = (props) => {
             return;
         }
         setParentState({...parentState, httpResponse: "pending"});
-        registrationAction(dispatch, Scope.USER, payload,  function (data, errorMessage){
+        registrationAction(payload, Scope.USER, dispatch,  function (data, errorMessage){
             if(!errorMessage) {
-                navigate("/")
+                if(!errorMessage) {
+                    location.state?.redirect && navigate(location.state?.redirect)
+                }
             }
         })
     }
@@ -87,109 +90,12 @@ const Registration = (props) => {
         message: "",
         phone: "",
     });
-
-    function getQs() {
-        return qs.parse(location.search);
-    }
-
-    function handlePushBack() {
-        // history.back()
-        // history.goBack()
-    }
-
-    function handleProductAction(type, prod) {}
-
-    // function handleSave(e) {
-    // 	e.preventDefault()
-    // 	let isNumber = Number(userData.email)
-    // 	let state: any = {...userData}
-    // 	let passDataBase = {}
-    // 	if (isNumber) {
-    // 		state = {
-    // 			...state,
-    // 			isNumber: true
-    // 		}
-    // 		passDataBase = {phone: state.email, password: state.password}
-    // 	} else {
-    // 		state = {
-    // 			...state,
-    // 			isNumber: false
-    // 		}
-    // 		passDataBase = {email: state.email, password: state.password}
-    // 	}
-    //
-    //
-    // 	setUserData({...state})
-    //
-    // 	props.toggleLoader("login-user", true)
-    // 	props.toggleAppMask()
-    //
-    // 	props.login && props.login(passDataBase, (auth, error) => {
-    // 		if (auth && auth._id) {
-    // 			props.toggleLoader("login-user", false)
-    // 			props.toggleAppMask(false)
-    //
-    // 			let redirectQs = getQs().redirect;
-    //
-    // 			if (redirectQs === "dashboard") {
-    // 				let toPath = auth.role === "customer"
-    // 					? `/customer/${auth.username}`
-    // 					: `/auth/admin/dashboard`
-    // 				navigate(toPath)
-    // 			}
-    // 		}
-    //
-    // 		// if(auth){
-    // 		//   redirect(history, (redirectQs, done)=>{
-    // 		//     // history.push(redirectQs)
-    // 		//     // console.log(redirectQs, done)
-    // 		//     // if(redirectQs === "dashboard"){
-    // 		//     //   let toPath = auth.role === "customer"
-    // 		//     //     ? `/customer/${auth.username}`
-    // 		//     //     : `/auth/admin/dashboard`
-    // 		//     //
-    // 		//     //   done(toPath)
-    // 		//     // } else if(redirectQs === "checkout"){
-    // 		//     //   done(`/cart/checkout`)
-    // 		//     // } else {
-    // 		//     //   done(redirectQs)
-    // 		//     // }
-    // 		//   })
-    // 		// } else {
-    // 		//   console.log(error)
-    // 		//   setErrorMessage({...error})
-    // 		// }
-    // 	})
-    // }
-
-    // function loadigHandler(){
-    //   setLoading([true, true])
-    //   setTimeout(()=>{
-    //     setLoading([false, false])
-    //   }, 2000)
-    // }
-
-    function onFinish() {}
-
-    function onFinishFailed() {}
-
-    // function renderLoader(where) {
-    //   let loadingState = loadingStates.find((ls) => ls.where === where);
-    //   return (
-    //       <div className="spin-fixed" style={{ top: "20vh" }}>
-    //               {loadingState && loadingState.isLoading && (
-    //                   <Spin size={20} borderWidth={4} theme="primary" />
-    //               )}
-    //           </div>
-    //   );
-    // }
+    
 
     return (
         <div>
             <h1 className="card-title">Create an Account</h1>
-
-            {/*{renderLoader("login-user")}*/}
-
+            
             <ResponseMessage
                 className="my-2"
                 message={parentState.httpResponse}

@@ -12,6 +12,7 @@ import NotFoundPage from "components/notFoundPage/NotFoundPage";
 import App from "src/App";
 
 import customerDashboardRoute from "pages/customerDashboard/customerDashboardRoute";
+import AuthCallback from "pages/publicSite/auth/AuthCallback";
 
 const HomePage = lazy(() => import("pages/publicSite/homePage/HomePage"));
 const ProductFilterPage: any = lazy(() => import("src/pages/publicSite/productFilterPage/ProductFilterPage"));
@@ -40,6 +41,10 @@ const publicSiteRoute = {
 				{ path: "opt-validate", element: <OTPValidate /> },
 			],
 		},
+        {
+            path: "/auth/callback/:provider",
+            element: <AuthCallback />
+        },
         customerDashboardRoute,
 	],
 };
