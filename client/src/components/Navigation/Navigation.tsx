@@ -1,39 +1,40 @@
-import React, {lazy, Suspense, useContext, useEffect, useRef, useState} from "react";
+import React, { lazy, Suspense, useContext, useEffect, useRef, useState } from "react";
 import "./Navigation.scss";
-import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {Badge, Button, Image, Menu, OnScroll, Popup, Typography} from "components/UI";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Badge, Button, Image, Menu, OnScroll, Popup, Typography } from "components/UI";
 // import ProductCategoryDropdown from "components/ProductCategoryDropdown/ProductCategoryDropdown"
 import fullLink from "src/utills/fullLink";
 
 import {
-    BiChevronsDown,
-    BiSearch,
-    BiUser,
-    BsGithub,
-    FaBars,
-    FaFacebook,
-    FaHeart,
-    FaLanguage,
-    FaSignInAlt,
-    FiMoon,
-    GiShoppingBag,
-    GrOrderedList,
-    IoLanguageOutline,
-    MdFavorite,
+	BiChevronsDown,
+	BiSearch,
+	BiUser,
+	BsGithub,
+	FaBars,
+	FaFacebook,
+	FaHeart,
+	FaLanguage,
+	FaSignInAlt,
+	FiMoon,
+	GiShoppingBag,
+	GrOrderedList,
+	IoLanguageOutline,
+	MdFavorite,
 } from "react-icons/all";
 
-import {RootState} from "src/store";
-import {setLanguage, toggleTheme} from "actions/appContextActions";
-import {AppContext, DeviceType} from "store/AppContext";
+import { RootState } from "src/store";
+import { setLanguage, toggleTheme } from "actions/appContextActions";
+import { AppContext, DeviceType } from "store/AppContext";
 
 import useLanguage from "src/hooks/useLanguage";
 import staticImagePath from "src/utills/staticImagePath";
 import CartDropdown from "components/Navigation/CartDropdown";
-import {ACTION_TYPES, Roles} from "store/types";
+import { ACTION_TYPES, Roles, Scope } from "store/types";
 import Circle from "UI/Circle/Circle";
 import MobileCartSidebar from "components/Navigation/MobileCartSidebar";
 import useWindowResize from "src/hooks/useWindowResize";
+import { logoutAction } from "actions/authAction";
 
 const AuthDropdown = lazy(() => import("../Dropdown/AuthDropdown"));
 const MoreDropdown = lazy(() => import("components/Navigation/MoreDropdown"));
@@ -386,18 +387,6 @@ function Navigation(props) {
                                              className="right-0 top-10 p-4 !shadow-xl rounded-xl"
                                              isShow={state.openDropdown === "auth"}
                                          >
-                                             
-                                             {/*<div*/}
-                                             {/*    className="text-neutral-700 dark:text-neutral-50 flex items-center my-3 ml-2 font-medium ">*/}
-                                             {/*       <span>New Customer?</span>*/}
-                                             {/*       <Link*/}
-                                             {/*           to={`/auth/join/registration?redirect=/`}*/}
-                                             {/*           style={{ marginLeft: "10px" }}*/}
-                                             {/*       >*/}
-                                             {/*           Sign Up*/}
-                                             {/*       </Link>*/}
-                                             {/*   </div>*/}
-    
                                              <Menu>
                                                     {auth ? (
     
@@ -447,7 +436,7 @@ function Navigation(props) {
         
         
                                                  {auth ? (
-                                                     <Menu.Item
+                                                     <Menu.Item onClick={()=>logoutAction(dispatch, Scope.USER)}
                                                          className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
                                                             <FaSignInAlt/>
                                                             Logout

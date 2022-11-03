@@ -3,12 +3,14 @@ import apis, {getApi} from "src/apis";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 
 export const loginHandler = (user, scope: Scope, dispatch) => {
-   dispatch({
-        type: scope === Scope.SELLER_DASHBOARD
+    let type = scope === Scope.SELLER_DASHBOARD
             ? ACTION_TYPES.SELLER_LOGIN
             : scope === Scope.ADMIN_DASHBOARD
                 ? ACTION_TYPES.ADMIN_LOGIN
-                : ACTION_TYPES.LOGIN,
+                : ACTION_TYPES.LOGIN
+
+   dispatch({
+        type: type,
         payload: user,
     });
 };
@@ -106,11 +108,11 @@ export const currentAuthAction = async (dispatch, scope: Scope) => {
 
 export const logoutAction = (dispatch, scope: Scope) => {
     if (scope === Scope.SELLER_DASHBOARD) {
-        window.localStorage.removeItem(scope)
+        window.localStorage.removeItem(scope.toLowerCase())
         loginHandler(null, scope, dispatch)
         
     } else if (scope === Scope.USER) {
-        window.localStorage.removeItem("token")
+        window.localStorage.removeItem(scope.toLowerCase())
         loginHandler(null, scope, dispatch)
     }
 }
