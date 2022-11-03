@@ -337,12 +337,12 @@ function Navigation(props) {
                                 
                                 <li className="relative flex items-center gap-x-2 py-5"
                                     onClick={openMobileRightSidebar}
-                                    onMouseEnter={() => window.innerWidth > 1024 && setState({...state, openDropdown: "cart"})}
-                                    onMouseLeave={() => window.innerWidth > 1024 && setState({...state, openDropdown: ""})}>
+                                    onMouseEnter={() => window.innerWidth > 768 && setState({...state, openDropdown: "cart"})}
+                                    onMouseLeave={() => window.innerWidth > 768 && setState({...state, openDropdown: ""})}>
                                  
                                     <Badge
-                                        className="bg-blue-500 text-white rounded-full -right-2 px-1.5 absolute top-2">{cartState.cartProducts.length > 0 ? cartState.cartProducts.length : ""}</Badge>
-                                    
+                                        className="bg-blue-500 text-white rounded-full -right-2 px-1.5 absolute top-2">
+                                        {cartState.cartProducts.length > 0 ? cartState.cartProducts.length : ""}</Badge>
                                     <GiShoppingBag className="text-white text-2xl "/>
                                     
                                     <span className="font-medium text-white hidden md:block">

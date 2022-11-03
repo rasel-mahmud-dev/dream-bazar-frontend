@@ -14,6 +14,7 @@ import errorMessageCatch from "src/utills/errorMessageCatch";
 import { BsFacebook, BsGoogle } from "react-icons/all";
 import useLanguage from "src/hooks/useLanguage";
 import { Scope } from "store/types";
+import SocialLogin from "components/SocialLogin/SocialLogin";
 
 interface LoginPageProps {
 	toggleLoader?: any;
@@ -178,27 +179,7 @@ const Login: FC<LoginPageProps> = (props) => {
             </form>
             <p className="my-5 text-center text-neutral-600">Or sign in with</p>
 
-            <div className="flex flex-col md:flex-row justify-between items-center gap-2">
-                <button className="bg-red-500 justify-center items-center flex w-full px-4 py-3 border-none text-white font-semibold text-md rounded-xl">
-                    <a
-                        href={`${backend}/api/auth/google`}
-                        className="flex items-center"
-                    >
-                        <BsGoogle className="mr-2 text-md" />
-                        Login With Google
-                    </a>
-                </button>
-
-                <button className="bg-facebook justify-center items-center flex w-full px-4 py-3 border-none text-white font-semibold text-md rounded-xl">
-                    <a
-                        href={`${backend}/api/auth/facebook`}
-                        className="flex items-center"
-                    >
-                        <BsFacebook className="mr-2 text-md" />
-                        Login With Facebook
-                    </a>
-                </button>
-            </div>
+            <SocialLogin />
 
             <p className="text-center  mb-4 mt-6 dark:text-neutral-400">
                 {l('Not a member')}?

@@ -1,7 +1,7 @@
 @import "src/styles/--breakpoint";
 
 .mobile-cart-sidebar{
-    @include get_up(1024px){
+    @include get_up(768px){
         display: none;
     }
     .sidebar{

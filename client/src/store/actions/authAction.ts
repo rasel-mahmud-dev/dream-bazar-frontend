@@ -3,15 +3,12 @@ import apis, {getApi} from "src/apis";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 
 export const loginHandler = (user, scope: Scope, dispatch) => {
-    let type = scope === Scope.SELLER_DASHBOARD
-            ? ACTION_TYPES.SELLER_LOGIN
-            : scope === Scope.ADMIN_DASHBOARD
-                ? ACTION_TYPES.ADMIN_LOGIN
-                : ACTION_TYPES.LOGIN
-
    dispatch({
-        type: type,
-        payload: user,
+        type: ACTION_TYPES.LOGIN,
+        payload: {
+            scope: scope,
+            authData: user
+        },
     });
 };
 
@@ -20,6 +17,7 @@ function setToken(token, scopeName) {
 }
 
 
+// login action for customer, seller and admin user separately
 export const loginAction = async (userData, dispatch, scope: Scope, cb: (data: object, errorMessage?: string) => void) => {
     try {
     
@@ -27,7 +25,7 @@ export const loginAction = async (userData, dispatch, scope: Scope, cb: (data: o
             let {data, status} = await apis.post("/api/admin/login", userData);
             if (status === 201) {
                 loginHandler(data.admin, scope, dispatch)
-                setToken(data.token, Scope.ADMIN_DASHBOARD.toLowerCase())
+                setToken(data.token, Scope.ADMIN_DASHBOARD)
                 cb && cb(data.admin, "")
             } else {
                 cb && cb({}, "Unable to connect with server")
@@ -39,7 +37,7 @@ export const loginAction = async (userData, dispatch, scope: Scope, cb: (data: o
             let {data, status} = await apis.post("/api/seller/login", userData);
             if (status === 201) {
                 loginHandler(data.seller, scope, dispatch)
-                setToken(data.token, Scope.SELLER_DASHBOARD.toLowerCase())
+                setToken(data.token, Scope.SELLER_DASHBOARD)
                 cb && cb(data.seller, "")
             } else {
                 cb && cb({}, "unable to connect with server")
@@ -50,7 +48,7 @@ export const loginAction = async (userData, dispatch, scope: Scope, cb: (data: o
             const {status, data} = await apis.post("/api/auth/login", userData);
             if (status === 201) {
                 loginHandler(data.user, scope, dispatch)
-                setToken(data.token, Scope.USER.toLowerCase())
+                setToken(data.token, Scope.USER)
                 cb && cb(data.user, "")
             } else {
                 cb && cb({}, "unable to connect with server")
@@ -82,6 +80,7 @@ export const registrationAction = async (userData, scope: Scope, dispatch, cb: (
 export const currentAuthAction = async (dispatch, scope: Scope) => {
     try {
     
+            console.log("ASDDDDDDDD")
         if (scope === Scope.ADMIN_DASHBOARD) {
             let response = await getApi(scope).get("/api/auth/admin/current-auth")
             if (response.status === 200) {
@@ -102,17 +101,16 @@ export const currentAuthAction = async (dispatch, scope: Scope) => {
         }
     } catch (ex) {
         loginHandler(null, scope, dispatch)
-        loginHandler(null, scope, dispatch)
     }
 }
 
 export const logoutAction = (dispatch, scope: Scope) => {
     if (scope === Scope.SELLER_DASHBOARD) {
-        window.localStorage.removeItem(scope.toLowerCase())
+        window.localStorage.removeItem(scope)
         loginHandler(null, scope, dispatch)
         
     } else if (scope === Scope.USER) {
-        window.localStorage.removeItem(scope.toLowerCase())
+        window.localStorage.removeItem(scope)
         loginHandler(null, scope, dispatch)
     }
 }

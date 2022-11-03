@@ -5,18 +5,25 @@ import { RootState } from "src/store";
 import AdminNavigation from "pages/adminDashboard/components/adminNavigation/AdminNavigation";
 import AdminSidebar from "./components/adminSidebar/AdminSidebar";
 import { currentAuthAction } from "actions/authAction";
-import { Scope } from "store/types";
+import {ACTION_TYPES, Scope} from "store/types";
 import { Outlet } from "react-router-dom";
 
-const AdminDashboard = (props) => {
+const AdminDashboard = () => {
 	const dispatch = useDispatch();
 	const {
 		appState: { isOpenLeftBar },
-		adminState: { admin },
+		authState: { admin },
 	} = useSelector((state: RootState) => state);
 
 	useEffect(() => {
-		currentAuthAction(dispatch, Scope.ADMIN_DASHBOARD);
+        
+        // make auth fetch false because you visit admin dashboard site
+        dispatch({
+            type: ACTION_TYPES.RESET_AUTH_LOADING
+        })
+        
+        currentAuthAction(dispatch, Scope.ADMIN_DASHBOARD);
+        
 	}, []);
 
 	return (

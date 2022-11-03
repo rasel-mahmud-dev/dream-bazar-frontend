@@ -1,16 +1,21 @@
-import {ACTION_TYPES, AuthType} from "src/store/types"
+import {ACTION_TYPES, AdminType, AuthType} from "src/store/types"
+import {SellerType} from "reducers/sellerReducer";
 
 
 interface AuthStateType {
   authChecked: boolean,
   auth: AuthType | null
+  admin: AdminType | null
+  seller: SellerType | null
 }
 
 
 
 const initialState: AuthStateType = {
   authChecked: false,
-  auth: null
+  auth: null,
+  admin: null,
+  seller: null
 }
 
 
@@ -19,17 +24,19 @@ const authReducer = (state=initialState, action)=>{
   
   switch(action.type){
     case ACTION_TYPES.LOGIN:
-        updatedState.auth = action.payload
-  
-      updatedState.authChecked = true
-      return updatedState
-    
-    case ACTION_TYPES.FETCH_CURRENT_AUTH:
+        const {scope, authData} = action.payload
+        updatedState[scope] = authData
         updatedState.authChecked = true
+        console.log(updatedState)
+      return updatedState
+      
+      
+    case ACTION_TYPES.RESET_AUTH_LOADING:
+        updatedState.authChecked = false
       return updatedState
     
     case ACTION_TYPES.LOGOUT:
-      updatedState.auth = null;
+      updatedState[action.payload] = null;
       return updatedState
       
     default: 

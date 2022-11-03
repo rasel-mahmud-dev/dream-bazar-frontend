@@ -26,6 +26,7 @@ export enum ACTION_TYPES {
     FETCH_CATEGORY_DETAILS = "FETCH_CATEGORY_DETAILS",
     REMOVE_CATEGORY_DETAIL = "REMOVE_CATEGORY_DETAIL",
     FETCH_PRODUCT_ATTRIBUTES = "FETCH_PRODUCT_ATTRIBUTES",
+    RESET_AUTH_LOADING = "RESET_AUTH_LOADING",
     
     LOGIN = "LOGIN",
     ADMIN_LOGIN = "ADMIN_LOGIN",
@@ -65,9 +66,6 @@ export enum ACTION_TYPES {
     
     DELETE_BRAND = "DELETE_BRAND",
     
-    
-    
-    
     /********Seller Actions Types ***********/
     FETCH_SELLER_SHOP = "FETCH_SELLER_SHOP",
     SELLER_LOGIN = "SELLER_LOGIN"
@@ -84,9 +82,9 @@ export enum Roles {
 }
 
 export enum Scope {
-    SELLER_DASHBOARD = "SELLER_DASHBOARD",
-    ADMIN_DASHBOARD = "ADMIN_DASHBOARD",
-    USER = "USER"
+    SELLER_DASHBOARD = "seller",
+    ADMIN_DASHBOARD = "admin",
+    USER = "auth"
 }
 
 

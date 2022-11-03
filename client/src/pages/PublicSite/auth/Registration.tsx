@@ -18,6 +18,7 @@ import { RootState } from "src/store";
 import ResponseMessage from "UI/ResponseMessage";
 import {registrationAction} from "actions/authAction";
 import {Scope} from "store/types";
+import SocialLogin from "components/SocialLogin/SocialLogin";
 
 const Registration = (props) => {
     const {} = useSelector((state: RootState) => state);
@@ -144,27 +145,8 @@ const Registration = (props) => {
             </form>
             <p className="my-5 text-center text-neutral-600">Or sign in with</p>
 
-            <div className="flex justify-between items-center gap-x-2 mb-6">
-                <button className="bg-red-500 px-4 py-2 border-none text-white font-semibold text-md rounded-xl">
-                    <a
-                        href={`${backend}/api/auth/google`}
-                        className="flex items-center"
-                    >
-                        <BsGoogle className="mr-2 text-md" />
-                        Login With Google
-                    </a>
-                </button>
-
-                <button className="bg-facebook px-4 py-2 border-none text-white font-semibold text-md rounded-xl">
-                    <a
-                        href={`${backend}/api/auth/facebook`}
-                        className="flex items-center"
-                    >
-                        <BsFacebook className="mr-2 text-md" />
-                        Login With Facebook
-                    </a>
-                </button>
-            </div>
+              <SocialLogin className="mb-6" />
+            
         </div>
     );
 };
