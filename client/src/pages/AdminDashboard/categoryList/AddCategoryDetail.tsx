@@ -12,6 +12,7 @@ import { RootState } from "src/store";
 import { StatusCode } from "store/types";
 import { InputGroup } from "UI/Form";
 import {BiPlus} from "react-icons/all";
+import Card from "UI/Form/Card/Card";
 
 interface props {
 	// flatCategories, productAttributes, categoryDetail, onCloseForm, updateId, onUpdate
@@ -484,7 +485,8 @@ const AddCategoryDetail = (props) => {
     
 
 	return (
-		<form onSubmit={handleAdd}>
+        <Card className="">
+		    <form onSubmit={handleAdd}>
 			<h2 className="heading-3 py-4 text-center ">{updateId ? "Update category detail" : "Add new category detail"}</h2>
 
 			<ResponseMessage state={httpResponse} />
@@ -573,7 +575,7 @@ const AddCategoryDetail = (props) => {
 					<div>
                         <InputGroup
                             className="mt-0"
-                            inputClass="!mt-1"
+                            inputClass="!mt-1 font-medium !text-sm"
                             type="text"
                             name="name"
                             value={section.sectionName}
@@ -587,7 +589,7 @@ const AddCategoryDetail = (props) => {
                                 <span>{specificationIndex + 1}</span>
                                 <InputGroup
                                     className="mt-0 w-full ml-4"
-                                    inputClass="!mt-1"
+                                    inputClass="!mt-1 font-medium !text-xs"
                                     type="text"
                                     value={section.specification[specificationIndex]}
                                     name="name"
@@ -622,6 +624,7 @@ const AddCategoryDetail = (props) => {
 				</Link>
 			</div>
 		</form>
+        </Card>
 	);
 };
 

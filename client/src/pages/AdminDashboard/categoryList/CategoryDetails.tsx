@@ -66,7 +66,7 @@ const CategoryDetails = () => {
 							<h3 className="heading-4">{catDet?.currentCategory?.name}</h3>
 
 							<code className="whitespace-pre-line ">
-								<pre className="overflow-x-auto">{JSON.stringify(catDet, undefined, 2)}</pre>
+								<pre className="overflow-x-auto">{JSON.stringify(catDet, undefined, 2).substring(1, 300)}</pre>
 							</code>
 						</div>
                     ))}

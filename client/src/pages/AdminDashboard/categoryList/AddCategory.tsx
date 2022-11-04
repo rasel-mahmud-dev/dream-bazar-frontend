@@ -3,12 +3,14 @@ import {InputGroup} from "UI/Form";
 import SelectGroup from "UI/Form/SelectGroup";
 import Checkbox from "../../../components/UI/Form/checkbox/Checkbox";
 import {Button} from "UI/index";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import ResponseMessage from "UI/ResponseMessage";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
 import apis from "src/apis";
-import {StatusCode} from "store/types";
+import {ACTION_TYPES, StatusCode} from "store/types";
+import Card from "UI/Form/Card/Card";
+import errorMessageCatch from "src/utills/errorMessageCatch";
 
 const AddCategory = () => {
     const {id: updateId} = useParams();
@@ -18,6 +20,7 @@ const AddCategory = () => {
     } = useSelector((state: RootState) => state);
     
     const dispatch = useDispatch();
+    const navigate  = useNavigate()
     
     const [state, setState] = useState({
         formData: {
@@ -68,7 +71,7 @@ const AddCategory = () => {
     
     async function handleAdd(e) {
         let updateState = {...state};
-        
+        setHttpResponse({isSuccess: false, message:  "", loading: false})
         e.preventDefault();
         
         let isComplete = true;
@@ -91,59 +94,49 @@ const AddCategory = () => {
             return;
         }
         
-        setHttpResponse({isSuccess: false, loading: false, message: ""});
         
-        // updateState = { ...state };
+        setHttpResponse({isSuccess: false, loading: true, message: ""});
         
-        // if (updateId) {
-        //     apis.patch("/api/category/" + updateId, payload)
-        //     .then(({ status, data }) => {
-        //         if (status === 201) {
-        //             updateState.httpResponse = data.message;
-        //             updateState.httpStatus = 200;
-        //
-        //             dispatch({
-        //                 type: ACTION_TYPES.UPDATE_FLAT_CATEGORY,
-        //                 payload: data.category,
-        //             });
-        //         }
-        //     })
-        //     .catch((ex) => {
-        //         updateState.httpResponse = errorMessageCatch(ex);
-        //         updateState.httpStatus = 500;
-        //     })
-        //     .finally(() => {
-        //         setState(updateState);
-        //     });
-        // } else {
-        //     // add as a new brand
-        //     apis.post("/api/category", payload)
-        //     .then(({ status, data }) => {
-        //         if (status === 201) {
-        //             updateState.httpResponse = data.message;
-        //             updateState.httpStatus = 200;
-        //             dispatch({
-        //                 type: ACTION_TYPES.ADD_FLAT_CATEGORY,
-        //                 payload: data.category,
-        //             });
-        //         }
-        //     })
-        //     .catch((ex) => {
-        //         updateState.httpResponse = errorMessageCatch(ex);
-        //         updateState.httpStatus = 500;
-        //     })
-        //     .finally(() => {
-        //         setState(updateState);
-        //     });
-        // }
+        if (updateId) {
+            apis.patch("/api/category/" + updateId, payload)
+            .then(({ status, data }) => {
+                if (status === 201) {
+                    dispatch({
+                        type: ACTION_TYPES.UPDATE_FLAT_CATEGORY,
+                        payload: data.category,
+                    });
+                    navigate("/admin/categories")
+                }
+            })
+            .catch((ex) => {
+                setHttpResponse({isSuccess: false, message:  errorMessageCatch(ex), loading: false})
+            })
+         
+        } else {
+            // add as a new brand
+            apis.post("/api/category", payload)
+            .then(({ status, data }) => {
+                if (status === 201) {
+                    dispatch({
+                        type: ACTION_TYPES.ADD_FLAT_CATEGORY,
+                        payload: data.category,
+                    });
+                    navigate("/admin/categories")
+                }
+            })
+            .catch((ex) => {
+                setHttpResponse({isSuccess: false, message:  errorMessageCatch(ex), loading: false})
+            })
+           
+        }
     }
     
     return (
-        <div className="py-4">
+        <Card className="">
 			<form onSubmit={handleAdd}>
 				<h2 className="heading-3 text-center !font-semibold">{updateId ? "Update category" : "Add new category"}</h2>
-
-				<ResponseMessage state={httpResponse}/>
+			
+                <ResponseMessage state={httpResponse} />
 
 				<InputGroup
                     name="name"
@@ -199,7 +192,7 @@ const AddCategory = () => {
 					</Link>
 				</div>
 			</form>
-		</div>
+		</Card>
     );
 };
 
