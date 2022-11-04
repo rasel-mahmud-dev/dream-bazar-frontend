@@ -29,7 +29,7 @@ export const fetchCategoryDetailsAction = (categoryDetails, dispatch: Dispatch)=
         if(categoryDetails && categoryDetails.length > 0){
             resolve(categoryDetails)
         } else {
-            let {data, status} = await getApi(Scope.ADMIN_DASHBOARD).get<CategoryType[] | null>(`/api/category/category-details`)
+            let {data, status} = await apis.get<CategoryType[] | null>(`/api/category/category-details`)
             if (status === StatusCode.Ok) {
                 dispatch({
                     type: ACTION_TYPES.FETCH_CATEGORY_DETAILS,
@@ -43,11 +43,10 @@ export const fetchCategoryDetailsAction = (categoryDetails, dispatch: Dispatch)=
     })
 }
 
-
 export const deleteCategoryDetailsAction = (detailId, dispatch: Dispatch)=>{
     return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
        
-        let {data, status} = await getApi(Scope.ADMIN_DASHBOARD).delete(`/api/category/detail/${detailId}`)
+        let {data, status} = await apis.delete(`/api/category/detail/${detailId}`)
         if (status === StatusCode.Ok) {
             dispatch({
                 type: ACTION_TYPES.REMOVE_CATEGORY_DETAIL,
@@ -62,6 +61,11 @@ export const fetchProductAttributesAction = (productAttributes, dispatch: Dispat
     return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
         if(productAttributes && productAttributes.length > 0){
             resolve(productAttributes)
+            // for updating operation
+            dispatch({
+                type: ACTION_TYPES.FETCH_PRODUCT_ATTRIBUTES,
+                payload: productAttributes
+            })
         } else {
             let {data, status} = await apis.get<CategoryType[] | null>(`/api/product-attributes`)
             if (status === StatusCode.Ok) {
@@ -109,7 +113,6 @@ export function fetchAdminProductsAction(adminProducts, pageNumber, dispatch: Di
             })
         })
     }
-    
 }
 
 export function fetchAdminStaticFilesAction(adminStaticFiles,  dispatch: Dispatch){
@@ -123,7 +126,6 @@ export function fetchAdminStaticFilesAction(adminStaticFiles,  dispatch: Dispatc
     }
     
 }
-
 
 export function updateProductAction<T>(adminProducts, productId: string, updatedProduct,  dispatch){
     

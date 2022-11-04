@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store";
 import apis from "src/apis";
 import { deleteFlatCategoryAction } from "actions/productAction";
-import { ACTION_TYPES } from "store/types";
+import {ACTION_TYPES, StatusCode} from "store/types";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import { toggleBackdrop } from "actions/appAction";
 import ActionInfo from "components/ActionInfo/ActionInfo";
@@ -41,20 +41,6 @@ const ProductAttribute = (props) => {
         fetchProductAttributesAction(productAttributes, dispatch);
     }, []);
     
-
-    
-    function deleteItem(id: any) {
-        deleteFlatCategoryAction(dispatch, id, function (err, data) {
-            if (!err) {
-                dispatch({
-                    type: ACTION_TYPES.DELETE_FLAT_CATEGORY,
-                    payload: id,
-                });
-            } else {
-                console.log(err);
-            }
-        });
-    }
     
     function handleChange(e) {
         const { name, value, checked } = e.target;
@@ -204,6 +190,44 @@ const ProductAttribute = (props) => {
     }
     
     
+    // update and create attribute handler
+    function handleUpdateAttributes(data, attributeId){
+        if(attributeId){
+            let updatedProductAttributes = [...productAttributes]
+            let index = updatedProductAttributes.findIndex(att=>att._id === attributeId)
+            if(index !== -1){
+                updatedProductAttributes[index] = {
+                    ...updatedProductAttributes[index],
+                    ...data
+                }
+            }
+            fetchProductAttributesAction(updatedProductAttributes, dispatch);
+        } else {
+            if(data) {
+                fetchProductAttributesAction([data, ...productAttributes], dispatch);
+            }
+        }
+        
+        setState(s=>({...s, isShowForm: false}))
+    }
+    
+    
+    // deleted attribute handler
+    function handleDeleteAttributes(attributeId){
+        if(attributeId){
+            fetchProductAttributesAction(productAttributes.filter(attr=>attr._id !== attributeId), dispatch);
+        }
+        setState(s=>({...s, isShowForm: false}))
+    }
+    
+    function deleteItem(attributeId: string) {
+        apis.delete("/api/product/attribute/"+attributeId).then(({status})=>{
+            if(status === StatusCode.Ok){
+                fetchProductAttributesAction(productAttributes.filter(attr=>attr._id !== attributeId), dispatch);
+            }
+        })
+    }
+    
     
     return (
         <div className="pr-4">
@@ -221,6 +245,7 @@ const ProductAttribute = (props) => {
             
             <Modal isOpen={state.isShowForm} modalClass="bg-red-500 h-full !max-w-md !top-10" contentSpaceY={200} onCloseModal={closeModal}>
 				<AddingAttribute
+                    onUpdateAttributes={handleUpdateAttributes}
                     attribute={state.attribute}
                     onCloseForm={closeModal}
                 />

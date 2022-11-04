@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "UI/index";
 import { useDispatch } from "react-redux";
-import { getApi } from "src/apis";
-import { Scope } from "store/types";
+import apis, { getApi } from "src/apis";
+import {Scope, StatusCode} from "store/types";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import ResponseMessage from "UI/ResponseMessage";
 import { InputGroup } from "UI/Form";
 
-const AddingAttribute = ({ attribute, onCloseForm }) => {
-	const dispatch = useDispatch();
+const AddingAttribute = ({ attribute, onCloseForm, onUpdateAttributes }) => {
 
 	const [state, setState] = React.useState<any>({
 		formData: {
@@ -121,39 +120,37 @@ const AddingAttribute = ({ attribute, onCloseForm }) => {
 			loading: true,
 			isSuccess: false,
 		});
-
-  
   
 		if (attribute) {
-			// getApi(Scope.ADMIN_USER)
-			// 	.patch("/api/category/detail/" + attribute._id, payload)
-			// 	.then(({ status, data }) => {
-			// 		if (status === 201) {
-			// 			setHttpResponse({
-			// 				message: "Updated Successful",
-			// 				loading: false,
-			// 				isSuccess: true,
-			// 			});
-			// 		}
-			// 	})
-			// 	.catch((ex) => {
-			// 		setHttpResponse({
-			// 			message: errorMessageCatch(ex),
-			// 			loading: false,
-			// 			isSuccess: false,
-			// 		});
-			// 	});
+			apis.patch("/api/product/attribute/" + attribute._id, payload)
+				.then(({ status, data }) => {
+					if (status === StatusCode.Created) {
+						setHttpResponse({
+							message: "Updated Successful",
+							loading: false,
+							isSuccess: true,
+						});
+                        onUpdateAttributes(data, attribute._id)
+					}
+				})
+				.catch((ex) => {
+					setHttpResponse({
+						message: errorMessageCatch(ex),
+						loading: false,
+						isSuccess: false,
+					});
+				});
 		} else {
 			// add as a category detail
-			getApi(Scope.ADMIN_USER)
-				.post("/api/category/detail", payload)
+			apis.post("/api/product/attribute", payload)
 				.then(({ status, data }) => {
-					if (status === 201) {
+					if (status === StatusCode.Created) {
 						setHttpResponse({
 							message: "Add Successful",
 							loading: false,
 							isSuccess: true,
 						});
+                        onUpdateAttributes(data, null)
 					}
 				})
 				.catch((ex) => {
