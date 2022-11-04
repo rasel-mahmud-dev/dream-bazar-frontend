@@ -51,6 +51,12 @@ export default (state: ProductStateType, action)=>{
             }
             return updateState
         
+        case ACTION_TYPES.UPDATE_BRAND_CACHE:
+            if(action.payload){
+                updateState.adminBrands.cached = action.payload
+            }
+            return updateState
+        
         
         case ACTION_TYPES.FETCH_ADMIN_CATEGORIES:
             let {  categories } = action.payload

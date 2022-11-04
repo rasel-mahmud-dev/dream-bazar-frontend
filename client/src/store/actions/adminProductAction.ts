@@ -104,6 +104,13 @@ export function fetchAdminBrandsAction(adminBrands, dispatch: Dispatch){
     })
 }
 
+export function updateBrandCacheAction(updatedBrandCaches, dispatch: Dispatch){
+    dispatch({
+        type: ACTION_TYPES.UPDATE_BRAND_CACHE,
+        payload: updatedBrandCaches
+    })
+}
+
 export function fetchAdminProductsAction(adminProducts, pageNumber, dispatch: Dispatch){
     if(!adminProducts.cached[pageNumber] || adminProducts.cached[pageNumber].length === 0) {
         api.get(`/api/products?perPage=200&pageNumber=${pageNumber}`).then(({data, status}) => {

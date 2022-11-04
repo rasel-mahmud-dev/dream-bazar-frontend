@@ -90,7 +90,7 @@ const MultiSelect: FC<Props> = ({
                 </div> : ""}
     
                 <div
-                    className={`input flex relative items-center ${inputClass} text-[15px] rounded px-2 py-1.5 w-full text-gray-800 `}
+                    className={`input flex relative items-center text-[15px] rounded px-2 py-1.5 w-full  bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200  ${inputClass} text-gray-800 `}
                     onClick={handleToggleSelect}
                 >
                     {placeholder}

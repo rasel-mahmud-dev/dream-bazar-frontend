@@ -54,13 +54,11 @@ export interface UI_CATEGORY_INFO_TYPE {
 export interface ProductStateType {
     adminProducts: {
         total: number,
-        cached: {
-            1: any[]
-        }
+        cached: {[key: string]: any[]}
     },
     adminBrands: {
         total: number,
-        cached: []
+        cached: Brand[]
     },
     adminCategories: {
         total: number,

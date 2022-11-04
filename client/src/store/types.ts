@@ -27,6 +27,7 @@ export enum ACTION_TYPES {
     REMOVE_CATEGORY_DETAIL = "REMOVE_CATEGORY_DETAIL",
     FETCH_PRODUCT_ATTRIBUTES = "FETCH_PRODUCT_ATTRIBUTES",
     RESET_AUTH_LOADING = "RESET_AUTH_LOADING",
+    UPDATE_BRAND_CACHE = "UPDATE_BRAND_CACHE",
     
     LOGIN = "LOGIN",
 
@@ -101,8 +102,8 @@ export interface CategoryType {
 
 
 export interface Brand {
-    name: string,
     _id: string,
+    name: string,
     logo?: string
     forCategory?: string[]
 }
