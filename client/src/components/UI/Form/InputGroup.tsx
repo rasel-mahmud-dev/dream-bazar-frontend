@@ -17,7 +17,6 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 
 
 const InputGroup: FC<Props> = ({name,value, required, labelAddition, state, type="text", label, inputClass, labelClass, placeholder, onChange, className, ...attr}) => {
-    console.log(state)
     return (
         <div className={twMerge(`mt-4 flex items-start flex-col md:flex-row`, className)} >
             {label && <div className={`flex flex-wrap items-center gap-x-2 mb-2 md:mb-0 ${labelClass}`} >
