@@ -46,13 +46,16 @@
 
     // modal in mobile devices
     @include get_down(768px) {
-        background: transparent;
+        background: red;
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        z-index: 999;
         .modal {
-            position: relative;
-            left: 0 !important;
+            position: relative !important;
+            left: auto !important;
             transform: translateX(0) !important;
-            top: calc(var(--header-height) + 10px)  !important;
-
+            top: auto  !important;
             background: var(--bg-primary-light) !important;
             width: 100% !important;
             box-shadow: none !important;

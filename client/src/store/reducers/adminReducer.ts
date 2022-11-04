@@ -1,8 +1,19 @@
 import {ACTION_TYPES, AdminType} from "src/store/types"
 
+
+export interface Attributes {
+    _id: string
+    attributeLabel: string
+    attributeName: string
+    options: any[]
+}
+
+
+
+
 export interface AdminStateType {
     categoryDetails: any[]
-    productAttributes: any[]
+    productAttributes: Attributes[]
 }
 
 

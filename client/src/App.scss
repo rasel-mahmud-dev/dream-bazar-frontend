@@ -262,6 +262,9 @@ table td {
 .block-page{
   overflow: hidden;
   user-select: none;
+    @include get_down(768px){
+        overflow: auto;
+    }
 }
 
 .heading-1{@apply dark:text-white font-bold text-4xl}

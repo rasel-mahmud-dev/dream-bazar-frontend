@@ -3,23 +3,24 @@ import { twMerge } from "tailwind-merge";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     name: string
-    state: {[key: string]: {value?: string | number, errorMessage?: string}}
+    state?: {[key: string]: {value?: string | number, errorMessage?: string}}
     label?: string
     labelAddition?: ()=>ReactNode
     inputClass?: string
     labelClass?: string
-    onChange: (e: any)=> void
+    onChange?: (e: any)=> void
     className?: string
+    value?: string
     required?: boolean
 }
 
 
 
-const InputGroup: FC<Props> = ({name, required, labelAddition, state, type="text", label, inputClass, labelClass, placeholder, onChange, className, ...attr}) => {
+const InputGroup: FC<Props> = ({name,value, required, labelAddition, state, type="text", label, inputClass, labelClass, placeholder, onChange, className, ...attr}) => {
 
     return (
         <div className={twMerge(`mt-4 flex items-start flex-col md:flex-row`, className)} >
-            <div className={`flex flex-wrap items-center gap-x-2 mb-2 md:mb-0 ${labelClass}`} >
+            {label && <div className={`flex flex-wrap items-center gap-x-2 mb-2 md:mb-0 ${labelClass}`} >
                 { label && (
                     <label htmlFor={name}  className={twMerge(`block font-medium text-gray-900  flex items-center`)}>
                         {label}
@@ -27,21 +28,21 @@ const InputGroup: FC<Props> = ({name, required, labelAddition, state, type="text
                     </label>
                 )}
                 {labelAddition && labelAddition()}
-            </div>
+            </div> }
             
             <div className="w-full">
                 <input
                     {...attr}
                     name={name}
-                    value={state[name]?.value}
+                    value={state ? state[name]?.value : value ? value : undefined}
                     type={type}
                     id={name}
                     placeholder={placeholder}
-                    onChange={onChange}
-                    className={twMerge(`text-[15px] rounded-md px-2 py-2 w-full placeholder:text-gray-400 text-gray-800 outline-none`, inputClass)}
+                    onChange={onChange && onChange}
+                    className={twMerge(`text-[15px] rounded-md px-2 py-2 w-full placeholder:text-gray-400 text-gray-800 outline-none`, ' bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200 ', inputClass)}
                 />
                 
-                {state[name]?.errorMessage && <div className="mt-1"> <span className="text-red-500 ">{state[name].errorMessage}</span> </div> }
+                {state && state[name]?.errorMessage && <div className="mt-1"> <span className="text-red-500 ">{state[name].errorMessage}</span> </div> }
            
             </div>
         </div>

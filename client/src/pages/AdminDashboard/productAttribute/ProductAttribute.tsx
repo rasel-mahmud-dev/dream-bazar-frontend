@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/store";
 import apis from "src/apis";
@@ -8,14 +8,18 @@ import errorMessageCatch from "src/utills/errorMessageCatch";
 import { toggleBackdrop } from "actions/appAction";
 import ActionInfo from "components/ActionInfo/ActionInfo";
 import { InputGroup } from "UI/Form";
-import { Button } from "UI/index";
-import { BsPencilSquare, FcEmptyTrash } from "react-icons/all";
+import {Button, Modal} from "UI/index";
+import {BsPencilSquare, FaPenAlt, FaTimes, FcEmptyTrash} from "react-icons/all";
 import Table, { Column } from "UI/table/Table";
 import SelectGroup from "UI/Form/SelectGroup";
 import Checkbox from "UI/Form/checkbox/Checkbox";
 import isoStringToDate from "src/utills/isoStringToDate";
 import {fetchCategoryDetailsAction, fetchFlatCategoriesAction, fetchProductAttributesAction} from "actions/adminProductAction";
 import Card from "UI/Form/Card/Card";
+import Circle from "UI/Circle/Circle";
+import AddCategoryDetailForm from "pages/adminDashboard/categoryList/AddCategoryDetailForm";
+import AddingAttribute from "pages/adminDashboard/productAttribute/AddingAttribute";
+
 
 const ProductAttribute = (props) => {
     const {
@@ -27,26 +31,17 @@ const ProductAttribute = (props) => {
     const dispatch = useDispatch();
     
     const [state, setState] = React.useState<any>({
-        isShowForm: true,
-        updateId: "",
-        httpResponse: "",
-        httpStatus: 200,
-        formData: {
-            name: { value: "", errorMessage: "" },
-            isProductLevel: { value: false, errorMessage: "" },
-            parentId: { value: "", errorMessage: "" },
-        },
+        isShowForm: false,
+        attribute: null
     });
     
     const { formData, isShowForm, updateId } = state;
     
-    React.useEffect(() => {
-        (async function () {
-            try {
-                await fetchProductAttributesAction(productAttributes, dispatch);
-            } catch (ex) {}
-        })();
+    useEffect(() => {
+        fetchProductAttributesAction(productAttributes, dispatch);
     }, []);
+    
+
     
     function deleteItem(id: any) {
         deleteFlatCategoryAction(dispatch, id, function (err, data) {
@@ -180,23 +175,11 @@ const ProductAttribute = (props) => {
         );
     }
     
-    function setUpdateBrandHandler(cat) {
-        let updateFormData = { ...state.formData };
-        if (cat.name) {
-            updateFormData.name = { value: cat.name, errorMessage: "" };
-        }
-        if (cat.parentId) {
-            updateFormData.parentId = { value: cat.parentId, errorMessage: "" };
-        }
-        if (cat.isProductLevel) {
-            updateFormData.isProductLevel = { value: cat.isProductLevel, errorMessage: "" };
-        }
-        
+    function setUpdateHandler(attr) {
         setState({
             ...state,
             isShowForm: true,
-            updateId: cat._id,
-            formData: updateFormData,
+            attribute: attr
         });
         dispatch(
             toggleBackdrop({
@@ -206,149 +189,70 @@ const ProductAttribute = (props) => {
         );
     }
     
-    function addCategoryForm() {
-        return (
-            <form onSubmit={handleAdd}>
-				<h2 className="h2 text-center !font-semibold">{updateId ? "Update category" : "Add new category"}</h2>
-
-				<ActionInfo message={state.httpResponse} statusCode={state.httpStatus} className="mt-4" />
-
-				<InputGroup
-                    name={"name"}
-                    label="Category Name"
-                    className="!flex-col"
-                    inputClass="input-group"
-                    labelClass="dark:text-white !mb-2"
-                    state={formData}
-                    placeholder="enter category name"
-                    onChange={handleChange}
-                />
-                {/*********** Cover **************/}
-                
-                <SelectGroup
-                    name="parentId"
-                    labelClass="dark:text-white !mb-2"
-                    className={"!flex-col"}
-                    label="Select ParentId"
-                    inputClass="input-group"
-                    placeholder="parentId"
-                    onChange={handleChange}
-                    state={formData}
-                    options={() => (
-                        <>
-							<option value="0">Select category parent ID</option>
-                            {flatCategories.map((cat) => (
-                                <option className="cursor-pointer py-1 menu-item" value={cat._id}>
-									{cat.name}
-								</option>
-                            ))}
-						</>
-                    )}
-                />
-
-				<Checkbox
-                    onChange={handleChange}
-                    label="is product level"
-                    checked={formData.isProductLevel.value}
-                    name="isProductLevel"
-                    labelClass="ml-2"
-                    className="mt-4"
-                />
-
-				<div className="flex items-center gap-x-4">
-					<Button type="submit" className="bg-secondary-300 mt-4" loaderClass="!border-white" loading={state.httpResponse === "pending"}>
-						{!updateId ? "Save Category" : "Update Category"}
-					</Button>
-
-					<Button type="button" className="bg-secondary-300 mt-4" onClick={() => handleShowAddForm(false)}>
-						Cancel
-					</Button>
-				</div>
-			</form>
+    function closeModal(){
+        setState(p=>({
+            ...p,
+            isShowForm: false,
+            attribute: null
+        }))
+        dispatch(
+            toggleBackdrop({
+                isOpen: false,
+                scope: "custom",
+            })
         );
     }
     
-    const columns: Column[] = [
-        { title: "Name", dataIndex: "name", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0) },
-        { title: "ID", dataIndex: "_id", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0) },
-        { title: "ParentID", dataIndex: "parentId", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0) },
-        {
-            title: "Is Product Level",
-            dataIndex: "isProductLevel",
-            sorter: (a: string, b: string) => {
-                console.log(a, b);
-                return a > b ? 1 : 0;
-            },
-            render: (isProductLevel: any) => <span>{isProductLevel ? "True" : "False"}</span>,
-        },
-        {
-            title: "CreatedAt",
-            dataIndex: "createdAt",
-            sorter: (a: string, b: string) => {
-                let aDate = new Date(a);
-                let bDate = new Date(b);
-                return aDate > bDate ? 1 : aDate < bDate ? -1 : 0;
-            },
-            render: (createdAt) => <div>{isoStringToDate(createdAt)}</div>,
-        },
-        {
-            title: "UpdatedAt",
-            dataIndex: "updatedAt",
-            sorter: (a: string, b: string) => {
-                let aDate = new Date(a);
-                let bDate = new Date(b);
-                return aDate > bDate ? 1 : aDate < bDate ? -1 : 0;
-            },
-            render: (updatedAt) => <div>{isoStringToDate(updatedAt)}</div>,
-        },
-        {
-            title: "Action",
-            dataIndex: "",
-            className: "text-center",
-            render: (_, item: any) => (
-                <div className="flex justify-center items-center gap-x-2">
-					<BsPencilSquare className="text-md cursor-pointer" onClick={() => setUpdateBrandHandler(item)} />
-					<FcEmptyTrash className="text-xl cursor-pointer" onClick={() => deleteItem(item._id)} />
-				</div>
-            ),
-        },
-    ];
+    
     
     return (
         <div className="pr-4">
-			{/* add brand modal and backdrop */}
-            {appState.backdrop.isOpen && (
-                <div className={`backdrop ${isShowForm ? "backdrop--show" : ""}`}>
-					<div className="modal-box auth-card">{addCategoryForm()}</div>
-				</div>
-            )}
-            
             <div className="flex items-center justify-between mt-4">
-				<h1 className="heading-2">Product Categories</h1>
-                {!updateId ? (
-                    <Button className="mt-4 bg-secondary-300" onClick={() => handleShowAddForm(true)}>
-						Add New Categories
+				<h1 className="heading-2">Attribute</h1>
+                {!state.attribute ? (
+                    <Button className="bg-secondary-300" onClick={() => handleShowAddForm(true)}>
+						New Attribute
 					</Button>
                 ) : (
-                    <Button onClick={() => handleShowAddForm(false)}>Cancel</Button>
+                    <Button className="bg-secondary-400" onClick={closeModal}>Cancel</Button>
                 )}
 			</div>
-			<Card>
-				<h3 className="heading-5">
-					Category fetch {productAttributes?.length} of {productAttributes?.length}{" "}
-				</h3>
-
-				<Table
-                    className=""
-                    dataSource={productAttributes ? productAttributes : []}
-                    columns={columns}
-                    tbodyClass={{
-                        tr: "hover:bg-green-500/10",
-                    }}
-                    fixed={true}
-                    scroll={{ x: 700, y: 600 }}
+            
+            
+            <Modal isOpen={state.isShowForm} modalClass="bg-red-500 h-full !max-w-md !top-10" contentSpaceY={200} onCloseModal={closeModal}>
+				<AddingAttribute
+                    attribute={state.attribute}
+                    onCloseForm={closeModal}
                 />
-			</Card>
+			</Modal>
+    
+    
+    
+            { !state.isShowForm && <Card>
+				<h3 className="heading-5">
+					Attribute fetch {productAttributes?.length} of {productAttributes?.length}{" "}
+				</h3>
+                
+                {productAttributes?.map((attr, index) => (
+                    <div className="border my-10 rounded-md relative p-5">
+						<div className="absolute right-2  top-2 flex gap-x-2">
+							<Circle className=" !h-6 !w-6 hover:bg-green-450 hover:text-white" onClick={() => setUpdateHandler(attr)}>
+								<FaPenAlt className="text-xs" />
+							</Circle>
+
+							<Circle className=" !h-6 !w-6 hover:bg-red-400 hover:text-white" onClick={() => deleteItem(attr._id)}>
+								<FaTimes className="text-xs" />
+							</Circle>
+						</div>
+                        <span>SL: {index + 1}</span>
+						<code className="whitespace-pre-line ">
+							<pre className="overflow-x-auto">{JSON.stringify(attr, undefined, 2)}</pre>
+						</code>
+					</div>
+                ))}
+                
+				
+			</Card> }
 		</div>
     );
 };
