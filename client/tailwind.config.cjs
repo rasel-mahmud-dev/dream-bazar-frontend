@@ -10,6 +10,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+		  body: {
+			  light: "#f8f8f8",
+			  dark: "#161616"
+		  },
         secondary: {
           300: "#7480FFFF",
           400: "#4D62E7FF"

@@ -20,15 +20,17 @@ html{
     }
 }
 
-.dark{
-  body{
-    background: #161616;
-    //@apply bg-neutral-900;
-  }
-}
+//.dark{
+//  body{
+//    background: #161616;
+//    //@apply bg-neutral-900;
+//  }
+//}
+
 body{
   //background: #f0f3f8;
-  background: #f8f8f8;
+  //background: #f8f8f8;
+    @apply dark:bg-body-dark bg-body-light;
   //background: #ebfaf059;
   font-weight: 300;
   font-size: 14px;

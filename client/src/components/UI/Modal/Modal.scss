@@ -1,13 +1,6 @@
-.modal {
-    position: fixed;
-    top: 10vh;
-    left: 50%;
-    z-index: 1003;
-    transform: translateX(-50%);
-    width: max-content;
-    padding: 10px;
-    overflow-y: auto;
-}
+@import "src/styles/--breakpoint";
+
+
 
 .my-modal {
     color: red !important;
@@ -40,7 +33,7 @@
 .modal-backdrop {
     cursor: pointer;
     width: 100%;
-    height: 100vh;
+    height: 110%;
     left: 0;
     top: 0;
     background: rgba(51, 51, 51, 0.86);
@@ -49,6 +42,26 @@
 
     &__close {
         display: none;
+    }
+
+    // modal in mobile devices
+    @include get_down(768px) {
+        background: transparent;
+        .modal {
+            position: relative;
+            left: 0 !important;
+            transform: translateX(0) !important;
+            top: calc(var(--header-height) + 10px)  !important;
+
+            background: var(--bg-primary-light) !important;
+            width: 100% !important;
+            box-shadow: none !important;
+            box-sizing: border-box;
+            max-width: 100% !important;
+            height: 100% !important;
+            max-height: 100% !important;
+            border-radius: 0!important;
+        }
     }
 
     .modal {
@@ -84,6 +97,7 @@
             border-radius: 100px;
             opacity: 0;
         }
+
 
     }
 

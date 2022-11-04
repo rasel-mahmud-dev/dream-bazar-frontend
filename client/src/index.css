@@ -3,6 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer{
+    :root{
+        --bg-primary-light: #f8f8f8;
+        --bg-primary-dark: #161616;
+    }
+}
+
 body {
   margin: 0;
     font-family: 'Inter', sans-serif;

@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, {FC, useEffect, useState} from 'react'
 import "./styles.scss";
 
 
@@ -6,14 +6,13 @@ interface Props {
     inputClass?: string
     labelClass?: string
     name: string,
-    value?: any[],
+    defaultValue?: any[],
     label?: string,
     placeholder?: string,
     className?: string,
     onChange: (args: any) => any,
     onClick?: (args: any) => any,
     options: (args: any) => React.ReactNode,
-    errorMessage?: string
     dataKey: { title: string, key: string }
     state: { [key: string]: { value?: string | number, errorMessage?: string } }
 }
@@ -24,24 +23,24 @@ const MultiSelect: FC<Props> = ({
         dataKey,
         labelClass,
         name,
-        value,
+        defaultValue,
         label,
         placeholder,
         className,
         onChange,
         onClick,
-        options,
-        errorMessage
+        options
     }) => {
     
-    const [isOpen, setOpen] = React.useState(false)
-    const [selectedItem, setSelectedItem] = React.useState([])
+    const [isOpen, setOpen] = useState(false)
+    const [selectedItem, setSelectedItem] = useState([])
     
-    React.useEffect(() => {
-        if (value && Array.isArray(value) && value.length) {
-            setSelectedItem(value)
+    useEffect(() => {
+        if (defaultValue && Array.isArray(defaultValue) && defaultValue.length) {
+            setSelectedItem(defaultValue)
         }
-    }, [])
+    }, [defaultValue])
+    
     
     function handleClick(item, e) {
         e && e.stopPropagation();

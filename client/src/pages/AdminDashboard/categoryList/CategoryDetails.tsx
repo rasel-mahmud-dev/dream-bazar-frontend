@@ -72,7 +72,7 @@ const CategoryDetails = (props) => {
         );
     }
     
-    function setUpdateBrandHandler(catDetail) {
+    function setUpdateHandler(catDetail) {
         let updateFormData = { ...state.formData };
         // if (cat.name) {
         //     updateFormData.name = { value: cat.name, errorMessage: "" };
@@ -88,6 +88,7 @@ const CategoryDetails = (props) => {
             ...state,
             isShowForm: true,
             updateId: catDetail._id,
+            categoryDetail: catDetail,
             formData: updateFormData,
         });
         dispatch(
@@ -114,11 +115,13 @@ const CategoryDetails = (props) => {
     
     return (
 		<div className="pr-4">
+   
 			<Modal isOpen={state.isShowForm} modalClass="bg-red-500 h-full !max-w-md !top-10" contentSpaceY={200} onCloseModal={closeModal}>
 				<AddCategoryDetailForm
 					updateId={state.updateId}
 					productAttributes={productAttributes}
 					onCloseForm={closeModal}
+                    categoryDetail={state.categoryDetail}
 					flatCategories={flatCategories}
 				/>
 			</Modal>
@@ -141,7 +144,7 @@ const CategoryDetails = (props) => {
 				{categoryDetails?.map((catDet, index) => (
 					<div className="border my-10 rounded-md relative p-5">
 						<div className="absolute right-2  top-2 flex gap-x-2">
-							<Circle className=" !h-6 !w-6 hover:bg-green-450 hover:text-white" onClick={() => setUpdateBrandHandler(catDet)}>
+							<Circle className=" !h-6 !w-6 hover:bg-green-450 hover:text-white" onClick={() => setUpdateHandler(catDet)}>
 								<FaPenAlt className="text-xs" />
 							</Circle>
 
@@ -154,8 +157,8 @@ const CategoryDetails = (props) => {
 							{catDet?.currentCategory?.name}
 						</h3>
 
-						<code className="whitespace-pre-line">
-							<pre>{JSON.stringify(catDet, undefined, 2)}</pre>
+						<code className="whitespace-pre-line ">
+							<pre className="overflow-x-auto">{JSON.stringify(catDet, undefined, 2)}</pre>
 						</code>
 					</div>
 				))}

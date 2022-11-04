@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import SelectGroup from "UI/Form/SelectGroup";
 import { Button } from "UI/index";
 import HttpResponse from "components/HttpResponse/HttpResponse";
@@ -7,8 +7,10 @@ import { fetchFlatCategoriesAction, fetchProductAttributesAction } from "actions
 import MultiSelect from "UI/Form/multiSelect/MultiSelect";
 import { getApi } from "src/apis";
 import { Scope } from "store/types";
+import errorMessageCatch from "src/utills/errorMessageCatch";
+import ResponseMessage from "UI/ResponseMessage";
 
-const AddCategoryDetailForm = ({ flatCategories, productAttributes, onCloseForm, updateId }) => {
+const AddCategoryDetailForm = ({ flatCategories, productAttributes, categoryDetail, onCloseForm, updateId }) => {
 	const dispatch = useDispatch();
 
 	const [state, setState] = React.useState<any>({
@@ -18,6 +20,55 @@ const AddCategoryDetailForm = ({ flatCategories, productAttributes, onCloseForm,
 			catId: { value: "", errorMessage: "" },
 		},
 	});
+    
+    
+    useEffect(()=>{
+    
+        if(updateId){
+            handleFetchAttributes()
+            handleFetchFlatCategories()
+        }
+        
+        if(categoryDetail && productAttributes){
+            setState(p=>{
+    
+                let filterAttributes = []
+                categoryDetail.filterAttributes.forEach(attName=>{
+                    let att = productAttributes.find(pAtt=>pAtt.attributeName === attName);
+                    if(att){
+                        filterAttributes.push(att)
+                    }
+                })
+                let defaultExpandAttr = []
+                categoryDetail.defaultExpand.forEach(attName=>{
+                    let att = productAttributes.find(pAtt=>pAtt.attributeName === attName);
+                    if(att){
+                        defaultExpandAttr.push(att)
+                    }
+                })
+              
+                return ({
+                    ...p,
+                    formData: {
+                        ...p.formData,
+                        filterAttributes: {
+                            value: filterAttributes,
+                            errorMessage: ""
+                        },
+                        defaultExpand: {
+                            value: defaultExpandAttr,
+                            errorMessage: ""
+                        },
+                        catId: {
+                            value: categoryDetail.catId
+                        }
+                    }
+                })
+            })
+        }
+        
+    }, [updateId, categoryDetail, productAttributes])
+    
 
 	const [httpResponse, setHttpResponse] = useState({
 		message: "",
@@ -103,56 +154,63 @@ const AddCategoryDetailForm = ({ flatCategories, productAttributes, onCloseForm,
 				payload["catName"] = cat.name;
 			}
 		}
+        
+        setHttpResponse({
+            message: "",
+            loading: true,
+            isSuccess: false,
+        });
+        
 		if (updateId) {
-			getApi(Scope.ADMIN_DASHBOARD)
+			getApi(Scope.ADMIN_USER)
 				.patch("/api/category/detail/" + updateId, payload)
 				.then(({ status, data }) => {
 					if (status === 201) {
-						// updateState.httpResponse = data.message;
-						// updateState.httpStatus = 200;
-						// dispatch({
-						// 	type: ACTION_TYPES.UPDATE_FLAT_CATEGORY,
-						// 	payload: data.category,
-						// });
+                        setHttpResponse({
+                            message: "Updated Successful",
+                            loading: false,
+                            isSuccess: true,
+                        });
 					}
 				})
 				.catch((ex) => {
-					// updateState.httpResponse = errorMessageCatch(ex);
-					// updateState.httpStatus = 500;
+                    setHttpResponse({
+                        message: errorMessageCatch(ex),
+                        loading: false,
+                        isSuccess: false,
+                    });
 				})
-				.finally(() => {
-					// setState(updateState);
-				});
+
 		} else {
-			// add as a new brand
-			getApi(Scope.ADMIN_DASHBOARD)
+			// add as a category detail
+			getApi(Scope.ADMIN_USER)
 				.post("/api/category/detail", payload)
 				.then(({ status, data }) => {
-     
-					// if (status === 201) {
-					// 	updateState.httpResponse = data.message;
-					// 	updateState.httpStatus = 200;
-					// 	dispatch({
-					// 		type: ACTION_TYPES.ADD_FLAT_CATEGORY,
-					// 		payload: data.category,
-					// 	});
-					// }
+					if (status === 201) {
+                        setHttpResponse({
+                            message: "Add Successful",
+                            loading: false,
+                            isSuccess: true,
+                        });
+					}
 				})
 				.catch((ex) => {
-					// updateState.httpResponse = errorMessageCatch(ex);
-					// updateState.httpStatus = 500;
-				})
-				.finally(() => {
-					// setState(updateState);
+                    setHttpResponse({
+                        message: errorMessageCatch(ex),
+                        loading: false,
+                        isSuccess: false,
+                    });
 				});
 		}
+  
 	}
-
+    
 	return (
 		<form onSubmit={handleAdd}>
 			<h2 className="heading-3 py-4 text-center ">{updateId ? "Update category detail" : "Add new category detail"}</h2>
 
-			<HttpResponse httpResponse={httpResponse} />
+            
+            <ResponseMessage state={httpResponse} />
 
 			<SelectGroup
 				name="catId"
@@ -182,6 +240,7 @@ const AddCategoryDetailForm = ({ flatCategories, productAttributes, onCloseForm,
 				labelClass="dark:text-white !mb-2"
 				className={"!flex-col"}
 				label="Filter Attributes"
+                defaultValue={state.formData.filterAttributes.value}
 				inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
 				placeholder="Attributes Name"
 				onChange={handleChange}
@@ -190,7 +249,7 @@ const AddCategoryDetailForm = ({ flatCategories, productAttributes, onCloseForm,
 					<>
 						<li value="0">Select Attribute</li>
 						{productAttributes?.map((attr) => (
-							<li onClick={() => click(attr)} className="cursor-pointer py-1 menu-item" value={attr._id}>
+							<li onClick={() => click(attr)} className="cursor-pointer py-1 menu-item">
 								{attr.attributeName}
 							</li>
 						))}
