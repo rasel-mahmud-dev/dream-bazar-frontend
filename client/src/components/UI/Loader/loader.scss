@@ -41,6 +41,18 @@
         }
     }
 
+    &.small {
+        span {
+            display: inline-block;
+            vertical-align: middle;
+            width: 1em;
+            height: 1em;
+            margin: .19em;
+            border-radius: .5em;
+        }
+    }
+
+
 }
 
 .loader-root .loading-title {

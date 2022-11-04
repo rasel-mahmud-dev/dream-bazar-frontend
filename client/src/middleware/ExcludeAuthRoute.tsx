@@ -20,7 +20,7 @@ const ExcludeAuthRoute:FC<Props> = (props) => {
 	const {auth, authChecked} = useSelector((state: RootState)=>state.authState);
 
 	if (!authChecked) {
-		return <Loader />;
+		return <Loader className="flex justify-center mt-36" />;
 	}
  
     let homePath = scope === Scope.CUSTOMER_USER  ? '/' :  '/' + scope.toLowerCase()

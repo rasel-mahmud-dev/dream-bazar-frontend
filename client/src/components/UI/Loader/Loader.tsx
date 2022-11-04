@@ -6,13 +6,15 @@ type Props = {
     className?: string;
     title?: string;
     titleClass?: string;
+    size?: "small"
 };
 
-const Loader: FC<Props> = ({titleClass = "", className = "", title = "Loading..."}) => {
+const Loader: FC<Props> = ({titleClass = "", size, className = "", title = "Loading..."}) => {
+    console.log(size)
     return (
         <div className={className}>
 			<div>
-                <div className="loading">
+                <div className={`loading ${size} `}>
 				<span></span>
 				<span></span>
 				<span></span>

@@ -5,6 +5,7 @@ import { RouterProvider, createBrowserRouter} from "react-router-dom"
 import sellerRoute from "pages/sellerDashboard/sellerRoute";
 import publicSiteRoute from "pages/publicSite/publicSiteRoute";
 import adminDashboardRoute from "pages/adminDashboard/adminDashboardRoute";
+import Loader from "UI/Loader/Loader";
 
 const router = createBrowserRouter([
     publicSiteRoute,
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
 
 const MyRoutes = () => {
 	return (
-        <Suspense fallback={<h1 className="text-center mt-10">Loading</h1>}>
+        <Suspense fallback={<Loader className="flex justify-center mt-36" />}>
             <RouterProvider router={router} />
         </Suspense>
 		// <Routes>

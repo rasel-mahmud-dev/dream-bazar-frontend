@@ -19,7 +19,7 @@ const PrivateRoute: FC<Props> = (props) => {
     
     
     if (!authChecked) {
-        return <Loader className="flex justify-center mt-20" />;
+        return <Loader className="flex justify-center mt-36" />;
     }
     
     if (!auth) {
