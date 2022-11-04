@@ -10,7 +10,7 @@ interface Props{
     className: string,
     onChange: (args: any)=>any,
     options: ()=> React.ReactNode, errorMessage?: string
-    state: {[key: string]: {value?: string | number, errorMessage?: string}}
+    state: {[key: string]: {value?: string | number | any, errorMessage?: string}}
     required?: boolean
 }
 

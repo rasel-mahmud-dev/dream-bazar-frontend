@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Sidebar from "components/sidebar/Sidebar";
 import {toggleLeftSidebarAction} from "actions/appAction";
 import {useDispatch} from "react-redux";
-import {BiCart, BiNote, BiPlus, FaAngleLeft, FiMail, MdOutlineSpaceDashboard} from "react-icons/all";
+import {BiCart, BiNote, BiPlus, BsList, FaAngleLeft, FiMail, MdOutlineSpaceDashboard} from "react-icons/all";
 import {useNavigate} from "react-router-dom";
 import Circle from "UI/Circle/Circle";
 
@@ -54,7 +54,7 @@ const AdminSidebar = ({auth, isOpenLeftBar}) => {
             section: "PRODUCT MANAGEMENT",
             items: [
                 {name: "Products", to: "/admin/products", icon: <BiCart/>},
-                {name: "Product Attribute", to: "/admin/product-attribute", icon: <BiPlus/>}
+                {name: "Add", to: "/admin/products/new", icon: <BiPlus/>}
             ],
         },
         {
@@ -62,6 +62,12 @@ const AdminSidebar = ({auth, isOpenLeftBar}) => {
             items: [
                 {name: "Categories", to: "/admin/categories", icon: <BiCart/>},
                 {name: "CategoryDetails", to: "/admin/category-details", icon: <BiCart/>}
+            ],
+        },{
+            section: "ATTRIBUTE MANAGEMENT",
+            items: [
+                {name: "Attributes", to: "/admin/product-attribute", icon: <BsList/>},
+                // {name: "Add", to: "/admin/product-attribute/new", icon: <BiPlus/>}
             ],
         },
         {

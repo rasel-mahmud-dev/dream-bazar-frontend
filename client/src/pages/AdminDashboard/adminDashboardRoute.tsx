@@ -3,7 +3,9 @@ import PrivateRoute from "../../middleware/PrivateRoute";
 import {Scope} from "store/types";
 import ExcludeAuthRoute from "../../middleware/ExcludeAuthRoute";
 import {Outlet} from "react-router-dom";
+import AddCategoryDetail from "pages/adminDashboard/categoryList/AddCategoryDetail";
 
+const AddCategory = lazy(() => import("pages/adminDashboard/categoryList/AddCategory"));
 const CategoryDetails = lazy(() => import("pages/adminDashboard/categoryList/CategoryDetails"));
 const ProductAttribute  = lazy(()=>import("pages/adminDashboard/productAttribute/ProductAttribute"));
 const DashboardHomePage = lazy(()=>import("pages/adminDashboard/dashboardHome/DashboardHomePage"));
@@ -24,7 +26,11 @@ const adminDashboardRoute  =  {
         {path :"add-product", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddProduct/></PrivateRoute>},
         {path :"update-product/:id", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddProduct/></PrivateRoute>},
         {path :"categories", element: <PrivateRoute scope={Scope.ADMIN_USER}><CategoryList/></PrivateRoute>},
+        {path :"categories/new", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddCategory/></PrivateRoute>},
+        {path :"categories/edit/:id", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddCategory/></PrivateRoute>},
         {path :"category-details", element: <PrivateRoute scope={Scope.ADMIN_USER}><CategoryDetails/></PrivateRoute>},
+        {path :"category-details/new", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddCategoryDetail/></PrivateRoute>},
+        {path :"category-details/edit/:id", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddCategoryDetail/></PrivateRoute>},
         {path :"product-attribute", element: <PrivateRoute scope={Scope.ADMIN_USER}><ProductAttribute/></PrivateRoute>},
         {path :"brands", element: <PrivateRoute scope={Scope.ADMIN_USER}><BrandList/></PrivateRoute>},
         {path: "join",

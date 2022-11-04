@@ -1,52 +1,82 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import SelectGroup from "UI/Form/SelectGroup";
 import { Button } from "UI/index";
-import HttpResponse from "components/HttpResponse/HttpResponse";
-import { useDispatch } from "react-redux";
-import { fetchFlatCategoriesAction, fetchProductAttributesAction } from "actions/adminProductAction";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategoryDetailsAction, fetchFlatCategoriesAction, fetchProductAttributesAction } from "actions/adminProductAction";
 import MultiSelect from "UI/Form/multiSelect/MultiSelect";
-import { getApi } from "src/apis";
-import { Scope } from "store/types";
+import apis from "src/apis";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import ResponseMessage from "UI/ResponseMessage";
+import { Link, useParams } from "react-router-dom";
+import { RootState } from "src/store";
+import {StatusCode} from "store/types";
 
-const AddCategoryDetailForm = ({ flatCategories, productAttributes, categoryDetail, onCloseForm, updateId }) => {
+interface props {
+	// flatCategories, productAttributes, categoryDetail, onCloseForm, updateId, onUpdate
+}
+
+const AddCategoryDetail = (props) => {
+	const { id: updateId } = useParams();
+
+	const {
+		productState: { flatCategories },
+		adminState: { productAttributes, categoryDetails },
+	} = useSelector((state: RootState) => state);
+
 	const dispatch = useDispatch();
-
-	const [state, setState] = React.useState<any>({
+    
+ 
+	const [state, setState] = useState<any>({
 		formData: {
 			filterAttributes: { value: [], errorMessage: "" },
 			defaultExpand: { value: [], errorMessage: "" },
 			catId: { value: "", errorMessage: "" },
 		},
+        
+        
+        categoryDetail: null
 	});
+
+	const { formData } = state;
+
+	useEffect(()=>{
+	    if(updateId) {
+            handleFetchAttributes()
+            handleFetchFlatCategories()
+        
+            apis.get(`/api/category/category-detail?id=${updateId}`).then(({status, data}) => {
+                if (status === StatusCode.Ok) {
+                    setState(p=>({...p, categoryDetail: data}))
+                }
+                
+            }).catch(ex => {
+            
+            })
+        }
+       
+	}, [updateId])
     
     
     useEffect(()=>{
-    
-        if(updateId){
-            handleFetchAttributes()
-            handleFetchFlatCategories()
-        }
-        
-        if(categoryDetail && productAttributes){
-            setState(p=>{
-    
+        if(state.categoryDetail && productAttributes){
+            let catDetail: any = state.categoryDetail
+            
+            setState(p =>{
                 let filterAttributes = []
-                categoryDetail.filterAttributes.forEach(attName=>{
+                catDetail.filterAttributes.forEach(attName=>{
                     let att = productAttributes.find(pAtt=>pAtt.attributeName === attName);
                     if(att){
                         filterAttributes.push(att)
                     }
                 })
                 let defaultExpandAttr = []
-                categoryDetail.defaultExpand.forEach(attName=>{
+                catDetail.defaultExpand.forEach(attName=>{
                     let att = productAttributes.find(pAtt=>pAtt.attributeName === attName);
                     if(att){
                         defaultExpandAttr.push(att)
                     }
                 })
-              
+
                 return ({
                     ...p,
                     formData: {
@@ -60,14 +90,13 @@ const AddCategoryDetailForm = ({ flatCategories, productAttributes, categoryDeta
                             errorMessage: ""
                         },
                         catId: {
-                            value: categoryDetail.catId
+                            value: catDetail.catId
                         }
                     }
                 })
             })
         }
-        
-    }, [updateId, categoryDetail, productAttributes])
+    }, [productAttributes,  state.categoryDetail])
     
 
 	const [httpResponse, setHttpResponse] = useState({
@@ -83,8 +112,6 @@ const AddCategoryDetailForm = ({ flatCategories, productAttributes, categoryDeta
 	function handleFetchFlatCategories() {
 		fetchFlatCategoriesAction(flatCategories, dispatch);
 	}
-
-	const { formData } = state;
 
 	function handleChange(e) {
 		const { name, value, checked } = e.target;
@@ -154,63 +181,79 @@ const AddCategoryDetailForm = ({ flatCategories, productAttributes, categoryDeta
 				payload["catName"] = cat.name;
 			}
 		}
-        
-        setHttpResponse({
-            message: "",
-            loading: true,
-            isSuccess: false,
-        });
-        
+
+		setHttpResponse({
+			message: "",
+			loading: true,
+			isSuccess: false,
+		});
+
 		if (updateId) {
-			getApi(Scope.ADMIN_USER)
-				.patch("/api/category/detail/" + updateId, payload)
+			apis.patch("/api/category/detail/" + updateId, payload)
 				.then(({ status, data }) => {
 					if (status === 201) {
-                        setHttpResponse({
-                            message: "Updated Successful",
-                            loading: false,
-                            isSuccess: true,
-                        });
+						onUpdate(data, updateId);
+						setHttpResponse({
+							message: "Updated Successful",
+							loading: false,
+							isSuccess: true,
+						});
 					}
 				})
 				.catch((ex) => {
-                    setHttpResponse({
-                        message: errorMessageCatch(ex),
-                        loading: false,
-                        isSuccess: false,
-                    });
-				})
-
+					setHttpResponse({
+						message: errorMessageCatch(ex),
+						loading: false,
+						isSuccess: false,
+					});
+				});
 		} else {
 			// add as a category detail
-			getApi(Scope.ADMIN_USER)
-				.post("/api/category/detail", payload)
+			apis.post("/api/category/detail", payload)
 				.then(({ status, data }) => {
 					if (status === 201) {
-                        setHttpResponse({
-                            message: "Add Successful",
-                            loading: false,
-                            isSuccess: true,
-                        });
+						onUpdate(data, null);
+						setHttpResponse({
+							message: "Add Successful",
+							loading: false,
+							isSuccess: true,
+						});
 					}
 				})
 				.catch((ex) => {
-                    setHttpResponse({
-                        message: errorMessageCatch(ex),
-                        loading: false,
-                        isSuccess: false,
-                    });
+					setHttpResponse({
+						message: errorMessageCatch(ex),
+						loading: false,
+						isSuccess: false,
+					});
 				});
 		}
-  
 	}
-    
+
+	// update and create handler
+	function onUpdate(data, id) {
+		if (id) {
+			let updatedData = [...categoryDetails];
+			let index = updatedData.findIndex((att) => att._id === id);
+			if (index !== -1) {
+				updatedData[index] = {
+					...updatedData[index],
+					...data,
+				};
+			}
+			fetchCategoryDetailsAction(updatedData, dispatch);
+		} else {
+			if (data) {
+				fetchCategoryDetailsAction([data, ...categoryDetails], dispatch);
+			}
+		}
+	}
+
 	return (
 		<form onSubmit={handleAdd}>
 			<h2 className="heading-3 py-4 text-center ">{updateId ? "Update category detail" : "Add new category detail"}</h2>
 
-            
-            <ResponseMessage state={httpResponse} />
+			<ResponseMessage state={httpResponse} />
 
 			<SelectGroup
 				name="catId"
@@ -240,7 +283,7 @@ const AddCategoryDetailForm = ({ flatCategories, productAttributes, categoryDeta
 				labelClass="dark:text-white !mb-2"
 				className={"!flex-col"}
 				label="Filter Attributes"
-                defaultValue={state.formData.filterAttributes.value}
+				defaultValue={state.formData.filterAttributes.value}
 				inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
 				placeholder="Attributes Name"
 				onChange={handleChange}
@@ -282,16 +325,17 @@ const AddCategoryDetailForm = ({ flatCategories, productAttributes, categoryDeta
 			/>
 
 			<div className="flex items-center gap-x-4">
-				<Button type="submit" className="bg-green-450 mt-4" loaderClass="!border-white" loading={state.httpResponse === "pending"}>
+				<Button loading={httpResponse.loading} type="submit" className="bg-green-450 mt-4" loaderClass="!border-white">
 					{!updateId ? "Save Category Detail" : "Update Category Detail"}
 				</Button>
-
-				<Button type="button" className="bg-green-450 mt-4" onClick={() => onCloseForm()}>
-					Cancel
-				</Button>
+				<Link to="/admin/category-details">
+					<Button type="button" className="bg-green-450 mt-4">
+						Cancel
+					</Button>
+				</Link>
 			</div>
 		</form>
 	);
 };
 
-export default AddCategoryDetailForm;
+export default AddCategoryDetail;

@@ -17,7 +17,7 @@ import isoStringToDate from "src/utills/isoStringToDate";
 import {fetchCategoryDetailsAction, fetchFlatCategoriesAction, fetchProductAttributesAction} from "actions/adminProductAction";
 import Card from "UI/Form/Card/Card";
 import Circle from "UI/Circle/Circle";
-import AddCategoryDetailForm from "pages/adminDashboard/categoryList/AddCategoryDetailForm";
+import AddCategoryDetail from "pages/adminDashboard/categoryList/AddCategoryDetail";
 import AddingAttribute from "pages/adminDashboard/productAttribute/AddingAttribute";
 
 
@@ -253,7 +253,7 @@ const ProductAttribute = (props) => {
     
     
     
-            { !state.isShowForm && <Card>
+            <Card className={`${!state.isShowForm ? 'block' : 'hidden'}`}>
 				<h3 className="heading-5">
 					Attribute fetch {productAttributes?.length} of {productAttributes?.length}{" "}
 				</h3>
@@ -276,8 +276,7 @@ const ProductAttribute = (props) => {
 					</div>
                 ))}
                 
-				
-			</Card> }
+			</Card>
 		</div>
     );
 };

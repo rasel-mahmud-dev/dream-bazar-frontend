@@ -10,7 +10,6 @@ type Props = {
 };
 
 const Loader: FC<Props> = ({titleClass = "", size, className = "", title = "Loading..."}) => {
-    console.log(size)
     return (
         <div className={className}>
 			<div>

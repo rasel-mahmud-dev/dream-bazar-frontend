@@ -28,6 +28,10 @@ export const fetchCategoryDetailsAction = (categoryDetails, dispatch: Dispatch)=
     return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
         if(categoryDetails && categoryDetails.length > 0){
             resolve(categoryDetails)
+            dispatch({
+                type: ACTION_TYPES.FETCH_CATEGORY_DETAILS,
+                payload: categoryDetails
+            })
         } else {
             let {data, status} = await apis.get<CategoryType[] | null>(`/api/category/category-details`)
             if (status === StatusCode.Ok) {
