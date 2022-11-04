@@ -35,7 +35,7 @@ const AddingAttribute = ({ attribute, onCloseForm }) => {
 					};
 				}
 			}
-			setState({ ...state, formData: updatedFormData });
+			setState({ ...state, formData: updatedFormData, optionsFields:  attribute.options });
 		}
 	}, [attribute]);
 
@@ -84,29 +84,28 @@ const AddingAttribute = ({ attribute, onCloseForm }) => {
 		let payload: any = {};
 		let errorMessage = "";
 		for (let fieldKey in formData) {
-			if (fieldKey === "filterAttributes") {
-				if (formData[fieldKey].value.length === 0) {
-					errorMessage = "Please select " + fieldKey;
-					isComplete = false;
-				} else {
-					payload[fieldKey] = formData[fieldKey].value.map((att) => att.attributeName);
-				}
-			} else if (fieldKey === "defaultExpand") {
-				if (formData[fieldKey].value && formData[fieldKey].value.length > 0) {
-					payload[fieldKey] = formData[fieldKey].value.map((att) => att.attributeName);
-				} else {
-					payload[fieldKey] = [];
-				}
-			} else {
+			if (fieldKey !== "options") {
 				if (formData[fieldKey].value) {
 					payload[fieldKey] = formData[fieldKey].value;
 				} else {
-					errorMessage = "Please select " + fieldKey;
+					errorMessage = "Please Give " + fieldKey;
 
 					isComplete = false;
 				}
 			}
 		}
+        
+        if(state.optionsFields){
+            state.optionsFields.map(field=>{
+                let convertValue = Number(field.value)
+                if(!isNaN(convertValue)){
+                    field.value = convertValue
+                }
+                return  field
+            })
+        }
+ 
+        payload.options = state.optionsFields
 
 		if (!isComplete) {
 			setHttpResponse({
@@ -123,25 +122,27 @@ const AddingAttribute = ({ attribute, onCloseForm }) => {
 			isSuccess: false,
 		});
 
+  
+  
 		if (attribute) {
-			getApi(Scope.ADMIN_USER)
-				.patch("/api/category/detail/" + attribute._id, payload)
-				.then(({ status, data }) => {
-					if (status === 201) {
-						setHttpResponse({
-							message: "Updated Successful",
-							loading: false,
-							isSuccess: true,
-						});
-					}
-				})
-				.catch((ex) => {
-					setHttpResponse({
-						message: errorMessageCatch(ex),
-						loading: false,
-						isSuccess: false,
-					});
-				});
+			// getApi(Scope.ADMIN_USER)
+			// 	.patch("/api/category/detail/" + attribute._id, payload)
+			// 	.then(({ status, data }) => {
+			// 		if (status === 201) {
+			// 			setHttpResponse({
+			// 				message: "Updated Successful",
+			// 				loading: false,
+			// 				isSuccess: true,
+			// 			});
+			// 		}
+			// 	})
+			// 	.catch((ex) => {
+			// 		setHttpResponse({
+			// 			message: errorMessageCatch(ex),
+			// 			loading: false,
+			// 			isSuccess: false,
+			// 		});
+			// 	});
 		} else {
 			// add as a category detail
 			getApi(Scope.ADMIN_USER)
