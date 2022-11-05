@@ -35,20 +35,22 @@ const SellerApp = () => {
                 setSeller(true)
             }
         })
-
-		// fetch own shop
-		// if (seller) {
-		// 	apis.get("/api/shop")
-		// 		.then(({ data }) => {
-		// 			dispatch({
-		// 				type: ACTION_TYPES.FETCH_SELLER_SHOP,
-		// 				payload: data,
-		// 			});
-		// 		})
-		// 		.catch((ex) => {});
-		// }
 	}, []);
  
+    useEffect(()=>{
+        // fetch own shop
+        if (auth) {
+            apis.get("/api/seller/shop")
+            .then(({ data }) => {
+                dispatch({
+                    type: ACTION_TYPES.FETCH_SELLER_SHOP,
+                    payload: data,
+                });
+            })
+            .catch((ex) => {});
+        }
+    }, [auth])
+    
  
 	return (
 		<div>

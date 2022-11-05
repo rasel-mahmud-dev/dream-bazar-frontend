@@ -38,7 +38,7 @@ const SellerProducts = () => {
 			dataIndex: "coverPhoto",
 			title: "Image",
 			render: (image) => (
-				<img className="w-7" src={staticImagePath(image)} />
+				<img className="w-7" src={staticImagePath(image)}  alt=""/>
 			),
 		},
 		{ dataIndex: "title", title: "Title", className: "whitespace-nowrap" },

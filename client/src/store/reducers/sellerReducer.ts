@@ -6,6 +6,7 @@ export interface ShopType {
     shopName: string
     shopAddress: string
     shopLogo: string
+    shopPhone: string
     shopBanner?: string
 }
 

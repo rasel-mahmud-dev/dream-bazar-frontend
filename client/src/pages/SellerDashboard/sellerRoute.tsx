@@ -4,13 +4,13 @@ import PrivateRoute from "../../middleware/PrivateRoute";
 import {Scope} from "store/types";
 import {Outlet} from "react-router-dom";
 import ExcludeAuthRoute from "../../middleware/ExcludeAuthRoute";
+import CreateShop from "pages/sellerDashboard/shop/CreateShop";
 
 const SellerApp  = lazy(() => import("./SellerApp"));
 
 
 const AddProduct = lazy(()=>import("pages/sellerDashboard/addProduct/AddProduct"));
 const ShopInfo = lazy(()=>import("pages/sellerDashboard/shop/ShopInfo"));
-const UpdateShopInfo = lazy(()=>import("pages/sellerDashboard/shop/UpdateShopInfo"));
 const SellerLogin  = lazy(()=>import("pages/sellerDashboard/auth/SellerLogin"));
 const SellerRegistration = lazy(()=>import("pages/sellerDashboard/auth/SellerRegistration"));
 const DashboardHome  = lazy(()=> import("./dashboardHome/DashboardHome"));
@@ -27,7 +27,8 @@ export default {
         { path: "product/edit/:productId", element: <PrivateRoute scope={Scope.SELLER_USER}><AddProduct /></PrivateRoute> },
         { path: "product/add", element: <PrivateRoute scope={Scope.SELLER_USER}> <AddProduct /></PrivateRoute> },
         { path: "shop/view", element: <PrivateRoute scope={Scope.SELLER_USER}> <ShopInfo /> </PrivateRoute> },
-        { path: "shop/edit", element: <PrivateRoute scope={Scope.SELLER_USER}><UpdateShopInfo /></PrivateRoute> },
+        { path: "shop/new", element: <PrivateRoute scope={Scope.SELLER_USER}> <CreateShop /> </PrivateRoute> },
+        { path: "shop/edit", element: <PrivateRoute scope={Scope.SELLER_USER}><CreateShop /></PrivateRoute> },
         { path: "join",
             element:  <Outlet />,
             children: [
