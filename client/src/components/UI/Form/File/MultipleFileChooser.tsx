@@ -1,4 +1,4 @@
-import React, {FC, InputHTMLAttributes, ReactNode, useRef, useState} from "react";
+import React, {FC, InputHTMLAttributes, ReactNode, useEffect, useRef, useState} from "react";
 import "./multipleFileChooser.scss";
 import blobToBase64 from "src/utills/blobToBase64";
 import staticImagePath from "src/utills/staticImagePath";
@@ -13,16 +13,29 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
     onChange: (e: any) => void;
     className?: string;
     required?: boolean;
+    defaultValue?: string[]
 }
 
 
 const MultipleFileChooser: FC<Props> = (props) => {
     
-    const {name, label, labelAddition, labelClass, required, className = "", onChange} = props
+    const {name, label, labelAddition, labelClass,defaultValue, required, className = "", onChange} = props
     
     const input = useRef<HTMLInputElement>(null)
     
-    const [state, setState] = useState({})
+    const [state, setState] = useState([
+        // {blob: "", base64: "", fileName: "", url: ""}
+    ])
+    
+    useEffect(()=>{
+        if(defaultValue && defaultValue.length > 0){
+            let v = defaultValue.map(val=>({
+                blob: "", base64: "", fileName: "", url: val
+            }))
+            setState(v)
+        }
+    }, [])
+    
     
     function handleChooseFile() {
         input.current.click()
@@ -32,13 +45,19 @@ const MultipleFileChooser: FC<Props> = (props) => {
         if (e.target.files && e.target.files.length) {
             let file = e.target.files[0];
             blobToBase64(file, (data) => {
-                setState(prevState => ({
-                    ...prevState,
-                    [file.name]: data
-                }))
+                setState(prevState => {
+                    let updatedState  = [
+                        ...prevState,
+                        { blob: file, base64: data, fileName: file.fileName, url: ""}
+                    ]
+                    onChange({target: { name, value: updatedState }})
+                    return updatedState
+                })
             })
         }
     }
+    
+    
     
     return (
         <div className={twMerge(`mt-4`, className)}>
@@ -55,9 +74,9 @@ const MultipleFileChooser: FC<Props> = (props) => {
             <input onChange={handleChange} hidden={true} type="file" accept="image/jpeg" ref={input}/>
             
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {state && Object.keys(state).map((key) => (
+                {state && state.length > 0 && state.map((item) => (
                     <div className="">
-                        <img className="border-2 border-dashed p-1 w-full" src={state[key]} alt=""/>
+                        <img className="border-2 border-dashed p-1 w-full" src={item.base64 ? item.base64 : item.url} alt=""/>
                     </div>
                 ))}
     
@@ -66,9 +85,6 @@ const MultipleFileChooser: FC<Props> = (props) => {
             </div>
             
             </div>
-            
-            
-            
             
             
         </div>

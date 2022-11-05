@@ -15,6 +15,7 @@ import MultipleFileChooser from "UI/Form/File/MultipleFileChooser";
 import generateSku from "src/utills/generateSku";
 import {fetchProductForUpdate} from "actions/productAction";
 import apis from "src/apis";
+import ResponseMessage from "UI/ResponseMessage";
 
 const AddProduct = () => {
     const params = useParams();
@@ -27,26 +28,34 @@ const AddProduct = () => {
         productState: {
             flatCategories,
             adminBrands,
-            adminProducts,
-            adminCategories,
-            adminStaticFiles,
         },
     } = useSelector((state: RootState) => state);
     
+    const [httpResponse, setHttpResponse] = useState({
+        message: "",
+        isSuccess: false,
+        loading: false,
+    });
+    
     const [state, setState] = useState({
-        httpResponse: "",
-        httpStatus: 200,
         productData: {
-            title: {value: "", errorMessage: ""},
-            coverPhoto: {value: "", errorMessage: ""},
-            images: {value: "", errorMessage: ""},
-            categoryId: {value: "", errorMessage: ""},
-            brandId: {value: "", errorMessage: ""},
-            price: {value: "", errorMessage: ""},
-            qty: {value: "", errorMessage: ""},
-            discount: {value: "", errorMessage: ""},
-            videoLink: {value: "", errorMessage: ""},
-            sku: {value: "", errorMessage: ""},
+            title: {value: "", errorMessage: "", required: true},
+            coverPhoto: {value: [
+                    // {blob: "", base64: "", fileName: "", url: ""}
+                ], errorMessage: "", required: true},
+            images: {value: [], errorMessage: "", required: true},
+            categoryId: {value: "", errorMessage: "", required: true},
+            brandId: {value: "", errorMessage: "", required: true},
+            price: {value: "", errorMessage: "", required: true},
+            qty: {value: "", errorMessage: "", required: true},
+            shippingCost: {value: "", errorMessage: "", required: true},
+            tax: {value: "", errorMessage: "", required: false},
+            discount: {value: "", errorMessage: "", required: true},
+            videoLink: {value: "", errorMessage: "", required: false},
+            sku: {value: "", errorMessage: "", required: true},
+            summary: {value: "", errorMessage: "", required: true},
+            productType: {value: "Physical", errorMessage: "", required: true},
+            minOrder: {value: "", errorMessage: "", required: false},
         },
         isShowStaticChooser: false,
         staticImages: [],
@@ -132,14 +141,10 @@ const AddProduct = () => {
         }))
     }
     
-    function handleSubmit(e){
-        e.preventDefault();
-    }
-    
     function generateNewProductSku(){
         setState(prev=>{
             let updateProductData = {...prev.productData}
-            updateProductData.sku = {value: generateSku(), errorMessage: ""}
+            updateProductData.sku = {value: generateSku(), errorMessage: "", required: true}
             return {
                 ...prev,
                 productData: updateProductData
@@ -256,17 +261,66 @@ const AddProduct = () => {
     
     const descSection = categoryDetail?.productDescriptionSectionInput
     
+    
+    
+    function handleSubmit(e){
+        e.preventDefault();
+        setHttpResponse(p=>({...p, message: "", isSuccess: false}))
+        
+        let isCompleted = true
+        let errorMessage = ""
+        let payload = {}
+        for (let productDataKey in productData) {
+            if(productData[productDataKey].required && !productData[productDataKey].value){
+                isCompleted = false
+                errorMessage = productDataKey + " required"
+            } else{
+                payload[productDataKey] = productData[productDataKey].value
+            }
+        }
+        
+        if(!isCompleted){
+            setHttpResponse(p=>({...p, message: errorMessage, isSuccess: false}))
+            return;
+        }
+        
+        let formData = new FormData()
+        for (let payloadKey in payload) {
+            if(payloadKey === "images"){
+                payload[payloadKey].forEach((item, index)=>{
+                    if(item.blob){
+                        formData.append(payloadKey + "-"+ index, item.blob, item.fileName)
+                    } else if(item.url){
+                        formData.append(payloadKey, item.url)
+                    }
+                })
+            } else if(payloadKey === "coverPhoto"){
+                formData.append(payloadKey, payload[payloadKey], payload[payloadKey].name)
+            } else {
+                if (payload[payloadKey]) {
+                    formData.append(payloadKey, payload[payloadKey])
+                }
+            }
+        }
+        
+        apis.post("/api/product1", formData)
+        
+        
+    }
+    
     return (
         <div className="">
 			<h1 className="heading-4">
 				{params.productId ? "Update Product" : "Add Product"}
 			</h1>
 
+            <ResponseMessage state={httpResponse}/>
+            
 			<form onSubmit={handleSubmit}>
 				<Card>
 					<InputGroup
                         name="title"
-                        required={true}
+                        required={productData.title.required}
                         label="Product Title"
                         className="!flex-col bg-white  "
                         inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
@@ -276,14 +330,14 @@ const AddProduct = () => {
                         onChange={handleChange}
                     />
 					<InputGroup
-                        name="Description"
-                        label="Description"
-                        required={true}
+                        name="summary"
+                        label="Summary"
+                        required={productData.summary.required}
                         className="!flex-col bg-white "
                         inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                         labelClass="dark:text-white !mb-2"
                         state={productData}
-                        placeholder="Product Description"
+                        placeholder="Product summary"
                         onChange={handleChange}
                     />
 				</Card>
@@ -294,7 +348,7 @@ const AddProduct = () => {
 
 					<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
 						<SelectGroup
-                            required={true}
+                            required={productData.productType.required}
                             name="categoryId"
                             labelClass="dark:text-white !mb-2"
                             className={"!flex-col"}
@@ -315,7 +369,7 @@ const AddProduct = () => {
                             )}
                         />
                         <SelectGroup
-                            required={true}
+                            required={productData.categoryId.required}
                             name="categoryId"
                             labelClass="dark:text-white !mb-2"
                             className={"!flex-col"}
@@ -351,7 +405,7 @@ const AddProduct = () => {
                             labelClass="dark:text-white !mb-2"
                             className={"!flex-col"}
                             label="Brand"
-                            required={true}
+                            required={productData.brandId.required}
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             placeholder="brandId"
                             onChange={handleChange}
@@ -374,11 +428,12 @@ const AddProduct = () => {
                         
                         <InputGroup
                             name="sku"
+                            required={productData.sku.required}
                             label="Product Code Sku"
                             labelAddition={()=> (
                                 <span className="text-blue-500 cursor-pointer font-medium active:text-blue-400 " onClick={generateNewProductSku}>Generate Code</span>
                             )}
-                            required={true}
+                         
                             className="!flex-col bg-white "
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             labelClass="dark:text-white !mb-2"
@@ -421,6 +476,7 @@ const AddProduct = () => {
 					<h5 className="heading-5">Product Price and Stock</h5>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <InputGroup
+                            required={productData.discount.required}
                             name="discount"
                             label="Discount"
                             type="number"
@@ -432,7 +488,7 @@ const AddProduct = () => {
                             onChange={handleChange}
                         />
                         <InputGroup
-                            required={true}
+                            required={productData.price.required}
                             name="price"
                             label="Price"
                             type="number"
@@ -447,6 +503,7 @@ const AddProduct = () => {
                             name="tax"
                             label="Tax"
                             type="number"
+                            required={productData.tax.required}
                             className="!flex-col"
                             labelAddition={()=><span className="badge bg-teal-400/10 text-teal-400 font-medium px-1 py-px rounded text-xs">Percent %</span>}
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
@@ -458,7 +515,7 @@ const AddProduct = () => {
     
                         <InputGroup
                             name="qty"
-                            required={true}
+                            required={productData.qty.required}
                             label="Total Quantity"
                             type="number"
                             className="!flex-col"
@@ -470,8 +527,8 @@ const AddProduct = () => {
                         />
     
                         <InputGroup
-                            name="qty"
-                            required={true}
+                            name="minOrder"
+                            required={productData.minOrder.required}
                             label="Minimum Order Quantity"
                             type="number"
                             className="!flex-col"
@@ -482,7 +539,8 @@ const AddProduct = () => {
                             onChange={handleChange}
                         />
                         <InputGroup
-                            name="qty"
+                            name="shippingCost"
+                            required={productData.shippingCost.required}
                             label="Shipping Cost"
                             type="number"
                             className="!flex-col"
@@ -501,6 +559,7 @@ const AddProduct = () => {
 					<h5 className="heading-5">Product Cover and Photos</h5>
                     
                      <InputGroup
+                         required={productData.videoLink.required}
                          name="videoLink"
                          label="Youtube Video Link"
                          className="!flex-col"
@@ -513,6 +572,7 @@ const AddProduct = () => {
                     
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <MultipleFileChooser
+                            required={productData.images.required}
                             name="images"
                             label="Upload Product Images"
                             labelAddition={()=><span className="text-xs font-medium">Ratio (1:1)</span>}
@@ -526,13 +586,13 @@ const AddProduct = () => {
                         {/*********** Cover **************/}
                         <FileUpload
                             name="coverPhoto"
+                            required={productData.coverPhoto.required}
                             label="Upload Thumbnail"
-                            required={true}
                             labelAddition={()=><span className="text-xs font-medium">Ratio (1:1)</span>}
                             inputClass="input-group"
                             placeholder="Choose Cover Photo"
                             onChange={handleChange}
-                            defaultValue={productData.coverPhoto.value}
+                            // defaultValue={productData.coverPhoto.value}
                             labelClass="dark:text-white !mb-2"
                             className={"!flex-col col-span-2 !w-40"}
                         />
@@ -547,7 +607,7 @@ const AddProduct = () => {
 							Or Select Static Photos
 						</Button>
 					</h2>
-                    
+     
      
 				</Card>
                 

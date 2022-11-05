@@ -44,7 +44,7 @@ const FileUpload: FC<Props> = (props) => {
 		let reader = new FileReader();
 		reader.onload = function (event) {
 			setBase64(event.target.result as string);
-			onChange({ target: { name, value: file, base64: event.target.result } });
+			onChange({ target: { name, value: file} });
 		};
 		reader.readAsDataURL(file);
 	}
