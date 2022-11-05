@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {InputGroup} from "UI/Form";
 import SelectGroup from "UI/Form/SelectGroup";
@@ -21,7 +21,8 @@ const AddProduct = () => {
     const dispatch = useDispatch();
     
     const navigate = useNavigate();
-    
+    const sectionNameInputRef = useRef<HTMLInputElement>();
+  
     const {
         productState: {
             flatCategories,
@@ -56,11 +57,18 @@ const AddProduct = () => {
             // defaultExpand: [],
             // filterAttributes: [],
             filterAttributesValues: null,
+            productDescriptionSectionInput: {}
+            
             // renderProductAttr: []
         },
     });
+    
+    const [editSectionName, setSectionName] = useState({
+        value: "",
+        backupName: ""
+    })
 
-    const {productData,staticImages } = state;
+    const {productData,categoryDetail,staticImages } = state;
     
     useEffect(()=>{
         fetchAdminBrandsAction(adminBrands, dispatch)
@@ -87,6 +95,7 @@ const AddProduct = () => {
             })
         }
     }, [params.productId])
+    
     
     function handleChange(e) {
         const { name, value } = e.target
@@ -138,25 +147,115 @@ const AddProduct = () => {
         })
     }
     
-    
-    
     function selectFilterValues(categoryId){
         if(!categoryId) return undefined;
         
         apis.get("/api/category/category-detail?categoryId="+categoryId).then(({data, status})=>{
             
             if(status === 200){
-                setState(prevState => ({
-                    ...prevState,
-                    categoryDetail: data
-                }))
+                setState(prevState => {
+                    let productDescriptionSectionInput = {}
+                    let obj = data.productDescriptionSection
+                    if(obj){
+                        for (let objKey in obj) {
+                            let specifications = obj[objKey]
+                            specifications = specifications.map(spec=>({specificationName: spec, value: "", required: true}))
+                            productDescriptionSectionInput[objKey] = specifications
+                            // if(specifications && specifications.length > 0){
+                            //     let s = {}
+                            //     specifications = specifications.map(spec=>{
+                            //         s[spec] = ""
+                            //     })
+                            //     productDescriptionSectionInput[objKey] = s
+                            // }
+                        }
+                    }
+                    console.log(productDescriptionSectionInput)
+                    // console.log(productDescriptionSectionInput)
+                    data.productDescriptionSectionInput = productDescriptionSectionInput
+                    return {
+                        ...prevState,
+                        categoryDetail: data
+                    }
+                })
             }
             
         }).catch(ex=>{
         
         })
     }
-
+    
+    function handleAddMoreSpecification(sectionName){
+        const updateProductDescriptionSectionInput = {...state.categoryDetail.productDescriptionSectionInput}
+        updateProductDescriptionSectionInput[sectionName] = [
+            ...updateProductDescriptionSectionInput[sectionName],
+            { specificationName: "", value: "" }
+        ]
+        setState((prevState)=>({
+            ...prevState,
+            categoryDetail:  {
+                ...prevState.categoryDetail,
+                productDescriptionSectionInput: updateProductDescriptionSectionInput
+            }
+        }))
+    }
+    
+    function handleAddMoreSection(){
+        const updateProductDescriptionSectionInput = {...state.categoryDetail.productDescriptionSectionInput}
+        updateProductDescriptionSectionInput["sectionName"] = [
+            { specificationName: "specification name", value: "" }
+        ]
+        setState((prevState)=>({
+            ...prevState,
+            categoryDetail:  {
+                ...prevState.categoryDetail,
+                productDescriptionSectionInput: updateProductDescriptionSectionInput
+            }
+        }))
+    }
+    
+    function handleClickSectionName(sectionName){
+        setSectionName({
+            backupName: sectionName,
+            value: ""
+        })
+    }
+    
+    useEffect(()=>{
+        if(editSectionName.backupName && sectionNameInputRef.current){
+            sectionNameInputRef.current.focus()
+        }
+    }, [editSectionName.backupName])
+    
+    // section name input blur action
+    function sectionNameInputBlur() {
+        if (editSectionName.value) {
+            if (editSectionName.backupName !== editSectionName.value){
+                const updateProductDescriptionSectionInput = {...state.categoryDetail.productDescriptionSectionInput}
+                
+                // backup value but change key name
+                updateProductDescriptionSectionInput[editSectionName.value] = [...updateProductDescriptionSectionInput[editSectionName.backupName]]
+                
+                // delete old one
+                delete updateProductDescriptionSectionInput[editSectionName.backupName]
+                
+                setState((prevState)=>({
+                    ...prevState,
+                    categoryDetail:  {
+                        ...prevState.categoryDetail,
+                        productDescriptionSectionInput: updateProductDescriptionSectionInput
+                    }
+                }))
+            }
+        }
+        setSectionName({
+            backupName: "",
+            value: ""
+        })
+    }
+    
+    const descSection = categoryDetail?.productDescriptionSectionInput
+    
     return (
         <div className="">
 			<h1 className="heading-4">
@@ -398,7 +497,6 @@ const AddProduct = () => {
 				</Card>
 
                 {/******** Product Cover and Photos **********/}
-                
 				<Card>
 					<h5 className="heading-5">Product Cover and Photos</h5>
                     
@@ -436,7 +534,7 @@ const AddProduct = () => {
                             onChange={handleChange}
                             defaultValue={productData.coverPhoto.value}
                             labelClass="dark:text-white !mb-2"
-                            className={"!flex-col col-span-2"}
+                            className={"!flex-col col-span-2 !w-40"}
                         />
                     </div>
 					
@@ -450,8 +548,60 @@ const AddProduct = () => {
 						</Button>
 					</h2>
                     
+     
+				</Card>
+                
+                
+                {/******** Product Description sections **********/}
+                <Card>
+					<h5 className="heading-5">Product Description</h5>
                     
-                    <Button type="submit" className="bg-secondary-300 mt-4" loaderClass="!border-white" loading={state.httpResponse === "pending"}>
+                    { Object.keys(descSection).map((sectionName)=>(
+                        <div className="mt-6">
+                            { (editSectionName.backupName &&  (editSectionName.backupName === sectionName) )? (
+                                <InputGroup
+                                    ref={sectionNameInputRef}
+                                    className="w-full col-span-4 mt-1 text-xs font-medium"
+                                    required={true}
+                                    placeholder="section name"
+                                    onBlur={sectionNameInputBlur}
+                                    onChange={(e)=>setSectionName({...editSectionName, value: e.target.value})}
+                                    defaultValue={editSectionName.backupName}
+                                    name="sectionName"
+                                />
+                            ) : (
+                            <h4 className="heading-4 hover:text-green-500 cursor-pointer" onClick={()=>handleClickSectionName(sectionName)}>{sectionName}</h4>
+                            )}
+                            <div className="mt-1">
+                                {descSection[sectionName]?.map((specification)=>(
+                                    <div className="block sm:grid grid-cols-12 gap-x-4">
+                                        <InputGroup
+                                            className="w-full col-span-4 mt-1 text-xs font-medium"
+                                            required={specification.required}
+                                            value={specification.specificationName}
+                                            name={specification.specificationName}
+                                            placeholder="specification name"/>
+                                        <InputGroup
+                                            className="w-full col-span-8 mt-1 text-xs font-medium"
+                                            required={specification.required}
+                                            name="value"
+                                            value={specification.value}
+                                            placeholder="value"/>
+                                    </div>
+                                ))}
+                                <Button type="button" onClick={()=>handleAddMoreSpecification(sectionName)} className="text-xs bg-secondary-400 !py-1 !px-2 mt-1">
+                                   +
+                                </Button>
+
+                            </div>
+                        </div>
+                    )) }
+    
+                    <Button type="button" onClick={handleAddMoreSection} className="text-sm bg-secondary-400 !py-1.5  mt-1">
+                        Add More Section
+                    </Button>
+                    
+                    <Button type="submit" className="bg-secondary-300 mt-4">
                         {!params.productId ? "Add Product" : "Update Product"}
                     </Button>
                     
