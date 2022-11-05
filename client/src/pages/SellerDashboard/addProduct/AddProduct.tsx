@@ -16,6 +16,11 @@ import generateSku from "src/utills/generateSku";
 import {fetchProductForUpdate} from "actions/productAction";
 import apis from "src/apis";
 import ResponseMessage from "UI/ResponseMessage";
+import {StatusCode} from "store/types";
+import errorMessageCatch from "src/utills/errorMessageCatch";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddProduct = () => {
     const params = useParams();
@@ -23,6 +28,8 @@ const AddProduct = () => {
     
     const navigate = useNavigate();
     const sectionNameInputRef = useRef<HTMLInputElement>();
+    
+    const notify = (msg) => toast(msg);
   
     const {
         productState: {
@@ -39,23 +46,25 @@ const AddProduct = () => {
     
     const [state, setState] = useState({
         productData: {
-            title: {value: "", errorMessage: "", required: true},
-            coverPhoto: {value: [
-                    // {blob: "", base64: "", fileName: "", url: ""}
+            title: {value: "sdfsdfsdfsdfdsf", errorMessage: "", required: true},
+            coverPhoto: {value: null, errorMessage: "", required: true},
+            images: {value: [
+                    
+                        // {blob: "", base64: "", fileName: "", url: ""}
+                    
                 ], errorMessage: "", required: true},
-            images: {value: [], errorMessage: "", required: true},
             categoryId: {value: "", errorMessage: "", required: true},
             brandId: {value: "", errorMessage: "", required: true},
-            price: {value: "", errorMessage: "", required: true},
-            qty: {value: "", errorMessage: "", required: true},
-            shippingCost: {value: "", errorMessage: "", required: true},
-            tax: {value: "", errorMessage: "", required: false},
-            discount: {value: "", errorMessage: "", required: true},
+            price: {value: 0, errorMessage: "", required: true},
+            qty: {value: 1, errorMessage: "", required: true},
+            shippingCost: {value: 0, errorMessage: "", required: true},
+            tax: {value: 0, errorMessage: "", required: false},
+            discount: {value: 0, errorMessage: "", required: true},
             videoLink: {value: "", errorMessage: "", required: false},
-            sku: {value: "", errorMessage: "", required: true},
-            summary: {value: "", errorMessage: "", required: true},
+            sku: {value: "234234", errorMessage: "", required: true},
+            summary: {value: "asd", errorMessage: "", required: true},
             productType: {value: "Physical", errorMessage: "", required: true},
-            minOrder: {value: "", errorMessage: "", required: false},
+            minOrder: {value: 0, errorMessage: "", required: false},
         },
         isShowStaticChooser: false,
         staticImages: [],
@@ -164,7 +173,7 @@ const AddProduct = () => {
                     if(obj){
                         for (let objKey in obj) {
                             let specifications = obj[objKey]
-                            specifications = specifications.map(spec=>({specificationName: spec, value: "", required: true}))
+                            specifications = specifications.map(spec=>({specificationName: spec, value: "sadsad", required: true}))
                             productDescriptionSectionInput[objKey] = specifications
                             // if(specifications && specifications.length > 0){
                             //     let s = {}
@@ -263,7 +272,7 @@ const AddProduct = () => {
     
     
     
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
         setHttpResponse(p=>({...p, message: "", isSuccess: false}))
         
@@ -271,23 +280,64 @@ const AddProduct = () => {
         let errorMessage = ""
         let payload = {}
         for (let productDataKey in productData) {
-            if(productData[productDataKey].required && !productData[productDataKey].value){
-                isCompleted = false
-                errorMessage = productDataKey + " required"
+            if(productData[productDataKey].required ){
+                
+                if(productData[productDataKey].value == 0
+                    && productDataKey !== "categoryId"
+                    &&  productDataKey !== "brandId"
+                    &&  productDataKey !== "price"
+                    &&  productDataKey !== "qty"
+                ){
+                    payload[productDataKey] = productData[productDataKey].value
+                
+                } else if(!productData[productDataKey].value){
+                    isCompleted = false
+                    errorMessage = productDataKey + " required"
+                    break;
+                } else{
+                    payload[productDataKey] = productData[productDataKey].value
+                }
+                
             } else{
                 payload[productDataKey] = productData[productDataKey].value
             }
         }
         
         if(!isCompleted){
+            toast.error(errorMessage);
             setHttpResponse(p=>({...p, message: errorMessage, isSuccess: false}))
             return;
+        }
+    
+        let descriptionSection  = categoryDetail.productDescriptionSectionInput
+        let isDoneDescriptionSection = true
+        let details = {}
+        for (let descriptionSectionKey in descriptionSection) {
+            if(descriptionSection[descriptionSectionKey] && descriptionSection[descriptionSectionKey].length > 0){
+                let specificationForSection = {}
+                descriptionSection[descriptionSectionKey].forEach(specification=>{
+                    if(specification.required){
+                        if(!(specification.value && specification.specificationName)){
+                            isDoneDescriptionSection = false
+                        }
+                    }
+                    specificationForSection[specification.specificationName] = specification.value
+                })
+                details[descriptionSectionKey] = specificationForSection
+            }
+        }
+       
+        
+        if(!isDoneDescriptionSection){
+            let msg  = "Please provide description required field"
+            toast.error(msg);
+            return setHttpResponse(p=>({...p, message: msg, isSuccess: false}))
         }
         
         let formData = new FormData()
         for (let payloadKey in payload) {
             if(payloadKey === "images"){
-                payload[payloadKey].forEach((item, index)=>{
+                payload[payloadKey] && payload[payloadKey].forEach((item, index)=>{
                     if(item.blob){
                         formData.append(payloadKey + "-"+ index, item.blob, item.fileName)
                     } else if(item.url){
@@ -295,7 +345,9 @@ const AddProduct = () => {
                     }
                 })
             } else if(payloadKey === "coverPhoto"){
-                formData.append(payloadKey, payload[payloadKey], payload[payloadKey].name)
+                if(payload[payloadKey] && typeof payload[payloadKey] === "object") {
+                    formData.append(payloadKey, payload[payloadKey], payload[payloadKey]?.name)
+                }
             } else {
                 if (payload[payloadKey]) {
                     formData.append(payloadKey, payload[payloadKey])
@@ -303,9 +355,20 @@ const AddProduct = () => {
             }
         }
         
-        apis.post("/api/product1", formData)
-        
-        
+        try {
+            
+            // add product details sections
+            formData.append("details", JSON.stringify(details))
+            
+            let {status, data} = await apis.post("/api/product", formData)
+            if(status === StatusCode.Created){
+                setHttpResponse({ message: data.message, loading: false, isSuccess: true})
+            }
+            console.log(data)
+        } catch (ex){
+            toast.error(errorMessageCatch(ex));
+            setHttpResponse({ message: errorMessageCatch(ex), loading: false, isSuccess: false})
+        }
     }
     
     return (
@@ -313,7 +376,7 @@ const AddProduct = () => {
 			<h1 className="heading-4">
 				{params.productId ? "Update Product" : "Add Product"}
 			</h1>
-
+            <ToastContainer />
             <ResponseMessage state={httpResponse}/>
             
 			<form onSubmit={handleSubmit}>
@@ -380,7 +443,7 @@ const AddProduct = () => {
                             state={productData}
                             options={() => (
                                 <>
-									<option value="0">
+									<option value="">
 										Category
 									</option>
                                     {flatCategories
@@ -412,7 +475,7 @@ const AddProduct = () => {
                             state={productData}
                             options={() => (
                                 <>
-									<option value="0">Brand</option>
+									<option value="">Brand</option>
                                     {adminBrands.cached &&
                                         adminBrands.cached?.map((cat: any) => (
                                             <option
