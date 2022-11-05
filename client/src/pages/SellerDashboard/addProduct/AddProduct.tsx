@@ -21,6 +21,7 @@ import errorMessageCatch from "src/utills/errorMessageCatch";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {log} from "util";
 
 const AddProduct = () => {
     const params = useParams();
@@ -68,6 +69,9 @@ const AddProduct = () => {
         },
         isShowStaticChooser: false,
         staticImages: [],
+        attributeValue: {
+        
+        },
         categoryDetail: {
             // _id: "",
             // catId: "",
@@ -148,6 +152,17 @@ const AddProduct = () => {
             ...prev,
             productData: updateProductData
         }))
+    }
+    
+    function handleChangeAttribute(e){
+        const {name, value} = e.target
+        let updateAttributeValue = {...state.attributeValue}
+        if(isNaN(Number(value))){
+            updateAttributeValue[name] = value
+        } else {
+            updateAttributeValue[name] = Number(value)
+        }
+        setState(p=>({...p, attributeValue: updateAttributeValue}))
     }
     
     function generateNewProductSku(){
@@ -279,6 +294,7 @@ const AddProduct = () => {
         let isCompleted = true
         let errorMessage = ""
         let payload = {}
+        let formData = new FormData()
         for (let productDataKey in productData) {
             if(productData[productDataKey].required ){
                 
@@ -309,6 +325,24 @@ const AddProduct = () => {
             return;
         }
     
+        /********** product attribute value ************/
+        if(categoryDetail?.filterAttributesValues){
+            if(categoryDetail?.filterAttributesValues.length !== Object.keys(state.attributeValue).length){
+                errorMessage = "Please provide attribute fields"
+                toast.error(errorMessage);
+                setHttpResponse(p=>({...p, message: errorMessage, isSuccess: false}))
+                return;
+            }
+        }
+        // add product details sections
+        formData.append("attributes", JSON.stringify(state.attributeValue))
+
+        
+        
+        /********** deep description section ************/
+        /* make it like and send to server
+            {"General":{ "In The Box":"value"}}
+        * */
         let descriptionSection  = categoryDetail.productDescriptionSectionInput
         let isDoneDescriptionSection = true
         let details = {}
@@ -326,15 +360,16 @@ const AddProduct = () => {
                 details[descriptionSectionKey] = specificationForSection
             }
         }
-       
-        
         if(!isDoneDescriptionSection){
             let msg  = "Please provide description required field"
             toast.error(msg);
             return setHttpResponse(p=>({...p, message: msg, isSuccess: false}))
         }
+        // add product details sections
+        formData.append("details", JSON.stringify(details))
         
-        let formData = new FormData()
+        
+
         for (let payloadKey in payload) {
             if(payloadKey === "images"){
                 payload[payloadKey] && payload[payloadKey].forEach((item, index)=>{
@@ -356,15 +391,13 @@ const AddProduct = () => {
         }
         
         try {
-            
-            // add product details sections
-            formData.append("details", JSON.stringify(details))
+   
             
             let {status, data} = await apis.post("/api/product", formData)
             if(status === StatusCode.Created){
+                toast.success( data.message);
                 setHttpResponse({ message: data.message, loading: false, isSuccess: true})
             }
-            console.log(data)
         } catch (ex){
             toast.error(errorMessageCatch(ex));
             setHttpResponse({ message: errorMessageCatch(ex), loading: false, isSuccess: false})
@@ -520,11 +553,12 @@ const AddProduct = () => {
                                   {attribute.options && (
                                       <div>
                                         <h4 className="heading-5">{attribute.attributeLabel}</h4>
-                                         <select className="border px-4 py-2" >
-                                                    <option value="">Select {attribute.attributeLabel}</option>
-                                              {attribute.options?.map((option)=>(
-                                                    <option value={option.value}>{option.name}</option>
-                                              ))}
+                                         <select onChange={handleChangeAttribute} name={attribute.attributeName}
+                                                 className="border px-4 py-2" >
+                                                 <option value="">Select {attribute.attributeLabel}</option>
+                                                      {attribute.options?.map((option)=>(
+                                                            <option value={option.value}>{option.name}</option>
+                                                      ))}
                                          </select>
                                       </div>
                                   )}
