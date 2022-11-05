@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getApi } from "src/apis";
+import apis, { getApi } from "src/apis";
 import Circle from "UI/Circle/Circle";
 import Table, { Column } from "UI/table/Table";
 import staticImagePath from "src/utills/staticImagePath";
@@ -8,7 +8,7 @@ import {FaTrash, FiEye, HiPencil, IoPencil} from "react-icons/all";
 import {Badge} from "UI/index";
 import Switch from "UI/Form/switch/Switch";
 import {useNavigate} from "react-router-dom";
-import {Scope} from "store/types";
+import { StatusCode} from "store/types";
 
 const SellerProducts = () => {
 	const [products, setProducts] = useState([]);
@@ -17,14 +17,21 @@ const SellerProducts = () => {
     
 
 	useEffect(() => {
-		getApi(Scope.SELLER_DASHBOARD)
-			.get("/api/seller/products")
+		apis.get("/api/seller/products")
 			.then(({ data, status }) => {
 				if (status === 200) {
 					setProducts(data.products);
 				}
 			});
 	}, []);
+    
+    
+    async function handleDeleteProduct(productId: string){
+        const {status, data} = await apis.delete("/api/seller/product/"+productId)
+        if(status === StatusCode.Created){
+            setProducts(products.filter(p=>p._id !== productId))
+        }
+    }
 
 	const columns: Column[] = [
 		{
@@ -55,7 +62,7 @@ const SellerProducts = () => {
 				<div className="flex gap-x-3">
 					<Box className="border border-green-500"><FiEye className="text-green-500 text-xs" /></Box>
 					<Box className="border border-blue-600" onClick={()=>navigate(`/seller/product/edit/${product._id}`)}><IoPencil className="text-blue-600 text-xs" /></Box>
-					<Box className="border border-red-500" onClick={()=>navigate(`/seller/product/edit/${product._id}`)}><FaTrash className="text-red-500 text-xs" /></Box>
+					<Box className="border border-red-500" onClick={()=>handleDeleteProduct(product._id)}><FaTrash className="text-red-500 text-xs" /></Box>
 				</div>
 			),
 		},
