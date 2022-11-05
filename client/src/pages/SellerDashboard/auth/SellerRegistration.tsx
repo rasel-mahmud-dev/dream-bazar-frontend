@@ -20,7 +20,7 @@ const SellerRegistration = (props) => {
     });
     
     if (auth) {
-        return <Navigate to={"/seller/dashboard"}/>;
+        // return <Navigate to={"/seller/dashboard"}/>;
     }
     
     const [shopInfo, setShopInfo] = useState({
@@ -29,7 +29,7 @@ const SellerRegistration = (props) => {
         password: {value: "", errorMessage: "", required: true},
         confirmPassword: {value: "", errorMessage: "", required: true},
         email: {value: "", errorMessage: "", required: true},
-        phone: {value: "", errorMessage: "", required: true},
+        shopPhone: {value: "", errorMessage: "", required: true},
         shopName: {value: "", errorMessage: "", required: true},
         avatar: {value: null, errorMessage: "", required: true},
         shopLogo: {value: null, errorMessage: "", required: false},
@@ -120,9 +120,9 @@ const SellerRegistration = (props) => {
                             onChange={handleChange}
                         />
 						<InputGroup
-                            name="phone"
-                            required={shopInfo.phone.required}
-                            label="Last Name"
+                            name="shopPhone"
+                            required={shopInfo.shopPhone.required}
+                            label="shopPhone"
                             className="!flex-col bg-white  "
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             labelClass="dark:text-white !mb-2"

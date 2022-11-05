@@ -134,7 +134,7 @@ const SellerLogin = (props) => {
 					</Button>
 
 					<p className="my-5  text-link">
-						Dont have an account? <Link to="/seller/registration">Create seller account here</Link>
+						Dont have an account? <Link to="/seller/join/registration">Create seller account here</Link>
 					</p>
 				</Card>
 			</form>
