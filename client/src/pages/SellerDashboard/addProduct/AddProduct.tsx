@@ -45,7 +45,7 @@ const AddProduct = () => {
     
     const [state, setState] = useState({
         productData: {
-            title: {value: "sdfsdfsdfsdfdsf", errorMessage: "", required: true},
+            title: {value: "", errorMessage: "", required: true},
             coverPhoto: {value: null, errorMessage: "", required: true},
             images: {value: [
                     
@@ -60,8 +60,8 @@ const AddProduct = () => {
             tax: {value: 0, errorMessage: "", required: false},
             discount: {value: 0, errorMessage: "", required: true},
             videoLink: {value: "", errorMessage: "", required: false},
-            sku: {value: "234234", errorMessage: "", required: true},
-            summary: {value: "asd", errorMessage: "", required: true},
+            sku: {value: "", errorMessage: "", required: true},
+            summary: {value: "", errorMessage: "", required: true},
             productType: {value: "Physical", errorMessage: "", required: true},
             minOrder: {value: 0, errorMessage: "", required: false},
         },
@@ -81,6 +81,9 @@ const AddProduct = () => {
             
             // renderProductAttr: []
         },
+        productDescription: {
+            details: {}
+        }
     });
     
     const [editSectionName, setSectionName] = useState({
@@ -102,20 +105,62 @@ const AddProduct = () => {
                 if(!err){
                     let updateProductData = {...state.productData};
                     for (let updateProductDataKey in updateProductData) {
+                        if(updateProductDataKey === "categoryId"){
+                            selectFilterValues(result["categoryId"])
+                        }
                         if(result[updateProductDataKey]) {
                             updateProductData[updateProductDataKey].value = result[updateProductDataKey]
                         }
                     }
-                    
+    
+                    let updateAttributeValue = {...state.attributeValue}
+                    if(result["attributes"]){
+                        for (let attributesKey in result["attributes"]) {
+                            updateAttributeValue[attributesKey] = result["attributes"][attributesKey]
+                        }
+                    }
+    
+                  
                     setState({
                         ...state,
-                        productData: updateProductData
+                        productData: updateProductData,
+                        attributeValue: updateAttributeValue,
+                        productDescription: result["productDescription"]
                     })
                 }
             })
         }
     }, [params.productId])
     
+    // product details section value fill up when update product
+    useEffect(()=>{
+        
+        if(params.productId) {
+    
+            // from product description collection
+            if (state.productDescription && categoryDetail.productDescriptionSectionInput) {
+                let details = state.productDescription.details
+                if (details) {
+                    let updatedProductDescriptionSectionInput = categoryDetail.productDescriptionSectionInput
+            
+                    for (let detailsKey in details) {
+                        let spec = updatedProductDescriptionSectionInput[detailsKey]
+                        if (spec) {
+                            updatedProductDescriptionSectionInput[detailsKey] = spec?.map(s => {
+                                let specValue = details[detailsKey][s.specificationName]
+                                s.value = specValue
+                                return s
+                            })
+                        }
+                    }
+                    setState(s => ({
+                        ...s,
+                        categoryDetail: {...s.categoryDetail, productDescriptionSectionInput: updatedProductDescriptionSectionInput}
+                    }))
+                }
+            }
+        }
+    }, [categoryDetail.productDescriptionSectionInput, state.productDescription.details])
     
     function handleChange(e) {
         const { name, value } = e.target
@@ -162,6 +207,7 @@ const AddProduct = () => {
         }
         setState(p=>({...p, attributeValue: updateAttributeValue}))
     }
+
     
     function generateNewProductSku(){
         setState(prev=>{
@@ -186,7 +232,7 @@ const AddProduct = () => {
                     if(obj){
                         for (let objKey in obj) {
                             let specifications = obj[objKey]
-                            specifications = specifications.map(spec=>({specificationName: spec, value: "sadsad", required: true}))
+                            specifications = specifications.map(spec=>({specificationName: spec, value: "", required: true}))
                             productDescriptionSectionInput[objKey] = specifications
                             // if(specifications && specifications.length > 0){
                             //     let s = {}
@@ -197,7 +243,7 @@ const AddProduct = () => {
                             // }
                         }
                     }
-                    console.log(productDescriptionSectionInput)
+                    // console.log(productDescriptionSectionInput)
                     // console.log(productDescriptionSectionInput)
                     data.productDescriptionSectionInput = productDescriptionSectionInput
                     return {
@@ -284,7 +330,7 @@ const AddProduct = () => {
     const descSection = categoryDetail?.productDescriptionSectionInput
     
     
-    
+    // handle update or add product
     async function handleSubmit(e){
         e.preventDefault();
         setHttpResponse(p=>({...p, message: "", isSuccess: false}))
@@ -334,7 +380,6 @@ const AddProduct = () => {
         }
         // add product details sections
         formData.append("attributes", JSON.stringify(state.attributeValue))
-
         
         
         /********** deep description section ************/
@@ -361,7 +406,7 @@ const AddProduct = () => {
         if(!isDoneDescriptionSection){
             let msg  = "Please provide description required field"
             toast.error(msg);
-            return setHttpResponse(p=>({...p, message: msg, isSuccess: false}))
+            // return setHttpResponse(p=>({...p, message: msg, isSuccess: false}))
         }
         // add product details sections
         formData.append("details", JSON.stringify(details))
@@ -390,11 +435,18 @@ const AddProduct = () => {
         
         try {
    
-            
-            let {status, data} = await apis.post("/api/product", formData)
-            if(status === StatusCode.Created){
-                toast.success( data.message);
-                setHttpResponse({ message: data.message, loading: false, isSuccess: true})
+            if(params.productId){
+                let {status, data} = await apis.patch("/api/product/"+params.productId, formData)
+                if (status === StatusCode.Created) {
+                    toast.success(data.message);
+                    setHttpResponse({message: data.message, loading: false, isSuccess: true})
+                }
+            } else {
+                let {status, data} = await apis.post("/api/product", formData)
+                if (status === StatusCode.Created) {
+                    toast.success(data.message);
+                    setHttpResponse({message: data.message, loading: false, isSuccess: true})
+                }
             }
         } catch (ex){
             toast.error(errorMessageCatch(ex));
@@ -551,7 +603,7 @@ const AddProduct = () => {
                                   {attribute.options && (
                                       <div>
                                         <h4 className="heading-5">{attribute.attributeLabel}</h4>
-                                         <select onChange={handleChangeAttribute} name={attribute.attributeName}
+                                         <select value={state.attributeValue[attribute.attributeName]} onChange={handleChangeAttribute} name={attribute.attributeName}
                                                  className="border px-4 py-2" >
                                                  <option value="">Select {attribute.attributeLabel}</option>
                                                       {attribute.options?.map((option)=>(
@@ -732,13 +784,11 @@ const AddProduct = () => {
                                     <div className="block sm:grid grid-cols-12 gap-x-4">
                                         <InputGroup
                                             className="w-full col-span-4 mt-1 text-xs font-medium"
-                                            required={specification.required}
                                             value={specification.specificationName}
                                             name={specification.specificationName}
                                             placeholder="specification name"/>
                                         <InputGroup
                                             className="w-full col-span-8 mt-1 text-xs font-medium"
-                                            required={specification.required}
                                             name="value"
                                             value={specification.value}
                                             placeholder="value"/>
