@@ -8,11 +8,14 @@ import { Button } from "UI/index";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import { loginAction } from "actions/authAction";
 import { Scope } from "store/types";
+import useToast from "src/hooks/useToast";
+import HttpResponse from "components/HttpResponse/HttpResponse";
+
 
 const SellerLogin = (props) => {
 	const sellerState = useSelector((state: RootState) => state.sellerState);
 
-    
+    const [toast] = useToast()
     const navigate = useNavigate();
     
     const dispatch = useDispatch();
@@ -57,6 +60,7 @@ const SellerLogin = (props) => {
 
 		let isCompleted = true;
 		let payload = {};
+        let errorMessage = ""
 
 		let updateShopInfo = { ...shopInfo };
 
@@ -66,6 +70,7 @@ const SellerLogin = (props) => {
 					...updateShopInfo[shopInfoKey],
 					errorMessage: `${shopInfoKey} is required`,
 				};
+                errorMessage = `${shopInfoKey} is required`,
 				isCompleted = false;
 			}
 			if (isCompleted) {
@@ -74,6 +79,7 @@ const SellerLogin = (props) => {
 		}
 
 		if (!isCompleted) {
+            toast.error(errorMessage)
 			return setShopInfo(updateShopInfo);
 		}
 		try {
@@ -81,6 +87,7 @@ const SellerLogin = (props) => {
    
 			loginAction(payload, dispatch, Scope.SELLER_USER, (data, errorMessage)=>{
                 if(errorMessage) {
+                    toast.error(errorMessage)
                     setHttpResponse({isSuccess: false, message: errorMessage, loading: false});
                 } else{
                     setHttpResponse({isSuccess: true, message: "ok", loading: false});
@@ -88,6 +95,7 @@ const SellerLogin = (props) => {
             });
    
 		} catch (ex) {
+            toast.error(errorMessageCatch(ex))
 			setHttpResponse({ isSuccess: false, message: errorMessageCatch(ex), loading: false });
 		}
 	}
@@ -96,12 +104,7 @@ const SellerLogin = (props) => {
 		<div className="max-w-2xl mx-auto py-10">
 			<form onSubmit={handleSellerLogin}>
 				<h3 className="heading-2 text-center">Seller Login</h3>
-
-				{httpResponse.message && (
-					<Card className={`font-semibold ${httpResponse.isSuccess ? "bg-green-500/20 text-green-700 " : "bg-red-500/10 text-red-500"}`}>
-						<p>{httpResponse.message}</p>
-					</Card>
-				)}
+                    <HttpResponse state={httpResponse} />
 
 				<Card>
 					<div className="grid grid-cols-1  gap-x-4">
@@ -129,7 +132,7 @@ const SellerLogin = (props) => {
 						/>
 					</div>
 
-					<Button type="submit" className="bg-green-450 mt-6">
+					<Button type="submit" className="bg-green-450 mt-6" loading={httpResponse.loading}>
 						Seller Login
 					</Button>
 

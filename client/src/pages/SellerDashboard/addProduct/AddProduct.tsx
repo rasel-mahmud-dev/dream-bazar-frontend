@@ -15,13 +15,11 @@ import MultipleFileChooser from "UI/Form/File/MultipleFileChooser";
 import generateSku from "src/utills/generateSku";
 import {fetchProductForUpdate} from "actions/productAction";
 import apis from "src/apis";
-import ResponseMessage from "UI/ResponseMessage";
 import {StatusCode} from "store/types";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import {log} from "util";
+import useToast from "src/hooks/useToast";
+import HttpResponse from "components/HttpResponse/HttpResponse";
 
 const AddProduct = () => {
     const params = useParams();
@@ -30,7 +28,7 @@ const AddProduct = () => {
     const navigate = useNavigate();
     const sectionNameInputRef = useRef<HTMLInputElement>();
     
-    const notify = (msg) => toast(msg);
+    const [toast] = useToast()
   
     const {
         productState: {
@@ -409,8 +407,8 @@ const AddProduct = () => {
 			<h1 className="heading-4">
 				{params.productId ? "Update Product" : "Add Product"}
 			</h1>
-            <ToastContainer />
-            <ResponseMessage state={httpResponse}/>
+        
+            <HttpResponse state={httpResponse}/>
             
 			<form onSubmit={handleSubmit}>
 				<Card>

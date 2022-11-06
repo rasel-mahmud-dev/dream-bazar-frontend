@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { useLocation } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import { RootState } from "src/store";
 import { InputGroup } from "UI/Form";
 import FileUpload from "UI/Form/File/FileUpload";
@@ -17,6 +17,8 @@ const CreateShop = (props) => {
 		sellerState: { shop },
 	} = useSelector((state: RootState) => state);
 
+    const navigate = useNavigate()
+    
 	const location = useLocation();
 	const dispatch = useDispatch();
 
@@ -34,6 +36,7 @@ const CreateShop = (props) => {
 		shopLogo: { value: null, errorMessage: "", required: false },
 		shopBanner: { value: null, errorMessage: "", required: false },
 		shopAddress: { value: "", errorMessage: "", required: true },
+		_id: { value: "", errorMessage: "", required: true }, // only for update
 	});
 
 	useEffect(() => {
@@ -73,6 +76,8 @@ const CreateShop = (props) => {
 		let payload = new FormData();
 
 		let updateShopInfo = { ...shopInfo };
+        let shopId = updateShopInfo._id.value
+        delete updateShopInfo._id
 
 		for (let shopInfoKey in updateShopInfo) {
 			if (updateShopInfo[shopInfoKey].required && !updateShopInfo[shopInfoKey].value) {
@@ -93,7 +98,7 @@ const CreateShop = (props) => {
 		try {
 			setHttpResponse((p) => ({ ...p, message: "", loading: true }));
 			if (isUpdate) {
-                let {data, status} = await apis.patch("/api/seller/shop", payload);
+                let {data, status} = await apis.patch("/api/seller/shop/"+shopId, payload);
                 if(status === StatusCode.Created){
                     dispatch({
                         type: ACTION_TYPES.FETCH_SELLER_SHOP,
@@ -105,6 +110,9 @@ const CreateShop = (props) => {
                 }
 			} else {
 				let { data, status } = await apis.post("/api/seller/create/shop", payload);
+                if(status === StatusCode.Created){
+                    navigate("/seller/shop")
+                }
 			}
 			setHttpResponse({ isSuccess: true, message: "ok", loading: false });
 		} catch (ex) {
@@ -117,7 +125,7 @@ const CreateShop = (props) => {
 			<form onSubmit={handleSubmit}>
 				<h3 className="heading-2 text-center">{isUpdate ? "Update Shop " : "Create A Shop"}</h3>
 
-				<HttpResponse httpResponse={httpResponse} />
+				<HttpResponse state={httpResponse} />
 
 				<Card>
 					<h5 className="heading-5">Shop information</h5>
@@ -189,7 +197,7 @@ const CreateShop = (props) => {
 					</div>
 
 					<Button type="submit" className="bg-green-450 mt-6">
-						Create Shop
+						{isUpdate ? "Update Shop" : "Create Shop"}
 					</Button>
 				</Card>
 			</form>

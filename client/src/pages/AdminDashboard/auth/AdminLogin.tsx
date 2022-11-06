@@ -8,6 +8,7 @@ import { Button } from "UI/index";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import { loginAction } from "actions/authAction";
 import { Scope } from "store/types";
+import HttpResponse from "components/HttpResponse/HttpResponse";
 
 const AdminLogin = (props) => {
 	const {auth} = useSelector((state: RootState) => state.authState);
@@ -85,11 +86,7 @@ const AdminLogin = (props) => {
 			<form onSubmit={handleSellerLogin}>
 				<h3 className="heading-2 text-center">Admin Login</h3>
 
-				{httpResponse.message && (
-					<Card className={`font-semibold ${httpResponse.isSuccess ? "bg-green-500/20 text-green-700 " : "bg-red-500/10 text-red-500"}`}>
-						<p>{httpResponse.message}</p>
-					</Card>
-				)}
+				<HttpResponse state={httpResponse} />
 
 				<Card>
 					<div className="grid grid-cols-1  gap-x-4">

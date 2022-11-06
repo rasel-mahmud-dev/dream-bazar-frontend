@@ -1,19 +1,15 @@
 import React, { FC, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { Button, Popup } from "UI/index";
-
 import { useDispatch } from "react-redux";
 import { loginAction } from "actions/authAction";
 // import { toggleAppMask } from "actions/appAction";
 
 import { InputGroup } from "UI/Form";
-import errorMessageCatch from "src/utills/errorMessageCatch";
 import useLanguage from "src/hooks/useLanguage";
 import { Scope } from "store/types";
 import SocialLogin from "components/SocialLogin/SocialLogin";
-import ResponseMessage from "UI/ResponseMessage";
-import ActionInfo from "components/ActionInfo/ActionInfo";
+import HttpResponse from "components/HttpResponse/HttpResponse";
 
 interface LoginPageProps {
 	toggleLoader?: any;
@@ -122,7 +118,7 @@ const Login: FC<LoginPageProps> = (props) => {
 		<div>
 			<h1 className="card-title">{title}</h1>
             
-            <ResponseMessage state={httpResponse} />
+            <HttpResponse state={httpResponse} />
 
 			<form onSubmit={loginHandler}>
 				<InputGroup state={state.userData} name="email" onChange={handleChange} placeholder={l("Enter Email")} inputClass="input-group" />

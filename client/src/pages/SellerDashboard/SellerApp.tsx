@@ -3,11 +3,11 @@ import {Outlet, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { currentAuthAction } from "actions/authAction";
 import { RootState } from "src/store";
-import { ACTION_TYPES, Scope } from "store/types";
+import {ACTION_TYPES, Roles, Scope} from "store/types";
 import SellerNavigation from "pages/sellerDashboard/components/sellerNavigation/SellerNavigation";
 import SellerSidebar from "pages/sellerDashboard/components/selllerSidebar/SellerSidebar";
 import apis from "src/apis";
-import PrivateRoute from "../../middleware/PrivateRoute";
+import PrivateRoute from "src/middleware/PrivateRoute";
 
 const SellerApp = () => {
 	const dispatch = useDispatch();
@@ -37,11 +37,15 @@ const SellerApp = () => {
         })
 	}, []);
  
+    
+    // observation auth state change
     useEffect(()=>{
         // fetch own shop
         if (auth) {
-            apis.get("/api/seller/shop")
-            .then(({ data }) => {
+            if(auth.roles.includes(Scope.SELLER_USER as any)){
+               setSeller(true)
+            }
+            apis.get("/api/seller/shop").then(({ data }) => {
                 dispatch({
                     type: ACTION_TYPES.FETCH_SELLER_SHOP,
                     payload: data,

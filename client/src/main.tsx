@@ -6,10 +6,13 @@ import createStore from "src/store"
 import AppContextProvider from "store/AppContext";
 import MyRoutes from "src/MyRoutes";
 
+import useToast from "src/hooks/useToast";
 
 const store = createStore()
 
 function MainComponent(props){
+    const [_, ToastContainer] = useToast()
+    
     useEffect(()=>{
         const loaderRoot = document.querySelector(".loader-root");
         if (loaderRoot) {
@@ -18,12 +21,14 @@ function MainComponent(props){
     
     }, [])
     
-    return props.children
+    return <>
+        <ToastContainer />
+        {props.children}
+    </>
 }
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    
         <Provider store={store}>
             <AppContextProvider>
                 <MainComponent>
@@ -31,6 +36,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                 </MainComponent>
             </AppContextProvider>
         </Provider>
-
 )
 

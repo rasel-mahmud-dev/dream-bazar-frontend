@@ -9,9 +9,11 @@ import Card from "UI/Form/Card/Card";
 import apis from "src/apis";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import HttpResponse from "components/HttpResponse/HttpResponse";
+import useToast from "src/hooks/useToast";
 
 const SellerRegistration = (props) => {
     const {auth} = useSelector((state: RootState) => state.authState);
+    const [toast] = useToast()
     
     const [httpResponse, setHttpResponse] = useState({
         isSuccess: false,
@@ -56,6 +58,7 @@ const SellerRegistration = (props) => {
         setHttpResponse({isSuccess: false, message: "", loading: false});
         
         let isCompleted = true;
+        let errorMessage  = "";
         let payload = new FormData();
         
         let updateShopInfo = {...shopInfo};
@@ -68,6 +71,7 @@ const SellerRegistration = (props) => {
                     errorMessage: `${shopInfoKey} is required`
                 };
                 isCompleted = false
+                errorMessage =  `${shopInfoKey} is required`
             }
             if (isCompleted) {
                 payload.append(shopInfoKey, updateShopInfo[shopInfoKey].value);
@@ -75,6 +79,8 @@ const SellerRegistration = (props) => {
         }
         
         if(!isCompleted) {
+            toast.error(errorMessage)
+            setHttpResponse({isSuccess: false, message: errorMessage, loading: false});
             return setShopInfo(updateShopInfo);
         }
         try {
@@ -91,11 +97,12 @@ const SellerRegistration = (props) => {
 			<form onSubmit={handleSubmit}>
 				<h3 className="heading-2 text-center">Create a Seller Account</h3>
                 
-    
-                <HttpResponse httpResponse={httpResponse} />
-                
+           
+                <HttpResponse state={httpResponse} />
+                    
 
 				<Card>
+     
 					<h5 className="heading-5">Seller Information</h5>
 
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
@@ -251,7 +258,7 @@ const SellerRegistration = (props) => {
 					</Button>
 
 					<p className="my-5  text-link">
-						Already have an seller account? <Link to="/seller/login">login here</Link>
+						Already have an seller account? <Link to="/seller/join/login">login here</Link>
 					</p>
 				</Card>
 			</form>
