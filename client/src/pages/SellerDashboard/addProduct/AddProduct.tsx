@@ -67,9 +67,7 @@ const AddProduct = () => {
         },
         isShowStaticChooser: false,
         staticImages: [],
-        attributeValue: {
-        
-        },
+        attributeValue: {},
         categoryDetail: {
             // _id: "",
             // catId: "",
@@ -77,7 +75,12 @@ const AddProduct = () => {
             // defaultExpand: [],
             // filterAttributes: [],
             filterAttributesValues: null,
-            productDescriptionSectionInput: {}
+            productDescriptionSectionInput: {
+                // [sectionName]: [
+                //     {specificationName: string, value: string, required: boolean},
+                //     {specificationName: string, value: string, required: boolean}
+                // ]
+            }
             
             // renderProductAttr: []
         },
@@ -91,7 +94,7 @@ const AddProduct = () => {
         backupName: ""
     })
 
-    const {productData,categoryDetail,staticImages } = state;
+    const {productData,categoryDetail, staticImages } = state;
     
     useEffect(()=>{
         fetchAdminBrandsAction(adminBrands, dispatch)
@@ -287,6 +290,26 @@ const AddProduct = () => {
         }))
     }
     
+    function handleChangeDescription(name: string, sectionName: string, value: string, index: number){
+        const updateCategoryDetail = {...state.categoryDetail}
+        const updateDescriptionSectionInput = updateCategoryDetail.productDescriptionSectionInput
+        let specificationSection = updateDescriptionSectionInput[sectionName][index]
+        if(specificationSection){
+            if(name === "name"){
+                specificationSection.specificationName = value
+            } else {
+                specificationSection.value = value
+            }
+        }
+       
+        updateCategoryDetail.productDescriptionSectionInput  = updateDescriptionSectionInput
+        
+        setState({
+            ...state,
+            categoryDetail: updateCategoryDetail
+        })
+    }
+    
     function handleClickSectionName(sectionName){
         setSectionName({
             backupName: sectionName,
@@ -304,21 +327,21 @@ const AddProduct = () => {
     function sectionNameInputBlur() {
         if (editSectionName.value) {
             if (editSectionName.backupName !== editSectionName.value){
-                const updateProductDescriptionSectionInput = {...state.categoryDetail.productDescriptionSectionInput}
+                // const updateProductDescriptionSectionInput = {...state.categoryDetail.productDescriptionSectionInput}
                 
                 // backup value but change key name
-                updateProductDescriptionSectionInput[editSectionName.value] = [...updateProductDescriptionSectionInput[editSectionName.backupName]]
+                // updateProductDescriptionSectionInput[editSectionName.value] = [...updateProductDescriptionSectionInput[editSectionName.backupName]]
                 
                 // delete old one
-                delete updateProductDescriptionSectionInput[editSectionName.backupName]
-                
-                setState((prevState)=>({
-                    ...prevState,
-                    categoryDetail:  {
-                        ...prevState.categoryDetail,
-                        productDescriptionSectionInput: updateProductDescriptionSectionInput
-                    }
-                }))
+                // delete updateProductDescriptionSectionInput[editSectionName.backupName]
+                //
+                // setState((prevState)=>({
+                //     ...prevState,
+                //     categoryDetail:  {
+                //         ...prevState.categoryDetail,
+                //         productDescriptionSectionInput: updateProductDescriptionSectionInput
+                //     }
+                // }))
             }
         }
         setSectionName({
@@ -326,8 +349,6 @@ const AddProduct = () => {
             value: ""
         })
     }
-    
-    const descSection = categoryDetail?.productDescriptionSectionInput
     
     
     // handle update or add product
@@ -387,18 +408,21 @@ const AddProduct = () => {
             {"General":{ "In The Box":"value"}}
         * */
         let descriptionSection  = categoryDetail.productDescriptionSectionInput
+      
         let isDoneDescriptionSection = true
         let details = {}
         for (let descriptionSectionKey in descriptionSection) {
             if(descriptionSection[descriptionSectionKey] && descriptionSection[descriptionSectionKey].length > 0){
                 let specificationForSection = {}
                 descriptionSection[descriptionSectionKey].forEach(specification=>{
-                    if(specification.required){
-                        if(!(specification.value && specification.specificationName)){
-                            isDoneDescriptionSection = false
-                        }
+                    
+                    // if(!(specification.value && specification.specificationName)){
+                    //     isDoneDescriptionSection = false
+                    // }
+                    
+                    if(specification.value) {
+                        specificationForSection[specification.specificationName] = specification.value
                     }
-                    specificationForSection[specification.specificationName] = specification.value
                 })
                 details[descriptionSectionKey] = specificationForSection
             }
@@ -406,11 +430,10 @@ const AddProduct = () => {
         if(!isDoneDescriptionSection){
             let msg  = "Please provide description required field"
             toast.error(msg);
-            // return setHttpResponse(p=>({...p, message: msg, isSuccess: false}))
+            return setHttpResponse(p=>({...p, message: msg, isSuccess: false}))
         }
         // add product details sections
         formData.append("details", JSON.stringify(details))
-        
         
 
         for (let payloadKey in payload) {
@@ -433,8 +456,8 @@ const AddProduct = () => {
             }
         }
         
+        
         try {
-   
             if(params.productId){
                 let {status, data} = await apis.patch("/api/product/"+params.productId, formData)
                 if (status === StatusCode.Created) {
@@ -453,6 +476,9 @@ const AddProduct = () => {
             setHttpResponse({ message: errorMessageCatch(ex), loading: false, isSuccess: false})
         }
     }
+    
+    const descSection = categoryDetail?.productDescriptionSectionInput
+    
     
     return (
         <div className="">
@@ -780,16 +806,18 @@ const AddProduct = () => {
                             <h4 className="heading-4 hover:text-green-500 cursor-pointer" onClick={()=>handleClickSectionName(sectionName)}>{sectionName}</h4>
                             )}
                             <div className="mt-1">
-                                {descSection[sectionName]?.map((specification)=>(
+                                {descSection[sectionName]?.map((specification, index)=>(
                                     <div className="block sm:grid grid-cols-12 gap-x-4">
                                         <InputGroup
                                             className="w-full col-span-4 mt-1 text-xs font-medium"
                                             value={specification.specificationName}
                                             name={specification.specificationName}
+                                            onChange={(e)=>handleChangeDescription("name", sectionName,e.target.value, index)}
                                             placeholder="specification name"/>
                                         <InputGroup
                                             className="w-full col-span-8 mt-1 text-xs font-medium"
                                             name="value"
+                                            onChange={(e)=>handleChangeDescription("value",  sectionName, e.target.value, index)}
                                             value={specification.value}
                                             placeholder="value"/>
                                     </div>
