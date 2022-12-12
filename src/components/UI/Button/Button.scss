@@ -1,0 +1,116 @@
+
+.btn{
+  box-sizing: border-box;
+  outline:none;
+  border:none;
+  padding: 10.5px 14px;
+  cursor: pointer;
+  font-weight: 500;
+  color: white;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  text-decoration: none !important;
+  -webkit-tap-highlight-color: transparent;
+
+  //@apply bg-green-450;
+
+  a{
+    color: inherit;
+    text-decoration: none;
+  }
+  &-large{
+    box-sizing: border-box;
+    padding: 10px 15px;
+    font-weight: 500;
+    margin: 10px;
+    font-size: 18px;
+  }
+}
+.btn-block{
+  box-sizing: border-box !important;
+  display: block;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.btn-primary{
+  background: var(--primary);
+  color: white;
+  &:hover{
+    background: var(--color-primary);
+    box-shadow: 0 2px 5px 0px grey;
+  }
+  &:focus{
+    background: var(--color-primary);
+    box-shadow: 0 2px 10px 0px #47474787;
+  }
+}
+
+.btn-default{
+  background: white;
+  color: #1c1c1cff;
+  border: 1px solid #d3d3d384;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+
+  &:hover{
+    //background: darken(white, 4%) !important;
+    box-shadow: 0px 1px 4px -2px #565656a8
+  }
+  &:focus{
+    // background: white;
+    box-shadow: 0 2px 10px 0px #47474787;
+  }
+}
+.btn-text{
+  background: transparent ;
+  color: #1c1c1c;
+  border: none;
+  &:hover{
+    background: #e8e8e867;
+  }
+}
+.btn-link{
+  background: white;
+  color: var(--color-primary);
+  border: none;
+  text-decoration: none;
+  &:hover{
+    color: red;
+  }
+}
+
+
+.btn-disable{
+  background: darken(#8ab5ffa5, 10%);
+  cursor: none;
+  pointer-events: none;
+  &:hover{
+    background: darken(#8ab5ffa5, 10%);
+  }
+}
+
+.btn-loading-circle{
+  width: 20px;
+  height: 20px;
+  border: 3px solid transparent;
+  border-bottom-color: #3f3f3f;
+
+  border-top-color: transparent!important;
+  border-right-color: transparent!important;
+
+  border-left-color: #3f3f3f;
+
+  border-radius: 100%;
+  animation: spin .5s linear infinite;
+}
+.dark .btn-loading-circle{
+  border-bottom-color: white;
+  border-left-color: white;
+}
+@keyframes spin{
+  0%{transform: rotate(0deg)}
+  100%{transform: rotate(360deg)}
+}

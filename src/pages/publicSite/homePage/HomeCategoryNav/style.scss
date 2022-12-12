@@ -1,0 +1,35 @@
+
+.category-dropdown{
+    @apply absolute shadow-2xl rounded-lg;
+    padding: 20px 10px;
+    transition: all .4s ease-in;
+    top: 100%;
+    justify-content: space-between;
+    background: white;
+    display: flex;
+
+    &__submenu-panel{
+        position: relative;
+        &__right{
+            padding: 0px 30px;
+            h4{
+                @apply hover:bg-green-500/10 hover:text-green-450 rounded;
+                white-space: nowrap;
+                cursor: pointer;
+                padding: 5px;
+            }
+        }
+
+        .category-sub-item{
+            @apply p-2 rounded
+        }
+        .active-category-sub-item{
+            @apply bg-green-500/10 text-green-450;
+            h4{
+                @apply font-semibold
+            }
+        }
+
+    }
+
+}

@@ -1,0 +1,23 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer{
+    :root{
+        --bg-primary-light: #f8f8f8;
+        --bg-primary-dark: #161616;
+        --primary: rgb(34, 197, 94);
+        --secondary: rgb(77, 98, 231);
+    }
+}
+
+body {
+  margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

@@ -1,37 +1,25 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-.idea
-
-client/.gita
-client/antd/node_modules
-client/node_modules
-client/src/asserts/fontawesome-pro-5.14.0-web
-client/images
-client/public/static
-client/dist
-client/.vscode
-client/.idea
-client/gallery.html
-client/src/storeData.json
-client/README.MD
-
-
-server/.gita
-server/node_modules
-server/dist
-server/dump.rdb
-server/.idea
-server/deploy.sh
-server/.env
-server/src/static
-server/public
-server/src/db.json
-server/src/config
-server/README.MD
-
-
-# Local Netlify folder
 node_modules
-server/.netlify
-.netlify
+dist
+dist-ssr
+*.local
 
-bac
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+public
