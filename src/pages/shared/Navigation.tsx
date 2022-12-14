@@ -12,7 +12,8 @@ import Dropdown from "components/Dropdown/Dropdown";
 import {Badge} from "components/UI";
 import {logoutAction} from "actions/authAction";
 
-const Navigation = ({ admin }) => {
+const Navigation = ({ auth }) => {
+
     const location = useLocation();
     const dispatch = useDispatch();
 
@@ -104,9 +105,9 @@ const Navigation = ({ admin }) => {
                             onMouseLeave={() => setState({ ...state, openDropdown: "" })}
                         >
                             <div className="">
-                                {admin && admin.avatar ? (
+                                {auth && auth.avatar ? (
                                     <div className="w-9">
-                                        <img className="rounded-full" src={staticImagePath(admin.avatar)} alt="" />
+                                        <img className="rounded-full" src={staticImagePath(auth.avatar)} alt="" />
                                     </div>
                                 ) : (
                                     <Circle className="hover:!bg-gray-100 bg-transparent">
@@ -117,12 +118,12 @@ const Navigation = ({ admin }) => {
 
                             <Suspense fallback={<h1>loading</h1>}>
                                 <AuthDropdown
-                                    auth={admin}
+                                    auth={auth}
                                     className="right-0 top-12 p-4 !shadow-xl rounded-xl"
                                     isShow={state.openDropdown === "admin"}
                                 >
                                     <div>
-                                        {admin ? (
+                                        {auth ? (
                                             <>
                                                 <li className="text-xs pb-2">
                                                     <Link to="/settings">Settings</Link>
@@ -132,7 +133,7 @@ const Navigation = ({ admin }) => {
                                         ) : (
                                             <>
                                                 <li className="text-xs">
-                                                    <Link to="/admin/login" state={{ redirect: location.pathname }}>Sign In</Link>
+                                                    <Link to="/join/login" state={{ redirect: location.pathname }}>Sign In</Link>
                                                 </li>
                                             </>
                                         )}

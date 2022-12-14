@@ -369,6 +369,14 @@ function Navigation(props) {
                                                                         <Link to={`/admin/dashboard`}>Admin Dashboard</Link>
                                                                     </Menu.Item>
                                                                 )}
+
+                                                                {auth.roles.includes(Roles.SELLER) && (
+                                                                    <Menu.Item className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
+                                                                        <BiUser />
+                                                                        <Link to={`/seller/dashboard`}>Seller Dashboard</Link>
+                                                                    </Menu.Item>
+                                                                )}
+
                                                                 {auth.roles.includes(Roles.CUSTOMER) && (
                                                                     <Menu.Item className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
                                                                         <BiUser />
