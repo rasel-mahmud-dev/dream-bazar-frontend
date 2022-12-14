@@ -1,12 +1,12 @@
 import { Menu, Popup } from "UI/index";
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { Link } from "react-router-dom";
 import staticImagePath from "src/utills/staticImagePath";
 import Dropdown from "components/Dropdown/Dropdown";
 import Backdrop from "components/UI/Backdrop/Backdrop";
 import Modal from "components/UI/Modal/Modal";
 import Image from "UI/Image/Image";
-import "./style.scss"
+import "./style.scss";
 
 const { SubMenu } = Menu;
 
@@ -26,6 +26,35 @@ const HomeCategoryNav = () => {
             label: "Top Offer",
             logo: "f15c02bfeb02d15d.png",
             name: "kj98759e347",
+            sub_menu: [
+                {
+                    label: "Computer Components",
+                    logo: "",
+                    name: "computer components",
+                    sub_menu: [
+                        { label: "All", name: "all" },
+                        { label: "Motherboard", name: "Motherboard" },
+                        { label: "Ram", name: "ram" },
+                        { label: "Processor", name: "processor" },
+                        { label: "SSD", name: "ssd" },
+                        { label: "Powersupply", name: "powersupply" },
+                        { label: "Casing", name: "casing" },
+                    ],
+                },
+                {
+                    label: "Desktop PCs",
+                    name: "desktop pcs",
+                    sub_menu: [
+                        { label: "All In One PCs", id: "all in one pc" },
+                        { label: "Mini PCs", id: "mini pcs" },
+                        { label: "Tower PCs", id: "tower pcs" },
+                    ],
+                },
+                {
+                    label: "Laptops",
+                    name: "laptop-store",
+                },
+            ],
         },
         {
             label: "Computers",
@@ -463,307 +492,145 @@ const HomeCategoryNav = () => {
 
     const [subMenuIds, setSubMenuIds] = React.useState([]);
 
+    let [dropdownStyle, setDropdownStyle] = useState({
+        left: 0,
+        transform: 'translateX(-50%)'
+    })
+
     const [openSubMenuName, setOpenSubMenuName] = useState<string>("");
 
-    // React.useEffect(()=>{
-    //   setMoreHomeNavData({
-    //     name: "Men's Top Wear",
-    //     title: "MORE IN MEN'S TOP WEAR",
-    //     items: [
-    //       {label: "All", name: "All"},
-    //       {label: "Men's T-Shirts", name: "Men's T-Shirts"},
-    //       {label: "Men's Casual Shirts", name: "Men's Casual Shirts"},
-    //       {label: "Men's Formal Shirts", name: "Men's Formal Shirts"},
-    //       {label: "Men's Kurtas", name: "Men's Kurtas"},
-    //       {label: "Men's Ethnic Sets", name: "Men's Ethnic Sets"},
-    //       {label: "Men's Blazers", name: "Men's Blazers"},
-    //       {label: "Men's Raincoat", name: "Men's Raincoat"},
-    //       {label: "Men's Windcheaters", name: "Men's Windcheaters"},
-    //       {label: "Men's Suit", name: "Men's Suit"},
-    //       {label: "Men's Fabrics", name: "Men's Fabrics"}
-    //     ]
-    //   })
-    // }, [])
-    //
-    //
+    const dropdownRef = useRef<HTMLDivElement>()
 
-    function handleMouseDown(nav, type, e) {
-        if (type === "enter") {
-            // console.log("parent mouse enter")
 
-            if (nav.sub_menu) {
-                if (!moreHomeNavData) {
-                    if (nav.sub_menu[0].sub_menu) {
-                        setMoreHomeNavData({
-                            title: "MORE ON IN " + nav.sub_menu[0].name,
-                            name: nav.sub_menu[0].id,
-                            items: nav.sub_menu[0].sub_menu,
-                        });
-                    }
-                }
+    // assume min width of dropdown panel
+    const MAX_DROPDOWN_WIDTH = 288;
+
+
+    function handleClickSubMenu(e:MouseEvent, section: any) {
+
+        // target element(category item) browser x distance;
+        let offsetLeft = e.target.offsetLeft;
+
+        // check if category item x position is greater than dropdown width than set dropdown position as category item position.
+        if(offsetLeft > MAX_DROPDOWN_WIDTH){
+
+            // out of x right viewport;
+            if(offsetLeft + MAX_DROPDOWN_WIDTH > window.innerWidth){
+                setDropdownStyle({ transform: 'translateX(-100%)', left: window.innerWidth - 50})
+            } else {
+                setDropdownStyle({ transform: 'translateX(-50%)', left: offsetLeft})
             }
-            // setOpenItemId(id)
-            setOpenDropdownItem_id(nav.id);
-        } else {
-            setOpenDropdownItem_id(-1);
-            // setOpenItemId(-1)
-            // setSubMenuIds([])
-            setMoreHomeNavData(null);
+
+        } else{
+            setDropdownStyle({ left: "auto", transform: 'translateX(0)'})
         }
-    }
 
-    function handleClickSubMenu(section) {
-        if(!section) return;
 
-        setOpenDropdownName(section.name)
+        if (!section) return;
 
-        if(section.sub_menu){
-            let subSub = section.sub_menu[0]
-            if(subSub) {
-                setOpenSubMenuName(subSub.name)
+        setOpenDropdownName(section.name);
+
+        if (section.sub_menu) {
+            let subSub = section.sub_menu[0];
+            if (subSub) {
+                setOpenSubMenuName(subSub.name);
             }
         }
     }
 
-    function handleMouseEnterOnSubCategory(subCat){
-        setOpenSubMenuName(subCat.name)
-    }
 
-    // function renderSubCatMenu(d){
-    //   const popupStyle = {
-    //     position: "absolute",
-    //     zIndex: 100,
-    //     right: "50%",
-    //     transform: `translateX(50%)`
-    //   }
-    //   let sub = d
-    //   if(sub && sub.sub_menu){
-    //     return (
-    //       <Popup style={popupStyle} inProp={d.id === openItemId}>
-    //         <Menu
-    //           selectedKeys={["mail"]}
-    //           defaultOpenKeys={subMenuIds}
-    //         >
-    //           {/*{ sub.sub_menu.map((s)=>(*/}
-    //           {/*  s.sub_menu ? (*/}
-    //           {/*    <SubMenu*/}
-    //           {/*      key={s.id}*/}
-    //           {/*      onMouseOver={()=>handleClickSubMenu(s.id, "enter")}*/}
-    //           {/*      onMouseLeave={()=>handleClickSubMenu(s.id, "leave")}*/}
-    //           {/*      title={*/}
-    //           {/*        <span>*/}
-    //           {/*            <i className="fa fa-heart" />*/}
-    //           {/*            <span>{s.name}</span>*/}
-    //           {/*          </span>*/}
-    //           {/*      }>*/}
-    //           {/*      {s.sub_menu && s.sub_menu.map(nsb=>(*/}
-    //           {/*        <Menu.Item*/}
-    //           {/*          key={nsb.id}>*/}
-    //           {/*          <Link*/}
-    //           {/*            to={`/p?cat=${d.id}&cat_tree=${nsb.id}`}>*/}
-    //           {/*            {nsb.name}*/}
-    //           {/*          </Link>*/}
-    //           {/*        </Menu.Item>*/}
-    //           {/*      ))}*/}
-    //           {/*    */}
-    //           {/*    </SubMenu>*/}
-    //           {/*  )  : (*/}
-    //           {/*    <Menu.Item*/}
-    //           {/*      icon="fa fa-heart"*/}
-    //           {/*      key={s.id}>*/}
-    //           {/*      <Link to={`/p?cat=${s.id}&cat_tree=${d.id}`}>{s.name}</Link>*/}
-    //           {/*    </Menu.Item>*/}
-    //           {/*  )*/}
-    //           {/*))*/}
-    //           {/*}*/}
-    //         </Menu>
-    //       </Popup>
-    //     )
-    //   }
-    // }
-    //
-    // function renderDropdownPanel(nav){
-    //
-    //   function expandMoreNavHandler(menu){
-    //     if(menu && menu.sub_menu) {
-    //       setMoreHomeNavData({
-    //         name: menu.name,
-    //         ideal: menu.ideal ? menu.ideal : null,
-    //         title: 'MORE ON IN ' + menu.name,
-    //         items: menu.sub_menu
-    //       })
-    //     } else {
-    //       setMoreHomeNavData(null)
-    //     }
-    //   }
-    //
-    //   function collapseDropdownSubMenu(subMenu, e){
-    //     // setMoreHomeNavData(null)
-    //     e.stopPropagation()
-    //     // console.log("diff.........")
-    //   }
-    //
-    //   function expandDropdownSubMenu(subMenu, e){
-    //     e.stopPropagation()
-    //     if(subMenu.sub_menu){
-    //       setMoreHomeNavData({
-    //         title: 'MORE ON IN ' + subMenu.name,
-    //         name: subMenu.id,
-    //         items: subMenu.sub_menu
-    //       })
-    //     } else {
-    //       setMoreHomeNavData(null)
-    //     }
-    //   }
-    //
-    //   function renderLink(nav, subName) {
-    //     let forCategory = ""
-    //     subName.for_category && subName.for_category.map(ct=>{
-    //       forCategory += `${ct}--`
-    //     })
-    //     let to;
-    //     if(subName.ideal){
-    //       if(subName.cat_id) {
-    //         to = `/${subName.cat_id}&catTree=${subName.id}&ideal=${subName.ideal}`
-    //       } else {
-    //         to = `/${nav.id}&catTree=${subName.id}&ideal=${subName.ideal}`
-    //       }
-    //     } else {
-    //       if(subName.cat_id) {
-    //         to = `/${subName.cat_id}&catTree=${subName.id}`
-    //       } else {
-    //         to = `/${subName.id}&catTree=${subName.id}`
-    //       }
-    //     }
-    //     if(forCategory){
-    //       to = to + `&category=${forCategory.slice(0, forCategory.length - 2)}`
-    //     }
-    //
-    //     return <Link to={to}>{subName.name}</Link>
-    //   }
-    //
-    //
-    //   if(nav.id === openDropdownItem_id && nav.sub_menu){
-    //     return (
-    //       <div className="dropdown_panel__wrapper">
-    //         <div className="dropdown_panel">
-    //           <ul className="dropdown_panel--sub_menu dropdown_panel--left">
-    //             {nav.sub_menu && nav.sub_menu.map(subName=>{
-    //               return (
-    //                 <div
-    //                     key={subName.id}
-    //                     onMouseEnter={(e)=>expandDropdownSubMenu(subName, e)}
-    //                     onMouseLeave={(e)=>collapseDropdownSubMenu(subName, e)}
-    //                     className={["dropdown_panel--item", moreHomeNavData && moreHomeNavData.id === subName.id ? "dropdown_panel--item--active" : ""].join(" ")}
-    //                     onClick={()=>expandMoreNavHandler(subName)} >
-    //                     {/*{ subName.ideal*/}
-    //                     {/*  ? <Link to={`/p?cat=${nav.id}&cat_tree=${subName.id}&ideal=${subName.ideal}`}>{subName.name}</Link>*/}
-    //                     {/*  : <Link to={`/p?cat=${nav.id}&cat_tree=${subName.id}`}>{subName.name}</Link>*/}
-    //                     {/*}*/}
-    //                     {renderLink(nav, subName)}
-    //                     { subName.sub_menu &&  <i className="far fa-chevron-right" />}
-    //                 </div>
-    //               )
-    //             })}
-    //           </ul>
-    //           { moreHomeNavData && <ul className="dropdown_panel--sub_menu_center_div">
-    // 						<div className="top_arrow"/>
-    // 					</ul> }
-    //           { moreHomeNavData && <ul className="dropdown_panel--sub_menu dropdown_panel--more  ">
-    // 						<h5 className="dropdown_panel--sub_menu--header">{moreHomeNavData.title}</h5>
-    //             { moreHomeNavData.items && moreHomeNavData.items.length > 0 && moreHomeNavData.items.map((moreNav: any, index)=>(
-    //               <div className="dropdown_panel--item" key={index}>
-    //                 { moreNav.ideal ? (
-    //                   <Link to={`/p/${nav.id}/?catTree=${moreNav.id}&ideal=${moreNav.ideal}`}>{moreNav.name}</Link>
-    //                 ) : (
-    //                   <Link to={`/p/${nav.id}?catTree=${moreNav.id}`}>{moreNav.name}</Link>
-    //                 )
-    //                 }
-    //               </div>
-    //             ))}
-    //           </ul> }
-    //         </div>
-    //       </div>
-    //     )
-    //   }
-    // }
+
+    function handleMouseEnterOnSubCategory(subCat) {
+        setOpenSubMenuName(subCat.name);
+    }
 
     return (
         <div className="bg-white py-4 dark:bg-neutral-800 dark:text-white shadow-md">
-            <div className="flex items-center justify-between max-w-8xl mx-auto px-4">
+            <div className="flex items-center justify-between max-w-8xl mx-auto px-4 relative">
                 {homeNavData.map((section) => (
-                    <div key={section.name} className="relative">
-                        <div className="flex flex-col items-center" onClick={()=>handleClickSubMenu(section)}>
-                            <Image className="w-20" src={staticImagePath(section.logo)} />
-                            <h4 className="text-sm font-medium">{section.label}</h4>
+                    <div key={section.name}  onClick={(e)=> handleClickSubMenu(e, section)}>
+                        <div className="flex flex-col items-center pointer-events-none">
+                            <Image
+                                className="w-20"
+                                src={staticImagePath(section.logo)}
+                            />
+                            <h4 className="text-sm font-medium">
+                                {section.label}
+                            </h4>
                         </div>
 
-                        {openDropdownName ===  section.name && (
-                            <div className="category-dropdown">
-                                <div className="relative">
-                                    { section?.sub_menu?.map((subMenu)=>(
-                                        <div className="category-dropdown__submenu-panel" onMouseEnter={()=>handleMouseEnterOnSubCategory(subMenu)}>
-                                            <div className={`category-sub-item ${openSubMenuName === subMenu.name  ? "active-category-sub-item": ""}`}>
-                                                <h4 onClick={()=>setOpenSubMenuName(subMenu.name)} className="whitespace-nowrap cursor-pointer text-sm font-medium">{subMenu.label}</h4>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <div className='category-dropdown__submenu-panel__right'>
-                                    {section?.sub_menu.map(subMenu=>subMenu.name === openSubMenuName && (
-                                        <div>
-                                            <div>
-                                                {subMenu?.sub_menu?.map(subSubMenu=>(
-                                                    <div>
-                                                        <h4>{subSubMenu.label}</h4>
+                        {openDropdownName === section.name &&
+                            section?.sub_menu &&
+                            section?.sub_menu.length > 0 && (
+                                <div className="category-dropdown" style={dropdownStyle} ref={dropdownRef}>
+                                    <div className="relative">
+                                        {section?.sub_menu &&
+                                            section?.sub_menu?.map(
+                                                (subMenu) => (
+                                                    <div
+                                                        className="category-dropdown__submenu-panel"
+                                                        onMouseEnter={() =>
+                                                            handleMouseEnterOnSubCategory(
+                                                                subMenu
+                                                            )
+                                                        }
+                                                    >
+                                                        <div
+                                                            className={`category-sub-item ${
+                                                                openSubMenuName ===
+                                                                subMenu.name
+                                                                    ? "active-category-sub-item"
+                                                                    : ""
+                                                            }`}
+                                                        >
+                                                            <h4
+                                                                onClick={() =>
+                                                                    setOpenSubMenuName(
+                                                                        subMenu.name
+                                                                    )
+                                                                }
+                                                                className="whitespace-nowrap cursor-pointer text-sm font-medium"
+                                                            >
+                                                                {subMenu.label}
+                                                            </h4>
+                                                        </div>
                                                     </div>
-                                                ))}
+                                                )
+                                            )}
+                                    </div>
+
+                                    {section.sub_menu &&
+                                        section.sub_menu.length > 0 && (
+                                            <div className="category-dropdown__submenu-panel__right">
+                                                {section.sub_menu.map(
+                                                    (subMenu) =>
+                                                        subMenu.name ===
+                                                            openSubMenuName && (
+                                                            <div>
+                                                                <div>
+                                                                    {subMenu?.sub_menu?.map(
+                                                                        (
+                                                                            subSubMenu
+                                                                        ) => (
+                                                                            <div>
+                                                                                <h4>
+                                                                                    {
+                                                                                        subSubMenu.label
+                                                                                    }
+                                                                                </h4>
+                                                                            </div>
+                                                                        )
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                )}
                                             </div>
-                                        </div>
-                                    ))}
+                                        )}
                                 </div>
-
-                            </div>
-                        )}
-
+                            )}
                     </div>
                 ))}
-
-                {/*{ homeNavData.map((navData, i)=>{*/}
-                {/*  return (*/}
-                {/*    <li*/}
-                {/*        key={i}*/}
-                {/*        onMouseLeave={(e)=>handleMouseDown(navData, "leave", e)}*/}
-                {/*        onMouseOver={(e)=>handleMouseDown(navData, "enter", e)}*/}
-                {/*        className={`list-none cat_item`}>*/}
-                {/*      <div>*/}
-                {/*        { navData.type ? (*/}
-                {/*            <Link to={`/p/s?cat=${navData.id}`}>*/}
-                {/*          <div className="nav-logo">*/}
-                {/*            <img src={staticImagePath(navData.logo)}  alt={navData.name}/>*/}
-                {/*          </div>*/}
-                {/*        </Link>*/}
-                {/*        ) : (*/}
-                {/*            // <Link to={`/p?cat=${navData.id}&${navData.cat_tree ? 'cat_tree='+ navData.cat_tree: ''}`}>*/}
-                {/*            <div className="nav-logo">*/}
-                {/*          <img src={staticImagePath(navData.logo)}  alt={navData.name}/>*/}
-                {/*        </div>*/}
-                {/*            // </Link>*/}
-                {/*        )}*/}
-                {/*      </div>*/}
-                {/*      */}
-                {/*      <h4 className="item_name hidden md:block">*/}
-                {/*        { navData.type ? <Link className="item_link" to={`/p/s?cat=${navData.id}`}>{navData.name}</Link> :  navData.name }*/}
-                {/*        /!*<Link className="item_link" to={`/p?cat=${navData.id}&${navData.cat_tree ? 'cat_tree='+ navData.cat_tree: ''}`}>{navData.name}</Link>*!/*/}
-                {/*        { navData.sub_menu && <i className="fa fa-angle-down ml-3"/>}*/}
-                {/*      </h4>*/}
-                {/*      /!*{ renderSubCatMenu(navData)}*!/*/}
-                {/*      { renderDropdownPanel(navData) }*/}
-                {/*    </li>*/}
-                {/*  )*/}
-                {/*})*/}
-                {/*}*/}
             </div>
         </div>
     );
