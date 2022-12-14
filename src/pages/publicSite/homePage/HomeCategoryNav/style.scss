@@ -2,9 +2,7 @@
 .category-dropdown{
     @apply absolute shadow-2xl rounded-lg;
     padding: 20px 10px;
-    transition: all .4s ease-in;
     top: 100%;
-    //left: 50%;
     transform: translateX(-50%);
     justify-content: space-between;
     background: white;
@@ -35,3 +33,4 @@
     }
 
 }
+
