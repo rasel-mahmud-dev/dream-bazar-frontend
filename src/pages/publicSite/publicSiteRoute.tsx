@@ -33,8 +33,8 @@ const publicSiteRoute = {
 			element: <ProductFilterPage />,
 		},
 		{
-			path: "/customer/join",
-            element: <ExcludeAuthRoute scope={Scope.CUSTOMER_USER}><JoinHome /></ExcludeAuthRoute>,
+			path: "/join",
+            element: <ExcludeAuthRoute><JoinHome /></ExcludeAuthRoute>,
 			children: [
 				{ path: "login", element: <Login title="" /> },
 				{ path: "registration", element: <Registration /> },

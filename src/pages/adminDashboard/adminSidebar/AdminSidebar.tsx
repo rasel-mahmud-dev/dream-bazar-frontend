@@ -15,7 +15,7 @@ const AdminSidebar = ({auth, isOpenLeftBar}) => {
     const data = [
         {
             name: "Dashboard",
-            to: "/admin/dashboard",
+            to: "/admin/dashboard/dashboard",
             icon: <MdOutlineSpaceDashboard/>,
             iconClassName: "text-xl mr-1",
         },
@@ -53,27 +53,27 @@ const AdminSidebar = ({auth, isOpenLeftBar}) => {
         {
             section: "PRODUCT MANAGEMENT",
             items: [
-                {name: "Products", to: "/admin/products", icon: <BiCart/>},
-                {name: "Add", to: "/admin/products/new", icon: <BiPlus/>}
+                {name: "Products", to: "/admin/dashboard/products", icon: <BiCart/>},
+                {name: "Add", to: "/admin/dashboard/products/new", icon: <BiPlus/>}
             ],
         },
         {
             section: "CATEGORY MANAGEMENT",
             items: [
-                {name: "Categories", to: "/admin/categories", icon: <BiCart/>},
-                {name: "CategoryDetails", to: "/admin/category-details", icon: <BiCart/>}
+                {name: "Categories", to: "/admin/dashboard/categories", icon: <BiCart/>},
+                {name: "CategoryDetails", to: "/admin/dashboard/category-details", icon: <BiCart/>}
             ],
         },{
             section: "ATTRIBUTE MANAGEMENT",
             items: [
-                {name: "Attributes", to: "/admin/product-attribute", icon: <BsList/>},
-                // {name: "Add", to: "/admin/product-attribute/new", icon: <BiPlus/>}
+                {name: "Attributes", to: "/admin/dashboard/product-attribute", icon: <BsList/>},
+                // {name: "Add", to: "/admin/dashboard/product-attribute/new", icon: <BiPlus/>}
             ],
         },
         {
             section: "BRAND MANAGEMENT",
             items: [
-                {name: "Brands", to: "/admin/brands", icon: <BiCart/>}
+                {name: "Brands", to: "/admin/dashboard/brands", icon: <BiCart/>}
             ],
         },
         {

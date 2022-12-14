@@ -20,7 +20,7 @@ const Modal: FC<Props> = (props) => {
         className,
         isOpen,
         modalBaseClass = "my-modal",
-        timeout = 1000,
+        timeout = 2000,
         ...attributes
     } = props;
 

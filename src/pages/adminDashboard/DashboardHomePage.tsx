@@ -1,17 +1,20 @@
 import React from "react";
 import {BiCart, BiDollar, CgProductHunt} from "react-icons/all";
+import "./Dashboard.scss";
 
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Card from "UI/Form/Card/Card";
-import VisitorChart from "./visitorChart/VisitorChart"
+import VisitorChart from "./dashboardHome/visitorChart/VisitorChart"
+
 
 const AdminDashboardHome = () => {
-    
     const slats = [
         {icon: <BiDollar/>, value: "53,223,013,12", label: "Total Sales", iconClassName: "bg-orange-400 outline-orange-100", unit: "$"},
         {icon: <BiCart/>, value: "423", label: "Total Orders", iconClassName: "bg-green-400 outline-green-100"},
         {icon: <CgProductHunt/>, value: "2231", label: "Total Products", iconClassName: "bg-blue-400 outline-blue-100"}
     ];
+
+
     
     return (
         <div>
@@ -120,13 +123,13 @@ const data = [
 ];
 
 function BarChartDemo(){
-    
+
     let width = window.innerWidth - 20
-    
-    
+
+
     return (
         <Card className="bg-white shadow-xxs !px-0 overflow-x-auto">
-       
+
                 <h3 className="heading-4 mb-4 px-4">Business Analytics </h3>
             <BarChart
                 width={width}
@@ -144,13 +147,13 @@ function BarChartDemo(){
           <YAxis className="rounded-full" />
           <Tooltip />
                 {/*<Legend />*/}
-    
+
                 <Bar dataKey="pv" fill="#8884d8" />
           <Bar dataKey="uv" fill="#82ca9d"  />
-          
+
         </BarChart>
-        
-        
+
+
         </Card>
     )
 }

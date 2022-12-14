@@ -22,8 +22,10 @@ const ExcludeAuthRoute:FC<Props> = (props) => {
 	if (!authChecked) {
 		return <Loader className="flex justify-center mt-36" />;
 	}
+
+
  
-    let homePath = scope === Scope.CUSTOMER_USER  ? '/' :  '/' + scope.toLowerCase()
+    let homePath =   '/'
 
 	if (auth) {
 		return <Navigate to={homePath}/>;

@@ -4,11 +4,13 @@ import { Provider } from "react-redux"
 import './index.css'
 import createStore from "src/store"
 import AppContextProvider from "store/AppContext";
-import MyRoutes from "src/MyRoutes";
+
 
 import useToast from "src/hooks/useToast";
+import App from "src/App";
 
 const store = createStore()
+
 
 function MainComponent(props){
     const [_, ToastContainer] = useToast()
@@ -32,7 +34,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Provider store={store}>
             <AppContextProvider>
                 <MainComponent>
-                    <MyRoutes />
+                    <App />
                 </MainComponent>
             </AppContextProvider>
         </Provider>

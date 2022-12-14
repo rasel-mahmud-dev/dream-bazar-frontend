@@ -31,7 +31,7 @@ export const loginAction = async (userData, dispatch, scope: Scope, cb: (data: o
 }
 
 
-export const registrationAction = async (userData, scope: Scope, dispatch, cb: (data: object, errorMessage?: string) => void) => {
+export const registrationAction = async (userData,  dispatch, cb: (data: object, errorMessage?: string) => void) => {
     
     try {
         const {data, status} = await apis.post("/api/auth/registration", userData)
@@ -47,10 +47,10 @@ export const registrationAction = async (userData, scope: Scope, dispatch, cb: (
     
 }
 
-export const currentAuthAction = async (dispatch, scope: Scope, cb) => {
+export const currentAuthAction = async (dispatch,  cb) => {
     try {
      
-        let response = await getApi().get("/api/auth/current-auth?scope="+scope)
+        let response = await getApi().get("/api/auth/current-auth")
         if (response.status === 200) {
             cb && cb(null, response.data)
             loginHandler(response.data,  dispatch)

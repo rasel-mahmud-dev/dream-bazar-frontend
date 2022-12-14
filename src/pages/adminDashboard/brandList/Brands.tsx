@@ -75,6 +75,8 @@ const AllBrands = (props) => {
             ),
         },
     ];
+
+    console.log(adminBrands)
     
     return (
         <Card>
