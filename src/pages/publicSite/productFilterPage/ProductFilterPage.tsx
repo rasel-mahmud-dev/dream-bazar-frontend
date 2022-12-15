@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 // import json from "src/breadcrumbData.json"
-import { Pagination, Spin } from "UI/index";
+import {  Spin } from "UI/index";
+import Pagination from "components/Pagination/Pagination"
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import api from "src/apis";
 import apis from "src/apis";
@@ -273,6 +274,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 
 	useEffect(() => {
 		if (filters.category.selected || filters.category.allNestedIds.length > 0) {
+            const  {pagination} = filters
 			let data = {
 				categoryIds: [],
 				brands: filters.brands,
@@ -281,7 +283,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 				// sortBy,
 				paginate: {
 					currentPage: pagination ? pagination.currentPage : 1,
-					perPage: pagination ? pagination.perPage : 20,
+                    viewPerPage: pagination ? pagination.viewPerPage : 20,
 				},
 			};
 			let allCatName = "";
@@ -333,22 +335,27 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
                 setHttpResponse(p=>({...p, loading: false}))
             })
             
-				// console.log(data)
-				// dispatch({
-				//   type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
-				//   payload: data.products
-				// })
-				// dispatch({
-				//   type: ACTION_TYPES.FETCH_FILTER_PRODUCTS,
-				//   payload: data.products
-				// })
-				// dispatch({
-				//   type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
-				//   payload: data.total
-				// })
-			;
+            // console.log(data)
+            // dispatch({
+            //   type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
+            //   payload: data.products
+            // })
+            // dispatch({
+            //   type: ACTION_TYPES.FETCH_FILTER_PRODUCTS,
+            //   payload: data.products
+            // })
+            // dispatch({
+            //   type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
+            //   payload: data.total
+            // })
 		}
-	}, [filters.category.selected, filters.category.allNestedIds]);
+	}, [
+        filters.category.selected,
+        filters.category.allNestedIds,
+        filters.pagination.currentPage,
+        filters.pagination.viewPerPage
+    ]);
+
 
 	// console.log(filters)
 
@@ -457,22 +464,11 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 	}
 
 	function handlePagination(pageNumber) {
-		// let updatedPaginations = [...paginations]
-		// let findex = updatedPaginations.findIndex(pg => pg.where === "filter_products_page")
-		// if (findex !== -1) {
-		//     updatedPaginations[findex].currentPage = pageNumber
-		// } else {
-		//     updatedPaginations.push({
-		//         currentPage: pageNumber,
-		//         where: "filter_products_page",
-		//         perPage: 3
-		//     })
-		//
-		// }
-		// dispatch({
-		//     type: "SET_PAGINATIONS",
-		//     payload: updatedPaginations
-		// })
+
+		dispatch({
+		    type: ACTION_TYPES.SET_FILTER_PAGINATION,
+		    payload: {currentPage: pageNumber}
+		})
 	}
 
 	// React.useEffect(() => {
@@ -506,7 +502,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 		return null;
 	}
 
-	let pagination = getPagination(paginations, PaginationWhereEnum.filter_products_page);
+	// let pagination = getPagination(paginations, PaginationWhereEnum.filter_products_page);
 
 	function handleClickSidebarBackdrop(e) {
 		dispatch({
@@ -518,78 +514,80 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 		setHttpResponse((p) => ({ ...p, loading: true }));
 	}
 
+
 	return (
-		<div className="min-h-screen">
-			<SEO title={`p/${params.pId}/${params.treeId}`} description="Product filter" />
+        <div className="min-h-screen">
+            <SEO title={`p/${params.pId}/${params.treeId}`} description="Product filter" />
 
-			{httpResponse.loading && (
-				<div className="fixed w-full h-full bg-black/40 top-0 left-0 z-500">
-						<Spin className="absolute left-1/2 top-40" />
-				</div>
-			)}
+            {httpResponse.loading && (
+                <div className="fixed w-full h-full bg-black/40 top-0 left-0 z-500">
+                    <Spin className="absolute left-1/2 top-40" />
+                </div>
+            )}
 
-			<div className="product-filter-page--layout">
-				<Sidebar isOpen={isOpenLeftBar} position="left" onClickOnBackdrop={handleClickSidebarBackdrop}>
-					<div className="">
-						{/**** sidebar fixed navigation ******/}
-						<div className="sidebar-fixed-bar top-0 bg-white py-3 px-4 md:hidden">
-							<div className="logo flex items-center  ">
-								<div className="md:hidden block mr-3 ">
-									<Circle onClick={handleClickSidebarBackdrop}>
-										<FaAngleLeft className="text-lg" />
-									</Circle>
-								</div>
+            <div className="product-filter-page--layout">
+                <Sidebar isOpen={isOpenLeftBar} position="left" onClickOnBackdrop={handleClickSidebarBackdrop}>
+                    <div className="">
+                        {/**** sidebar fixed navigation ******/}
+                        <div className="sidebar-fixed-bar top-0 bg-white py-3 px-4 md:hidden">
+                            <div className="logo flex items-center  ">
+                                <div className="md:hidden block mr-3 ">
+                                    <Circle onClick={handleClickSidebarBackdrop}>
+                                        <FaAngleLeft className="text-lg" />
+                                    </Circle>
+                                </div>
 
-								<Link to="/seller/dashboard" className="flex items-center">
-									<img src="/public/logo-2.png" alt="" className="w-9 md:w-11" />
-									<h4 className="text-neutral-900 font-semibold text-lg md:text-xl   md:block">Dream Bazar</h4>
-								</Link>
-							</div>
-						</div>
+                                <Link to="/seller/dashboard" className="flex items-center">
+                                    <img src="/public/logo-2.png" alt="" className="w-9 md:w-11" />
+                                    <h4 className="text-neutral-900 font-semibold text-lg md:text-xl   md:block">Dream Bazar</h4>
+                                </Link>
+                            </div>
+                        </div>
 
-						{/**** sidebar content ******/}
-						<div className="mt-20 md:mt-4 px-3">
-							{/*{ss}*/}
-							<CategoryList onChangeCategory={handleChangeCategory} />
-							<BrandList />
-						</div>
-					</div>
-				</Sidebar>
+                        {/**** sidebar content ******/}
+                        <div className="mt-20 md:mt-4 px-3">
+                            {/*{ss}*/}
+                            <CategoryList onChangeCategory={handleChangeCategory} />
+                            <BrandList />
+                        </div>
+                    </div>
+                </Sidebar>
 
-				<div className="content w-full content-container bg-body">
-					{/*<RenderBreadcrumb*/}
-					{/*  dispatch={dispatch}*/}
-					{/*  selectedCatSections={selectedCatSections}*/}
-					{/*/>*/}
+                <div className="content w-full content-container bg-body">
+                    {/*<RenderBreadcrumb*/}
+                    {/*  dispatch={dispatch}*/}
+                    {/*  selectedCatSections={selectedCatSections}*/}
+                    {/*/>*/}
 
-					{/*<h4>{currentNestedSubCategory._id && currentNestedSubCategory._id }</h4>*/}
-					{/**/}
-					<div className="row my-5">
-						{/*<h4>{currentCategorySelected.name}<span className="sm-text">*/}
-						{/*  {`(Showing 1 – ${(pagination.perPage*pagination.currentPage) > totalFilterAbleProductCount ? totalFilterAbleProductCount : pagination.perPage*pagination.currentPage} products of ${totalFilterAbleProductCount} products)`}*/}
-						{/*  </span>*/}
-						{/*</h4>*/}
-					</div>
+                    {/*<h4>{currentNestedSubCategory._id && currentNestedSubCategory._id }</h4>*/}
+                    {/**/}
+                    <div className="row my-5">
+                        <h4>{filters.category?.selected?.name}<span className="sm-text">
+                          {`(Showing ${filters.pagination.viewPerPage*filters.pagination.currentPage} products of ${filters.pagination.totalItems} products)`}
+                          </span>
+                            <span className="sm-text">Page {filters.pagination.currentPage}</span>
+                        </h4>
+                    </div>
 
-					<div className="row my-5 sorting_btn_section">
-						Sort By
-						{renderSortingBtn()}
-					</div>
+                    <div className="row my-5 sorting_btn_section">
+                        Sort By
+                        {renderSortingBtn()}
+                    </div>
 
-					{renderProducts()}
+                    {renderProducts()}
 
-					<div>
-						<Pagination
-							totalItem={totalProduct}
-							perPage={paginate.perPage}
-							currentPage={paginate.currentPage}
-							onChange={handlePagination}
-						/>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+                    <div>
+                        <Pagination
+                            totalItem={filters.pagination.totalItems}
+                            perPage={filters.pagination.viewPerPage}
+                            onChange={handlePagination}
+                            pageNumber={filters.pagination.currentPage}
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 	// return (
 	//   <h1>sdfsddddd</h1>
 	// )

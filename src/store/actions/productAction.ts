@@ -47,7 +47,7 @@ export function filterProductsAction(payload, isCount: boolean, dispatch){
         brands,
         filteredAttributes,
         sortBy,
-        paginate,
+        paginate
     } = payload
     
     let attributes = {}
@@ -85,7 +85,7 @@ export function filterProductsAction(payload, isCount: boolean, dispatch){
         sortBy: sortBy && sortBy.length > 0 ? sortBy : [],
         // category_id: currentCategorySelected._id,
         pageNumber: paginate && paginate.currentPage,
-        perPage: paginate && paginate.perPage
+        perPage: paginate && paginate.viewPerPage
     }
     
     
@@ -108,9 +108,12 @@ export function filterProductsAction(payload, isCount: boolean, dispatch){
             let {status, data} = await api.post(`/api/products/filter/v2`, bodyData)
             if (status === 200) {
                 dispatch({
-                  type: ACTION_TYPES.FETCH_FILTER_PRODUCTS,
-                  payload: data
-                })
+                    type: ACTION_TYPES.FETCH_FILTER_PRODUCTS,
+                    payload: {
+                        products: data.products,
+                        totalItems: data?.totalItems
+                    },
+                });
             }
             resolve(data)
         } catch (ex){

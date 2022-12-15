@@ -1,0 +1,19 @@
+
+.paginate-item{
+    @apply w-10 h-10 hover:bg-primary-500
+    cursor-pointer transition
+    transition-colors hover:text-white
+    bg-primary-500/10
+    font-semibold text-primary-500
+    text-sm rounded-full
+    flex justify-center
+    items-center select-none;
+}
+
+.paginate-item svg{
+    /*width: 7px;*/
+}
+
+.paginate-active{
+    @apply bg-primary-500 font-semibold text-white
+}

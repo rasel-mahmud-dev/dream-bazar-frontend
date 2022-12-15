@@ -56,7 +56,7 @@ const AllProducts = (props) => {
         }
        
         // send toke for different scope user
-		getApi(Scope.ADMIN_DASHBOARD).patch(`/api/product/${productId}`, formData)
+		getApi().patch(`/api/product/${productId}`, formData)
             .then(({data, status}) => {
                 let updatedProducts = [...products]
                 let updatedProductIndex = updatedProducts.findIndex(p=>p._id === productId)
@@ -157,7 +157,7 @@ const AllProducts = (props) => {
 			<div className="card">
 				<Table
 					fixed={true}
-					scroll={{ x: 700, y: 600 }}
+					scroll={{ x: 900, y: 600 }}
 					dataSource={products ? products : []}
 					columns={columns}
 					tbodyClass={{
