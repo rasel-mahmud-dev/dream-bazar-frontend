@@ -246,6 +246,7 @@ const initialState: ProductStateType = {
     },
 };
 
+
 const productReducer = (state: ProductStateType = initialState, action) => {
     let updatedState: ProductStateType = { ...state };
     switch (action.type) {

@@ -53,8 +53,7 @@ const BrandList = () => {
         //     && filters.category.selected
         //     && brandsForCategory[filters.category.selected.name]
         //     && brandsForCategory[filters.category.selected.name]
-    
-        console.log(brandsForCategory)
+
     }, [filters.category, brandsForCategory])
     
 

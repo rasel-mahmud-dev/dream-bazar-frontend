@@ -1,7 +1,7 @@
 import {useEffect,  useState} from "react";
 
-import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
-import {FaAngleRight, FaTimes} from "react-icons/all";
+import { useNavigate, useParams, useSearchParams} from "react-router-dom";
+import { FaTimes} from "react-icons/all";
 import {ACTION_TYPES, CategoryType} from "store/types";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
@@ -21,7 +21,7 @@ function CategoryList(props) {
     
     const l = useLanguage()
     
-    const { flatCategories, nestedCategoriesCache, filters, brands } = useSelector((state: RootState)=>state.productState)
+    const { flatCategories } = useSelector((state: RootState)=>state.productState)
     let [searchParams, setSearchParams] = useSearchParams();
     
     let catTree = searchParams.get("catTree")
@@ -35,49 +35,6 @@ function CategoryList(props) {
     const [sidebarCategory, setSidebarCategory] = useState<{[key: string]: CategoryType[]} | null>({
         // "1": [
         //     {
-        //         "id": "60df5e546419f56b97610600",
-        //         "name": "Electronics",
-        //         "parentId": "0",
-        //         "isProductLevel": 1,
-        //         "ideals": null,
-        //         expand: true,
-        //     },
-        //     {
-        //         "id": "60df5e546419f56b97610601",
-        //         "name": "Clothes",
-        //         "parentId": "0",
-        //         "isProductLevel": 1,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "6148a0bd841259e445116606",
-        //         "name": "Home & Furniture",
-        //         "parentId": "0",
-        //         "isProductLevel": 1,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "6148a0bd841259e445116607",
-        //         "name": "Personal Care Appliances",
-        //         "parentId": "0",
-        //         "isProductLevel": 1,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "6148a0bd841259e445116608",
-        //         "name": "Watches and Watch Accessories",
-        //         "parentId": "0",
-        //         "isProductLevel": 1,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "616ed4e947cdd777fb383273",
-        //         "name": "Footwear",
-        //         "parentId": "0",
-        //         "isProductLevel": 1,
-        //         "ideals": null
-        //     },
-        //     {
         //         "id": "6170784f55f4a0b4747a30e3",
         //         "name": "Beauty and Grooming",
         //         "parentId": "0",
@@ -86,83 +43,6 @@ function CategoryList(props) {
         //     }
         // ],
         // "2": [
-        //     {
-        //         "id": "60e00694402ddf2ba7d26d43",
-        //         "name": "Computer and Laptop Accessories",
-        //         "parentId": "60df5e546419f56b97610600",
-        //         "isProductLevel": 1,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "60e0131fc4db28b79bb36aa3",
-        //         "name": "Mobiles and Tablet",
-        //         "parentId": "60df5e546419f56b97610600",
-        //         "isProductLevel": 1,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "613ae2344b72d984efe8c45b",
-        //         "name": "monitors",
-        //         "parentId": "60df5e546419f56b97610600",
-        //         "isProductLevel": 0,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "61489843841259e4451165e0",
-        //         "name": "Audio & Video",
-        //         "parentId": "60df5e546419f56b97610600",
-        //         "isProductLevel": 1,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "61489c1f841259e4451165e7",
-        //         "name": "Cameras & Accessories",
-        //         "parentId": "60df5e546419f56b97610600",
-        //         "isProductLevel": 1,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "61489d4e841259e4451165f2",
-        //         "name": "Television.",
-        //         "parentId": "60df5e546419f56b97610600",
-        //         "isProductLevel": 0,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "61489d4e841259e4451165f3",
-        //         "name": "Washing Machine",
-        //         "parentId": "60df5e546419f56b97610600",
-        //         "isProductLevel": 1,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "61489d4e841259e4451165f4",
-        //         "name": "Refrigerators",
-        //         "parentId": "60df5e546419f56b97610600",
-        //         "isProductLevel": 0,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "61489d4e841259e4451165f5",
-        //         "name": "Kitchen Appliances",
-        //         "parentId": "60df5e546419f56b97610600",
-        //         "isProductLevel": 1,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "61489e7a841259e4451165f9",
-        //         "name": "Home Appliances",
-        //         "parentId": "60df5e546419f56b97610600",
-        //         "isProductLevel": 1,
-        //         "ideals": null
-        //     },
-        //     {
-        //         "id": "616f14298ae9a90aa4434f75",
-        //         "name": "DTH",
-        //         "parentId": "60df5e546419f56b97610600",
-        //         "isProductLevel": 0,
-        //         "ideals": null
-        //     },
         //     {
         //         "id": "617080e473b3851a1e7dbb71",
         //         "name": "Computer and Laptop",
@@ -197,27 +77,26 @@ function CategoryList(props) {
     
     
     useEffect(()=>{
-    
-        
         (async function(){
             let c = await fetchFlatCategoriesAction(flatCategories, dispatch)
             getCat(c, params)
 
         }())
     }, [])
-    
- 
+
+
+    /**
+     * this function return deep nested category and subcategory
+     * */
     function getCat(flatCategories, params){
 
-        console.time("category-find-time")
-        
         let updateSidebarCategory = {
             ...sidebarCategory
         }
         
         let rootCategory: any = {}
       
-        // find both category tree
+        // if exist both root category and category tree
         if(params.pId && catTree){
             
             // base category name
@@ -260,7 +139,7 @@ function CategoryList(props) {
                     levelNumber: 1
                 })
                 setSidebarCategory(updateSidebarCategory);
-                handleChangeCategory(rootCategory)
+                handleChangeCategory(rootCategory, flatCategories)
                 
                 return;
             }
@@ -305,16 +184,23 @@ function CategoryList(props) {
                 levelNumber: levelNumber,
             })
     
-            handleChangeCategory(getLastLevelCategory)
+            handleChangeCategory(getLastLevelCategory, flatCategories)
             
-        } else if(params.pId){
+        }
+
+
+        // if Only exists root categories but not subcategories tree
+        else if(params.pId){
         
             /// get root level all categories
             let rootCategories = flatCategories.filter(c=>c.name === params.pId)
-      
+
+
             // if not match root category then show all root level category
+            // if user put unknown root category name and not match it with database category name
+            // then replace it via first root categories
+
             if(rootCategories.length === 0){
-                
                 rootCategories = flatCategories.filter(c=>c.parentId === null)
                 
                 updateSidebarCategory[1] = rootCategories
@@ -325,23 +211,27 @@ function CategoryList(props) {
                 })
                 handleChangeCategory(null, rootCategories)
                 
-            } else {
-                
+            }
+
+            else {
+
                 updateSidebarCategory[1] = rootCategories
                 const rootCat = rootCategories.find(c => c.name === params.pId)
-     
+
+                if(!rootCat) return;
+
                 // set base category in filter category
-                
                 rootCat.expand = true
                 rootCat.last = true
-                // get sub category of root level category
-                const subCat = flatCategories.filter(c=>c.parentId === rootCat._id)
+
+                // get all sub category of root level category;
+                const subCat = flatCategories.filter(category=>category.parentId === rootCat._id)
                 setLastParentSubCategories({
                     lastParentId: rootCat._id,
                     sub: subCat,
                     levelNumber: 1
                 })
-                handleChangeCategory(rootCat)
+                handleChangeCategory(rootCat, flatCategories)
             }
         }
         
@@ -484,7 +374,7 @@ function CategoryList(props) {
         } else {
             navigate(`/p/${params.pId}?catTree=${item.name}`)
         }
-        handleChangeCategory(item as any)
+        handleChangeCategory(item as any, flatCategories)
         setSidebarCategory(updatedSidebarCategory)
     }
     
@@ -555,16 +445,20 @@ function CategoryList(props) {
     }
     
 
-    function handleChangeCategory(item: {name: string,parentId?: string, _id: string, isProductLevel?: number}, rootLevel?: any[] ) {
+    function handleChangeCategory(item: {name: string,parentId?: string, _id: string, isProductLevel?: number},  flatCategories: any ) {
         onChangeCategory()
         
         let all = []
         
         if(!item) return;
-    
+
+
+        // if this category is parent of subcategory
+        // because isProductLevel true marked all category are product level and not exists their any subcategory
         if (!item.isProductLevel) {
             findAllNestedCat(item, all, flatCategories)
         }
+
         
         
         dispatch({

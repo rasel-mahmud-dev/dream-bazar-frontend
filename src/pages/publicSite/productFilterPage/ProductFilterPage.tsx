@@ -73,7 +73,7 @@ let ss;
 
 const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 	const {
-		productState: { paginations, filterProducts, totalProduct, filteredAttributes, brandsForCategory, loadingStates, filters, selectCategory },
+		productState: { paginations, filterProducts, totalProduct, filteredAttributes, brandsForCategory, flatCategories, filters, selectCategory },
 		appState: { isOpenLeftBar },
 	} = useSelector((state: RootState) => state);
 
@@ -286,7 +286,10 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
                     viewPerPage: pagination ? pagination.viewPerPage : 20,
 				},
 			};
+
+            // for caching brand for categories key name
 			let allCatName = "";
+
 			if (filters.category) {
 				if (filters.category.allNestedIds && filters.category.allNestedIds.length > 0) {
 					data.categoryIds = filters.category.allNestedIds.map((a: any) => a.id);
@@ -300,6 +303,8 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 					allCatName = filters.category.selected.name;
 				}
 			}
+
+            console.log(filters.category)
 
 			/******************* Fetch brand for category ***************/
 			/**
@@ -353,7 +358,8 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
         filters.category.selected,
         filters.category.allNestedIds,
         filters.pagination.currentPage,
-        filters.pagination.viewPerPage
+        filters.pagination.viewPerPage,
+        flatCategories
     ]);
 
 

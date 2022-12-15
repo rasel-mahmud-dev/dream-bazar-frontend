@@ -28,8 +28,10 @@ const SidebarRenderCategory: FC<FilterSidebarProps> = (props) => {
     //   fiveLevel: null,
     // })
     
-    const { selectedCatSections, lastSelectedCategory, ui_filterItems } = props
-  
+    const { selectedCatSections, lastSelectedCategory } = props
+
+
+
   
     function chooseCategoryHandler(forLevel, cat_item, selected_cat: LastSelectedCategoryProps | boolean = false){
       if(typeof selected_cat !== "boolean") {
