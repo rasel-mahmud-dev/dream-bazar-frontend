@@ -28,9 +28,9 @@ const Product: FC<Props> = (props) => {
 	
 	return (
 	
-			<div className="single-product shadow-md rounded-md px-3 py-4" >
+			<div className="single-product shadow-xxs rounded-md px-3 py-4" >
 	           
-	            {/*<FaHeart onClick={()=>handleAddToWishList(product)} className={`add_wish_list_btn  fa fa-heart  ${isWished(product)? 'wish': ''} `} />*/}
+	            {/*<FaHeart onClick={()=>handleAddToWishList(Product)} className={`add_wish_list_btn  fa fa-heart  ${isWished(Product)? 'wish': ''} `} />*/}
 	            
 				<div className="head p-4">
 					<div className="add_wish_list_btn -left-1">

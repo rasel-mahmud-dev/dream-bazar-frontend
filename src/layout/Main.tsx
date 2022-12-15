@@ -59,7 +59,8 @@ const Main = (props) => {
         <div className="slot-root">
             <Navigation />
             <div className="app-content">
-                {showBigCategoryNav(pathname) && <CategoryNavbar />}
+                {/*{showBigCategoryNav(pathname) && <CategoryNavbar />}*/}
+                <CategoryNavbar />
                 <Suspense fallback={<TopProgressBar />}>
                     <Outlet />
                 </Suspense>

@@ -379,9 +379,9 @@ const Products: FC<ProductProps> = (props) => {
                         
 //                           {  isEntryLevel &&
                             
-//                             <div className="d-flex product-gallery">
+//                             <div className="d-flex Product-gallery">
 //                                 { filteredProducts && filteredProducts.length > 0  ? filteredProducts.map(p=> (
-//                                     <div className="product">
+//                                     <div className="Product">
 //                                         <Image />
 //                                         <h5 className="product_name">{p.name}</h5>
 //                                         <h5 className="product_price">${p.price}</h5>

@@ -178,7 +178,7 @@ const AddProduct: FC<Props> = (props) => {
             }
             
         } else {
-            // add as a new product
+            // add as a new Product
             apis.post("/api/product", payload).then(({status, data}) => {
                 if (status === 201) {
                     updateState.httpResponse = data.message

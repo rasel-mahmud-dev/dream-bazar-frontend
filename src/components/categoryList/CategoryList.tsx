@@ -454,7 +454,7 @@ function CategoryList(props) {
 
 
         // if this category is parent of subcategory
-        // because isProductLevel true marked all category are product level and not exists their any subcategory
+        // because isProductLevel true marked all category are Product level and not exists their any subcategory
         if (!item.isProductLevel) {
             findAllNestedCat(item, all, flatCategories)
         }

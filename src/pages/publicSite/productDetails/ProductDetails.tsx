@@ -146,7 +146,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
     {
       ratings: 5,
       title: "day to day king",
-      desc: "This is such a budget friendly product.It also makes a good first impression as the overall look of the device is really impressive. The device also provides a decent display and camera with a storage space of 32 GB.",
+      desc: "This is such a budget friendly Product.It also makes a good first impression as the overall look of the device is really impressive. The device also provides a decent display and camera with a storage space of 32 GB.",
       username: "Rasel Mahmud",
       customer_photos: [],
       created_at: new Date()
@@ -154,7 +154,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
     {
       ratings: 5,
       title: "day to day king",
-      desc: "This is such a budget friendly product.It also makes a good first impression as the overall look of the device is really impressive. The device also provides a decent display and camera with a storage space of 32 GB.",
+      desc: "This is such a budget friendly Product.It also makes a good first impression as the overall look of the device is really impressive. The device also provides a decent display and camera with a storage space of 32 GB.",
       username: "Rasel Mahmud",
       customer_photos: [],
       created_at: new Date()

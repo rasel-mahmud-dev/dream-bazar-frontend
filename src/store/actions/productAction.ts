@@ -41,7 +41,7 @@ export const fetchBrandForCategory=(current_category_id)=> async (dispatch, getS
 export function filterProductsAction(payload, isCount: boolean, dispatch){
     
     // !isCount && props.toggleAppMask(true)
-    // !isCount && (props.toggleLoader && props.toggleLoader("product-filter", true))
+    // !isCount && (props.toggleLoader && props.toggleLoader("Product-filter", true))
     
     const {
         brands,
@@ -98,7 +98,7 @@ export function filterProductsAction(payload, isCount: boolean, dispatch){
     // let response = await api.post(`/api/products/filter/v2`, bodyData)
     //
     // props.toggleAppMask(false)
-    // props.toggleLoader("product-filter", false)
+    // props.toggleLoader("Product-filter", false)
     //
     // cb(response.data)
     
@@ -155,7 +155,7 @@ export function deleteFlatCategoryAction(dispatch, id, callback){
   
 }
 
-// fetch homepage section product...
+// fetch homepage section Product...
 export const fetchHomePageSectionProducts = () => async (dispatch, getState: ()=>RootState, api) => {
 
    // handlerLoader(dispatch, {isLoading: true, where: "home_section"})

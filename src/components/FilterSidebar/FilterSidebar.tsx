@@ -127,7 +127,7 @@ const FilterSidebar = (props: FilterSidebarProps) => {
           if (findFirstLevelUICategory.default_expand) {
             defaultExpand = [...findFirstLevelUICategory.default_expand]
           }
-          // product attribute filter items section that given root or first level category..........
+          // Product attribute filter items section that given root or first level category..........
           firstLevelUICategoryFilterItems = getFilterItems(props.ui_filterItems, [...findFirstLevelUICategory.filter_items])
         }
       }
@@ -399,7 +399,7 @@ const FilterSidebar = (props: FilterSidebarProps) => {
         findAttrObj.values.push({name: p.name, value: p.value})
       }
 
-    // if click any product filter section that not already clicked
+    // if click any Product filter section that not already clicked
     } else {
       updatedFilteredAttributes = [
         ...updatedFilteredAttributes,
@@ -908,7 +908,7 @@ const FilterSidebar = (props: FilterSidebarProps) => {
       <div className="product_sidebar">
 
         {/*
-          selected all filter attributes like selected brands, product attributes
+          selected all filter attributes like selected brands, Product attributes
           pass this render-able jsx via callback in parent component
         */}
         {cb(selectedFilterItems())}

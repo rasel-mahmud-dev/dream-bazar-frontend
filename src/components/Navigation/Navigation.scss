@@ -16,7 +16,7 @@ body{
     left: 0;
     width: 100%;
     top: 0;  
-    z-index: 300;
+    z-index: 1000;
     .top_navigation{
         padding: 5px 10px;
         background: var(--color-grey-grade16);
@@ -76,11 +76,11 @@ body{
 }
 
 .dark .nav_fixed{
-  box-shadow: 0 1px 20px 9px #1c1c1c;
+  box-shadow: 0 1px 20px 9px rgba(28, 28, 28, 0.45);
 }
 
 .nav_fixed{
-  box-shadow: $shadow-d1;
+  box-shadow: 0 2px 18px -4px #1c1c1ca3;
 }
 
 .logo_nav{

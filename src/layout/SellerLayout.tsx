@@ -65,7 +65,7 @@ const AdminLayout = () => {
             section: "PRODUCT MANAGEMENT",
             items: [
                 {name: "Products", to: "/seller/products", icon: <BiCart />},
-                {name: "Add", to: "/seller/product/add", icon: <BiPlus />},
+                {name: "Add", to: "/seller/Product/add", icon: <BiPlus />},
                 {name: "Bulk import", to: "/", icon: <BiNote />},
             ],
         },

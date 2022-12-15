@@ -133,7 +133,7 @@ const AllProducts = (props) => {
 			className: "text-center",
 			render: (_, item) => (
 				<div className="flex justify-center items-center gap-x-2">
-					<BsPencilSquare className="text-md cursor-pointer" onClick={() => navigate("/auth/admin/dashboard/update-product/" + item._id)} />
+					<BsPencilSquare className="text-md cursor-pointer" onClick={() => navigate("/auth/admin/dashboard/update-Product/" + item._id)} />
 					<FcEmptyTrash className="text-xl cursor-pointer" onClick={() => deleteItem(item._id)} />
 				</div>
 			),

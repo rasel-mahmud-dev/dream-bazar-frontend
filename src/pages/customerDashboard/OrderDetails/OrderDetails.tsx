@@ -70,7 +70,7 @@ const OrderDetails = (props) => {
   //                   marginLeft: "30px", width: "100%",
   //                   marginTop: "10px"
   //               }}>
-  //                 <h3>{order.product.title}</h3>
+  //                 <h3>{order.Product.title}</h3>
   //                 <h5>tk {order.total_price}</h5>
   //                 <h5>x {order.quantity}</h5>
   //                 <h4 style={{marginRight: "10px"}} className="t-end">{order.status}</h4>

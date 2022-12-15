@@ -138,12 +138,12 @@ const AddProduct = () => {
         }
     }, [params.productId])
     
-    // product details section value fill up when update product
+    // Product details section value fill up when update Product
     useEffect(()=>{
         
         if(params.productId) {
     
-            // from product description collection
+            // from Product description collection
             if (state.productDescription && categoryDetail.productDescriptionSectionInput) {
                 let details = state.productDescription.details
                 if (details) {
@@ -354,7 +354,7 @@ const AddProduct = () => {
     }
     
     
-    // handle update or add product
+    // handle update or add Product
     async function handleSubmit(e){
         e.preventDefault();
         setHttpResponse(p=>({...p, message: "", isSuccess: false}))
@@ -393,7 +393,7 @@ const AddProduct = () => {
             return;
         }
     
-        /********** product attribute value ************/
+        /********** Product attribute value ************/
         if(categoryDetail?.filterAttributesValues){
             if(categoryDetail?.filterAttributesValues.length !== Object.keys(state.attributeValue).length){
                 errorMessage = "Please provide attribute fields"
@@ -402,7 +402,7 @@ const AddProduct = () => {
                 return;
             }
         }
-        // add product details sections
+        // add Product details sections
         formData.append("attributes", JSON.stringify(state.attributeValue))
         
         
@@ -435,7 +435,7 @@ const AddProduct = () => {
             toast.error(msg);
             return setHttpResponse(p=>({...p, message: msg, isSuccess: false}))
         }
-        // add product details sections
+        // add Product details sections
         formData.append("details", JSON.stringify(details))
         
 

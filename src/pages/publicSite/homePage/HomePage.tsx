@@ -244,7 +244,7 @@ const HomePage = (props) => {
                           <>
                             <h5 className="mt-2 text-green-450 font-medium">${pp.price}</h5>
                             {/*<Button onClick={()=>handleAddToCart(pp)}>{ isEn(selectedLang) ? 'Add To Cart': lang.add_to_cart}</Button>*/}
-                            {/*<Link className="product-detail-link" to={`/products/${pp._id}`}> { isEn(selectedLang) ? 'Details' : lang.details}</Link>*/}
+                            {/*<Link className="Product-detail-link" to={`/products/${pp._id}`}> { isEn(selectedLang) ? 'Details' : lang.details}</Link>*/}
                           </>
                         )
                         }

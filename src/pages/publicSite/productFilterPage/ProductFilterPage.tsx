@@ -19,7 +19,7 @@ import { filterProductsAction } from "actions/productAction";
 import { getPagination } from "actions/localActions";
 import { RootState } from "src/store";
 import BrandList from "pages/publicSite/productFilterPage/BrandList";
-import Product from "components/product/Product";
+import Product from "components/Product/Product";
 import SEO from "components/SEO/SEO";
 import CategoryList from "components/categoryList/CategoryList";
 import WithWidth from "UI/withWidth/withWidth";
@@ -79,10 +79,14 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 
 	const params = useParams();
 
+
+
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const location = useLocation();
 	// const d = props.appState.ui_categories
+
+    console.log(location.state)
 
 	const [paginate, setPaginate] = React.useState({
 		perPage: 3,
@@ -122,7 +126,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 	const [breadcrumbData, setBrandcrumbData] = React.useState({});
 	const [categoryData, setCategoryData] = React.useState<{ expand?: boolean; id?: string; name?: string; sub_menu?: [] }>({});
 
-	// when enter filter product page with queryparams category id
+	// when enter filter Product page with queryparams category id
 	// and rootCategory id, we find rootCategory and store it.
 
 	// pagination for this page. for more flexibility it an object
@@ -147,7 +151,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 	//       // console.log(currentCategorySelected)
 	//
 	//       /**
-	//         Fetch product if subcategory exists like jeans, t-sharts   sub_category means url params &cat_tree=
+	//         Fetch Product if subcategory exists like jeans, t-sharts   sub_category means url params &cat_tree=
 	//        */
 	//
 	//       if(currentNestedSubCategory) {
@@ -220,13 +224,13 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 	//
 	// }, [currentNestedSubCategory, selectedCatSections])
 
-	// re-fetch product if change
+	// re-fetch Product if change
 	// brands, filteredAttributes, sortBy
 	// React.useEffect(()=>{
 	//
 	//   try {
 	//     /**
-	//       Don't re-fetch product count if only change pagination or sort value.
+	//       Don't re-fetch Product count if only change pagination or sort value.
 	//      */
 	//
 	//     const { sortBy, brands } = filters
@@ -238,7 +242,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 	//
 	//       // we need category id that need to find category from  database
 	//
-	//       // fetching product with fetched this category id..
+	//       // fetching Product with fetched this category id..
 	//       let pagination = getPagination(paginations, PaginationWhereEnum.filter_products_page)
 	//       let data = {
 	//         brands,
@@ -365,8 +369,8 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 
 	// console.log(filters)
 
-	// refetch product if change paginate value
-	// then append product with exist products in store
+	// refetch Product if change paginate value
+	// then append Product with exist products in store
 	nonInitialEffect(() => {
 		// filterProductWithState({
 		//   currentCategoryRoot,
@@ -392,8 +396,8 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 		}
 
 		function isWished(product) {
-			// console.log(product.wishlist)
-			// return product.wishlist && product.wishlist.indexOf(authState._id) !== -1
+			// console.log(Product.wishlist)
+			// return Product.wishlist && Product.wishlist.indexOf(authState._id) !== -1
 			return true;
 		}
 
@@ -401,11 +405,11 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 
 		// return (
 		//   <div className="products-views">
-		//   { products && products.length > 0 ? products.map(product=>(
-		//     <div className="product card pb-5">
+		//   { products && products.length > 0 ? products.map(Product=>(
+		//     <div className="Product card pb-5">
 		//       {renderProductAtt.map(key=>{
 		//         return (
-		//           <h1>{product[key]}</h1>
+		//           <h1>{Product[key]}</h1>
 		//         )
 		//       })}
 		//     </div>
@@ -522,7 +526,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 
 
 	return (
-        <div className="min-h-screen">
+        <div className="pb-10 relative">
             <SEO title={`p/${params.pId}/${params.treeId}`} description="Product filter" />
 
             {httpResponse.loading && (
@@ -533,6 +537,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 
             <div className="product-filter-page--layout">
                 <Sidebar isOpen={isOpenLeftBar} position="left" onClickOnBackdrop={handleClickSidebarBackdrop}>
+
                     <div className="">
                         {/**** sidebar fixed navigation ******/}
                         <div className="sidebar-fixed-bar top-0 bg-white py-3 px-4 md:hidden">
@@ -559,7 +564,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
                     </div>
                 </Sidebar>
 
-                <div className="content w-full content-container bg-body">
+                <div className="content w-full content-container">
                     {/*<RenderBreadcrumb*/}
                     {/*  dispatch={dispatch}*/}
                     {/*  selectedCatSections={selectedCatSections}*/}
@@ -582,16 +587,19 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 
                     {renderProducts()}
 
-                    <div>
-                        <Pagination
-                            totalItem={filters.pagination.totalItems}
-                            perPage={filters.pagination.viewPerPage}
-                            onChange={handlePagination}
-                            pageNumber={filters.pagination.currentPage}
-                        />
-                    </div>
+
                 </div>
             </div>
+
+            {filters.pagination.totalItems > 0 && <div className="py-10">
+                <Pagination
+                    totalItem={filters.pagination.totalItems}
+                    perPage={filters.pagination.viewPerPage}
+                    onChange={handlePagination}
+                    pageNumber={filters.pagination.currentPage}
+                />
+            </div>}
+
         </div>
     );
 	// return (

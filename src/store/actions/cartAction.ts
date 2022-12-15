@@ -13,7 +13,7 @@ export const addToCart = (product) => dispatch=> {
   if(id){
     clearTimeout(id)
   } 
-  dispatch(toggleNotify(true, "add_to_cart", "product added to cart successfully"))
+  dispatch(toggleNotify(true, "add_to_cart", "Product added to cart successfully"))
   // const { data } = await api.get("/api/products") 
   id = setTimeout(()=>{
     dispatch(toggleNotify(false, "", ""))

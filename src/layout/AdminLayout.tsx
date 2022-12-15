@@ -83,8 +83,8 @@ const AdminLayout = () => {
         },{
             section: "ATTRIBUTE MANAGEMENT",
             items: [
-                {name: "Attributes", to: "/admin/dashboard/product-attribute", icon: <BsList/>},
-                // {name: "Add", to: "/admin/dashboard/product-attribute/new", icon: <BiPlus/>}
+                {name: "Attributes", to: "/admin/dashboard/Product-attribute", icon: <BsList/>},
+                // {name: "Add", to: "/admin/dashboard/Product-attribute/new", icon: <BiPlus/>}
             ],
         },
         {

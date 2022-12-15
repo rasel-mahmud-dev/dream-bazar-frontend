@@ -216,7 +216,7 @@ const initialState: ProductStateType = {
         pagination: {
             totalItems: 0,
             currentPage: 1,
-            viewPerPage: 5,
+            viewPerPage: 15,
         },
         category: {
             selected: null,

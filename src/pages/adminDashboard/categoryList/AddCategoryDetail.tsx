@@ -287,7 +287,7 @@ const AddCategoryDetail = (props) => {
 		}
 
         
-        /** make product description section data like from sections array of object
+        /** make Product description section data like from sections array of object
          Display: ["Display Size", "Resolution", "Resolution Type", "GPU", "Display Type", "Other Display Features"]
          Features:["Sensors", "Mobile Tracker", "Removable Battery", "GPS Type"]
          General:["In The Box", "Model Number", "Model Name", "Color", "Browse Type", "SIM Type", "Hybrid Sim Slot",…]
@@ -413,7 +413,7 @@ const AddCategoryDetail = (props) => {
         })
     }
     
-    // add more product description section specification
+    // add more Product description section specification
     function addMoreSpecification(sectionIndex){
         setState((prev)=>{
             let sections = [...prev.sections]
@@ -431,7 +431,7 @@ const AddCategoryDetail = (props) => {
         
     }
     
-    // add more product description section
+    // add more Product description section
     function addMoreSection(){
         setState((prev)=>({...prev, sections: [...prev.sections, {
             sectionName: "",
@@ -439,7 +439,7 @@ const AddCategoryDetail = (props) => {
         }]}))
     }
     
-    /*** fill up some dummy data for product description section */
+    /*** fill up some dummy data for Product description section */
     function handleFillTextData(){
         const data = [
             { sectionName: "NETWORK",
