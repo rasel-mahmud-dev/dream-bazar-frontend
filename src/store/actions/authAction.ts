@@ -14,9 +14,9 @@ function setToken(token) {
 }
 
 // login action for customer, seller and admin user separately
-export const loginAction = async (userData, dispatch, scope: Scope, cb: (data: object, errorMessage?: string) => void) => {
+export const loginAction = async (userData, dispatch,  cb: (data: object, errorMessage?: string) => void) => {
     try {
-        const { status, data } = await apis.post("/api/auth/login", { ...userData, scope: scope });
+        const { status, data } = await apis.post("/api/auth/login", userData);
         if (status === 201) {
             loginHandler(data.user,  dispatch)
             setToken(data.token)

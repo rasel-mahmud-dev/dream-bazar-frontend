@@ -10,6 +10,7 @@ import useLanguage from "src/hooks/useLanguage";
 import { Scope } from "store/types";
 import SocialLogin from "components/SocialLogin/SocialLogin";
 import HttpResponse from "components/HttpResponse/HttpResponse";
+import Divider from "UI/Divider/Divider";
 
 interface LoginPageProps {
     toggleLoader?: any;
@@ -79,7 +80,7 @@ const LoginPage: FC<LoginPageProps> = (props) => {
 
 
         setHttpResponse(p=>({ ...p, loading: true, }));
-        loginAction(payload, dispatch, Scope.CUSTOMER_USER, function (data, errorMessage) {
+        loginAction(payload, dispatch, function (data, errorMessage) {
             if (!errorMessage) {
                 location.state?.redirect && navigate(location.state?.redirect);
             } else{
@@ -132,7 +133,9 @@ const LoginPage: FC<LoginPageProps> = (props) => {
                 </p>
                 <button className="w-full bg-green-450 px-4 py-2 border-none text-white font-semibold text-lg rounded-xl">{l("LoginPage")}</button>
             </form>
-            <p className="my-5 text-center text-neutral-600">Or sign in with</p>
+
+            <Divider  text="OR"/>
+
 
             <SocialLogin />
 

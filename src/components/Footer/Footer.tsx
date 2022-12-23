@@ -1,7 +1,7 @@
 import React from "react";
 import { FaFacebookF, FaGithub, FaInstagram, FaYoutube } from "react-icons/fa";
 import { Button } from "../UI";
-import staticImagePath from "src/utills/staticImagePath";
+
 import {Link} from "react-router-dom";
 
 
@@ -26,26 +26,26 @@ const Footer = () => {
                         </p>
                         <ul className="flex gap-4 mt-4">
                             <a
-                                className="hover:bg-primary-400 hover:text-white w-10 h-10 md:w-8 md:h-8 flex justify-center items-center border dark:border-neutral border-neutral/30  rounded-box"
+                                className="hover:bg-primary-500  transition transition-colors hover:text-white w-10 h-10 md:w-8 md:h-8 flex justify-center items-center border dark:border-neutral border-primary-300/20  rounded-full"
                                 href="https://www.facebook.com/rasel-mahmud-dev"
                             >
                                 <FaFacebookF className="text-2xl md:text-lg" />
                             </a>
                             <a
-                                className="hover:bg-primary-400 hover:text-white w-10 h-10 md:w-8 md:h-8 flex justify-center items-center border dark:border-neutral border-neutral/30  rounded-box"
+                                className="hover:bg-primary-500  transition transition-colors hover:text-white w-10 h-10 md:w-8 md:h-8 flex justify-center items-center border dark:border-neutral border-primary-300/20  rounded-full"
                                 href="https://github.com/rasel-mahmud-dev"
                                 target="_blank"
                             >
                                 <FaGithub className="text-2xl md:text-lg" />
                             </a>{" "}
                             <a
-                                className="hover:bg-primary-400 hover:text-white w-10 h-10 md:w-8 md:h-8 flex justify-center items-center border dark:border-neutral border-neutral/30  rounded-box"
+                                className="hover:bg-primary-500  transition transition-colors hover:text-white w-10 h-10 md:w-8 md:h-8 flex justify-center items-center border dark:border-neutral border-primary-300/20  rounded-full"
                                 href="/"
                             >
                                 <FaYoutube className="text-xl md:text-lg" />
                             </a>
                             <a
-                                className="hover:bg-primary-400 hover:text-white w-10 h-10 md:w-8 md:h-8 flex justify-center items-center border dark:border-neutral border-neutral/30  rounded-box"
+                                className="hover:bg-primary-500  transition transition-colors hover:text-white w-10 h-10 md:w-8 md:h-8 flex justify-center items-center border dark:border-neutral border-primary-300/20  rounded-full"
                                 href="https://www.instagram.com/raselmraju"
                                 target="_blank"
                             >
