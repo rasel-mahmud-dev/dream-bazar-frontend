@@ -1,3 +1,4 @@
+import React, {lazy} from "react";
 import PrivateRoute from "src/middleware/PrivateRoute";
 import Registration from "pages/shared/Registration";
 import HomePage from "pages/publicSite/homePage/HomePage";
@@ -10,7 +11,7 @@ import ProductFilterPage from "pages/publicSite/productFilterPage/ProductFilterP
 import ExcludeAuthRoute from "src/middleware/ExcludeAuthRoute";
 import JoinHome from "pages/publicSite/auth/JoinHome";
 import LoginPage from "pages/shared/LoginPage";
-import React, {lazy} from "react";
+
 import AdminLayout from "src/layout/AdminLayout";
 import AdminDashboardHome from "pages/adminDashboard/DashboardHomePage";
 import NotFoundPage from "components/notFoundPage/NotFoundPage";
@@ -34,6 +35,9 @@ const CategoryList = lazy(()=>import("pages/adminDashboard/categoryList/Categori
 import CreateShop from "pages/sellerDashboard/shop/CreateShop";
 import SellerLayout from "src/layout/SellerLayout";
 import ProductDetails from "pages/publicSite/productDetails/ProductDetails";
+import CustomerDashboardRoute from "pages/customerDashboard/customerDashboardRoute";
+import CustomerDashboard from "pages/customerDashboard/CustomerDashboard";
+import CustomerDashboardHomePage from "pages/customerDashboard/CustomerDashboardHomePage";
 
 
 
@@ -59,9 +63,6 @@ const router = createBrowserRouter([
             {
                 path: "p/:pId",
                 element: <ProductFilterPage />,
-            }, {
-                path: "/:slug",
-                element: <ProductDetails />,
             },
             {
                 path: "/join",
@@ -78,7 +79,26 @@ const router = createBrowserRouter([
             //     path: "/auth/callback/:provider",
             //     element:  <ExcludeAuthRoute scope={Scope.CUSTOMER_USER}><AuthCallback /></ExcludeAuthRoute>
             // },
+            {
 
+                path: "/dashboard",
+                element: <CustomerDashboard/>,
+                // errorElement: <ErrorPage />,
+                children: [
+
+                    // { path: "update-Product/:productId", element: <PrivateRoute roles={["SELLER"]}> <AddProduct /> </PrivateRoute> },
+                    // { path: "all-transactions", element: <PrivateRoute roles={["ADMIN"]}> <AllTransactions /> </PrivateRoute> },
+
+                    {path : "", element: <CustomerDashboardHomePage />},
+
+                    {path :"products", element: <PrivateRoute scope={Scope.ADMIN_USER}><ProductList /></PrivateRoute>},
+                ],
+            },
+
+            {
+                path: "/:slug",
+                element: <ProductDetails />,
+            },
         ],
     },
     {

@@ -20,8 +20,8 @@ Live Link [upcoming preview]()
 - Reset password via sending email using nodemailer
 - Multiple Category system
 - Multiple vendor system. also multiple store for seller.
-- Customer Dashboard. customer manage their order, payment, shipping addresses, cart item and profile.
-- Admin Dashboard. admin can manage product, brands, category etc 
+- Customer CustomerDashboard. customer manage their order, payment, shipping addresses, cart item and profile.
+- Admin CustomerDashboard. admin can manage product, brands, category etc 
   like added, update, delete. manage customer orders, order cancellation
 
 
@@ -57,7 +57,7 @@ Live Link [upcoming preview]()
 
 <br/>
 
-#### Customer Dashboard
+#### Customer CustomerDashboard
 ![preview-image](previews/customer-dashboard.png)
 
 <br/>

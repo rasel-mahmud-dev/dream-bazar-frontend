@@ -66,7 +66,8 @@ export enum ACTION_TYPES {
     DELETE_FLAT_CATEGORY = "DELETE_FLAT_CATEGORY",
     
     DELETE_BRAND = "DELETE_BRAND",
-    
+    FETCH_ORDERS = "FETCH_ORDERS",
+
     /********Seller Actions Types ***********/
     FETCH_SELLER_SHOP = "FETCH_SELLER_SHOP",
 }
@@ -103,6 +104,12 @@ export interface CategoryType {
 
 
 export interface Brand {
+    _id: string,
+    name: string,
+    logo?: string
+    forCategory?: string[]
+}
+export interface OrderType {
     _id: string,
     name: string,
     logo?: string

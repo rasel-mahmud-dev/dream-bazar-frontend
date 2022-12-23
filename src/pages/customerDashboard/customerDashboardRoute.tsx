@@ -2,7 +2,7 @@ import {lazy} from "react";
 import PrivateRoute from "../../middleware/PrivateRoute";
 import {Scope} from "store/types";
 
-const Dashboard = lazy(()=>import("pages/customerDashboard/Dashboard"));
+const Dashboard = lazy(()=>import("pages/customerDashboard/CustomerDashboard"));
 const Wishlist = lazy(()=>import("pages/customerDashboard/wishlist/Wishlist"));
 const ShoppingCart = lazy(()=>import("pages/customerDashboard/cart/ShoppingCart"));
 

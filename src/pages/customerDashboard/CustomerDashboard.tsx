@@ -37,83 +37,84 @@ import staticImagePath from "src/utills/staticImagePath";
 // const CustomerDashboard = lazy(()=> import("./CustomerDashboard"))
 // const CreateSellerAccount = lazy(()=>import("../SellerHub/createSellerAccount/CreateSellerAccount"))
 
-const sidebarData =  [
-  {
-    id: "0",
-    name: "Dashboard",
-    icon: <MdDashboard />,
-    to: `/auth/customer/dashboard`
-  },
-  {
-    label: "Manage My Account",
-    name: "My Account",
-    id: 1,
-    to: "none",
-    icon: <BiUser />,
-    subMenu: [
-      {name: "Account Information", to: `/customer/ : "guest"}/account-info`,  icon: <MdManageAccounts />, id: "11"},
-      {name: "Address Book", to: `/customer/$ : "guest"}/address-book`, icon: <FaAddressBook />},
-      {name: "Payment Option", to: "/dashboard/brands", icon: <MdPayment />},
-      {name: "Vouchers", to: "/dashboard/brands", icon: <GoReport />},
-    ]
-  },
-  {
-    label: "Manger My orders",
-    name: "Orders",
-    id: 2,
-    to: "none",
-    icon: <GrOrderedList />,
-    subMenu: [
-      {name: "My Orders", to: `/customer/`, icon: <FaIcons />, id: "111"},
-      {name: "My Returns", to: "/dashboard/brands", icon: <GiReturnArrow />, id: "112"},
-      {name: "My Cancellations", to: "/dashboard/brands", icon: <GiCancel />, id: "113"},
-    ]
-  },
-  {
-    name: "My Shopping Cart",
-    to: "/auth/customer/dashboard/cart",
-    id: 102,
-    icon: <FiShoppingCart />
-  },
-  {
-    name: "My Reviews",
-    to: "",
-    id: 3,
-    icon: <BiStar />
-  },{
-    name: "My Wishlist & Followed Stores",
-    to: "/auth/customer/dashboard/wishlist",
-    id: 4,
-    icon: <MdFavorite />
-  },
-  {
-    name: "Setting",
-    to: "",
-    id: 3,
-    icon: <BsGear/>
-  },
-  {
-    name: "Policies",
-    to: "",
-    id: 4,
-    icon: <FaQuestionCircle />
-  },
-  {
-    name: "Help",
-    to: "",
-    id: 5,
-    icon: <GiHelp />
-  },
-  {
-    name: "Sign Out",
-    to: "",
-    id: 6,
-    icon: <FaSignOutAlt />
-  }
-]
+const sidebarData = [
+    {
+        id: "0",
+        name: "CustomerDashboard",
+        icon: <MdDashboard />,
+        to: `/auth/customer/dashboard`,
+    },
+    {
+        label: "Manage My Account",
+        name: "My Account",
+        id: 1,
+        to: "none",
+        icon: <BiUser />,
+        subMenu: [
+            { name: "Account Information", to: `/customer/ : "guest"}/account-info`, icon: <MdManageAccounts />, id: "11" },
+            { name: "Address Book", to: `/customer/$ : "guest"}/address-book`, icon: <FaAddressBook /> },
+            { name: "Payment Option", to: "/dashboard/brands", icon: <MdPayment /> },
+            { name: "Vouchers", to: "/dashboard/brands", icon: <GoReport /> },
+        ],
+    },
+    {
+        label: "Manger My orders",
+        name: "Orders",
+        id: 2,
+        to: "none",
+        icon: <GrOrderedList />,
+        subMenu: [
+            { name: "My Orders", to: `/customer/`, icon: <FaIcons />, id: "111" },
+            { name: "My Returns", to: "/dashboard/brands", icon: <GiReturnArrow />, id: "112" },
+            { name: "My Cancellations", to: "/dashboard/brands", icon: <GiCancel />, id: "113" },
+        ],
+    },
+    {
+        name: "My Shopping Cart",
+        to: "/auth/customer/dashboard/cart",
+        id: 102,
+        icon: <FiShoppingCart />,
+    },
+    {
+        name: "My Reviews",
+        to: "",
+        id: 3,
+        icon: <BiStar />,
+    },
+    {
+        name: "My Wishlist & Followed Stores",
+        to: "/auth/customer/dashboard/wishlist",
+        id: 4,
+        icon: <MdFavorite />,
+    },
+    {
+        name: "Setting",
+        to: "",
+        id: 3,
+        icon: <BsGear />,
+    },
+    {
+        name: "Policies",
+        to: "",
+        id: 4,
+        icon: <FaQuestionCircle />,
+    },
+    {
+        name: "Help",
+        to: "",
+        id: 5,
+        icon: <GiHelp />,
+    },
+    {
+        name: "Sign Out",
+        to: "",
+        id: 6,
+        icon: <FaSignOutAlt />,
+    },
+];
 
 
-const Dashboard = (props) => {
+const CustomerDashboard = (props) => {
   
   let params = useParams() 
   
@@ -321,4 +322,4 @@ const Dashboard = (props) => {
 
 
 
-export default Dashboard
+export default CustomerDashboard
