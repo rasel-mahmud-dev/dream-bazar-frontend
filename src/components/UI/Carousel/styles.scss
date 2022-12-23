@@ -1,3 +1,4 @@
+@import "src/styles/--breakpoint";
 
 .banner {
     .swiper-button-prev,
@@ -72,11 +73,13 @@
 .swiper-caption {
     position: absolute;
     top: 0;
-    width: 400px;
     border-radius: 20px;
     padding: 20px;
     //background: rgba(196, 196, 196, 0);
     left: 10%;
+    @include get_down(768px){
+        left: 0%;
+    }
     backdrop-filter: blur(5px);
 
     .slider-title {

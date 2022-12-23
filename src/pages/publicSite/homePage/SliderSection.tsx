@@ -27,10 +27,14 @@ Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Quisque velit nisi,
                 { carouselData.map((item, index)=>(
                     <div className="relative" key={index}>
                         <img src={staticImagePath(item.img)} alt=""/>
-                        <div className="swiper-caption" >
-                            <h1 className="slider-title font-medium text-3xl text-white ">{item.title}</h1>
-                            <h1 className="slider-para text-white ">{item.desc}</h1>
-                            <Button theme="primary" className="slider-btn">Shop Now</Button>
+                        <div className="swiper-caption  w-full max-w-sm md:max-w-md " >
+                            <h1 className="slider-title font-medium text-lg md:text-2xl lg:text-3xl xl:text-5xl text-white ">{item.title}</h1>
+                            <h1 className="slider-para text-white ">{item.desc.substring(0, 100)}
+                            <span className="hidden md:block">
+                                {item.desc.substring(100)}
+                            </span>
+                            </h1>
+                            <Button theme="primary" className="slider-btn mt-4">Shop Now</Button>
                         </div>
                     </div>
                 )) }

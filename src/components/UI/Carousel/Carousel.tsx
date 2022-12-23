@@ -14,7 +14,7 @@ import "swiper/css/navigation";
 import 'swiper/css';
 
 const Carousel = (props) => {
-  const  {children} = props
+  const {children} = props
   
   return (
     <Swiper
@@ -22,15 +22,15 @@ const Carousel = (props) => {
       lazy={true}
       spaceBetween={30}
       centeredSlides={true}
-      // autoplay={{
-      //   delay: 2500,
-      //   disableOnInteraction: false,
-      // }}
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
       pagination={{
         clickable: true,
       }}
-      navigation={true}
-      modules={[Lazy, Autoplay, Pagination, Navigation]}
+      navigation={false}
+      modules={[Lazy, Autoplay, Pagination]}
       className="mySwiper"
     >
       { children && children.map((c, i)=>(

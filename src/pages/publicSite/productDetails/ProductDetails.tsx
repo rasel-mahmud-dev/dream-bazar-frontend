@@ -169,7 +169,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
             _id: product._id,
             title: product.title,
             price: product.price,
-            cover_photo: product.cover_photo,
+            coverPhoto: product.coverPhoto,
         });
     }
 
@@ -212,7 +212,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                                 src={
                                                     isShowImage
                                                         ? fullLink(product.images ? product.images[isShowImage - 1] : "")
-                                                        : fullLink(product.cover_photo ? product.cover_photo : "")
+                                                        : fullLink(product.coverPhoto ? product.coverPhoto : "")
                                                 }
                                                 alt=""
                                             />

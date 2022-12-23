@@ -15,9 +15,14 @@ import { AppContext } from "store/AppContext";
 import useLanguage from "src/hooks/useLanguage";
 import { BiCart,  MdFavorite } from "react-icons/all";
 import SEO from "components/SEO/SEO";
+import useScrollTop from "src/hooks/useScrollTop";
+import SliderSection from "pages/publicSite/homePage/SliderSection";
 
 
 const HomePage = (props) => {
+
+    useScrollTop()
+
     const dispatch = useDispatch();
 
     const { contextState, contextDispatch } = useContext<any>(AppContext);
@@ -160,7 +165,9 @@ const HomePage = (props) => {
 
             <HomeCategoryNav />
 
-            {/*<SliderSection />*/}
+            <div className="bg-dark-600">
+                <SliderSection />
+            </div>
 
             <div className="r max-w-8xl mx-auto" onScroll={handleScroll}>
                 <div className="my-20">

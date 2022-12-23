@@ -116,7 +116,7 @@ const AdminLayout = () => {
             <div className="container mx-auto">
                 <div className="flex ">
                     {/*<PrivateRoute scope={Scope.SELLER_USER}>*/}
-                    <DashboardSidebar data={sidebarLinks} isOpenLeftBar={isOpenLeftBar} auth={auth} />
+                    <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar} auth={auth} />
                     {/*</PrivateRoute>*/}
                     <div className="w-full ml-0 lg:ml-6">
                         <Outlet />

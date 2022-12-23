@@ -8,12 +8,9 @@
     box-shadow: 0 1px 8px 0 rgb(0 0 0 / 6%);
 
     .category_main_nav {
-        display: flex;
-        justify-content: center;
-        position: relative;
-
+        @apply flex justify-start md:justify-center gap-x-0;
         &--item {
-            padding: 15px 10px;
+            padding: 15px 0px;
             //position: relative;
             li {
                 font-size: 14px;
@@ -48,7 +45,7 @@
     display: grid;
     padding: 0px 0px;
     width: 100%;
-    @apply grid-cols-1 md:grid-cols-4;
+    @apply grid-cols-1 md:grid-cols-5;
 
     &--each_column {
         //min-width: 200px;
