@@ -296,3 +296,10 @@
       }
     }
   }
+
+
+.description-sidebar{
+    position: sticky;
+    height: 100vh;
+    top: var(--header-height);
+}

@@ -33,6 +33,7 @@ const CategoryList = lazy(()=>import("pages/adminDashboard/categoryList/Categori
 
 import CreateShop from "pages/sellerDashboard/shop/CreateShop";
 import SellerLayout from "src/layout/SellerLayout";
+import ProductDetails from "pages/publicSite/productDetails/ProductDetails";
 
 
 
@@ -58,6 +59,9 @@ const router = createBrowserRouter([
             {
                 path: "p/:pId",
                 element: <ProductFilterPage />,
+            }, {
+                path: "/:slug",
+                element: <ProductDetails />,
             },
             {
                 path: "/join",

@@ -28,6 +28,7 @@ import Circle from "UI/Circle/Circle";
 import { FaAngleLeft } from "react-icons/all";
 import {setFilter, SetFilterActionPayload} from "actions/filterSidebar.action";
 import product from "components/Product/Product";
+import CategoryNavbar from "components/categoryNavbar/CategoryNavbar";
 
 let initialLoad = true;
 
@@ -577,6 +578,9 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 
 	return (
         <div className="pb-10 relative">
+
+            <CategoryNavbar />
+
             <SEO title={`p/${params.pId}/${params.treeId}`} description="Product filter" />
 
             {httpResponse.loading && (

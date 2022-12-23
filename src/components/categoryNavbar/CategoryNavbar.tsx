@@ -1,5 +1,6 @@
-import React, { SyntheticEvent, useRef, useState } from "react";
+import React from "react";
 import "./CategoryNavbar.scss";
+
 
 import { Link } from "react-router-dom";
 import Dropdown from "components/Dropdown/Dropdown";
@@ -339,9 +340,9 @@ const CategoryNavbar = (props) => {
                         name: "Top wear",
                         rootCategory: "Clothes",
                         subMenu: [
-                            { name: "T-Shirts", id: "t-sharts" },
-                            { name: "Formal Shirts", id: "sharts" },
-                            { name: "Casual Shirts", id: "sharts" },
+                            { name: "T-Shirts", id: "t-shart" },
+                            { name: "Formal Shirts", id: "shart" },
+                            { name: "Casual Shirts", id: "shart" },
                         ],
                     },
                     {
@@ -870,7 +871,7 @@ const CategoryNavbar = (props) => {
                             onMouseEnter={(e) => handleMouseHover(e, item.id, "enter")}
                             className="category_main_nav--item"
                         >
-                            <li>{item.name}</li>
+                            <li className={`${openSectionId === item.id ? "text-primary-500 font-semibold" : ""}`}>{item.name}</li>
                             <Dropdown className="category_submenu_popup" isShow={openSectionId === item.id}>
                                 <div>{renderSection(item)}</div>
                             </Dropdown>

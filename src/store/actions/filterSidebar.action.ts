@@ -18,7 +18,6 @@ export type SetFilterActionPayload = {
 
 
 export const setFilter = (payload: SetFilterActionPayload) :  { payload: SetFilterActionPayload, type: typeof ACTION_TYPES.ADD_FILTER} => {
-    console.log(payload)
     return {
         type: ACTION_TYPES.ADD_FILTER,
         payload: payload
