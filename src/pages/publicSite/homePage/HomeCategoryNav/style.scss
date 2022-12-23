@@ -7,6 +7,7 @@
     justify-content: space-between;
     background: white;
     display: flex;
+    flex-direction: column;
 
     &__submenu-panel{
         position: relative;

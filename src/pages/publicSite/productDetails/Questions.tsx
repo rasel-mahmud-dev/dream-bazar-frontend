@@ -39,9 +39,9 @@ const Questions = () => {
     ];
 
     return (
-        <div>
-            <div className="question_answer_section">
-                <div  className="section_title">
+        <div className="mt-6">
+            <div className="">
+                <div className="product_detail_title">
                     Questions and Answers
                 </div>
                 <div className="question_answer_root">

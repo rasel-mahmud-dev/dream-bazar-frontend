@@ -302,4 +302,13 @@
     position: sticky;
     height: 100vh;
     top: var(--header-height);
+    @include get_down(1024px){
+        position: static;
+    }
+}
+
+
+.product_detail_title{
+    font-weight: 500;
+    font-size: 20px;
 }

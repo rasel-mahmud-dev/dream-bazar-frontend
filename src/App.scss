@@ -167,6 +167,9 @@ i:hover{
   i{ color: white;}
 }
 
+.p-theme{
+    @apply text-dark-400 font-normal dark:text-dark-100
+}
 
 
 // shared styles.............

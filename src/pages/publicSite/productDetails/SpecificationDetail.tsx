@@ -2,25 +2,25 @@ import React from 'react';
 
 const SpecificationDetail = ({specification}) => {
     return (
-        <div>
-            <div className="section_title">
+        <div className="mt-6">
+            <div className="product_detail_title">
                 Specifications
             </div>
             {
                 specification && Object.keys(specification).map((sectionKey) => {
                     return (
-                        <div className="description_section">
+                        <div className="">
                             <div className="mt-5">
-                                <div className="description_key description_key_att">{sectionKey}</div>
-                                <div className="description_value">
+                                <div className="text-dark-900  font-semibold">{sectionKey}</div>
+                                <div className="">
                                     {specification &&
                                         specification[sectionKey] &&
                                         Object.keys(specification[sectionKey]).map((sec) => (
-                                            <div className="description_section_row">
-                                                <li className="description_key--key">{sec}</li>
-                                                <li className="description_key--value">
+                                            <div className="flex items-start border-b py-2 last:border-none ">
+                                                <li className="w-[250px] whitespace-nowrap">{sec}</li>
+                                                <p className="">
                                                     {specification && specification[sectionKey][sec]}
-                                                </li>
+                                                </p>
                                             </div>
                                         ))}
                                 </div>

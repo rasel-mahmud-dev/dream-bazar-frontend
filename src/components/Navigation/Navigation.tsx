@@ -244,9 +244,9 @@ function Navigation(props) {
 
                 <div className="main-nav bg-green-450">
                     <div className="max-w-8xl mx-auto px-4 flex items-center">
-                        <div className="md:hidden block mr-3 ">
-                            <FaBars className="text-xl text-neutral-100" onClick={handleToggleLeftBar} />
-                        </div>
+                        {/*<div className="md:hidden block mr-3 ">*/}
+                        {/*    <FaBars className="text-xl text-neutral-100" onClick={handleToggleLeftBar} />*/}
+                        {/*</div>*/}
 
                         <div className="grid grid-cols-12 items-center w-full ">
                             <div className="col-span-2 logo">

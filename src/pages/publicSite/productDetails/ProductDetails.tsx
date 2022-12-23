@@ -73,7 +73,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
     const [productDescription, setProductDescription] = React.useState<{
         _id?: string;
         product_id?: string;
-        description?: string;
+        summary?: string;
         highlight?: string[];
         specification?: { [key: string]: any };
         seller_rules?: string[];
@@ -218,9 +218,9 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                             />
                                         </div>
 
-                                        <div className="mt-5">
-                                            <Button onClick={() => addToCartHandler(product)}>Add To Cart</Button>
-                                            <Button>Buy Now</Button>
+                                        <div className="mt-5 flex gap-x-4 w-full">
+                                            <Button  className="btn-primary w-full" onClick={() => addToCartHandler(product)}>Add To Cart</Button>
+                                            <Button className="btn-primary w-full">Buy Now</Button>
                                         </div>
                                     </div>
 
@@ -315,29 +315,13 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                         <div className="description_key">
                                             <h4 className="section_title">Description</h4>
                                         </div>
-                                        <p className="description_value description_key--value">{productDescription.description}</p>
+                                        <p className="p-theme">{productDescription.summary}</p>
                                     </div>
                                 </div>
 
                                 <SpecificationDetail specification={productDescription?.specification} />
                                 <RatingReviews />
                                 <Questions />
-
-                                {/*{descriptionAttributes.map(eachAttribute=>(*/}
-                                {/*  <div className="description_section">*/}
-                                {/*    <div ="mt-5">*/}
-                                {/*      <div className="description_key description_key_att" >{eachAttribute.name}</div>*/}
-                                {/*      <div className="description_value">*/}
-                                {/*        {eachAttribute.sections && eachAttribute.sections.map(sec=>(*/}
-                                {/*          <div className="description_section_row">*/}
-                                {/*            <li className="description_key--key">{sec.name}</li>*/}
-                                {/*            <li className="description_key--value">{sec.value}</li>*/}
-                                {/*          </div>*/}
-                                {/*        ))}*/}
-                                {/*      </div>*/}
-                                {/*    </div>*/}
-                                {/*  </div>*/}
-                                {/*))}*/}
                             </div>
                         </div>
                     )}
