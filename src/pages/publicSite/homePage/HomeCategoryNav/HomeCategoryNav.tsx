@@ -47,7 +47,8 @@ const HomeCategoryNav = () => {
     // assume min width of dropdown panel
     const MAX_DROPDOWN_WIDTH = 288;
 
-    function handleClickSubMenu(e: MouseEvent, section: any) {
+    function handleClickSubMenu(e:  React.MouseEvent<HTMLDivElement, MouseEvent>, section: any) {
+        // @ts-ignore
         let offsetLeft = e.target.offsetLeft;
 
         // check if category item x position is greater than dropdown width than set dropdown position as category item position.

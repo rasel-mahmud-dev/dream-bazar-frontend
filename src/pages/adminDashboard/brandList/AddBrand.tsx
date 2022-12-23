@@ -9,7 +9,7 @@ import errorMessageCatch from "src/utills/errorMessageCatch";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import ResponseMessage from "UI/ResponseMessage";
+// import ResponseMessage from "UI/ResponseMessage";
 import Card from "UI/Form/Card/Card";
 import {Brand, StatusCode} from "store/types";
 
@@ -230,7 +230,7 @@ const AddBrand = () => {
 			<form onSubmit={handleAdd}>
 				<h2 className="heading-2">{updateId ? "Update Brand" : "Add New Brand"}</h2>
 
-				<ResponseMessage state={httpResponse}/>
+				{/*<ResponseMessage state={httpResponse}/>*/}
 
 				<InputGroup
                     name={"name"}

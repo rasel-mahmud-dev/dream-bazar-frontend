@@ -1,15 +1,31 @@
-import React, {useState} from "react";
+import React, {FC, ReactNode, useState} from "react";
 import Sidebar from "components/sidebar/Sidebar";
 import {toggleLeftSidebarAction} from "actions/appAction";
 import {useDispatch} from "react-redux";
-import {BiCart, BiNote, BiPlug, BiPlus, FaAngleLeft, FaBars, FiMail} from "react-icons/all";
+import {BiCart, BiNote, BiPlug, BiPlus, FaAngleLeft, FaBars, FiMail, MdOutlineSpaceDashboard} from "react-icons/all";
 import {Link,   useNavigate} from "react-router-dom";
 import Circle from "UI/Circle/Circle";
 
 import "./dashboardSideBar.scss";
+import {AuthType} from "store/types";
+
+export type SidebarDataType = {
+    name?: string,
+    to?: string,
+    icon?: React.ReactNode,
+    iconClassName?: string,
+    section?: string,
+    items?: { name: string, to?: string, icon?: React.ReactNode, subItems?: any }[]
+}
+
+interface Props {
+    isOpenLeftBar: boolean
+    auth: AuthType
+    sidebarData: SidebarDataType[]
+}
 
 
-const DashboardSidebar = ({auth, isOpenLeftBar, data}) => {
+const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
     const dispatch = useDispatch();
     const navigate  = useNavigate()
 
@@ -77,7 +93,7 @@ const DashboardSidebar = ({auth, isOpenLeftBar, data}) => {
                                 </div>
                             </Link>
 
-                            { data.map(section=>(
+                            { sidebarData?.map(section=>(
                                 <div key={section.section} className="mt-10">
                                     <h6 className="heading-6 tracking-widest text-neutral-500">{section.section}</h6>
                                     <div className="ml-2 mt-2">

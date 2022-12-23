@@ -13,7 +13,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { AppContext } from "store/AppContext";
 import { setLanguage, toggleTheme } from "actions/appContextActions";
 import { currentAuthAction } from "actions/authAction";
-import { Scope } from "store/types";
+
 
 import { RootState } from "src/store";
 

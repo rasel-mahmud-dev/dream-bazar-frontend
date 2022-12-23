@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { SyntheticEvent, useRef, useState } from "react";
 import "./CategoryNavbar.scss";
 
 import { Link } from "react-router-dom";
@@ -26,15 +26,16 @@ const CategoryNavbar = (props) => {
                         id: "Mobiles",
                         rootCategory: "Electronics",
                         subMenu: [
-                            { name: "Mi", brand: "mi" },
+                            { name: "Mi", brand: "xiaomi" },
                             { name: "Realme", brand: "realme" },
-                            { name: "Samsung", brand: "samsung" },
+                            { name: "Samsung", brand: "Samsung" },
                             { name: "Infinix", brand: "infinix" },
                             { name: "OPPO", brand: "oppo" },
-                            { name: "Apple", brand: "apple" },
+                            { name: "Apple", brand: "Apple" },
                             { name: "Vivo", brand: "vivo" },
                             { name: "Honor", brand: "honor" },
                             { name: "Asus", brand: "asus" },
+                            { name: "Symphony", brand: "symphony" },
                             { name: "Poco X2" },
 
                             { name: "realme Narzo 10", _id: "613d230cc9247b736856e2a8" },
@@ -747,7 +748,7 @@ const CategoryNavbar = (props) => {
 
     const [openSectionId, setOpenSectionId] = React.useState<string>("");
 
-    function handleMouseHover(e: MouseEvent, id, type) {
+    function handleMouseHover(e: React.MouseEvent<HTMLDivElement, MouseEvent>, id, type) {
         if (type === "enter") {
             setOpenSectionId(id);
         } else {
@@ -755,54 +756,74 @@ const CategoryNavbar = (props) => {
         }
     }
 
-    function findRootCategoryName(parentItem, item){
+    function findRootCategoryName(parentItem, item) {
         let rootCategory = "";
         if (item.rootCategory) {
             rootCategory = item.rootCategory;
         } else if (parentItem.rootCategory) {
             rootCategory = parentItem.rootCategory;
         }
-        return rootCategory
+        return rootCategory;
     }
 
-    function findCategoryTreeName(parentItem, item){
+    function findCategoryTreeName(parentItem, item) {
         let catTree = "";
         if (item.id) {
             catTree = item.id;
         } else if (parentItem.id) {
             catTree = parentItem.id;
         }
-        return catTree
+        return catTree;
     }
 
     function renderLastLevel(item, section, eachSec, subMenu) {
-        const state = {};
+        const state: { brand?: string } = {};
         if (subMenu.brand) {
             state.brand = subMenu.brand;
         }
         return (
             <Link
                 to={`/p/${findRootCategoryName(eachSec, subMenu)}?catTree=${findCategoryTreeName(eachSec, subMenu)}`}
-                  state={{ideal: getIdeal(item, section, eachSec, subMenu), ...state}}
-                className="category_submenu--each_column--row--submenu--name">
+                state={{
+                    brand: getBrand(item, section, eachSec, subMenu),
+                    ideal: getIdeal(item, section, eachSec, subMenu),
+                    ...state,
+                }}
+                className="category_submenu--each_column--row--submenu--name"
+            >
                 {subMenu.name}
             </Link>
         );
     }
 
     // get ideal. priority for children
-    function getIdeal(section, subSection, subSubSection, subSubSubSection){
-        let ideal  = ""
-        if(subSubSubSection && subSubSubSection.ideal){
-            ideal = subSubSubSection.ideal
-        } else if(subSubSection && subSubSection.ideal){
-            ideal = subSubSection.ideal
-        } else if(subSection && subSection.ideal) {
-            ideal = subSection.ideal
-        } else if(section && section.ideal) {
-            ideal = section.ideal
+    function getIdeal(section, subSection, subSubSection, subSubSubSection) {
+        let ideal = "";
+        if (subSubSubSection && subSubSubSection.ideal) {
+            ideal = subSubSubSection.ideal;
+        } else if (subSubSection && subSubSection.ideal) {
+            ideal = subSubSection.ideal;
+        } else if (subSection && subSection.ideal) {
+            ideal = subSection.ideal;
+        } else if (section && section.ideal) {
+            ideal = section.ideal;
         }
         return ideal;
+    }
+
+    // get ideal. priority for children
+    function getBrand(section, subSection, subSubSection, subSubSubSection) {
+        let brand = "";
+        if (subSubSubSection && subSubSubSection.brand) {
+            brand = subSubSubSection.brand;
+        } else if (subSubSection && subSubSection.brand) {
+            brand = subSubSection.brand;
+        } else if (subSection && subSection.brand) {
+            brand = subSection.brand;
+        } else if (section && section.brand) {
+            brand = section.brand;
+        }
+        return brand;
     }
 
     function renderSection(item) {
@@ -814,13 +835,20 @@ const CategoryNavbar = (props) => {
                             {section.map((eachSec, i) => (
                                 <div key={i} className="category_submenu--each_column--row">
                                     <div className="category_submenu--each_column--row--title">
-                                        <Link state={{ideal: getIdeal(item, section, eachSec)}} className="row-title text-xs" to={`/p/${eachSec.rootCategory}?catTree=${eachSec.id}`}>
+                                        <Link
+                                            state={{
+                                                brand: getBrand(item, section, eachSec, null),
+                                                ideal: getIdeal(item, section, eachSec, null),
+                                            }}
+                                            className="row-title text-xs"
+                                            to={`/p/${eachSec.rootCategory}?catTree=${eachSec.id}`}
+                                        >
                                             {eachSec.name}
                                         </Link>
                                         <i className="collapse-icon fa fa-chevron-right" />
                                     </div>
                                     <div className="category_submenu--each_column--row--submenu">
-                                        {eachSec.subMenu && eachSec.subMenu.map((subMenu, i) => renderLastLevel(item , section, eachSec, subMenu))}
+                                        {eachSec.subMenu && eachSec.subMenu.map((subMenu, i) => renderLastLevel(item, section, eachSec, subMenu))}
                                     </div>
                                 </div>
                             ))}

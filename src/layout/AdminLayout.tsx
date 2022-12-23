@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useState } from "react";
+import React, {lazy, ReactNode, useEffect, useState} from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -9,11 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Footer from "components/Footer/Footer";
 
 import Navigation from "pages/shared/Navigation";
-import AdminSidebar from "pages/adminDashboard/adminSidebar/AdminSidebar";
 import { RootState } from "src/store";
-import { ACTION_TYPES, Scope } from "store/types";
-import DashboardSidebar from "pages/shared/DashboardSidebar/DashboardSidebar";
+import {ACTION_TYPES, AuthType, Scope} from "store/types";
+import DashboardSidebar, {SidebarDataType} from "pages/shared/DashboardSidebar/DashboardSidebar";
 import {BiCart, BiNote, BiPlus, BsList, FiMail, MdOutlineSpaceDashboard} from "react-icons/all";
+
+
 
 const AdminLayout = () => {
     const location = useLocation();
@@ -29,7 +30,9 @@ const AdminLayout = () => {
     const [isAdmin, setAdmin] = useState(false);
 
     const [activeItem, setActiveItem] = useState(0);
-    const sidebarLinks = [
+
+
+    const sidebarLinks: SidebarDataType[] = [
         {
             name: "Dashboard",
             to: "/admin/dashboard/dashboard",
@@ -116,7 +119,7 @@ const AdminLayout = () => {
 
                 <div className="container mx-auto">
                     <div className="flex">
-                        <DashboardSidebar data={sidebarLinks} isOpenLeftBar={isOpenLeftBar} auth={auth} />
+                        <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar} auth={auth} />
 
                         <div className="w-full ml-0 lg:ml-6">
                             <Outlet />

@@ -11,7 +11,6 @@ function App(props) {
     return (
         <div className="App">
             <div>
-                {/*<Toaster position="top-right" toastOptions={{duration: 1800}} containerClassName="mt-16"/>*/}
                 <Suspense fallback={<TopProgressBar/>}>
                     <RouterProvider router={router}/>
                 </Suspense>

@@ -15,7 +15,7 @@ import { InputGroup } from "UI/Form";
 import apis, { backend } from "src/apis";
 import { BsFacebook, BsGoogle } from "react-icons/all";
 import { RootState } from "src/store";
-import ResponseMessage from "UI/ResponseMessage";
+// import ResponseMessage from "UI/ResponseMessage";
 import {registrationAction} from "actions/authAction";
 import {Scope} from "store/types";
 import SocialLogin from "components/SocialLogin/SocialLogin";
@@ -78,7 +78,7 @@ const Registration = (props) => {
             return;
         }
         setParentState({...parentState, httpResponse: "pending"});
-        registrationAction(payload, Scope.USER, dispatch,  function (data, errorMessage){
+        registrationAction(payload,  dispatch,  function (data, errorMessage){
             if(!errorMessage) {
                 if(!errorMessage) {
                     location.state?.redirect && navigate(location.state?.redirect)
@@ -97,11 +97,11 @@ const Registration = (props) => {
         <div>
             <h1 className="card-title">Create an Account</h1>
             
-            <ResponseMessage
-                className="my-2"
-                message={parentState.httpResponse}
-                statusCode={parentState.httpStatus}
-            />
+            {/*<ResponseMessage*/}
+            {/*    className="my-2"*/}
+            {/*    message={parentState.httpResponse}*/}
+            {/*    statusCode={parentState.httpStatus}*/}
+            {/*/>*/}
 
             <form onSubmit={submitHandler}>
                 <InputGroup

@@ -17,7 +17,7 @@ import {BsPencilSquare, FaPenAlt, FaTimes, FcEmptyTrash} from "react-icons/all";
 // import {fetchCategoryDetailsAction, fetchFlatCategoriesAction, fetchProductAttributesAction} from "actions/adminProductAction";
 import Card from "UI/Form/Card/Card";
 import Circle from "UI/Circle/Circle";
-// import AddCategoryDetail from "pages/adminDashboard/categoryList/AddCategoryDetail";
+// import AddCategoryDetail from "pages/adminDashboard/CategoryList/AddCategoryDetail";
 import AddingAttribute from "pages/adminDashboard/productAttribute/AddingAttribute";
 import {fetchProductAttributesAction} from "actions/adminProductAction";
 
@@ -244,7 +244,7 @@ const ProductAttribute = (props) => {
 			</div>
             
             
-            <Modal isOpen={state.isShowForm} modalClass="bg-red-500 h-full !max-w-md !top-10" contentSpaceY={200} onCloseModal={closeModal}>
+            <Modal isOpen={state.isShowForm} className="bg-red-500 h-full !max-w-md !top-10" onClose={closeModal}>
 				<AddingAttribute
                     onUpdateAttributes={handleUpdateAttributes}
                     attribute={state.attribute}

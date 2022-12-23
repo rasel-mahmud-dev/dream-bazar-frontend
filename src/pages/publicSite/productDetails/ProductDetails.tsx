@@ -305,7 +305,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                 {relatedDevices && relatedDevices.map(dev=>(
                   <div className="w-32 m-2">
                     <div className="w-10 m-auto">
-                      <Image className="m-auto" maxWidth={50} src={fullLink(image)}/>
+                      <Image className="m-auto" src={fullLink(image)}/>
                     </div>
                     <h4 className="mt-2 text-center font-medium text-xs">{dev.title}</h4>
                   </div>
@@ -432,7 +432,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
             
                     <div className="mt-2" >
                       <div className="flex">
-                        <Image  src={""} maxWidth={"avatar"}/>
+                        <Image  src={""} />
                         <Title className="ml-2" level={5}>{qs.qs.username}</Title>
                       </div>
                       <Title level={6}>{new Date(qs.qs.created_at).toDateString()}</Title>
@@ -482,7 +482,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                 <div  className="customer_gallery flex-wrap">
                   { new  Array(30).fill("", 1, 30).map(a=>(
                     <div>
-                      <Image className="m-2" maxWidth={25} src={image2} />
+                      <Image className="m-2" src={image2} />
                     </div>
   
                   ))}
@@ -503,7 +503,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                       <Title level={4} className="ml-2">{review.title}</Title>
                     </div>
                     <Title level={5}>{review.desc}</Title>
-                    <Image className="mt-5 mb-2" src={image2} maxWidth={30} />
+                    <Image className="mt-5 mb-2" src={image2} />
                     
                     <div >
                       <Title level={5} className="mr-40">{review.username}</Title>

@@ -19,13 +19,13 @@ const AuthCallback = () => {
     useEffect( () => {
         let token = searchParams.get("token")
         if (token) {
-            localStorage.removeItem(Scope.USER.toLowerCase())
-            getApi(Scope.USER, token).get("/api/auth/current-auth").then(({data, status})=>{
+            localStorage.removeItem("token")
+            getApi( token).get("/api/auth/current-auth").then(({data, status})=>{
                 if (status === 200) {
-                    logoutAction(dispatch, Scope.USER)
-                    loginHandler(data, Scope.USER, dispatch)
+                    logoutAction(dispatch)
+                    loginHandler(data,  dispatch)
                     navigate("/", {replace: true})
-                    localStorage.setItem(Scope.USER.toLowerCase(), token)
+                    localStorage.setItem("token", token)
                 }
             }).catch(ex=>{
                 navigate("/auth/join/login", {replace: true})

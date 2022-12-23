@@ -81,7 +81,7 @@ const Orders = (props) => {
               {/*<Divider lineHeight={1} lineColor="#d9d9d96f"  />*/}
               <div className="order-item d-flex">
                 <div className="w-25">
-                  <Image src={fullLink(order.product.cover_photo)} maxWidth={100}/>
+                  <Image src={fullLink(order.product.cover_photo)}/>
                 </div>
                 <div style={{
                     marginLeft: "30px", width: "100%",

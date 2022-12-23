@@ -3,7 +3,9 @@ import {Scope} from "store/types";
 
 
 // export const backend = "https://dream-bazar.vercel.app"
-export const backend = import.meta.env.DEV ? "http://localhost:4000" : "https://server-raselmr.vercel.app"
+// export const backend = import.meta.env.DEV ? "http://localhost:4000" : "https://server-raselmr.vercel.app"
+
+export const backend = import.meta.env.DEV ? "http://localhost:4000" : "https://dream-bazar-rasel-mahmud-dev.vercel.app"
 // export const backend = import.meta.env.DEV ? "http://192.168.91.224:4000" : "https://server-raselmr.vercel.app"
 // export const backend = import.meta.env.DEV ? "http://localhost:8888/.netlify/functions/app" : "/.netlify/functions/app"
 
@@ -18,7 +20,7 @@ const apis = axios.create({
     }
 })
 
-export function getApi(scope?: Scope, token?: string){
+export function getApi(token?: string){
     apis.defaults.headers["authorization"] =  token ? token : window.localStorage.getItem("token")
     return apis;
 }

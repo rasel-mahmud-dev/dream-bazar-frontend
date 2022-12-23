@@ -1,6 +1,6 @@
 import {useEffect,  useState} from "react";
 
-import { useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import { FaTimes} from "react-icons/all";
 import {ACTION_TYPES, CategoryType} from "store/types";
 import {useDispatch, useSelector} from "react-redux";
@@ -18,6 +18,7 @@ function CategoryList(props) {
     
     
     const dispatch = useDispatch();
+    const location = useLocation();
     
     const l = useLanguage()
     
@@ -76,13 +77,27 @@ function CategoryList(props) {
     })
     
     
+    // useEffect(()=>{
+    //     (async function(){
+    //         let c = await fetchFlatCategoriesAction(flatCategories, dispatch)
+    //         getCat(c, params)
+    //         console.log("call init")
+    //     }())
+    // }, [])
+
     useEffect(()=>{
         (async function(){
-            let c = await fetchFlatCategoriesAction(flatCategories, dispatch)
+            let c = [];
+            if(!flatCategories){
+                c = await fetchFlatCategoriesAction(flatCategories, dispatch)
+            } else{
+                c = flatCategories
+            }
             getCat(c, params)
-
+            console.log("call init", c)
         }())
-    }, [])
+    }, [location.pathname, location.search])
+
 
 
     /**
@@ -400,7 +415,7 @@ function CategoryList(props) {
         
         
         if(!parentCat){
-            handleChangeCategory(item)
+            handleChangeCategory(item, flatCategories)
             return setSidebarCategory(updatedSidebarCategory)
         }
         
@@ -434,7 +449,7 @@ function CategoryList(props) {
         }))
         setSidebarCategory(updatedSidebarCategory)
         
-        handleChangeCategory(item)
+        handleChangeCategory(item, flatCategories)
         
         // change url params
         if(levelNumber === 0) {

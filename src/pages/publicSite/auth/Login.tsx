@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import LoginPage from "pages/shared/LoginPage"
+
 
 
 
@@ -9,4 +9,4 @@ const LoginPage = (props) => {
 
 };
 
-export default Login;
+export default LoginPage;

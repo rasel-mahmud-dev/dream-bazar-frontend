@@ -122,7 +122,7 @@ const HomePage = (props) => {
   function renderProduct(product){
     return (
       <div className="product">
-        <Image  maxWidth={20} src={"df"}/>
+        <Image  className="w-16" src={"df"}/>
         <h5 className="product_name">{product.title}</h5>
         <h5 className="product_price">${product.price}</h5>
         <Button onClick={()=> handleAddToCart(product)}>Add To Cart</Button>

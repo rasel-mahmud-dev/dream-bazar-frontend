@@ -9,11 +9,9 @@ import {useDispatch, useSelector} from "react-redux";
 import Footer from "components/Footer/Footer";
 
 import Navigation from "pages/shared/Navigation";
-import AdminSidebar from "pages/adminDashboard/adminSidebar/AdminSidebar";
 import {RootState} from "src/store";
 import {ACTION_TYPES, Scope} from "store/types";
-import SellerNavigation from "pages/sellerDashboard/components/sellerNavigation/SellerNavigation";
-import SellerSidebar from "pages/sellerDashboard/components/selllerSidebar/SellerSidebar";
+
 import DashboardSidebar from "pages/shared/DashboardSidebar/DashboardSidebar";
 import {BiCart, BiNote, BiPlus, FiMail} from "react-icons/all";
 import apis from "src/apis";

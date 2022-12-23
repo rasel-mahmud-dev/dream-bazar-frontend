@@ -271,7 +271,7 @@ const Products: FC<ProductProps> = (props) => {
                           <div className="d-flex product-gallery">
                               { filteredProducts && filteredProducts.length > 0  ? filteredProducts.map((p: any)=> (
                                   <div className="product">
-                                      <Image  maxWidth={100} src={"df"}/>
+                                      <Image  src={"df"}/>
                                       <h5 className="product_name">{p.title}  </h5>
                                       <h5 className="product_price">${p.price}</h5>
                                       <button>Add To Cart</button>
@@ -309,10 +309,10 @@ const Products: FC<ProductProps> = (props) => {
                                             
                                         </div>
                                         
-                                      <div className="d-flex product-gallery">
+                                      <div className="flex product-gallery">
                                         {  subcategorySectionsProduct[section].map(prod=>(
                                             <div>
-                                                <Image maxWidth={100} src={"df"}/>
+                                                <Image src={"df"}/>
                                                 <h5>{prod.title}</h5> 
                                                 <Link to={`/products/${prod._id}`}>Details</Link>
                                             </div>

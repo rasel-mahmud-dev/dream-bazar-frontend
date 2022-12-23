@@ -70,7 +70,7 @@ const CartPage = (props) => {
             <tr>
               <td className="d-flex">
                 <div className="cart_image_root">
-                  <Image className="cart-image" src={fullLink(item.image)} maxWidth={20} />
+                  <Image className="cart-image" src={fullLink(item.image)} />
                 </div>
                 <Title level={4} className="title">{item.title}</Title>
               </td>

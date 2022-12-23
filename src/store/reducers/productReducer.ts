@@ -102,6 +102,7 @@ export interface ProductStateType {
         price: any;
         brands: { name: string; logo: string; _id: string }[];
         sortBy: { field: string; id: string; order: number }[];
+        ideals: string[]
     };
     filteredAttributes: {
         attribute_name: string;
@@ -225,6 +226,7 @@ const initialState: ProductStateType = {
         price: [10, 100],
         brands: [],
         sortBy: [{ field: "views", order: -1, id: "1" }],
+        ideals: null
     },
     filteredAttributes: [],
     expandFilterItems_sectionIds: ["generation"],
@@ -486,13 +488,15 @@ const productReducer = (state: ProductStateType = initialState, action) => {
             return updatedState;
 
         case ACTION_TYPES.ADD_FILTER:
-            const { brands, sortBy, category } = action.payload;
+            const { brands, sortBy, ideals } = action.payload;
             let updatedFilters = { ...updatedState.filters };
             if (brands) {
                 updatedFilters.brands = brands;
             }
             if (sortBy) {
                 updatedFilters.sortBy = sortBy;
+            }      if (ideals) {
+                updatedFilters.ideals = ideals;
             }
             updatedState.filters = updatedFilters;
             // updatedState.filteredAttributes = action.payload

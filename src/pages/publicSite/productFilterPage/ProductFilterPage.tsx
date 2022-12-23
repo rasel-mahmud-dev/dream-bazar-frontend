@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import {  Spin } from "UI/index";
 import Pagination from "components/Pagination/Pagination"
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import api from "src/apis";
+import api, {getApi} from "src/apis";
 import apis from "src/apis";
 import { useDispatch, useSelector } from "react-redux";
 import { ACTION_TYPES } from "store/types";
@@ -21,11 +21,13 @@ import { RootState } from "src/store";
 import BrandList from "pages/publicSite/productFilterPage/BrandList";
 import Product from "components/Product/Product";
 import SEO from "components/SEO/SEO";
-import CategoryList from "components/categoryList/CategoryList";
+import CategoryList from "components/CategoryList/CategoryList";
 import WithWidth from "UI/withWidth/withWidth";
 import Sidebar from "components/sidebar/Sidebar";
 import Circle from "UI/Circle/Circle";
 import { FaAngleLeft } from "react-icons/all";
+import {setFilter, SetFilterActionPayload} from "actions/filterSidebar.action";
+import product from "components/Product/Product";
 
 let initialLoad = true;
 
@@ -86,7 +88,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 	const location = useLocation();
 	// const d = props.appState.ui_categories
 
-    console.log(location.state)
+
 
 	const [paginate, setPaginate] = React.useState({
 		perPage: 3,
@@ -367,7 +369,55 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
     ]);
 
 
-	// console.log(filters)
+
+    // fetch brands using names
+    function fetchBrandByNames<T>(...brandNames: string[]){
+        return new Promise<T>(async(resolve, reject)=>{
+            try{
+                let brandQuery = ""
+                brandNames.forEach((brand, index)=>{
+                    brandQuery += `${brand}___`
+                })
+                let {data, status } = await getApi().get<T>("/api/brands/info/" + brandQuery)
+                if(status === 200){
+                    resolve(data)
+                } else {
+                    resolve(null)
+                }
+            } catch (ex){
+                resolve(null)
+            }
+        })
+    }
+
+    
+    /**
+     if it has some product filter attribute (like ideal, brand) value in location state.
+     then set it in filter state in global state.
+     * */
+    useEffect(() => {
+        (async function(){
+            let updateFilterState: SetFilterActionPayload = {}
+            const {brand, ideal} = location.state
+            if(brand){
+                let brands = await fetchBrandByNames<{ _id: string, name: string, logo?: string }[]>(brand);
+                if(brands) {
+                    updateFilterState.brands = brands
+                }
+            }
+            if(ideal){
+                updateFilterState.ideals =  [ideal]
+            }
+
+            if(updateFilterState) {
+                dispatch(setFilter(updateFilterState))
+            }
+        }())
+
+
+    }, [location.state])
+
+
 
 	// refetch Product if change paginate value
 	// then append Product with exist products in store
