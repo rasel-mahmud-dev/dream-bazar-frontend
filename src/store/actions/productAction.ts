@@ -64,7 +64,7 @@ export function filterProductsAction(payload, isCount: boolean, dispatch){
     let brandIds : string[] = []
     if(brands){
         brands.forEach((brand: any)=>{
-            brandIds.push(brand.id)
+            brandIds.push(brand._id)
         })
     }
     

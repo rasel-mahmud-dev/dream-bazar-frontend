@@ -310,7 +310,6 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 				}
 			}
 
-            console.log(filters.category)
 
 			/******************* Fetch brand for category ***************/
 			/**
@@ -362,6 +361,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 		}
 	}, [
         filters.category.selected,
+        filters.brands,
         filters.category.allNestedIds,
         filters.pagination.currentPage,
         filters.pagination.viewPerPage,

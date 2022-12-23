@@ -3,6 +3,7 @@ import {ACTION_TYPES} from "store/types";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
 import useLanguage from "src/hooks/useLanguage";
+import {setFilter} from "actions/filterSidebar.action";
 
 
 const BrandList = () => {
@@ -26,18 +27,22 @@ const BrandList = () => {
     
     function handleChangeBrand(brand) {
         let updatedBrands = [...filters.brands]
-        let selectedBrandIndex = updatedBrands.findIndex((br: any) => br.id === brand.id)
+
+
+        console.log(updatedBrands)
+
+        let selectedBrandIndex = updatedBrands.findIndex((br: any) => br._id === brand._id)
         if (selectedBrandIndex !== -1) {
             updatedBrands.splice(selectedBrandIndex, 1)
         } else {
             updatedBrands.push(brand)
         }
-        
+
         // update global state
-        dispatch({
-            type: ACTION_TYPES.ADD_FILTER,
-            payload: {brands: updatedBrands}
-        })
+        dispatch(setFilter({
+            brands: updatedBrands
+        }))
+
     }
     
     function isChecked(brandId: string) {
