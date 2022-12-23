@@ -1,13 +1,12 @@
 
 .category-dropdown{
-    @apply absolute shadow-2xl rounded-lg;
+    @apply absolute shadow-2xl rounded-lg flex-col md:flex-row;
     padding: 20px 10px;
     top: 100%;
     transform: translateX(-50%);
     justify-content: space-between;
     background: white;
     display: flex;
-    flex-direction: column;
 
     &__submenu-panel{
         position: relative;

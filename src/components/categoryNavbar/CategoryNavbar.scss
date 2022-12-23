@@ -1,100 +1,107 @@
 
-
-.category_navigation{
-  position: relative;
+.category_navigation {
+    position: relative;
+    user-select: none;
     z-index: 999;
-  background: white;
-  margin-bottom: 10px;
-  box-shadow: 0 1px 8px 0 rgb(0 0 0 / 6%);
+    background: white;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 8px 0 rgb(0 0 0 / 6%);
 
-  .category_main_nav{
-    display: flex;
-    justify-content: center;
-      position: relative;
-    &--item{
-      padding: 15px 10px;
-      //position: relative;
-      li{
-        font-size: 14px;
-        font-weight: 500;
-        padding: 0 10px;
-        cursor: pointer;
-        letter-spacing: 0.3px;
-        &:hover{
-          color: var(--primary);
+    .category_main_nav {
+        display: flex;
+        justify-content: center;
+        position: relative;
+
+        &--item {
+            padding: 15px 10px;
+            //position: relative;
+            li {
+                font-size: 14px;
+                font-weight: 500;
+                padding: 0 10px;
+                cursor: pointer;
+                letter-spacing: 0.3px;
+
+                &:hover {
+                    color: var(--primary);
+                }
+            }
         }
-      }
     }
-  }
 }
 
-.category_submenu_popup{
-    @apply absolute rounded-lg;
+.category_submenu_popup {
+    @apply absolute rounded-lg w-11/12 md:w-auto;
     //padding: 20px 10px;
     position: absolute;
     left: 50%;
-    top:  40px;
+    top: 40px;
     z-index: 1000;
     transform: translateX(-50%);
     justify-content: space-between;
     background: white;
     display: flex;
 }
-.category_submenu{
-  display: flex;
-  //position: absolute;
-  //z-index: 100;
-  //left: 50%;
-  //transform: translateX(-50%);
-  //top: 100%;
-  //background: white;
-  padding: 0px 0px;
-  //box-shadow: 0px 2px 8px -2px #929292;
-  &--each_column{
-    min-width: 200px;
-    padding: 5px 10px;
-    &:nth-child(even){
-      background: #f8f8f8;
+
+.category_submenu {
+    //display: flex;
+    display: grid;
+    padding: 0px 0px;
+    width: 100%;
+    @apply grid-cols-1 md:grid-cols-4;
+
+    &--each_column {
+        //min-width: 200px;
+        padding: 5px 10px;
+        //overflow: hidden;
+        width: 100%;
+        &:nth-child(even) {
+            background: #f8f8f8;
+        }
+
+        &--row {
+            //padding: 5px 5px;
+            margin-bottom: 5px;
+
+            &--title {
+                margin-bottom: 5px;
+                display: flex;
+                align-items: center;
+
+                .row-title {
+                    font-size: 13px;
+                    font-weight: 600;
+                    text-decoration: none;
+                    color: #2a2929;
+                }
+
+                .collapse-icon {
+                    font-size: 8px;
+                    margin-left: 5px;
+                }
+            }
+
+            &--submenu {
+                display: flex;
+                flex-direction: column;
+
+                &--name {
+                    padding: 0;
+                    font-weight: 400;
+                    margin: 2px 0px;
+                    font-size: 13px;
+                    color: rgba(31, 31, 31, 0.72);
+                    //color: #4c4c4c;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: var(--color-primary);
+                        //font-weight: 400;
+                    }
+                }
+            }
+
+
+        }
     }
-    &--row {
-      //padding: 5px 5px;
-      margin-bottom: 5px;
-      &--title{
-        margin-bottom: 5px;
-        display: flex;
-        align-items: center;
-        .row-title{
-          font-size: 13px;
-          font-weight: 600;
-          text-decoration: none;
-          color: #2a2929;
-        }
-  
-        .collapse-icon{
-          font-size: 8px;
-          margin-left: 5px;
-        }
-      }
-      
-      &--submenu{
-        display: flex;
-        flex-direction: column;
-        &--name{
-          padding: 0;
-          font-weight: 400;
-          margin: 2px 0px;
-          font-size: 13px;
-          color: rgba(31, 31, 31, 0.72);
-          //color: #4c4c4c;
-          cursor: pointer;
-          &:hover{
-            color: var(--color-primary);
-            //font-weight: 400;
-          }
-        }
-      }
-      
-      
-    }
-  }
 }

@@ -1,11 +1,29 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./CategoryNavbar.scss";
 
 
 import { Link } from "react-router-dom";
 import Dropdown from "components/Dropdown/Dropdown";
+import useWindowResize from "src/hooks/useWindowResize";
 
 const CategoryNavbar = (props) => {
+
+
+    const [isMobile, setMobile] = useState(true)
+
+    let innerWidth = useWindowResize()
+
+
+    useEffect(()=>{
+        if(innerWidth < 1024) {
+            setMobile(true)
+        } else{
+            setMobile(false)
+        }
+    }, [innerWidth])
+
+
+
     /**
      * 1. if _id exist that means it go to direct Product page
      * 2. if id that means it go to Product filter page
@@ -749,6 +767,9 @@ const CategoryNavbar = (props) => {
 
     const [openSectionId, setOpenSectionId] = React.useState<string>("");
 
+    // for mobile view dropdown
+    const [dropdownSection, setDropdownSection] = useState(null)
+
     function handleMouseHover(e: React.MouseEvent<HTMLDivElement, MouseEvent>, id, type) {
         if (type === "enter") {
             setOpenSectionId(id);
@@ -863,21 +884,27 @@ const CategoryNavbar = (props) => {
     return (
         <div className="category_navigation">
             <div>
-                <div className="category_main_nav">
+                <div className="category_main_nav overflow-x-auto md:overflow-x-visible scroll-x-transparent ">
                     {data.map((item, i) => (
                         <div
                             key={i}
+                            onClick={()=>setDropdownSection(item)}
                             onMouseLeave={(e) => handleMouseHover(e, "", "leave")}
                             onMouseEnter={(e) => handleMouseHover(e, item.id, "enter")}
                             className="category_main_nav--item"
                         >
-                            <li className={`${openSectionId === item.id ? "text-primary-500 font-semibold" : ""}`}>{item.name}</li>
-                            <Dropdown className="category_submenu_popup" isShow={openSectionId === item.id}>
+                            <li className={`whitespace-nowrap ${openSectionId === item.id ? "text-primary-500 font-semibold " : ""}`}>{item.name}</li>
+
+                            { !isMobile && <Dropdown className="category_submenu_popup" isShow={openSectionId === item.id}>
                                 <div>{renderSection(item)}</div>
-                            </Dropdown>
+                            </Dropdown> }
                         </div>
                     ))}
                 </div>
+
+                { isMobile && dropdownSection &&  <Dropdown className="category_submenu_popup overflow-hidden" isShow={openSectionId === dropdownSection?.id}>
+                    <div className="w-full">{renderSection(dropdownSection)}</div>
+                </Dropdown> }
             </div>
         </div>
     );

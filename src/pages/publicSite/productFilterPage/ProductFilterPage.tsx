@@ -470,7 +470,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 		// )
 
 		return (
-			<div className="products-views-ssds grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+			<div className="products-views-ssds grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 				{filterProducts && filterProducts.length > 0 ? (
 					filterProducts.map((product, i) => (
 						<Product

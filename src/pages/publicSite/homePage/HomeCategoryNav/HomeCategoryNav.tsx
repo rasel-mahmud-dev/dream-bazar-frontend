@@ -10,6 +10,7 @@ import "./style.scss";
 
 
 import homeNavData from "./data";
+import useWindowResize from "src/hooks/useWindowResize";
 
 const { SubMenu } = Menu;
 
@@ -26,13 +27,16 @@ const HomeCategoryNav = () => {
 
     const [isMobile, setMobile] = useState(false)
 
+    let innerWidth = useWindowResize()
+
+
     useEffect(()=>{
-        if(window.innerWidth < 1024) {
+        if(innerWidth < 1024) {
             setMobile(true)
         } else{
             setMobile(false)
         }
-    }, [])
+    }, [innerWidth])
 
 
     const [openItemId, setOpenItemId] = React.useState(-1);
@@ -168,7 +172,7 @@ const HomeCategoryNav = () => {
 
     return (
         <div className="bg-white py-4 dark:bg-neutral-800 dark:text-white shadow-md">
-            <div className="flex items-center justify-between max-w-8xl mx-auto px-4  gap-x-4 scroll-x-transparent overflow-x-auto ">
+            <div className="flex items-center justify-between max-w-8xl mx-auto px-4  gap-x-4 scroll-x-transparent overflow-x-auto md:overflow-visible ">
                 {homeNavData.map((section) => (
                     <div
                         key={section.name}
@@ -176,7 +180,7 @@ const HomeCategoryNav = () => {
                         onMouseEnter={(e) => handleClickSubMenu(e, section)}
                         onMouseLeave={handleCloseDropdown}
                     >
-                        <div className="flex flex-col items-center pointer-events-none border md:border-none rounded-full bg-primary-500 ">
+                        <div className="flex flex-col items-center pointer-events-none border md:border-none rounded-full bg-primary-500 md:bg-transparent ">
                             <Image className="w-10 m-1 md:w-20" src={staticImagePath(section.logo)} />
                             <h4 className="hidden md:block text-sm font-medium">{section.label}</h4>
                         </div>
