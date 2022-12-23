@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 
 import { fetchProduct, toggleLoader } from "actions/productAction";
 
-import {ACTION_TYPES, StatusCode} from "store/types";
+import { ACTION_TYPES, StatusCode } from "store/types";
 
 import { Button, Badge, Image, Typography, Spin } from "UI/index";
 import { connect, useDispatch } from "react-redux";
@@ -23,8 +23,10 @@ import fullLink from "src/utills/fullLink";
 // import {toggleAppMask} from "actions/appAction";
 import calculateDiscount from "src/utills/calculateDiscount";
 import CategoryNavbar from "components/categoryNavbar/CategoryNavbar";
-import {BiHeart} from "react-icons/all";
 import staticImagePath from "src/utills/staticImagePath";
+import SpecificationDetail from "pages/publicSite/productDetails/SpecificationDetail";
+import RatingReviews from "pages/publicSite/productDetails/RatingReviews";
+import Questions from "pages/publicSite/productDetails/Questions";
 
 interface ProductDetailsProps {
     toggleLoader?: (loadingState: string, isLoading: boolean) => any;
@@ -32,6 +34,9 @@ interface ProductDetailsProps {
     loadingStates?: any[];
     addToCart: (data: object) => any;
 }
+
+const FAKE_DESCRIPTION_ID = "60e03983c4db28a6a4fdcb80"
+
 
 const ProductDetails: FC<ProductDetailsProps> = (props) => {
     const params = useParams();
@@ -70,15 +75,15 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
         product_id?: string;
         description?: string;
         highlight?: string[];
-        details?: { [key: string]: any };
+        specification?: { [key: string]: any };
         seller_rules?: string[];
     }>({});
 
-    React.useEffect(() => {
+    useEffect(() => {
         (async function () {
-            let {status, data} = await apis.get(`/api/product/${params.slug}`);
+            let { status, data } = await apis.get(`/api/product/${params.slug}`);
 
-            if(status === StatusCode.Ok) {
+            if (status === StatusCode.Ok) {
                 setProduct(data);
             }
 
@@ -90,6 +95,18 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
         })();
     }, [params.slug]);
 
+    useEffect(() => {
+        if (product?._id) {
+            (async function () {
+                let { status, data } = await apis.get(`/api/product/detail/${FAKE_DESCRIPTION_ID}`);
+                // let { status, data } = await apis.get(`/api/product/detail/${product._id}`);
+                if (status === StatusCode.Ok) {
+                    setProductDescription(data);
+                }
+            })();
+        }
+    }, [product?._id]);
+
     const productImageListRef = React.useRef<HTMLDivElement>(null);
     const relatedDevices = [
         { title: "Xiaomi Redmi Note 10S", _id: "" },
@@ -99,58 +116,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
         { title: "Xiaomi Redmi Note 9", _id: "" },
         { title: "Xiaomi Redmi 9T", _id: "" },
     ];
-    const productQuestions = [
-        {
-            qs: { username: "alex", avatar: "", text: "It supports jio sim", created_at: new Date().toString() },
-            ans: { text: "Yes, It's" },
-        },
-        {
-            qs: { username: "antron", avatar: "", text: "It 5G", created_at: new Date() },
-            ans: { text: "Yes, It's" },
-        },
-        {
-            qs: { username: "alex", avatar: "", text: "It supports jio sim", created_at: new Date().toString() },
-            ans: { text: "Yes, It's" },
-        },
-        {
-            qs: { username: "antron", avatar: "", text: "It 5G", created_at: new Date() },
-            ans: { text: "Yes, It's" },
-        },
-        {
-            qs: { username: "alex", avatar: "", text: "It supports jio sim", created_at: new Date().toString() },
-            ans: { text: "Yes, It's" },
-        },
-        {
-            qs: { username: "antron", avatar: "", text: "It 5G", created_at: new Date() },
-            ans: { text: "Yes, It's" },
-        },
-        {
-            qs: { username: "alex", avatar: "", text: "It supports jio sim", created_at: new Date().toString() },
-            ans: { text: "Yes, It's" },
-        },
-        {
-            qs: { username: "antron", avatar: "", text: "It 5G", created_at: new Date() },
-            ans: { text: "Yes, It's" },
-        },
-    ];
-    const reviews = [
-        {
-            ratings: 5,
-            title: "day to day king",
-            desc: "This is such a budget friendly Product.It also makes a good first impression as the overall look of the device is really impressive. The device also provides a decent display and camera with a storage space of 32 GB.",
-            username: "Rasel Mahmud",
-            customer_photos: [],
-            created_at: new Date(),
-        },
-        {
-            ratings: 5,
-            title: "day to day king",
-            desc: "This is such a budget friendly Product.It also makes a good first impression as the overall look of the device is really impressive. The device also provides a decent display and camera with a storage space of 32 GB.",
-            username: "Rasel Mahmud",
-            customer_photos: [],
-            created_at: new Date(),
-        },
-    ];
+
     const rating = [
         { rating: 1, amount: 20 },
         { rating: 2, amount: 30 },
@@ -209,192 +175,154 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
 
     // get rate =  (rating * amount)n + (rating * amount)n / totalAmount
 
-    let Title = Typography.Title.default;
-
-    function renderDeepDetails() {
-        if (productDescription.details) {
-            return Object.keys(productDescription.details).map((sectionKey) => {
-                return (
-                    <div className="description_section">
-                        <div className="mt-5">
-                            <div className="description_key description_key_att">{sectionKey}</div>
-                            <div className="description_value">
-                                {productDescription.details &&
-                                    productDescription.details[sectionKey] &&
-                                    Object.keys(productDescription.details[sectionKey]).map((sec) => (
-                                        <div className="description_section_row">
-                                            <li className="description_key--key">{sec}</li>
-                                            <li className="description_key--value">
-                                                {productDescription.details && productDescription.details[sectionKey][sec]}
-                                            </li>
-                                        </div>
-                                    ))}
-                            </div>
-                        </div>
-                    </div>
-                );
-            });
-        }
-    }
-
     return (
         <div>
             <div className="">
                 <CategoryNavbar />
 
                 <div className="container">
-                    {product && <div className="block lg:grid lg:grid-cols-12 gap-x-6">
-                        <div className="description-sidebar card !shadow-xxs  col-span-4">
-                            <div className="">
-                                <div className="flex flex-col">
-                                    <div className="product-photo--sidebar">
+                    {product && (
+                        <div className="block lg:grid lg:grid-cols-12 gap-x-6">
+                            <div className="description-sidebar card !shadow-xxs  col-span-4">
+                                <div className="">
+                                    <div className="flex flex-col">
+                                        <div className="product-photo--sidebar">
+                                            {/*<BiHeart className="text-2xl" />*/}
 
-                                        {/*<BiHeart className="text-2xl" />*/}
+                                            <div ref={productImageListRef} className="image_list">
+                                                <img src={staticImagePath(product?.coverPhoto)} />
+                                                {/*{product.images &&*/}
+                                                {/*    product.images.map((g, i) => (*/}
+                                                {/*        <div*/}
+                                                {/*            onClick={() => setShowImage(i + 1)}*/}
+                                                {/*            className={[isShowImage == i ? "active_image" : "", "image_list_each-div"].join(" ")}*/}
+                                                {/*        >*/}
+                                                {/*            <img src={fullLink(g)} alt="" />*/}
+                                                {/*        </div>*/}
+                                                {/*    ))}*/}
+                                            </div>
 
-                                        <div ref={productImageListRef} className="image_list">
-                                            <img src={staticImagePath(product?.coverPhoto) }/>
-                                            {/*{product.images &&*/}
-                                            {/*    product.images.map((g, i) => (*/}
-                                            {/*        <div*/}
-                                            {/*            onClick={() => setShowImage(i + 1)}*/}
-                                            {/*            className={[isShowImage == i ? "active_image" : "", "image_list_each-div"].join(" ")}*/}
-                                            {/*        >*/}
-                                            {/*            <img src={fullLink(g)} alt="" />*/}
-                                            {/*        </div>*/}
-                                            {/*    ))}*/}
+                                            <div onClick={scrollDownHandler} className="image_list_each-div bb text-center">
+                                                <i className="fa fa-angle-down" />
+                                            </div>
                                         </div>
 
-                                        <div onClick={scrollDownHandler} className="image_list_each-div bb text-center">
-                                            <i className="fa fa-angle-down" />
+                                        <div className="product_image_view-col--full-image">
+                                            <img
+                                                src={
+                                                    isShowImage
+                                                        ? fullLink(product.images ? product.images[isShowImage - 1] : "")
+                                                        : fullLink(product.cover_photo ? product.cover_photo : "")
+                                                }
+                                                alt=""
+                                            />
                                         </div>
-                                    </div>
 
-                                    <div className="product_image_view-col--full-image">
-                                        <img
-                                            src={
-                                                isShowImage
-                                                    ? fullLink(product.images ? product.images[isShowImage - 1] : "")
-                                                    : fullLink(product.cover_photo ? product.cover_photo : "")
-                                            }
-                                            alt=""
-                                        />
+                                        <div className="mt-5">
+                                            <Button onClick={() => addToCartHandler(product)}>Add To Cart</Button>
+                                            <Button>Buy Now</Button>
+                                        </div>
                                     </div>
 
                                     <div className="mt-5">
-                                        <Button onClick={() => addToCartHandler(product)}>Add To Cart</Button>
-                                        <Button>Buy Now</Button>
+                                        <h4 className="section_title mb-3">RELATED DEVICES</h4>
+                                        <div className="flex flex-wrap justify-center">
+                                            {relatedDevices &&
+                                                relatedDevices.map((dev) => (
+                                                    <div className="w-32 m-2">
+                                                        <div className="w-10 m-auto">
+                                                            <Image className="m-auto" src={fullLink(image)} />
+                                                        </div>
+                                                        <h4 className="mt-2 text-center font-medium text-xs">{dev.title}</h4>
+                                                    </div>
+                                                ))}
+                                        </div>
+                                        <Button className="text-primary" type="text">
+                                            MORE RELATED DEVICES{" "}
+                                        </Button>
                                     </div>
-                                </div>
 
-                                <div className="mt-5">
-                                    <Title level={4} className="section_title mb-3">
-                                        RELATED DEVICES
-                                    </Title>
-                                    <div className="flex flex-wrap justify-center">
-                                        {relatedDevices &&
-                                            relatedDevices.map((dev) => (
+                                    <div className="mt-5">
+                                        <h4 className="section_title mb-3">POPULAR FROM XIAOMI</h4>
+                                        <div className="flex flex-wrap">
+                                            {relatedDevices.map((dev) => (
                                                 <div className="w-32 m-2">
                                                     <div className="w-10 m-auto">
-                                                        <Image className="m-auto" src={fullLink(image)} />
+                                                        <img src={fullLink(image)} />
                                                     </div>
                                                     <h4 className="mt-2 text-center font-medium text-xs">{dev.title}</h4>
                                                 </div>
                                             ))}
+                                        </div>
+                                        <Button className="text-primary" type="text">
+                                            MORE RELATED DEVICES{" "}
+                                        </Button>
                                     </div>
-                                    <Button className="text-primary" type="text">
-                                        MORE RELATED DEVICES{" "}
-                                    </Button>
                                 </div>
+                            </div>
+                            <div className="card !shadow-xxs col-span-8">
+                                <h4 className="text-lg font-medium mb-2">{product.title}</h4>
+                                <div>
+                                    <div className="rating_badge">
+                                        <span>{calculateRate()}</span>
+                                        <i className="fa fa-star" />
+                                    </div>
+                                    <h5 className="ml-2 text-sm"> 1,50,723 Ratings & 7,095 Reviews</h5>
+                                </div>
+                                <div className="pt-3 flex items-center">
+                                    <h4 className="text-lg font-bold">TK {calculateDiscount(product.discount || 0, product.price || 0)}</h4>
+                                    <h5 className="off-div d-flex ml-3 ">
+                                        <span>TK{product.price}</span>
+                                        <span>{product.discount}% off</span>
+                                    </h5>
+                                </div>
+                                <h6>No Cost EMI</h6>
 
-                                <div className="mt-5">
-                                    <Title level={4} className="section_title mb-3">
-                                        POPULAR FROM XIAOMI
-                                    </Title>
-                                    <div className="flex flex-wrap">
-                                        {relatedDevices.map((dev) => (
-                                            <div className="w-32 m-2">
-                                                <div className="w-10 m-auto">
-                                                    <img src={fullLink(image)} />
+                                <div>
+                                    <div className="mt-5">
+                                        <div className="description_key">
+                                            <img style={{ maxWidth: "20px" }} src={image} alt="" />
+                                        </div>
+                                        <h5 className="description_key--value">1 Year Warranty for Mobile and 6 Months for Accessories Know More</h5>
+                                    </div>
+                                    <div className="mt-5">
+                                        <div className="description_key">
+                                            <h4 className="section_title">Highlights</h4>
+                                        </div>
+
+                                        <ul className="description_key--value highlights">
+                                            {productDescription.highlight &&
+                                                productDescription.highlight.map((h) => <li className="highlight_item">{h}</li>)}
+                                        </ul>
+                                    </div>
+                                    <div className="mt-5">
+                                        <div className="description_key">
+                                            <h4 className="section_title">Seller</h4>
+                                        </div>
+                                        <ul className="description_value description_key--value">
+                                            <li className="flex items-center">
+                                                {product.seller && product.seller.shop_name}
+                                                <div className="rating_badge ml-2">
+                                                    <span>{calculateRate()}</span>
+                                                    <i className="fa fa-star" />
                                                 </div>
-                                                <h4 className="mt-2 text-center font-medium text-xs">{dev.title}</h4>
-                                            </div>
-                                        ))}
-                                    </div>
-                                    <Button className="text-primary" type="text">
-                                        MORE RELATED DEVICES{" "}
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card !shadow-xxs col-span-8">
-                            <h4 className="text-lg font-medium mb-2">{product.title}</h4>
-                            <div>
-                                <div className="rating_badge">
-                                    <span>{calculateRate()}</span>
-                                    <i className="fa fa-star" />
-                                </div>
-                                <h5 className="ml-2 text-sm"> 1,50,723 Ratings & 7,095 Reviews</h5>
-                            </div>
-                            <div className="pt-3 flex items-center">
-                                <h4 className="text-lg font-bold">TK {calculateDiscount(product.discount || 0, product.price || 0)}</h4>
-                                <h5 className="off-div d-flex ml-3 ">
-                                    <span>TK{product.price}</span>
-                                    <span>{product.discount}% off</span>
-                                </h5>
-                            </div>
-                            <h6>No Cost EMI</h6>
-
-                            <div>
-                                <div className="mt-5">
-                                    <div className="description_key">
-                                        <img style={{ maxWidth: "20px" }} src={image} alt="" />
-                                    </div>
-                                    <h5 className="description_key--value">1 Year Warranty for Mobile and 6 Months for Accessories Know More</h5>
-                                </div>
-                                <div className="mt-5">
-                                    <div className="description_key">
-                                        <Title level={4} className="section_title">
-                                            Highlights
-                                        </Title>
+                                            </li>
+                                            {productDescription.seller_rules && productDescription.seller_rules.map((rule) => <li>{rule}</li>)}
+                                        </ul>
                                     </div>
 
-                                    <ul className="description_key--value highlights">
-                                        {productDescription.highlight && productDescription.highlight.map((h) => <li className="highlight_item">{h}</li>)}
-                                    </ul>
-                                </div>
-                                <div className="mt-5">
-                                    <div className="description_key">
-                                        <Title level={4} className="section_title">
-                                            Seller
-                                        </Title>
+                                    <div className="mt-5">
+                                        <div className="description_key">
+                                            <h4 className="section_title">Description</h4>
+                                        </div>
+                                        <p className="description_value description_key--value">{productDescription.description}</p>
                                     </div>
-                                    <ul className="description_value description_key--value">
-                                        <li className="flex items-center">
-                                            {product.seller && product.seller.shop_name}
-                                            <div className="rating_badge ml-2">
-                                                <span>{calculateRate()}</span>
-                                                <i className="fa fa-star" />
-                                            </div>
-                                        </li>
-                                        {productDescription.seller_rules && productDescription.seller_rules.map((rule) => <li>{rule}</li>)}
-                                    </ul>
                                 </div>
 
-                                <div className="mt-5">
-                                    <div className="description_key">
-                                        <Title level={4} className="section_title">
-                                            Description
-                                        </Title>
-                                    </div>
-                                    <p className="description_value description_key--value">{productDescription.description}</p>
-                                </div>
-                            </div>
+                                <SpecificationDetail specification={productDescription?.specification} />
+                                <RatingReviews />
+                                <Questions />
 
-                            <div>
-                                <Title level={4} className="section_title">
-                                    Specifications
-                                </Title>
-                                {renderDeepDetails()}
                                 {/*{descriptionAttributes.map(eachAttribute=>(*/}
                                 {/*  <div className="description_section">*/}
                                 {/*    <div ="mt-5">*/}
@@ -410,129 +338,10 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                 {/*    </div>*/}
                                 {/*  </div>*/}
                                 {/*))}*/}
-                                <div className="p-5 disclimer">
-                                    <p>
-                                        <span className="strong">Disclaimer</span>. We can not guarantee that the information on this page is 100% correct.
-                                        Read more
-                                    </p>
-                                </div>
-
-                                <div className="question_answer_section">
-                                    <Title level={4} weight={500} className="section_title">
-                                        Questions and Answers
-                                    </Title>
-                                    <div className="question_answer_root">
-                                        {productQuestions.map((qs) => (
-                                            <div className="question_answer p-3">
-                                                <div>
-                                                    <h5>Q: {qs.qs.text}</h5>
-                                                </div>
-                                                <h5>A: {qs.ans.text}</h5>
-
-                                                <div className="mt-2">
-                                                    <div className="flex">
-                                                        <Image src={""} />
-                                                        <Title className="ml-2" level={5}>
-                                                            {qs.qs.username}
-                                                        </Title>
-                                                    </div>
-                                                    <Title level={6}>{new Date(qs.qs.created_at).toDateString()}</Title>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                    <Button className="text-primary" style={{ marginLeft: 0 }} type="text">
-                                        All Questions
-                                    </Button>
-                                </div>
-
-                                <div className="rating_and_review">
-                                    <Title level={2} weight={500}>
-                                        Ratings & Reviews
-                                    </Title>
-
-                                    <div>
-                                        <div className="d-flex mt-5">
-                                            <div>
-                                                <div className="rating_badge bg-transparent rating-star big-rating ">
-                                                    <span>{calculateRate()}</span>
-                                                    <i className="fa fa-star" />
-                                                </div>
-                                                <h4 className="text-grey fs-14 mt-5"> {totalRating()} Total Ratings</h4>
-                                                <Title className="text-grey fs-14 t-center" level={4}>
-                                                    &
-                                                </Title>
-                                                <h4 className="text-grey fs-14"> {reviews.length} Total Ratings</h4>
-                                            </div>
-                                            <div className="ml-5">
-                                                {rating.map((rat) => (
-                                                    <div className="rate">
-                                                        <div className="rating_badge bg-transparent rating-star ">
-                                                            <span>{rat.rating}</span>
-                                                            <i className="fa fa-star" />
-                                                        </div>
-                                                        <span className="user_rate-wrapper">
-                                                    <div style={{ width: (rat.amount * 100) / totalRating() + "%" }} className="user_rate" />
-                                                </span>
-                                                        <span className="rate-amount text-grey fs-14 ml-5">{rat.amount}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                        <div className="mt-5">
-                                            <Title level={4}>Customer Gallery</Title>
-                                            <div className="customer_gallery flex-wrap">
-                                                {new Array(30).fill("", 1, 30).map((a) => (
-                                                    <div>
-                                                        <Image className="m-2" src={image2} />
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="rating_root mt-5">
-                                        {reviews.map((review) => (
-                                            <div className="rating">
-                                                <div className="flex items-center">
-                                                    <div className="rating_badge">
-                                                        <span>{review.ratings}</span>
-                                                        <i className="fa fa-star" />
-                                                    </div>
-                                                    <Title level={4} className="ml-2">
-                                                        {review.title}
-                                                    </Title>
-                                                </div>
-                                                <Title level={5}>{review.desc}</Title>
-                                                <Image className="mt-5 mb-2" src={image2} />
-
-                                                <div>
-                                                    <Title level={5} className="mr-40">
-                                                        {review.username}
-                                                    </Title>
-                                                    <h5 className="">
-                                                        <i className="mr-2 fa fa-check-circle" />
-                                                        Certified Buyer
-                                                    </h5>
-                                                    <Title level={6} className="ml-2 date">
-                                                        {new Date(review.created_at).toDateString()}
-                                                    </Title>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    <Button className="text-primary" type="text">
-                                        All Review
-                                    </Button>
-                                </div>
                             </div>
                         </div>
-                    </div> }
+                    )}
                 </div>
-
-
             </div>
         </div>
     );
