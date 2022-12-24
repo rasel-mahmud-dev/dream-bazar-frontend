@@ -81,13 +81,13 @@ const FileUpload: FC<Props> = (props) => {
    
 			{ (!base64 && !defaultValue) && (
 					<div className="" onClick={chooseImage}>
-						<img src={staticImagePath("photo-thumb.jpg")} className="border-2 border-dashed p-1 w-full" alt="" />
+						<img src={staticImagePath("photo-thumb.jpg")} className={`border-2 border-dashed p-1 w-full ${previewImageClass}`} alt="" />
 					</div>
 				)}
 
-			{preview && base64 && <img onClick={chooseImage} onLoad={handleCompress} src={base64} className={"border-2 border-dashed p-1 w-full"} alt="" />}
+			{preview && base64 && <img onClick={chooseImage} onLoad={handleCompress} src={base64} className={`border-2 border-dashed p-1 ${previewImageClass}`} alt="" />}
 			{defaultValue && typeof defaultValue === "string" && !base64 && (
-				<img  onClick={chooseImage} src={staticImagePath(defaultValue)} className={"border-2 border-dashed p-1 w-full"} alt="" />
+				<img  onClick={chooseImage} src={staticImagePath(defaultValue)} className={`border-2 border-dashed p-1 w-full ${previewImageClass}`} alt="" />
 			)}
             
             {errorMessage && <div className="mt-1"> <span className="text-red-500 ">{errorMessage}</span> </div> }

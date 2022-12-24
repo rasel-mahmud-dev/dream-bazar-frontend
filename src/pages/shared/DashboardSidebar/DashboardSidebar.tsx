@@ -89,8 +89,8 @@ const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
 
                         {/**** sidebar content ******/}
                         <div className="mt-20 lg:mt-2 px-3">
-                            { sidebarData?.map(section=>(
-                                <div className="mt-8 first:mt-2">
+                            { sidebarData?.map((section, idx)=>(
+                                <div className="mt-8 first:mt-2" key={idx}>
                                     {section.name && <Link to="/admin/dashboard" className="" >
                                         <div className="">
                                             <div className="flex items-center gap-x-2 sidebar-active p-2 rounded">
@@ -104,8 +104,8 @@ const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
 
                                         <h6 className="heading-6 text-dark-600 px-2">{section.section}</h6>
                                         <div className="mt-2">
-                                            {section?.items?.map(item=>(
-                                                <li onClick={()=>handleClickItem(item)} className="">
+                                            {section?.items?.map((item, index)=>(
+                                                <li onClick={()=>handleClickItem(item)} className="" key={index}>
                                                     <div
                                                         key={item.name}
                                                         className={`flex items-center justify-between text-dark-300 py-2 px-2 rounded-md gap-x-1 li ${state.openItem === item.name ? 'li-item-focuse': ''}`}>
@@ -123,7 +123,7 @@ const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
                                                     {/* *** render sub items *****   */}
                                                     {state.openItem === item.name && <ul className="ml-4 p-2">
                                                         {item?.subItems?.map(sub=>(
-                                                            <li className="flex justify-between">
+                                                            <li key={sub.label} className="flex justify-between">
                                                                 <span>{sub.label}</span>
                                                                 <span>{sub.value}</span>
                                                             </li>

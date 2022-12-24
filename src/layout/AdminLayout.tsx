@@ -8,16 +8,147 @@ import { setLanguage, toggleTheme } from "actions/appContextActions";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "components/Footer/Footer";
 
-import Navigation from "pages/shared/Navigation";
 import { RootState } from "src/store";
-import {ACTION_TYPES, AuthType, Scope} from "store/types";
 import DashboardSidebar, {SidebarDataType} from "pages/shared/DashboardSidebar/DashboardSidebar";
 import { BiCart, BiNote, BiPlus, BsList, FiMail, MdOutlineSpaceDashboard} from "react-icons/all";
 import staticImagePath from "src/utills/staticImagePath";
 import DashboardNavigation from "pages/shared/Navigation";
+import PrivateRoute from "src/middleware/PrivateRoute";
+import {Scope} from "store/types";
+
+
+const AdminDashboardHome = lazy(() => import("pages/adminDashboard/DashboardHomePage"));
+
+const AddCategory = lazy(() => import("pages/adminDashboard/categoryList/AddCategory"));
+const AddCategoryDetail = lazy(() => import("pages/adminDashboard/categoryList/AddCategoryDetail"));
+const CategoryDetails = lazy(() => import("pages/adminDashboard/categoryList/CategoryDetails"));
+const ProductAttribute = lazy(() => import("pages/adminDashboard/productAttribute/ProductAttribute"));
+const ProductList = lazy(() => import("pages/adminDashboard/productList/ProductList"));
+const AddBrand = lazy(() => import("pages/adminDashboard/brandList/AddBrand"));
+const BrandList = lazy(() => import("pages/adminDashboard/brandList/Brands"));
+const AddProduct = lazy(() => import("pages/shared/AddProduct/AddProduct"));
+const CategoryList = lazy(() => import("pages/adminDashboard/categoryList/Categories"));
 
 
 
+
+export const adminRoute =   [
+    // { path: "update-Product/:productId", element: <PrivateRoute roles={["SELLER"]}> <AddProduct /> </PrivateRoute> },
+    // { path: "all-transactions", element: <PrivateRoute roles={["ADMIN"]}> <AllTransactions /> </PrivateRoute> },
+
+    { path: "", element: <AdminDashboardHome /> },
+    { path: "dashboard", element: <AdminDashboardHome /> },
+
+    {
+        path: "products",
+        element: (
+            <PrivateRoute scope={Scope.ADMIN_USER}>
+                <ProductList />
+            </PrivateRoute>
+        ),
+    },
+    {
+        path: "product/new",
+        element: (
+            <PrivateRoute scope={Scope.ADMIN_USER}>
+                <AddProduct />
+            </PrivateRoute>
+        ),
+    },
+    {
+        path: "update-Product/:id",
+        element: (
+            <PrivateRoute scope={Scope.ADMIN_USER}>
+                <AddProduct />
+            </PrivateRoute>
+        ),
+    },
+    {
+        path: "categories",
+        element: (
+            <CategoryList />
+        ),
+    },
+    {
+        path: "categories/new",
+        element: (
+
+            <AddCategory />
+
+        ),
+    },
+    {
+        path: "categories/edit/:id",
+        element: (
+
+            <AddCategory />
+
+        ),
+    },
+    {
+        path: "category-details",
+        element: (
+
+            <CategoryDetails />
+
+        ),
+    },
+    {
+        path: "category-details/new",
+        element: (
+
+            <AddCategoryDetail />
+
+        ),
+    },
+    {
+        path: "category-details/edit/:id",
+        element: (
+
+            <AddCategoryDetail />
+
+        ),
+    },
+    {
+        path: "Product-attribute",
+        element: (
+
+            <ProductAttribute />
+
+        ),
+    },
+    {
+        path: "brands",
+        element: (
+
+            <BrandList />
+
+        ),
+    },
+    {
+        path: "brands/new",
+        element: (
+
+            <AddBrand />
+
+        ),
+    },
+    {
+        path: "brands/edit/:id",
+        element: (
+
+            <AddBrand />
+
+        ),
+    },
+    // {path: "join",
+    //     element:  <Outlet />,
+    //     children: [
+    //         { path: "", element: <ExcludeAuthRoute scope={Scope.ADMIN_USER}> <AdminLogin /> </ExcludeAuthRoute>, },
+    //         { path: "login", element: <ExcludeAuthRoute scope={Scope.ADMIN_USER}> <AdminLogin /> </ExcludeAuthRoute> },
+    //     ]
+    // }
+]
 
 const AdminLayout = () => {
     const location = useLocation();
@@ -129,7 +260,7 @@ const AdminLayout = () => {
                     <div className="flex">
                         <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar} auth={auth} />
 
-                        <div className="container">
+                        <div className="container !px-3">
                             <Outlet />
                         </div>
                     </div>

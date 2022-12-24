@@ -7,6 +7,7 @@ import { Scope } from "store/types";
 
 import NotFoundPage from "components/notFoundPage/NotFoundPage";
 import ExcludeAuthRoute from "src/middleware/ExcludeAuthRoute";
+import {adminRoute} from "src/layout/AdminLayout";
 
 const ProductFilterPage = lazy(() => import("pages/publicSite/productFilterPage/ProductFilterPage"));
 const JoinHome = lazy(() => import("pages/publicSite/auth/JoinHome"));
@@ -22,7 +23,7 @@ const ProductAttribute = lazy(() => import("pages/adminDashboard/productAttribut
 const ProductList = lazy(() => import("pages/adminDashboard/productList/ProductList"));
 const AddBrand = lazy(() => import("pages/adminDashboard/brandList/AddBrand"));
 const BrandList = lazy(() => import("pages/adminDashboard/brandList/Brands"));
-const AddProduct = lazy(() => import("pages/adminDashboard/components/AddProduct"));
+const AddProduct = lazy(() => import("pages/shared/AddProduct/AddProduct"));
 const CategoryList = lazy(() => import("pages/adminDashboard/categoryList/Categories"));
 
 const SellerLayout = lazy(() => import("src/layout/SellerLayout"));
@@ -104,123 +105,7 @@ const router = createBrowserRouter([
             </PrivateRoute>
         ),
         // errorElement: <ErrorPage />,
-        children: [
-            // { path: "update-Product/:productId", element: <PrivateRoute roles={["SELLER"]}> <AddProduct /> </PrivateRoute> },
-            // { path: "all-transactions", element: <PrivateRoute roles={["ADMIN"]}> <AllTransactions /> </PrivateRoute> },
-
-            { path: "", element: <AdminDashboardHome /> },
-            { path: "dashboard", element: <AdminDashboardHome /> },
-
-            {
-                path: "products",
-                element: (
-                    <PrivateRoute scope={Scope.ADMIN_USER}>
-                        <ProductList />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "add-Product",
-                element: (
-                    <PrivateRoute scope={Scope.ADMIN_USER}>
-                        <AddProduct />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "update-Product/:id",
-                element: (
-                    <PrivateRoute scope={Scope.ADMIN_USER}>
-                        <AddProduct />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "categories",
-                element: (
-                    <CategoryList />
-                ),
-            },
-            {
-                path: "categories/new",
-                element: (
-
-                        <AddCategory />
-
-                ),
-            },
-            {
-                path: "categories/edit/:id",
-                element: (
-
-                        <AddCategory />
-
-                ),
-            },
-            {
-                path: "category-details",
-                element: (
-
-                        <CategoryDetails />
-
-                ),
-            },
-            {
-                path: "category-details/new",
-                element: (
-
-                        <AddCategoryDetail />
-
-                ),
-            },
-            {
-                path: "category-details/edit/:id",
-                element: (
-
-                        <AddCategoryDetail />
-
-                ),
-            },
-            {
-                path: "Product-attribute",
-                element: (
-
-                        <ProductAttribute />
-
-                ),
-            },
-            {
-                path: "brands",
-                element: (
-
-                        <BrandList />
-
-                ),
-            },
-            {
-                path: "brands/new",
-                element: (
-
-                        <AddBrand />
-
-                ),
-            },
-            {
-                path: "brands/edit/:id",
-                element: (
-
-                        <AddBrand />
-
-                ),
-            },
-            // {path: "join",
-            //     element:  <Outlet />,
-            //     children: [
-            //         { path: "", element: <ExcludeAuthRoute scope={Scope.ADMIN_USER}> <AdminLogin /> </ExcludeAuthRoute>, },
-            //         { path: "login", element: <ExcludeAuthRoute scope={Scope.ADMIN_USER}> <AdminLogin /> </ExcludeAuthRoute> },
-            //     ]
-            // }
-        ],
+        children: adminRoute,
     },
     {
         path: "/seller",

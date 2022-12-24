@@ -74,8 +74,8 @@ const MultipleFileChooser: FC<Props> = (props) => {
             <input onChange={handleChange} hidden={true} type="file" accept="image/jpeg" ref={input}/>
             
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {state && state.length > 0 && state.map((item) => (
-                    <div className="">
+                {state && state.length > 0 && state.map((item, idx) => (
+                    <div className="" key={idx}>
                         <img className="border-2 border-dashed p-1 w-full" src={item.base64 ? item.base64 : item.url} alt=""/>
                     </div>
                 ))}
