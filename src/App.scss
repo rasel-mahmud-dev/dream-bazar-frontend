@@ -324,3 +324,13 @@ table td {
   }
 
 }
+
+
+
+.header-height{
+    height: var(--header-height);
+}
+
+.route-title{
+    @apply mt-4 md:mt-8 text-xl md:text-3xl font-bold uppercase text-dark-800
+}

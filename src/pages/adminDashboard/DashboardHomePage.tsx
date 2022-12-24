@@ -18,7 +18,7 @@ const AdminDashboardHome = () => {
     
     return (
         <div>
-			<h3 className="heading-2 py-4">Admin Dashboard</h3>
+			<h3 className="route-title">Admin Dashboard</h3>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4">
 				{slats.map((stat) => (
                     <Card>

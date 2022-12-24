@@ -165,7 +165,7 @@ const HomePage = (props) => {
 
             <HomeCategoryNav />
 
-            <div className="bg-dark-600">
+            <div className="bg-dark-600 ">
                 <SliderSection />
             </div>
 

@@ -1,54 +1,40 @@
-import React, {lazy} from "react";
+import React, { lazy } from "react";
 import PrivateRoute from "src/middleware/PrivateRoute";
-import Registration from "pages/shared/Registration";
 import HomePage from "pages/publicSite/homePage/HomePage";
 import Main from "src/layout/Main";
-import {createBrowserRouter, Outlet} from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import { Scope } from "store/types";
 
-import ProductFilterPage from "pages/publicSite/productFilterPage/ProductFilterPage";
-
-import ExcludeAuthRoute from "src/middleware/ExcludeAuthRoute";
-import JoinHome from "pages/publicSite/auth/JoinHome";
-import LoginPage from "pages/shared/LoginPage";
-
-import AdminLayout from "src/layout/AdminLayout";
-import AdminDashboardHome from "pages/adminDashboard/DashboardHomePage";
 import NotFoundPage from "components/notFoundPage/NotFoundPage";
+import ExcludeAuthRoute from "src/middleware/ExcludeAuthRoute";
 
-
-
-
+const ProductFilterPage = lazy(() => import("pages/publicSite/productFilterPage/ProductFilterPage"));
+const JoinHome = lazy(() => import("pages/publicSite/auth/JoinHome"));
+const Registration = lazy(() => import("pages/shared/Registration"));
+const LoginPage = lazy(() => import("pages/shared/LoginPage"));
+const AdminLayout = lazy(() => import("src/layout/AdminLayout"));
+const AdminDashboardHome = lazy(() => import("pages/adminDashboard/DashboardHomePage"));
 
 const AddCategory = lazy(() => import("pages/adminDashboard/categoryList/AddCategory"));
 const AddCategoryDetail = lazy(() => import("pages/adminDashboard/categoryList/AddCategoryDetail"));
 const CategoryDetails = lazy(() => import("pages/adminDashboard/categoryList/CategoryDetails"));
-const ProductAttribute  = lazy(()=>import("pages/adminDashboard/productAttribute/ProductAttribute"));
-const ProductList = lazy(()=>import("pages/adminDashboard/productList/ProductList"));
-const AddBrand = lazy(()=>import("pages/adminDashboard/brandList/AddBrand"));
-const BrandList = lazy(()=>import("pages/adminDashboard/brandList/Brands"));
-const AddProduct = lazy(()=>import("pages/adminDashboard/components/AddProduct"));
-const CategoryList = lazy(()=>import("pages/adminDashboard/categoryList/Categories"));
+const ProductAttribute = lazy(() => import("pages/adminDashboard/productAttribute/ProductAttribute"));
+const ProductList = lazy(() => import("pages/adminDashboard/productList/ProductList"));
+const AddBrand = lazy(() => import("pages/adminDashboard/brandList/AddBrand"));
+const BrandList = lazy(() => import("pages/adminDashboard/brandList/Brands"));
+const AddProduct = lazy(() => import("pages/adminDashboard/components/AddProduct"));
+const CategoryList = lazy(() => import("pages/adminDashboard/categoryList/Categories"));
 
+const SellerLayout = lazy(() => import("src/layout/SellerLayout"));
+const ProductDetails = lazy(() => import("pages/publicSite/productDetails/ProductDetails"));
+const CustomerDashboard = lazy(() => import("pages/customerDashboard/CustomerDashboard"));
+const CustomerDashboardHomePage = lazy(() => import("pages/customerDashboard/CustomerDashboardHomePage"));
 
-
-import CreateShop from "pages/sellerDashboard/shop/CreateShop";
-import SellerLayout from "src/layout/SellerLayout";
-import ProductDetails from "pages/publicSite/productDetails/ProductDetails";
-import CustomerDashboardRoute from "pages/customerDashboard/customerDashboardRoute";
-import CustomerDashboard from "pages/customerDashboard/CustomerDashboard";
-import CustomerDashboardHomePage from "pages/customerDashboard/CustomerDashboardHomePage";
-
-
-
-
-const ShopInfo = lazy(()=>import("pages/sellerDashboard/shop/ShopInfo"));
-const SellerLogin  = lazy(()=>import("pages/sellerDashboard/auth/SellerLogin"));
-const SellerRegistration = lazy(()=>import("pages/sellerDashboard/auth/SellerRegistration"));
-const SellerDashboardHome  = lazy(()=> import("pages/sellerDashboard/dashboardHome/DashboardHome"));
-const SellerProducts  = lazy(()=> import("pages/sellerDashboard/sellerProducts/SellerProducts"));
-
-
+const ShopInfo = lazy(() => import("pages/sellerDashboard/shop/ShopInfo"));
+const SellerLogin = lazy(() => import("pages/sellerDashboard/auth/SellerLogin"));
+const SellerRegistration = lazy(() => import("pages/sellerDashboard/auth/SellerRegistration"));
+const SellerDashboardHome = lazy(() => import("pages/sellerDashboard/dashboardHome/DashboardHome"));
+const SellerProducts = lazy(() => import("pages/sellerDashboard/sellerProducts/SellerProducts"));
 
 const router = createBrowserRouter([
     {
@@ -66,7 +52,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/join",
-                element: <ExcludeAuthRoute><JoinHome /></ExcludeAuthRoute>,
+                element: (
+                    <ExcludeAuthRoute>
+                        <JoinHome />
+                    </ExcludeAuthRoute>
+                ),
                 children: [
                     { path: "login", element: <LoginPage /> },
                     { path: "registration", element: <Registration /> },
@@ -80,18 +70,23 @@ const router = createBrowserRouter([
             //     element:  <ExcludeAuthRoute scope={Scope.CUSTOMER_USER}><AuthCallback /></ExcludeAuthRoute>
             // },
             {
-
                 path: "/dashboard",
-                element: <CustomerDashboard/>,
+                element: <CustomerDashboard />,
                 // errorElement: <ErrorPage />,
                 children: [
-
                     // { path: "update-Product/:productId", element: <PrivateRoute roles={["SELLER"]}> <AddProduct /> </PrivateRoute> },
                     // { path: "all-transactions", element: <PrivateRoute roles={["ADMIN"]}> <AllTransactions /> </PrivateRoute> },
 
-                    {path : "", element: <CustomerDashboardHomePage />},
+                    { path: "", element: <CustomerDashboardHomePage /> },
 
-                    {path :"products", element: <PrivateRoute scope={Scope.ADMIN_USER}><ProductList /></PrivateRoute>},
+                    {
+                        path: "products",
+                        element: (
+                            <PrivateRoute scope={Scope.ADMIN_USER}>
+                                <ProductList />
+                            </PrivateRoute>
+                        ),
+                    },
                 ],
             },
 
@@ -102,29 +97,122 @@ const router = createBrowserRouter([
         ],
     },
     {
-        path: "/admin/dashboard",
-        element: <PrivateRoute scope={Scope.ADMIN_USER}><AdminLayout/> </PrivateRoute>,
+        path: "/admin",
+        element: (
+            <PrivateRoute scope={Scope.ADMIN_USER}>
+                <AdminLayout />
+            </PrivateRoute>
+        ),
         // errorElement: <ErrorPage />,
         children: [
-
             // { path: "update-Product/:productId", element: <PrivateRoute roles={["SELLER"]}> <AddProduct /> </PrivateRoute> },
             // { path: "all-transactions", element: <PrivateRoute roles={["ADMIN"]}> <AllTransactions /> </PrivateRoute> },
 
-            {path : "", element: <AdminDashboardHome />},
+            { path: "", element: <AdminDashboardHome /> },
+            { path: "dashboard", element: <AdminDashboardHome /> },
 
-            {path :"products", element: <PrivateRoute scope={Scope.ADMIN_USER}><ProductList /></PrivateRoute>},
-            {path :"add-Product", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddProduct/></PrivateRoute>},
-            {path :"update-Product/:id", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddProduct/></PrivateRoute>},
-            {path :"categories", element: <PrivateRoute scope={Scope.ADMIN_USER}><CategoryList/></PrivateRoute>},
-            {path :"categories/new", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddCategory/></PrivateRoute>},
-            {path :"categories/edit/:id", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddCategory/></PrivateRoute>},
-            {path :"category-details", element: <PrivateRoute scope={Scope.ADMIN_USER}><CategoryDetails/></PrivateRoute>},
-            {path :"category-details/new", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddCategoryDetail/></PrivateRoute>},
-            {path :"category-details/edit/:id", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddCategoryDetail/></PrivateRoute>},
-            {path :"Product-attribute", element: <PrivateRoute scope={Scope.ADMIN_USER}><ProductAttribute/></PrivateRoute>},
-            {path :"brands", element: <PrivateRoute scope={Scope.ADMIN_USER}><BrandList/></PrivateRoute>},
-            {path :"brands/new", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddBrand/></PrivateRoute>},
-            {path :"brands/edit/:id", element: <PrivateRoute scope={Scope.ADMIN_USER}><AddBrand/></PrivateRoute>},
+            {
+                path: "products",
+                element: (
+                    <PrivateRoute scope={Scope.ADMIN_USER}>
+                        <ProductList />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "add-Product",
+                element: (
+                    <PrivateRoute scope={Scope.ADMIN_USER}>
+                        <AddProduct />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "update-Product/:id",
+                element: (
+                    <PrivateRoute scope={Scope.ADMIN_USER}>
+                        <AddProduct />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "categories",
+                element: (
+                    <CategoryList />
+                ),
+            },
+            {
+                path: "categories/new",
+                element: (
+
+                        <AddCategory />
+
+                ),
+            },
+            {
+                path: "categories/edit/:id",
+                element: (
+
+                        <AddCategory />
+
+                ),
+            },
+            {
+                path: "category-details",
+                element: (
+
+                        <CategoryDetails />
+
+                ),
+            },
+            {
+                path: "category-details/new",
+                element: (
+
+                        <AddCategoryDetail />
+
+                ),
+            },
+            {
+                path: "category-details/edit/:id",
+                element: (
+
+                        <AddCategoryDetail />
+
+                ),
+            },
+            {
+                path: "Product-attribute",
+                element: (
+
+                        <ProductAttribute />
+
+                ),
+            },
+            {
+                path: "brands",
+                element: (
+
+                        <BrandList />
+
+                ),
+            },
+            {
+                path: "brands/new",
+                element: (
+
+                        <AddBrand />
+
+                ),
+            },
+            {
+                path: "brands/edit/:id",
+                element: (
+
+                        <AddBrand />
+
+                ),
+            },
             // {path: "join",
             //     element:  <Outlet />,
             //     children: [
@@ -132,17 +220,39 @@ const router = createBrowserRouter([
             //         { path: "login", element: <ExcludeAuthRoute scope={Scope.ADMIN_USER}> <AdminLogin /> </ExcludeAuthRoute> },
             //     ]
             // }
-
         ],
     },
     {
         path: "/seller",
-        element:  <SellerLayout />,
+        element: <SellerLayout />,
         errorElement: <NotFoundPage />,
         children: [
-            { path: "", element: <PrivateRoute scope={Scope.SELLER_USER}> <SellerDashboardHome /> </PrivateRoute> },
-            { path: "dashboard", element: <PrivateRoute scope={Scope.SELLER_USER}> <SellerDashboardHome /> </PrivateRoute> },
-            { path: "products", element: <PrivateRoute scope={Scope.SELLER_USER}><SellerProducts /></PrivateRoute> },
+            {
+                path: "",
+                element: (
+                    <PrivateRoute scope={Scope.SELLER_USER}>
+                        {" "}
+                        <SellerDashboardHome />{" "}
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "dashboard",
+                element: (
+                    <PrivateRoute scope={Scope.SELLER_USER}>
+                        {" "}
+                        <SellerDashboardHome />{" "}
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "products",
+                element: (
+                    <PrivateRoute scope={Scope.SELLER_USER}>
+                        <SellerProducts />
+                    </PrivateRoute>
+                ),
+            },
             // { path: "Product/edit/:productId", element: <PrivateRoute scope={Scope.SELLER_USER}><AddProduct /></PrivateRoute> },
             // { path: "Product/add", element: <PrivateRoute scope={Scope.SELLER_USER}> <AddProduct /></PrivateRoute> },
             // { path: "shop/view", element: <PrivateRoute scope={Scope.SELLER_USER}> <ShopInfo /> </PrivateRoute> },
@@ -156,9 +266,8 @@ const router = createBrowserRouter([
             //         { path: "login", element: <ExcludeAuthRoute scope={Scope.SELLER_USER}><SellerLogin /></ExcludeAuthRoute> },
             //     ]
             // }
-        ]
-    }
+        ],
+    },
 ]);
 
-export default router
-
+export default router;

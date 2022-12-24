@@ -12,7 +12,10 @@ import Navigation from "pages/shared/Navigation";
 import { RootState } from "src/store";
 import {ACTION_TYPES, AuthType, Scope} from "store/types";
 import DashboardSidebar, {SidebarDataType} from "pages/shared/DashboardSidebar/DashboardSidebar";
-import {BiCart, BiNote, BiPlus, BsList, FiMail, MdOutlineSpaceDashboard} from "react-icons/all";
+import { BiCart, BiNote, BiPlus, BsList, FiMail, MdOutlineSpaceDashboard} from "react-icons/all";
+import staticImagePath from "src/utills/staticImagePath";
+import DashboardNavigation from "pages/shared/Navigation";
+
 
 
 
@@ -35,16 +38,16 @@ const AdminLayout = () => {
     const sidebarLinks: SidebarDataType[] = [
         {
             name: "Dashboard",
-            to: "/admin/dashboard/dashboard",
-            icon: <MdOutlineSpaceDashboard/>,
+            to: "/admin/dashboard",
+            icon: ()=> <img className="w-4" src={staticImagePath("icons/dashboard-3.svg")} />,
             iconClassName: "text-xl mr-1",
         },
         {
-            section: "ORDER MANAGEMENT",
+            section: "Order Management",
             items: [
                 {
                     name: "Orders",
-                    icon: <BiCart/>,
+                    icon: ()=> <img className="w-4" src={staticImagePath("icons/orders.svg")} />,
                     subItems: [
                         {label: "All", value: 14},
                         {label: "Pending", value: 14},
@@ -60,7 +63,7 @@ const AdminLayout = () => {
                 {
                     name: "Refund Request List",
                     to: "/",
-                    icon: <BiNote/>,
+                    icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (6).svg")} />,
                     subItems: [
                         {label: "Pending", value: 10},
                         {label: "Approved", value: 10},
@@ -71,29 +74,34 @@ const AdminLayout = () => {
             ],
         },
         {
-            section: "PRODUCT MANAGEMENT",
+            section: "Product Management",
             items: [
-                {name: "Products", to: "/admin/dashboard/products", icon: <BiCart/>},
-                {name: "Add", to: "/admin/dashboard/products/new", icon: <BiPlus/>}
+                {name: "Products", to: "/admin/products",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (1).svg")} />},
+                {name: "Add", to: "/admin/products/new",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (5).svg")} />}
             ],
         },
         {
-            section: "CATEGORY MANAGEMENT",
+            section: "Category Management",
             items: [
-                {name: "Categories", to: "/admin/dashboard/categories", icon: <BiCart/>},
-                {name: "CategoryDetails", to: "/admin/dashboard/category-details", icon: <BiCart/>}
+                {name: "Categories", to: "/admin/categories",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (4).svg")} />},
+                {name: "CategoryDetails", to: "/admin/category-details",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (4).svg")} />}
             ],
         },{
-            section: "ATTRIBUTE MANAGEMENT",
+            section: "Attribute Management",
             items: [
-                {name: "Attributes", to: "/admin/dashboard/Product-attribute", icon: <BsList/>},
+                {name: "Attributes", to: "/admin/Product-attribute",
+                    icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (2).svg")} />
+                },
                 // {name: "Add", to: "/admin/dashboard/Product-attribute/new", icon: <BiPlus/>}
             ],
         },
         {
-            section: "BRAND MANAGEMENT",
+            section: "Brand Management",
             items: [
-                {name: "Brands", to: "/admin/dashboard/brands", icon: <BiCart/>}
+                {name: "Brands", to: "/admin/brands",
+                    icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (3).svg")} />
+
+                }
             ],
         },
         {
@@ -115,13 +123,13 @@ const AdminLayout = () => {
     return (
         <div className="">
             <div className="">
-                <Navigation auth={auth} />
+                <DashboardNavigation auth={auth} />
 
-                <div className="container mx-auto">
+                <div className="mx-auto">
                     <div className="flex">
                         <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar} auth={auth} />
 
-                        <div className="w-full ml-0 lg:ml-6">
+                        <div className="container">
                             <Outlet />
                         </div>
                     </div>

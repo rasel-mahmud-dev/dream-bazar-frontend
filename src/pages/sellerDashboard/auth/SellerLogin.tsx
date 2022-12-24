@@ -85,7 +85,7 @@ const SellerLogin = (props) => {
 		try {
 			setHttpResponse((p) => ({ ...p, message: "", loading: true }));
    
-			loginAction(payload, dispatch, Scope.SELLER_USER, (data, errorMessage)=>{
+			loginAction(payload, dispatch, (data, errorMessage)=>{
                 if(errorMessage) {
                     toast.error(errorMessage)
                     setHttpResponse({isSuccess: false, message: errorMessage, loading: false});

@@ -8,7 +8,7 @@
     box-shadow: 0 1px 8px 0 rgb(0 0 0 / 6%);
 
     .category_main_nav {
-        @apply flex justify-start md:justify-center gap-x-0;
+        @apply flex justify-start md:justify-center gap-x-0 md:gap-x-4;
         &--item {
             padding: 15px 0px;
             //position: relative;

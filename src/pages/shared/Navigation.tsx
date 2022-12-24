@@ -12,7 +12,7 @@ import Dropdown from "components/Dropdown/Dropdown";
 import {Badge} from "components/UI";
 import {logoutAction} from "actions/authAction";
 
-const Navigation = ({ auth }) => {
+const DashboardNavigation = ({ auth }) => {
 
     const location = useLocation();
     const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const Navigation = ({ auth }) => {
             <div ref={headerRef} className="admin-navigation shadow-xxs bg-white fixed w-full">
                 <header className="container flex items-center justify-between">
                     <div className="logo flex items-center">
-                        <Circle className="md:hidden block hover:!bg-gray-100 bg-transparent mr-3" onClick={handleToggleLeftBar}>
+                        <Circle className="lg:hidden block hover:!bg-gray-100 bg-transparent mr-3" onClick={handleToggleLeftBar}>
                             <FaBars className="text-sm" />
                         </Circle>
 
@@ -149,4 +149,4 @@ const Navigation = ({ auth }) => {
     );
 };
 
-export default Navigation;
+export default DashboardNavigation;

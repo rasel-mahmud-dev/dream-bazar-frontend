@@ -2,20 +2,21 @@ import React, {FC, ReactNode, useState} from "react";
 import Sidebar from "components/sidebar/Sidebar";
 import {toggleLeftSidebarAction} from "actions/appAction";
 import {useDispatch} from "react-redux";
-import {BiCart, BiNote, BiPlug, BiPlus, FaAngleLeft, FaBars, FiMail, MdOutlineSpaceDashboard} from "react-icons/all";
+import {BiCart, BiNote, BiPlug, BiPlus, FaAngleDown, FaAngleLeft, FaAngleRight, FaBars, FiMail, MdOutlineSpaceDashboard} from "react-icons/all";
 import {Link,   useNavigate} from "react-router-dom";
 import Circle from "UI/Circle/Circle";
 
 import "./dashboardSideBar.scss";
 import {AuthType} from "store/types";
+import {isDataView} from "util/types";
 
 export type SidebarDataType = {
     name?: string,
     to?: string,
-    icon?: React.ReactNode,
+    icon?: React.ReactNode | any,
     iconClassName?: string,
     section?: string,
-    items?: { name: string, to?: string, icon?: React.ReactNode, subItems?: any }[]
+    items?: { name: string, to?: string, icon?: React.ReactNode | any, subItems?: any }[]
 }
 
 interface Props {
@@ -42,7 +43,7 @@ const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
         if(item.to){
             navigate(item.to)
         } else{
-            setState(prevState => ({...prevState, openItem: item.name}))
+            setState(prevState => ({...prevState, openItem: prevState.openItem === item.name ? "" : item.name}))
         }
     }
 
@@ -51,15 +52,17 @@ const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
         <div>
             {auth && (
                 <Sidebar
-                    className="seller-sidebar"
+                    className="dashboard-sidebar"
+                    backdropClass="!bg-dark-900/40 dashboard-backdrop"
                     isOpen={isOpenLeftBar}
-                    onClickOnBackdrop={toggleSidebar}
+                    onClose={toggleSidebar}
                 >
                     <div className="">
+
                         {/**** sidebar fixed navigation ******/}
-                        <div className="sidebar-fixed-bar top-0 bg-white py-3 px-4 md:hidden">
-                            <div className="logo flex items-center  ">
-                                <div className="md:hidden block mr-3 ">
+                        <div className="sidebar-fixed-bar top-0 bg-white py-3 px-4 lg:hidden">
+                            <div className="flex items-center  ">
+                                <div className="mr-3 ">
                                     <Circle onClick={toggleSidebar}>
                                         <FaAngleLeft
                                             className="text-lg"
@@ -85,42 +88,53 @@ const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
                         </div>
 
                         {/**** sidebar content ******/}
-                        <div className="mt-20 md:mt-4 px-3">
-
-                            <Link to="/seller/dashboard" className="" >
-                                <div className="li-item bg-green-450/10 " >
-                                    <li className="heading-5 uppercase text-green-450">Dashboard</li>
-                                </div>
-                            </Link>
-
+                        <div className="mt-20 lg:mt-2 px-3">
                             { sidebarData?.map(section=>(
-                                <div key={section.section} className="mt-10">
-                                    <h6 className="heading-6 tracking-widest text-neutral-500">{section.section}</h6>
-                                    <div className="ml-2 mt-2">
-                                        {section?.items?.map(item=>(
-                                            <div onClick={()=>handleClickItem(item)}>
-                                                <div
-                                                    key={item.name}
-                                                    className={`flex items-center gap-x-1 py-2 li-item ${state.openItem === item.name ? 'li-item-focus': ''}`}>
-                                                    <div className="text-lg text-neutral-600">
-                                                        {item.icon}
-                                                    </div>
-                                                    <li className="text-base text-neutral-600 font-medium">{item.name}</li>
-                                                </div>
-
-                                                {/* *** render sub items *****   */}
-                                                {state.openItem === item.name && <div className="ml-4 p-4">
-                                                    {item?.subItems?.map(sub=>(
-                                                        <li className="flex justify-between">
-                                                            <span>{sub.label}</span>
-                                                            <span>{sub.value}</span>
-                                                        </li>
-                                                    ))  }
-                                                </div>}
+                                <div className="mt-8 first:mt-2">
+                                    {section.name && <Link to="/admin/dashboard" className="" >
+                                        <div className="">
+                                            <div className="flex items-center gap-x-2 sidebar-active p-2 rounded">
+                                                { section.icon && typeof section.icon === "function" ? section.icon() : section.icon}
+                                                <h5 className="text-sm font-semibold">{section.name}</h5>
 
                                             </div>
-                                        ))}
+                                        </div>
+                                    </Link> }
+                                    <div key={section.section} className="">
+
+                                        <h6 className="heading-6 text-dark-600 px-2">{section.section}</h6>
+                                        <div className="mt-2">
+                                            {section?.items?.map(item=>(
+                                                <li onClick={()=>handleClickItem(item)} className="">
+                                                    <div
+                                                        key={item.name}
+                                                        className={`flex items-center justify-between text-dark-300 py-2 px-2 rounded-md gap-x-1 li ${state.openItem === item.name ? 'li-item-focuse': ''}`}>
+                                                        <div className="flex items-center gap-x-2">
+
+                                                            { item.icon && typeof item.icon === "function" ? item.icon() : item.icon}
+                                                            <h5 className="text-sm font-medium">{item.name}</h5>
+
+                                                        </div>
+                                                        { !item.to && <div>
+                                                            {state.openItem === item.name ? <FaAngleDown />: <FaAngleRight /> }
+                                                        </div> }
+                                                    </div>
+
+                                                    {/* *** render sub items *****   */}
+                                                    {state.openItem === item.name && <ul className="ml-4 p-2">
+                                                        {item?.subItems?.map(sub=>(
+                                                            <li className="flex justify-between">
+                                                                <span>{sub.label}</span>
+                                                                <span>{sub.value}</span>
+                                                            </li>
+                                                        ))  }
+                                                    </ul>}
+
+                                                </li>
+                                            ))}
+                                        </div>
                                     </div>
+
                                 </div>
                             )) }
 

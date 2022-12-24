@@ -142,6 +142,9 @@ const AllProducts = (props) => {
 
 	return (
 		<div className="container">
+
+            <h1 className="route-title">Product List</h1>
+
 			{isShowForm === "" ? (
 				<Button onClick={(e) => setShowForm("new")}>Add New Product</Button>
 			) : (

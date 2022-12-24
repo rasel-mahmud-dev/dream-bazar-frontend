@@ -103,7 +103,7 @@ const HomeCategoryNav = () => {
     function renderDropdown(section){
 
         return section && (
-            <Dropdown isShow={openDropdown?.name === section.name && section?.sub_menu && section?.sub_menu.length > 0}>
+            <Dropdown isShow={openDropdown?.name === section.name && section?.sub_menu && section?.sub_menu.length > 0} className="z-500">
                 <div className={`category-dropdown`} style={isMobile ? {left: 0, transform: 'translateX(0)'} : dropdownStyle} ref={dropdownRef}>
                     <div className="relative">
                         {section?.sub_menu?.map((subMenu) => (
