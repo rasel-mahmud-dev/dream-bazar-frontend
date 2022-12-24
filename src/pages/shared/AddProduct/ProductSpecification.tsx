@@ -4,6 +4,8 @@ import {getApi} from "src/apis";
 import {StatusCode} from "store/types";
 import {useNavigate} from "react-router-dom";
 import InputGroup from "UI/Form/InputGroup";
+import {BsTrash} from "react-icons/all";
+import index from "pages/publicSite/CartPages";
 
 
 
@@ -72,6 +74,28 @@ const ProductSpecification : FC<Props> = ({categoryDetail, categoryId}) => {
         });
     }
 
+
+
+    // delete individual specification section
+    function handleRemoveSection(sectionName) {
+        let updateSpecification = {...specifications}
+        if(updateSpecification[sectionName]) {
+            delete updateSpecification[sectionName]
+        }
+        setSpecifications(updateSpecification)
+    }
+
+    // delete specification field
+    function removeSpecificationField(sectionName: string, fieldIndex: number){
+        let updateSpecifications = {...specifications}
+        if(updateSpecifications[sectionName]){
+            updateSpecifications[sectionName].splice(fieldIndex, 1)
+            setSpecifications(updateSpecifications)
+        }
+    }
+
+
+
     // section name input blur action
     function sectionNameInputBlur() {
         if (editSectionName.value) {
@@ -91,7 +115,15 @@ const ProductSpecification : FC<Props> = ({categoryDetail, categoryId}) => {
     }
 
 
-    function handleAddMoreSpecification(sectionName: string) {
+    useEffect(() => {
+        if (editSectionName.backupName && sectionNameInputRef.current) {
+            sectionNameInputRef.current.focus();
+        }
+    }, [editSectionName.backupName]);
+
+
+    // add new specification section field
+    function addNewSpecificationField(sectionName: string) {
         const updateSpecifications = { ...specifications };
         updateSpecifications[sectionName] = [
             ...updateSpecifications[sectionName],
@@ -100,12 +132,14 @@ const ProductSpecification : FC<Props> = ({categoryDetail, categoryId}) => {
         setSpecifications(updateSpecifications)
     }
 
+    // add new specification section
     function handleAddMoreSection() {
         const updateSpecifications = { ...specifications };
         let number = Object.keys(specifications || {}).length
         updateSpecifications["sectionName-" + number] = [{ specificationName: "specification name", value: "" }];
         setSpecifications(updateSpecifications);
     }
+
 
     function handleSelectSpecificationSection(){
             getApi()
@@ -158,32 +192,38 @@ const ProductSpecification : FC<Props> = ({categoryDetail, categoryId}) => {
                             name="sectionName"
                         />
                     ) : (
-                        <h4 className="heading-4 hover:text-green-500 cursor-pointer" onClick={() => handleClickSectionName(sectionName)}>
-                            {sectionName}
-                        </h4>
+                        <div onClick={() => handleClickSectionName(sectionName)} className="flex items-center gap-x-2 cursor-pointer">
+                            <h4 className="heading-4 hover:text-green-500" >
+                                {sectionName}
+                            </h4>
+                                <BsTrash onClick={()=>handleRemoveSection(sectionName)} />
+                        </div>
                     )}
                     <div className="mt-1">
                         {specifications[sectionName]?.map((specification, index) => (
-                            <div className="block sm:grid grid-cols-12 gap-x-4" key={index}>
-                                <InputGroup
-                                    className="w-full col-span-4 mt-1 text-xs font-medium"
-                                    value={specification.specificationName}
-                                    name={specification.specificationName}
-                                    onChange={(e) => handleChangeDescription("name", sectionName, e.target.value, index)}
-                                    placeholder="specification name"
-                                />
-                                <InputGroup
-                                    className="w-full col-span-8 mt-1 text-xs font-medium"
-                                    name="value"
-                                    onChange={(e) => handleChangeDescription("value", sectionName, e.target.value, index)}
-                                    value={specification.value}
-                                    placeholder="value"
-                                />
+                            <div  key={index} className="flex items-center gap-x-2">
+                                <div className="block sm:grid grid-cols-12 gap-x-4 flex-1">
+                                    <InputGroup
+                                        className="w-full col-span-4 mt-1 text-xs font-medium"
+                                        value={specification.specificationName}
+                                        name={specification.specificationName}
+                                        onChange={(e) => handleChangeDescription("name", sectionName, e.target.value, index)}
+                                        placeholder="specification name"
+                                    />
+                                    <InputGroup
+                                        className="w-full col-span-8 mt-1 text-xs font-medium"
+                                        name="value"
+                                        onChange={(e) => handleChangeDescription("value", sectionName, e.target.value, index)}
+                                        value={specification.value}
+                                        placeholder="value"
+                                    />
+                                </div>
+                                <BsTrash className="cursor-pointer" onClick={()=>removeSpecificationField(sectionName, index)} />
                             </div>
                         ))}
                         <Button
                             type="button"
-                            onClick={() => handleAddMoreSpecification(sectionName)}
+                            onClick={() => addNewSpecificationField(sectionName)}
                             className="text-xs bg-secondary-400 !py-1 !px-2 mt-1"
                         >
                             +

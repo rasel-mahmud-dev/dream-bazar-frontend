@@ -88,10 +88,6 @@ const AddProduct = () => {
         },
     });
 
-    const [editSectionName, setSectionName] = useState({
-        value: "",
-        backupName: "",
-    });
 
     const { productData, categoryDetail, staticImages } = state;
 
@@ -253,12 +249,6 @@ const AddProduct = () => {
 
 
 
-    useEffect(() => {
-        if (editSectionName.backupName && sectionNameInputRef.current) {
-            sectionNameInputRef.current.focus();
-        }
-    }, [editSectionName.backupName]);
-
 
 
     // handle update or add Product
@@ -405,7 +395,6 @@ const AddProduct = () => {
         }));
     }
 
-    const descSection = categoryDetail?.productDescriptionSectionInput;
 
     return (
         <div className="">
@@ -682,7 +671,7 @@ const AddProduct = () => {
                 <ProductSpecification categoryId={state.productData?.categoryId?.value} categoryDetail={categoryDetail}  />
 
 
-                <Card>
+                <Card className="mb-10">
 
 
                     <div className="flex items-center gap-x-4 mt-6">
