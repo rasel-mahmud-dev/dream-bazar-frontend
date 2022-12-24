@@ -5,13 +5,12 @@ import {StatusCode} from "store/types";
 import {useNavigate} from "react-router-dom";
 import InputGroup from "UI/Form/InputGroup";
 import {BsTrash} from "react-icons/all";
-import index from "pages/publicSite/CartPages";
 
 
 
 interface Props{
     categoryId?: string
-    categoryDetail: any
+    onSetCategoryDetail: any
 }
 
 
@@ -33,7 +32,7 @@ type Specification = {
 
 
 
-const ProductSpecification : FC<Props> = ({categoryDetail, categoryId}) => {
+const ProductSpecification : FC<Props> = ({onSetCategoryDetail, categoryId}) => {
 
     const [specifications, setSpecifications] = useState<Specification[]>()
 
@@ -168,6 +167,8 @@ const ProductSpecification : FC<Props> = ({categoryDetail, categoryId}) => {
                                 ...productDescriptionSectionInput
                             };
                         });
+                        onSetCategoryDetail(data)
+
                     }
                 })
                 .catch((ex) => {});

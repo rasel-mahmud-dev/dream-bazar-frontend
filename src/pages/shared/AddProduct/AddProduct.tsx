@@ -668,7 +668,10 @@ const AddProduct = () => {
 
 
                 {/******** Product Description sections **********/}
-                <ProductSpecification categoryId={state.productData?.categoryId?.value} categoryDetail={categoryDetail}  />
+                <ProductSpecification
+                    onSetCategoryDetail={(data)=>setState((prevState)=>({...prevState, categoryDetail: data}))}
+                    categoryId={state.productData?.categoryId?.value}
+                />
 
 
                 <Card className="mb-10">

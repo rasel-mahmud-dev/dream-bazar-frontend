@@ -1,21 +1,30 @@
 @import "src/styles/--breakpoint";
 
-.mobile-cart-sidebar{
-    @include get_up(768px){
+.mobile-cart-sidebar-backdrop{
+    @include get_up(1024px) {
         display: none;
     }
-    .sidebar{
-        @include get_down(1024px){
-            transition: all .4s ease;
-            right: -100% !important;
-            position: fixed;
-            left: -100%;
-            z-index: 301;
-            top: 0px;
-        }
+    z-index: 1000;
+}
+.mobile-cart-sidebar {
+    @include get_up(1024px) {
+        display: none;
     }
 
-    .sidebar-mobile_show{
-        right: 0 !important;
+    @include get_down(1024px) {
+        transition: all .4s ease;
+        right: -100% !important;
+        position: fixed;
+        left: -100%;
+        z-index: 1001;
+        top: 0px;
     }
+}
+
+.sidebar-mobile_show{
+    right: 0 !important;
+}
+
+.sidebar-mobile_hide{
+    right: -100% !important;
 }

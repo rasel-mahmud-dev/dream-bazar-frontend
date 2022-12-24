@@ -23,7 +23,7 @@ const ProductAttribute = ({categoryDetail, onAttributeChange}) => {
             {/*********** Filter Attributes Information **********/}
             <Card>
                 <h5 className="heading-5">Filter Attributes</h5>
-                {!categoryDetail?.filterAttributesValues && <h1>Please select a Category</h1>}
+                {!categoryDetail?.filterAttributesValues && <h1 className="text-red-500 text-sm">Please select a Category</h1>}
                 <div className="mt-4 grid grid-cols-2 gap-4">
                     {categoryDetail?.filterAttributesValues?.map((attribute, idx) => (
                         <div key={idx}>

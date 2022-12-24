@@ -13,14 +13,15 @@ interface Props {
 }
 
 const Sidebar: FC<Props> = (props) => {
-    const { isOpen, position = "right", backdropClass="", className = "", onClose, children } = props;
+    const { isOpen, backdropClass = "", position="left", className = "", onClose, children } = props;
 
     return (
-        <div className={`sidebar-root ${className} sidebar-${position}`}>
-            {isOpen && <Backdrop isOpenBackdrop={isOpen} onClose={onClose} className={backdropClass}/>}
-            <div className={`sidebar ${isOpen ? "sidebar-mobile_show" : "sidebar-mobile_hide"}`}>{children}</div>
-        </div>
+        <>
+            {isOpen && <Backdrop isOpenBackdrop={isOpen} onClose={onClose} className={backdropClass} />}
+            <div className={`sidebar ${className} sidebar-${position} ${isOpen ? "sidebar-mobile_show" : "sidebar-mobile_hide"}`}>{children}</div>
+        </>
     );
 };
 
 export default WithWidth(Sidebar);
+

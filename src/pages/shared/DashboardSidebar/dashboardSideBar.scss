@@ -1,18 +1,18 @@
 @import "src/styles/--breakpoint";
 
-.dashboard-sidebar{
-    .sidebar{
-        @include get_down(1024px){
-            transition: all .4s ease;
-            left: -100% !important;
-            position: fixed;
-            left: -100%;
-            z-index: 2000;
-            top: 0px;
-        }
+.dashboard-sidebar {
+
+    @include get_down(1024px) {
+        transition: all .4s ease;
+        left: -100% !important;
+        position: fixed;
+        left: -100%;
+        z-index: 2000;
+        top: 0px;
     }
 
-    .sidebar-mobile_show{
+
+    .sidebar-mobile_show {
         left: 0 !important;
 
         &::-webkit-scrollbar {
@@ -29,15 +29,16 @@
         }
     }
 }
-.dashboard-backdrop{
-    @include get_up(1024px){
+
+.dashboard-backdrop {
+    @include get_up(1024px) {
         display: none;
     }
 }
 
-.sidebar-active{
+.sidebar-active {
     @apply bg-primary-500 text-white;
-    img{
+    img {
         filter: invert(1);
     }
 }

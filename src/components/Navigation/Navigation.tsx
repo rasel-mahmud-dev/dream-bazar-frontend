@@ -106,57 +106,6 @@ function Navigation(props) {
         }
     }, [props.offsetTop]);
 
-    function renderCartProduct(top: number, isShow: boolean) {
-        let totalPrice: number = 0;
-
-        function calculateTotalPrice(item) {
-            let perItemPrice = item.quantity * item.unitPrice;
-            totalPrice += perItemPrice;
-        }
-
-        // @ts-ignore
-        return (
-            <Popup timeout={500} animationClass="nav-popup-menu" inProp={isShow}>
-                <div style={{ padding: "5px 10px" }} className="render_cart d-flex align-center fs-14">
-                    <div>
-                        <table className="cart_table">
-                            <thead>
-                                <tr>
-                                    <th>Product Name</th>
-                                    <th className="t-center">Quantity</th>
-                                    <th className="t-center">Item Price</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {cartState.cartProducts.map((item, i) => (
-                                    // @ts-ignore
-                                    <tr key={i}>
-                                        <td className="title_td">
-                                            <div className="cart_image_div">
-                                                <Image className="cart_image" src={fullLink(item.image)} imgClass="w-16" />
-                                            </div>
-                                            <Title level={4}> {item.title} </Title>
-                                        </td>
-                                        <td className="t-center">{item.quantity}</td>
-                                        <td className="t-center">{item.unitPrice} TK</td>
-                                        {calculateTotalPrice(item)}
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        {/*<Divider lineColor="#e2e2e2" lineHeight={0.5} className="mt-2 mb-2" />*/}
-                        <div>
-                            <h4>Total Price: {totalPrice} TK</h4>
-                            <Button className={"m-0 p-0"} type="link" to="/shopping/cart">
-                                Go To Cart
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </Popup>
-        );
-    }
-
     function handleChangeTheme(e) {
         toggleTheme(e.target.value, contextDispatch);
     }
@@ -165,15 +114,9 @@ function Navigation(props) {
         setLanguage(e.target.value, contextDispatch);
     }
 
-    function handleToggleLeftBar() {
-        dispatch({
-            type: ACTION_TYPES.TOGGLE_LEFT_BAR,
-        });
-    }
 
-    function closeMobileRightSidebar(e: Event) {
-        e.stopPropagation();
-        setState({ ...state, openMobileRightSidebar: false });
+    function closeMobileRightSidebar() {
+        setState(prev=>({...prev, openMobileRightSidebar: false}));
     }
 
     function openMobileRightSidebar() {
@@ -185,7 +128,9 @@ function Navigation(props) {
         }
     }
 
-    // @ts-ignore
+
+
+
     return (
         <div className="header_space">
             <div ref={headerRef} className={["navigation", isFixed ? "nav_fixed" : ""].join(" ")}>
@@ -329,8 +274,9 @@ function Navigation(props) {
                                         <Suspense fallback={<h1>loading</h1>}>
                                             <CartDropdown className="right-0 top-14" isShow={state.openDropdown === "cart"} />
                                         </Suspense>
-                                        <MobileCartSidebar isOpen={state.openMobileRightSidebar} handleClose={(e) => closeMobileRightSidebar(e)} />
                                     </li>
+                                    <MobileCartSidebar isOpen={state.openMobileRightSidebar} handleClose={closeMobileRightSidebar} />
+
 
                                     <li className="hidden md:flex items-center gap-x-2 py-5 ">
                                         <FaHeart className="text-white text-2xl" />

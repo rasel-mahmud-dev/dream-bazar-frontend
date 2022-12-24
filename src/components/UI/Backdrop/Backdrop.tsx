@@ -14,7 +14,6 @@ interface BackdropPROPS extends HTMLAttributes<HTMLDivElement> {
     onClose?: () => void;
     transparent?: boolean;
     children?: React.ReactElement;
-    as?: "appMask" | "contentMask" | "global";
 }
 
 const Backdrop: FC<BackdropPROPS> = (props) => {
