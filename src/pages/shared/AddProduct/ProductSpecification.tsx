@@ -11,6 +11,7 @@ import {BsTrash} from "react-icons/all";
 interface Props{
     categoryId?: string
     onSetCategoryDetail: any
+    onChangeSpecifications: (data: Specification[])=>void
 }
 
 
@@ -21,7 +22,7 @@ interface Props{
     ]
 }
 */
-type Specification = {
+export type Specification = {
     [key: string] : {
         specificationName: string
         value: string
@@ -32,7 +33,7 @@ type Specification = {
 
 
 
-const ProductSpecification : FC<Props> = ({onSetCategoryDetail, categoryId}) => {
+const ProductSpecification : FC<Props> = ({onSetCategoryDetail, onChangeSpecifications, categoryId}) => {
 
     const [specifications, setSpecifications] = useState<Specification[]>()
 
@@ -112,6 +113,10 @@ const ProductSpecification : FC<Props> = ({onSetCategoryDetail, categoryId}) => 
             value: "",
         });
     }
+
+    useEffect(()=>{
+        onChangeSpecifications(specifications)
+    }, [specifications])
 
 
     useEffect(() => {

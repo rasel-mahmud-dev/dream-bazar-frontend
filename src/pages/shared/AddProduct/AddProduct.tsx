@@ -18,7 +18,8 @@ import useToast from "src/hooks/useToast";
 import HttpResponse from "components/HttpResponse/HttpResponse";
 import { getApi } from "src/apis";
 import ProductAttribute from "pages/shared/AddProduct/ProductAttribute";
-import ProductSpecification from "pages/shared/AddProduct/ProductSpecification";
+import ProductSpecification, {Specification} from "pages/shared/AddProduct/ProductSpecification";
+import ActionModal from "components/ActionModal/ActionModal";
 // import ProductSpecification from "pages/shared/AddProduct/ProductSpecification";
 
 const AddProduct = () => {
@@ -83,6 +84,7 @@ const AddProduct = () => {
 
             // renderProductAttr: []
         },
+        specifications: {},
         productDescription: {
             details: {},
         },
@@ -245,9 +247,9 @@ const AddProduct = () => {
         }))
     }
 
-
-
-
+    function handleChangeSpecification(specifications: Specification[]){
+            setState(prevState => ({...prevState, specifications: specifications}))
+    }
 
 
 
@@ -288,9 +290,11 @@ const AddProduct = () => {
             return;
         }
 
+        const {specifications, attributeValue} = state
+
         /********** Product attribute value ************/
-        if (categoryDetail?.filterAttributesValues) {
-            if (categoryDetail?.filterAttributesValues.length !== Object.keys(state.attributeValue).length) {
+        if (attributeValue) {
+            if (!Object.keys(attributeValue).length) {
                 errorMessage = "Please provide attribute fields";
                 toast.error(errorMessage);
                 setHttpResponse((p) => ({ ...p, message: errorMessage, isSuccess: false }));
@@ -298,38 +302,36 @@ const AddProduct = () => {
             }
         }
         // add Product details sections
-        formData.append("attributes", JSON.stringify(state.attributeValue));
+        formData.append("attributes", JSON.stringify(attributeValue));
 
-        /********** deep description section ************/
+
+
+
+        /********** deep specification section ************/
         /* make it like and send to server
-            {"General":{ "In The Box":"value"}}
+            { General: {"In The Box" :  "value"}}
         * */
-        let descriptionSection = categoryDetail.productDescriptionSectionInput;
-
-        let isDoneDescriptionSection = true;
-        let details = {};
-        for (let descriptionSectionKey in descriptionSection) {
-            if (descriptionSection[descriptionSectionKey] && descriptionSection[descriptionSectionKey].length > 0) {
+        let isDoneSpecifications = true;
+        let specificationValues = {};
+        for (let specificationsKey in specifications) {
+            if (specifications[specificationsKey] && specifications[specificationsKey].length > 0) {
                 let specificationForSection = {};
-                descriptionSection[descriptionSectionKey].forEach((specification) => {
-                    // if(!(specification.value && specification.specificationName)){
-                    //     isDoneDescriptionSection = false
-                    // }
-
-                    if (specification.value) {
-                        specificationForSection[specification.specificationName] = specification.value;
-                    }
+                specifications[specificationsKey].forEach((specification) => {
+                    specificationForSection[specification.specificationName] = specification.value ? specification.value : "";
                 });
-                details[descriptionSectionKey] = specificationForSection;
+                specificationValues[specificationsKey] = specificationForSection;
             }
         }
-        if (!isDoneDescriptionSection) {
+
+        if (!isDoneSpecifications) {
             let msg = "Please provide description required field";
             toast.error(msg);
             return setHttpResponse((p) => ({ ...p, message: msg, isSuccess: false }));
         }
+
+
         // add Product details sections
-        formData.append("details", JSON.stringify(details));
+        formData.append("specification", JSON.stringify(specificationValues));
 
         for (let payloadKey in payload) {
             if (payloadKey === "images") {
@@ -353,22 +355,35 @@ const AddProduct = () => {
         }
 
         try {
+
+            setHttpResponse(p=>({...p, message: "", loading: true }));
+
             if (params.productId) {
                 let { status, data } = await getApi().patch("/api/product/" + params.productId, formData);
                 if (status === StatusCode.Created) {
-                    toast.success(data.message);
-                    setHttpResponse({ message: data.message, loading: false, isSuccess: true });
+
+                    setTimeout(()=>{
+                        setHttpResponse({ message: data.message, loading: false, isSuccess: true });
+                        navigate("/admin/products")
+                    }, 300)
+
                 }
             } else {
                 let { status, data } = await getApi().post("/api/product", formData);
                 if (status === StatusCode.Created) {
-                    toast.success(data.message);
-                    setHttpResponse({ message: data.message, loading: false, isSuccess: true });
+
+                    setTimeout(()=>{
+                        setHttpResponse({ message: data.message, loading: false, isSuccess: true });
+                        navigate("/admin/products")
+                    }, 300)
                 }
             }
         } catch (ex) {
-            toast.error(errorMessageCatch(ex));
-            setHttpResponse({ message: errorMessageCatch(ex), loading: false, isSuccess: false });
+            setTimeout(()=> {
+                setHttpResponse({message: errorMessageCatch(ex), loading: false, isSuccess: false});
+            }, 300)
+        } finally {
+            setHttpResponse(p=>({...p, message: "", loading: false, isSuccess: true }));
         }
     }
 
@@ -379,8 +394,6 @@ const AddProduct = () => {
             productData: {
                 ...prevState.productData,
                 title: { value: "Iphone 100", errorMessage: "", required: true },
-                // categoryId: { value: "60df5e546419f56b97610602", errorMessage: "", required: true },
-                // brandId: { value: "60df5e546419f56b97610602", errorMessage: "", required: true },
                 price: { value: 150000, errorMessage: "", required: true },
                 qty: { value: 10, errorMessage: "", required: true },
                 shippingCost: { value: 200, errorMessage: "", required: true },
@@ -400,7 +413,10 @@ const AddProduct = () => {
         <div className="">
             <h1 className="route-title">{params.productId ? "Update Product" : "Add Product"}</h1>
 
-            <HttpResponse state={httpResponse} />
+            <ActionModal
+                {...httpResponse}
+                loadingTitle="Product is Adding..."
+                onClose={()=>httpResponse.message !== "" && setHttpResponse((p)=>({...p, message: ""})) }/>
 
             <form onSubmit={handleSubmit}>
                 <Card>
@@ -669,6 +685,7 @@ const AddProduct = () => {
 
                 {/******** Product Description sections **********/}
                 <ProductSpecification
+                    onChangeSpecifications={handleChangeSpecification}
                     onSetCategoryDetail={(data)=>setState((prevState)=>({...prevState, categoryDetail: data}))}
                     categoryId={state.productData?.categoryId?.value}
                 />

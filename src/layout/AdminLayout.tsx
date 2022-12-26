@@ -208,7 +208,7 @@ const AdminLayout = () => {
             section: "Product Management",
             items: [
                 {name: "Products", to: "/admin/products",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (1).svg")} />},
-                {name: "Add", to: "/admin/products/new",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (5).svg")} />}
+                {name: "Add", to: "/admin/product/new",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (5).svg")} />}
             ],
         },
         {
