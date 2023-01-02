@@ -9,6 +9,7 @@ import NotFoundPage from "components/notFoundPage/NotFoundPage";
 import ExcludeAuthRoute from "src/middleware/ExcludeAuthRoute";
 import {adminRoute} from "src/layout/AdminLayout";
 import ProductDetailLite from "pages/publicSite/productDetails/ProductDetailLite";
+import ProductFilterPageLite from "pages/publicSite/productFilterPage/ProductFilterPageLite";
 
 const ProductFilterPage = lazy(() => import("pages/publicSite/productFilterPage/ProductFilterPage"));
 const JoinHome = lazy(() => import("pages/publicSite/auth/JoinHome"));
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "p/:pId",
-                element: <ProductFilterPage />,
+                element: <ProductFilterPageLite />,
             },
             {
                 path: "/join",

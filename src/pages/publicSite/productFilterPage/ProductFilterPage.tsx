@@ -579,8 +579,6 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 	return (
         <div className="pb-10 relative">
 
-            <CategoryNavbar />
-
             <SEO title={`p/${params.pId}/${params.treeId}`} description="Product filter" />
 
             {httpResponse.loading && (

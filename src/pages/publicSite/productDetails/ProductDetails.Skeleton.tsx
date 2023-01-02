@@ -15,8 +15,8 @@ const ProductDetailsSkeleton = () => {
 
                     <div className="mt-8">
                         <Skeleton.Line className="h-6 w-32" />
-                        { new Array(10).fill(0).map(item=>(
-                            <Skeleton.Line className="h-2 w-11/12 mt-2" />
+                        { new Array(10).fill(0).map((_, i)=>(
+                            <Skeleton.Line className="h-2 w-11/12 mt-2" key={i}/>
                         )) }
                     </div>
 
@@ -32,16 +32,16 @@ const ProductDetailsSkeleton = () => {
 
                     <div className="mt-8">
                         <Skeleton.Line className="h-6 w-40" />
-                        { new Array(10).fill(0).map(item=>(
-                            <Skeleton.Line className="h-2 w-6/12 mt-2" />
+                        { new Array(10).fill(0).map((_, i)=>(
+                            <Skeleton.Line className="h-2 w-6/12 mt-2" key={i}/>
                         )) }
                     </div>
 
 
                     <div className="mt-8">
                         <Skeleton.Line className="h-6 w-40" />
-                        { new Array(10).fill(0).map(item=>(
-                            <Skeleton.Line className="h-2 w-full mt-2" />
+                        { new Array(10).fill(0).map((_, i)=>(
+                            <Skeleton.Line className="h-2 w-full mt-2" key={i}/>
                         )) }
                     </div>
 
