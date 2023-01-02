@@ -29,6 +29,7 @@ import { FaAngleLeft } from "react-icons/all";
 import {setFilter, SetFilterActionPayload} from "actions/filterSidebar.action";
 import product from "components/Product/Product";
 import CategoryNavbar from "components/categoryNavbar/CategoryNavbar";
+import FilterAttribute from "pages/publicSite/productFilterPage/Filter.Attribute";
 
 let initialLoad = true;
 
@@ -280,9 +281,19 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 	// }, [filters.brands, filteredAttributes, filters.sortBy, currentNestedSubCategory])
 
 	useEffect(() => {
-		if (filters.category.selected || filters.category.allNestedIds.length > 0) {
+		if (filters.category.selected || (filters?.category?.allNestedIds && filters.category.allNestedIds.length > 0)) {
             const  {pagination} = filters
-			let data = {
+			let data: {
+                categoryIds: string[],
+                brands: {name: string, _id: string}[],
+                selectCategory: [],
+                filteredAttributes: [],
+                // sortBy,
+                paginate: {
+                    currentPage: number,
+                    viewPerPage: number,
+                }
+            } = {
 				categoryIds: [],
 				brands: filters.brands,
 				selectCategory,
@@ -612,6 +623,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
                             {/*{ss}*/}
                             <CategoryList onChangeCategory={handleChangeCategory} />
                             <BrandList />
+                            <FilterAttribute />
                         </div>
                     </div>
                 </Sidebar>

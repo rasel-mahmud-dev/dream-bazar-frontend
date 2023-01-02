@@ -1,4 +1,4 @@
-import { ACTION_TYPES, Brand, CategoryType } from "src/store/types";
+import {ACTION_TYPES, Brand, CategoryType} from "src/store/types";
 
 import filterSidebar from "./filterSidebar.reducer";
 import adminProductReducer from "reducers/adminProductReducer";
@@ -78,16 +78,16 @@ export interface ProductStateType {
     filterProducts: any;
     category:
         | {
-              // this is need for filter sidebar
-              // filters: {name: string, values: {name: "string", value: any}[]}[]
-              brands: { _id: string; name: string }[]; // populated from brands collections
-              is_top: any;
-              last_level: any;
-              name: string;
-              parent_id: string;
-              updated_at: string;
-              _id: string;
-          }
+        // this is need for filter sidebar
+        // filters: {name: string, values: {name: "string", value: any}[]}[]
+        brands: { _id: string; name: string }[]; // populated from brands collections
+        is_top: any;
+        last_level: any;
+        name: string;
+        parent_id: string;
+        updated_at: string;
+        _id: string;
+    }
         | {};
     filters: {
         pagination: {
@@ -104,6 +104,23 @@ export interface ProductStateType {
         sortBy: { field: string; id: string; order: number }[];
         ideals: string[]
     };
+    categoryDetail: {
+        [categoryId: string]: {
+            catId: string
+            catName: string
+            defaultExpand: []
+            filterAttributes: []
+            filterAttributesValues: {
+                attributeLabel: string
+                attributeName: string
+                options: any[]
+                _id: string
+            }[]
+            productDescriptionSection: {}
+            renderProductAttr: []
+            _id: string
+        }[]
+    },
     filteredAttributes: {
         attribute_name: string;
         values: { name: string; value: string }[];
@@ -137,7 +154,7 @@ const initialState: ProductStateType = {
     ui_filterItems: [],
     totalProduct: 0,
     totalFilterAbleProductCount: 0,
-    filterProducts: [{ title: "Reduce State Product", _id: "34324" }],
+    filterProducts: [{title: "Reduce State Product", _id: "34324"}],
     adminProducts: {
         total: 0,
         cached: {
@@ -155,7 +172,7 @@ const initialState: ProductStateType = {
     adminStaticFiles: [],
     oneTypeProductsLength: 0,
     productDetails: {},
-    oneTypeFetchProducts: { name: "", values: [{}] },
+    oneTypeFetchProducts: {name: "", values: [{}]},
     homePageSectionsData: [
         {
             name: "Top Popular products",
@@ -198,15 +215,15 @@ const initialState: ProductStateType = {
     ],
     homePageSectionProducts: {},
     loadingStates: [
-        { where: "home_section", isLoading: false },
-        { where: "one_type_products", isLoading: false },
+        {where: "home_section", isLoading: false},
+        {where: "one_type_products", isLoading: false},
     ],
     paginations: [
-        { where: PaginationWhereEnum.home_section, perPage: 2, currentPage: 1 },
-        { where: PaginationWhereEnum.one_type_products, perPage: 5, currentPage: 1 },
-        { where: PaginationWhereEnum.filter_products_page, perPage: 50, currentPage: 1 },
+        {where: PaginationWhereEnum.home_section, perPage: 2, currentPage: 1},
+        {where: PaginationWhereEnum.one_type_products, perPage: 5, currentPage: 1},
+        {where: PaginationWhereEnum.filter_products_page, perPage: 50, currentPage: 1},
     ],
-    fetchedData: [{ where: "home_page", isFetched: false }],
+    fetchedData: [{where: "home_page", isFetched: false}],
     category: {},
 
     brandsForCurrentCategory: [],
@@ -225,9 +242,10 @@ const initialState: ProductStateType = {
         },
         price: [10, 100],
         brands: [],
-        sortBy: [{ field: "views", order: -1, id: "1" }],
+        sortBy: [{field: "views", order: -1, id: "1"}],
         ideals: null
     },
+    categoryDetail: {},
     filteredAttributes: [],
     expandFilterItems_sectionIds: ["generation"],
     filterItem_sections_data: {},
@@ -250,7 +268,7 @@ const initialState: ProductStateType = {
 
 
 const productReducer = (state: ProductStateType = initialState, action) => {
-    let updatedState: ProductStateType = { ...state };
+    let updatedState: ProductStateType = {...state};
     switch (action.type) {
         case ACTION_TYPES.SET_UI_CATEGORIES:
             let isHas = updatedState.ui_categories.findIndex((item) => item.id === action.payload.id);
@@ -298,7 +316,7 @@ const productReducer = (state: ProductStateType = initialState, action) => {
             return updatedState;
 
         case ACTION_TYPES.FETCH_FILTER_PRODUCTS:
-            const { products, totalItems } = action.payload;
+            const {products, totalItems} = action.payload;
 
             updatedState.filterProducts = products;
 
@@ -488,14 +506,15 @@ const productReducer = (state: ProductStateType = initialState, action) => {
             return updatedState;
 
         case ACTION_TYPES.ADD_FILTER:
-            const { brands, sortBy, ideals } = action.payload;
-            let updatedFilters = { ...updatedState.filters };
+            const {brands, sortBy, ideals} = action.payload;
+            let updatedFilters = {...updatedState.filters};
             if (brands) {
                 updatedFilters.brands = brands;
             }
             if (sortBy) {
                 updatedFilters.sortBy = sortBy;
-            }      if (ideals) {
+            }
+            if (ideals) {
                 updatedFilters.ideals = ideals;
             }
             updatedState.filters = updatedFilters;

@@ -50,7 +50,7 @@ function CategoryList(props) {
         // ]
     });
 
-    const [selectedCategory, setSelectedCategory] = useState<CategoryType | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<CategoryType>(null as unknown as CategoryType);
 
     const navigate = useNavigate();
     const params = useParams();
@@ -66,7 +66,7 @@ function CategoryList(props) {
         });
     }
 
-    const [lastParentSubCategories, setLastParentSubCategories] = useState({
+    const [lastParentSubCategories, setLastParentSubCategories] = useState<any>({
         lastParentId: "",
         sub: [],
         levelNumber: 0,
@@ -82,7 +82,7 @@ function CategoryList(props) {
 
     useEffect(() => {
         (async function () {
-            let c = [];
+            let c: CategoryType[] | null = [];
             if (!flatCategories) {
                 c = await fetchFlatCategoriesAction(flatCategories, dispatch);
             } else {
@@ -167,7 +167,7 @@ function CategoryList(props) {
             findUpperParentRecur(lastLevelCategory, rootCategoryName, flatCategories, temp);
 
             // now we found all level nested level category that store in temp object.
-            let arrId = [];
+            let arrId: string[] = [];
             for (let tempKey in temp) {
                 arrId.push(tempKey);
             }
@@ -288,7 +288,7 @@ function CategoryList(props) {
     }
 
     function handleRemoveCategory(item: CategoryType) {
-        let updatedSelectedCategory = { ...selectedCategory };
+        let updatedSelectedCategory: CategoryType | null  = { ...selectedCategory };
 
         // getAllRootCategoryFromLocal(item, (data)=>{
         //     for (let dataKey in data) {
@@ -315,7 +315,7 @@ function CategoryList(props) {
     function clickOnCategoryItem(item: CategoryType, levelNumber) {
         // find all sub categories for currently clicked item
         // that is set for last parent sub categories sub arr
-        let lastSub = flatCategories.filter((cat) => cat.parentId === item._id);
+        let lastSub = flatCategories && flatCategories.filter((cat) => cat.parentId === item._id);
 
         let updatedSidebarCategory = { ...sidebarCategory };
         let s: any = updatedSidebarCategory[levelNumber].find((sCat) => sCat._id === item._id);
@@ -341,7 +341,7 @@ function CategoryList(props) {
             ...prevState,
             levelNumber: levelNumber,
             lastParentId: item._id,
-            sub: lastSub,
+            sub: lastSub ? lastSub : [],
         }));
         if (params.pId === item.name) {
             navigate(`/p/${params.pId}`);
@@ -355,64 +355,66 @@ function CategoryList(props) {
     function handleExpandCategory(item, levelNumber) {
         // find all sub categories for currently clicked item
         // that is set for last parent sub categories sub arr
-        const lastClickedSub = flatCategories.filter((ct) => ct.parentId === item._id);
+        if (flatCategories) {
+            const lastClickedSub = flatCategories.filter((ct) => ct.parentId === item._id);
 
-        let updatedSidebarCategory = { ...sidebarCategory };
+            let updatedSidebarCategory = {...sidebarCategory};
 
-        // if click root level category
-        let parentCat = null;
+            // if click root level category
+            let parentCat;
 
-        if (levelNumber === 0) {
-            parentCat = updatedSidebarCategory[1].find((sCat) => sCat._id === item._id);
-        } else {
-            // find parent of clicked category
-            parentCat = updatedSidebarCategory[levelNumber].find((sCat) => item.parentId === sCat._id);
-        }
-
-        if (!parentCat) {
-            handleChangeCategory(item, flatCategories);
-            return setSidebarCategory(updatedSidebarCategory);
-        }
-
-        parentCat.last = false;
-
-        // find parent sub categories for next level nested category
-        let lastParentSub = flatCategories.filter((ct) => ct.parentId === parentCat._id);
-
-        // set nest level category like
-        // updatedSidebarCategory[4 + 1] = []
-        updatedSidebarCategory[levelNumber + 1] = lastParentSub;
-
-        // update all last and expand property from preview level category
-        lastParentSub.forEach((lastItem: any) => {
-            if (lastItem.name === item.name) {
-                lastItem.last = true;
-                lastItem.expand = true;
+            if (levelNumber === 0) {
+                parentCat = updatedSidebarCategory[1].find((sCat) => sCat._id === item._id);
             } else {
-                lastItem.last = false;
-                lastItem.expand = false;
+                // find parent of clicked category
+                parentCat = updatedSidebarCategory[levelNumber].find((sCat) => item.parentId === sCat._id);
             }
-        });
 
-        setLastParentSubCategories((prevState) => ({
-            ...prevState,
-            sub: lastClickedSub.length === 0 ? null : lastClickedSub,
-            levelNumber: levelNumber + 1,
-            lastParentId: parentCat._id,
-        }));
-        setSidebarCategory(updatedSidebarCategory);
+            if (!parentCat) {
+                handleChangeCategory(item, flatCategories);
+                return setSidebarCategory(updatedSidebarCategory);
+            }
 
-        handleChangeCategory(item, flatCategories);
+            parentCat.last = false;
 
-        // change url params
-        if (levelNumber === 0) {
-            navigate(`/p/${item.name}`);
-        } else {
-            navigate(`/p/${params.pId}?catTree=${item.name}`);
+            // find parent sub categories for next level nested category
+            let lastParentSub = flatCategories.filter((ct) => ct.parentId === parentCat._id);
+
+            // set nest level category like
+            // updatedSidebarCategory[4 + 1] = []
+            updatedSidebarCategory[levelNumber + 1] = lastParentSub;
+
+            // update all last and expand property from preview level category
+            lastParentSub.forEach((lastItem: any) => {
+                if (lastItem.name === item.name) {
+                    lastItem.last = true;
+                    lastItem.expand = true;
+                } else {
+                    lastItem.last = false;
+                    lastItem.expand = false;
+                }
+            });
+
+            setLastParentSubCategories((prevState) => ({
+                ...prevState,
+                sub: lastClickedSub.length === 0 ? null : lastClickedSub,
+                levelNumber: levelNumber + 1,
+                lastParentId: parentCat._id,
+            }));
+            setSidebarCategory(updatedSidebarCategory);
+
+            handleChangeCategory(item, flatCategories);
+
+            // change url params
+            if (levelNumber === 0) {
+                navigate(`/p/${item.name}`);
+            } else {
+                navigate(`/p/${params.pId}?catTree=${item.name}`);
+            }
         }
     }
 
-    function handleChangeCategory(item: { name: string; parentId?: string; _id: string; isProductLevel?: number }, flatCategories: any) {
+    function handleChangeCategory(item: { name: string; parentId?: string; _id: string; isProductLevel?: number } | null, flatCategories: any) {
         onChangeCategory();
 
         let all = [];
@@ -475,7 +477,7 @@ function CategoryList(props) {
                     )}
                 </div>
 
-                {sidebarCategory[1]?.map(
+                {sidebarCategory?.[1]?.map(
                     (cat) =>
                         (!sidebarCategory[2] || cat.expand) && (
                             <div key={cat._id} className="ml-2 flex justify-between">
@@ -490,7 +492,7 @@ function CategoryList(props) {
                         )
                 )}
 
-                {sidebarCategory["2"]?.map(
+                {sidebarCategory?.["2"]?.map(
                     (cat) =>
                         (!sidebarCategory[3] || cat.expand) && (
                             <div key={cat._id} className="ml-2">
@@ -506,7 +508,7 @@ function CategoryList(props) {
                         )
                 )}
 
-                {sidebarCategory["3"]?.map(
+                {sidebarCategory?.["3"]?.map(
                     (cat) =>
                         (!sidebarCategory[4] || cat.expand) && (
                             <div key={cat._id} className="ml-2">
@@ -524,7 +526,7 @@ function CategoryList(props) {
                         )
                 )}
 
-                {sidebarCategory["4"]?.map(
+                {sidebarCategory?.["4"]?.map(
                     (cat) =>
                         (!sidebarCategory[5] || cat.expand) && (
                             <div key={cat._id} className="ml-2">

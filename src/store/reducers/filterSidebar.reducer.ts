@@ -55,6 +55,15 @@ export default (state: ProductStateType, action) => {
                 filteredAttributes: [],
                 filters: action.payload.filters,
             }
+
+
+
+        case ACTION_TYPES.FETCH_CATEGORY_DETAILS:
+            updateState.categoryDetail = {
+                ...updateState.categoryDetail,
+                [action.payload.catId]: action.payload
+            }
+            return updateState
         
         default :
             return updateState

@@ -12,7 +12,6 @@ const ProductFilterPageLite = () => {
                 <ProductFilterPageSkeleton />
 
             }>
-                <ProductFilterPageSkeleton />
                 <ProductFilterPage />
             </Suspense>
         </div>
