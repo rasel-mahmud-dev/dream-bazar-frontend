@@ -7,7 +7,6 @@ import { loginAction } from "actions/authAction";
 
 import { InputGroup } from "UI/Form";
 import useLanguage from "src/hooks/useLanguage";
-import { Scope } from "store/types";
 import SocialLogin from "components/SocialLogin/SocialLogin";
 import HttpResponse from "components/HttpResponse/HttpResponse";
 import Divider from "UI/Divider/Divider";
@@ -118,14 +117,18 @@ const LoginPage: FC<LoginPageProps> = (props) => {
             <HttpResponse state={httpResponse} />
 
             <form onSubmit={loginHandler}>
-                <InputGroup state={state.userData} name="email" onChange={handleChange} placeholder={l("Enter Email")} inputClass="input-group" />
+                <InputGroup
+                    state={state.userData}
+                    name="email"
+                    onChange={handleChange}
+                    placeholder={l("Enter Email")}
+                />
                 <InputGroup
                     state={state.userData}
                     name="password"
                     type="password"
                     onChange={handleChange}
                     placeholder={l("Enter Password")}
-                    inputClass="input-group"
                 />
 
                 <p className="my-5 text-right text-link">
@@ -134,7 +137,7 @@ const LoginPage: FC<LoginPageProps> = (props) => {
                 <button className="w-full bg-green-450 px-4 py-2 border-none text-white font-semibold text-lg rounded-xl">{l("LoginPage")}</button>
             </form>
 
-            <Divider  text="OR"/>
+            <Divider text="OR"/>
 
 
             <SocialLogin />

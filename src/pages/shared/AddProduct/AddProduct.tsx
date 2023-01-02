@@ -15,19 +15,26 @@ import { StatusCode } from "store/types";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 
 import useToast from "src/hooks/useToast";
-import HttpResponse from "components/HttpResponse/HttpResponse";
+
 import { getApi } from "src/apis";
 import ProductAttribute from "pages/shared/AddProduct/ProductAttribute";
 import ProductSpecification, {Specification} from "pages/shared/AddProduct/ProductSpecification";
 import ActionModal from "components/ActionModal/ActionModal";
 // import ProductSpecification from "pages/shared/AddProduct/ProductSpecification";
 
+
 const AddProduct = () => {
     const params = useParams();
     const dispatch = useDispatch();
 
+    const {productId} = params
+
+
     const navigate = useNavigate();
     const sectionNameInputRef = useRef<HTMLInputElement>();
+
+    const productDetails = useRef({})
+
 
     const [toast] = useToast();
 
@@ -99,39 +106,40 @@ const AddProduct = () => {
     }, []);
 
     useEffect(() => {
-        if (params.productId && params.productId.length === 24) {
-            fetchProductForUpdate(params.productId, function (err, result) {
-                if (!err) {
-                    let updateProductData = { ...state.productData };
-                    for (let updateProductDataKey in updateProductData) {
-                        if (updateProductDataKey === "categoryId") {
-                            selectFilterValues(result["categoryId"]);
-                        }
-                        if (result[updateProductDataKey]) {
-                            updateProductData[updateProductDataKey].value = result[updateProductDataKey];
-                        }
-                    }
-
-                    let updateAttributeValue = { ...state.attributeValue };
-                    if (result["attributes"]) {
-                        for (let attributesKey in result["attributes"]) {
-                            updateAttributeValue[attributesKey] = result["attributes"][attributesKey];
-                        }
-                    }
-                    if (result.productDescription) {
-                        updateProductData["summary"].value = result.productDescription?.summary;
-                    }
-
-                    setState({
-                        ...state,
-                        productData: updateProductData,
-                        attributeValue: updateAttributeValue,
-                        productDescription: result["productDescription"],
-                    });
-                }
+        if (productId && productId.length === 24) {
+            fetchProductForUpdate(productId, function (err, result) {
+                console.log(err, result)
+                // if (!err) {
+                //     let updateProductData = { ...state.productData };
+                //     for (let updateProductDataKey in updateProductData) {
+                //         if (updateProductDataKey === "categoryId") {
+                //             selectFilterValues(result["categoryId"]);
+                //         }
+                //         if (result[updateProductDataKey]) {
+                //             updateProductData[updateProductDataKey].value = result[updateProductDataKey];
+                //         }
+                //     }
+                //
+                //     let updateAttributeValue = { ...state.attributeValue };
+                //     if (result["attributes"]) {
+                //         for (let attributesKey in result["attributes"]) {
+                //             updateAttributeValue[attributesKey] = result["attributes"][attributesKey];
+                //         }
+                //     }
+                //     if (result.productDescription) {
+                //         updateProductData["summary"].value = result.productDescription?.summary;
+                //     }
+                //
+                //     setState({
+                //         ...state,
+                //         productData: updateProductData,
+                //         attributeValue: updateAttributeValue,
+                //         productDescription: result["productDescription"],
+                //     });
+                // }
             });
         }
-    }, [params.productId]);
+    }, [productId]);
 
     // Product details section value fill up when update Product
     useEffect(() => {
@@ -358,7 +366,7 @@ const AddProduct = () => {
 
             setHttpResponse(p=>({...p, message: "", loading: true }));
 
-            if (params.productId) {
+            if (productId) {
                 let { status, data } = await getApi().patch("/api/product/" + params.productId, formData);
                 if (status === StatusCode.Created) {
 
@@ -411,11 +419,11 @@ const AddProduct = () => {
 
     return (
         <div className="">
-            <h1 className="route-title">{params.productId ? "Update Product" : "Add Product"}</h1>
+            <h1 className="route-title">{productId ? "Update Product" : "Add Product"}</h1>
 
             <ActionModal
                 {...httpResponse}
-                loadingTitle="Product is Adding..."
+                loadingTitle={`Product is  ${productId ? "Updating" : "Adding"}...`}
                 onClose={()=>httpResponse.message !== "" && setHttpResponse((p)=>({...p, message: ""})) }/>
 
             <form onSubmit={handleSubmit}>

@@ -1,4 +1,4 @@
-import React, {lazy, ReactNode, useEffect, useState} from "react";
+import React, {lazy, ReactNode, useEffect, useState, Suspense} from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -15,6 +15,8 @@ import staticImagePath from "src/utills/staticImagePath";
 import DashboardNavigation from "pages/shared/Navigation";
 import PrivateRoute from "src/middleware/PrivateRoute";
 import {Scope} from "store/types";
+import BrandListSkeleton from "pages/adminDashboard/brandList/BrandList.Skeleton";
+import BrandListLite from "pages/adminDashboard/brandList/BrandListLite";
 
 
 const AdminDashboardHome = lazy(() => import("pages/adminDashboard/DashboardHomePage"));
@@ -25,7 +27,6 @@ const CategoryDetails = lazy(() => import("pages/adminDashboard/categoryList/Cat
 const ProductAttribute = lazy(() => import("pages/adminDashboard/productAttribute/ProductAttribute"));
 const ProductList = lazy(() => import("pages/adminDashboard/productList/ProductList"));
 const AddBrand = lazy(() => import("pages/adminDashboard/brandList/AddBrand"));
-const BrandList = lazy(() => import("pages/adminDashboard/brandList/Brands"));
 const AddProduct = lazy(() => import("pages/shared/AddProduct/AddProduct"));
 const CategoryList = lazy(() => import("pages/adminDashboard/categoryList/Categories"));
 
@@ -56,7 +57,7 @@ export const adminRoute =   [
         ),
     },
     {
-        path: "update-Product/:id",
+        path: "product/edit/:productId",
         element: (
             <PrivateRoute scope={Scope.ADMIN_USER}>
                 <AddProduct />
@@ -121,7 +122,10 @@ export const adminRoute =   [
         path: "brands",
         element: (
 
-            <BrandList />
+            <>
+                <BrandListLite />
+
+            </>
 
         ),
     },
@@ -261,7 +265,10 @@ const AdminLayout = () => {
                         <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar} auth={auth} />
 
                         <div className="container !px-3">
-                            <Outlet />
+                            <Suspense fallback={<h1>Hi loading</h1>}>
+                                <Outlet />
+                            </Suspense>
+
                         </div>
                     </div>
                 </div>

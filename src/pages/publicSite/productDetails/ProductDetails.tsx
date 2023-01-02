@@ -27,6 +27,7 @@ import staticImagePath from "src/utills/staticImagePath";
 import SpecificationDetail from "pages/publicSite/productDetails/SpecificationDetail";
 import RatingReviews from "pages/publicSite/productDetails/RatingReviews";
 import Questions from "pages/publicSite/productDetails/Questions";
+import ProductDetailsSkeleton from "pages/publicSite/productDetails/ProductDetails.Skeleton";
 
 interface ProductDetailsProps {
     toggleLoader?: (loadingState: string, isLoading: boolean) => any;
@@ -178,10 +179,10 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
     return (
         <div>
             <div className="">
-                <CategoryNavbar />
+
 
                 <div className="container">
-                    {product && (
+                    {product ? (
                         <div className="block lg:grid lg:grid-cols-12 gap-x-6">
                             <div className="description-sidebar card !shadow-xxs  col-span-4">
                                 <div className="">
@@ -324,7 +325,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                 <Questions />
                             </div>
                         </div>
-                    )}
+                    ): (<ProductDetailsSkeleton />)}
                 </div>
             </div>
         </div>

@@ -18,6 +18,7 @@ const ProductAttribute = ({categoryDetail, onAttributeChange}) => {
     }
 
 
+
     return (
         <div>
             {/*********** Filter Attributes Information **********/}
@@ -29,7 +30,7 @@ const ProductAttribute = ({categoryDetail, onAttributeChange}) => {
                         <div key={idx}>
                             {attribute.options && (
                                 <div>
-                                    <h4 className="heading-5">{attribute.attributeLabel}</h4>
+                                    <h4 className="heading-5 !font-normal">{attribute.attributeLabel}</h4>
                                     <select
                                         value={attributes[attribute.attributeName]}
                                         onChange={handleChangeAttribute}

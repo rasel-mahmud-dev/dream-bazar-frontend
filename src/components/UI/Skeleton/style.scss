@@ -1,0 +1,49 @@
+/*:root {*/
+/*    --skeleton-bg: rgba(169, 169, 169, 1);*/
+/*}*/
+
+
+.skeleton {
+    --skeleton-bg: rgba(38, 38, 38, 0.16);
+
+    .skeleton-line {
+        @apply animate-pulse;
+        background: var(--skeleton-bg);
+        /*animation: loader-animation 1s linear infinite alternate-reverse;*/
+        /*margin-bottom: 2px;*/
+        border-radius: 8px;
+    }
+
+
+}
+
+/*.skeleton-circle {*/
+/*    border-radius: 100%;*/
+/*    animation: loader-animation 1s linear infinite alternate-reverse;*/
+/*    background: var(--skeleton-bg);*/
+/*}*/
+
+
+/*.white-bg .skeleton-line,*/
+/*.white-bg .skeleton-circle {*/
+/*    --skeleton-bg: rgb(31, 31, 31) !important;*/
+/*    animation: white-loader-animation 1s linear infinite alternate-reverse !important;*/
+/*}*/
+
+/*@keyframes loader-animation {*/
+/*    0% {*/
+/*        background: rgba(0, 0, 0, 0.4)*/
+/*    }*/
+/*    100% {*/
+/*        background: rgba(0, 0, 0, 1)*/
+/*    }*/
+/*}*/
+
+/*@keyframes white-loader-animation {*/
+/*    0% {*/
+/*        background: rgba(82, 82, 82, 0.4)*/
+/*    }*/
+/*    100% {*/
+/*        background: rgba(178, 178, 178, 0.281)*/
+/*    }*/
+/*}*/

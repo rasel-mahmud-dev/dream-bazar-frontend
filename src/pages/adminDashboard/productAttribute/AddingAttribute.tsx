@@ -205,7 +205,7 @@ const AddingAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
 			<h3 className="text-lg font-bold mt-5">Attribute Option values</h3>
             {state.optionsFields.map((field, index) => (
                 <div className="mt-2">
-					<label className="heading-5 !font-medium text-gray-600">Option {index + 1}</label>
+					<label className="heading-5 text-gray-600">Option {index + 1}</label>
 					<div className="flex gap-x-4">
 						<InputGroup
                             className="mt-0"

@@ -1,9 +1,18 @@
-import "./style.css"
+import React, {FC, HTMLAttributes} from 'react';
+import "./style.scss"
 import Line from "./Line";
 import Circle from "./Circle";
 
+interface Props extends HTMLAttributes<HTMLDivElement>{
 
-const Skeleton = ({className, children, ...other}) => {
+}
+
+interface CustomFC<T> extends FC<T>{
+    Line: React.FC<any>
+    Circle: React.FC<any>
+}
+
+const Skeleton:CustomFC<Props> = ({className, children, ...other}) => {
     return (
         <div className={className + " skeleton"} {...other}>
             {children}
@@ -11,7 +20,9 @@ const Skeleton = ({className, children, ...other}) => {
     );
 };
 
+
 Skeleton.Line = Line
+
 Skeleton.Circle = Circle
 
 export default Skeleton;

@@ -244,7 +244,7 @@ const ProductAttribute = (props) => {
 			</div>
             
             
-            <Modal isOpen={state.isShowForm} className="bg-red-500 h-full !max-w-md !top-10" onClose={closeModal}>
+            <Modal isOpen={state.isShowForm} className="bg-red-500 !max-w-md !top-10" backdropClass="!bg-dark-900/80" onClose={closeModal}>
 				<AddingAttribute
                     onUpdateAttributes={handleUpdateAttributes}
                     attribute={state.attribute}

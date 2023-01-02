@@ -8,6 +8,7 @@ import { Scope } from "store/types";
 import NotFoundPage from "components/notFoundPage/NotFoundPage";
 import ExcludeAuthRoute from "src/middleware/ExcludeAuthRoute";
 import {adminRoute} from "src/layout/AdminLayout";
+import ProductDetailLite from "pages/publicSite/productDetails/ProductDetailLite";
 
 const ProductFilterPage = lazy(() => import("pages/publicSite/productFilterPage/ProductFilterPage"));
 const JoinHome = lazy(() => import("pages/publicSite/auth/JoinHome"));
@@ -27,7 +28,7 @@ const AddProduct = lazy(() => import("pages/shared/AddProduct/AddProduct"));
 const CategoryList = lazy(() => import("pages/adminDashboard/categoryList/Categories"));
 
 const SellerLayout = lazy(() => import("src/layout/SellerLayout"));
-const ProductDetails = lazy(() => import("pages/publicSite/productDetails/ProductDetails"));
+// const ProductDetailLite = lazy(() => import("pages/publicSite/productDetails/ProductDetails"));
 const CustomerDashboard = lazy(() => import("pages/customerDashboard/CustomerDashboard"));
 const CustomerDashboardHomePage = lazy(() => import("pages/customerDashboard/CustomerDashboardHomePage"));
 
@@ -93,7 +94,7 @@ const router = createBrowserRouter([
 
             {
                 path: "/:slug",
-                element: <ProductDetails />,
+                element: <ProductDetailLite />,
             },
         ],
     },
