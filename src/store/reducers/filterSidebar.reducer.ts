@@ -3,31 +3,14 @@ import {ProductStateType} from "reducers/productReducer";
 import {ProductActionTypes} from "store/types/productActionTypes";
 
 
-export default (state: ProductStateType, action: ProductActionTypes) => {
+export default function filterSidebar (state: ProductStateType, action: ProductActionTypes){
     let updateState = {...state}
     let itemIndex = -1
     switch (action.type) {
-        
-        
-        case ACTION_TYPES.CHANGE_CATEGORY:
-            updateState.filters = {
-                ...updateState.filters,
-                category: {
-                    selected: action.payload.selected,
-                    allNestedIds: action.payload.allNestedIds
-                }
-            }
-            return updateState
-        
-        case ACTION_TYPES.FETCH_CATEGORY_BRANDS:
-            const {categoryName, brands} = action.payload
-            updateState.brandsForCategory = {
-                ...updateState.brandsForCategory,
-                [categoryName]: brands
-            }
-            return updateState
-        
-        
+
+
+
+
         case "SET_FILTER_ITEM_SECTIONS" :
             updateState.filterItem_sections_data = {
                 category_id: action.payload.category_id,
@@ -61,26 +44,8 @@ export default (state: ProductStateType, action: ProductActionTypes) => {
 
 
 
-        case ACTION_TYPES.FETCH_CATEGORY_DETAILS:
-            updateState.categoryDetail = {
-                ...updateState.categoryDetail,
-                [action.payload.catId]: action.payload
-            }
-            return updateState
 
-        case ACTION_TYPES.TOGGLE_PRODUCT_ATTRIBUTE:
-            const {  attributeName, categoryId  } = action.payload
-            if(categoryId){
-                let cat = updateState.categoryDetail[categoryId]
-                if(cat && cat.defaultExpand){
-                    if(cat.defaultExpand.includes(attributeName)){
-                        cat.defaultExpand = cat.defaultExpand.filter(item=>item !== attributeName)
-                    } else {
-                        cat.defaultExpand.push(attributeName)
-                    }
-                }
-            }
-            return updateState
+
         
         default :
             return updateState

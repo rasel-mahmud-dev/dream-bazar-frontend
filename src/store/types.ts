@@ -110,6 +110,7 @@ export interface Brand {
     logo?: string
     forCategory?: string[]
 }
+
 export interface OrderType {
     _id: string,
     name: string,

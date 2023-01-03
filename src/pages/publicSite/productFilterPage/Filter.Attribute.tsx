@@ -12,7 +12,7 @@ interface Props {
 
 
 const FilterAttribute: FC<Props> = (props) => {
-    const {filters, categoryDetail} = useSelector((state: RootState) => state.productState);
+    const {filters, categoryDetailCache} = useSelector((state: RootState) => state.productState);
 
     const dispatch = useDispatch()
     const filterAttributesValues = useRef<[]>()
@@ -46,13 +46,13 @@ const FilterAttribute: FC<Props> = (props) => {
 
     useEffect(()=>{
         if(filters.category.selected) {
-            filterAttributesValues.current = categoryDetail?.[filters.category.selected.id]?.filterAttributesValues
+            filterAttributesValues.current = categoryDetailCache?.[filters.category.selected.id]?.filterAttributesValues
         }
-    }, [categoryDetail, filters.category.selected])
+    }, [categoryDetailCache, filters.category.selected])
 
 
     function isExpand(attributeName: string){
-        return categoryDetail?.[currentCategoryId.current].defaultExpand.includes(attributeName)
+        return categoryDetailCache?.[currentCategoryId.current].defaultExpand.includes(attributeName)
     }
 
 
@@ -73,7 +73,7 @@ const FilterAttribute: FC<Props> = (props) => {
                 { filterAttributesValues.current && (
                     <div>
                         {filterAttributesValues.current && filterAttributesValues.current.map(attr=>(
-                            <div className="py-4">
+                            <div className="py-2">
                                 <div className="flex justify-between items-center hover:bg-primary-600/10 cursor-pointer px-2 py-2 rounded"
                                      onClick={()=>handleToggleExpand(attr.attributeName)}>
                                     <h4 className="font-medium">{attr.attributeLabel}</h4>

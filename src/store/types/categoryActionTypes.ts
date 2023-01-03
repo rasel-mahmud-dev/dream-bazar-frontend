@@ -1,5 +1,6 @@
 import {ACTION_TYPES, Brand, CategoryType} from "store/types";
-import {CategoryDetail} from "reducers/productReducer";
+import {CategoryDetail} from "reducers/categoryReducer";
+
 
 
 
@@ -29,13 +30,13 @@ export interface ChangeCategoryAction {
 
 
 /**
-* fetch all brand for current category
-* @example
-* mobiles => samsung, nokia, apple...
-* television => samsung, walton, mi...
-* */
-export interface FetchHomeSectionProductAction {
-    type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
+ * fetch all brand for current category
+ * @example
+ * mobiles => samsung, nokia, apple...
+ * television => samsung, walton, mi...
+ * */
+export interface FetchCategoryBrandsAction {
+    type: ACTION_TYPES.FETCH_CATEGORY_BRANDS,
     payload: {
         categoryName: string,
         brands: Brand[]
@@ -45,7 +46,7 @@ export interface FetchHomeSectionProductAction {
 
 /**
  Fetch current category detail that contains product attribute section,
-    expand default values and detail info about current category.
+ expand default values and detail info about current category.
  */
 export interface FetchCategoryDetailAction {
     type: ACTION_TYPES.FETCH_CATEGORY_DETAILS,
@@ -72,9 +73,9 @@ export interface FetchFlatCategoriesAction {
     payload: CategoryType[]
 }
 
-/**
-All product actions types
-* */
 
 
-export type ProductActionTypes = FetchHomeSectionProductAction
+export type CategoryActionTypes = ToggleProductAttributeAction | ChangeCategoryAction | FetchCategoryBrandsAction | FetchCategoryDetailAction
+    | ChangeProductFilterPaginationAction
+    | FetchFlatCategoriesAction
+

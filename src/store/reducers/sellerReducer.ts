@@ -10,8 +10,6 @@ export interface ShopType {
     shopBanner?: string
 }
 
-
-
 export interface SellerStateType {
     shop: ShopType
 }

@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "query-string": "^7.1.1",
