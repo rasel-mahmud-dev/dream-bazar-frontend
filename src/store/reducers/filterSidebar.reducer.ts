@@ -1,8 +1,11 @@
 import {ACTION_TYPES} from "store/types";
 import {ProductStateType} from "reducers/productReducer";
+import {ProductActionTypes} from "store/types/productActionTypes";
 
-export default (state: ProductStateType, action) => {
+
+export default (state: ProductStateType, action: ProductActionTypes) => {
     let updateState = {...state}
+    let itemIndex = -1
     switch (action.type) {
         
         
@@ -62,6 +65,20 @@ export default (state: ProductStateType, action) => {
             updateState.categoryDetail = {
                 ...updateState.categoryDetail,
                 [action.payload.catId]: action.payload
+            }
+            return updateState
+
+        case ACTION_TYPES.TOGGLE_PRODUCT_ATTRIBUTE:
+            const {  attributeName, categoryId  } = action.payload
+            if(categoryId){
+                let cat = updateState.categoryDetail[categoryId]
+                if(cat && cat.defaultExpand){
+                    if(cat.defaultExpand.includes(attributeName)){
+                        cat.defaultExpand = cat.defaultExpand.filter(item=>item !== attributeName)
+                    } else {
+                        cat.defaultExpand.push(attributeName)
+                    }
+                }
             }
             return updateState
         

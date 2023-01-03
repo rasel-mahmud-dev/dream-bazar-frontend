@@ -2,6 +2,7 @@ import {ACTION_TYPES, Brand, CategoryType} from "src/store/types";
 
 import filterSidebar from "./filterSidebar.reducer";
 import adminProductReducer from "reducers/adminProductReducer";
+import {ProductActionTypes} from "store/types/productActionTypes";
 
 interface eachCat {
     name: string;
@@ -47,6 +48,24 @@ export interface UI_CATEGORY_INFO_TYPE {
     render_product_attr?: string[];
     // extra field that populated after fetch filter_attributes
     filter_items_populated?: object[];
+}
+
+export interface CategoryDetail {
+    [categoryId: string]: {
+        catId: string
+        catName: string
+        defaultExpand: []
+        filterAttributes: []
+        filterAttributesValues: {
+            attributeLabel: string
+            attributeName: string
+            options: any[]
+            _id: string
+        }[]
+        productDescriptionSection: {}
+        renderProductAttr: []
+        _id: string
+    }[]
 }
 
 export interface ProductStateType {
@@ -104,23 +123,7 @@ export interface ProductStateType {
         sortBy: { field: string; id: string; order: number }[];
         ideals: string[]
     };
-    categoryDetail: {
-        [categoryId: string]: {
-            catId: string
-            catName: string
-            defaultExpand: []
-            filterAttributes: []
-            filterAttributesValues: {
-                attributeLabel: string
-                attributeName: string
-                options: any[]
-                _id: string
-            }[]
-            productDescriptionSection: {}
-            renderProductAttr: []
-            _id: string
-        }[]
-    },
+    categoryDetail: CategoryDetail,
     filteredAttributes: {
         attribute_name: string;
         values: { name: string; value: string }[];
@@ -267,7 +270,7 @@ const initialState: ProductStateType = {
 };
 
 
-const productReducer = (state: ProductStateType = initialState, action) => {
+const productReducer = (state: ProductStateType = initialState, action: ProductActionTypes) => {
     let updatedState: ProductStateType = {...state};
     switch (action.type) {
         case ACTION_TYPES.SET_UI_CATEGORIES:
