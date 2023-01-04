@@ -1,0 +1,30 @@
+
+
+.deep-nested-category {
+
+    & > ul {
+        margin: 50px 0px;
+    }
+
+    ul {
+        background: rgba(101, 97, 204, 0.06);
+        padding: 0 10px;
+
+        ul {
+            background: rgba(95, 222, 189, 0.28);
+
+            ul {
+                background: rgba(204, 97, 97, 0.2);
+
+                ul {
+                    background: #eab774;
+
+                    ul {
+                        background: rgba(132, 116, 234, 0.49);
+                    }
+                }
+            }
+
+        }
+    }
+}

@@ -5,6 +5,7 @@ import apis from "src/apis";
 import {ACTION_TYPES} from "store/types";
 import {FaAngleRight, FaAngleUp} from "react-icons/all";
 import {ToggleProductAttributeAction} from "store/types/productActionTypes";
+import useAppSelector from "src/hooks/useAppSelector";
 
 interface Props {
 
@@ -12,7 +13,11 @@ interface Props {
 
 
 const FilterAttribute: FC<Props> = (props) => {
-    const {filters, categoryDetailCache} = useSelector((state: RootState) => state.productState);
+    const {
+        productState:  {filters},
+        categoryState: { categoryDetailCache, category }
+    } = useAppSelector(state => state);
+
 
     const dispatch = useDispatch()
     const filterAttributesValues = useRef<[]>()
@@ -21,11 +26,11 @@ const FilterAttribute: FC<Props> = (props) => {
 
     useEffect(() => {
 
-        if (filters.category.selected) {
-            apis.get("/api/category/category-detail?categoryId="+filters.category.selected.id).then(({data, status})=>{
+        if (category.selected) {
+            apis.get("/api/category/category-detail?categoryId="+category.selected.id).then(({data, status})=>{
                 // console.log(data, status)
                 if(status === 200){
-                    currentCategoryId.current = filters.category?.selected?.id || ""
+                    currentCategoryId.current = category?.selected?.id || ""
                     dispatch({
                         type: ACTION_TYPES.FETCH_CATEGORY_DETAILS,
                         payload: {
@@ -40,15 +45,15 @@ const FilterAttribute: FC<Props> = (props) => {
                 console.log(ex)
             })
         }
-    }, [filters.category.selected])
+    }, [category.selected])
 
 
 
     useEffect(()=>{
-        if(filters.category.selected) {
-            filterAttributesValues.current = categoryDetailCache?.[filters.category.selected.id]?.filterAttributesValues
+        if(category.selected) {
+            filterAttributesValues.current = categoryDetailCache?.[category.selected.id]?.filterAttributesValues
         }
-    }, [categoryDetailCache, filters.category.selected])
+    }, [categoryDetailCache, category.selected])
 
 
     function isExpand(attributeName: string){
@@ -61,7 +66,7 @@ const FilterAttribute: FC<Props> = (props) => {
             type: ACTION_TYPES.TOGGLE_PRODUCT_ATTRIBUTE,
             payload: {
                 attributeName,
-                categoryId: filters.category.selected?.id || ""
+                categoryId: category.selected?.id || ""
             }
         })
     }

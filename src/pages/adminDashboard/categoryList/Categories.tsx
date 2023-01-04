@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
 import {deleteFlatCategoryAction} from "actions/productAction";
@@ -10,15 +10,22 @@ import isoStringToDate from "src/utills/isoStringToDate";
 import {fetchFlatCategoriesAction} from "actions/adminProductAction";
 import Card from "UI/Form/Card/Card";
 import {Link, useNavigate} from "react-router-dom";
+import makeFlatToNested from "src/utills/makeFlatToNested";
+
+import "./styles.scss";
+
 
 const Categories = (props) => {
     const {
-        productState: {flatCategories},
+        categoryState: {flatCategories},
     } = useSelector((state: RootState) => state);
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+
+    const [viewAsTable, setViewAsTable] = useState<boolean>(true)
+    const [deepNestedCategory, setDeepNestedCategory] = useState<any>()
+
     useEffect(() => {
         (async function () {
             try {
@@ -27,7 +34,14 @@ const Categories = (props) => {
             }
         })();
     }, []);
-    
+
+    useEffect(()=>{
+        if(!viewAsTable && !deepNestedCategory){
+            setDeepNestedCategory(makeFlatToNested(flatCategories))
+        }
+    }, [viewAsTable])
+
+
     function deleteItem(id: any) {
         deleteFlatCategoryAction(dispatch, id, function (err, data) {
             if (!err) {
@@ -86,7 +100,32 @@ const Categories = (props) => {
             ),
         },
     ];
-    
+
+
+    function renderNestingCategory(deepNestedCategory){
+        function renderRecursively(item){
+            return (
+                <li>
+                    <h4>{item.name}</h4>
+                    <ul>
+                        { item.sub && item.sub.map(ii=> renderRecursively(ii) ) }
+                    </ul>
+                </li>
+            )
+        }
+
+        return (
+            <div className="deep-nested-category">
+                <h1 className="heading-4">Deep nesting category view</h1>
+                { deepNestedCategory?.map(item=> (
+                    <ul>
+                        {renderRecursively(item)}
+                    </ul>
+                )) }
+            </div>
+        )
+    }
+
     return (
         <div className="pr-4">
 			<Card>
@@ -94,12 +133,15 @@ const Categories = (props) => {
 					<h3 className="heading-5">
 						Category fetch {flatCategories?.length} of {flatCategories?.length}{" "}
 					</h3>
-                    <Link to="/admin/categories/new">
-					    <Button className="bg-secondary-400 !py-2">New</Button>
-                    </Link>
+                    <div className="flex items-center gap-x-4">
+                        <Button onClick={()=>setViewAsTable(!viewAsTable)} className="bg-secondary-400 !py-2">{ viewAsTable  ? "View as Deep Nesting" : "Table View" }</Button>
+                        <Link to="/admin/categories/new">
+                            <Button className="bg-secondary-400 !py-2">New</Button>
+                        </Link>
+                    </div>
 				</div>
 
-				<Table
+                { viewAsTable ? <Table
                     className=""
                     dataSource={flatCategories ? flatCategories : []}
                     columns={columns}
@@ -108,7 +150,7 @@ const Categories = (props) => {
                     }}
                     fixed={true}
                     scroll={{x: 1000, y: 600}}
-                />
+                /> : renderNestingCategory(deepNestedCategory)}
 			</Card>
 		</div>
     );

@@ -3,22 +3,22 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { FaTimes } from "react-icons/all";
 import { ACTION_TYPES, CategoryType } from "store/types";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "src/store";
 
 import "./styles.scss";
 import { fetchFlatCategoriesAction } from "actions/adminProductAction";
 import useLanguage from "src/hooks/useLanguage";
+import useAppDispatch from "src/hooks/useAppDispatch";
+import useAppSelector from "src/hooks/useAppSelector";
 
 function CategoryList(props) {
     const { onChangeCategory } = props;
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation();
 
     const l = useLanguage();
 
-    const { flatCategories } = useSelector((state: RootState) => state.productState);
+    const { flatCategories } = useAppSelector(state => state.productState);
     let [searchParams, setSearchParams] = useSearchParams();
 
     let catTree = searchParams.get("catTree");
@@ -426,6 +426,7 @@ function CategoryList(props) {
         if (!item.isProductLevel) {
             findAllNestedCat(item, all, flatCategories);
         }
+
 
         dispatch({
             type: ACTION_TYPES.CHANGE_CATEGORY,

@@ -5,11 +5,11 @@ import { Dispatch } from "redux";
 
 
 export const fetchFlatCategoriesAction = (flatCategories, dispatch: Dispatch)=>{
-    return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
+    return new Promise<CategoryType[]>(async (resolve, reject)=>{
         if(flatCategories){
             resolve(flatCategories)
         } else {
-            let {data, status} = await apis.get<CategoryType[] | null>(`/api/categories`)
+            let {data, status} = await apis.get<CategoryType[]>(`/api/categories`)
             if (status === StatusCode.Ok) {
                 dispatch({
                     type: ACTION_TYPES.FETCH_FLAT_CATEGORIES,
@@ -17,7 +17,7 @@ export const fetchFlatCategoriesAction = (flatCategories, dispatch: Dispatch)=>{
                 })
                 resolve(data)
             } else {
-                resolve(null)
+                resolve(null as unknown as CategoryType[])
             }
         }
     })

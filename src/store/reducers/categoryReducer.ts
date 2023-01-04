@@ -30,7 +30,7 @@ export interface CategoryStateType {
     categoryDetailCache: {
         [categoryId: string]: CategoryDetail
     },
-    brandsForCategory: { [key: string]: Brand[] } | null;
+    brandsForCategory: { [key: string]: Brand[] };
     flatCategories: CategoryType[] | null;
 }
 
@@ -40,7 +40,7 @@ const initialState: CategoryStateType = {
         allNestedIds: []
     },
     /// make caching brand for individual category
-    brandsForCategory: null,
+    brandsForCategory: {},
     categoryDetailCache: {},
     flatCategories: null,
 };
