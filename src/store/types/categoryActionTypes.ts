@@ -1,5 +1,5 @@
 import {ACTION_TYPES, Brand, CategoryType} from "store/types";
-import {CategoryDetail} from "reducers/categoryReducer";
+import {CategoryDetail, DeepNestedCategory} from "reducers/categoryReducer";
 
 
 
@@ -74,8 +74,18 @@ export interface FetchFlatCategoriesAction {
 }
 
 
+/**
+ Fetch Deep nested category by category name for show filter able sidebar category dropdown
+ */
+export interface FetchDeepCategoryAction {
+    type: ACTION_TYPES.FETCH_DEEP_NESTED_CATEGORY,
+    payload: DeepNestedCategory[]
+}
+
+
 
 export type CategoryActionTypes = ToggleProductAttributeAction | ChangeCategoryAction | FetchCategoryBrandsAction | FetchCategoryDetailAction
     | ChangeProductFilterPaginationAction
     | FetchFlatCategoriesAction
+| FetchDeepCategoryAction
 

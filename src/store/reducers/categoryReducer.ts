@@ -19,6 +19,13 @@ export type CategoryDetail = {
 
 }
 
+export type DeepNestedCategory = {
+    parentId: string | null
+    _id: string
+    name: string
+    sub?: DeepNestedCategory[]
+}
+
 
 export interface CategoryStateType {
     category: {
@@ -32,6 +39,9 @@ export interface CategoryStateType {
     },
     brandsForCategory: { [key: string]: Brand[] };
     flatCategories: CategoryType[] | null;
+    deepNestedCategory: {
+        [name: string]: DeepNestedCategory
+    },
 }
 
 const initialState: CategoryStateType = {
@@ -43,6 +53,7 @@ const initialState: CategoryStateType = {
     brandsForCategory: {},
     categoryDetailCache: {},
     flatCategories: null,
+    deepNestedCategory: {}
 };
 
 
@@ -54,6 +65,15 @@ const categoryReducer = (state = initialState, action: CategoryActionTypes) => {
 
         case ACTION_TYPES.FETCH_FLAT_CATEGORIES:
             updateState.flatCategories = action.payload;
+            return updateState;
+
+        case ACTION_TYPES.FETCH_DEEP_NESTED_CATEGORY:
+
+            updateState.deepNestedCategory = {
+                ...updateState.deepNestedCategory,
+                [action.payload.name]: action.payload
+            }
+
             return updateState;
 
 
