@@ -361,7 +361,6 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
     //     flatCategories
     // ]);
 
-    console.log(category)
 
 
     // fetch brands using names

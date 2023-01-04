@@ -1,8 +1,12 @@
 
 
-function makeFlatToNested(flatArray){
-    console.log("called")
-    let array = []
+interface Arr{
+    _id: string,
+    parentId: string | null
+}
+
+function makeFlatToNested<T>(flatArray: Arr[]){
+    let array: Arr[] = []
 
     flatArray.forEach((item=>{
         if(item.parentId === null){
@@ -21,7 +25,6 @@ function makeFlatToNested(flatArray){
                 }
 
                 makeNestingRecur(flatArray, ii)
-
             }
         })
     }
