@@ -1,5 +1,6 @@
 import apis from "src/apis";
 import {ACTION_TYPES, CategoryType, StatusCode} from "store/types";
+import {ChangeCategoryAction} from "store/types/categoryActionTypes";
 
 export function fetchDeepNestedCategoryAction(categoryName: string){
 
@@ -33,4 +34,16 @@ export function fetchDeepNestedCategoryAction(categoryName: string){
 
     }
 
+}
+
+
+
+export function changeCategoryAction({selected, allNestedIds}): ChangeCategoryAction {
+    return {
+        type: ACTION_TYPES.CHANGE_CATEGORY,
+        payload: {
+            selected,
+            allNestedIds
+        }
+    }
 }

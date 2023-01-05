@@ -22,7 +22,7 @@ export interface ToggleProductAttributeAction {
 export interface ChangeCategoryAction {
     type: ACTION_TYPES.CHANGE_CATEGORY,
     payload: {
-        selected: { id: string, name: string },
+        selected: { _id: string, name: string },
         allNestedIds: string[]
     }
 }

@@ -30,7 +30,9 @@ export type DeepNestedCategory = {
 export interface CategoryStateType {
     category: {
         selected: {
-            name: string; id: string; parentId?: string
+            name: string;
+            _id: string;
+            parentId?: string
         } | null,
         allNestedIds: string[]
     }

@@ -9,6 +9,8 @@ import {fetchFlatCategoriesAction} from "actions/adminProductAction";
 import useLanguage from "src/hooks/useLanguage";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";
+import {changeCategoryAction} from "actions/categoryAction";
+import {root} from "postcss";
 
 
 function CategoryList(props) {
@@ -19,7 +21,7 @@ function CategoryList(props) {
 
     const l = useLanguage();
 
-    const {flatCategories} = useAppSelector(state => state.categoryState);
+    const {flatCategories, category} = useAppSelector(state => state.categoryState);
     let [searchParams, setSearchParams] = useSearchParams();
 
     let catTree = searchParams.get("catTree");
@@ -50,24 +52,60 @@ function CategoryList(props) {
      * this function return deep nested category and subcategory
      * */
 
-    function getCat(flatCategories) {
+    function getCat(flatCategories){
+
+        let rootCategory;
+
+        if(params.pId) {
+            rootCategory = flatCategories.find(item => item.name === params.pId);
+        }
+
+        if(!rootCategory){
+            // if user put wrong root category name then set electronic as root category
+            wrongRootCategory(flatCategories)
+            return;
+        }
 
         if (catTree) {
 
             let lastChild = flatCategories.find(fc => fc.name === catTree);
             if (!lastChild) {
-                let c = findSubCategoryByName(flatCategories, params.pId)
-                return setCurrentCategory(c)
+                wrongRootCategory(flatCategories)
+                return;
             }
 
             // now find all level this parent categories;
             let nestedCategory = findNLevelParentWrapper(flatCategories, lastChild)
             setCurrentCategory(nestedCategory)
+            dispatchCategoryChange(lastChild)
 
         } else {
-            // let c = findSubCategoryByName(flatCategories, params.pId)
-            // setCurrentCategory(c)
-            // console.log(c)
+
+            let subCategories =  flatCategories.filter(item=>item.parentId  === rootCategory._id )
+            // console.log(subCategories)
+            setCurrentCategory({
+                ...rootCategory,
+                sub: {}
+            })
+
+            setExpandCategories({[rootCategory.name]: subCategories})
+
+        }
+    }
+
+    function wrongRootCategory(flatCategories){
+
+        if(!flatCategories) return;
+
+        // if user put wrong root category name then set electronic as root category
+        let rootCategory = flatCategories?.find(item => item.name === "Electronics");
+        if(rootCategory) {
+            setCurrentCategory({
+                ...rootCategory,
+                sub: {}
+            })
+            let sub = flatCategories.filter(item => item.parentId === rootCategory._id)
+            setExpandCategories({[rootCategory.name]: sub})
         }
     }
 
@@ -80,6 +118,10 @@ function CategoryList(props) {
         let level = 0
 
         // last level category. It will reverse order later
+
+        // this for last level sub categories all children items.
+        let expandItems = categories?.filter(cat => cat.parentId === currentItem._id)
+        setExpandCategories({[currentItem.name]: expandItems})
 
         level++
         temp[level] = currentItem
@@ -104,7 +146,7 @@ function CategoryList(props) {
 
         let nestedCategory = {};
         let current = nestedCategory;
-        let last;
+
 
         Object.keys(temp).reverse().forEach(key => {
             current.name = temp[key].name
@@ -113,27 +155,14 @@ function CategoryList(props) {
             // current.expand = true
             current.sub = {}
             current.child = []
-            last = temp[key]
             // set reference nested sub object to create sub category
             current = current.sub
         })
 
-
-        let expandItems = categories?.filter(cat => cat.parentId === last._id)
-        setExpandCategories({[last.name]: expandItems})
-
-
-        // console.log(lastSubCat)
         return nestedCategory
     }
 
 
-    function findSubCategoryByName(categories, categoryName: string) {
-        let parent = categories.find(cat => cat.name === categoryName)
-        let sub = categories.filter(c => c.parentId === parent._id)
-        parent.sub = sub
-        return parent
-    }
 
 
     function handleRemoveCategory(item: CategoryType) {
@@ -169,9 +198,14 @@ function CategoryList(props) {
         setAsLastItem(updateCurrentCategory, item, parentItem)
 
 
+        // store last category for filtering product using this category
+        dispatchCategoryChange(item)
+
+
         // filter all sub child categories
         let expandItems = flatCategories?.filter(cat => cat.parentId === item._id)
         setExpandCategories({[item.name]: expandItems})
+
 
         // find clicked parent sub category and insert new on sub category and make as expand to render dom
         function setAsLastItem(currentCategory, currentClickedCat, parentItem) {
@@ -196,6 +230,51 @@ function CategoryList(props) {
             setExpandCategories({
                 [item.name]: subCategories
             })
+            dispatchCategoryChange(item)
+        } else {
+            dispatchCategoryChange(item)
+        }
+    }
+
+
+    function dispatchCategoryChange(categoryItem){
+        let allNestedIds: string[] =  []
+
+        let allChildCategories = []
+        findAllNestedCat(categoryItem, allChildCategories, flatCategories)
+        if(allChildCategories){
+            allNestedIds = allChildCategories.map(item=>item._id)
+        }
+
+        dispatch(changeCategoryAction({
+            selected: categoryItem,
+            allNestedIds
+        }))
+
+        if(!categoryItem.parentId){
+            navigate(`/p/${categoryItem.name}`);
+        } else {
+            navigate(`/p/${params.pId}?catTree=${categoryItem.name}`);
+        }
+    }
+
+
+    // find all children category though recursive way
+    function findAllNestedCat(item, result, flatCategories) {
+        if (!flatCategories) return;
+        let allNested = flatCategories.filter((ct) => ct.parentId === item._id);
+        if (allNested && allNested.length) {
+            allNested.forEach((nested) => {
+                findAllNestedCat(nested, result, flatCategories);
+            });
+            let aa = allNested.map((a) => {
+                return {
+                    name: a.name,
+                    _id: a._id,
+                    parentId: a.parentId,
+                };
+            });
+            result.push(...aa);
         }
     }
 
@@ -255,7 +334,7 @@ function CategoryRecursive({sub, handleToggleExpand, expandCategories, onClickSe
             {/****** show expanded category items ********/}
             {expandCategories && (
                 <div className="ml-4">
-                    {expandCategories[sub.name]?.map(item => (
+                    {expandCategories[sub.name] && expandCategories[sub.name]?.map(item => (
                         <h5 className="my-1" onClick={() => handleToggleExpand(item, sub)}>{item.name}</h5>
                     ))}
                 </div>
