@@ -1,6 +1,6 @@
-import {createContext, useReducer, useState} from "react";
+import {createContext, useReducer, useState, Dispatch} from "react";
 import {ACTION_TYPES} from "store/types";
-import {Dispatch} from "redux";
+
 
 // import l from "../../public/locales/en/translation.json"
 
@@ -32,7 +32,10 @@ const initialState: InitialState = {
 export const AppContext = createContext<{
 	contextDispatch: Dispatch<any>,
 	contextState: InitialState
-}>({contextState: initialState, contextDispatch: null})
+}>({
+    contextDispatch: ()=> any,
+    contextState: initialState
+})
 
 
 interface DeviceActionType {

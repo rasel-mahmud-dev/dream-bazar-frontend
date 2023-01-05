@@ -33,8 +33,8 @@ const CreateShop = (props) => {
 	const [shopInfo, setShopInfo] = useState({
 		shopPhone: { value: "", errorMessage: "", required: true },
 		shopName: { value: "", errorMessage: "", required: true },
-		shopLogo: { value: null, errorMessage: "", required: false },
-		shopBanner: { value: null, errorMessage: "", required: false },
+		shopLogo: { value: undefined, errorMessage: "", required: false },
+		shopBanner: { value: undefined, errorMessage: "", required: false },
 		shopAddress: { value: "", errorMessage: "", required: true },
 		_id: { value: "", errorMessage: "", required: true }, // only for update
 	});

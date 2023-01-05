@@ -33,9 +33,9 @@ const SellerRegistration = (props) => {
         email: {value: "", errorMessage: "", required: true},
         shopPhone: {value: "", errorMessage: "", required: true},
         shopName: {value: "", errorMessage: "", required: true},
-        avatar: {value: null, errorMessage: "", required: true},
-        shopLogo: {value: null, errorMessage: "", required: false},
-        shopBanner: {value: null, errorMessage: "", required: false},
+        avatar: {value: undefined, errorMessage: "", required: true},
+        shopLogo: {value: undefined, errorMessage: "", required: false},
+        shopBanner: {value: undefined, errorMessage: "", required: false},
         shopAddress: {value: "", errorMessage: "", required: true},
     });
     

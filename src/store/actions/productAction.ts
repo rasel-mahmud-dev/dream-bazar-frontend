@@ -22,7 +22,7 @@ export const fetchProduct = (id) => async (dispatch, getState, api) => {
 export const fetchProductForUpdate = (id, cb: (err: string, result: any)=>void)=> {
    apis.get(`/api/product/detail/${id}`).then(({status,data})=>{
      if(status === 200){
-       cb(null, data)
+       cb("", data)
      }
    }).catch(ex=>{
      cb(errorMessageCatch(ex), null)
@@ -51,15 +51,15 @@ export function filterProductsAction(payload, isCount: boolean, dispatch){
     } = payload
     
     let attributes = {}
-    if(filteredAttributes.length > 0 ){
-        filteredAttributes.forEach(attr=>{
-            let attrValArr: any = []
-            attr.values.forEach(attrVal=>{
-                attrValArr.push(attrVal.value)
-            })
-            attributes[attr.attribute_name] =  attrValArr
-        })
-    }
+    // if(filteredAttributes.length > 0 ){
+    //     filteredAttributes.forEach(attr=>{
+    //         let attrValArr: any = []
+    //         attr.values.forEach(attrVal=>{
+    //             attrValArr.push(attrVal.value)
+    //         })
+    //         attributes[attr.attribute_name] =  attrValArr
+    //     })
+    // }
     
     let brandIds : string[] = []
     if(brands){
@@ -160,7 +160,7 @@ export const fetchHomePageSectionProducts = () => async (dispatch, getState: ()=
 
    // handlerLoader(dispatch, {isLoading: true, where: "home_section"})
 
-   let { homePageSectionsData, paginations, loadingStates } = getState().productState
+   let { homePageSectionsData } = getState().productState
 
   // console.log(homePageSectionsData)
 

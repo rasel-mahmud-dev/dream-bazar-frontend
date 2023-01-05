@@ -1,41 +1,8 @@
-import apis from "src/apis";
+
 import {ACTION_TYPES, CategoryType, StatusCode} from "store/types";
-import {ChangeCategoryAction} from "store/types/categoryActionTypes";
-
-export function fetchDeepNestedCategoryAction(categoryName: string){
-
-    return async function (dispatch, getState){
-        let a = getState().categoryState
-        let {data, status } = await apis.get(`/api/category/nesting/?name=`+categoryName)
-        if (status === StatusCode.Ok) {
-            dispatch({
-                type: ACTION_TYPES.FETCH_DEEP_NESTED_CATEGORY,
-                payload: data
-            })
-            // resolve(data)
-        } else {
-            // resolve(null)
-        }
-
-        // if(nestedCategory){
-        //     resolve(nestedCategory)
-        // } else {
-        //     let {data, status} = await apis.get(`/api/category/nesting/?name=`+categoryName)
-        //     if (status === StatusCode.Ok) {
-        //         dispatch({
-        //             type: ACTION_TYPES.FETCH_DEEP_NESTED_CATEGORY,
-        //             payload: data
-        //         })
-        //         resolve(data)
-        //     } else {
-        //         resolve(null)
-        //     }
-        // }
-
-    }
-
-}
-
+import {ChangeCategoryAction, FetchCategoryDetailAction} from "store/types/categoryActionTypes";
+import apis from "src/apis";
+import {AppDispatch} from "src/store";
 
 
 export function changeCategoryAction({selected, allNestedIds}): ChangeCategoryAction {
@@ -46,4 +13,31 @@ export function changeCategoryAction({selected, allNestedIds}): ChangeCategoryAc
             allNestedIds
         }
     }
+}
+
+export async function fetchCategoryDetailAction(dispatch: AppDispatch, categoryId: string, cb) {
+
+    try{
+
+        let {data, status} = await apis.get("/api/category/category-detail?categoryId="+categoryId)
+        // console.log(data, status)
+        if(status === 200){
+
+            cb(data)
+
+            dispatch({
+                type: ACTION_TYPES.FETCH_CATEGORY_DETAILS,
+                payload: data
+            })
+
+
+
+        }
+
+
+    } catch(ex){
+        cb("")
+    }
+
+
 }

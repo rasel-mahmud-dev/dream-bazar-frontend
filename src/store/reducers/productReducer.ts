@@ -16,15 +16,24 @@ export type PaginationType = {
     currentPage: number;
 };
 
+export interface ProductType {
+    _id: string
+    slug: string
+    title: string;
+    coverPhoto: string;
+    brand: { name: string };
+    discount: number;
+    price: number;
+}
 
 export interface ProductStateType {
+    totalProduct: number;
     homePageSectionProducts: any;
     homePageSectionsData: any[];
     productDetails: any;
     oneTypeProductsLength: any;
-    totalProduct: number;
     totalFilterAbleProductCount: number;
-    filterProducts: any;
+    filterProducts: ProductType[];
     filters: {
         pagination: {
             totalItems: number;
@@ -59,28 +68,9 @@ export interface ProductStateType {
 }
 
 const initialState: ProductStateType = {
-    ui_categories: [],
-    ui_category_info: [],
-    ui_filterItems: [],
     totalProduct: 0,
     totalFilterAbleProductCount: 0,
-    filterProducts: [{title: "Reduce State Product", _id: "34324"}],
-    adminProducts: {
-        total: 0,
-        cached: {
-            1: [],
-        },
-    },
-    adminBrands: {
-        total: 0,
-        cached: null,
-    },
-    adminCategories: {
-        total: 0,
-        cached: null,
-    },
-    adminStaticFiles: [],
-    oneTypeProductsLength: 0,
+    filterProducts: [],
     productDetails: {},
     oneTypeFetchProducts: {name: "", values: [{}]},
     homePageSectionsData: [
@@ -124,11 +114,8 @@ const initialState: ProductStateType = {
         // {name: "Power Supply", type: "products", filterBy: "category", id: "60df5e546419f56b9761060b"}
     ],
     homePageSectionProducts: {},
-    fetchedData: [{where: "home_page", isFetched: false}],
-    category: {},
-    brandsForCurrentCategory: [],
-    /// make caching brand for individual category
-    brandsForCategory: {},
+
+
     filters: {
         pagination: {
             totalItems: 0,
@@ -138,9 +125,9 @@ const initialState: ProductStateType = {
         price: [10, 100],
         brands: [],
         sortBy: [{field: "views", order: -1, id: "1"}],
-        ideals: null
+        ideals: []
     },
-    categoryDetailCache: {},
+
     filteredAttributes: [],
     expandFilterItems_sectionIds: ["generation"],
     filterItem_sections_data: {},
@@ -149,10 +136,6 @@ const initialState: ProductStateType = {
     nestedCategoriesCache: {
         categoryName: [],
     },
-    selectCategory: {
-        root: null,
-        tree: null,
-    }
 };
 
 
@@ -187,7 +170,7 @@ const productReducer = (state = initialState, action: ProductActionTypes) => {
             };
             return updatedState;
 
-        //
+
         // case ACTION_TYPES.SET_SELECT_CATEGORY:
         //     updatedState.selectCategory.root = action.payload.root;
         //     if (action.payload.tree) {

@@ -6,6 +6,7 @@ import {ACTION_TYPES} from "store/types";
 import {FaAngleRight, FaAngleUp} from "react-icons/all";
 import {ToggleProductAttributeAction} from "store/types/productActionTypes";
 import useAppSelector from "src/hooks/useAppSelector";
+import {fetchCategoryDetailAction} from "actions/categoryAction";
 
 interface Props {
 
@@ -27,37 +28,23 @@ const FilterAttribute: FC<Props> = (props) => {
     useEffect(() => {
 
         if (category.selected) {
-            apis.get("/api/category/category-detail?categoryId="+category.selected.id).then(({data, status})=>{
-                // console.log(data, status)
-                if(status === 200){
-                    currentCategoryId.current = category?.selected?.id || ""
-                    dispatch({
-                        type: ACTION_TYPES.FETCH_CATEGORY_DETAILS,
-                        payload: {
-                            ...data,
-                            catId: data.catId,
-                        }
-                    })
-
+            currentCategoryId.current = category.selected._id;
+            fetchCategoryDetailAction(dispatch, category.selected._id, (data)=>{
+                if(data) {
+                    filterAttributesValues.current = data.filterAttributesValues
                 }
-
-            }).catch(ex=>{
-                console.log(ex)
             })
         }
-    }, [category.selected])
-
-
+    }, [category.selected?._id])
 
     useEffect(()=>{
-        if(category.selected) {
-            filterAttributesValues.current = categoryDetailCache?.[category.selected.id]?.filterAttributesValues
-        }
-    }, [categoryDetailCache, category.selected])
+
+    }, [categoryDetailCache?.[category.selected?._id]])
+
 
 
     function isExpand(attributeName: string){
-        return categoryDetailCache?.[currentCategoryId.current].defaultExpand.includes(attributeName)
+        return categoryDetailCache?.[currentCategoryId.current]?.defaultExpand?.includes(attributeName)
     }
 
 
@@ -66,7 +53,7 @@ const FilterAttribute: FC<Props> = (props) => {
             type: ACTION_TYPES.TOGGLE_PRODUCT_ATTRIBUTE,
             payload: {
                 attributeName,
-                categoryId: category.selected?.id || ""
+                categoryId: category.selected?._id || ""
             }
         })
     }

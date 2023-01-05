@@ -8,17 +8,10 @@ import calculateDiscount from "src/utills/calculateDiscount";
 import RatingStar from "UI/RatingStar";
 
 import "./styles.scss";
+import {ProductType} from "reducers/productReducer";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-    product: {
-        slug: string
-        title: string;
-        coverPhoto: string;
-        _id: string;
-        brand: { name: string };
-        discount: number;
-        price: number;
-    };
+    product: ProductType;
     handleAddToWishList: any;
     isWished: any;
     renderProductAtt: any;

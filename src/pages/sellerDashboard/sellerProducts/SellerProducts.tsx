@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import apis, { getApi } from "src/apis";
-import Circle from "UI/Circle/Circle";
 import Table, { Column } from "UI/table/Table";
 import staticImagePath from "src/utills/staticImagePath";
 import Box from "UI/Box/Box";
@@ -9,9 +8,10 @@ import {Badge} from "UI/index";
 import Switch from "UI/Form/switch/Switch";
 import {useNavigate} from "react-router-dom";
 import { StatusCode} from "store/types";
+import {ProductType} from "reducers/productReducer";
 
 const SellerProducts = () => {
-	const [products, setProducts] = useState([]);
+	const [products, setProducts] = useState<ProductType[]>([]);
     
     const navigate = useNavigate();
     

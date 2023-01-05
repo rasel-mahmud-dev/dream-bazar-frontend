@@ -19,13 +19,6 @@ export type CategoryDetail = {
 
 }
 
-export type DeepNestedCategory = {
-    parentId: string | null
-    _id: string
-    name: string
-    sub?: DeepNestedCategory[]
-}
-
 
 export interface CategoryStateType {
     category: {
@@ -40,10 +33,7 @@ export interface CategoryStateType {
         [categoryId: string]: CategoryDetail
     },
     brandsForCategory: { [key: string]: Brand[] };
-    flatCategories: CategoryType[] | null;
-    deepNestedCategory: {
-        [name: string]: DeepNestedCategory
-    },
+    flatCategories: CategoryType[]
 }
 
 const initialState: CategoryStateType = {
@@ -54,8 +44,7 @@ const initialState: CategoryStateType = {
     /// make caching brand for individual category
     brandsForCategory: {},
     categoryDetailCache: {},
-    flatCategories: null,
-    deepNestedCategory: {}
+    flatCategories: null as unknown as CategoryType[]
 };
 
 
@@ -69,13 +58,8 @@ const categoryReducer = (state = initialState, action: CategoryActionTypes) => {
             updateState.flatCategories = action.payload;
             return updateState;
 
-        case ACTION_TYPES.FETCH_DEEP_NESTED_CATEGORY:
-
-            updateState.deepNestedCategory = {
-                ...updateState.deepNestedCategory,
-                [action.payload.name]: action.payload
-            }
-
+        case ACTION_TYPES.FETCH_CATEGORY_DETAILS:
+            updateState.categoryDetailCache[action.payload.catId] = action.payload;
             return updateState;
 
 

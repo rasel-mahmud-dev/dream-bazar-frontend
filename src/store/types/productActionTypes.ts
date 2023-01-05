@@ -1,6 +1,5 @@
-import {ACTION_TYPES, Brand, CategoryType} from "store/types";
-import {CategoryDetail} from "reducers/productReducer";
-
+import {ACTION_TYPES, Brand} from "store/types";
+import { ProductType} from "reducers/productReducer";
 
 
 /**
@@ -13,19 +12,6 @@ export interface ToggleProductAttributeAction {
         categoryId: string
     }
 }
-
-
-/**
- Change current product category
- */
-export interface ChangeCategoryAction {
-    type: ACTION_TYPES.CHANGE_CATEGORY,
-    payload: {
-        selected: { id: string, name: string },
-        allNestedIds: string[]
-    }
-}
-
 
 
 /**
@@ -44,15 +30,6 @@ export interface FetchHomeSectionProductAction {
 
 
 /**
- Fetch current category detail that contains product attribute section,
-    expand default values and detail info about current category.
- */
-export interface FetchCategoryDetailAction {
-    type: ACTION_TYPES.FETCH_CATEGORY_DETAILS,
-    payload: CategoryDetail
-}
-
-/**
  Change Pagination data for product filter page
  */
 export interface ChangeProductFilterPaginationAction {
@@ -65,16 +42,25 @@ export interface ChangeProductFilterPaginationAction {
 }
 
 /**
- Change Pagination data for product filter page
- */
-export interface FetchFlatCategoriesAction {
-    type: ACTION_TYPES.FETCH_FLAT_CATEGORIES,
-    payload: CategoryType[]
-}
-
-/**
 All product actions types
 * */
 
+export type FilterProductAction = {
+    type: ACTION_TYPES.FETCH_FILTER_PRODUCTS,
+    payload: {
+        products: ProductType[],
+        totalItems: number | undefined
+    },
+}
 
-export type ProductActionTypes = FetchHomeSectionProductAction
+export type ChangePaginationAction = {
+    type: ACTION_TYPES.SET_FILTER_PAGINATION,
+    payload: {
+        totalItems: number;
+        currentPage: number;
+        viewPerPage: number;
+    },
+}
+
+
+export type ProductActionTypes = FetchHomeSectionProductAction | FilterProductAction | ChangePaginationAction

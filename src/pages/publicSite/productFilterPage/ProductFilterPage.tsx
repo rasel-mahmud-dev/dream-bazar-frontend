@@ -77,8 +77,8 @@ let ss;
 
 const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 	const {
-		productState: {  filterProducts, totalProduct, filteredAttributes,  flatCategories, filters, selectCategory },
-		categoryState: {  category, brandsForCategory },
+		productState: {  filterProducts, filters },
+		categoryState: {  category, brandsForCategory, flatCategories },
 		appState: { isOpenLeftBar },
 	} = useSelector((state: RootState) => state);
 
@@ -266,8 +266,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 			let data: {
                 categoryIds: string[],
                 brands: {name: string, _id: string}[],
-                selectCategory: [],
-                filteredAttributes: [],
+
                 // sortBy,
                 paginate: {
                     currentPage: number,
@@ -276,8 +275,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
             } = {
 				categoryIds: [],
 				brands: filters.brands,
-				selectCategory,
-				filteredAttributes,
+
 				// sortBy,
 				paginate: {
 					currentPage: pagination ? pagination.currentPage : 1,
@@ -375,10 +373,10 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
                 if(status === 200){
                     resolve(data)
                 } else {
-                    resolve(null)
+                    resolve(null as T)
                 }
             } catch (ex){
-                resolve(null)
+                resolve(null  as T)
             }
         })
     }
@@ -599,7 +597,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
                     {/*<h4>{currentNestedSubCategory._id && currentNestedSubCategory._id }</h4>*/}
                     {/**/}
                     <div className="row my-5">
-                        <h4>{filters.category?.selected?.name}<span className="sm-text">
+                        <h4>{category.selected?.name}<span className="sm-text">
                           {`(Showing ${filters.pagination.viewPerPage*filters.pagination.currentPage} products of ${filters.pagination.totalItems} products)`}
                           </span>
                             <span className="sm-text">Page {filters.pagination.currentPage}</span>

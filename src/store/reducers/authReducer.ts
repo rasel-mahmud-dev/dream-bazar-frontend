@@ -23,7 +23,7 @@ interface AuthStateType {
 const initialState: AuthStateType = {
     authChecked: false,
     auth: null,
-    orders: null,
+    orders: null as unknown as OrderType[]
 };
 
 const authReducer = (state = initialState, action) => {

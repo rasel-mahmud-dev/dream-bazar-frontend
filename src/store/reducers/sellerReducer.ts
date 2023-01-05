@@ -16,7 +16,7 @@ export interface SellerStateType {
 
 
 const initialState: SellerStateType = {
-    shop: null
+    shop: null as unknown as ShopType
 }
 
 
