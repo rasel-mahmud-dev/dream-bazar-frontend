@@ -22,8 +22,7 @@ import BrandListLite from "pages/adminDashboard/brandList/BrandListLite";
 const AdminDashboardHome = lazy(() => import("pages/adminDashboard/DashboardHomePage"));
 
 const AddCategory = lazy(() => import("pages/adminDashboard/categoryList/AddCategory"));
-const AddCategoryDetail = lazy(() => import("pages/adminDashboard/categoryList/AddCategoryDetail"));
-const CategoryDetails = lazy(() => import("pages/adminDashboard/categoryList/CategoryDetails"));
+
 const ProductAttribute = lazy(() => import("pages/adminDashboard/productAttribute/ProductAttribute"));
 const ProductList = lazy(() => import("pages/adminDashboard/productList/ProductList"));
 const AddBrand = lazy(() => import("pages/adminDashboard/brandList/AddBrand"));
@@ -83,30 +82,6 @@ export const adminRoute =   [
         element: (
 
             <AddCategory />
-
-        ),
-    },
-    {
-        path: "category-details",
-        element: (
-
-            <CategoryDetails />
-
-        ),
-    },
-    {
-        path: "category-details/new",
-        element: (
-
-            <AddCategoryDetail />
-
-        ),
-    },
-    {
-        path: "category-details/edit/:id",
-        element: (
-
-            <AddCategoryDetail />
 
         ),
     },
@@ -219,7 +194,7 @@ const AdminLayout = () => {
             section: "Category Management",
             items: [
                 {name: "Categories", to: "/admin/categories",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (4).svg")} />},
-                {name: "CategoryDetails", to: "/admin/category-details",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (4).svg")} />}
+                {name: "Add Category", to: "/admin/categories/new",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (4).svg")} />}
             ],
         },{
             section: "Attribute Management",

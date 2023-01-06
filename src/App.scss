@@ -334,3 +334,12 @@ table td {
 .route-title{
     @apply mt-4 md:mt-8 text-xl md:text-3xl font-bold uppercase text-dark-800
 }
+
+
+
+.admin-navigation{
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    z-index: 1001 !important;
+}

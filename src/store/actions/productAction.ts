@@ -45,12 +45,12 @@ export function filterProductsAction(payload, isCount: boolean, dispatch){
     
     const {
         brands,
-        filteredAttributes,
+        attributes,
         sortBy,
         paginate
     } = payload
     
-    let attributes = {}
+    // let attributes = {}
     // if(filteredAttributes.length > 0 ){
     //     filteredAttributes.forEach(attr=>{
     //         let attrValArr: any = []

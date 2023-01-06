@@ -271,7 +271,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 			let data: {
                 categoryIds: string[],
                 brands: {name: string, _id: string}[],
-
+                attributes: object,
                 // sortBy,
                 paginate: {
                     currentPage: number,
@@ -280,7 +280,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
             } = {
 				categoryIds: [],
 				brands: filters.brands,
-
+                attributes: filters.attributes,
 				// sortBy,
 				paginate: {
 					currentPage: pagination ? pagination.currentPage : 1,
@@ -319,9 +319,10 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 
 			// check if brand already fetched or not
 			if (!brandsForCategory[allCatName]) {
-                setCurrentFullCategoryName(allCatName)
                 dispatch(fetchBrandForCategory({allCatName, categoryIds: data.categoryIds}))
 			}
+
+            setCurrentFullCategoryName(allCatName)
 			/******************* Fetch brand for category END ***************/
 
 
