@@ -8,10 +8,10 @@ import {CategoryDetail} from "reducers/categoryReducer";
  Toggle product attribute section in product filter page on sidebar,
  */
 export interface ToggleProductAttributeAction {
-    type: ACTION_TYPES.TOGGLE_PRODUCT_ATTRIBUTE,
+    type: ACTION_TYPES.TOGGLE_ATTRIBUTE_SECTION,
     payload: {
         attributeName: string,
-        categoryId: string
+        categoryId?: string
     }
 }
 

@@ -1,7 +1,8 @@
-import {ACTION_TYPES,  CategoryType} from "src/store/types";
+import {ACTION_TYPES, Brand, CategoryType} from "src/store/types";
 
 import filterSidebar from "./filterSidebar.reducer";
 import {FetchHomeSectionProductAction, ProductActionTypes} from "store/types/productActionTypes";
+import {stat} from "fs";
 
 
 export enum PaginationWhereEnum {
@@ -41,9 +42,12 @@ export interface ProductStateType {
             viewPerPage: number;
         };
         price: any;
-        brands: { name: string; logo: string; _id: string }[];
+        brands: Brand[];
         sortBy: { field: string; id: string; order: number }[];
-        ideals: string[]
+        ideals: string[],
+        attributes: {
+            [attributeName: string]: (string| number)[]
+        }
     };
     filteredAttributes: {
         attribute_name: string;
@@ -125,7 +129,8 @@ const initialState: ProductStateType = {
         price: [10, 100],
         brands: [],
         sortBy: [{field: "views", order: -1, id: "1"}],
-        ideals: []
+        ideals: [],
+        attributes: {},
     },
 
     filteredAttributes: [],
@@ -171,6 +176,35 @@ const productReducer = (state = initialState, action: ProductActionTypes) => {
             return updatedState;
 
 
+
+        case ACTION_TYPES.SELECT_FILTER_BRAND:
+            let updateBrands = [...updatedState.filters.brands]
+            let index  = updateBrands.findIndex(brand=>brand._id === action.payload._id)
+            if(index !== -1){
+                 updateBrands.splice(index, 1)
+            } else {
+                updateBrands = [...updateBrands, action.payload]
+            }
+            return {
+                ...updatedState,
+                filters: {
+                    ...updatedState.filters,
+                    brands: updateBrands
+                }
+
+            };
+
+        case ACTION_TYPES.CLEAR_FILTER_BRAND:
+            return {
+                ...updatedState,
+                filters: {
+                    ...updatedState.filters,
+                    brands: []
+                }
+
+            };
+
+
         // case ACTION_TYPES.SET_SELECT_CATEGORY:
         //     updatedState.selectCategory.root = action.payload.root;
         //     if (action.payload.tree) {
@@ -201,6 +235,46 @@ const productReducer = (state = initialState, action: ProductActionTypes) => {
             // log2(updatedState.loadingStates)
 
             return updatedState;
+
+
+
+        case ACTION_TYPES.CHANGE_ATTRIBUTE_VALUES:
+            const { attributeName, attributeValue } = action.payload
+
+            let updateAttributes = {...updatedState.filters.attributes}
+            if (updateAttributes[attributeName]) {
+                let attributeItem = updateAttributes[attributeName];
+
+
+
+                // insert a new attribute value
+                if (!updateAttributes[attributeName].includes(attributeValue)) {
+                    updateAttributes[attributeName] =  [
+                        ...updateAttributes[attributeName],
+                        attributeValue
+                    ]
+                } else {
+                    // or delete exist one
+                    updateAttributes[attributeName] = updateAttributes[attributeName].filter(v=>v !== attributeValue)
+
+                }
+
+
+                // updateAttributes[attributeName] = attributeItem
+
+            } else {
+                updateAttributes = {
+                    ...updateAttributes,
+                    [attributeName]: [attributeValue]
+                }
+            }
+
+
+            updatedState.filters =  {
+                ...updatedState.filters,
+                attributes: updateAttributes
+            }
+            return updatedState
 
 
         // case ACTION_TYPES.SET_filtered_Attributes:

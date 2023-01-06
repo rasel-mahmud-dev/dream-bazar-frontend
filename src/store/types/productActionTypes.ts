@@ -6,10 +6,10 @@ import { ProductType} from "reducers/productReducer";
  Toggle product attribute section in product filter page on sidebar,
  */
 export interface ToggleProductAttributeAction {
-    type: ACTION_TYPES.TOGGLE_PRODUCT_ATTRIBUTE,
+    type: ACTION_TYPES.TOGGLE_ATTRIBUTE_SECTION,
     payload: {
         attributeName: string,
-        categoryId: string
+        categoryId?: string
     }
 }
 
@@ -41,6 +41,22 @@ export interface ChangeProductFilterPaginationAction {
     }
 }
 
+
+/**
+ select Brand for product filter
+ */
+export interface SelectFilterBrandAction {
+    type: ACTION_TYPES.SELECT_FILTER_BRAND,
+    payload: Brand
+}
+
+/**
+ clear Brand for product filter
+ */
+export interface ClearFilterBrandAction {
+    type: ACTION_TYPES.CLEAR_FILTER_BRAND,
+}
+
 /**
 All product actions types
 * */
@@ -62,5 +78,13 @@ export type ChangePaginationAction = {
     },
 }
 
+export type ChangeProductAttributeAction  = {
+    type: ACTION_TYPES.CHANGE_ATTRIBUTE_VALUES,
+    payload: {
+        attributeName: string
+        attributeValue: string | number
+    }
+}
 
-export type ProductActionTypes = FetchHomeSectionProductAction | FilterProductAction | ChangePaginationAction
+export type ProductActionTypes = FetchHomeSectionProductAction | FilterProductAction | ChangePaginationAction | ChangeProductAttributeAction |
+    SelectFilterBrandAction | ClearFilterBrandAction

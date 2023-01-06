@@ -1,4 +1,5 @@
 import {ACTION_TYPES, Brand, CategoryType} from "src/store/types";
+import {BrandActionTypes} from "store/types/brandActionTypes";
 
 export interface BrandStateType {
     brands: {
@@ -20,23 +21,19 @@ const initialState: BrandStateType = {
 };
 
 
-const brandReducer = (state: BrandStateType = initialState, action) => {
+const brandReducer = (state: BrandStateType = initialState, action: BrandActionTypes) => {
     let updatedState: BrandStateType = {...state};
 
     switch (action.type) {
 
-
         /// make caching brand for individual category
-        case ACTION_TYPES.SET_BRAND_FOR_CATEGORY:
-            // let updatesBrandForCategory = [...updatedState.brandsForCategory]
-            // let hasBrandCatIdx = updatesBrandForCategory.findIndex(bforCat => bforCat._id === action.payload.id)
-            //
-            // if (hasBrandCatIdx === -1) {
-            //     updatesBrandForCategory = [...updatesBrandForCategory, action.payload]
-            // }
-            // updatedState.brandsForCategory = updatesBrandForCategory
-
-            return updatedState;
+        case ACTION_TYPES.FETCH_CATEGORY_BRANDS:
+            let updatesBrandForCategory = {...updatedState.brandsForCategory}
+            updatesBrandForCategory[action.payload.categoryName] = action.payload.brands;
+            return {
+                ...updatedState,
+                brandsForCategory: updatesBrandForCategory
+            };
 
         default:
             return state;

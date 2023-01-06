@@ -2,20 +2,29 @@ import {ACTION_TYPES, Brand, CategoryType} from "src/store/types";
 import {CategoryActionTypes} from "store/types/categoryActionTypes";
 
 
+export interface Attribute {
+    _id?: string
+    attributeName: string
+    attributeLabel: string
+    isMultiple?: boolean
+    options: {name: string, value: any}[]
+}
+
 export type CategoryDetail = {
-    catId: string
-    catName: string
+    _id?: string
+    name?: string
+    parentId?: string | null
+    isProductLevel?: boolean
+    logo?: string
+    filterAttributes: string[]
     defaultExpand: string[]
-    filterAttributes: object[]
-    filterAttributesValues: {
-        attributeLabel: string
-        attributeName: string
-        options: any[]
-        _id: string
-    }[]
-    productDescriptionSection: {}
-    renderProductAttr: []
-    _id: string
+    renderProductAttr: string[]
+    productDescriptionSection?: {[key: string]: string[]}
+    createdAt?: Date | string
+    updatedAt?: Date | string
+
+
+    filterAttributesValues?: Attribute[] // populated field
 
 }
 
@@ -33,6 +42,7 @@ export interface CategoryStateType {
         [categoryId: string]: CategoryDetail
     },
     brandsForCategory: { [key: string]: Brand[] };
+    attributeExpand: { [categoryId: string]: string[]};
     flatCategories: CategoryType[]
 }
 
@@ -44,6 +54,7 @@ const initialState: CategoryStateType = {
     /// make caching brand for individual category
     brandsForCategory: {},
     categoryDetailCache: {},
+    attributeExpand: {},
     flatCategories: null as unknown as CategoryType[]
 };
 
@@ -58,8 +69,19 @@ const categoryReducer = (state = initialState, action: CategoryActionTypes) => {
             updateState.flatCategories = action.payload;
             return updateState;
 
+
         case ACTION_TYPES.FETCH_CATEGORY_DETAILS:
-            updateState.categoryDetailCache[action.payload.catId] = action.payload;
+            if(action.payload && action.payload._id) {
+                updateState.categoryDetailCache[action.payload._id] = action.payload;
+
+                // also set default expand product filter attribute section
+                if(action.payload?.defaultExpand){
+                    updateState.attributeExpand = {
+                        ...updateState.attributeExpand,
+                        [action.payload._id]: action.payload.defaultExpand
+                    }
+                }
+            }
             return updateState;
 
 
@@ -81,19 +103,35 @@ const categoryReducer = (state = initialState, action: CategoryActionTypes) => {
             return updateState
 
 
-        case ACTION_TYPES.TOGGLE_PRODUCT_ATTRIBUTE:
-            const {  attributeName, categoryId  } = action.payload
-            if(categoryId){
-                let cat = updateState.categoryDetailCache[categoryId]
-                if(cat && cat.defaultExpand){
-                    if(cat.defaultExpand.includes(attributeName)){
-                        cat.defaultExpand = cat.defaultExpand.filter(item=>item !== attributeName)
+        case ACTION_TYPES.TOGGLE_ATTRIBUTE_SECTION:
+            const { attributeName, categoryId} = action.payload
+            if(categoryId) {
+                let updateAttributeExpand = {...updateState.attributeExpand}
+
+                if(!updateAttributeExpand[categoryId]){
+                    updateAttributeExpand[categoryId] = [attributeName]
+
+                } else if(Array.isArray(updateAttributeExpand[categoryId])) {
+
+                    if ( updateAttributeExpand[categoryId].includes(attributeName)) {
+                        updateAttributeExpand[categoryId] = updateAttributeExpand[categoryId].filter(item => item !== attributeName)
                     } else {
-                        cat.defaultExpand.push(attributeName)
+                        updateAttributeExpand[categoryId] = [
+                            ...updateAttributeExpand[categoryId],
+                            attributeName
+                        ]
                     }
                 }
+
+                return {
+                    ...state,
+                    attributeExpand: updateAttributeExpand
+                }
+
+            } else {
+                return state
             }
-            return updateState
+
 
 
 

@@ -30,6 +30,9 @@ import {setFilter, SetFilterActionPayload} from "actions/filterSidebar.action";
 import product from "components/Product/Product";
 import CategoryNavbar from "components/categoryNavbar/CategoryNavbar";
 import FilterAttribute from "pages/publicSite/productFilterPage/Filter.Attribute";
+import {fetchBrandForCategory} from "actions/brandAction";
+import {FetchBrandForCategoriesAction} from "store/types/brandActionTypes";
+import useAppDispatch from "src/hooks/useAppDispatch";
 
 let initialLoad = true;
 
@@ -87,7 +90,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 
 
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const location = useLocation();
 	// const d = props.appState.ui_categories
 
@@ -111,6 +114,8 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 		message: "",
 		loading: false,
 	});
+
+    let [currentFullCategoryName, setCurrentFullCategoryName] = useState("")
 
 
 
@@ -303,7 +308,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 
 			/******************* Fetch brand for category ***************/
 			/**
-             * add brands for each category
+             * fetch brands for each category
              * example
              Mobiles: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
              Mobiles and Tablet: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
@@ -312,22 +317,14 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
              Motherboard_Processor_Ram_Keyboard_power-supply : (19) [{…}, {…}, {…}, {…}, {…}]
              */
 
-
 			// check if brand already fetched or not
 			if (!brandsForCategory[allCatName]) {
-				apis.post("/api/brands/for-category", { forCategory: data.categoryIds }).then(({ status, data }) => {
-					if (status === 200) {
-						dispatch({
-							type: ACTION_TYPES.FETCH_CATEGORY_BRANDS,
-							payload: {
-								brands: data.brands,
-								categoryName: allCatName,
-							},
-						});
-					}
-				});
+                setCurrentFullCategoryName(allCatName)
+                dispatch(fetchBrandForCategory({allCatName, categoryIds: data.categoryIds}))
 			}
 			/******************* Fetch brand for category END ***************/
+
+
 
 			filterProductsAction(data, false, dispatch).then((data)=>{
                 setHttpResponse(p=>({...p, loading: false}))
@@ -356,6 +353,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
         filters.brands,
         filters.pagination.currentPage,
         filters.pagination.viewPerPage,
+        filters.attributes,
         flatCategories
     ]);
 
@@ -582,7 +580,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
                         <div className="mt-20 md:mt-4 px-3">
                             {/*{ss}*/}
                             <CategoryList onChangeCategory={handleChangeCategory} />
-                            <BrandList />
+                            <BrandList currentFullCategoryName={currentFullCategoryName} />
                             <FilterAttribute />
                         </div>
                     </div>

@@ -15,29 +15,16 @@ export function changeCategoryAction({selected, allNestedIds}): ChangeCategoryAc
     }
 }
 
-export async function fetchCategoryDetailAction(dispatch: AppDispatch, categoryId: string, cb) {
-
+export async function fetchCategoryDetailAction(dispatch: AppDispatch, categoryId: string) {
     try{
-
-        let {data, status} = await apis.get("/api/category/category-detail?categoryId="+categoryId)
-        // console.log(data, status)
+        let {data, status} = await apis.get("/api/category?id="+categoryId)
         if(status === 200){
-
-            cb(data)
-
             dispatch({
                 type: ACTION_TYPES.FETCH_CATEGORY_DETAILS,
                 payload: data
             })
-
-
-
         }
-
-
     } catch(ex){
-        cb("")
+
     }
-
-
 }

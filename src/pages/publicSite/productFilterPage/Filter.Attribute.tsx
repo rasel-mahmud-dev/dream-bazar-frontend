@@ -1,12 +1,11 @@
 import React, {FC, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "src/store";
-import apis from "src/apis";
 import {ACTION_TYPES} from "store/types";
 import {FaAngleRight, FaAngleUp} from "react-icons/all";
-import {ToggleProductAttributeAction} from "store/types/productActionTypes";
+import {ChangeProductAttributeAction, ToggleProductAttributeAction} from "store/types/productActionTypes";
 import useAppSelector from "src/hooks/useAppSelector";
 import {fetchCategoryDetailAction} from "actions/categoryAction";
+import {Attribute} from "reducers/categoryReducer";
 
 interface Props {
 
@@ -15,82 +14,105 @@ interface Props {
 
 const FilterAttribute: FC<Props> = (props) => {
     const {
-        productState:  {filters},
-        categoryState: { categoryDetailCache, category }
+        productState: {filters},
+        categoryState: {categoryDetailCache, category, attributeExpand}
     } = useAppSelector(state => state);
 
 
     const dispatch = useDispatch()
-    const filterAttributesValues = useRef<[]>()
-    const currentCategoryId = useRef<string>()
 
+
+
+    let currentCategoryID = category.selected?._id  || ""
 
     useEffect(() => {
 
         if (category.selected) {
-            currentCategoryId.current = category.selected._id;
-            fetchCategoryDetailAction(dispatch, category.selected._id, (data)=>{
-                if(data) {
-                    filterAttributesValues.current = data.filterAttributesValues
-                }
-            })
+            currentCategoryID = category.selected._id
+            // only fetch category default if not it previously fetched
+            if(!categoryDetailCache[currentCategoryID]) {
+                fetchCategoryDetailAction(dispatch, currentCategoryID)
+            }
         }
-    }, [category.selected?._id])
-
-    useEffect(()=>{
-
-    }, [categoryDetailCache?.[category.selected?._id]])
+    }, [currentCategoryID])
 
 
 
-    function isExpand(attributeName: string){
-        return categoryDetailCache?.[currentCategoryId.current]?.defaultExpand?.includes(attributeName)
+
+    // check is product attribute section expand or not
+    function isExpand(attributeName: string) {
+        return attributeExpand[currentCategoryID]?.includes(attributeName)
     }
 
 
-    function handleToggleExpand(attributeName: string){
+    // toggle product attribute section
+    function handleToggleAttributeSection(attributeName: string) {
         dispatch<ToggleProductAttributeAction>({
-            type: ACTION_TYPES.TOGGLE_PRODUCT_ATTRIBUTE,
+            type: ACTION_TYPES.TOGGLE_ATTRIBUTE_SECTION,
             payload: {
                 attributeName,
-                categoryId: category.selected?._id || ""
+                categoryId: currentCategoryID
             }
         })
     }
 
 
+    // change attribute value change action
+    function changeAttributeValue(attribute: Attribute, opt) {
+        dispatch<ChangeProductAttributeAction>({
+            type: ACTION_TYPES.CHANGE_ATTRIBUTE_VALUES,
+            payload: {
+                attributeName: attribute.attributeName,
+                attributeValue: opt.value
+            }
+        })
+    }
+
+    // check if is selected attribute values
+    function checkIsSelected(attributeName: string, attributeValue: string | number) {
+        let attribute = filters.attributes[attributeName];
+        return attribute && attribute.includes(attributeValue)
+    }
+
+
+
     return (
         <div>
             <div>
-                { filterAttributesValues.current && (
+                {categoryDetailCache[currentCategoryID] && categoryDetailCache[currentCategoryID].filterAttributesValues  && (
                     <div>
-                        {filterAttributesValues.current && filterAttributesValues.current.map(attr=>(
+                        {categoryDetailCache[currentCategoryID].filterAttributesValues?.map((attr: Attribute) => (
                             <div className="py-2">
                                 <div className="flex justify-between items-center hover:bg-primary-600/10 cursor-pointer px-2 py-2 rounded"
-                                     onClick={()=>handleToggleExpand(attr.attributeName)}>
+                                     onClick={() => handleToggleAttributeSection(attr.attributeName)}>
                                     <h4 className="font-medium">{attr.attributeLabel}</h4>
-                                    { isExpand(attr.attributeName)
+                                    {isExpand(attr.attributeName)
                                         ? <FaAngleUp/>
-                                        : <FaAngleRight />
+                                        : <FaAngleRight/>
                                     }
                                 </div>
                                 <div className="ml-2">
-                                    { isExpand(attr.attributeName) && (
+                                    {isExpand(attr.attributeName) && (
                                         <div>
-                                            { attr.options.map(opt=>(
+                                            {attr.options.map(opt => (
                                                 <div className="flex items-center gap-x-2 py-1">
-                                                    <input type="checkbox" />
-                                                    <label htmlFor="">{opt.name}</label>
+                                                    <input
+                                                        checked={checkIsSelected(attr.attributeName, opt.value)}
+                                                        onChange={(e) => changeAttributeValue( attr, opt)}
+                                                        type="checkbox"
+                                                        id={attr.attributeName + opt.name}
+                                                    />
+                                                    <label htmlFor={attr.attributeName + opt.name}>{opt.name}</label>
                                                 </div>
-                                            ))  }
+                                            ))}
                                         </div>
-                                    ) }
+                                    )}
                                 </div>
 
                             </div>
                         ))}
                     </div>
-                ) }
+                )}
             </div>
         </div>
     );
