@@ -19,8 +19,7 @@ const AdminLayout = lazy(() => import("src/layout/AdminLayout"));
 const AdminDashboardHome = lazy(() => import("pages/adminDashboard/DashboardHomePage"));
 
 const AddCategory = lazy(() => import("pages/adminDashboard/categoryList/AddCategory"));
-const AddCategoryDetail = lazy(() => import("pages/adminDashboard/categoryList/AddCategoryDetail"));
-const CategoryDetails = lazy(() => import("pages/adminDashboard/categoryList/CategoryDetails"));
+
 const ProductAttribute = lazy(() => import("pages/adminDashboard/productAttribute/ProductAttribute"));
 const ProductList = lazy(() => import("pages/adminDashboard/productList/ProductList"));
 const AddBrand = lazy(() => import("pages/adminDashboard/brandList/AddBrand"));

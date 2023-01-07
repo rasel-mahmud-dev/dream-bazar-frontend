@@ -5,14 +5,34 @@ import {StatusCode} from "store/types";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import {InputGroup} from "UI/Form";
 import HttpResponse from "components/HttpResponse/HttpResponse";
+import convStringToNumber from "src/utills/convStringToNumber";
+import table from "UI/table/Table";
 
-const AddingAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
-    const [state, setState] = React.useState<any>({
+
+
+
+type OptionField = {
+    name: string,
+    value: string | number | [(string | number), (string | number)]
+}
+
+const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
+
+    const [state, setState] = React.useState<{
+        formData: {
+            attributeLabel: {value: string, errorMessage: string},
+            attributeName: {value: string, errorMessage: string},
+            options: {value: string[], errorMessage: string},
+            isRange: {value: boolean, errorMessage: string},
+        },
+        optionsFields: OptionField[]
+    }>({
         formData: {
             // _id: { value: [], errorMessage: "" },
             attributeLabel: {value: "", errorMessage: ""},
             attributeName: {value: "", errorMessage: ""},
             options: {value: [], errorMessage: ""},
+            isRange: {value: false, errorMessage: ""},
         },
         optionsFields: [
             {name: "", value: ""},
@@ -21,6 +41,8 @@ const AddingAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
             {name: "", value: ""},
         ],
     });
+
+
     
     useEffect(() => {
         if (attribute) {
@@ -45,31 +67,81 @@ const AddingAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
     const {formData} = state;
     
     function handleChange(e) {
-        const {name, value} = e.target;
+        const {name, value, checked} = e.target;
         let updateFormData = {...state.formData};
         updateFormData = {
             ...updateFormData,
             [name]: {
                 ...updateFormData[name],
-                value: value,
+                value: name === "isRange" ? checked : value,
                 errorMessage: updateFormData[name] ? "" : updateFormData[name].errorMessage,
             },
         };
+
         setState({
             ...state,
             formData: updateFormData,
         });
     }
+
+    useEffect(()=>{
+            setState((prevState)=>{
+                let updateOptionsFields = [];
+
+                if(formData.isRange.value) {
+                    // make array tuple instead of string field
+                    updateOptionsFields = prevState.optionsFields.map(field => {
+                        return {name: field.name, value: []}
+                    })
+                } else{
+                    // make one value instead of range value
+                    updateOptionsFields = prevState.optionsFields.map(field => {
+                        return {name: field.name, value: ""}
+                    })
+                }
+
+                return {
+                    ...prevState,
+                    optionsFields: updateOptionsFields
+                }
+            })
+
+    }, [formData.isRange.value])
+
     
-    function handleOptionValueChange(name, value, index) {
+    function handleOptionValueChange(name, value, index, rangeInputIndex) {
         let updatedOptionsFields = [...state.optionsFields];
-        updatedOptionsFields[index] = {
-            ...updatedOptionsFields[index],
-            [name]: value,
-        };
+
+        // store value as tuple instead of one value
+        if(formData.isRange.value && rangeInputIndex !== undefined){
+
+            let prevValue = updatedOptionsFields[index].value
+
+            if(typeof prevValue === "string"){
+                prevValue = []
+            }
+            let tupleValue = [...prevValue]
+            tupleValue[rangeInputIndex] = value;
+
+            updatedOptionsFields[index] = {
+                ...updatedOptionsFields[index],
+                [name]: tupleValue,
+            };
+
+            // console.log(prevValue)
+
+        } else {
+
+            updatedOptionsFields[index] = {
+                ...updatedOptionsFields[index],
+                [name]: value,
+            };
+        }
+
         setState((p) => ({...p, optionsFields: updatedOptionsFields}));
     }
-    
+
+
     async function handleAdd(e) {
         setHttpResponse({
             message: "",
@@ -92,21 +164,43 @@ const AddingAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                 }
             }
         }
-        
-        if (state.optionsFields) {
-            let options = []
-            state.optionsFields.forEach((field) => {
-                if (field.name) {
-                    let convertValue = Number(field.value);
-                    if (!isNaN(convertValue)) {
-                        field.value = convertValue;
+
+
+        let options: OptionField[] = []
+        state.optionsFields.forEach((field) => {
+            if (field.name) {
+                if(formData.isRange.value && Array.isArray(field.value)){
+                    let fieldValue = []
+                    let tupleArr = field.value;
+
+                    if(tupleArr[0]){
+                        fieldValue[0] = convStringToNumber(tupleArr[0]);
                     }
-                   options.push(field)
+                    if(tupleArr[1]){
+                        fieldValue[1] = convStringToNumber(tupleArr[1]);
+                    }
+                    field.value = fieldValue;
+
+                } else {
+                    field.value = convStringToNumber(field.value)
+
                 }
-            });
-            
-            payload.options = options
-        }
+               options.push(field)
+            }
+        });
+
+        payload.options = options.filter(item=>{
+            if(item.name){
+                if(formData.isRange.value){
+                    if(item.value.length === 2){
+                        return item
+                    }
+                } else if(item.value || item.value === 0) {
+                    return item
+                }
+            }
+        })
+
         
         if (!isComplete) {
             setHttpResponse({
@@ -143,7 +237,7 @@ const AddingAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                 });
             });
         } else {
-            // add as a category detail
+            // add attribute
             apis.post("/api/product/attribute", payload)
             .then(({status, data}) => {
                 if (status === StatusCode.Created) {
@@ -152,7 +246,7 @@ const AddingAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                         loading: false,
                         isSuccess: true,
                     });
-                    onUpdateAttributes(data, null);
+                    // onUpdateAttributes(data, null);
                 }
             })
             .catch((ex) => {
@@ -168,13 +262,18 @@ const AddingAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
     function handleAddMoreOption() {
         setState((prevState) => {
             let updateOptionsFields = [...prevState.optionsFields];
-            updateOptionsFields.push({name: "", value: "", valueType: "string"});
+            if(formData.isRange.value) {
+                updateOptionsFields.push({name: "", value: []});
+            } else{
+                updateOptionsFields.push({name: "", value: ""});
+            }
             return {
                 ...prevState,
                 optionsFields: updateOptionsFields,
             };
         });
     }
+
     
     return (
         <form onSubmit={handleAdd}>
@@ -202,6 +301,12 @@ const AddingAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                 state={formData}
             />
 
+
+            <div className="flex items-center gap-x-2 mt-4">
+                <input onChange={handleChange} type="checkbox" checked={formData.isRange.value} name="isRange" id="range" />
+                <label htmlFor="range" className="cursor-pointer">is range value</label>
+            </div>
+
 			<h3 className="text-lg font-bold mt-5">Attribute Option values</h3>
             {state.optionsFields.map((field, index) => (
                 <div className="mt-2">
@@ -216,15 +321,40 @@ const AddingAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                             placeholder="name"
                             onChange={(e) => handleOptionValueChange("name", e.target.value, index)}
                         />
-						<InputGroup
-                            className="mt-0"
-                            inputClass="!mt-1"
-                            type="text"
-                            name="value"
-                            value={field.value}
-                            placeholder="value"
-                            onChange={(e) => handleOptionValueChange("value", e.target.value, index)}
-                        />
+
+                        { formData.isRange.value ? (
+                            <div className="flex items-center gap-x-2">
+                                <InputGroup
+                                    className="mt-0"
+                                    inputClass="!mt-1"
+                                    type="text"
+                                    name="value"
+                                    value={formData.isRange.value && field.value[0]}
+                                    placeholder="value 1"
+                                    onChange={(e) => handleOptionValueChange("value", e.target.value, index, 0)}
+                                />
+                                <InputGroup
+                                    className="mt-0"
+                                    inputClass="!mt-1"
+                                    type="text"
+                                    name="value"
+                                    value={formData.isRange.value && field.value[1]}
+                                    placeholder="value 2"
+                                    onChange={(e) => handleOptionValueChange("value", e.target.value, index, 1)}
+                                />
+                            </div>
+                        ) : (
+                            <InputGroup
+                                className="mt-0"
+                                inputClass="!mt-1"
+                                type="text"
+                                name="value"
+                                value={field.value}
+                                placeholder="value"
+                                onChange={(e) => handleOptionValueChange("value", e.target.value, index)}
+                            />
+                        ) }
+
 					</div>
 				</div>
             ))}
@@ -246,4 +376,4 @@ const AddingAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
     );
 };
 
-export default AddingAttribute;
+export default AddAttribute;

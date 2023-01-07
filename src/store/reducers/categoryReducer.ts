@@ -19,7 +19,7 @@ export type CategoryDetail = {
     filterAttributes: string[]
     defaultExpand: string[]
     renderProductAttr: string[]
-    productDescriptionSection?: {[key: string]: string[]}
+    productDescriptionSection?: {[key: string]: string[]} | null
     createdAt?: Date | string
     updatedAt?: Date | string
 
@@ -44,6 +44,7 @@ export interface CategoryStateType {
     brandsForCategory: { [key: string]: Brand[] };
     attributeExpand: { [categoryId: string]: string[]};
     flatCategories: CategoryType[]
+    productFilterAttributes: Attribute[]
 }
 
 const initialState: CategoryStateType = {
@@ -55,7 +56,8 @@ const initialState: CategoryStateType = {
     brandsForCategory: {},
     categoryDetailCache: {},
     attributeExpand: {},
-    flatCategories: null as unknown as CategoryType[]
+    flatCategories: null as unknown as CategoryType[],
+    productFilterAttributes: []
 };
 
 
@@ -68,6 +70,16 @@ const categoryReducer = (state = initialState, action: CategoryActionTypes) => {
         case ACTION_TYPES.FETCH_FLAT_CATEGORIES:
             updateState.flatCategories = action.payload;
             return updateState;
+
+
+        case ACTION_TYPES.ADD_FLAT_CATEGORY:
+            return {
+                ...state,
+                flatCategories: [
+                    ...state.flatCategories,
+                    action.payload
+                ]
+            }
 
 
         case ACTION_TYPES.FETCH_CATEGORY_DETAILS:
@@ -132,7 +144,11 @@ const categoryReducer = (state = initialState, action: CategoryActionTypes) => {
                 return state
             }
 
-
+        case ACTION_TYPES.FETCH_FILTER_ATTRIBUTES:
+            return {
+                ...state,
+                productFilterAttributes: action.payload
+            }
 
 
         default:

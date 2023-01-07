@@ -6,12 +6,12 @@ import staticImagePath from "src/utills/staticImagePath";
 import { BsPencilSquare, FcEmptyTrash } from "react-icons/all";
 import { Link, useNavigate } from "react-router-dom";
 import isoStringToDate from "src/utills/isoStringToDate";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "src/store";
 import {  fetchProducts } from "actions/adminProductAction";
 import Switch from "UI/Form/switch/Switch";
 import {ProductType} from "reducers/productReducer";
 import {fetchBrands} from "actions/brandAction";
+import useAppDispatch from "src/hooks/useAppDispatch";
+import useAppSelector from "src/hooks/useAppSelector";
 
 
 
@@ -19,7 +19,10 @@ const AllProducts = (props) => {
 
     const [products, setProducts] = React.useState<ProductType[]>([]);
 
-    const [brands, setBrands] = React.useState([]);
+    const {allBrands} = useAppSelector(state=>state.brandState)
+
+
+    const dispatch = useAppDispatch()
 
 
     useEffect(() => {
@@ -30,9 +33,10 @@ const AllProducts = (props) => {
                 setProducts(result)
             }
 
-            let [brands]   = await fetchBrands();
-            setBrands(brands)
 
+            if(!allBrands || allBrands?.length === 0) {
+                dispatch(fetchBrands())
+            }
 
             // Promise.allSettled([api.get("/api/categories/?type=lastLevel")]).then((result: any) => {
             //     if (result[0].status === "fulfilled") {

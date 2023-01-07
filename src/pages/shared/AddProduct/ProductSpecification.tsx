@@ -5,25 +5,24 @@ import {StatusCode} from "store/types";
 import {useNavigate} from "react-router-dom";
 import InputGroup from "UI/Form/InputGroup";
 import {BsTrash} from "react-icons/all";
+import {CategoryDetail} from "reducers/categoryReducer";
 
 
-
-interface Props{
-    categoryId?: string
-    onSetCategoryDetail: any
-    onChangeSpecifications: (data: Specification[])=>void
+interface Props {
+    categoryDetail: CategoryDetail
+    onChangeSpecifications: (data: Specification[]) => void
 }
 
 
 /** Product Specification input field like this
-{
+ {
     Body: [
         {specificationName: 'Weight', value: '200gm', required: true}
     ]
 }
-*/
+ */
 export type Specification = {
-    [key: string] : {
+    [key: string]: {
         specificationName: string
         value: string
         required: boolean // for input required
@@ -31,9 +30,70 @@ export type Specification = {
 }
 
 
+let fakeSpecificationData = {
+    "General": [
+        "Sales Package",
+        "Model Number",
+        "Part Number",
+
+    ],
+    "Processor And Memory Features": [
+        "Dedicated Graphic Memory Type",
+        "Dedicated Graphic Memory Capacity",
+
+        "Clock Speed",
+        "Expandable Memory",
+        "Graphic Processor"
+    ],
+    "Storage": [
+        "Storage Interface",
+
+        "SSD Capacity"
+    ],
+    "Webcam": [
+        "Built-in Webcam"
+    ],
+    "Operating System": [
+        "OS Architecture",
+        "Operating System",
+    ],
+    "Port And Slot Features": [
+        "Mic In",
+        "Hardware Interface",
+        "Other Ports"
+    ],
+    "Display And Audio Features": [
+
+        "Speakers",
+        "Internal Mic"
+    ],
+    "Audio": [
+        "Speaker Output"
+    ],
+    "Connectivity Features": [
+        "Wireless LAN",
+        "Wireless"
+    ],
+    "Additional Features": [
+        "Disk Drive",
+        "Web Camera",
+        "Included Software"
+    ],
+    "Dimensions": [
+        "Dimensions",
+        "Weight"
+    ],
+    "Warranty": [
+        "Warranty Summary",
+        "Domestic Warranty",
+        "International Warranty"
+    ]
+}
+
+const ProductSpecification: FC<Props> = ({categoryDetail, onChangeSpecifications}) => {
 
 
-const ProductSpecification : FC<Props> = ({onSetCategoryDetail, onChangeSpecifications, categoryId}) => {
+
 
     const [specifications, setSpecifications] = useState<Specification[]>()
 
@@ -42,11 +102,20 @@ const ProductSpecification : FC<Props> = ({onSetCategoryDetail, onChangeSpecific
     const sectionNameInputRef = useRef<HTMLInputElement>();
 
 
-    useEffect(()=>{
-        if(categoryId){
-            handleSelectSpecificationSection()
+    useEffect(() => {
+        if (categoryDetail?._id) {
+            handleSelectSpecificationSection(categoryDetail)
+        } else if(categoryDetail === null){
+            handleSelectSpecificationSection(categoryDetail, true)
+
         }
-    }, [categoryId])
+
+
+
+
+    }, [categoryDetail, categoryDetail?._id])
+
+
 
     const [editSectionName, setSectionName] = useState({
         value: "",
@@ -55,7 +124,7 @@ const ProductSpecification : FC<Props> = ({onSetCategoryDetail, onChangeSpecific
 
 
     function handleChangeDescription(name: string, sectionName: string, value: string, index: number) {
-        const updateSpecification = { ...specifications};
+        const updateSpecification = {...specifications};
         let specificationSection = updateSpecification[sectionName][index];
         if (specificationSection) {
             if (name === "name") {
@@ -75,25 +144,23 @@ const ProductSpecification : FC<Props> = ({onSetCategoryDetail, onChangeSpecific
     }
 
 
-
     // delete individual specification section
     function handleRemoveSection(sectionName) {
         let updateSpecification = {...specifications}
-        if(updateSpecification[sectionName]) {
+        if (updateSpecification[sectionName]) {
             delete updateSpecification[sectionName]
         }
         setSpecifications(updateSpecification)
     }
 
     // delete specification field
-    function removeSpecificationField(sectionName: string, fieldIndex: number){
+    function removeSpecificationField(sectionName: string, fieldIndex: number) {
         let updateSpecifications = {...specifications}
-        if(updateSpecifications[sectionName]){
+        if (updateSpecifications[sectionName]) {
             updateSpecifications[sectionName].splice(fieldIndex, 1)
             setSpecifications(updateSpecifications)
         }
     }
-
 
 
     // section name input blur action
@@ -114,7 +181,7 @@ const ProductSpecification : FC<Props> = ({onSetCategoryDetail, onChangeSpecific
         });
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         onChangeSpecifications(specifications)
     }, [specifications])
 
@@ -128,55 +195,47 @@ const ProductSpecification : FC<Props> = ({onSetCategoryDetail, onChangeSpecific
 
     // add new specification section field
     function addNewSpecificationField(sectionName: string) {
-        const updateSpecifications = { ...specifications };
+        const updateSpecifications = {...specifications};
         updateSpecifications[sectionName] = [
             ...updateSpecifications[sectionName],
-            { specificationName: "", value: "" },
+            {specificationName: "", value: ""},
         ];
         setSpecifications(updateSpecifications)
     }
 
     // add new specification section
     function handleAddMoreSection() {
-        const updateSpecifications = { ...specifications };
+        const updateSpecifications = {...specifications};
         let number = Object.keys(specifications || {}).length
-        updateSpecifications["sectionName-" + number] = [{ specificationName: "specification name", value: "" }];
+        updateSpecifications["sectionName-" + number] = [{specificationName: "specification name", value: ""}];
         setSpecifications(updateSpecifications);
     }
 
 
-    function handleSelectSpecificationSection(){
-            getApi()
-                .get("/api/category/category-detail?categoryId=" + categoryId)
-                .then(({ data, status }) => {
-                    if (status === StatusCode.Ok) {
-                        setSpecifications((prevState) => {
-                            let productDescriptionSectionInput = {};
-                            let obj = data.productDescriptionSection;
-                            if (obj) {
-                                for (let objKey in obj) {
-                                    let specifications = obj[objKey];
-                                    specifications = specifications.map((spec) => ({ specificationName: spec, value: "", required: true }));
-                                    productDescriptionSectionInput[objKey] = specifications;
-                                    // if(specifications && specifications.length > 0){
-                                    //     let s = {}
-                                    //     specifications = specifications.map(spec=>{
-                                    //         s[spec] = ""
-                                    //     })
-                                    //     productDescriptionSectionInput[objKey] = s
-                                    // }
-                                }
-                            }
-                            return {
-                                ...prevState,
-                                ...productDescriptionSectionInput
-                            };
-                        });
-                        onSetCategoryDetail(data)
+    function handleSelectSpecificationSection(categoryDetail: CategoryDetail, isFake: boolean = false) {
 
-                    }
-                })
-                .catch((ex) => {});
+        let productDescriptionSectionInput = {};
+        let obj = categoryDetail?.productDescriptionSection;
+        if(isFake){
+            obj = fakeSpecificationData
+        }
+        if (obj) {
+            for (let objKey in obj) {
+                let specifications = obj[objKey];
+                specifications = specifications.map((spec) => ({specificationName: spec, value: "", required: true}));
+                productDescriptionSectionInput[objKey] = specifications;
+                // if(specifications && specifications.length > 0){
+                //     let s = {}
+                //     specifications = specifications.map(spec=>{
+                //         s[spec] = ""
+                //     })
+                //     productDescriptionSectionInput[objKey] = s
+                // }
+            }
+        }
+
+        setSpecifications(productDescriptionSectionInput)
+
 
     }
 
@@ -193,21 +252,21 @@ const ProductSpecification : FC<Props> = ({onSetCategoryDetail, onChangeSpecific
                             required={true}
                             placeholder="section name"
                             onBlur={sectionNameInputBlur}
-                            onChange={(e) => setSectionName({ ...editSectionName, value: e.target.value })}
+                            onChange={(e) => setSectionName({...editSectionName, value: e.target.value})}
                             defaultValue={editSectionName.backupName}
                             name="sectionName"
                         />
                     ) : (
                         <div onClick={() => handleClickSectionName(sectionName)} className="flex items-center gap-x-2 cursor-pointer">
-                            <h4 className="heading-4 hover:text-green-500" >
+                            <h4 className="heading-4 hover:text-green-500">
                                 {sectionName}
                             </h4>
-                                <BsTrash onClick={()=>handleRemoveSection(sectionName)} />
+                            <BsTrash onClick={() => handleRemoveSection(sectionName)}/>
                         </div>
                     )}
                     <div className="mt-1">
                         {specifications[sectionName]?.map((specification, index) => (
-                            <div  key={index} className="flex items-center gap-x-2">
+                            <div key={index} className="flex items-center gap-x-2">
                                 <div className="block sm:grid grid-cols-12 gap-x-4 flex-1">
                                     <InputGroup
                                         className="w-full col-span-4 mt-1 text-xs font-medium"
@@ -224,7 +283,7 @@ const ProductSpecification : FC<Props> = ({onSetCategoryDetail, onChangeSpecific
                                         placeholder="value"
                                     />
                                 </div>
-                                <BsTrash className="cursor-pointer" onClick={()=>removeSpecificationField(sectionName, index)} />
+                                <BsTrash className="cursor-pointer" onClick={() => removeSpecificationField(sectionName, index)}/>
                             </div>
                         ))}
                         <Button

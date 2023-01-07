@@ -21,7 +21,7 @@ export type SidebarDataType = {
 
 interface Props {
     isOpenLeftBar: boolean
-    auth: AuthType
+    auth: AuthType | null
     sidebarData: SidebarDataType[]
 }
 

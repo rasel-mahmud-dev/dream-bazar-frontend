@@ -1,5 +1,5 @@
 import {ACTION_TYPES, Brand, CategoryType} from "store/types";
-import {CategoryDetail} from "reducers/categoryReducer";
+import {Attribute, CategoryDetail} from "reducers/categoryReducer";
 
 
 
@@ -66,7 +66,7 @@ export interface ChangeProductFilterPaginationAction {
 }
 
 /**
- Change Pagination data for product filter page
+ Fetch database categories
  */
 export interface FetchFlatCategoriesAction {
     type: ACTION_TYPES.FETCH_FLAT_CATEGORIES,
@@ -75,10 +75,31 @@ export interface FetchFlatCategoriesAction {
 
 
 
+/**
+ add flat category
+ */
+export interface AddFlatCategoryAction {
+    type: ACTION_TYPES.ADD_FLAT_CATEGORY,
+    payload: CategoryType
+}
+
+
+
+
+/**
+ fetch all product filter able attribute
+ */
+export interface FetchFilterAttributesAction {
+    type: ACTION_TYPES.FETCH_FILTER_ATTRIBUTES,
+    payload: Attribute[]
+}
+
+
 
 
 export type CategoryActionTypes = ToggleProductAttributeAction | ChangeCategoryAction | FetchCategoryBrandsAction | FetchCategoryDetailAction
     | ChangeProductFilterPaginationAction
     | FetchFlatCategoriesAction
+|   AddFlatCategoryAction | FetchFilterAttributesAction
 
 

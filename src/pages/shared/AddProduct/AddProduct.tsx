@@ -1,46 +1,44 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { InputGroup } from "UI/Form";
+import React, {useEffect, useRef, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import {InputGroup} from "UI/Form";
 import SelectGroup from "UI/Form/SelectGroup";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "src/store";
-import { fetchAdminBrandsAction, fetchFlatCategoriesAction } from "actions/adminProductAction";
+import {fetchFlatCategoriesAction} from "actions/adminProductAction";
 import Card from "UI/Form/Card/Card";
 import FileUpload from "UI/Form/File/FileUpload";
-import { Button } from "UI/index";
+import {Button} from "UI/index";
 import MultipleFileChooser from "UI/Form/File/MultipleFileChooser";
 import generateSku from "src/utills/generateSku";
-import { fetchProductForUpdate } from "actions/productAction";
-import { StatusCode } from "store/types";
+import {StatusCode} from "store/types";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 
 import useToast from "src/hooks/useToast";
 
-import { getApi } from "src/apis";
+import apis, {getApi} from "src/apis";
 import ProductAttribute from "pages/shared/AddProduct/ProductAttribute";
 import ProductSpecification, {Specification} from "pages/shared/AddProduct/ProductSpecification";
 import ActionModal from "components/ActionModal/ActionModal";
-// import ProductSpecification from "pages/shared/AddProduct/ProductSpecification";
+import {fetchBrands} from "actions/brandAction";
+import useAppDispatch from "src/hooks/useAppDispatch";
+import useAppSelector from "src/hooks/useAppSelector";
+import {CategoryDetail} from "reducers/categoryReducer";
+import {fetchCategoryDetail} from "actions/categoryAction";
 
 
 const AddProduct = () => {
     const params = useParams();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const {productId} = params
 
-
     const navigate = useNavigate();
-    const sectionNameInputRef = useRef<HTMLInputElement>();
-
-    const productDetails = useRef({})
 
 
     const [toast] = useToast();
 
     const {
-        productState: { flatCategories, adminBrands },
-    } = useSelector((state: RootState) => state);
+        categoryState: {flatCategories},
+        brandState: {allBrands}
+    } = useAppSelector(state => state);
 
     const [httpResponse, setHttpResponse] = useState({
         message: "",
@@ -49,29 +47,6 @@ const AddProduct = () => {
     });
 
     const [state, setState] = useState({
-        productData: {
-            title: { value: "", errorMessage: "", required: true },
-            coverPhoto: { value: null, errorMessage: "", required: true },
-            images: {
-                value: [
-                    // {blob: "", base64: "", fileName: "", url: ""}
-                ],
-                errorMessage: "",
-                required: true,
-            },
-            categoryId: { value: "", errorMessage: "", required: true },
-            brandId: { value: "", errorMessage: "", required: true },
-            price: { value: 0, errorMessage: "", required: true },
-            qty: { value: 1, errorMessage: "", required: true },
-            shippingCost: { value: 0, errorMessage: "", required: true },
-            tax: { value: 0, errorMessage: "", required: false },
-            discount: { value: 0, errorMessage: "", required: true },
-            videoLink: { value: "", errorMessage: "", required: false },
-            sku: { value: "", errorMessage: "", required: true },
-            summary: { value: "", errorMessage: "", required: true },
-            productType: { value: "Physical", errorMessage: "", required: true },
-            minOrder: { value: 0, errorMessage: "", required: false },
-        },
         isShowStaticChooser: false,
         staticImages: [],
         attributeValue: {},
@@ -97,81 +72,114 @@ const AddProduct = () => {
         },
     });
 
+    const [newProductData, setNewProductData] = useState({
+        title: {value: "", errorMessage: "", required: true},
+        coverPhoto: {value: null, errorMessage: "", required: true},
+        images: {
+            value: [
+                // {blob: "", base64: "", fileName: "", url: ""}
+            ],
+            errorMessage: "",
+            required: true,
+        },
+        categoryId: {value: "", errorMessage: "", required: true},
+        brandId: {value: "", errorMessage: "", required: true},
+        price: {value: 0, errorMessage: "", required: true},
+        qty: {value: 1, errorMessage: "", required: true},
+        shippingCost: {value: 0, errorMessage: "", required: true},
+        tax: {value: 0, errorMessage: "", required: false},
+        discount: {value: 0, errorMessage: "", required: true},
+        videoLink: {value: "", errorMessage: "", required: false},
+        sku: {value: "", errorMessage: "", required: true},
+        summary: {value: "", errorMessage: "", required: true},
+        productType: {value: "Physical", errorMessage: "", required: true},
+        minOrder: {value: 0, errorMessage: "", required: false},
+    })
 
-    const { productData, categoryDetail, staticImages } = state;
+
+
+    const [productDetail, setProductDetail] = useState(null)
+    const [categoryDetail, setCategoryDetail] = useState<CategoryDetail>({} as CategoryDetail)
+
+    const [isFilWithFakeData, setIsFilWithFakeData] = useState(false)
+
 
     useEffect(() => {
-        fetchAdminBrandsAction(adminBrands, dispatch);
+        if (!allBrands || allBrands?.length === 0) {
+            dispatch(fetchBrands())
+        }
+
         fetchFlatCategoriesAction(flatCategories, dispatch);
+
     }, []);
 
+
+    function fetchProductDetail(productId: string) {
+        return new Promise<[any, any]>(async (resolve) => {
+            try {
+                let {status, data} = await apis.get(`/api/product/detail/${productId}`)
+                if (status === StatusCode.Ok) {
+                    resolve([data, null])
+                }
+
+            } catch (ex) {
+                resolve([null, errorMessageCatch(ex)])
+            }
+        })
+    }
+
+
+
+
+    // fetch product data that need to update
     useEffect(() => {
         if (productId && productId.length === 24) {
-            fetchProductForUpdate(productId, function (err, result) {
-                console.log(err, result)
-                // if (!err) {
-                //     let updateProductData = { ...state.productData };
-                //     for (let updateProductDataKey in updateProductData) {
-                //         if (updateProductDataKey === "categoryId") {
-                //             selectFilterValues(result["categoryId"]);
-                //         }
-                //         if (result[updateProductDataKey]) {
-                //             updateProductData[updateProductDataKey].value = result[updateProductDataKey];
-                //         }
-                //     }
-                //
-                //     let updateAttributeValue = { ...state.attributeValue };
-                //     if (result["attributes"]) {
-                //         for (let attributesKey in result["attributes"]) {
-                //             updateAttributeValue[attributesKey] = result["attributes"][attributesKey];
-                //         }
-                //     }
-                //     if (result.productDescription) {
-                //         updateProductData["summary"].value = result.productDescription?.summary;
-                //     }
-                //
-                //     setState({
-                //         ...state,
-                //         productData: updateProductData,
-                //         attributeValue: updateAttributeValue,
-                //         productDescription: result["productDescription"],
-                //     });
-                // }
-            });
+            fetchProductDetail(productId).then(([data])=>{
+                if(data) {
+                    let updateProductData = {...newProductData};
+
+                    for (let updateProductDataKey in updateProductData) {
+                        if (data[updateProductDataKey]) {
+                            updateProductData[updateProductDataKey].value = data[updateProductDataKey];
+                        }
+                    }
+
+                    let updateAttributeValue = {...state.attributeValue};
+                    if (data["attributes"]) {
+                        for (let attributesKey in data["attributes"]) {
+                            updateAttributeValue[attributesKey] = data["attributes"][attributesKey];
+                        }
+                    }
+                    if (data.productDescription) {
+                        updateProductData["summary"].value = data.productDescription?.summary;
+                    }
+
+                    setNewProductData(updateProductData)
+                    setProductDetail(data)
+                }
+            })
+
+
         }
     }, [productId]);
 
-    // Product details section value fill up when update Product
-    useEffect(() => {
-        if (params.productId) {
-            // from Product description collection
-            if (state.productDescription && categoryDetail.productDescriptionSectionInput) {
-                let details = state.productDescription.details;
-                if (details) {
-                    let updatedProductDescriptionSectionInput = categoryDetail.productDescriptionSectionInput;
 
-                    for (let detailsKey in details) {
-                        let spec = updatedProductDescriptionSectionInput[detailsKey];
-                        if (spec) {
-                            updatedProductDescriptionSectionInput[detailsKey] = spec?.map((s) => {
-                                let specValue = details[detailsKey][s.specificationName];
-                                s.value = specValue;
-                                return s;
-                            });
-                        }
-                    }
-                    setState((s) => ({
-                        ...s,
-                        categoryDetail: { ...s.categoryDetail, productDescriptionSectionInput: updatedProductDescriptionSectionInput },
-                    }));
+    // fetch category detail when change product category id
+    useEffect(()=>{
+        if(newProductData.categoryId.value){
+            fetchCategoryDetail(newProductData.categoryId.value).then(([data]) => {
+                if(data) {
+                    console.log(data)
+                    setCategoryDetail(data)
                 }
-            }
+            })
         }
-    }, [categoryDetail.productDescriptionSectionInput, state.productDescription?.details]);
+    }, [newProductData.categoryId.value])
+
 
     function handleChange(e) {
-        const { name, value } = e.target;
-        let updateProductData = { ...productData };
+        const {name, value} = e.target;
+        let updateProductData = {...newProductData};
 
         if (name === "logo") {
             updateProductData = {
@@ -193,108 +201,66 @@ const AddProduct = () => {
             };
         }
 
-        setState((prev) => ({
-            ...prev,
-            productData: updateProductData,
-        }));
+        setNewProductData(updateProductData);
     }
 
 
     function generateNewProductSku() {
-        setState((prev) => {
-            let updateProductData = { ...prev.productData };
-            updateProductData.sku = { value: generateSku(), errorMessage: "", required: true };
+        setNewProductData((prev) => {
             return {
                 ...prev,
-                productData: updateProductData,
+                sku: {value: generateSku(), errorMessage: "", required: true}
             };
         });
     }
 
-    function selectFilterValues(categoryId) {
-        if (!categoryId) return undefined;
 
-        getApi()
-            .get("/api/category/category-detail?categoryId=" + categoryId)
-            .then(({ data, status }) => {
-                if (status === 200) {
-                    setState((prevState) => {
-                        let productDescriptionSectionInput = {};
-                        let obj = data.productDescriptionSection;
-                        if (obj) {
-                            for (let objKey in obj) {
-                                let specifications = obj[objKey];
-                                specifications = specifications.map((spec) => ({ specificationName: spec, value: "", required: true }));
-                                productDescriptionSectionInput[objKey] = specifications;
-                                // if(specifications && specifications.length > 0){
-                                //     let s = {}
-                                //     specifications = specifications.map(spec=>{
-                                //         s[spec] = ""
-                                //     })
-                                //     productDescriptionSectionInput[objKey] = s
-                                // }
-                            }
-                        }
-                        // console.log(productDescriptionSectionInput)
-                        // console.log(productDescriptionSectionInput)
-                        data.productDescriptionSectionInput = productDescriptionSectionInput;
-                        return {
-                            ...prevState,
-                            categoryDetail: data,
-                        };
-                    });
-                }
-            })
-            .catch((ex) => {});
-    }
-
-    function handleAttributeChange(attributes){
-        setState((prevState)=>({
+    function handleAttributeChange(attributes) {
+        setState((prevState) => ({
             ...prevState,
             attributeValue: attributes
         }))
     }
 
-    function handleChangeSpecification(specifications: Specification[]){
-            setState(prevState => ({...prevState, specifications: specifications}))
+    function handleChangeSpecification(specifications: Specification[]) {
+        setState(prevState => ({...prevState, specifications: specifications}))
     }
-
 
 
     // handle update or add Product
     async function handleSubmit(e) {
         e.preventDefault();
-        setHttpResponse((p) => ({ ...p, message: "", isSuccess: false }));
+        setHttpResponse((p) => ({...p, message: "", isSuccess: false}));
 
         let isCompleted = true;
         let errorMessage = "";
         let payload = {};
         let formData = new FormData();
-        for (let productDataKey in productData) {
-            if (productData[productDataKey].required) {
+        for (let newProductDataKey in newProductData) {
+            if (newProductData[newProductDataKey].required) {
                 if (
-                    productData[productDataKey].value == 0 &&
-                    productDataKey !== "categoryId" &&
-                    productDataKey !== "brandId" &&
-                    productDataKey !== "price" &&
-                    productDataKey !== "qty"
+                    newProductData[newProductDataKey].value == 0 &&
+                    newProductDataKey !== "categoryId" &&
+                    newProductDataKey !== "brandId" &&
+                    newProductDataKey !== "price" &&
+                    newProductDataKey !== "qty"
                 ) {
-                    payload[productDataKey] = productData[productDataKey].value;
-                } else if (!productData[productDataKey].value) {
+                    payload[newProductDataKey] = newProductData[newProductDataKey].value;
+                } else if (!newProductData[newProductDataKey].value) {
                     isCompleted = false;
-                    errorMessage = productDataKey + " required";
+                    errorMessage = newProductDataKey + " required";
                     break;
                 } else {
-                    payload[productDataKey] = productData[productDataKey].value;
+                    payload[newProductDataKey] = newProductData[newProductDataKey].value;
                 }
             } else {
-                payload[productDataKey] = productData[productDataKey].value;
+                payload[newProductDataKey] = newProductData[newProductDataKey].value;
             }
         }
 
         if (!isCompleted) {
             toast.error(errorMessage);
-            setHttpResponse((p) => ({ ...p, message: errorMessage, isSuccess: false }));
+            setHttpResponse((p) => ({...p, message: errorMessage, isSuccess: false}));
             return;
         }
 
@@ -305,14 +271,12 @@ const AddProduct = () => {
             if (!Object.keys(attributeValue).length) {
                 errorMessage = "Please provide attribute fields";
                 toast.error(errorMessage);
-                setHttpResponse((p) => ({ ...p, message: errorMessage, isSuccess: false }));
+                setHttpResponse((p) => ({...p, message: errorMessage, isSuccess: false}));
                 return;
             }
         }
         // add Product details sections
         formData.append("attributes", JSON.stringify(attributeValue));
-
-
 
 
         /********** deep specification section ************/
@@ -334,7 +298,7 @@ const AddProduct = () => {
         if (!isDoneSpecifications) {
             let msg = "Please provide description required field";
             toast.error(msg);
-            return setHttpResponse((p) => ({ ...p, message: msg, isSuccess: false }));
+            return setHttpResponse((p) => ({...p, message: msg, isSuccess: false}));
         }
 
 
@@ -344,13 +308,13 @@ const AddProduct = () => {
         for (let payloadKey in payload) {
             if (payloadKey === "images") {
                 payload[payloadKey] &&
-                    payload[payloadKey].forEach((item, index) => {
-                        if (item.blob) {
-                            formData.append(payloadKey + "-" + index, item.blob, item.fileName);
-                        } else if (item.url) {
-                            formData.append(payloadKey, item.url);
-                        }
-                    });
+                payload[payloadKey].forEach((item, index) => {
+                    if (item.blob) {
+                        formData.append(payloadKey + "-" + index, item.blob, item.fileName);
+                    } else if (item.url) {
+                        formData.append(payloadKey, item.url);
+                    }
+                });
             } else if (payloadKey === "coverPhoto") {
                 if (payload[payloadKey] && typeof payload[payloadKey] === "object") {
                     formData.append(payloadKey, payload[payloadKey], payload[payloadKey]?.name);
@@ -364,56 +328,55 @@ const AddProduct = () => {
 
         try {
 
-            setHttpResponse(p=>({...p, message: "", loading: true }));
+            setHttpResponse(p => ({...p, message: "", loading: true}));
 
             if (productId) {
-                let { status, data } = await getApi().patch("/api/product/" + params.productId, formData);
+                let {status, data} = await getApi().patch("/api/product/" + params.productId, formData);
                 if (status === StatusCode.Created) {
 
-                    setTimeout(()=>{
-                        setHttpResponse({ message: data.message, loading: false, isSuccess: true });
+                    setTimeout(() => {
+                        setHttpResponse({message: data.message, loading: false, isSuccess: true});
                         navigate("/admin/products")
                     }, 300)
 
                 }
             } else {
-                let { status, data } = await getApi().post("/api/product", formData);
+                let {status, data} = await getApi().post("/api/product", formData);
                 if (status === StatusCode.Created) {
 
-                    setTimeout(()=>{
-                        setHttpResponse({ message: data.message, loading: false, isSuccess: true });
+                    setTimeout(() => {
+                        setHttpResponse({message: data.message, loading: false, isSuccess: true});
                         navigate("/admin/products")
                     }, 300)
                 }
             }
         } catch (ex) {
-            setTimeout(()=> {
+            setTimeout(() => {
                 setHttpResponse({message: errorMessageCatch(ex), loading: false, isSuccess: false});
             }, 300)
         } finally {
-            setHttpResponse(p=>({...p, message: "", loading: false, isSuccess: true }));
+            setHttpResponse(p => ({...p, message: "", loading: false, isSuccess: true}));
         }
     }
 
     function handleFilWithFakeData() {
-        setState((prevState: any) => ({
+        setNewProductData((prevState: any) => ({
             ...prevState,
+            title: {value: "Iphone 100", errorMessage: "", required: true},
+            price: {value: 150000, errorMessage: "", required: true},
+            qty: {value: 10, errorMessage: "", required: true},
+            shippingCost: {value: 200, errorMessage: "", required: true},
+            tax: {value: 10, errorMessage: "", required: false},
+            discount: {value: 20, errorMessage: "", required: true},
+            videoLink: {value: "", errorMessage: "", required: false},
+            sku: {value: 232425, errorMessage: "", required: true},
+            summary: {value: "Some dummy post descriptions", errorMessage: "", required: true},
+            productType: {value: "Physical", errorMessage: "", required: true},
+            minOrder: {value: 1, errorMessage: "", required: false},
+        }))
 
-            productData: {
-                ...prevState.productData,
-                title: { value: "Iphone 100", errorMessage: "", required: true },
-                price: { value: 150000, errorMessage: "", required: true },
-                qty: { value: 10, errorMessage: "", required: true },
-                shippingCost: { value: 200, errorMessage: "", required: true },
-                tax: { value: 10, errorMessage: "", required: false },
-                discount: { value: 20, errorMessage: "", required: true },
-                videoLink: { value: "", errorMessage: "", required: false },
-                sku: { value: 232425, errorMessage: "", required: true },
-                summary: { value: "Some dummy post descriptions", errorMessage: "", required: true },
-                productType: { value: "Physical", errorMessage: "", required: true },
-                minOrder: { value: 1, errorMessage: "", required: false },
-            },
-        }));
+        setCategoryDetail(null as unknown as CategoryDetail)
+
     }
 
 
@@ -424,18 +387,18 @@ const AddProduct = () => {
             <ActionModal
                 {...httpResponse}
                 loadingTitle={`Product is  ${productId ? "Updating" : "Adding"}...`}
-                onClose={()=>httpResponse.message !== "" && setHttpResponse((p)=>({...p, message: ""})) }/>
+                onClose={() => httpResponse.message !== "" && setHttpResponse((p) => ({...p, message: ""}))}/>
 
             <form onSubmit={handleSubmit}>
                 <Card>
                     <InputGroup
                         name="title"
-                        required={productData.title.required}
+                        required={newProductData.title.required}
                         label="Product Title"
                         className="!flex-col bg-white  "
                         inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                         labelClass="dark:text-white !mb-2"
-                        state={productData}
+                        state={newProductData}
                         placeholder="New Product"
                         onChange={handleChange}
                     />
@@ -443,11 +406,11 @@ const AddProduct = () => {
                         name="summary"
                         label="Summary"
                         as="textarea"
-                        required={productData.summary.required}
+                        required={newProductData.summary.required}
                         className="!flex-col bg-white "
                         inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                         labelClass="dark:text-white !mb-2"
-                        state={productData}
+                        state={newProductData}
                         placeholder="Product summary"
                         onChange={handleChange}
                     />
@@ -459,7 +422,7 @@ const AddProduct = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                         <SelectGroup
-                            required={productData.productType.required}
+                            required={newProductData.productType.required}
                             name="categoryId"
                             labelClass="dark:text-white !mb-2"
                             className={"!flex-col"}
@@ -467,7 +430,7 @@ const AddProduct = () => {
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             placeholder="categoryId"
                             onChange={handleChange}
-                            state={productData}
+                            state={newProductData}
                             options={() => (
                                 <>
                                     <option className="cursor-pointer py-1 menu-item" value="Physical">
@@ -480,7 +443,7 @@ const AddProduct = () => {
                             )}
                         />
                         <SelectGroup
-                            required={productData.categoryId.required}
+                            required={newProductData.categoryId.required}
                             name="categoryId"
                             labelClass="dark:text-white !mb-2"
                             className={"!flex-col"}
@@ -488,7 +451,7 @@ const AddProduct = () => {
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             placeholder="categoryId"
                             onChange={handleChange}
-                            state={productData}
+                            state={newProductData}
                             options={() => (
                                 <>
                                     <option value="">Category</option>
@@ -508,16 +471,16 @@ const AddProduct = () => {
                             labelClass="dark:text-white !mb-2"
                             className={"!flex-col"}
                             label="Brand"
-                            required={productData.brandId.required}
+                            required={newProductData.brandId.required}
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             placeholder="brandId"
                             onChange={handleChange}
-                            state={productData}
+                            state={newProductData}
                             options={() => (
                                 <>
                                     <option value="">Brand</option>
-                                    {adminBrands.cached &&
-                                        adminBrands.cached?.map((cat: any) => (
+                                    {allBrands &&
+                                        allBrands.map((cat: any) => (
                                             <option key={cat._id} className="cursor-pointer py-1 menu-item" value={cat._id}>
                                                 {cat.name}
                                             </option>
@@ -528,7 +491,7 @@ const AddProduct = () => {
 
                         <InputGroup
                             name="sku"
-                            required={productData.sku.required}
+                            required={newProductData.sku.required}
                             label="Product Code Sku"
                             labelAddition={() => (
                                 <span className="text-blue-500 cursor-pointer font-medium active:text-blue-400 " onClick={generateNewProductSku}>
@@ -538,7 +501,7 @@ const AddProduct = () => {
                             className="!flex-col bg-white "
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             labelClass="dark:text-white !mb-2"
-                            state={productData}
+                            state={newProductData}
                             placeholder="Code"
                             onChange={handleChange}
                         />
@@ -548,7 +511,7 @@ const AddProduct = () => {
                 {/*********** Filter Attributes Information **********/}
                 <ProductAttribute
                     onAttributeChange={handleAttributeChange}
-                    categoryDetail={state.categoryDetail}
+                    categoryDetail={categoryDetail}
                 />
 
                 {/******* Product Price and Stock **************/}
@@ -556,26 +519,26 @@ const AddProduct = () => {
                     <h5 className="heading-5">Product Price and Stock</h5>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <InputGroup
-                            required={productData.discount.required}
+                            required={newProductData.discount.required}
                             name="discount"
                             label="Discount"
                             type="number"
                             className="!flex-col"
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             labelClass="dark:text-white !mb-2"
-                            state={productData}
+                            state={newProductData}
                             placeholder="Discount"
                             onChange={handleChange}
                         />
                         <InputGroup
-                            required={productData.price.required}
+                            required={newProductData.price.required}
                             name="price"
                             label="Price"
                             type="number"
                             className="!flex-col"
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             labelClass="dark:text-white !mb-2"
-                            state={productData}
+                            state={newProductData}
                             placeholder="Price"
                             onChange={handleChange}
                         />
@@ -583,52 +546,52 @@ const AddProduct = () => {
                             name="tax"
                             label="Tax"
                             type="number"
-                            required={productData.tax.required}
+                            required={newProductData.tax.required}
                             className="!flex-col"
                             labelAddition={() => (
                                 <span className="badge bg-teal-400/10 text-teal-400 font-medium px-1 py-px rounded text-xs">Percent %</span>
                             )}
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             labelClass="dark:text-white !mb-2"
-                            state={productData}
+                            state={newProductData}
                             placeholder="Tax"
                             onChange={handleChange}
                         />
 
                         <InputGroup
                             name="qty"
-                            required={productData.qty.required}
+                            required={newProductData.qty.required}
                             label="Total Quantity"
                             type="number"
                             className="!flex-col"
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             labelClass="dark:text-white !mb-2"
-                            state={productData}
+                            state={newProductData}
                             placeholder="qty"
                             onChange={handleChange}
                         />
 
                         <InputGroup
                             name="minOrder"
-                            required={productData.minOrder.required}
+                            required={newProductData.minOrder.required}
                             label="Minimum Order Quantity"
                             type="number"
                             className="!flex-col"
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             labelClass="dark:text-white !mb-2 w-full"
-                            state={productData}
+                            state={newProductData}
                             placeholder="Minimum order quantity"
                             onChange={handleChange}
                         />
                         <InputGroup
                             name="shippingCost"
-                            required={productData.shippingCost.required}
+                            required={newProductData.shippingCost.required}
                             label="Shipping Cost"
                             type="number"
                             className="!flex-col"
                             inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             labelClass="dark:text-white !mb-2"
-                            state={productData}
+                            state={newProductData}
                             placeholder="Shipping cost"
                             onChange={handleChange}
                         />
@@ -640,26 +603,26 @@ const AddProduct = () => {
                     <h5 className="heading-5">Product Cover and Photos</h5>
 
                     <InputGroup
-                        required={productData.videoLink.required}
+                        required={newProductData.videoLink.required}
                         name="videoLink"
                         label="Youtube Video Link"
                         className="!flex-col"
                         inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                         labelClass="dark:text-white !mb-2"
-                        state={productData}
+                        state={newProductData}
                         placeholder="EX: https://www.youtube.com/embed/5Rdsf45"
                         onChange={handleChange}
                     />
 
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <MultipleFileChooser
-                            required={productData.images.required}
+                            required={newProductData.images.required}
                             name="images"
                             label="Upload Product Images"
                             labelAddition={() => <span className="text-xs font-medium">Ratio (1:1)</span>}
                             inputClass="input-group"
                             onChange={handleChange}
-                            defaultValue={productData.images.value}
+                            defaultValue={newProductData.images.value}
                             labelClass="dark:text-white !mb-2"
                             className={"mt-4 col-span-3"}
                         />
@@ -667,7 +630,7 @@ const AddProduct = () => {
                         {/*********** Cover **************/}
                         <FileUpload
                             name="coverPhoto"
-                            required={productData.coverPhoto.required}
+                            required={newProductData.coverPhoto.required}
                             label="Upload Thumbnail"
                             labelAddition={() => <span className="text-xs font-medium">Ratio (1:1)</span>}
                             inputClass="input-group"
@@ -693,9 +656,9 @@ const AddProduct = () => {
 
                 {/******** Product Description sections **********/}
                 <ProductSpecification
+                    categoryDetail={categoryDetail}
                     onChangeSpecifications={handleChangeSpecification}
-                    onSetCategoryDetail={(data)=>setState((prevState)=>({...prevState, categoryDetail: data}))}
-                    categoryId={state.productData?.categoryId?.value}
+                    isFilWithFakeData={isFilWithFakeData}
                 />
 
 

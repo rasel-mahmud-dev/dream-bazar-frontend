@@ -4,7 +4,7 @@ import {RootState} from "src/store";
 import {deleteFlatCategoryAction} from "actions/productAction";
 import {ACTION_TYPES} from "store/types";
 import {Button} from "UI/index";
-import {BsPencilSquare, FcEmptyTrash} from "react-icons/all";
+import {BsPencilSquare, CgEye, FcEmptyTrash} from "react-icons/all";
 import Table, {Column} from "UI/table/Table";
 import isoStringToDate from "src/utills/isoStringToDate";
 import {fetchFlatCategoriesAction} from "actions/adminProductAction";
@@ -94,6 +94,7 @@ const Categories = (props) => {
             className: "text-center",
             render: (_, item: any) => (
                 <div className="flex justify-center items-center gap-x-2">
+					<Link to={`/admin/categories/${item._id}`}><CgEye className="text-lg cursor-pointer" onClick={() => deleteItem(item._id)}/> </Link>
 					<BsPencilSquare className="text-md cursor-pointer" onClick={() => navigate(`/admin/categories/edit/${item._id}`)}/>
 					<FcEmptyTrash className="text-xl cursor-pointer" onClick={() => deleteItem(item._id)}/>
 				</div>

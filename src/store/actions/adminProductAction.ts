@@ -1,12 +1,12 @@
 import apis from "src/apis";
-import api, { getApi } from "src/apis";
-import { ACTION_TYPES, CategoryType, Scope, StatusCode } from "store/types";
-import { Dispatch } from "redux";
+import api, {getApi} from "src/apis";
+import {ACTION_TYPES, CategoryType, Scope, StatusCode} from "store/types";
+import {Dispatch} from "redux";
 
 
-export const fetchFlatCategoriesAction = (flatCategories, dispatch: Dispatch)=>{
-    return new Promise<CategoryType[]>(async (resolve, reject)=>{
-        if(flatCategories){
+export const fetchFlatCategoriesAction = (flatCategories, dispatch: Dispatch) => {
+    return new Promise<CategoryType[]>(async (resolve, reject) => {
+        if (flatCategories) {
             resolve(flatCategories)
         } else {
             let {data, status} = await apis.get<CategoryType[]>(`/api/categories`)
@@ -24,9 +24,9 @@ export const fetchFlatCategoriesAction = (flatCategories, dispatch: Dispatch)=>{
 }
 
 
-export const fetchCategoryDetailsAction = (categoryDetails, dispatch: Dispatch)=>{
-    return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
-        if(categoryDetails && categoryDetails.length > 0){
+export const fetchCategoryDetailsAction = (categoryDetails, dispatch: Dispatch) => {
+    return new Promise<CategoryType[] | null>(async (resolve, reject) => {
+        if (categoryDetails && categoryDetails.length > 0) {
             resolve(categoryDetails)
             dispatch({
                 type: ACTION_TYPES.FETCH_CATEGORY_DETAILS,
@@ -47,9 +47,9 @@ export const fetchCategoryDetailsAction = (categoryDetails, dispatch: Dispatch)=
     })
 }
 
-export const deleteCategoryDetailsAction = (detailId, dispatch: Dispatch)=>{
-    return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
-       
+export const deleteCategoryDetailsAction = (detailId, dispatch: Dispatch) => {
+    return new Promise<CategoryType[] | null>(async (resolve, reject) => {
+
         let {data, status} = await apis.delete(`/api/category/detail/${detailId}`)
         if (status === StatusCode.Ok) {
             dispatch({
@@ -61,9 +61,9 @@ export const deleteCategoryDetailsAction = (detailId, dispatch: Dispatch)=>{
     })
 }
 
-export const fetchProductAttributesAction = (productAttributes, dispatch: Dispatch)=>{
-    return new Promise<CategoryType[] | null>(async (resolve, reject)=>{
-        if(productAttributes && productAttributes.length > 0){
+export const fetchProductAttributesAction = (productAttributes, dispatch: Dispatch) => {
+    return new Promise<CategoryType[] | null>(async (resolve, reject) => {
+        if (productAttributes && productAttributes.length > 0) {
             resolve(productAttributes)
             // for updating operation
             dispatch({
@@ -85,9 +85,9 @@ export const fetchProductAttributesAction = (productAttributes, dispatch: Dispat
     })
 }
 
-export function fetchAdminBrandsAction(adminBrands, dispatch: Dispatch){
-    return new Promise((resolve, reject)=>{
-        if(!adminBrands.cached || adminBrands.cached.length === 0) {
+export function fetchAdminBrandsAction(adminBrands, dispatch: Dispatch) {
+    return new Promise((resolve, reject) => {
+        if (!adminBrands.cached || adminBrands.cached.length === 0) {
             apis.get("/api/brands").then(({data, status}) => {
                 dispatch({
                     type: ACTION_TYPES.FETCH_ADMIN_BRANDS,
@@ -104,30 +104,26 @@ export function fetchAdminBrandsAction(adminBrands, dispatch: Dispatch){
     })
 }
 
-export function updateBrandCacheAction(updatedBrandCaches, dispatch: Dispatch){
+export function updateBrandCacheAction(updatedBrandCaches, dispatch: Dispatch) {
     dispatch({
         type: ACTION_TYPES.UPDATE_BRAND_CACHE,
         payload: updatedBrandCaches
     })
 }
 
-export function fetchAdminProductsAction(adminProducts, pageNumber, dispatch: Dispatch){
-    if(!adminProducts.cached[pageNumber] || adminProducts.cached[pageNumber].length === 0) {
-        api.get(`/api/products?perPage=200&pageNumber=${pageNumber}`).then(({data, status}) => {
-            dispatch({
-                type: ACTION_TYPES.FETCH_ADMIN_PRODUCTS,
-                payload: {
-                    total: data.total,
-                    pageNumber: pageNumber,
-                    products: data.products
-                }
-            })
-        })
-    }
+export function fetchProducts(pageNumber) {
+    return new Promise<[any, any]>(async (resolve) => {
+        try {
+            const {data, status} = await api.get(`/api/products?perPage=200&pageNumber=${pageNumber}`)
+            resolve([data.products, null])
+        } catch (ex) {
+            resolve([null, ex])
+        }
+    })
 }
 
-export function fetchAdminStaticFilesAction(adminStaticFiles,  dispatch: Dispatch){
-    if(!adminStaticFiles || adminStaticFiles.length === 0) {
+export function fetchAdminStaticFilesAction(adminStaticFiles, dispatch: Dispatch) {
+    if (!adminStaticFiles || adminStaticFiles.length === 0) {
         api.get("/api/files/static-files").then(({data}) => {
             dispatch({
                 type: ACTION_TYPES.FETCH_STATIC_FILES,
@@ -135,15 +131,15 @@ export function fetchAdminStaticFilesAction(adminStaticFiles,  dispatch: Dispatc
             })
         });
     }
-    
+
 }
 
-export function updateProductAction<T>(adminProducts, productId: string, updatedProduct,  dispatch){
-    
-    return new Promise<[status: number, data: T]>(async (resolve, reject)=>{
-        try{
-            const {data, status} = await apis.patch("/api/product/"+productId, updatedProduct)
-            if(status === 201){
+export function updateProductAction<T>(adminProducts, productId: string, updatedProduct, dispatch) {
+
+    return new Promise<[status: number, data: T]>(async (resolve, reject) => {
+        try {
+            const {data, status} = await apis.patch("/api/product/" + productId, updatedProduct)
+            if (status === 201) {
                 dispatch({
                     type: ACTION_TYPES.UPDATE_PRODUCT,
                     payload: {
@@ -153,7 +149,7 @@ export function updateProductAction<T>(adminProducts, productId: string, updated
                 })
             }
             resolve([status, data])
-        } catch (ex){
+        } catch (ex) {
             reject(ex)
         }
     })

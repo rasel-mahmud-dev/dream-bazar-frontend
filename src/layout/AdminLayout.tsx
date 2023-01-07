@@ -3,8 +3,6 @@ import React, {lazy, ReactNode, useEffect, useState, Suspense} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { Outlet } from "react-router-dom";
-import { currentAuthAction } from "actions/authAction";
-import { setLanguage, toggleTheme } from "actions/appContextActions";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "components/Footer/Footer";
 
@@ -17,14 +15,15 @@ import PrivateRoute from "src/middleware/PrivateRoute";
 import {Scope} from "store/types";
 import BrandListSkeleton from "pages/adminDashboard/brandList/BrandList.Skeleton";
 import BrandListLite from "pages/adminDashboard/brandList/BrandListLite";
-
+import CategoryDetail from "pages/adminDashboard/categoryList/CategoryDetail";
+import useAppSelector from "src/hooks/useAppSelector";
 
 const AdminDashboardHome = lazy(() => import("pages/adminDashboard/DashboardHomePage"));
 
 const AddCategory = lazy(() => import("pages/adminDashboard/categoryList/AddCategory"));
 
 const ProductAttribute = lazy(() => import("pages/adminDashboard/productAttribute/ProductAttribute"));
-const ProductList = lazy(() => import("pages/adminDashboard/productList/ProductList"));
+const AllProducts = lazy(() => import("pages/shared/AllProducts/AllProducts"));
 const AddBrand = lazy(() => import("pages/adminDashboard/brandList/AddBrand"));
 const AddProduct = lazy(() => import("pages/shared/AddProduct/AddProduct"));
 const CategoryList = lazy(() => import("pages/adminDashboard/categoryList/Categories"));
@@ -43,7 +42,7 @@ export const adminRoute =   [
         path: "products",
         element: (
             <PrivateRoute scope={Scope.ADMIN_USER}>
-                <ProductList />
+                <AllProducts />
             </PrivateRoute>
         ),
     },
@@ -83,6 +82,12 @@ export const adminRoute =   [
 
             <AddCategory />
 
+        ),
+    },
+    {
+        path: "categories/:id",
+        element: (
+            <CategoryDetail />
         ),
     },
     {
@@ -136,7 +141,7 @@ const AdminLayout = () => {
     const {
         appState: { isOpenLeftBar },
         authState: { auth },
-    } = useSelector((state: RootState) => state);
+    } = useAppSelector(state => state);
 
     const navigate = useNavigate();
 
@@ -237,7 +242,7 @@ const AdminLayout = () => {
 
                 <div className="mx-auto">
                     <div className="flex">
-                        <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar} auth={auth} />
+                        <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar}  auth={auth}/>
 
                         <div className="container !px-3">
                             <Suspense fallback={<h1>Hi loading</h1>}>

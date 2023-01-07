@@ -59,6 +59,7 @@ function CategoryList(props) {
         if(params.pId) {
             rootCategory = flatCategories.find(item => item.name === params.pId);
         }
+        console.log(flatCategories)
 
         if(!rootCategory){
             // if user put wrong root category name then set electronic as root category

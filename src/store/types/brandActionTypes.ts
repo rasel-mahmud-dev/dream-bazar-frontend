@@ -1,4 +1,14 @@
-import {ACTION_TYPES, Brand, CategoryType} from "store/types";
+import {ACTION_TYPES, Brand } from "store/types";
+
+/**
+ Toggle product attribute section in product filter page on sidebar,
+ */
+export interface FetchBrands {
+    type: ACTION_TYPES.FETCH_BRANDS,
+    payload: Brand[]
+
+}
+
 
 /**
  Toggle product attribute section in product filter page on sidebar,
@@ -13,5 +23,5 @@ export interface FetchBrandForCategoriesAction {
 
 
 
-export type BrandActionTypes = FetchBrandForCategoriesAction
+export type BrandActionTypes = FetchBrandForCategoriesAction | FetchBrands
 

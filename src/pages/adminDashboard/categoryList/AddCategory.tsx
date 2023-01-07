@@ -17,7 +17,7 @@ import Checkbox from "../../../components/UI/Form/checkbox/Checkbox";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";
 import ActionModal from "components/ActionModal/ActionModal";
-import {fetchCategoryDetailAction} from "actions/categoryAction";
+import {addFlatCategory, fetchCategoryDetailAction} from "actions/categoryAction";
 
 interface props {
     // flatCategories, productAttributes, categoryDetail, onCloseForm, updateId, onUpdate
@@ -198,14 +198,15 @@ const AddCategory = (props) => {
 
             setState((p) => {
                 let filterAttributes = [];
-                catDetail.filterAttributes.forEach((attName) => {
+
+                catDetail.filterAttributes?.forEach((attName) => {
                     let att = productAttributes.find((pAtt) => pAtt.attributeName === attName);
                     if (att) {
                         filterAttributes.push(att);
                     }
                 });
                 let defaultExpandAttr = [];
-                catDetail.defaultExpand.forEach((attName) => {
+                catDetail.defaultExpand?.forEach((attName) => {
                     let att = productAttributes.find((pAtt) => pAtt.attributeName === attName);
                     if (att) {
                         defaultExpandAttr.push(att);
@@ -264,6 +265,11 @@ const AddCategory = (props) => {
                 errorMessage: updateFormData[name] ? "" : updateFormData[name].errorMessage,
             },
         };
+        if(name === "parentId" && updateFormData.parentId.value === "null") {
+            updateFormData.parentId.value = null
+        }
+
+
         setState({
             ...state,
             formData: updateFormData,
@@ -281,19 +287,14 @@ const AddCategory = (props) => {
         for (let fieldKey in formData) {
 
             if (fieldKey === "filterAttributes") {
-                if (formData[fieldKey].value.length === 0) {
-                    errorMessage = "Please select " + fieldKey;
-                    isComplete = false;
-                } else {
-                    payload[fieldKey] = formData[fieldKey].value.map((att) => att.attributeName);
-                }
+                payload[fieldKey] = formData[fieldKey]?.value?.map((att) => att.attributeName) || []
+
             } else if (fieldKey === "defaultExpand") {
-                if (formData[fieldKey].value && formData[fieldKey].value.length > 0) {
-                    payload[fieldKey] = formData[fieldKey].value.map((att) => att.attributeName);
-                } else {
-                    payload[fieldKey] = [];
-                }
-            } else if(fieldKey === "isProductLevel") {} else {
+                payload[fieldKey] = formData[fieldKey]?.value?.map((att) => att.attributeName) || []
+
+            } else if (fieldKey === "isProductLevel") {
+                payload[fieldKey] = formData[fieldKey].value;
+            } else {
                 if (formData[fieldKey].value) {
                     payload[fieldKey] = formData[fieldKey].value;
                 } else {
@@ -303,7 +304,6 @@ const AddCategory = (props) => {
                 }
             }
         }
-
 
 
         /** make Product description section data like from sections array of object
@@ -345,6 +345,7 @@ const AddCategory = (props) => {
                 // add as a category
                 let { data, status} = await  apis.post("/api/category", payload)
                 if (status === StatusCode.Created) {
+                    dispatch(addFlatCategory(data.category))
                     setTimeout(()=>{
                         setHttpResponse({ message: data.message, loading: false, isSuccess: true });
                     }, 300)
@@ -500,6 +501,9 @@ const AddCategory = (props) => {
                     options={() => (
                         <>
                             <option value="0">Select category parent ID</option>
+                            <option className="cursor-pointer py-1 menu-item" value={"null"}>
+                                {"null"}
+                            </option>
                             {flatCategories?.map((cat) => (
                                 <option className="cursor-pointer py-1 menu-item" value={cat._id}>
                                     {cat.name}

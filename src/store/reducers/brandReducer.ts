@@ -6,6 +6,7 @@ export interface BrandStateType {
         total: number;
         cached: any[];
     };
+    allBrands?: Brand[]
     /// make caching brand for individual category
     brandsForCategory: {},
 }
@@ -14,6 +15,7 @@ export interface BrandStateType {
 const initialState: BrandStateType = {
     /// make caching brand for individual category
     brandsForCategory: {},
+    allBrands: [],
     brands: {
         total: 0,
         cached: [],
@@ -25,6 +27,14 @@ const brandReducer = (state: BrandStateType = initialState, action: BrandActionT
     let updatedState: BrandStateType = {...state};
 
     switch (action.type) {
+
+        /// fetch all brands
+        case ACTION_TYPES.FETCH_BRANDS:
+            return {
+                ...state,
+                allBrands: action.payload
+            }
+
 
         /// make caching brand for individual category
         case ACTION_TYPES.FETCH_CATEGORY_BRANDS:
@@ -39,7 +49,6 @@ const brandReducer = (state: BrandStateType = initialState, action: BrandActionT
             return state;
     }
 };
-
 
 
 export default brandReducer

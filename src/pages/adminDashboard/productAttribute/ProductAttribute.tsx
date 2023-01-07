@@ -1,34 +1,27 @@
 import React, {useEffect} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "src/store";
+import { useDispatch } from "react-redux";
 import apis from "src/apis";
-// import { deleteFlatCategoryAction } from "actions/productAction";
 import {ACTION_TYPES, StatusCode} from "store/types";
 import errorMessageCatch from "src/utills/errorMessageCatch";
-import { toggleBackdrop } from "actions/appAction";
-// import ActionInfo from "components/ActionInfo/ActionInfo";
-// import { InputGroup } from "UI/Form";
 import {Button, Modal} from "UI/index";
-import {BsPencilSquare, FaPenAlt, FaTimes, FcEmptyTrash} from "react-icons/all";
-// import Table, { Column } from "UI/table/Table";
-// import SelectGroup from "UI/Form/SelectGroup";
-// import Checkbox from "UI/Form/checkbox/Checkbox";
-// import isoStringToDate from "src/utills/isoStringToDate";
-// import {fetchCategoryDetailsAction, fetchFlatCategoriesAction, fetchProductAttributesAction} from "actions/adminProductAction";
+import {BsPencilSquare, CgEye, FaPenAlt, FaTimes, FcEmptyTrash} from "react-icons/all";
 import Card from "UI/Form/Card/Card";
-import Circle from "UI/Circle/Circle";
-// import AddCategoryDetail from "pages/adminDashboard/CategoryList/AddCategoryDetail";
-import AddingAttribute from "pages/adminDashboard/productAttribute/AddingAttribute";
-import {fetchProductAttributesAction} from "actions/adminProductAction";
+import AddAttribute from "pages/adminDashboard/productAttribute/AddAttribute";
+
+import Table, {Column} from "UI/table/Table";
+import {fetchProductAttributesAction} from "actions/categoryAction";
+import useAppSelector from "src/hooks/useAppSelector";
+import {FetchFilterAttributesAction} from "store/types/categoryActionTypes";
 
 
 const ProductAttribute = (props) => {
     const {
-        appState,
-        productState: { flatCategories },
-        adminState: { productAttributes, categoryDetails }
-    } = useSelector((state: RootState) => state);
-    
+        categoryState: {productFilterAttributes}
+    } = useAppSelector((state) => state);
+
+
+
+
     const dispatch = useDispatch();
     
     const [state, setState] = React.useState<any>({
@@ -39,7 +32,9 @@ const ProductAttribute = (props) => {
     const { formData, isShowForm, updateId } = state;
     
     useEffect(() => {
-        fetchProductAttributesAction(productAttributes, dispatch);
+        if(productFilterAttributes.length === 0) {
+            fetchProductAttributesAction(dispatch)
+        }
     }, []);
     
     
@@ -153,13 +148,7 @@ const ProductAttribute = (props) => {
             httpResponse: "",
             isShowForm: isOpen,
             formData: clearField(),
-        });
-        dispatch(
-            toggleBackdrop({
-                isOpen: isOpen,
-                scope: "custom",
-            })
-        );
+        })
     }
     
     function setUpdateHandler(attr) {
@@ -167,13 +156,7 @@ const ProductAttribute = (props) => {
             ...state,
             isShowForm: true,
             attribute: attr
-        });
-        dispatch(
-            toggleBackdrop({
-                isOpen: true,
-                scope: "custom",
-            })
-        );
+        })
     }
     
     function closeModal(){
@@ -182,19 +165,13 @@ const ProductAttribute = (props) => {
             isShowForm: false,
             attribute: null
         }))
-        dispatch(
-            toggleBackdrop({
-                isOpen: false,
-                scope: "custom",
-            })
-        );
     }
     
     
     // update and create attribute handler
     function handleUpdateAttributes(data, attributeId){
         if(attributeId){
-            let updatedProductAttributes = [...productAttributes]
+            let updatedProductAttributes = [...productFilterAttributes]
             let index = updatedProductAttributes.findIndex(att=>att._id === attributeId)
             if(index !== -1){
                 updatedProductAttributes[index] = {
@@ -202,33 +179,47 @@ const ProductAttribute = (props) => {
                     ...data
                 }
             }
-            fetchProductAttributesAction(updatedProductAttributes, dispatch);
+            dispatch<FetchFilterAttributesAction>({
+                type: ACTION_TYPES.FETCH_FILTER_ATTRIBUTES,
+                payload: updatedProductAttributes
+            })
         } else {
             if(data) {
-                fetchProductAttributesAction([data, ...productAttributes], dispatch);
+                fetchProductAttributesAction(dispatch);
             }
         }
         
         setState(s=>({...s, isShowForm: false}))
     }
-    
-    
-    // deleted attribute handler
-    function handleDeleteAttributes(attributeId){
-        if(attributeId){
-            fetchProductAttributesAction(productAttributes.filter(attr=>attr._id !== attributeId), dispatch);
-        }
-        setState(s=>({...s, isShowForm: false}))
-    }
+
     
     function deleteItem(attributeId: string) {
         apis.delete("/api/product/attribute/"+attributeId).then(({status})=>{
             if(status === StatusCode.Ok){
-                fetchProductAttributesAction(productAttributes.filter(attr=>attr._id !== attributeId), dispatch);
+                dispatch<FetchFilterAttributesAction>({
+                    type: ACTION_TYPES.FETCH_FILTER_ATTRIBUTES,
+                    payload: productFilterAttributes?.filter(attr=>attr._id !== attributeId)
+                })
             }
         })
     }
-    
+
+    const columns: Column[] = [
+        {title: "ID", dataIndex: "_id", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0)},
+        {title: "Attribute Label", dataIndex: "attributeLabel", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0)},
+        {title: "Attribute Name", dataIndex: "attributeName", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0)},
+        {
+            title: "Action",
+            dataIndex: "",
+            className: "text-center",
+            render: (_, item: any) => (
+                <div className="flex justify-center items-center gap-x-2">
+                    <BsPencilSquare className="text-md cursor-pointer" onClick={() => setUpdateHandler(item)}/>
+                    <FcEmptyTrash className="text-xl cursor-pointer" onClick={() => deleteItem(item._id)}/>
+                </div>
+            ),
+        },
+    ];
     
     return (
         <div className="pr-4">
@@ -245,7 +236,7 @@ const ProductAttribute = (props) => {
             
             
             <Modal isOpen={state.isShowForm} className="bg-red-500 !max-w-md !top-10" backdropClass="!bg-dark-900/80" onClose={closeModal}>
-				<AddingAttribute
+				<AddAttribute
                     onUpdateAttributes={handleUpdateAttributes}
                     attribute={state.attribute}
                     onCloseForm={closeModal}
@@ -254,28 +245,24 @@ const ProductAttribute = (props) => {
     
     
     
-            <Card className={`${!state.isShowForm ? 'block' : 'hidden'}`}>
+            <Card>
 				<h3 className="heading-5">
-					Attribute fetch {productAttributes?.length} of {productAttributes?.length}{" "}
+					Attribute fetch {productFilterAttributes?.length} of {productFilterAttributes?.length}{" "}
 				</h3>
-                
-                {productAttributes?.map((attr, index) => (
-                    <div className="border my-10 rounded-md relative p-5">
-						<div className="absolute right-2  top-2 flex gap-x-2">
-							<Circle className=" !h-6 !w-6 hover:bg-green-450 hover:text-white" onClick={() => setUpdateHandler(attr)}>
-								<FaPenAlt className="text-xs" />
-							</Circle>
 
-							<Circle className=" !h-6 !w-6 hover:bg-red-400 hover:text-white" onClick={() => deleteItem(attr._id)}>
-								<FaTimes className="text-xs" />
-							</Circle>
-						</div>
-                        <span>SL: {index + 1}</span>
-						<code className="whitespace-pre-line ">
-							<pre className="overflow-x-auto">{JSON.stringify(attr, undefined, 2)}</pre>
-						</code>
-					</div>
-                ))}
+
+
+                <Table
+                    className=""
+                    dataSource={productFilterAttributes ? productFilterAttributes : []}
+                    columns={columns}
+                    tbodyClass={{
+                        tr: "hover:bg-green-500/10",
+                    }}
+                    fixed={true}
+                    scroll={{x: 1000, y: 600}}
+                />
+
                 
 			</Card>
 		</div>
