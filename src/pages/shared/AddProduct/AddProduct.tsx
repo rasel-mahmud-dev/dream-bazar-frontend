@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {InputGroup} from "UI/Form";
 import SelectGroup from "UI/Form/SelectGroup";
-import {fetchFlatCategoriesAction} from "actions/adminProductAction";
 import Card from "UI/Form/Card/Card";
 import FileUpload from "UI/Form/File/FileUpload";
 import {Button} from "UI/index";
@@ -21,7 +20,7 @@ import {fetchBrands} from "actions/brandAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";
 import {CategoryDetail} from "reducers/categoryReducer";
-import {fetchCategoryDetail} from "actions/categoryAction";
+import {fetchCategoryDetail, fetchFlatCategoriesAction} from "actions/categoryAction";
 
 
 const AddProduct = () => {
@@ -169,7 +168,7 @@ const AddProduct = () => {
         if(newProductData.categoryId.value){
             fetchCategoryDetail(newProductData.categoryId.value).then(([data]) => {
                 if(data) {
-                    console.log(data)
+
                     setCategoryDetail(data)
                 }
             })
@@ -259,7 +258,6 @@ const AddProduct = () => {
         }
 
         if (!isCompleted) {
-            toast.error(errorMessage);
             setHttpResponse((p) => ({...p, message: errorMessage, isSuccess: false}));
             return;
         }
@@ -270,7 +268,6 @@ const AddProduct = () => {
         if (attributeValue) {
             if (!Object.keys(attributeValue).length) {
                 errorMessage = "Please provide attribute fields";
-                toast.error(errorMessage);
                 setHttpResponse((p) => ({...p, message: errorMessage, isSuccess: false}));
                 return;
             }
@@ -297,7 +294,6 @@ const AddProduct = () => {
 
         if (!isDoneSpecifications) {
             let msg = "Please provide description required field";
-            toast.error(msg);
             return setHttpResponse((p) => ({...p, message: msg, isSuccess: false}));
         }
 
@@ -378,7 +374,6 @@ const AddProduct = () => {
         setCategoryDetail(null as unknown as CategoryDetail)
 
     }
-
 
     return (
         <div className="">
@@ -636,7 +631,7 @@ const AddProduct = () => {
                             inputClass="input-group"
                             placeholder="Choose Cover Photo"
                             onChange={handleChange}
-                            // defaultValue={productData.coverPhoto.value}
+                            defaultValue={newProductData.coverPhoto.value}
                             labelClass="dark:text-white !mb-2"
                             className={"!flex-col col-span-2 !w-40"}
                         />

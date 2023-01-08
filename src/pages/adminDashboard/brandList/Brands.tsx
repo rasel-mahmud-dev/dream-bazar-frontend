@@ -7,31 +7,39 @@ import {BsPencilSquare, FcEmptyTrash} from "react-icons/all";
 import {useDispatch, useSelector} from "react-redux";
 
 import {RootState} from "src/store";
-import {fetchAdminBrandsAction, updateBrandCacheAction} from "actions/adminProductAction";
 import {Link, useNavigate} from "react-router-dom";
 import Card from "UI/Form/Card/Card";
 import isoStringToDate from "src/utills/isoStringToDate";
+import {fetchBrands} from "actions/brandAction";
+import {ACTION_TYPES} from "store/types";
+import useAppDispatch from "src/hooks/useAppDispatch";
+import useAppSelector from "src/hooks/useAppSelector";
 
 const AllBrands = (props) => {
     const {
-        productState: {adminBrands},
-    } = useSelector((state: RootState) => state);
+        brandState: { allBrands },
+    } = useAppSelector(state => state);
 
     
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     
     const navigate = useNavigate();
-    
+
+
     useEffect(() => {
-        fetchAdminBrandsAction(adminBrands, dispatch);
+        if(allBrands.length === 0) {
+            dispatch(fetchBrands());
+        }
     }, []);
     
-    function deleteItem(id: string) {
-        if(adminBrands.cached) {
-            updateBrandCacheAction(adminBrands.cached.filter((b )=> b._id !== id), dispatch)
-        };
+    function deleteItem(_id: string) {
+        dispatch({
+            type: ACTION_TYPES.FETCH_BRANDS,
+            payload: allBrands.filter( b => b._id !== _id),
+        })
     }
-    
+
+
     const columns = [
         {
             title: "Logo",
@@ -76,14 +84,13 @@ const AllBrands = (props) => {
         },
     ];
 
-    console.log(adminBrands)
     
     return (
         <Card>
 			<div className="flex justify-between items-center mb-4">
 				<span className="p flex items-center">
 					<h1 className="heading-2 mr-4">Brands</h1>
-                    {adminBrands.cached?.length} of {adminBrands.cached?.length}{" "}
+                    {allBrands?.length} of {allBrands?.length}{" "}
 				</span>
 				<Link to="/admin/brands/new">
 					<Button className="bg-secondary-300">Add New Brand</Button>
@@ -91,7 +98,7 @@ const AllBrands = (props) => {
 			</div>
 
 			<Table
-                dataSource={adminBrands.cached ? adminBrands.cached : []}
+                dataSource={allBrands}
                 columns={columns}
                 tbodyClass={{
                     tr: "hover:bg-green-500/10",

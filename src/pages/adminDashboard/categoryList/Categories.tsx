@@ -7,12 +7,12 @@ import {Button} from "UI/index";
 import {BsPencilSquare, CgEye, FcEmptyTrash} from "react-icons/all";
 import Table, {Column} from "UI/table/Table";
 import isoStringToDate from "src/utills/isoStringToDate";
-import {fetchFlatCategoriesAction} from "actions/adminProductAction";
 import Card from "UI/Form/Card/Card";
 import {Link, useNavigate} from "react-router-dom";
 import makeFlatToNested from "src/utills/makeFlatToNested";
 
 import "./styles.scss";
+import {fetchFlatCategoriesAction} from "actions/categoryAction";
 
 
 const Categories = (props) => {

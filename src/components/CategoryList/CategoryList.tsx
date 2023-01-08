@@ -5,12 +5,12 @@ import {FaTimes} from "react-icons/all";
 import { CategoryType} from "store/types";
 
 import "./styles.scss";
-import {fetchFlatCategoriesAction} from "actions/adminProductAction";
+
 import useLanguage from "src/hooks/useLanguage";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";
-import {changeCategoryAction} from "actions/categoryAction";
-import {root} from "postcss";
+import {changeCategoryAction, fetchFlatCategoriesAction} from "actions/categoryAction";
+
 
 
 function CategoryList(props) {

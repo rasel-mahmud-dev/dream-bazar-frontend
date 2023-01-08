@@ -17,6 +17,7 @@ import BrandListSkeleton from "pages/adminDashboard/brandList/BrandList.Skeleton
 import BrandListLite from "pages/adminDashboard/brandList/BrandListLite";
 import CategoryDetail from "pages/adminDashboard/categoryList/CategoryDetail";
 import useAppSelector from "src/hooks/useAppSelector";
+import AllProductsLite from "pages/shared/AllProducts/AllProductsLite";
 
 const AdminDashboardHome = lazy(() => import("pages/adminDashboard/DashboardHomePage"));
 
@@ -42,7 +43,7 @@ export const adminRoute =   [
         path: "products",
         element: (
             <PrivateRoute scope={Scope.ADMIN_USER}>
-                <AllProducts />
+                <AllProductsLite />
             </PrivateRoute>
         ),
     },

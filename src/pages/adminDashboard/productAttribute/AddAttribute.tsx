@@ -6,8 +6,6 @@ import errorMessageCatch from "src/utills/errorMessageCatch";
 import {InputGroup} from "UI/Form";
 import HttpResponse from "components/HttpResponse/HttpResponse";
 import convStringToNumber from "src/utills/convStringToNumber";
-import table from "UI/table/Table";
-
 
 
 
@@ -46,7 +44,8 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
     
     useEffect(() => {
         if (attribute) {
-            let updatedFormData = {};
+            let updatedFormData = {...state.formData};
+
             for (let formDataKey in state.formData) {
                 if (attribute[formDataKey]) {
                     updatedFormData[formDataKey] = {
@@ -54,9 +53,47 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                     };
                 }
             }
-            setState({...state, formData: updatedFormData, optionsFields: attribute.options});
+
+            // convert all options value to string. because it uses to html input
+            let updateOptionsFields = attribute?.options.map(item=>{
+                if(attribute.isRange){
+                    return {
+                        ...item,
+                        value: [String(item.value[0]), String(item.value[1])]
+                    }
+                } else {
+                    return {
+                        ...item,
+                        value: String(item.value)
+                    }
+                }
+            })
+            setState({...state, formData: updatedFormData, optionsFields: updateOptionsFields});
         }
+
+        return ()=> resetState();
+
     }, [attribute]);
+
+
+
+    function resetState(){
+        setState({
+            formData: {
+                attributeLabel: {value: "", errorMessage: ""},
+                attributeName: {value: "", errorMessage: ""},
+                options: {value: [], errorMessage: ""},
+                isRange: {value: false, errorMessage: ""},
+            },
+            optionsFields: [
+                {name: "", value: ""},
+                {name: "", value: ""},
+                {name: "", value: ""},
+                {name: "", value: ""},
+            ],
+        })
+    }
+
     
     const [httpResponse, setHttpResponse] = useState({
         message: "",
@@ -78,22 +115,29 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
             },
         };
 
+        if (name === "isRange"){
+            if(checked){
+                changeOptionFieldType(checked)
+            } else {
+                changeOptionFieldType(false)
+            }
+        }
         setState({
             ...state,
             formData: updateFormData,
         });
     }
 
-    useEffect(()=>{
-            setState((prevState)=>{
+    function changeOptionFieldType(isRange: boolean) {
+            setState((prevState) => {
                 let updateOptionsFields = [];
 
-                if(formData.isRange.value) {
+                if (isRange) {
                     // make array tuple instead of string field
                     updateOptionsFields = prevState.optionsFields.map(field => {
                         return {name: field.name, value: []}
                     })
-                } else{
+                } else {
                     // make one value instead of range value
                     updateOptionsFields = prevState.optionsFields.map(field => {
                         return {name: field.name, value: ""}
@@ -106,8 +150,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                 }
             })
 
-    }, [formData.isRange.value])
-
+    }
     
     function handleOptionValueChange(name, value, index, rangeInputIndex) {
         let updatedOptionsFields = [...state.optionsFields];
@@ -313,7 +356,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
 					<label className="heading-5 text-gray-600">Option {index + 1}</label>
 					<div className="flex gap-x-4">
 						<InputGroup
-                            className="mt-0"
+                            className="mt-0 w-full"
                             inputClass="!mt-1"
                             type="text"
                             name="name"
@@ -323,7 +366,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                         />
 
                         { formData.isRange.value ? (
-                            <div className="flex items-center gap-x-2">
+                            <div className="flex items-center gap-x-2 w-full">
                                 <InputGroup
                                     className="mt-0"
                                     inputClass="!mt-1"
@@ -345,7 +388,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                             </div>
                         ) : (
                             <InputGroup
-                                className="mt-0"
+                                className="mt-0 w-full"
                                 inputClass="!mt-1"
                                 type="text"
                                 name="value"

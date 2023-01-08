@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import SelectGroup from "UI/Form/SelectGroup";
 import {Button} from "UI/index";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchCategoryDetailsAction, fetchFlatCategoriesAction, fetchProductAttributesAction} from "actions/adminProductAction";
+import {fetchFlatCategoriesAction, fetchProductAttributesAction} from "actions/categoryAction";
 import MultiSelect from "UI/Form/multiSelect/MultiSelect";
 import apis from "src/apis";
 import errorMessageCatch from "src/utills/errorMessageCatch";
@@ -30,8 +29,7 @@ const AddCategory = (props) => {
     const navigate = useNavigate();
 
     const {
-        categoryState: {flatCategories},
-        adminState: {productAttributes, categoryDetails},
+        categoryState: { flatCategories, productFilterAttributes }
     } = useAppSelector(state => state);
 
     const dispatch = useAppDispatch();
@@ -56,104 +54,6 @@ const AddCategory = (props) => {
 
     const {formData} = state;
 
-    let a = {
-        "General": [
-            "Sales Package",
-            "Model Number",
-            "Part Number",
-            "Series",
-            "Color",
-            "Type",
-            "Suitable For",
-            "Battery Backup",
-            "Power Supply",
-            "Battery Cell"
-        ],
-        "Processor And Memory Features": [
-            "Dedicated Graphic Memory Type",
-            "Dedicated Graphic Memory Capacity",
-            "Processor Brand",
-            "Processor Name",
-            "Processor Model",
-            "Processor Generation",
-            "Processor Frequency",
-            "Processor Cors",
-            "Processor Thread",
-            "Cache Memory",
-            "RAM",
-            "RAM Type",
-            "Clock Speed",
-            "Expandable Memory",
-            "Graphic Processor"
-        ],
-        "Storage": [
-            "Storage Interface",
-            "Reading speed",
-            "Hard Drive",
-            "SSD",
-            "SSD Capacity"
-        ],
-        "Webcam": [
-            "Built-in Webcam"
-        ],
-        "Operating System": [
-            "OS Architecture",
-            "Operating System",
-            "System Architecture"
-        ],
-        "Port And Slot Features": [
-            "Mic In",
-            "RJ45",
-            "USB Port",
-            "Microphone Jack",
-            "HDMI Port",
-            "Hardware Interface",
-            "Other Ports"
-        ],
-        "Display And Audio Features": [
-            "Touchscreen",
-            "Screen Size",
-            "Screen Resolution",
-            "Screen Type",
-            "Speakers",
-            "Internal Mic"
-        ],
-        "Audio": [
-            "Built-in Microphone",
-            "Other Audio features",
-            "Remote control",
-            "Speaker Output"
-        ],
-        "Connectivity Features": [
-            "Wireless LAN",
-            "Bluetooth",
-            "Ethernet",
-            "Wireless"
-        ],
-        "Additional Features": [
-            "Disk Drive",
-            "Web Camera",
-            "Finger Print Sensor",
-            "Lock Port",
-            "Keyboard",
-            "Backlit Keyboard",
-            "Pointer Device",
-            "Included Software"
-        ],
-        "Dimensions": [
-            "Dimensions",
-            "Weight"
-        ],
-        "Warranty": [
-            "Warranty Summary",
-            "Warranty Service Type",
-            "Covered in Warranty",
-            "Not Covered in Warranty",
-            "Domestic Warranty",
-            "International Warranty"
-        ]
-    }
-
     function makeSections(productDescriptionSection: {}) {
         let sections = []
         for (let productDescriptionSectionKey in productDescriptionSection) {
@@ -166,7 +66,8 @@ const AddCategory = (props) => {
     }
 
     useEffect(()=>{
-        handleFetchFlatCategories();
+        fetchFlatCategoriesAction(flatCategories, dispatch);
+        fetchProductAttributesAction( dispatch);
     }, [])
 
     useEffect(() => {
@@ -193,21 +94,21 @@ const AddCategory = (props) => {
 
 
     useEffect(() => {
-        if (state.categoryDetail && productAttributes) {
+        if (state.categoryDetail && productFilterAttributes) {
             let catDetail: any = state.categoryDetail;
 
             setState((p) => {
                 let filterAttributes = [];
 
                 catDetail.filterAttributes?.forEach((attName) => {
-                    let att = productAttributes.find((pAtt) => pAtt.attributeName === attName);
+                    let att = productFilterAttributes.find((pAtt) => pAtt.attributeName === attName);
                     if (att) {
                         filterAttributes.push(att);
                     }
                 });
                 let defaultExpandAttr = [];
                 catDetail.defaultExpand?.forEach((attName) => {
-                    let att = productAttributes.find((pAtt) => pAtt.attributeName === attName);
+                    let att = productFilterAttributes.find((pAtt) => pAtt.attributeName === attName);
                     if (att) {
                         defaultExpandAttr.push(att);
                     }
@@ -238,7 +139,7 @@ const AddCategory = (props) => {
                 };
             });
         }
-    }, [productAttributes, state.categoryDetail]);
+    }, [productFilterAttributes, state.categoryDetail]);
 
     const [httpResponse, setHttpResponse] = useState({
         message: "",
@@ -247,12 +148,11 @@ const AddCategory = (props) => {
     });
 
     function handleFetchAttributes() {
-        fetchProductAttributesAction(productAttributes, dispatch);
+        if(!productFilterAttributes) {
+            fetchProductAttributesAction(dispatch);
+        }
     }
 
-    function handleFetchFlatCategories() {
-        fetchFlatCategoriesAction(flatCategories, dispatch);
-    }
 
     function handleChange(e) {
         const {name, value, checked} = e.target;
@@ -466,6 +366,8 @@ const AddCategory = (props) => {
     }
 
 
+
+
     return (
         <Card className="">
             <form onSubmit={handleAdd}>
@@ -537,7 +439,7 @@ const AddCategory = (props) => {
                     options={(click) => (
                         <>
                             <li value="0">Select Attribute</li>
-                            {productAttributes?.map((attr) => (
+                            {productFilterAttributes?.map((attr) => (
                                 <li onClick={() => click(attr)} className="cursor-pointer py-1 menu-item">
                                     {attr.attributeName}
                                 </li>
@@ -560,7 +462,7 @@ const AddCategory = (props) => {
                     options={(click) => (
                         <>
                             <li value="0">Select Attribute</li>
-                            {productAttributes?.map((attr) => (
+                            {productFilterAttributes?.map((attr) => (
                                 <li onClick={() => click(attr)} className="cursor-pointer py-1 menu-item" value={attr._id}>
                                     {attr.attributeName}
                                 </li>

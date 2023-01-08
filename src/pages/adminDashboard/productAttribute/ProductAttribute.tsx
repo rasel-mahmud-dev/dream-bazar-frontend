@@ -1,10 +1,9 @@
 import React, {useEffect} from "react";
 import { useDispatch } from "react-redux";
-import apis from "src/apis";
+import apis, {getApi} from "src/apis";
 import {ACTION_TYPES, StatusCode} from "store/types";
-import errorMessageCatch from "src/utills/errorMessageCatch";
 import {Button, Modal} from "UI/index";
-import {BsPencilSquare, CgEye, FaPenAlt, FaTimes, FcEmptyTrash} from "react-icons/all";
+import {BsPencilSquare, FcEmptyTrash} from "react-icons/all";
 import Card from "UI/Form/Card/Card";
 import AddAttribute from "pages/adminDashboard/productAttribute/AddAttribute";
 
@@ -21,7 +20,6 @@ const ProductAttribute = (props) => {
 
 
 
-
     const dispatch = useDispatch();
     
     const [state, setState] = React.useState<any>({
@@ -29,108 +27,15 @@ const ProductAttribute = (props) => {
         attribute: null
     });
     
-    const { formData, isShowForm, updateId } = state;
+    const { formData  } = state;
     
     useEffect(() => {
         if(productFilterAttributes.length === 0) {
             fetchProductAttributesAction(dispatch)
         }
     }, []);
-    
-    
-    function handleChange(e) {
-        const { name, value, checked } = e.target;
-        let updateFormData = { ...state.formData };
-        updateFormData = {
-            ...updateFormData,
-            [name]: {
-                ...updateFormData[name],
-                value: name === "isProductLevel" ? checked : value,
-                errorMessage: updateFormData[name] ? "" : updateFormData[name].errorMessage,
-            },
-        };
-        setState({
-            ...state,
-            formData: updateFormData,
-        });
-    }
-    
-    async function handleAdd(e) {
-        let updateState = { ...state };
-        
-        e.preventDefault();
-        
-        let isComplete = true;
-        let payload = {};
-        
-        for (let item in formData) {
-            if (item === "name") {
-                if (!formData[item].value) {
-                    isComplete = false;
-                    formData[item].errorMessage = "Please enter " + item;
-                }
-            }
-            
-            payload[item] = formData[item].value;
-        }
-        
-        if (!isComplete) {
-            updateState.httpStatus = 500;
-            updateState.httpResponse = "Please fill Input";
-            setState(updateState);
-            return;
-        }
-        
-        updateState.httpStatus = 200;
-        updateState.httpResponse = "pending";
-        
-        // setState(updateState);
-        
-        updateState = { ...state };
-        
-        if (updateId) {
-            apis.patch("/api/category/" + updateId, payload)
-            .then(({ status, data }) => {
-                if (status === 201) {
-                    updateState.httpResponse = data.message;
-                    updateState.httpStatus = 200;
-                    
-                    dispatch({
-                        type: ACTION_TYPES.UPDATE_FLAT_CATEGORY,
-                        payload: data.category,
-                    });
-                }
-            })
-            .catch((ex) => {
-                updateState.httpResponse = errorMessageCatch(ex);
-                updateState.httpStatus = 500;
-            })
-            .finally(() => {
-                setState(updateState);
-            });
-        } else {
-            // add as a new brand
-            apis.post("/api/category", payload)
-            .then(({ status, data }) => {
-                if (status === 201) {
-                    updateState.httpResponse = data.message;
-                    updateState.httpStatus = 200;
-                    dispatch({
-                        type: ACTION_TYPES.ADD_FLAT_CATEGORY,
-                        payload: data.category,
-                    });
-                }
-            })
-            .catch((ex) => {
-                updateState.httpResponse = errorMessageCatch(ex);
-                updateState.httpStatus = 500;
-            })
-            .finally(() => {
-                setState(updateState);
-            });
-        }
-    }
-    
+
+
     function clearField() {
         let update = { ...formData };
         for (let updateKey in update) {
@@ -194,7 +99,7 @@ const ProductAttribute = (props) => {
 
     
     function deleteItem(attributeId: string) {
-        apis.delete("/api/product/attribute/"+attributeId).then(({status})=>{
+        getApi().delete("/api/product/attribute/"+attributeId).then(({status})=>{
             if(status === StatusCode.Ok){
                 dispatch<FetchFilterAttributesAction>({
                     type: ACTION_TYPES.FETCH_FILTER_ATTRIBUTES,
@@ -235,7 +140,7 @@ const ProductAttribute = (props) => {
 			</div>
             
             
-            <Modal isOpen={state.isShowForm} className="bg-red-500 !max-w-md !top-10" backdropClass="!bg-dark-900/80" onClose={closeModal}>
+            <Modal isOpen={state.isShowForm} className="bg-red-500 !max-w-xl !top-10" backdropClass="!bg-dark-900/80" onClose={closeModal}>
 				<AddAttribute
                     onUpdateAttributes={handleUpdateAttributes}
                     attribute={state.attribute}

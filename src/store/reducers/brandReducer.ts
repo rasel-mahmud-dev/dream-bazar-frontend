@@ -6,7 +6,7 @@ export interface BrandStateType {
         total: number;
         cached: any[];
     };
-    allBrands?: Brand[]
+    allBrands: Brand[]
     /// make caching brand for individual category
     brandsForCategory: {},
 }

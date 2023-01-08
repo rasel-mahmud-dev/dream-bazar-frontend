@@ -4,62 +4,6 @@ import {ACTION_TYPES, CategoryType, Scope, StatusCode} from "store/types";
 import {Dispatch} from "redux";
 
 
-export const fetchFlatCategoriesAction = (flatCategories, dispatch: Dispatch) => {
-    return new Promise<CategoryType[]>(async (resolve, reject) => {
-        if (flatCategories) {
-            resolve(flatCategories)
-        } else {
-            let {data, status} = await apis.get<CategoryType[]>(`/api/categories`)
-            if (status === StatusCode.Ok) {
-                dispatch({
-                    type: ACTION_TYPES.FETCH_FLAT_CATEGORIES,
-                    payload: data
-                })
-                resolve(data)
-            } else {
-                resolve(null as unknown as CategoryType[])
-            }
-        }
-    })
-}
-
-
-export const fetchCategoryDetailsAction = (categoryDetails, dispatch: Dispatch) => {
-    return new Promise<CategoryType[] | null>(async (resolve, reject) => {
-        if (categoryDetails && categoryDetails.length > 0) {
-            resolve(categoryDetails)
-            dispatch({
-                type: ACTION_TYPES.FETCH_CATEGORY_DETAILS,
-                payload: categoryDetails
-            })
-        } else {
-            let {data, status} = await apis.get<CategoryType[] | null>(`/api/category/category-details`)
-            if (status === StatusCode.Ok) {
-                dispatch({
-                    type: ACTION_TYPES.FETCH_CATEGORY_DETAILS,
-                    payload: data
-                })
-                resolve(data)
-            } else {
-                resolve(null)
-            }
-        }
-    })
-}
-
-export const deleteCategoryDetailsAction = (detailId, dispatch: Dispatch) => {
-    return new Promise<CategoryType[] | null>(async (resolve, reject) => {
-
-        let {data, status} = await apis.delete(`/api/category/detail/${detailId}`)
-        if (status === StatusCode.Ok) {
-            dispatch({
-                type: ACTION_TYPES.REMOVE_CATEGORY_DETAIL,
-                payload: detailId
-            })
-            resolve(data)
-        }
-    })
-}
 
 export const fetchProductAttributesAction = (productAttributes, dispatch: Dispatch) => {
     return new Promise<CategoryType[] | null>(async (resolve, reject) => {
@@ -85,31 +29,7 @@ export const fetchProductAttributesAction = (productAttributes, dispatch: Dispat
     })
 }
 
-export function fetchAdminBrandsAction(adminBrands, dispatch: Dispatch) {
-    return new Promise((resolve, reject) => {
-        if (!adminBrands.cached || adminBrands.cached.length === 0) {
-            apis.get("/api/brands").then(({data, status}) => {
-                dispatch({
-                    type: ACTION_TYPES.FETCH_ADMIN_BRANDS,
-                    payload: {
-                        total: data.length,
-                        brands: data
-                    }
-                })
-                resolve(data)
-            })
-        } else {
-            resolve(adminBrands.cached)
-        }
-    })
-}
 
-export function updateBrandCacheAction(updatedBrandCaches, dispatch: Dispatch) {
-    dispatch({
-        type: ACTION_TYPES.UPDATE_BRAND_CACHE,
-        payload: updatedBrandCaches
-    })
-}
 
 export function fetchProducts(pageNumber) {
     return new Promise<[any, any]>(async (resolve) => {
@@ -122,17 +42,6 @@ export function fetchProducts(pageNumber) {
     })
 }
 
-export function fetchAdminStaticFilesAction(adminStaticFiles, dispatch: Dispatch) {
-    if (!adminStaticFiles || adminStaticFiles.length === 0) {
-        api.get("/api/files/static-files").then(({data}) => {
-            dispatch({
-                type: ACTION_TYPES.FETCH_STATIC_FILES,
-                payload: data
-            })
-        });
-    }
-
-}
 
 export function updateProductAction<T>(adminProducts, productId: string, updatedProduct, dispatch) {
 
