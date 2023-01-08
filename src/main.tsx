@@ -7,6 +7,7 @@ import AppContextProvider from "store/AppContext";
 
 import useToast from "src/hooks/useToast";
 import App from "src/App";
+import PromptProvider from "components/Prompt/PromptContext";
 
 function MainComponent(props) {
     const [_, ToastContainer] = useToast();
@@ -28,11 +29,13 @@ function MainComponent(props) {
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <Provider store={store}>
-        <AppContextProvider>
-            <MainComponent>
-                <App />
-            </MainComponent>
-        </AppContextProvider>
+        <PromptProvider>
+            <AppContextProvider>
+                <MainComponent>
+                    <App />
+                </MainComponent>
+            </AppContextProvider>
+        </PromptProvider>
     </Provider>
 );
 

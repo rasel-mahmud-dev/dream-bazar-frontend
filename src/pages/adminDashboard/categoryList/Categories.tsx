@@ -13,12 +13,23 @@ import makeFlatToNested from "src/utills/makeFlatToNested";
 
 import "./styles.scss";
 import {fetchFlatCategoriesAction} from "actions/categoryAction";
+import usePrompt from "src/hooks/usePrompt";
 
 
 const Categories = (props) => {
     const {
         categoryState: {flatCategories},
     } = useSelector((state: RootState) => state);
+
+
+    let prompt = usePrompt({
+        title: "Are You sure to delete?",
+        deleteBtn: {
+            onClick: handleDeleteItem, label: "DELETE"
+        },
+        cancelBtn: {label: "CANCEL"}
+    })
+
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -42,7 +53,7 @@ const Categories = (props) => {
     }, [viewAsTable])
 
 
-    function deleteItem(id: any) {
+    function handleDeleteItem(id: string) {
         deleteFlatCategoryAction(dispatch, id, function (err, data) {
             if (!err) {
                 dispatch({
@@ -54,6 +65,7 @@ const Categories = (props) => {
             }
         });
     }
+
     
     const columns: Column[] = [
         {title: "Name", dataIndex: "name", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0)},
@@ -94,9 +106,10 @@ const Categories = (props) => {
             className: "text-center",
             render: (_, item: any) => (
                 <div className="flex justify-center items-center gap-x-2">
-					<Link to={`/admin/categories/${item._id}`}><CgEye className="text-lg cursor-pointer" onClick={() => deleteItem(item._id)}/> </Link>
+					{/*<Link to={`/admin/categories/${item._id}`}><CgEye className="text-lg cursor-pointer" onClick={() => deleteItem(item._id)}/> </Link>*/}
 					<BsPencilSquare className="text-md cursor-pointer" onClick={() => navigate(`/admin/categories/edit/${item._id}`)}/>
-					<FcEmptyTrash className="text-xl cursor-pointer" onClick={() => deleteItem(item._id)}/>
+					{/*<FcEmptyTrash className="text-xl cursor-pointer" onClick={() => deleteItem(item._id)}/>*/}
+					<FcEmptyTrash className="text-xl cursor-pointer" onClick={()=>prompt.open<string>(item._id)}/>
 				</div>
             ),
         },

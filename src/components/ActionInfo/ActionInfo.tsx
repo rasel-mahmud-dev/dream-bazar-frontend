@@ -8,7 +8,7 @@ interface Props extends HTMLAttributes<HTMLDivElement>{
 	
 }
 
-const ActionInfo: FC<Props> = ({message, statusCode, className}) =>{
+const ActionInfo: FC<Props> = ({message, statusCode= 200, className}) =>{
 	return (
 		
 		<div className={`${className} my-4 `}>

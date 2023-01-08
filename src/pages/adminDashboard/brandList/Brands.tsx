@@ -4,9 +4,6 @@ import Table from "UI/table/Table";
 import staticImagePath from "src/utills/staticImagePath";
 
 import {BsPencilSquare, FcEmptyTrash} from "react-icons/all";
-import {useDispatch, useSelector} from "react-redux";
-
-import {RootState} from "src/store";
 import {Link, useNavigate} from "react-router-dom";
 import Card from "UI/Form/Card/Card";
 import isoStringToDate from "src/utills/isoStringToDate";
