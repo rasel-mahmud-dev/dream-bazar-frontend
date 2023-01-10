@@ -32,7 +32,7 @@ const SellerLayout = lazy(() => import("src/layout/SellerLayout"));
 const CustomerDashboard = lazy(() => import("pages/customerDashboard/CustomerDashboard"));
 const CustomerDashboardHomePage = lazy(() => import("pages/customerDashboard/CustomerDashboardHomePage"));
 
-const ShopInfo = lazy(() => import("pages/sellerDashboard/shop/ShopInfo"));
+const ShopInfo = lazy(() => import("pages/shared/Shop/ShopInfo"));
 const SellerLogin = lazy(() => import("pages/sellerDashboard/auth/SellerLogin"));
 const SellerRegistration = lazy(() => import("pages/sellerDashboard/auth/SellerRegistration"));
 const SellerDashboardHome = lazy(() => import("pages/sellerDashboard/dashboardHome/DashboardHome"));

@@ -1,4 +1,5 @@
 import { ACTION_TYPES, AdminType, AuthType, OrderType } from "src/store/types";
+import {AuthActionTypes} from "store/types/authActionTypes";
 
 export interface StoreType {
     _id?: string;
@@ -18,18 +19,40 @@ interface AuthStateType {
     authChecked: boolean;
     auth: AuthType | null;
     orders: OrderType[];
+    shop: Shop | null
+    stores?: Shop[]
 }
+
+export interface Shop {
+    _id?:  string
+    sellerId?: string
+    shopName: string
+    shopEmail: string
+    shopAddress: string
+    shopLogo: string
+    shopBanner?: string
+    shopPhone: string
+    isActive: boolean
+    isSuspense?: boolean
+    isApproved: boolean
+    createdAt?: Date
+    updatedAt?: Date
+}
+
 
 const initialState: AuthStateType = {
     authChecked: false,
     auth: null,
-    orders: null as unknown as OrderType[]
+    orders: null as unknown as OrderType[],
+    shop: null,
+    stores: []
 };
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action: AuthActionTypes) => {
     let updatedState = { ...state };
 
     switch (action.type) {
+
         case ACTION_TYPES.LOGIN:
             updatedState.auth = action.payload;
             updatedState.authChecked = true;
@@ -42,6 +65,18 @@ const authReducer = (state = initialState, action) => {
 
         case ACTION_TYPES.FETCH_ORDERS:
             updatedState.orders = action.payload;
+            return updatedState;
+
+
+
+        case ACTION_TYPES.FETCH_STORES:
+            updatedState.stores = action.payload;
+            return updatedState;
+
+
+
+        case ACTION_TYPES.FETCH_SELLER_SHOP:
+            updatedState.shop = action.payload;
             return updatedState;
 
 

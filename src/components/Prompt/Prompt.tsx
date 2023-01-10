@@ -9,8 +9,8 @@ import {Button} from "UI/index";
 
 export interface PromptOption {
     title: string
-    deleteBtn?: { label?: string, className?: string, onClick?: <T>(data: T) => void }
-    cancelBtn?: { label?: string, className?: string, onClick?: <T>(data: T) => void }
+    deleteBtn?: { label?: string, className?: string, onClick?: (data) => void }
+    cancelBtn?: { label?: string, className?: string, onClick?: (data) => void }
 }
 
 

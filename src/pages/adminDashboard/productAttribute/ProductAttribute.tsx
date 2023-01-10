@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { useDispatch } from "react-redux";
-import apis, {getApi} from "src/apis";
+import  {getApi} from "src/apis";
 import {ACTION_TYPES, StatusCode} from "store/types";
 import {Button, Modal} from "UI/index";
 import {BsPencilSquare, FcEmptyTrash} from "react-icons/all";
@@ -11,12 +11,20 @@ import Table, {Column} from "UI/table/Table";
 import {fetchProductAttributesAction} from "actions/categoryAction";
 import useAppSelector from "src/hooks/useAppSelector";
 import {FetchFilterAttributesAction} from "store/types/categoryActionTypes";
+import usePrompt from "src/hooks/usePrompt";
 
 
 const ProductAttribute = (props) => {
     const {
         categoryState: {productFilterAttributes}
     } = useAppSelector((state) => state);
+
+    let prompt = usePrompt({
+        title: "Are You sure to delete this Attribute?",
+        deleteBtn: {
+            onClick: handleDeleteItem
+        }
+    })
 
 
 
@@ -98,7 +106,7 @@ const ProductAttribute = (props) => {
     }
 
     
-    function deleteItem(attributeId: string) {
+    function handleDeleteItem(attributeId: string) {
         getApi().delete("/api/product/attribute/"+attributeId).then(({status})=>{
             if(status === StatusCode.Ok){
                 dispatch<FetchFilterAttributesAction>({
@@ -120,7 +128,7 @@ const ProductAttribute = (props) => {
             render: (_, item: any) => (
                 <div className="flex justify-center items-center gap-x-2">
                     <BsPencilSquare className="text-md cursor-pointer" onClick={() => setUpdateHandler(item)}/>
-                    <FcEmptyTrash className="text-xl cursor-pointer" onClick={() => deleteItem(item._id)}/>
+                    <FcEmptyTrash className="text-xl cursor-pointer" onClick={() => prompt.open(item._id)}/>
                 </div>
             ),
         },

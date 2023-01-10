@@ -71,6 +71,7 @@ const AddProduct = () => {
         },
     });
 
+
     const [newProductData, setNewProductData] = useState({
         title: {value: "", errorMessage: "", required: true},
         coverPhoto: {value: null, errorMessage: "", required: true},
@@ -95,13 +96,9 @@ const AddProduct = () => {
         minOrder: {value: 0, errorMessage: "", required: false},
     })
 
+    const [productDetail, setProductDetail] = useState({})
 
-
-    const [productDetail, setProductDetail] = useState(null)
     const [categoryDetail, setCategoryDetail] = useState<CategoryDetail>({} as CategoryDetail)
-
-    const [isFilWithFakeData, setIsFilWithFakeData] = useState(false)
-
 
     useEffect(() => {
         if (!allBrands || allBrands?.length === 0) {
@@ -143,12 +140,6 @@ const AddProduct = () => {
                         }
                     }
 
-                    let updateAttributeValue = {...state.attributeValue};
-                    if (data["attributes"]) {
-                        for (let attributesKey in data["attributes"]) {
-                            updateAttributeValue[attributesKey] = data["attributes"][attributesKey];
-                        }
-                    }
                     if (data.productDescription) {
                         updateProductData["summary"].value = data.productDescription?.summary;
                     }
@@ -324,15 +315,16 @@ const AddProduct = () => {
 
         try {
 
-            setHttpResponse(p => ({...p, message: "", loading: true}));
+            // setHttpResponse(p => ({...p, message: "", loading: true}));
 
             if (productId) {
                 let {status, data} = await getApi().patch("/api/product/" + params.productId, formData);
                 if (status === StatusCode.Created) {
 
                     setTimeout(() => {
-                        setHttpResponse({message: data.message, loading: false, isSuccess: true});
-                        navigate("/admin/products")
+                        // setHttpResponse({message: data.message, loading: false, isSuccess: true});
+                        // navigate("/admin/products")
+                        // console.log(data)
                     }, 300)
 
                 }
@@ -505,6 +497,7 @@ const AddProduct = () => {
 
                 {/*********** Filter Attributes Information **********/}
                 <ProductAttribute
+                    productDetail={productDetail}
                     onAttributeChange={handleAttributeChange}
                     categoryDetail={categoryDetail}
                 />
@@ -653,7 +646,6 @@ const AddProduct = () => {
                 <ProductSpecification
                     categoryDetail={categoryDetail}
                     onChangeSpecifications={handleChangeSpecification}
-                    isFilWithFakeData={isFilWithFakeData}
                 />
 
 

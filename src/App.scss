@@ -278,6 +278,11 @@ table td {
 .heading-6{@apply dark:text-white font-bold text-xs}
 .p{@apply dark:text-neutral-200 text-neutral-500  }
 
+
+.page-label{
+    @apply text-xl font-semibold text-dark-700 uppercase;
+}
+
 /******* dashboard sidebar **************/
 .dashboard-container {
 

@@ -1,6 +1,9 @@
-import { ACTION_TYPES, OrderType, Scope } from "store/types";
+import {ACTION_TYPES, OrderType, Scope, StatusCode} from "store/types";
 import apis, { getApi } from "src/apis";
 import errorMessageCatch from "src/utills/errorMessageCatch";
+import {Shop} from "reducers/authReducer";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {FetchShopAction, FetchStoresAction} from "store/types/authActionTypes";
 
 export const loginHandler = (user, dispatch) => {
     dispatch({
@@ -13,6 +16,7 @@ function setToken(token) {
     window.localStorage.setItem("token", token);
 }
 
+
 // login action for customer, seller and admin user separately
 export const loginAction = async (userData, dispatch, cb: (data: object, errorMessage?: string) => void) => {
     try {
@@ -22,12 +26,15 @@ export const loginAction = async (userData, dispatch, cb: (data: object, errorMe
             setToken(data.token);
             cb && cb(data.user, "");
         } else {
+            loginHandler(null, dispatch);
             cb && cb({}, "unable to connect with server");
         }
     } catch (ex) {
         cb && cb({}, errorMessageCatch(ex));
+        loginHandler(null, dispatch);
     }
 };
+
 
 export const registrationAction = async (userData, dispatch, cb: (data: object, errorMessage?: string) => void) => {
     try {
@@ -43,20 +50,22 @@ export const registrationAction = async (userData, dispatch, cb: (data: object, 
     }
 };
 
+
+
 export const currentAuthAction = async (dispatch, cb) => {
     try {
         let response = await getApi().get("/api/auth/current-auth");
-        if (response.status === 200) {
-            cb && cb(null, response.data);
+        if (response.status === StatusCode.Ok) {
             loginHandler(response.data, dispatch);
         } else {
-            cb && cb("login fail", null);
+            loginHandler(null, dispatch);
         }
     } catch (ex) {
-        cb && cb(errorMessageCatch(ex), null);
         loginHandler(null, dispatch);
     }
 };
+
+
 
 export const logoutAction = (dispatch) => {
     window.localStorage.removeItem("token");
@@ -75,3 +84,35 @@ export const fetchOrdersAction = async (dispatch) =>{
         }
     } catch (ex) {}
 };
+
+
+
+export const fetchShopInfo = createAsyncThunk("", async (payload, state)=>{
+    try {
+        const response = await getApi().get(`/api/shop/info`);
+        if (response.status === StatusCode.Created) {
+            state.dispatch<FetchShopAction>({
+                type: ACTION_TYPES.FETCH_SELLER_SHOP,
+                payload: response.data,
+            });
+        }
+    } catch (ex) {}
+
+})
+
+
+
+export const fetchAllStores = createAsyncThunk( ACTION_TYPES.FETCH_STORES, async (payload, state)=>{
+    try {
+        const response = await getApi().get(`/api/shops`);
+        if (response.status === StatusCode.Ok) {
+            state.dispatch({
+                type: ACTION_TYPES.FETCH_STORES,
+                payload: response.data,
+            });
+        }
+    } catch (ex) {
+
+    }
+
+})

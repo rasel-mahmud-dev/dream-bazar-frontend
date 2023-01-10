@@ -39,7 +39,7 @@ const InputGroup: FC<Props | any> = forwardRef((props, ref) => {
 			{label && (
 				<div className={`flex flex-wrap items-center gap-x-2 mb-2 md:mb-0 ${labelClass}`}>
 					{label && (
-						<label htmlFor={name} className={twMerge(`block font-medium text-gray-900  flex items-center`)}>
+						<label htmlFor={name} className={twMerge(`block font-medium text-gray-900  flex items-center whitespace-nowrap`)}>
 							{label}
 							{required && <span className="text-red-500 ml-1">*</span>}
 						</label>

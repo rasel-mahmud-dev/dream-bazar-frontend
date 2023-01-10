@@ -1,18 +1,16 @@
 import React, {useEffect} from "react";
 import Card from "UI/Form/Card/Card";
-import { Button } from "UI/index";
+import {Button} from "UI/index";
 import staticImagePath from "src/utills/staticImagePath";
-import { Link } from "react-router-dom";
-import { CiShop } from "react-icons/all";
-import {useDispatch, useSelector} from "react-redux";
-
-import {RootState} from "src/store";
-import apis from "src/apis";
-import {ACTION_TYPES, StatusCode} from "store/types";
+import {Link} from "react-router-dom";
+import {CiShop} from "react-icons/all";
+import {useDispatch} from "react-redux";
+import {Roles} from "store/types";
+import useAppSelector from "src/hooks/useAppSelector";
 
 const ShopInfo = () => {
     
-    const {shop} = useSelector((state: RootState)=> state.sellerState)
+    const {authState: { auth, shop }} = useAppSelector(state=> state)
     
     const dispatch = useDispatch()
     
@@ -37,15 +35,10 @@ const ShopInfo = () => {
 					Shop Info
 				</h1>
 
-				{!shop && (
-					<Link to="/seller/shop/new">
-						{" "}
-						<Button className="bg-green-450 ">Create a Shop</Button>
-					</Link>
-				)}
+
 			</div>
 
-			{shop && (
+			{shop ? (
 				<Card>
 					<>
 						<div className="w-full">
@@ -65,7 +58,16 @@ const ShopInfo = () => {
 						</div>{" "}
 					</>
 				</Card>
-			)}
+			): (
+                <div className="flex items-center justify-center pt-32">
+                    <div>
+                        <h4 className="heading-3">No Store Create You </h4>
+                        <Link to={`${auth?.roles?.includes(Roles.ADMIN) ? "/admin/shop/new" : "/seller/shop/new"}`}>
+                            <Button className="mx-auto mt-4" theme="primary">Create a Shop</Button>
+                        </Link>
+                    </div>
+                </div>
+            )}
 		</div>
 	);
 };

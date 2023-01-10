@@ -18,6 +18,11 @@ import BrandListLite from "pages/adminDashboard/brandList/BrandListLite";
 import CategoryDetail from "pages/adminDashboard/categoryList/CategoryDetail";
 import useAppSelector from "src/hooks/useAppSelector";
 import AllProductsLite from "pages/shared/AllProducts/AllProductsLite";
+import ShopInfo from "pages/shared/Shop/ShopInfo";
+import CreateShop from "pages/shared/Shop/CreateShop";
+import StoreList from "pages/shared/Shop/StoreList";
+import useAppDispatch from "src/hooks/useAppDispatch";
+import {fetchShopInfo} from "actions/authAction";
 
 const AdminDashboardHome = lazy(() => import("pages/adminDashboard/DashboardHomePage"));
 
@@ -126,6 +131,30 @@ export const adminRoute =   [
 
         ),
     },
+    {
+        path: "shop",
+        element: (
+
+            <ShopInfo />
+
+        ),
+    },
+    {
+        path: "store-list",
+        element: (
+
+            <StoreList />
+
+        ),
+    },
+    {
+        path: "shop/new",
+        element: (
+
+            <CreateShop />
+
+        ),
+    },
     // {path: "join",
     //     element:  <Outlet />,
     //     children: [
@@ -138,7 +167,7 @@ export const adminRoute =   [
 const AdminLayout = () => {
     const location = useLocation();
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const {
         appState: { isOpenLeftBar },
         authState: { auth },
@@ -149,6 +178,13 @@ const AdminLayout = () => {
     const [isAdmin, setAdmin] = useState(false);
 
     const [activeItem, setActiveItem] = useState(0);
+
+    useEffect(()=>{
+        if(auth){
+            dispatch(fetchShopInfo())
+        }
+    }, [auth])
+
 
 
     const sidebarLinks: SidebarDataType[] = [
@@ -215,6 +251,19 @@ const AdminLayout = () => {
             section: "Brand Management",
             items: [
                 {name: "Brands", to: "/admin/brands",
+                    icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (3).svg")} />
+
+                }
+            ],
+        },
+        {
+            section: "Store Management",
+            items: [
+                {name: "All Store", to: "/admin/store-list",
+                    icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (3).svg")} />
+
+                },
+                {name: "Dream Store", to: "/admin/shop",
                     icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (3).svg")} />
 
                 }

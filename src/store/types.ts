@@ -36,6 +36,7 @@ export enum ACTION_TYPES {
 
     SELECT_FILTER_BRAND = "SELECT_FILTER_BRAND",
     CLEAR_FILTER_BRAND = "CLEAR_FILTER_BRAND",
+    FETCH_STORES = "FETCH_STORES",
 
 
     LOGIN = "LOGIN",
@@ -76,7 +77,6 @@ export enum ACTION_TYPES {
     DELETE_BRAND = "DELETE_BRAND",
     FETCH_ORDERS = "FETCH_ORDERS",
 
-    /********Seller Actions Types ***********/
     FETCH_SELLER_SHOP = "FETCH_SELLER_SHOP",
 }
 

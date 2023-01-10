@@ -41,7 +41,9 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
     });
 
 
-    
+
+
+
     useEffect(() => {
         if (attribute) {
             let updatedFormData = {...state.formData};
@@ -110,7 +112,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
             ...updateFormData,
             [name]: {
                 ...updateFormData[name],
-                value: name === "isRange" ? checked : value,
+                value: name === "isRange" ? checked : value.trim(),
                 errorMessage: updateFormData[name] ? "" : updateFormData[name].errorMessage,
             },
         };
@@ -118,10 +120,12 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
         if (name === "isRange"){
             if(checked){
                 changeOptionFieldType(checked)
+
             } else {
                 changeOptionFieldType(false)
             }
         }
+
         setState({
             ...state,
             formData: updateFormData,
@@ -149,27 +153,33 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                     optionsFields: updateOptionsFields
                 }
             })
-
     }
-    
+
+
     function handleOptionValueChange(name, value, index, rangeInputIndex) {
         let updatedOptionsFields = [...state.optionsFields];
 
         // store value as tuple instead of one value
         if(formData.isRange.value && rangeInputIndex !== undefined){
 
-            let prevValue = updatedOptionsFields[index].value
+            if(isNaN(value)){
+                alert("Please Provider numeric value")
 
-            if(typeof prevValue === "string"){
-                prevValue = []
+            } else {
+
+                let prevValue = updatedOptionsFields[index].value
+
+                if (typeof prevValue === "string") {
+                    prevValue = []
+                }
+                let tupleValue = [...prevValue]
+                tupleValue[rangeInputIndex] = value;
+
+                updatedOptionsFields[index] = {
+                    ...updatedOptionsFields[index],
+                    [name]: tupleValue,
+                };
             }
-            let tupleValue = [...prevValue]
-            tupleValue[rangeInputIndex] = value;
-
-            updatedOptionsFields[index] = {
-                ...updatedOptionsFields[index],
-                [name]: tupleValue,
-            };
 
             // console.log(prevValue)
 
@@ -197,6 +207,12 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
         let payload: any = {};
         let errorMessage = "";
         for (let fieldKey in formData) {
+
+            if(fieldKey === "isRange"){
+                payload[fieldKey] = formData[fieldKey].value;
+                continue;
+            };
+
             if (fieldKey !== "options") {
                 if (formData[fieldKey].value) {
                     payload[fieldKey] = formData[fieldKey].value;

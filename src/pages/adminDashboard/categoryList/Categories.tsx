@@ -23,7 +23,7 @@ const Categories = (props) => {
 
 
     let prompt = usePrompt({
-        title: "Are You sure to delete?",
+        title: "Are You sure to delete category ?",
         deleteBtn: {
             onClick: handleDeleteItem, label: "DELETE"
         },
@@ -174,25 +174,3 @@ export default Categories;
 
 
 
-
-{/*{categoryDetails?.map((catDet, index) => (*/}
-{/*    <div className="border my-10 rounded-md relative p-5">*/}
-{/*		<div className="absolute right-2  top-2 flex gap-x-2">*/}
-{/*			<Link to={`/admin/category-details/edit/${catDet._id}`}>*/}
-{/*				<Circle className=" !h-6 !w-6 hover:bg-green-450 hover:text-white">*/}
-{/*					<FaPenAlt className="text-xs"/>*/}
-{/*				</Circle>*/}
-{/*			</Link>*/}
-
-{/*			<Circle className=" !h-6 !w-6 hover:bg-red-400 hover:text-white" onClick={() => deleteItem(catDet._id)}>*/}
-{/*				<FaTimes className="text-xs"/>*/}
-{/*			</Circle>*/}
-{/*		</div>*/}
-{/*		<span>SL: {index + 1}</span>*/}
-{/*		<h3 className="heading-4">{catDet?.currentCategory?.name}</h3>*/}
-
-{/*		<code className="whitespace-pre-line ">*/}
-{/*			<pre className="overflow-x-auto">{JSON.stringify(catDet, undefined, 2).substring(1, 300)}</pre>*/}
-{/*		</code>*/}
-{/*	</div>*/}
-{/*))}*/}

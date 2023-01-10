@@ -1,9 +1,20 @@
-import React, {useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import Card from "UI/Form/Card/Card";
 
-const ProductAttribute = ({categoryDetail, onAttributeChange}) => {
+
+interface Props {
+    productDetail: {
+        attributes: any
+    }
+    categoryDetail: any,
+    onAttributeChange: (args: any) => void
+}
+
+
+const ProductAttribute: FC<Props> = ({productDetail, categoryDetail, onAttributeChange}) => {
 
     const [attributes, setAttributes ] = useState({})
+
 
     function handleChangeAttribute(e) {
         const { name, value } = e.target;
@@ -17,7 +28,25 @@ const ProductAttribute = ({categoryDetail, onAttributeChange}) => {
         onAttributeChange && onAttributeChange(updateAttributeValue)
     }
 
+    useEffect(()=>{
+        const {attributes} = productDetail
 
+        if(attributes && typeof attributes === "object") {
+            setAttributes(attributes)
+            onAttributeChange && onAttributeChange(attributes)
+        }
+
+
+
+
+    }, [productDetail.attributes])
+
+
+
+    /**
+        whitelist product attribute when adding product.
+     */
+    let whitelist = ["customerRate"]
 
     return (
         <div>
@@ -26,7 +55,7 @@ const ProductAttribute = ({categoryDetail, onAttributeChange}) => {
                 <h5 className="heading-5">Filter Attributes</h5>
                 {!categoryDetail?.filterAttributesValues && <h1 className="text-red-500 text-sm">Please select a Category</h1>}
                 <div className="mt-4 grid grid-cols-2 gap-4">
-                    {categoryDetail?.filterAttributesValues?.map((attribute, idx) => (
+                    {categoryDetail?.filterAttributesValues?.map((attribute, idx) => !whitelist.includes(attribute.attributeName) && (
                         <div key={idx}>
                             {attribute.options && (
                                 <div>

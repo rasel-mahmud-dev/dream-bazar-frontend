@@ -1,40 +1,48 @@
-import React, { useEffect } from "react";
-import { Button } from "UI/index";
-import api, { getApi } from "src/apis";
-import Table, { Column } from "UI/table/Table";
+import React, {useEffect} from "react";
+import {Button} from "UI/index";
+import api, {getApi} from "src/apis";
+import Table, {Column} from "UI/table/Table";
 import staticImagePath from "src/utills/staticImagePath";
-import { BsPencilSquare, FcEmptyTrash } from "react-icons/all";
-import { Link, useNavigate } from "react-router-dom";
+import {BsPencilSquare, FcEmptyTrash} from "react-icons/all";
+import {Link, useNavigate} from "react-router-dom";
 import isoStringToDate from "src/utills/isoStringToDate";
-import {  fetchProducts } from "actions/adminProductAction";
+import {fetchProducts} from "actions/adminProductAction";
 import Switch from "UI/Form/switch/Switch";
 import {ProductType} from "reducers/productReducer";
 import {fetchBrands} from "actions/brandAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";
-
+import usePrompt from "src/hooks/usePrompt";
 
 
 const AllProducts = (props) => {
 
     const [products, setProducts] = React.useState<ProductType[]>([]);
 
-    const {allBrands} = useAppSelector(state=>state.brandState)
+    const {allBrands} = useAppSelector(state => state.brandState)
 
 
     const dispatch = useAppDispatch()
 
 
+    let prompt = usePrompt({
+        title: "Are You sure to delete this Product?",
+        deleteBtn: {
+            onClick: handleDeleteItem
+        }
+    })
+
+
     useEffect(() => {
 
-        (async function(){
-            let [result, error]  = await fetchProducts( 1);
-            if(result && !error) {
+        (async function () {
+            let [result, error] = await fetchProducts(1);
+            if (result && !error) {
                 setProducts(result)
             }
 
 
-            if(!allBrands || allBrands?.length === 0) {
+            if (!allBrands || allBrands?.length === 0) {
                 dispatch(fetchBrands())
             }
 
@@ -51,7 +59,7 @@ const AllProducts = (props) => {
 
 
     function updateProduct(productId, field) {
-        const data = { ...field };
+        const data = {...field};
         let formData = new FormData();
         for (let dataKey in data) {
             formData.append(dataKey, data[dataKey]);
@@ -60,7 +68,7 @@ const AllProducts = (props) => {
         // send toke for different scope user
         getApi()
             .patch(`/api/product/${productId}`, formData)
-            .then(({ data, status }) => {
+            .then(({data, status}) => {
                 let updatedProducts = [...products];
                 let updatedProductIndex = updatedProducts.findIndex((p) => p._id === productId);
                 if (updatedProductIndex !== -1) {
@@ -72,7 +80,7 @@ const AllProducts = (props) => {
             });
     }
 
-    function deleteItem(id) {
+    function handleDeleteItem(id: string) {
         api.delete(`/api/product/${id}`).then((response) => {
             if (response.status === 201) {
                 setProducts(products.filter((p: any) => p._id !== id));
@@ -87,7 +95,7 @@ const AllProducts = (props) => {
             dataIndex: "coverPhoto",
             render: (coverPhoto) => (
                 <div className="w-8">
-                    <img src={staticImagePath(coverPhoto)} alt="" />
+                    <img src={staticImagePath(coverPhoto)} alt=""/>
                 </div>
             ),
         },
@@ -111,7 +119,7 @@ const AllProducts = (props) => {
             title: "Admin Verified",
             className: "whitespace-nowrap",
             render: (isApproved, product) => (
-                <Switch className="" on={isApproved} name="active-status" onChange={() => updateProduct(product._id, { isApproved: !isApproved })} />
+                <Switch className="" on={isApproved} name="active-status" onChange={() => updateProduct(product._id, {isApproved: !isApproved})}/>
             ),
         },
         {
@@ -119,11 +127,11 @@ const AllProducts = (props) => {
             title: "Active Status",
             className: "whitespace-nowrap",
             render: (isActive, product) => (
-                <Switch on={isActive} name="active-status" onChange={() => updateProduct(product._id, { isActive: !isActive })} />
+                <Switch on={isActive} name="active-status" onChange={() => updateProduct(product._id, {isActive: !isActive})}/>
             ),
         },
-        { title: "Category", dataIndex: "categoryId" },
-        { title: "Brand", dataIndex: "brandId" },
+        {title: "Category", dataIndex: "categoryId"},
+        {title: "Brand", dataIndex: "brandId"},
         {
             title: "Price",
             dataIndex: "price",
@@ -131,8 +139,8 @@ const AllProducts = (props) => {
             sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0),
             render: (price) => <span>${price}</span>,
         },
-        { title: "Stock", dataIndex: "qty", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0) },
-        { title: "Sold", dataIndex: "sold", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0) },
+        {title: "Stock", dataIndex: "qty", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0)},
+        {title: "Sold", dataIndex: "sold", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0)},
         {
             title: "Action",
             dataIndex: "",
@@ -141,9 +149,9 @@ const AllProducts = (props) => {
             render: (_, item) => (
                 <div className="flex justify-center items-center gap-x-2">
                     <Link to={`/admin/product/edit/${item._id}`}>
-                        <BsPencilSquare className="text-md cursor-pointer" />
+                        <BsPencilSquare className="text-md cursor-pointer"/>
                     </Link>
-                    <FcEmptyTrash className="text-xl cursor-pointer" onClick={() => deleteItem(item._id)} />
+                    <FcEmptyTrash className="text-xl cursor-pointer" onClick={() => prompt.open(item._id)}/>
                 </div>
             ),
         },
@@ -165,7 +173,7 @@ const AllProducts = (props) => {
             <div className="card">
                 <Table
                     fixed={true}
-                    scroll={{ x: 900, y: 600 }}
+                    scroll={{x: 900, y: 600}}
                     dataSource={products ? products : []}
                     columns={columns}
                     tbodyClass={{

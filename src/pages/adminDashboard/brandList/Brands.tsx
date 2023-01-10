@@ -11,16 +11,24 @@ import {fetchBrands} from "actions/brandAction";
 import {ACTION_TYPES} from "store/types";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";
+import usePrompt from "src/hooks/usePrompt";
 
 const AllBrands = (props) => {
     const {
         brandState: { allBrands },
     } = useAppSelector(state => state);
 
-    
     const dispatch = useAppDispatch();
     
     const navigate = useNavigate();
+
+
+    let prompt = usePrompt({
+        title: "Are You sure to delete brand ?",
+        deleteBtn: {
+            onClick: handleDeleteItem
+        }
+    })
 
 
     useEffect(() => {
@@ -28,8 +36,9 @@ const AllBrands = (props) => {
             dispatch(fetchBrands());
         }
     }, []);
-    
-    function deleteItem(_id: string) {
+
+
+    function handleDeleteItem(_id: string) {
         dispatch({
             type: ACTION_TYPES.FETCH_BRANDS,
             payload: allBrands.filter( b => b._id !== _id),
@@ -75,7 +84,7 @@ const AllBrands = (props) => {
             render: (_, item) => (
                 <div className="flex justify-center items-center gap-x-2">
 					<BsPencilSquare className="text-md cursor-pointer" onClick={() => navigate(`/admin/brands/edit/${item._id}`)}/>
-					<FcEmptyTrash className="text-xl cursor-pointer" onClick={() => deleteItem(item._id)}/>
+					<FcEmptyTrash className="text-xl cursor-pointer" onClick={() => prompt.open(item._id)}/>
 				</div>
             ),
         },
