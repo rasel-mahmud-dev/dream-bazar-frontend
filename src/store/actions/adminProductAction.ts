@@ -34,7 +34,7 @@ export const fetchProductAttributesAction = (productAttributes, dispatch: Dispat
 export function fetchProducts(pageNumber) {
     return new Promise<[any, any]>(async (resolve) => {
         try {
-            const {data, status} = await api.get(`/api/products?perPage=200&pageNumber=${pageNumber}`)
+            const {data, status} = await getApi().get(`/api/products?perPage=200&pageNumber=${pageNumber}`)
             resolve([data.products, null])
         } catch (ex) {
             resolve([null, ex])

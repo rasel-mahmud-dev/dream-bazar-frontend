@@ -8,6 +8,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
     thumbClassName?: string
     onChange?: (e: any)=> void
     className?: string
+    disabled?: boolean
 }
 
 
@@ -19,6 +20,7 @@ const Switch: FC<Props> = (props) => {
         thumbClassName,
         onChange,
         className,
+        disabled
     } = props
     
     const [isOn, setOn] = useState(false)
@@ -35,7 +37,7 @@ const Switch: FC<Props> = (props) => {
     }
     
     return (
-        <div className={`switch ${className} ${(on !== undefined) ? on ? "switch-on" : "" : isOn ? "switch-on" : ""}`} onClick={toggle}>
+        <div className={`switch ${className} ${(on !== undefined) ? on ? "switch-on" : "" : isOn ? "switch-on" : "" } ${disabled ? "disabled-sw": ""}`} onClick={toggle}>
             <input type="checkbox"/>
             <span className={`thumb ${thumbClassName}`} onClick={toggle}></span>
          </div>

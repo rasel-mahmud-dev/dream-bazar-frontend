@@ -1,10 +1,8 @@
 import React, {lazy, Suspense, useEffect, useState} from "react";
 
-import {useLocation, useNavigate} from "react-router-dom";
-
-import { Outlet } from "react-router-dom";
-import {currentAuthAction, fetchShopInfo} from "actions/authAction";
-import { useSelector} from "react-redux";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
+import {fetchShopInfo} from "actions/authAction";
+import {useSelector} from "react-redux";
 import {RootState} from "src/store";
 import DashboardSidebar from "pages/shared/DashboardSidebar/DashboardSidebar";
 
@@ -15,59 +13,75 @@ import Footer from "components/Footer/Footer";
 import PrivateRoute from "src/middleware/PrivateRoute";
 import {Scope} from "store/types";
 import CreateShop from "pages/shared/Shop/CreateShop";
-import {setLanguage, toggleTheme} from "actions/appContextActions";
+import ProductList from "pages/adminDashboard/productList/ProductList";
+import AddProduct from "pages/shared/AddProduct/AddProduct";
 
 
 const ShopInfo = lazy(() => import("pages/shared/Shop/ShopInfo"));
-const SellerLogin = lazy(() => import("pages/sellerDashboard/auth/SellerLogin"));
-const SellerRegistration = lazy(() => import("pages/sellerDashboard/auth/SellerRegistration"));
 const SellerDashboardHome = lazy(() => import("pages/sellerDashboard/dashboardHome/DashboardHome"));
 const SellerProducts = lazy(() => import("pages/sellerDashboard/sellerProducts/SellerProducts"));
 
 
-
-export const sellerRoute =   [
+export const sellerRoute = [
     {
         path: "",
         element: (
-                <SellerDashboardHome />
+            <PrivateRoute scope={Scope.SELLER_USER}>
+                <SellerDashboardHome/>
+            </PrivateRoute>
         ),
     },
     {
         path: "dashboard",
-        element: <SellerDashboardHome />
+        element: <PrivateRoute scope={Scope.SELLER_USER}><SellerDashboardHome/> </PrivateRoute>
 
     },
     {
         path: "products",
         element: (
             <PrivateRoute scope={Scope.SELLER_USER}>
-                <SellerProducts />
+                <ProductList scope={Scope.SELLER_USER}/>
+            </PrivateRoute>
+        ),
+    },
+    {
+        path: "products/new",
+        element: (
+            <PrivateRoute scope={Scope.SELLER_USER}>
+                <AddProduct/>
+            </PrivateRoute>
+        ),
+    },
+    {
+        path: "products/edit/:productId",
+        element: (
+            <PrivateRoute scope={Scope.SELLER_USER}>
+                <AddProduct />
             </PrivateRoute>
         ),
     },
     {
         path: "shop",
         element: (
-
-            <ShopInfo />
-
+            <PrivateRoute scope={Scope.SELLER_USER}>
+                <ShopInfo/>
+            </PrivateRoute>
         ),
     },
     {
         path: "shop/new",
         element: (
-
-            <CreateShop />
-
+            <PrivateRoute scope={Scope.SELLER_USER}>
+                <CreateShop/>
+            </PrivateRoute>
         ),
     },
     {
         path: "shop/edit",
         element: (
-
-            <CreateShop isUpdate={true} />
-
+            <PrivateRoute scope={Scope.SELLER_USER}>
+                <CreateShop isUpdate={true}/>
+            </PrivateRoute>
         ),
     },
 
@@ -94,8 +108,8 @@ const SellerLayout = () => {
 
     const dispatch = useAppDispatch();
     const {
-        appState: { isOpenLeftBar },
-        authState: { auth },
+        appState: {isOpenLeftBar},
+        authState: {auth},
     } = useSelector((state: RootState) => state);
 
     const navigate = useNavigate()
@@ -108,7 +122,8 @@ const SellerLayout = () => {
         {
             section: "ORDER MANAGEMENT",
             items: [
-                {name: "Orders", icon: <BiCart />,
+                {
+                    name: "Orders", icon: <BiCart/>,
                     subItems: [
                         {label: "All", value: 14},
                         {label: "Pending", value: 14},
@@ -121,30 +136,32 @@ const SellerLayout = () => {
                         {label: "Canceled", value: 1},
                     ],
                 },
-                {name: "Refund Request List", to: "/", icon: <BiNote />, subItems: [
+                {
+                    name: "Refund Request List", to: "/", icon: <BiNote/>, subItems: [
 
                         {label: "Pending", value: 10},
                         {label: "Approved", value: 10},
                         {label: "Refunded", value: 10},
                         {label: "Rejected", value: 10},
 
-                    ]},
+                    ]
+                },
             ],
         },
         {
             section: "PRODUCT MANAGEMENT",
             items: [
-                {name: "Products", to: "/seller/products", icon: <BiCart />},
-                {name: "Add", to: "/seller/Product/add", icon: <BiPlus />},
-                {name: "Bulk import", to: "/", icon: <BiNote />},
+                {name: "Products", to: "/seller/products", icon: <BiCart/>},
+                {name: "Add", to: "/seller/products/new", icon: <BiPlus/>},
+                {name: "Bulk import", to: "/", icon: <BiNote/>},
             ],
         },
         {
             section: "HELP & SUPPORT SECTION",
             items: [
-                {name: "Messages", icon: <FiMail />}
+                {name: "Messages", icon: <FiMail/>}
             ]
-        },{
+        }, {
             section: "BUSINESS SECTION",
             items: [
 
@@ -156,7 +173,7 @@ const SellerLayout = () => {
     ];
 
     // const sidebarLinks = [
-        // { label: "CustomerDashboard", roles: ["SELLER", "BUYER", "ADMIN"], to: "/dashboard", icon:  <Image imgClass="" className="w-5" src="/icons/dashboard2.svg" />},
+    // { label: "CustomerDashboard", roles: ["SELLER", "BUYER", "ADMIN"], to: "/dashboard", icon:  <Image imgClass="" className="w-5" src="/icons/dashboard2.svg" />},
     // ];
 
 
@@ -167,40 +184,37 @@ const SellerLayout = () => {
     //     }
     // }, [location.pathname]);
 
-    useEffect(()=>{
+    useEffect(() => {
 
 
-        if(auth){
+        if (auth) {
             dispatch(fetchShopInfo())
-        } else{
-
-
+        } else {
 
 
         }
     }, [auth])
 
 
-
     return (
         <div className="">
             <div className="">
-                <DashboardNavigation auth={auth} />
+                <DashboardNavigation auth={auth}/>
 
                 <div className="mx-auto">
                     <div className="flex">
-                        <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar}  auth={auth}/>
+                        <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar} auth={auth}/>
 
                         <div className="container !px-3">
                             <Suspense fallback={<h1>Hi loading</h1>}>
-                                <Outlet />
+                                <Outlet/>
                             </Suspense>
 
                         </div>
                     </div>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </div>
     );
 };

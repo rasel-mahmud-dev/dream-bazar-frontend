@@ -10,8 +10,10 @@ import {fetchShopInfo, updateStoreActiveStatusAction} from "actions/authAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import Switch from "UI/Form/switch/Switch";
 import "./style.scss";
+import useScrollTop from "src/hooks/useScrollTop";
 
 const ShopInfo = () => {
+    useScrollTop()
     
     const {authState: { auth, shop }} = useAppSelector(state=> state)
     

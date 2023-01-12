@@ -12,9 +12,11 @@ import Table from "UI/table/Table";
 import usePrompt from "src/hooks/usePrompt";
 import Switch from "UI/Form/switch/Switch";
 import Card from "UI/Form/Card/Card";
+import useScrollTop from "src/hooks/useScrollTop";
 
 
 const StoreList = (props) => {
+    useScrollTop()
 
     const {authState: {auth, stores}} = useAppSelector(state => state)
 

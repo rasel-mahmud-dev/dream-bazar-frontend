@@ -13,9 +13,11 @@ import {fetchBrands} from "actions/brandAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";
 import usePrompt from "src/hooks/usePrompt";
+import useScrollTop from "src/hooks/useScrollTop";
 
 
 const AllProducts = (props) => {
+    useScrollTop()
 
     const [products, setProducts] = React.useState<ProductType[]>([]);
 

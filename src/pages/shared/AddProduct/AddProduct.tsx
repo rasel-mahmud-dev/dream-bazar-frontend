@@ -21,11 +21,14 @@ import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";
 import {CategoryDetail} from "reducers/categoryReducer";
 import {fetchCategoryDetail, fetchFlatCategoriesAction} from "actions/categoryAction";
+import useScrollTop from "src/hooks/useScrollTop";
 
 
 const AddProduct = () => {
     const params = useParams();
     const dispatch = useAppDispatch();
+
+    useScrollTop()
 
     const {productId} = params
 
@@ -257,11 +260,11 @@ const AddProduct = () => {
 
         /********** Product attribute value ************/
         if (attributeValue) {
-            if (!Object.keys(attributeValue).length) {
-                errorMessage = "Please provide attribute fields";
-                setHttpResponse((p) => ({...p, message: errorMessage, isSuccess: false}));
-                return;
-            }
+            // if (!Object.keys(attributeValue).length) {
+            //     errorMessage = "Please provide attribute fields";
+            //     setHttpResponse((p) => ({...p, message: errorMessage, isSuccess: false}));
+            //     return;
+            // }
         }
         // add Product details sections
         formData.append("attributes", JSON.stringify(attributeValue));
@@ -442,6 +445,7 @@ const AddProduct = () => {
                             options={() => (
                                 <>
                                     <option value="">Category</option>
+
                                     {flatCategories
                                         ?.filter((cat: any) => cat.isProductLevel)
                                         .map((cat: any) => (
@@ -466,6 +470,9 @@ const AddProduct = () => {
                             options={() => (
                                 <>
                                     <option value="">Brand</option>
+                                    <option className="cursor-pointer py-1 menu-item" value="63c063e7310ae08eea4d6929">
+                                        Other
+                                    </option>
                                     {allBrands &&
                                         allBrands.map((cat: any) => (
                                             <option key={cat._id} className="cursor-pointer py-1 menu-item" value={cat._id}>
