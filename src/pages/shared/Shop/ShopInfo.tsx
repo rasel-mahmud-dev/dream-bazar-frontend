@@ -4,30 +4,29 @@ import {Button} from "UI/index";
 import staticImagePath from "src/utills/staticImagePath";
 import {Link} from "react-router-dom";
 import {CiShop} from "react-icons/all";
-import {useDispatch} from "react-redux";
 import {Roles} from "store/types";
 import useAppSelector from "src/hooks/useAppSelector";
+import {fetchShopInfo, updateStoreActiveStatusAction} from "actions/authAction";
+import useAppDispatch from "src/hooks/useAppDispatch";
+import Switch from "UI/Form/switch/Switch";
+import "./style.scss";
 
 const ShopInfo = () => {
     
     const {authState: { auth, shop }} = useAppSelector(state=> state)
     
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     
     useEffect(()=>{
-        // apis.get("/api/seller/shop").then(({data, status})=>{
-        //     if(status === StatusCode.Ok){
-        //         dispatch({
-        //             type: ACTION_TYPES.FETCH_SELLER_SHOP,
-        //             payload: data
-        //         })
-        //     }
-        // })
+        dispatch(fetchShopInfo())
     }, [])
-    
-    console.log(shop)
-    
-	return (
+
+
+    function handleToggleStoreStatus() {
+        dispatch(updateStoreActiveStatusAction(!shop?.isActive))
+    }
+
+    return (
 		<div>
 			<div className="my-6 flex items-center justify-between">
 				<h1 className="heading-2 flex items-center gap-x-1">
@@ -35,23 +34,37 @@ const ShopInfo = () => {
 					Shop Info
 				</h1>
 
-
 			</div>
 
 			{shop ? (
 				<Card>
 					<>
-						<div className="w-full">
+						<div className="shop-banner">
 							<img className="w-full" src={shop.shopBanner} alt="" />
 						</div>
 						<h3 className="heading-4">My shop Info</h3>
 						<div className="flex items-center gap-x-4 mt-4">
 							<img src={staticImagePath(shop.shopLogo)} className="rounded-full w-32" alt="" />
-							<div>
+							<div className="flex flex-col gap-y-2">
 								<h4 className="heading-5">Name : {shop.shopName}</h4>
 								<p>Phone : {shop?.shopPhone}</p>
-								<p>Address : {shop.shopAddress}</p>
-								<Link to="/seller/shop/edit">
+								<p>Address : <span className="break-all">{shop.shopAddress}</span></p>
+
+                                <div className="flex  gap-x-2">
+                                    <p>Status:</p>
+                                    <Switch name="isActive" on={shop.isActive} onChange={handleToggleStoreStatus} />
+                                </div>
+                                <div className="flex  gap-x-2">
+                                    <p>Admin Approve:</p>
+                                    <Switch name="isApproved" on={shop.isApproved}  />
+                                </div>
+
+                                <div className="flex  gap-x-2">
+                                    <p>Suspense By Admin:</p>
+                                    <Switch name="isSuspense" on={shop.isSuspense} />
+                                </div>
+
+								<Link to={`/${ auth?.roles?.includes(Roles.ADMIN) ?  "admin" : "seller" }/shop/edit`}>
 									<Button className="bg-green-450 mt-4">Edit</Button>
 								</Link>
 							</div>

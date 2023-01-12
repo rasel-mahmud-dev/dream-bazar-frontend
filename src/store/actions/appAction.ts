@@ -1,4 +1,6 @@
 import { ACTION_TYPES } from "../types"
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {ChangeLanguageAction} from "store/types/appActionType";
 
 
 export const toggleNotify=(status, notificationType, message)=>{ 
@@ -37,3 +39,58 @@ export const toggleBackdrop=(data: {isOpen: boolean, scope: "app" | "global" | "
   }
 }
 
+
+
+export const setLanguageAction = createAsyncThunk("", async (lang: string = "", store)=>{
+
+
+        let locales = lang;
+        let whitelist = ["en", "bn"]
+
+        if(!locales){
+            let lang = localStorage.getItem("lang");
+            if(!lang){
+                locales = "en"
+            }else {
+                locales = lang;
+            }
+        }
+
+        if(!whitelist.includes(locales)){
+            return;
+        }
+
+        try{
+            let response = await fetch(`/locales/${locales}/translation.json`)
+            let translations = await response.json();
+            localStorage.setItem("lang", locales)
+            store.dispatch<ChangeLanguageAction>({
+                type: ACTION_TYPES.SET_LANGUAGE,
+                payload: {lang: locales, translations}
+            })
+        } catch (ex){
+
+        }
+
+})
+
+
+export const toggleThemeAction = (theme="")=>{
+    if(theme) {
+        localStorage.setItem("theme", theme)
+    } else {
+        theme = localStorage.getItem("theme") || ""
+    }
+    let html  = document.documentElement
+    html.className = theme
+    return {
+        type: ACTION_TYPES.SET_THEME,
+        payload: theme
+    }
+
+
+
+
+
+
+}

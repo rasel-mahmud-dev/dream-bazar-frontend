@@ -1,26 +1,98 @@
-import React, { lazy, useEffect, useState } from "react";
+import React, {lazy, Suspense, useEffect, useState} from "react";
 
 import {useLocation, useNavigate} from "react-router-dom";
 
 import { Outlet } from "react-router-dom";
-import { currentAuthAction } from "actions/authAction";
-import { setLanguage, toggleTheme } from "actions/appContextActions";
-import {useDispatch, useSelector} from "react-redux";
-import Footer from "components/Footer/Footer";
-
-import Navigation from "pages/shared/Navigation";
+import {currentAuthAction, fetchShopInfo} from "actions/authAction";
+import { useSelector} from "react-redux";
 import {RootState} from "src/store";
-import {ACTION_TYPES, Scope} from "store/types";
-
 import DashboardSidebar from "pages/shared/DashboardSidebar/DashboardSidebar";
-import {BiCart, BiNote, BiPlus, FiMail} from "react-icons/all";
-import apis from "src/apis";
 
-const AdminLayout = () => {
+import useAppDispatch from "src/hooks/useAppDispatch";
+import {BiCart, BiNote, BiPlus, FiMail} from "react-icons/all";
+import DashboardNavigation from "pages/shared/Navigation";
+import Footer from "components/Footer/Footer";
+import PrivateRoute from "src/middleware/PrivateRoute";
+import {Scope} from "store/types";
+import CreateShop from "pages/shared/Shop/CreateShop";
+import {setLanguage, toggleTheme} from "actions/appContextActions";
+
+
+const ShopInfo = lazy(() => import("pages/shared/Shop/ShopInfo"));
+const SellerLogin = lazy(() => import("pages/sellerDashboard/auth/SellerLogin"));
+const SellerRegistration = lazy(() => import("pages/sellerDashboard/auth/SellerRegistration"));
+const SellerDashboardHome = lazy(() => import("pages/sellerDashboard/dashboardHome/DashboardHome"));
+const SellerProducts = lazy(() => import("pages/sellerDashboard/sellerProducts/SellerProducts"));
+
+
+
+export const sellerRoute =   [
+    {
+        path: "",
+        element: (
+                <SellerDashboardHome />
+        ),
+    },
+    {
+        path: "dashboard",
+        element: <SellerDashboardHome />
+
+    },
+    {
+        path: "products",
+        element: (
+            <PrivateRoute scope={Scope.SELLER_USER}>
+                <SellerProducts />
+            </PrivateRoute>
+        ),
+    },
+    {
+        path: "shop",
+        element: (
+
+            <ShopInfo />
+
+        ),
+    },
+    {
+        path: "shop/new",
+        element: (
+
+            <CreateShop />
+
+        ),
+    },
+    {
+        path: "shop/edit",
+        element: (
+
+            <CreateShop isUpdate={true} />
+
+        ),
+    },
+
+    // { path: "Product/edit/:productId", element: <PrivateRoute scope={Scope.SELLER_USER}><AddProduct /></PrivateRoute> },
+    // { path: "Product/add", element: <PrivateRoute scope={Scope.SELLER_USER}> <AddProduct /></PrivateRoute> },
+    // { path: "shop/view", element: <PrivateRoute scope={Scope.SELLER_USER}> <ShopInfo /> </PrivateRoute> },
+    // { path: "shop/new", element: <PrivateRoute scope={Scope.SELLER_USER}> <CreateShop /> </PrivateRoute> },
+    // { path: "shop/edit", element: <PrivateRoute scope={Scope.SELLER_USER}><CreateShop /></PrivateRoute> },
+    // { path: "join",
+    //     element:  <Outlet />,
+    //     children: [
+    //         { path: "", element: <ExcludeAuthRoute scope={Scope.SELLER_USER}><SellerLogin /></ExcludeAuthRoute> },
+    //         { path: "registration", element: <ExcludeAuthRoute scope={Scope.SELLER_USER}><SellerRegistration /> </ExcludeAuthRoute>},
+    //         { path: "login", element: <ExcludeAuthRoute scope={Scope.SELLER_USER}><SellerLogin /></ExcludeAuthRoute> },
+    //     ]
+    // }
+
+]
+
+
+const SellerLayout = () => {
 
     const location = useLocation();
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const {
         appState: { isOpenLeftBar },
         authState: { auth },
@@ -78,7 +150,7 @@ const AdminLayout = () => {
 
                 {name: "Withdraws", to: ""},
                 {name: "My Bank Info", to: ""},
-                {name: "My Shop", to: "/seller/shop/view"},
+                {name: "My Shop", to: "/seller/shop"},
             ]
         },
     ];
@@ -96,35 +168,41 @@ const AdminLayout = () => {
     // }, [location.pathname]);
 
     useEffect(()=>{
+
+
         if(auth){
-            apis.get("/api/seller/shop").then(({ data }) => {
-                dispatch({
-                    type: ACTION_TYPES.FETCH_SELLER_SHOP,
-                    payload: data,
-                });
-            })
-                .catch((ex) => {});
+            dispatch(fetchShopInfo())
+        } else{
+
+
+
+
         }
     }, [auth])
 
 
 
-
     return (
-        <div>
-            <Navigation auth={auth} />
-            <div className="container mx-auto">
-                <div className="flex ">
-                    {/*<PrivateRoute scope={Scope.SELLER_USER}>*/}
-                    <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar} auth={auth} />
-                    {/*</PrivateRoute>*/}
-                    <div className="w-full ml-0 lg:ml-6">
-                        <Outlet />
+        <div className="">
+            <div className="">
+                <DashboardNavigation auth={auth} />
+
+                <div className="mx-auto">
+                    <div className="flex">
+                        <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar}  auth={auth}/>
+
+                        <div className="container !px-3">
+                            <Suspense fallback={<h1>Hi loading</h1>}>
+                                <Outlet />
+                            </Suspense>
+
+                        </div>
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };
 
-export default AdminLayout;
+export default SellerLayout;

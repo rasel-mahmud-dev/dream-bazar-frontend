@@ -24,8 +24,7 @@ import {
 } from "react-icons/all";
 
 import { RootState } from "src/store";
-import { setLanguage, toggleTheme } from "actions/appContextActions";
-import { AppContext, DeviceType } from "store/AppContext";
+
 
 import useLanguage from "src/hooks/useLanguage";
 import staticImagePath from "src/utills/staticImagePath";
@@ -35,6 +34,9 @@ import Circle from "UI/Circle/Circle";
 import MobileCartSidebar from "components/Navigation/MobileCartSidebar";
 import useWindowResize from "src/hooks/useWindowResize";
 import { logoutAction } from "actions/authAction";
+import useAppSelector from "src/hooks/useAppSelector";
+import {setLanguageAction} from "actions/appAction";
+import useAppDispatch from "src/hooks/useAppDispatch";
 
 const AuthDropdown = lazy(() => import("../Dropdown/AuthDropdown"));
 const MoreDropdown = lazy(() => import("components/Navigation/MoreDropdown"));
@@ -44,14 +46,15 @@ const Title = Typography.Title.default;
 function Navigation(props) {
     const {
         authState: { auth },
-        appState,
+        appState: {lang, theme},
         cartState,
-    } = useSelector((state: RootState) => state);
-    const dispatch = useDispatch();
+    } = useAppSelector(state=> state);
 
-    const { contextState, contextDispatch } = useContext<any>(AppContext);
+    const dispatch = useAppDispatch();
 
-    const l = useLanguage(AppContext);
+    // const { contextState, contextDispatch } = useContext<any>(AppContext343434);
+
+    const l = useLanguage();
     const windowWidth = useWindowResize();
 
     const news = "From Yesterday our Online Shop will be Shutdown until Government don't declare next info.";
@@ -66,26 +69,26 @@ function Navigation(props) {
     const headerRef = useRef<HTMLDivElement>();
 
     function handlerWindowResize() {
-        if (window.innerWidth > 600 && window.innerWidth < 1000) {
-            contextDispatch({
-                type: ACTION_TYPES.SET_DEVICE_TYPE,
-                payload: DeviceType.TABLET,
-            });
-        } else if (window.innerWidth < 600) {
-            contextDispatch({
-                type: ACTION_TYPES.SET_DEVICE_TYPE,
-                payload: DeviceType.MOBILE,
-            });
-        } else {
-            contextDispatch({
-                type: ACTION_TYPES.SET_DEVICE_TYPE,
-                payload: DeviceType.DESKTOP,
-            });
-        }
-        contextDispatch({
-            type: ACTION_TYPES.SET_WINDOW_WIDTH,
-            payload: window.innerWidth,
-        });
+        // if (window.innerWidth > 600 && window.innerWidth < 1000) {
+        //     contextDispatch({
+        //         type: ACTION_TYPES.SET_DEVICE_TYPE,
+        //         payload: DeviceType.TABLET,
+        //     });
+        // } else if (window.innerWidth < 600) {
+        //     contextDispatch({
+        //         type: ACTION_TYPES.SET_DEVICE_TYPE,
+        //         payload: DeviceType.MOBILE,
+        //     });
+        // } else {
+        //     contextDispatch({
+        //         type: ACTION_TYPES.SET_DEVICE_TYPE,
+        //         payload: DeviceType.DESKTOP,
+        //     });
+        // }
+        // contextDispatch({
+        //     type: ACTION_TYPES.SET_WINDOW_WIDTH,
+        //     payload: window.innerWidth,
+        // });
     }
 
     // observation window resize
@@ -107,11 +110,12 @@ function Navigation(props) {
     }, [props.offsetTop]);
 
     function handleChangeTheme(e) {
-        toggleTheme(e.target.value, contextDispatch);
+        // toggleTheme(e.target.value, contextDispatch);
     }
 
     function handleChangeLanguage(e) {
-        setLanguage(e.target.value, contextDispatch);
+        dispatch(setLanguageAction(e.target.value))
+        // setLanguage(e.target.value, contextDispatch);
     }
 
 
@@ -127,8 +131,6 @@ function Navigation(props) {
             }));
         }
     }
-
-
 
 
     return (
@@ -160,7 +162,7 @@ function Navigation(props) {
                                     onChange={handleChangeLanguage}
                                     name=""
                                     id=""
-                                    value={contextState.lang}
+                                    value={lang}
                                     className="dark:bg-neutral-600 dark:text-white"
                                 >
                                     <option value="bn">{l("Bangla")}</option>
@@ -173,7 +175,7 @@ function Navigation(props) {
                                     onChange={handleChangeTheme}
                                     name=""
                                     id=""
-                                    value={contextState.theme}
+                                    value={theme}
                                     className="dark:bg-neutral-600 dark:text-white"
                                 >
                                     <option value="dark">{l("Dark", "Dark")}</option>

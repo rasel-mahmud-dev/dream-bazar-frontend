@@ -83,6 +83,8 @@ const Table: FC<TableProps> = (props) => {
     }
 
     function handleSort(compareFn: (args1: any, args2: any) => void, column: any) {
+        if(!compareFn) return;
+
         let list: any = state.items;
         if (state.order) {
             list = list.sort((a: any, b: any) => compareFn(a[column.dataIndex], b[column.dataIndex]));
@@ -163,7 +165,7 @@ const Table: FC<TableProps> = (props) => {
     }
 
     function getNegativePages(n: number) {
-        let result = [];
+        let result: number[] = [];
         //  store first 10 page
         if (n === 1) {
             for (let i = 1; i <= 10; i++) {

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import InputGroup from "UI/Form/InputGroup";
 import FileUpload from "UI/Form/File/FileUpload";
 import {Button} from "UI/index";
@@ -11,7 +11,7 @@ import useAppSelector from "src/hooks/useAppSelector";
 import ActionModal from "components/ActionModal/ActionModal";
 
 
-const CreateShop = (props) => {
+const CreateShop = ({isUpdate = false}) => {
     const { authState: { auth, shop }   } = useAppSelector(state => state);
 
     const navigate = useNavigate()
@@ -25,7 +25,6 @@ const CreateShop = (props) => {
         loading: false,
     });
 
-    let isUpdate = location.pathname === "/seller/shop/edit";
 
     const [shopInfo, setShopInfo] = useState({
         shopEmail: { value: "", errorMessage: "", required: true },
@@ -39,7 +38,7 @@ const CreateShop = (props) => {
 
 
     useEffect(() => {
-        if (shop) {
+        if (shop && isUpdate) {
             let updatedShopInfo = { ...shopInfo };
             for (let shopInfoKey in updatedShopInfo) {
                 if (shop[shopInfoKey]) {
@@ -51,7 +50,7 @@ const CreateShop = (props) => {
             }
             setShopInfo(updatedShopInfo);
         }
-    }, [auth, shop]);
+    }, [auth, shop, isUpdate]);
 
 
     function handleChange(e) {

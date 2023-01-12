@@ -155,6 +155,14 @@ export const adminRoute =   [
 
         ),
     },
+    {
+        path: "shop/edit",
+        element: (
+
+            <CreateShop isUpdate={true} />
+
+        ),
+    },
     // {path: "join",
     //     element:  <Outlet />,
     //     children: [
@@ -163,6 +171,7 @@ export const adminRoute =   [
     //     ]
     // }
 ]
+
 
 const AdminLayout = () => {
     const location = useLocation();
@@ -179,9 +188,13 @@ const AdminLayout = () => {
 
     const [activeItem, setActiveItem] = useState(0);
 
+
+
     useEffect(()=>{
         if(auth){
             dispatch(fetchShopInfo())
+        }else{
+
         }
     }, [auth])
 

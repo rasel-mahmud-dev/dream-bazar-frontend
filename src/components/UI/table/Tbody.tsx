@@ -14,8 +14,8 @@ const Tbody: FC<Props> = (props) => {
 		<tbody className={tbodyClass?.tbody}>
 			{dataSource.map((data: any, i: number) => (
 				<tr className={tbodyClass?.tr} key={i}>
-					{columns?.map((col: Column) => (
-						<td
+					{columns?.map((col: Column, i) => (
+						<td key={i + "-col"}
 							className={`table-cell ${
 								tbodyClass.td ? tbodyClass.td : ""
 							}`}

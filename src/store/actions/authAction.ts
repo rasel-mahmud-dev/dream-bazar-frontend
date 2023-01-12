@@ -52,18 +52,20 @@ export const registrationAction = async (userData, dispatch, cb: (data: object, 
 
 
 
-export const currentAuthAction = async (dispatch, cb) => {
+export const currentAuthAction = createAsyncThunk("" , async function (arg, store){
+
     try {
         let response = await getApi().get("/api/auth/current-auth");
         if (response.status === StatusCode.Ok) {
-            loginHandler(response.data, dispatch);
+            loginHandler(response.data, store.dispatch);
         } else {
-            loginHandler(null, dispatch);
+            loginHandler(null, store.dispatch);
         }
     } catch (ex) {
-        loginHandler(null, dispatch);
+        loginHandler(null, store.dispatch);
     }
-};
+
+})
 
 
 
@@ -90,7 +92,7 @@ export const fetchOrdersAction = async (dispatch) =>{
 export const fetchShopInfo = createAsyncThunk("", async (payload, state)=>{
     try {
         const response = await getApi().get(`/api/shop/info`);
-        if (response.status === StatusCode.Created) {
+        if (response.status === StatusCode.Ok){
             state.dispatch<FetchShopAction>({
                 type: ACTION_TYPES.FETCH_SELLER_SHOP,
                 payload: response.data,
@@ -102,9 +104,39 @@ export const fetchShopInfo = createAsyncThunk("", async (payload, state)=>{
 
 
 
-export const fetchAllStores = createAsyncThunk( ACTION_TYPES.FETCH_STORES, async (payload, state)=>{
+export const fetchAllStores = createAsyncThunk( "", async (_, state)=>{
     try {
         const response = await getApi().get(`/api/shops`);
+        if (response.status === StatusCode.Ok) {
+            state.dispatch({
+                type: ACTION_TYPES.FETCH_STORES,
+                payload: response.data,
+            });
+        }
+    } catch (ex) {
+
+    }
+
+})
+
+export const updateStoreAction = createAsyncThunk( "", async ({shopId, update = {}}: { shopId: string, update: object }, state)=>{
+    try {
+        const response = await getApi().patch(`/api/shop/`+shopId, {update});
+        if (response.status === StatusCode.Ok) {
+            state.dispatch({
+                type: ACTION_TYPES.FETCH_STORES,
+                payload: response.data,
+            });
+        }
+    } catch (ex) {
+
+    }
+
+})
+
+export const updateStoreActiveStatusAction = createAsyncThunk( "", async (isActive: boolean, state)=>{
+    try {
+        const response = await getApi().patch(`/api/shop/update-active`, {isActive});
         if (response.status === StatusCode.Ok) {
             state.dispatch({
                 type: ACTION_TYPES.FETCH_STORES,

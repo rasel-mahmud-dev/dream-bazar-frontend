@@ -1,22 +1,19 @@
-import {useContext} from "react";
-import {AppContext} from "store/AppContext";
+import React from "react";
+import useAppSelector from "src/hooks/useAppSelector";
 
+function useLanguage(){
 
-function useLanguage(Context?: any){
-	const a =  useContext(Context || AppContext);
-	// @ts-ignore
-	let translations = a.contextState.translations
-	const chooseToken = (token: string, fallback?: string)=>{
-		if(translations[token]){
-			return translations[token]
-		} else if(fallback) {
-			return fallback
-		} else {
-			return token;
-		}
-	}
-	
-	return chooseToken
+    const { translations  } = useAppSelector(state=>state.appState)
+
+    return (token: string, fallback?: string) => {
+        if (translations[token]) {
+            return translations[token]
+        } else if (fallback) {
+            return fallback
+        } else {
+            return token;
+        }
+    }
 }
 
 export default useLanguage

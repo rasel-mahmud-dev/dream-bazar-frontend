@@ -2,13 +2,13 @@ import React, {FC, ReactNode, useState} from "react";
 import Sidebar from "components/sidebar/Sidebar";
 import {toggleLeftSidebarAction} from "actions/appAction";
 import {useDispatch} from "react-redux";
-import {BiCart, BiNote, BiPlug, BiPlus, FaAngleDown, FaAngleLeft, FaAngleRight, FaBars, FiMail, MdOutlineSpaceDashboard} from "react-icons/all";
+import { FaAngleDown, FaAngleLeft, FaAngleRight} from "react-icons/all";
 import {Link,   useNavigate} from "react-router-dom";
 import Circle from "UI/Circle/Circle";
 
 import "./dashboardSideBar.scss";
 import {AuthType} from "store/types";
-import {isDataView} from "util/types";
+
 
 export type SidebarDataType = {
     name?: string,

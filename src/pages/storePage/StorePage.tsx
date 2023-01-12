@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react"
 import storeData from "src/storeData.json"
 import api from "src/apis"
 import fullLink from 'src/utills/fullLink'
-import "./style.scss"
+import "../shared/Shop/style.scss"
 import Title from "UI/typography/Title";
 import {Button,  Image, } from "components/UI";
 // import Slider from "components/slider/Slider";

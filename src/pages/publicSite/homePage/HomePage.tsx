@@ -11,7 +11,6 @@ import fullLink from "src/utills/fullLink";
 
 import HomeCategoryNav from "pages/publicSite/homePage/HomeCategoryNav/HomeCategoryNav";
 import staticImagePath from "src/utills/staticImagePath";
-import { AppContext } from "store/AppContext";
 import useLanguage from "src/hooks/useLanguage";
 import { BiCart,  MdFavorite } from "react-icons/all";
 import SEO from "components/SEO/SEO";
@@ -25,7 +24,7 @@ const HomePage = (props) => {
 
     const dispatch = useDispatch();
 
-    const { contextState, contextDispatch } = useContext<any>(AppContext);
+
 
     const navigate = useNavigate();
 
@@ -152,11 +151,11 @@ const HomePage = (props) => {
     }
 
     function shortTitle(str) {
-        if (contextState.deviceType === "MOBILE") {
-            return str.slice(0, 25) + "...";
-        } else {
-            return str;
-        }
+        // if (contextState.deviceType === "MOBILE") {
+        //     return str.slice(0, 25) + "...";
+        // } else {
+        //     return str;
+        // }
     }
 
     return (

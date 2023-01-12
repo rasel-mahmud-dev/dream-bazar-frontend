@@ -22,7 +22,7 @@ import {
 } from "react-icons/all";
 
 
-import {AppContext, AppContextType, DeviceType} from "store/AppContext";
+import {AppContext343434, AppContextType, DeviceType} from "store/AppContext343434";
 
 
 
@@ -128,7 +128,7 @@ const CustomerDashboard = (props) => {
   const [isInline, setInline] = useState(false)
   let [currentPage, setCurrentPage] = React.useState("0")
   
-  const {contextState, contextDispatch} = useContext<AppContextType>(AppContext)
+  const {contextState, contextDispatch} = useContext<AppContextType>(AppContext343434)
   
   React.useEffect(()=>{
     
