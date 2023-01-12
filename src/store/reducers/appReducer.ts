@@ -50,6 +50,12 @@ const appReducer = (state: any = initialState, action: AppActions) => {
                 lang: action.payload.lang
             }
 
+        case ACTION_TYPES.SET_THEME:
+            return {
+                ...state,
+                theme: action.payload
+            }
+
         // case ACTION_TYPES.TOGGLE_NOTIFY :
         //     updatedState.isNotify = action.payload.isNotify
         //     updatedState.notificationMsg = action.payload.message

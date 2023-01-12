@@ -60,7 +60,7 @@ const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
                     <div className="">
 
                         {/**** sidebar fixed navigation ******/}
-                        <div className="sidebar-fixed-bar top-0 bg-white py-3 px-4 lg:hidden">
+                        <div className="sidebar-fixed-bar top-0 py-3 px-4 lg:hidden">
                             <div className="flex items-center  ">
                                 <div className="mr-3 ">
                                     <Circle onClick={toggleSidebar}>

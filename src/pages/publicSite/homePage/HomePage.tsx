@@ -39,6 +39,7 @@ const HomePage = (props) => {
         fetchedData,
     } = props.productState;
 
+
     const { selectedLang, lang } = props.appState;
 
     const [pagination, setPagination] = React.useState({ perSection: 2, sectionNumber: 1 });
@@ -151,11 +152,12 @@ const HomePage = (props) => {
     }
 
     function shortTitle(str) {
-        // if (contextState.deviceType === "MOBILE") {
-        //     return str.slice(0, 25) + "...";
-        // } else {
-        //     return str;
-        // }
+        let deviceType = ""
+        if (deviceType === "MOBILE") {
+            return str.slice(0, 25) + "...";
+        } else {
+            return str;
+        }
     }
 
     return (
@@ -172,8 +174,8 @@ const HomePage = (props) => {
                 <div className="my-20">
                     {Object.keys(productSectionsWithProduct) &&
                         Object.keys(productSectionsWithProduct).map((sectionName, index: number) => (
-                            <>
-                                <div className="bg-body mt-10" key={index}>
+                            <div key={index}>
+                                <div className="bg-body mt-10" >
                                     <div className="flex items-center justify-between py-2 px-4 mb-8 border-b border-b-neutral-900/10 dark:border-neutral-600 ">
                                         <h1 className="text-neutral-800 dark:text-white font-medium text-md md:text-lg lg:text-2xl">
                                             {l(sectionName)}
@@ -217,7 +219,7 @@ const HomePage = (props) => {
                                                                     ? pp.name
                                                                     : productSectionsWithProduct[sectionName].type === "brands"
                                                                     ? pp.name
-                                                                    : shortTitle(pp.title)}{" "}
+                                                                    : shortTitle(pp.title)}
                                                             </Link>
                                                         </h4>
 
@@ -252,7 +254,7 @@ const HomePage = (props) => {
                                         )}
                                     </div>
                                 </div>
-                            </>
+                            </div>
                         ))}
 
                     <Button className="!mx-auto text-green-500 mt-10">Load More Section</Button>

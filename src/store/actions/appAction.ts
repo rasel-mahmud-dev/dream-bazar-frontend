@@ -76,11 +76,14 @@ export const setLanguageAction = createAsyncThunk("", async (lang: string = "", 
 
 
 export const toggleThemeAction = (theme="")=>{
+    console.log(theme)
+
     if(theme) {
         localStorage.setItem("theme", theme)
     } else {
         theme = localStorage.getItem("theme") || ""
     }
+
     let html  = document.documentElement
     html.className = theme
     return {

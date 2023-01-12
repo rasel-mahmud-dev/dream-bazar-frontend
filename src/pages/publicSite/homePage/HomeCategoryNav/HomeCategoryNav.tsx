@@ -41,7 +41,7 @@ const HomeCategoryNav = () => {
 
     const [openItemId, setOpenItemId] = React.useState(-1);
 
-    const [openDropdown, setOpenDropdown] = React.useState(null);
+    const [openDropdown, setOpenDropdown] = React.useState<{name?: string}>({});
 
     const [subMenuIds, setSubMenuIds] = React.useState([]);
 
@@ -56,7 +56,7 @@ const HomeCategoryNav = () => {
 
     const [openSubMenuName, setOpenSubMenuName] = useState<string>("");
 
-    const dropdownRef = useRef<HTMLDivElement>();
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     // assume min width of dropdown panel
     const MAX_DROPDOWN_WIDTH = 288;
@@ -93,7 +93,7 @@ const HomeCategoryNav = () => {
     }
 
     function handleCloseDropdown() {
-        setOpenDropdown(null);
+        setOpenDropdown({});
     }
 
     function handleMouseEnterOnSubCategory(subCat) {
@@ -106,9 +106,9 @@ const HomeCategoryNav = () => {
             <Dropdown isShow={openDropdown?.name === section.name && section?.sub_menu && section?.sub_menu.length > 0} className="z-500">
                 <div className={`category-dropdown`} style={isMobile ? {left: 0, transform: 'translateX(0)'} : dropdownStyle} ref={dropdownRef}>
                     <div className="relative">
-                        {section?.sub_menu?.map((subMenu) => (
+                        {section?.sub_menu?.map((subMenu, index) => (
                             <div
-                                key={subMenu.name}
+                                key={index}
                                 className="category-dropdown__submenu-panel"
                                 onMouseEnter={() => handleMouseEnterOnSubCategory(subMenu)}
                             >
@@ -139,7 +139,7 @@ const HomeCategoryNav = () => {
                                             <div>
                                                 {subMenu?.sub_menu && subMenu.sub_menu.length > 0 ? (
                                                     subMenu.sub_menu.map((subSubMenu) => (
-                                                        <div key={subSubMenu.name}>
+                                                        <div key={subSubMenu.name }>
                                                             <h4>
                                                                 <Link
                                                                     to={`/p/${
@@ -173,9 +173,9 @@ const HomeCategoryNav = () => {
     return (
         <div className="bg-white py-4 dark:bg-neutral-800 dark:text-white shadow-md">
             <div className="flex items-center justify-between max-w-8xl mx-auto px-4  gap-x-4 scroll-x-transparent overflow-x-auto md:overflow-visible ">
-                {homeNavData.map((section) => (
+                {homeNavData.map((section, idx) => (
                     <div
-                        key={section.name}
+                        key={idx}
                         className="relative"
                         onMouseEnter={(e) => handleClickSubMenu(e, section)}
                         onMouseLeave={handleCloseDropdown}

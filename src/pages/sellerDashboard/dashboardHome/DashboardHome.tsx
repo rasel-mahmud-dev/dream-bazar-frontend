@@ -17,7 +17,7 @@ const DashboardHome = () => {
         <div className="">
             <h2 className="heading-2 py-4">Seller Dashboard</h2>
             <Card>
-                <h3 className="text-neutral-800 font-semibold text-xl">Business Analytics </h3>
+                <h3 className="heading-4">Business Analytics </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 slats-list mt-5">
                     {stats.map((slat, i)=>(
                         <div className="bg-neutral-100/80 p-5 rounded-lg slat-item flex justify-between">
@@ -28,7 +28,7 @@ const DashboardHome = () => {
                 </div>
             </Card>
             <Card>
-                <h3 className="text-neutral-800 font-semibold text-xl">Seller Wallet </h3>
+                <h3 className="heading-4">Seller Wallet </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5">
                     
                     <div className="border border-neutral-100 shadow-xxs p-8 rounded-lg  flex flex-col justify-between items-center">
@@ -54,12 +54,12 @@ const DashboardHome = () => {
             
   
             <Card>
-                <h3 className="text-neutral-800 font-semibold text-xl">Top Selling Products</h3>
+                <h3 className="heading-4">Top Selling Products</h3>
                 <div className="flex flex-col gap-5 mt-5">
                     {stats.map((slat, i)=>(
                         <div className="bg-neutral-100/80 p-5 rounded-lg flex justify-between">
                             <div>
-                                <img src="C:/Users/RaseL/AppData/Local/Temp/top-selling-product.png" alt=""/>
+                                <img src="/static/icons/top-selling-product.png" alt=""/>
                                 <p className={`font-semibold text-md`}>{slat.name}</p>
                             </div>
                             <p className={`font-semibold text-md slat-value`}>
@@ -71,12 +71,12 @@ const DashboardHome = () => {
                 </div>
             </Card>
             <Card>
-                <h3 className="text-neutral-800 font-semibold text-xl">Most Popular Products</h3>
+                <h3 className="heading-4">Most Popular Products</h3>
                 <div className="flex flex-col gap-5 mt-5">
                     {stats.map((slat, i)=>(
                         <div className="bg-neutral-100/80 p-5 rounded-lg flex justify-between">
                             <div>
-                                <img src="C:/Users/RaseL/AppData/Local/Temp/most-popular-product.png" alt=""/>
+                                <img src="/static/icons/most-popular-product.png" alt=""/>
                                 <p className={`font-semibold text-md`}>{slat.name}</p>
                             </div>
                             <p className={`font-semibold text-md slat-value`}>

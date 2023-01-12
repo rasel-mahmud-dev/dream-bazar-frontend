@@ -10,7 +10,7 @@ import { RootState } from "src/store";
 import DashboardSidebar, {SidebarDataType} from "pages/shared/DashboardSidebar/DashboardSidebar";
 import { BiCart, BiNote, BiPlus, BsList, FiMail, MdOutlineSpaceDashboard} from "react-icons/all";
 import staticImagePath from "src/utills/staticImagePath";
-import DashboardNavigation from "pages/shared/Navigation";
+import DashboardNavigation from "pages/shared/DashboardNavigation/DashboardNavigation";
 import PrivateRoute from "src/middleware/PrivateRoute";
 import {Scope} from "store/types";
 import BrandListSkeleton from "pages/adminDashboard/brandList/BrandList.Skeleton";

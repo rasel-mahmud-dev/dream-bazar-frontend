@@ -16,7 +16,7 @@ const initialState: CartStateType = {
     cartProducts: [
         {
             title: "Iphone 11",
-            id: 1,
+            _id: 12342342343243,
             total: 123,
             color: "red",
             size: "big",
@@ -25,7 +25,7 @@ const initialState: CartStateType = {
         },
         {
             title: "Jeans 11",
-            id: 11232,
+            _id: 11232,
             total: 123,
             color: "red",
             size: "big",
@@ -34,7 +34,7 @@ const initialState: CartStateType = {
         },
         {
             title: "Laptop 11",
-            id: 1123,
+            _id: 1123,
             total: 123,
             color: "red",
             size: "big",
@@ -43,7 +43,7 @@ const initialState: CartStateType = {
         },
         {
             title: "Mufti T-shart",
-            id: 11,
+            _id: 11,
             total: 13,
             color: "green",
             size: "sm",

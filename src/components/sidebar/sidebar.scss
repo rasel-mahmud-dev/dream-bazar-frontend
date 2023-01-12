@@ -7,8 +7,8 @@
 }
 
 .sidebar {
+    @apply dark:bg-neutral-800 bg-white dark:text-dark-10 text-dark-800;
     z-index: 998;
-
     --sidebar-width: 260px;
     max-height: 700px;
     display: flex;
@@ -21,7 +21,6 @@
     min-width: var(--sidebar-width);
     max-width: var(--sidebar-width);
     transition: left .3s ease;
-    background: white;
     left: -260px;
     overflow-y: auto;
     max-height: calc(100vh - var(--header-height));

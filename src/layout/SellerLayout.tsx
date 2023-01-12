@@ -10,7 +10,7 @@ import DashboardSidebar from "pages/shared/DashboardSidebar/DashboardSidebar";
 
 import useAppDispatch from "src/hooks/useAppDispatch";
 import {BiCart, BiNote, BiPlus, FiMail} from "react-icons/all";
-import DashboardNavigation from "pages/shared/Navigation";
+import DashboardNavigation from "pages/shared/DashboardNavigation/DashboardNavigation";
 import Footer from "components/Footer/Footer";
 import PrivateRoute from "src/middleware/PrivateRoute";
 import {Scope} from "store/types";

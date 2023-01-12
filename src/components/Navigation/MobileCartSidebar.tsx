@@ -53,7 +53,7 @@ const MobileCartSidebar = ({ isOpen, handleClose }) => {
                     </div>
                     <div>
                         {cartState.cartProducts.map((cp) => (
-                            <div className="flex items-center gap-x-2">
+                            <div className="flex items-center gap-x-2" key={cp._id}>
                                 <img className="w-10" src={staticImagePath(cp.img)} alt="" />
                                 <h1>{cp.title}</h1>
                             </div>

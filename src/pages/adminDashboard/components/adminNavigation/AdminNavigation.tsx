@@ -7,7 +7,7 @@ import staticImagePath from "src/utills/staticImagePath";
 import Circle from "UI/Circle/Circle";
 
 import AuthDropdown from "components/Dropdown/AuthDropdown";
-import MoreDropdown from "../../../shared/MoreDropdown";
+import MoreDropdown from "../../../shared/DashboardNavigation/MoreDropdown";
 import Dropdown from "components/Dropdown/Dropdown";
 import {Badge} from "components/UI";
 import {logoutAction} from "actions/authAction";

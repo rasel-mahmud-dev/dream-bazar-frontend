@@ -35,7 +35,7 @@ import MobileCartSidebar from "components/Navigation/MobileCartSidebar";
 import useWindowResize from "src/hooks/useWindowResize";
 import { logoutAction } from "actions/authAction";
 import useAppSelector from "src/hooks/useAppSelector";
-import {setLanguageAction} from "actions/appAction";
+import {setLanguageAction, toggleThemeAction} from "actions/appAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
 
 const AuthDropdown = lazy(() => import("../Dropdown/AuthDropdown"));
@@ -110,12 +110,12 @@ function Navigation(props) {
     }, [props.offsetTop]);
 
     function handleChangeTheme(e) {
-        // toggleTheme(e.target.value, contextDispatch);
+        console.log(e.target.value)
+        dispatch(toggleThemeAction(e.target.value));
     }
 
     function handleChangeLanguage(e) {
         dispatch(setLanguageAction(e.target.value))
-        // setLanguage(e.target.value, contextDispatch);
     }
 
 
@@ -173,8 +173,6 @@ function Navigation(props) {
                                 <FiMoon className="text-md" />
                                 <select
                                     onChange={handleChangeTheme}
-                                    name=""
-                                    id=""
                                     value={theme}
                                     className="dark:bg-neutral-600 dark:text-white"
                                 >

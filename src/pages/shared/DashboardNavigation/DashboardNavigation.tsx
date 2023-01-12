@@ -1,7 +1,7 @@
 import React, {Suspense, useEffect, useRef} from "react";
-import {BiBell, BiChevronsDown, BiSearch, BsBell, FaBars, FaBell, FaUser} from "react-icons/all";
+import {BiBell, BiChevronsDown, BiMoon, BiSearch, BiSun, BsBell, FaBars, FaBell, FaUser} from "react-icons/all";
 import {Link, useLocation} from "react-router-dom";
-import {toggleLeftSidebarAction} from "actions/appAction";
+import {toggleLeftSidebarAction, toggleThemeAction} from "actions/appAction";
 import {useDispatch} from "react-redux";
 import staticImagePath from "src/utills/staticImagePath";
 import Circle from "UI/Circle/Circle";
@@ -9,13 +9,19 @@ import Circle from "UI/Circle/Circle";
 import AuthDropdown from "components/Dropdown/AuthDropdown";
 import MoreDropdown from "./MoreDropdown";
 import Dropdown from "components/Dropdown/Dropdown";
-import {Badge} from "components/UI";
+import {Badge} from "UI/index";
 import {logoutAction} from "actions/authAction";
+import useAppSelector from "src/hooks/useAppSelector";
+
+
+import "./styles.scss"
 
 const DashboardNavigation = ({auth}) => {
 
     const location = useLocation();
     const dispatch = useDispatch();
+
+    const {theme} = useAppSelector(state => state.appState)
 
     const [state, setState] = React.useState({
         openDropdown: "",
@@ -33,18 +39,23 @@ const DashboardNavigation = ({auth}) => {
         }
     }, [headerRef.current])
 
+    function changeChangeTheme() {
+        dispatch(toggleThemeAction(theme === "dark" ? "light" : "dark"))
+    }
+
+
     return (
         <div>
-            <div ref={headerRef} className="admin-navigation shadow-xxs bg-white fixed w-full">
+            <div ref={headerRef} className="admin-navigation">
                 <header className="container flex items-center justify-between">
                     <div className="logo flex items-center">
-                        <Circle className="lg:hidden block hover:!bg-gray-100 bg-transparent mr-3" onClick={handleToggleLeftBar}>
+                        <Circle className="lg:hidden block  mr-3" onClick={handleToggleLeftBar}>
                             <FaBars className="text-sm"/>
                         </Circle>
 
                         <Link to="/admin/dashboard" className="flex items-center">
-                            <img src="/logo-2.png" alt="" className="w-9 md:w-11"/>
-                            <h4 className="text-neutral-900 font-semibold text-lg md:text-xl   md:block">Dream Bazar</h4>
+                            <img src="/public/logo-2.png" alt="" className="w-9 md:w-11"/>
+                            <h4 className="font-semibold text-lg md:text-xl   md:block">Dream Bazar</h4>
                         </Link>
                     </div>
 
@@ -53,11 +64,18 @@ const DashboardNavigation = ({auth}) => {
                         <input type="text" placeholder="Search" className="w-full outline-none"/>
                     </div>
 
-                    <BiSearch className="text-xl block ml-auto mr-2.5"/>
+                    <div className="flex items-center gap-x-1">
+                        <Circle><BiSearch className="text-xl  "/></Circle>
+
+                        <Circle onClick={changeChangeTheme}>
+                            {theme === "dark" ? <BiSun className="text-xl "/> :
+                            <BiMoon className="text-xl "/>}
+                        </Circle>
+                    </div>
 
                     <div className="flex items-center gap-x-1">
                         <Circle
-                            className="relative hover:!bg-gray-100 bg-transparent py-3"
+                            className="relative py-3"
                             onMouseEnter={() => setState({...state, openDropdown: "notification"})}
                             onMouseLeave={() => setState({...state, openDropdown: ""})}
                         >
@@ -87,7 +105,7 @@ const DashboardNavigation = ({auth}) => {
 
 
                         <Circle
-                            className="relative hover:!bg-gray-100 bg-transparent py-3"
+                            className="relative  py-3"
                             onMouseEnter={() => setState({...state, openDropdown: "more"})}
                             onMouseLeave={() => setState({...state, openDropdown: ""})}
                         >
@@ -110,7 +128,7 @@ const DashboardNavigation = ({auth}) => {
                                         <img className="rounded-full" src={staticImagePath(auth.avatar)} alt=""/>
                                     </div>
                                 ) : (
-                                    <Circle className="hover:!bg-gray-100 bg-transparent">
+                                    <Circle>
                                         <FaUser className="text-lg"></FaUser>
                                     </Circle>
                                 )}
