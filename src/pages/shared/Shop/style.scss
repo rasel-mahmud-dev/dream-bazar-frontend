@@ -63,16 +63,19 @@
 //}
 
 .shop-banner {
-
     width: 100%;
     max-height: 310px;
     height: 310px;
-    background: var(--primary);
+    background: rgba(38, 38, 38, 0.13);
     overflow: hidden;
     display: block;
 
     img {
         width: initial;
+    }
+
+    .shop-logo{
+
     }
 
 

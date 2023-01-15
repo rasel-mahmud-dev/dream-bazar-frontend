@@ -7,7 +7,7 @@ import FileUpload from "UI/Form/File/FileUpload";
 import {Button} from "UI/index";
 import MultipleFileChooser from "UI/Form/File/MultipleFileChooser";
 import generateSku from "src/utills/generateSku";
-import {StatusCode} from "store/types";
+import {Roles, StatusCode} from "store/types";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 
 import useToast from "src/hooks/useToast";
@@ -24,7 +24,7 @@ import {fetchCategoryDetail, fetchFlatCategoriesAction} from "actions/categoryAc
 import useScrollTop from "src/hooks/useScrollTop";
 
 
-const AddProduct = () => {
+const AddProduct = ({roleFor}) => {
     const params = useParams();
     const dispatch = useAppDispatch();
 
@@ -318,16 +318,16 @@ const AddProduct = () => {
 
         try {
 
-            // setHttpResponse(p => ({...p, message: "", loading: true}));
+            setHttpResponse(p => ({...p, message: "", loading: true}));
+            let redirectPath = roleFor === Roles.ADMIN ? "admin" : "seller"
 
             if (productId) {
                 let {status, data} = await getApi().patch("/api/product/" + params.productId, formData);
                 if (status === StatusCode.Created) {
 
                     setTimeout(() => {
-                        // setHttpResponse({message: data.message, loading: false, isSuccess: true});
-                        // navigate("/admin/products")
-                        // console.log(data)
+                        setHttpResponse({message: data.message, loading: false, isSuccess: true});
+                        navigate(   `/${redirectPath}/products`)
                     }, 300)
 
                 }
@@ -337,7 +337,7 @@ const AddProduct = () => {
 
                     setTimeout(() => {
                         setHttpResponse({message: data.message, loading: false, isSuccess: true});
-                        navigate("/admin/products")
+                        navigate(   `/${redirectPath}/products`)
                     }, 300)
                 }
             }

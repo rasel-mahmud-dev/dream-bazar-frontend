@@ -43,10 +43,11 @@ const ShopInfo = () => {
 					<>
 						<div className="shop-banner">
 							<img className="w-full" src={shop.shopBanner} alt="" />
+                            <img src={staticImagePath(shop.shopLogo)} className="shop-logo rounded-full w-32" alt="" />
 						</div>
 						<h3 className="heading-4">My shop Info</h3>
 						<div className="flex items-center gap-x-4 mt-4">
-							<img src={staticImagePath(shop.shopLogo)} className="rounded-full w-32" alt="" />
+
 							<div className="flex flex-col gap-y-2">
 								<h4 className="heading-5">Name : {shop.shopName}</h4>
 								<p>Phone : {shop?.shopPhone}</p>

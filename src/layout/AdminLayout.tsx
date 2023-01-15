@@ -12,7 +12,7 @@ import { BiCart, BiNote, BiPlus, BsList, FiMail, MdOutlineSpaceDashboard} from "
 import staticImagePath from "src/utills/staticImagePath";
 import DashboardNavigation from "pages/shared/DashboardNavigation/DashboardNavigation";
 import PrivateRoute from "src/middleware/PrivateRoute";
-import {Scope} from "store/types";
+import {Roles, Scope} from "store/types";
 import BrandListSkeleton from "pages/adminDashboard/brandList/BrandList.Skeleton";
 import BrandListLite from "pages/adminDashboard/brandList/BrandListLite";
 import CategoryDetail from "pages/adminDashboard/categoryList/CategoryDetail";
@@ -56,7 +56,7 @@ export const adminRoute =   [
         path: "products/new",
         element: (
             <PrivateRoute scope={Scope.ADMIN_USER}>
-                <AddProduct />
+                <AddProduct roleFor={Roles.ADMIN} />
             </PrivateRoute>
         ),
     },
@@ -64,7 +64,7 @@ export const adminRoute =   [
         path: "products/edit/:productId",
         element: (
             <PrivateRoute scope={Scope.ADMIN_USER}>
-                <AddProduct />
+                <AddProduct roleFor={Roles.ADMIN}  />
             </PrivateRoute>
         ),
     },

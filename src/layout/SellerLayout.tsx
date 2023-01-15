@@ -11,7 +11,7 @@ import {BiCart, BiNote, BiPlus, FiMail} from "react-icons/all";
 import DashboardNavigation from "pages/shared/DashboardNavigation/DashboardNavigation";
 import Footer from "components/Footer/Footer";
 import PrivateRoute from "src/middleware/PrivateRoute";
-import {Scope} from "store/types";
+import {Roles, Scope} from "store/types";
 import CreateShop from "pages/shared/Shop/CreateShop";
 import ProductList from "pages/adminDashboard/productList/ProductList";
 import AddProduct from "pages/shared/AddProduct/AddProduct";
@@ -48,7 +48,7 @@ export const sellerRoute = [
         path: "products/new",
         element: (
             <PrivateRoute scope={Scope.SELLER_USER}>
-                <AddProduct/>
+                <AddProduct roleFor={Roles.SELLER} />
             </PrivateRoute>
         ),
     },
@@ -56,7 +56,7 @@ export const sellerRoute = [
         path: "products/edit/:productId",
         element: (
             <PrivateRoute scope={Scope.SELLER_USER}>
-                <AddProduct />
+                <AddProduct roleFor={Roles.SELLER}  />
             </PrivateRoute>
         ),
     },
