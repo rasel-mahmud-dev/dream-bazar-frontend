@@ -50,5 +50,16 @@ export interface FetchStoresAction {
 
 
 
-export type AuthActionTypes = FetchShopAction | LoginAction | ResetAuthLoadingAction | FetchOrdersAction | FetchStoresAction
+/**
+ Update shop info by seller
+ */
+export interface UpdateShopAction {
+    type: ACTION_TYPES.UPDATE_SHOP_INFO,
+    payload: Shop
+}
+
+
+
+
+export type AuthActionTypes = FetchShopAction | LoginAction | ResetAuthLoadingAction | FetchOrdersAction | FetchStoresAction | UpdateShopAction
 

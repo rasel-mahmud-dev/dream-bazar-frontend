@@ -11,7 +11,6 @@ import {  useContext, useEffect, useState } from "react";
 
 const Main = (props) => {
 
-
     const [afterNavHeight, setNavHeight] = React.useState(0);
 
 
@@ -40,7 +39,6 @@ const Main = (props) => {
         <div className="slot-root">
             <Navigation />
             <div className="app-content">
-                {/*{showBigCategoryNav(pathname) && <CategoryNavbar />}*/}
                 <Suspense fallback={<TopProgressBar />}>
                     <Outlet />
                 </Suspense>

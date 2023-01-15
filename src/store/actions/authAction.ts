@@ -3,7 +3,7 @@ import apis, { getApi } from "src/apis";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import {Shop} from "reducers/authReducer";
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {FetchShopAction, FetchStoresAction} from "store/types/authActionTypes";
+import {FetchShopAction, FetchStoresAction, UpdateShopAction} from "store/types/authActionTypes";
 
 export const loginHandler = (user, dispatch) => {
     dispatch({
@@ -99,6 +99,22 @@ export const fetchShopInfo = createAsyncThunk("", async (payload, state)=>{
             });
         }
     } catch (ex) {}
+
+})
+
+
+export const updateSellerShopInfoAction = createAsyncThunk("", async ({payload, cb}, state)=>{
+    try {
+        const response = await getApi().patch(`/api/shop`, payload);
+        if (response.status === StatusCode.Ok){
+            state.dispatch<UpdateShopAction>({
+                type: ACTION_TYPES.UPDATE_SHOP_INFO,
+                payload: response.data,
+            });
+        }
+    } catch (ex) {
+        cb(ex)
+    }
 
 })
 

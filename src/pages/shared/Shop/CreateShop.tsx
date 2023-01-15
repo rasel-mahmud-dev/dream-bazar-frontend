@@ -102,9 +102,9 @@ const CreateShop = ({isUpdate = false}) => {
         }
 
         try {
-            // setHttpResponse(p => ({...p, message: "", loading: true}));
+            setHttpResponse(p => ({...p, message: "", loading: true}));
             if (isUpdate) {
-                let {data, status} = await getApi().patch("/api/shop/"+shopInfo._id.value, payload);
+                let {data, status} = await getApi().patch("/api/shop", payload);
                 if(status === StatusCode.Created){
                     dispatch({
                         type: ACTION_TYPES.FETCH_SELLER_SHOP,
@@ -113,6 +113,10 @@ const CreateShop = ({isUpdate = false}) => {
                             ...data
                         }
                     })
+                    setTimeout(() => {
+                        setHttpResponse({message: "Shop is updated", loading: false, isSuccess: false});
+                        navigate(`/${auth?.roles?.includes(Roles.ADMIN) ? "admin": "seller"}/shop`)
+                    }, 300)
                 }
             } else {
                 let { data, status } = await getApi().post("/api/shop/create", payload);
@@ -121,7 +125,10 @@ const CreateShop = ({isUpdate = false}) => {
                         type: ACTION_TYPES.FETCH_SELLER_SHOP,
                         payload: data
                     })
-                    // navigate(`/${auth?.roles?.includes(Roles.ADMIN) ? "admin": "seller"}/shop`)
+                    setTimeout(() => {
+                        setHttpResponse({message: "Shop is created", loading: false, isSuccess: false});
+                        navigate(`/${auth?.roles?.includes(Roles.ADMIN) ? "admin": "seller"}/shop`)
+                    }, 300)
 
                 }
             }
@@ -142,7 +149,7 @@ const CreateShop = ({isUpdate = false}) => {
 
                 <ActionModal
                     {...httpResponse}
-                    loadingTitle="Creating Store..."
+                    loadingTitle={isUpdate ? "Updating Shop" : "Creating Store..."}
                     onClose={() => httpResponse.message !== "" && setHttpResponse((p) => ({...p, message: ""}))}
                 />
 

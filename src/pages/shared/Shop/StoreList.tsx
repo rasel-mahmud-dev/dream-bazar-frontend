@@ -57,6 +57,7 @@ const StoreList = (props) => {
             ),
         },
         {title: "Name", dataIndex: "shopName", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0)},
+        {title: "Seller", dataIndex: "seller", sorter: (a: {username: string}, b: {username: string}) => (a.username > b.username ? 1 : a.username < b.username ? -1 : 0), render: (_, item)=> item?.seller.username},
         {
             dataIndex: "isSuspense",
             title: "Is Suspense",

@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
 
-import { fetchProduct, toggleLoader } from "actions/productAction";
+import {fetchProduct, fetchProductStoreInfo, toggleLoader} from "actions/productAction";
 
 import { ACTION_TYPES, StatusCode } from "store/types";
 
@@ -10,7 +10,7 @@ import { connect, useDispatch } from "react-redux";
 let image = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
 let image2 = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
 
-import { useNavigate, useParams } from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import "./productDetails.scss";
 
 import { addToCart } from "actions/cartAction";
@@ -28,6 +28,7 @@ import SpecificationDetail from "pages/publicSite/productDetails/SpecificationDe
 import RatingReviews from "pages/publicSite/productDetails/RatingReviews";
 import Questions from "pages/publicSite/productDetails/Questions";
 import ProductDetailsSkeleton from "pages/publicSite/productDetails/ProductDetails.Skeleton";
+import {BiStar} from "react-icons/all";
 
 interface ProductDetailsProps {
     toggleLoader?: (loadingState: string, isLoading: boolean) => any;
@@ -57,6 +58,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
         views?: number;
         sold?: number;
         brand_id?: string;
+        sellerId: string,
         brand?: {};
         category_id?: string;
         category?: {};
@@ -69,7 +71,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
         };
         oldPrice?: string;
         seller_rules?: string[];
-    }>(null);
+    }>(null as any);
 
     const [productDescription, setProductDescription] = React.useState<{
         _id?: string;
@@ -79,6 +81,14 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
         specification?: { [key: string]: any };
         seller_rules?: string[];
     }>({});
+
+
+    const [sellerInfo, setSellerInfo] = React.useState<{
+        _id?: string;
+        shopName?: string;
+        seller: {username: string}
+    }>({} as any);
+
 
     useEffect(() => {
         (async function () {
@@ -99,12 +109,17 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
     useEffect(() => {
         if (product?._id) {
             (async function () {
-                let { status, data } = await apis.get(`/api/product/detail/${FAKE_DESCRIPTION_ID}`);
-                // let { status, data } = await apis.get(`/api/product/detail/${product._id}`);
+                // let { status, data } = await apis.get(`/api/product/detail/${FAKE_DESCRIPTION_ID}`);
+                let { status, data } = await apis.get(`/api/product/detail/${product._id}`);
                 if (status === StatusCode.Ok) {
                     setProductDescription(data);
                 }
             })();
+            if(product.sellerId) {
+                fetchProductStoreInfo(`sellerId=${product.sellerId}`).then(data=>{
+                    data && setSellerInfo(data)
+                })
+            }
         }
     }, [product?._id]);
 
@@ -176,6 +191,8 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
 
     // get rate =  (rating * amount)n + (rating * amount)n / totalAmount
 
+
+    console.log(productDescription)
     return (
         <div>
             <div className="">
@@ -302,11 +319,25 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                         </div>
                                         <ul className="description_value description_key--value">
                                             <li className="flex items-center">
-                                                {product.seller && product.seller.shop_name}
-                                                <div className="rating_badge ml-2">
-                                                    <span>{calculateRate()}</span>
-                                                    <i className="fa fa-star" />
-                                                </div>
+
+                                                {sellerInfo && (
+                                                    <div>
+                                                        <div className="flex items-center">
+                                                            <div className="flex items-center bg-primary-600 text-white gap-x-1 px-2 py-1 rounded">
+                                                                <span>{calculateRate()}</span>
+                                                                <BiStar />
+                                                            </div>
+                                                            <h5 className="heading-5">
+                                                                <Link to={`/shop/${sellerInfo.shopName}`}>{sellerInfo.shopName}</Link>
+                                                            </h5>
+
+                                                        </div>
+                                                        <div className="w-10 mt-2">
+                                                            <img src={sellerInfo.shopLogo}/>
+                                                        </div>
+                                                    </div>
+                                                )}
+
                                             </li>
                                             {productDescription.seller_rules && productDescription.seller_rules.map((rule) => <li>{rule}</li>)}
                                         </ul>

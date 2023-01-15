@@ -111,16 +111,14 @@ const Registration = (props) => {
                     name="firstName"
                     onChange={handleChange}
                     placeholder="Enter firstName"
-                    inputClass="input-group"
                 />
                 <InputGroup
                     state={parentState.userData}
                     name="lastName"
                     onChange={handleChange}
                     placeholder="Enter lastName"
-                    inputClass="input-group"
                 />
-                <InputGroup state={parentState.userData} name="email" onChange={handleChange} placeholder="Enter Email" inputClass="input-group" />
+                <InputGroup state={parentState.userData} name="email" onChange={handleChange} placeholder="Enter Email"  />
 
                 <InputGroup
                     state={parentState.userData}
@@ -128,11 +126,10 @@ const Registration = (props) => {
                     type="password"
                     onChange={handleChange}
                     placeholder="Enter password"
-                    inputClass="input-group"
                 />
 
                 <p className="my-5 text-right text-link">
-                    Already have an account? <Link to="/auth/join/login">login here</Link>
+                    Already have an account? <Link to="/join/login">login here</Link>
                 </p>
                 <button className="w-full bg-green-450 px-4 py-2 border-none text-white font-semibold text-lg rounded-xl">Create</button>
             </form>

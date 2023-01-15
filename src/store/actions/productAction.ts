@@ -1,8 +1,11 @@
-import {ACTION_TYPES, CategoryType} from "store/types"
+import {ACTION_TYPES, CategoryType, StatusCode} from "store/types"
 import apis from "src/apis";
 import {RootState} from "src/store";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import api from "src/apis";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {FetchBrandForCategoriesAction} from "store/types/brandActionTypes";
+import {FetchProductStoreInfoAction} from "store/types/productActionTypes";
 
 
 export const fetchProducts = () => async (dispatch, getState, api) => {
@@ -373,3 +376,18 @@ export const changePagination = (payload: changePaginationType) => {
   }
   
 }
+
+
+export const fetchProductStoreInfo =  function (query: string) {
+        return new Promise(async (resolve)=>{
+            try {
+                let {data, status} = await apis.get(`/api/shop/product/?${query}`)
+                if (status === StatusCode.Ok) {
+                    resolve(data)
+                }
+            } catch (ex) {
+                resolve(null)
+            }
+        })
+    }
+

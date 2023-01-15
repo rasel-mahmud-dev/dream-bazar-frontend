@@ -144,7 +144,7 @@ const LoginPage: FC<LoginPageProps> = (props) => {
 
             <p className="text-center  mb-4 mt-6 dark:text-neutral-400">
                 {l("Not a member")}?
-                <Link to="/customer/join/registration" className="font-medium !text-green-500 text-link ">
+                <Link to="/join/signup" className="font-medium !text-green-500 text-link ">
                     {l("Sign up now")}
                 </Link>
             </p>

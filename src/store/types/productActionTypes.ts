@@ -86,5 +86,10 @@ export type ChangeProductAttributeAction  = {
     }
 }
 
+export type FetchProductStoreInfoAction  = {
+    type: ACTION_TYPES.FETCH_PRODUCT_SHOP_INFO,
+    payload: any
+}
+
 export type ProductActionTypes = FetchHomeSectionProductAction | FilterProductAction | ChangePaginationAction | ChangeProductAttributeAction |
-    SelectFilterBrandAction | ClearFilterBrandAction
+    SelectFilterBrandAction | ClearFilterBrandAction | FetchProductStoreInfoAction

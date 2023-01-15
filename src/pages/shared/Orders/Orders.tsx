@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import "./Orders.scss";
+import "./orders.scss";
 
 
 import { Link } from "react-router-dom";
@@ -22,7 +22,7 @@ const Orders = (props) => {
 
     useEffect(() => {
         if (!orders || orders.length === 0) {
-           fetchOrdersAction(dispatch)
+            fetchOrdersAction(dispatch)
         }
     }, []);
 
@@ -65,7 +65,6 @@ const Orders = (props) => {
                 },
             },
             render: (product_id: any, order) => {
-                console.log(order);
                 return product_id?.title ? product_id.title : "Package (" + order?.products?.length + " items)";
             },
         },
@@ -128,7 +127,7 @@ const Orders = (props) => {
         <div className="my-4">
             {props.roleFor !== "ADMIN" && (
                 <SidebarButton>
-                    <h1 className="page-title">My Orders</h1>
+                    <h1 className="route-title">My Orders</h1>
                 </SidebarButton>
             )}
 

@@ -21,8 +21,8 @@ const Product: FC<Props> = (props) => {
     const { product, handleAddToWishList, isWished, renderProductAtt } = props;
 
     return (
-        <div className="single-product shadow-xxs rounded-md px-3 py-4">
-            <FaHeart onClick={()=>handleAddToWishList(Product)} className={`add_wish_list_btn ${isWished(Product)? 'wish': ''} `}  />
+        <div className="card">
+            {isWished && <FaHeart onClick={()=>handleAddToWishList(Product)} className={`add_wish_list_btn ${isWished(Product)? 'wish': ''} `}  />}
             <div className="head p-4">
                 <div className="add_wish_list_btn -left-1">
                     <Badge className="!bg-green-450 !rounded-sm !text-xs whitespace-nowrap !py-1">
@@ -59,7 +59,7 @@ const Product: FC<Props> = (props) => {
                     {product.discount !== 0 && <span className="text-neutral-400 font-medium line-through ml-3">TK{product.price}</span>}
                 </div>
 
-                {renderProductAtt.indexOf("size") === -1 && (
+                {renderProductAtt?.indexOf("size") === -1 && (
                     <div className="mt-2 flex items-center gap-x-2">
                         <h4 className="">Size</h4>
                         <span className="font-medium">S, M, L, XL, XXL</span>

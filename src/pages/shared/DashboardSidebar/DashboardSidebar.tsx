@@ -2,8 +2,8 @@ import React, {FC, ReactNode, useState} from "react";
 import Sidebar from "components/sidebar/Sidebar";
 import {toggleLeftSidebarAction} from "actions/appAction";
 import {useDispatch} from "react-redux";
-import { FaAngleDown, FaAngleLeft, FaAngleRight} from "react-icons/all";
-import {Link,   useNavigate} from "react-router-dom";
+import {FaAngleDown, FaAngleLeft, FaAngleRight} from "react-icons/all";
+import {Link, useNavigate} from "react-router-dom";
 import Circle from "UI/Circle/Circle";
 
 import "./dashboardSideBar.scss";
@@ -28,7 +28,7 @@ interface Props {
 
 const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
     const dispatch = useDispatch();
-    const navigate  = useNavigate()
+    const navigate = useNavigate()
 
 
     const [state, setState] = useState({
@@ -39,10 +39,10 @@ const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
         toggleLeftSidebarAction(dispatch);
     }
 
-    function handleClickItem(item){
-        if(item.to){
+    function handleClickItem(item) {
+        if (item.to) {
             navigate(item.to)
-        } else{
+        } else {
             setState(prevState => ({...prevState, openItem: prevState.openItem === item.name ? "" : item.name}))
         }
     }
@@ -60,74 +60,77 @@ const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
                     <div className="">
 
                         {/**** sidebar fixed navigation ******/}
-                        <div className="sidebar-fixed-bar top-0 py-3 px-4 lg:hidden">
-                            <div className="flex items-center  ">
-                                <div className="mr-3 ">
-                                    <Circle onClick={toggleSidebar}>
-                                        <FaAngleLeft
-                                            className="text-lg"
+                        {/*<div className="sidebar-fixed-bar top-0 py-3 px-4 lg:hidden">*/}
+                        {/*    <div className="flex items-center  ">*/}
+                        {/*        <div className="mr-3 ">*/}
+                        {/*            <Circle onClick={toggleSidebar}>*/}
+                        {/*                <FaAngleLeft*/}
+                        {/*                    className="text-lg"*/}
 
-                                        />
-                                    </Circle>
-                                </div>
+                        {/*                />*/}
+                        {/*            </Circle>*/}
+                        {/*        </div>*/}
 
-                                <Link
-                                    to="/seller/dashboard"
-                                    className="flex items-center"
-                                >
-                                    <img
-                                        src="/logo-2.png"
-                                        alt=""
-                                        className="w-9 md:w-11"
-                                    />
-                                    <h4 className="text-neutral-900 font-semibold text-lg md:text-xl   md:block">
-                                        Dream Bazar
-                                    </h4>
-                                </Link>
-                            </div>
-                        </div>
+                        {/*        <Link*/}
+                        {/*            to="/seller/dashboard"*/}
+                        {/*            className="flex items-center"*/}
+                        {/*        >*/}
+                        {/*            <img*/}
+                        {/*                src="/logo-2.png"*/}
+                        {/*                alt=""*/}
+                        {/*                className="w-9 md:w-11"*/}
+                        {/*            />*/}
+                        {/*            <h4 className="text-neutral-900 font-semibold text-lg md:text-xl   md:block">*/}
+                        {/*                Dream Bazar*/}
+                        {/*            </h4>*/}
+                        {/*        </Link>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
 
                         {/**** sidebar content ******/}
                         <div className="mt-20 lg:mt-2 px-3">
-                            { sidebarData?.map((section, idx)=>(
+                            {sidebarData?.map((section, idx) => (
                                 <div className="mt-8 first:mt-2" key={idx}>
-                                    {section.name && <Link to="/admin/dashboard" className="" >
-                                        <div className="">
-                                            <div className="flex items-center gap-x-2 sidebar-active p-2 rounded">
-                                                { section.icon && typeof section.icon === "function" ? section.icon() : section.icon}
-                                                <h5 className="text-sm font-semibold">{section.name}</h5>
+                                    {section.name && <div className="">
+                                        <div className="flex items-center gap-x-2  p-2 rounded">
+                                            {section.icon && typeof section.icon === "function" ? section.icon() : section.icon}
 
-                                            </div>
+                                            {section.to ? (
+                                                <Link className="text-sm font-semibold" to={section.to}>{section.name}</Link>
+                                            ) : (
+                                                <h5 className="text-sm font-semibold">{section.name}</h5>
+                                            )}
                                         </div>
-                                    </Link> }
+                                    </div>
+                                    }
                                     <div key={section.section} className="">
 
                                         <h6 className="heading-6 text-dark-600 px-2">{section.section}</h6>
                                         <div className="mt-2">
-                                            {section?.items?.map((item, index)=>(
-                                                <li onClick={()=>handleClickItem(item)} className="" key={index}>
+                                            {section?.items?.map((item, index) => (
+                                                <li onClick={() => handleClickItem(item)} className="" key={index}>
                                                     <div
                                                         key={item.name}
-                                                        className={`flex items-center justify-between text-dark-300 py-2 px-2 rounded-md gap-x-1 li ${state.openItem === item.name ? 'li-item-focuse': ''}`}>
+                                                        className={`flex items-center justify-between text-dark-300 py-2 px-2 rounded-md gap-x-1 li ${state.openItem === item.name ? 'li-item-focuse' : ''}`}>
                                                         <div className="flex items-center gap-x-2">
 
-                                                            { item.icon && typeof item.icon === "function" ? item.icon() : item.icon}
+                                                            {item.icon && typeof item.icon === "function" ? item.icon() : item.icon}
                                                             <h5 className="text-sm font-medium">{item.name}</h5>
 
                                                         </div>
-                                                        { !item.to && <div>
-                                                            {state.openItem === item.name ? <FaAngleDown />: <FaAngleRight /> }
-                                                        </div> }
+                                                        {!item.to && <div>
+                                                            {state.openItem === item.name ? <FaAngleDown/> : <FaAngleRight/>}
+                                                        </div>}
                                                     </div>
 
                                                     {/* *** render sub items *****   */}
                                                     {state.openItem === item.name && <ul className="ml-4 p-2">
-                                                        {item?.subItems?.map(sub=>(
+                                                        {item?.subItems?.map(sub => (
                                                             <li key={sub.label} className="flex justify-between">
                                                                 <span>{sub.label}</span>
                                                                 <span>{sub.value}</span>
                                                             </li>
-                                                        ))  }
+                                                        ))}
                                                     </ul>}
 
                                                 </li>
@@ -136,7 +139,7 @@ const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
                                     </div>
 
                                 </div>
-                            )) }
+                            ))}
 
                         </div>
                     </div>

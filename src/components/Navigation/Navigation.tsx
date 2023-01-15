@@ -110,7 +110,6 @@ function Navigation(props) {
     }, [props.offsetTop]);
 
     function handleChangeTheme(e) {
-        console.log(e.target.value)
         dispatch(toggleThemeAction(e.target.value));
     }
 
@@ -326,7 +325,7 @@ function Navigation(props) {
                                                                 {auth.roles.includes(Roles.CUSTOMER) && (
                                                                     <Menu.Item className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer">
                                                                         <BiUser />
-                                                                        <Link to={`/customer/dashboard`}>Customer Dashboard</Link>
+                                                                        <Link to={`/dashboard`}>Customer Dashboard</Link>
                                                                     </Menu.Item>
                                                                 )}
                                                             </>

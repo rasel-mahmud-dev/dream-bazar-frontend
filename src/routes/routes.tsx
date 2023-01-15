@@ -31,6 +31,11 @@ const AddProduct = lazy(() => import("pages/shared/AddProduct/AddProduct"));
 const CategoryList = lazy(() => import("pages/adminDashboard/categoryList/Categories"));
 
 import SellerLayout from "src/layout/SellerLayout"
+import ShopDetail from "pages/publicSite/ShopDetail/ShopDetail";
+import Wishlist from "pages/customerDashboard/wishlist/Wishlist";
+import ShoppingCart from "pages/customerDashboard/cart/ShoppingCart";
+import Orders from "pages/shared/Orders/Orders";
+
 // const ProductDetailLite = lazy(() => import("pages/publicSite/productDetails/ProductDetails"));
 const CustomerDashboard = lazy(() => import("pages/customerDashboard/CustomerDashboard"));
 const CustomerDashboardHomePage = lazy(() => import("pages/customerDashboard/CustomerDashboardHomePage"));
@@ -50,6 +55,10 @@ const router = createBrowserRouter([
                 element: <ProductFilterPageLite />,
             },
             {
+                path: "shop/:shopName",
+                element: <ShopDetail />,
+            },
+            {
                 path: "/join",
                 element: (
                     <ExcludeAuthRoute>
@@ -58,7 +67,7 @@ const router = createBrowserRouter([
                 ),
                 children: [
                     { path: "login", element: <LoginPage /> },
-                    { path: "registration", element: <Registration /> },
+                    { path: "signup", element: <Registration /> },
                     // { path: "reset-password", element: <ResetPassword /> },
                     // { path: "forget-password", element: <ForgetPassword /> },
                     // { path: "opt-validate", element: <OTPValidate /> },
@@ -77,15 +86,17 @@ const router = createBrowserRouter([
                     // { path: "all-transactions", element: <PrivateRoute roles={["ADMIN"]}> <AllTransactions /> </PrivateRoute> },
 
                     { path: "", element: <CustomerDashboardHomePage /> },
-
-                    {
-                        path: "products",
-                        element: (
-                            <PrivateRoute scope={Scope.ADMIN_USER}>
-                                <ProductList />
-                            </PrivateRoute>
-                        ),
-                    },
+                    {path: "orders", element: <Orders/>},
+                    {path: "wishlist", element: <Wishlist/>},
+                    {path: "cart", element: <ShoppingCart/>}
+                    // {
+                    //     path: "products",
+                    //     element: (
+                    //         <PrivateRoute scope={Scope.ADMIN_USER}>
+                    //             <ProductList />
+                    //         </PrivateRoute>
+                    //     ),
+                    // },
                 ],
             },
 
