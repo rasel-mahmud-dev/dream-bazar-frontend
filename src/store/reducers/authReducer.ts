@@ -15,13 +15,7 @@ export interface StoreType {
     updatedAt?: Date;
 }
 
-interface AuthStateType {
-    authChecked: boolean;
-    auth: AuthType | null;
-    orders: OrderType[];
-    shop: Shop | null
-    stores?: Shop[]
-}
+
 
 export interface Shop {
     _id?:  string
@@ -39,13 +33,40 @@ export interface Shop {
     updatedAt?: Date
 }
 
+interface AuthStateType {
+    authChecked: boolean;
+    auth: AuthType | null;
+    orders: OrderType[];
+    shop: Shop | null
+    stores?: Shop[]
+    shippingAddresses: ShippingAddress[]
+}
+
+export interface ShippingAddress  {
+    _id?: string
+    customerId: string
+    firstName: string,
+    lastName: string,
+    phone: number
+    zipCode: number
+    city: string
+    state: string
+    address: string
+    apartmentSuit: string
+    country?: string
+    email: string
+    createdAt?: Date
+    isDefault: boolean
+}
+
 
 const initialState: AuthStateType = {
     authChecked: false,
     auth: null,
     orders: null as unknown as OrderType[],
     shop: null,
-    stores: []
+    stores: [],
+    shippingAddresses: []
 };
 
 const authReducer = (state = initialState, action: AuthActionTypes) => {
@@ -77,6 +98,18 @@ const authReducer = (state = initialState, action: AuthActionTypes) => {
 
         case ACTION_TYPES.FETCH_SELLER_SHOP:
             updatedState.shop = action.payload;
+            return updatedState;
+
+
+        case ACTION_TYPES.FETCH_SHIPPING_ADDRESSES:
+            updatedState.shippingAddresses = action.payload;
+            return updatedState;
+
+        case ACTION_TYPES.ADD_SHIPPING_ADDRESS:
+            updatedState.shippingAddresses = [
+                ...updatedState.shippingAddresses,
+                action.payload
+            ]
             return updatedState;
 
 

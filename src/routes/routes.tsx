@@ -35,6 +35,9 @@ import ShopDetail from "pages/publicSite/ShopDetail/ShopDetail";
 import Wishlist from "pages/customerDashboard/wishlist/Wishlist";
 import ShoppingCart from "pages/customerDashboard/cart/ShoppingCart";
 import Orders from "pages/shared/Orders/Orders";
+import AccountDetail from "pages/publicSite/Dashboard/AccountDetail";
+import AddressBook from "pages/publicSite/Dashboard/AddressBook/AddressBook";
+import AddShippingAddress from "pages/publicSite/Dashboard/AddressBook/AddAddressBook";
 
 // const ProductDetailLite = lazy(() => import("pages/publicSite/productDetails/ProductDetails"));
 const CustomerDashboard = lazy(() => import("pages/customerDashboard/CustomerDashboard"));
@@ -85,10 +88,13 @@ const router = createBrowserRouter([
                     // { path: "update-Product/:productId", element: <PrivateRoute roles={["SELLER"]}> <AddProduct /> </PrivateRoute> },
                     // { path: "all-transactions", element: <PrivateRoute roles={["ADMIN"]}> <AllTransactions /> </PrivateRoute> },
 
-                    { path: "", element: <CustomerDashboardHomePage /> },
+                    {path: "", element: <CustomerDashboardHomePage /> },
                     {path: "orders", element: <Orders/>},
                     {path: "wishlist", element: <Wishlist/>},
-                    {path: "cart", element: <ShoppingCart/>}
+                    {path: "cart", element: <ShoppingCart/>},
+                    {path: "account", element: <AccountDetail/>},
+                    {path: "address-books", element: <AddressBook/>},
+                    {path: "address-books/add", element: <AddShippingAddress/>}
                     // {
                     //     path: "products",
                     //     element: (

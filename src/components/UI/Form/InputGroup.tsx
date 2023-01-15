@@ -5,6 +5,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	name: string;
 	state?: { [key: string]: { value?: string | number | any; errorMessage?: string } };
 	label?: string;
+    error?: string
 	labelAddition?: () => ReactNode;
 	inputClass?: string;
 	labelClass?: string;
@@ -31,6 +32,7 @@ const InputGroup: FC<Props | any> = forwardRef((props, ref) => {
 		onChange,
 		className,
 		as,
+        error,
 		...attr
 	} = props;
 
@@ -81,11 +83,12 @@ const InputGroup: FC<Props | any> = forwardRef((props, ref) => {
 						/>
 					)}
 					{!label && required && <span className="text-red-500 mr-2 font-bold">*</span>}
+
 				</div>
-				{state && state[name]?.errorMessage && (
+
+				{error  && (
 					<div className="mt-1">
-						{" "}
-						<span className="text-red-500 ">{state[name].errorMessage}</span>{" "}
+						<span className="text-red-500 text-xs font-medium ">{error}</span>{" "}
 					</div>
 				)}
 			</div>

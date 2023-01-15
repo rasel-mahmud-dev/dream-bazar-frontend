@@ -1,5 +1,5 @@
 import {ACTION_TYPES, AuthType, Brand, OrderType} from "store/types";
-import {Shop} from "reducers/authReducer";
+import {ShippingAddress, Shop} from "reducers/authReducer";
 
 /**
      Login user action type
@@ -61,5 +61,24 @@ export interface UpdateShopAction {
 
 
 
-export type AuthActionTypes = FetchShopAction | LoginAction | ResetAuthLoadingAction | FetchOrdersAction | FetchStoresAction | UpdateShopAction
+/**
+ Fetch all shipping addresses
+ */
+export interface FetchAllShippingAddressesAction {
+    type: ACTION_TYPES.FETCH_SHIPPING_ADDRESSES,
+    payload: ShippingAddress[]
+}
+
+/**
+ Add new Shipping address
+ */
+export interface AddShippingAddressAction {
+    type: ACTION_TYPES.ADD_SHIPPING_ADDRESS,
+    payload: ShippingAddress
+}
+
+
+
+
+export type AuthActionTypes = FetchShopAction | LoginAction | ResetAuthLoadingAction | FetchOrdersAction | FetchStoresAction | UpdateShopAction | FetchAllShippingAddressesAction |  AddShippingAddressAction
 

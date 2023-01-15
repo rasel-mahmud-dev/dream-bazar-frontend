@@ -40,10 +40,9 @@ const sidebarLinks: SidebarDataType[] = [
         section: "My Account",
         icon: <BiUser/>,
         items: [
-            {name: "Account Information", to: `/customer/ : "guest"}/account-info`, icon: <MdManageAccounts/>},
-            {name: "Address Book", to: `/customer/$ : "guest"}/address-book`, icon: <FaAddressBook/>},
-            {name: "Payment Option", to: "/dashboard/brands", icon: <MdPayment/>},
-            {name: "Vouchers", to: "/dashboard/brands", icon: <GoReport/>},
+            {name: "Account Information", to: `/dashboard/account`, icon: <MdManageAccounts/>},
+            {name: "Address Book", to: `/dashboard/address-books`, icon: <FaAddressBook/>},
+            {name: "Vouchers", to: "/dashboard/vouchers", icon: <GoReport/>},
         ],
     },
     {
@@ -56,7 +55,7 @@ const sidebarLinks: SidebarDataType[] = [
     },
     {
         name: "My Shopping Cart",
-        to: "/auth/customer/dashboard/cart",
+        to: "/dashboard/cart",
         icon: <FiShoppingCart/>,
     },
     {
@@ -66,7 +65,7 @@ const sidebarLinks: SidebarDataType[] = [
     },
     {
         name: "My Wishlist & Followed Stores",
-        to: "/auth/customer/dashboard/wishlist",
+        to: "/dashboard/wishlist",
         icon: <MdFavorite/>,
     },
     {
@@ -102,7 +101,6 @@ const CustomerDashboard = (props) => {
     const dispatch = useDispatch()
 
     const {authState: {auth}, appState: {isOpenLeftBar}} = useAppSelector(state => state)
-
 
 
     // React.useEffect(() => {
@@ -166,7 +164,6 @@ const CustomerDashboard = (props) => {
                         <Suspense fallback={<h1>Hi loading</h1>}>
                             <Outlet/>
                         </Suspense>
-
                     </div>
                 </div>
             </div>
