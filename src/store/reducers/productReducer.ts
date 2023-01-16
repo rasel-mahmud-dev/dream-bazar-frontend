@@ -1,4 +1,4 @@
-import {ACTION_TYPES, Brand, CategoryType} from "src/store/types";
+import {ACTION_TYPES, Brand, CategoryType} from "store/types";
 
 import filterSidebar from "./filterSidebar.reducer";
 import {FetchHomeSectionProductAction, ProductActionTypes} from "store/types/productActionTypes";

@@ -35,9 +35,9 @@ import ShopDetail from "pages/publicSite/ShopDetail/ShopDetail";
 import Wishlist from "pages/customerDashboard/wishlist/Wishlist";
 import ShoppingCart from "pages/customerDashboard/cart/ShoppingCart";
 import Orders from "pages/shared/Orders/Orders";
-import AccountDetail from "pages/publicSite/Dashboard/AccountDetail";
-import AddressBook from "pages/publicSite/Dashboard/AddressBook/AddressBook";
-import AddShippingAddress from "pages/publicSite/Dashboard/AddressBook/AddAddressBook";
+import AccountDetail from "pages/customerDashboard/AccountDetail/AccountDetail";
+import AddressBook from "pages/customerDashboard/AddressBook/AddressBook";
+import AddShippingAddress from "pages/customerDashboard/AddressBook/AddAddressBook";
 
 // const ProductDetailLite = lazy(() => import("pages/publicSite/productDetails/ProductDetails"));
 const CustomerDashboard = lazy(() => import("pages/customerDashboard/CustomerDashboard"));

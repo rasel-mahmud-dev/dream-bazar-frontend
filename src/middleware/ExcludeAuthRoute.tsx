@@ -12,7 +12,7 @@ interface Props {
 
 
 
-/***** logged user not access these   */
+/***** logged userActionTypes.ts not access these   */
 const ExcludeAuthRoute:FC<Props> = (props) => {
     
     const {scope} = props

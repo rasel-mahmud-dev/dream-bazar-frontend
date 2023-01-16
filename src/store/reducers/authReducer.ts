@@ -1,4 +1,4 @@
-import { ACTION_TYPES, AdminType, AuthType, OrderType } from "src/store/types";
+import {ACTION_TYPES, AdminType, AuthType, OrderType, Profile} from "store/types";
 import {AuthActionTypes} from "store/types/authActionTypes";
 
 export interface StoreType {
@@ -40,6 +40,7 @@ interface AuthStateType {
     shop: Shop | null
     stores?: Shop[]
     shippingAddresses: ShippingAddress[]
+    profile: Profile | null
 }
 
 export interface ShippingAddress  {
@@ -66,7 +67,8 @@ const initialState: AuthStateType = {
     orders: null as unknown as OrderType[],
     shop: null,
     stores: [],
-    shippingAddresses: []
+    shippingAddresses: [],
+    profile: null
 };
 
 const authReducer = (state = initialState, action: AuthActionTypes) => {
@@ -81,6 +83,18 @@ const authReducer = (state = initialState, action: AuthActionTypes) => {
 
         case ACTION_TYPES.RESET_AUTH_LOADING:
             updatedState.authChecked = false;
+            return updatedState;
+
+
+        case ACTION_TYPES.FETCH_CURRENT_USER_PROFILE:
+            updatedState.profile = action.payload;
+            return updatedState;
+
+        case ACTION_TYPES.UPDATE_CUSTOMER_PROFILE:
+            updatedState.profile = {
+                ...updatedState.profile,
+                ...action.payload
+            }
             return updatedState;
 
 

@@ -62,7 +62,7 @@ function CategoryList(props) {
         console.log(flatCategories)
 
         if(!rootCategory){
-            // if user put wrong root category name then set electronic as root category
+            // if userActionTypes.ts put wrong root category name then set electronic as root category
             wrongRootCategory(flatCategories)
             return;
         }
@@ -98,7 +98,7 @@ function CategoryList(props) {
 
         if(!flatCategories) return;
 
-        // if user put wrong root category name then set electronic as root category
+        // if userActionTypes.ts put wrong root category name then set electronic as root category
         let rootCategory = flatCategories?.find(item => item.name === "Electronics");
         if(rootCategory) {
             setCurrentCategory({

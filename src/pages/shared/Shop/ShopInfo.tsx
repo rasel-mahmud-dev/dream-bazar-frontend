@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {BiPen, BsPen, CgPen, CiShop} from "react-icons/all";
 import {Roles} from "store/types";
 import useAppSelector from "src/hooks/useAppSelector";
-import {fetchShopInfo, updateSellerShopInfoAction, updateStoreActiveStatusAction} from "actions/authAction";
+import {fetchShopInfo, updateSellerShopInfoAction, updateStoreActiveStatusAction} from "actions/userAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import Switch from "UI/Form/switch/Switch";
 import "./style.scss";

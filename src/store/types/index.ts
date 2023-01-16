@@ -38,12 +38,14 @@ export enum ACTION_TYPES {
     SELECT_FILTER_BRAND = "SELECT_FILTER_BRAND",
     CLEAR_FILTER_BRAND = "CLEAR_FILTER_BRAND",
     FETCH_STORES = "FETCH_STORES",
+    FETCH_CURRENT_USER_PROFILE = "FETCH_CURRENT_USER_PROFILE",
 
 
     LOGIN = "LOGIN",
 
     ADD_SHIPPING_ADDRESS = "ADD_SHIPPING_ADDRESS",
     FETCH_SHIPPING_ADDRESSES = "FETCH_SHIPPING_ADDRESSES",
+    UPDATE_CUSTOMER_PROFILE = "UPDATE_CUSTOMER_PROFILE",
 
 
     FETCH_CURRENT_AUTH = "FETCH_CURRENT_AUTH",
@@ -143,6 +145,13 @@ export interface AuthType {
     updatedAt: Date
     username?: string
 }
+
+
+
+export interface Profile extends AuthType{
+
+}
+
 
 export interface AdminType {
     _id?: string

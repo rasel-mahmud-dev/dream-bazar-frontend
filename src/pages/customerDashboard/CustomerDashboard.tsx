@@ -24,7 +24,7 @@ import useAppSelector from "src/hooks/useAppSelector";
 // const AddressBook = lazy(()=> import("./AddressBook/AddressBook"))
 // const Orders = lazy(()=> import("./Orders/Orders"))
 // const OrderDetails = lazy(()=> import("./OrderDetails/OrderDetails"))
-// const AccountInfo = lazy(()=> import("./accountInfo/AccountInfo"))
+// const AccountDetail = lazy(()=> import("./AccountDetail/AccountDetail"))
 // const CustomerDashboard = lazy(()=> import("./CustomerDashboard"))
 // const CreateSellerAccount = lazy(()=>import("../SellerHub/createSellerAccount/CreateSellerAccount"))
 

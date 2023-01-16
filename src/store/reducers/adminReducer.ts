@@ -1,4 +1,4 @@
-import {ACTION_TYPES, AdminType} from "src/store/types"
+import {ACTION_TYPES, AdminType} from "store/types"
 
 
 export interface Attributes {

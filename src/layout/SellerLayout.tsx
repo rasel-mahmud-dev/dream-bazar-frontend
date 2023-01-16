@@ -1,7 +1,7 @@
 import React, {lazy, Suspense, useEffect, useState} from "react";
 
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
-import {fetchShopInfo} from "actions/authAction";
+import {fetchShopInfo} from "actions/userAction";
 import {useSelector} from "react-redux";
 import {RootState} from "src/store";
 import DashboardSidebar from "pages/shared/DashboardSidebar/DashboardSidebar";

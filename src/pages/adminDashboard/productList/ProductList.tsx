@@ -62,7 +62,7 @@ const AllProducts: FC<Props> = (props) => {
             formData.append(dataKey, data[dataKey]);
         }
 
-        // send toke for different scope user
+        // send toke for different scope userActionTypes.ts
         getApi()
             .patch(`/api/product/${productId}`, formData)
             .then(({data, status}) => {

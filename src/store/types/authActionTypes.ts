@@ -1,8 +1,8 @@
-import {ACTION_TYPES, AuthType, Brand, OrderType} from "store/types";
-import {ShippingAddress, Shop} from "reducers/authReducer";
+import {ACTION_TYPES, AuthType, Brand, OrderType} from "store/types/index";
+import {UserActionTypes} from "store/types/userActionTypes";
 
 /**
-     Login user action type
+     Login userActionTypes.ts action type
  */
 export interface LoginAction {
     type: ACTION_TYPES.LOGIN,
@@ -18,67 +18,7 @@ export interface ResetAuthLoadingAction {
 }
 
 
-/**
- Fetch all seller orders
- */
-export interface FetchOrdersAction {
-    type: ACTION_TYPES.FETCH_ORDERS,
-    payload: OrderType[]
-}
 
 
 
-/**
- Toggle product attribute section in product filter page on sidebar,
- */
-export interface FetchShopAction {
-    type: ACTION_TYPES.FETCH_SELLER_SHOP,
-    payload: Shop
-}
-
-
-
-
-/**
- Fetch all stores for admin user
- */
-export interface FetchStoresAction {
-    type: ACTION_TYPES.FETCH_STORES,
-    payload: Shop[]
-}
-
-
-
-
-/**
- Update shop info by seller
- */
-export interface UpdateShopAction {
-    type: ACTION_TYPES.UPDATE_SHOP_INFO,
-    payload: Shop
-}
-
-
-
-
-/**
- Fetch all shipping addresses
- */
-export interface FetchAllShippingAddressesAction {
-    type: ACTION_TYPES.FETCH_SHIPPING_ADDRESSES,
-    payload: ShippingAddress[]
-}
-
-/**
- Add new Shipping address
- */
-export interface AddShippingAddressAction {
-    type: ACTION_TYPES.ADD_SHIPPING_ADDRESS,
-    payload: ShippingAddress
-}
-
-
-
-
-export type AuthActionTypes = FetchShopAction | LoginAction | ResetAuthLoadingAction | FetchOrdersAction | FetchStoresAction | UpdateShopAction | FetchAllShippingAddressesAction |  AddShippingAddressAction
-
+export type AuthActionTypes =   LoginAction | ResetAuthLoadingAction | UserActionTypes

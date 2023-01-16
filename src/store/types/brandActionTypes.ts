@@ -1,4 +1,4 @@
-import {ACTION_TYPES, Brand } from "store/types";
+import {ACTION_TYPES, Brand } from "store/types/index";
 
 /**
  Toggle product attribute section in product filter page on sidebar,

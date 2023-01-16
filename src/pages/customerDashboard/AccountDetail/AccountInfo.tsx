@@ -33,7 +33,7 @@ const AccountInfo = (props) => {
           let uus: any = []
           for(let key in otherField){
             uus.push({
-              field: key, icon: "fa-user", value: otherField[key] ? otherField[key] : null
+              field: key, icon: "fa-userActionTypes.ts", value: otherField[key] ? otherField[key] : null
             })
           }
           setUsers(uus)
@@ -45,8 +45,8 @@ const AccountInfo = (props) => {
   
   const renderUserInfo=()=>{
     const user = [
-      {field: "email", icon: "fa-user", value: "rasel@gmail.com"}, 
-      {field: "phone", icon: "fa-user", value: "01342234"}, 
+      {field: "email", icon: "fa-userActionTypes.ts", value: "rasel@gmail.com"},
+      {field: "phone", icon: "fa-userActionTypes.ts", value: "01342234"},
       {field: "password", icon: "fa-key", value: "01342234"}, 
     ]
  

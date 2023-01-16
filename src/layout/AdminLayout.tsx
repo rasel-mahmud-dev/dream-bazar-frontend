@@ -22,7 +22,7 @@ import ShopInfo from "pages/shared/Shop/ShopInfo";
 import CreateShop from "pages/shared/Shop/CreateShop";
 import StoreList from "pages/shared/Shop/StoreList";
 import useAppDispatch from "src/hooks/useAppDispatch";
-import {fetchShopInfo} from "actions/authAction";
+import {fetchShopInfo} from "actions/userAction";
 
 const AdminDashboardHome = lazy(() => import("pages/adminDashboard/DashboardHomePage"));
 

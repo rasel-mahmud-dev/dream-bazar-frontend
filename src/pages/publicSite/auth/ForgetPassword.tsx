@@ -101,7 +101,7 @@ const ForgetPassword = () => {
                     or otp code make your account verifiyed.
                 </p>
 
-                {/*{renderLoader("login-user")}*/}
+                {/*{renderLoader("login-userActionTypes.ts")}*/}
                 {/*{errorMessage.message && (*/}
                 {/*	<Popup className="error_popup p-5" style={{width: "max-content"}} inProp={true}>*/}
                 {/*  <div className="d-flex">*/}

@@ -1,4 +1,4 @@
-import {ACTION_TYPES, Brand, CategoryType} from "store/types";
+import {ACTION_TYPES, Brand, CategoryType} from "store/types/index";
 import {Attribute, CategoryDetail} from "reducers/categoryReducer";
 
 

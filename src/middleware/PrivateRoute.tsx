@@ -28,11 +28,11 @@ const PrivateRoute: FC<Props> = (props) => {
                     navigate("/")
                 }
 
-                // if(errorMessage || !user.roles.includes(Scope.ADMIN_USER)){
-                //     // if somehow this user not admin or fail fetch current user then redirect home page
+                // if(errorMessage || !userActionTypes.ts.roles.includes(Scope.ADMIN_USER)){
+                //     // if somehow this userActionTypes.ts not admin or fail fetch current userActionTypes.ts then redirect home page
                 //     navigate("/")
-                // } else if(errorMessage || !user.roles.includes(Scope.SELLER_USER)){
-                //     // if somehow this user not admin or fail fetch current user then redirect home page
+                // } else if(errorMessage || !userActionTypes.ts.roles.includes(Scope.SELLER_USER)){
+                //     // if somehow this userActionTypes.ts not admin or fail fetch current userActionTypes.ts then redirect home page
                 //     navigate("/")
                 // }
             });

@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import useScrollTop from "src/hooks/useScrollTop";
 import {RootState} from "src/store";
 import staticImagePath from "src/utills/staticImagePath";
-import {fetchOrdersAction} from "actions/authAction";
+import {fetchOrdersAction} from "actions/userAction";
 import SidebarButton from "components/SidebarButton/SidebarButton";
 import Table from "UI/table/Table";
 

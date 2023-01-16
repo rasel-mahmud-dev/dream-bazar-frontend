@@ -120,7 +120,7 @@ function OTPValidate(props) {
                 mail. please copy and paste here to validate your account.
             </p>
 
-            {/*{renderLoader("login-user")}*/}
+            {/*{renderLoader("login-userActionTypes.ts")}*/}
 
             {/*{errorMessage.message && (*/}
             {/*	<Popup className="error_popup p-5" style={{width: "max-content"}} inProp={true}>*/}

@@ -1,4 +1,4 @@
-import {ACTION_TYPES, AuthType, Brand, OrderType} from "store/types";
+import {ACTION_TYPES, AuthType, Brand, OrderType} from "store/types/index";
 
 /**
  Toggle theme action

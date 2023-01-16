@@ -1,4 +1,4 @@
-import {ACTION_TYPES} from "src/store/types"
+import {ACTION_TYPES} from "store/types"
 
 import {toggleNotify} from "actions/appAction"
 

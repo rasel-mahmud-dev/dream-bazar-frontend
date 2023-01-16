@@ -5,7 +5,7 @@ import {InputGroup} from "UI/Form";
 import "./shipping-address.scss"
 import inputValidator from "src/utills/inputValidator";
 import {StatusCode} from "store/types";
-import {addShippingAddress} from "actions/authAction";
+import {addShippingAddress} from "actions/userAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import {useNavigate} from "react-router-dom";
 

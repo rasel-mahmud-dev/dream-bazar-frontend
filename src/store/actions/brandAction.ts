@@ -28,7 +28,7 @@ export const fetchBrandForCategory = createAsyncThunk(
 
 
 
-// fetch all brands for admin or seller user
+// fetch all brands for admin or seller userActionTypes.ts
 
 
 // this async action for redux toolkits

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {Link, useNavigate, useParams} from "react-router-dom"
 import {Button} from "UI/index"
 
-import {fetchAllStores, updateStoreAction} from "actions/authAction";
+import {fetchAllStores, updateStoreAction} from "actions/userAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";
 import staticImagePath from "src/utills/staticImagePath";
