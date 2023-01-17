@@ -1,8 +1,10 @@
 import React from "react";
 import { Button, Image } from "UI/index";
+import {BiCheck, BiStar} from "react-icons/all";
+import staticImagePath from "src/utills/staticImagePath";
 
-let image = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
-let image2 = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
+let image = `c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
+let image2 = `c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
 
 const RatingReviews = () => {
     const reviews = [
@@ -55,22 +57,22 @@ const RatingReviews = () => {
             <h4 className="product_detail_title">Ratings & Reviews</h4>
 
             <div>
-                <div className="d-flex mt-5">
-                    <div>
-                        <div className="rating_badge bg-transparent rating-star big-rating ">
-                            <span>{calculateRate()}</span>
-                            <i className="fa fa-star" />
+                <div className="flex mt-5 justify-between">
+                    <div className="px-10">
+                        <div className=" flex items-center font-bold text-4xl">
+                            <span className="block font-bold text-5xl">{calculateRate()}</span>
+                            <BiStar />
                         </div>
                         <h4 className="text-grey fs-14 mt-5"> {totalRating()} Total Ratings</h4>
-                        <h4 className="text-grey fs-14 t-center">&</h4>
+                        <h4 className="text-grey fs-14 text-center">&</h4>
                         <h4 className="text-grey fs-14"> {reviews.length} Total Ratings</h4>
                     </div>
-                    <div className="ml-5">
+                    <div className="ml-10 w-full">
                         {rating.map((rat) => (
-                            <div className="rate">
-                                <div className="rating_badge bg-transparent rating-star ">
-                                    <span>{rat.rating}</span>
-                                    <i className="fa fa-star" />
+                            <div className="rate w-full">
+                                <div className="flex items-center bg-transparent rating-star ">
+                                    <span className="w-3">{rat.rating}</span>
+                                    <BiStar />
                                 </div>
                                 <span className="user_rate-wrapper">
                                     <div style={{ width: (rat.amount * 100) / totalRating() + "%" }} className="user_rate" />
@@ -82,11 +84,11 @@ const RatingReviews = () => {
                 </div>
 
                 <div className="mt-5">
-                    <h4>Customer Gallery</h4>
+                    <h4 className="heading-5">Customer Gallery</h4>
                     <div className="customer_gallery flex-wrap">
                         {new Array(30).fill("", 1, 30).map((a) => (
-                            <div>
-                                <Image className="m-2" src={image2} />
+                            <div className="w-10">
+                                <Image imgClass="rounded-none" className="m-2" src={staticImagePath(image2)} />
                             </div>
                         ))}
                     </div>
@@ -99,7 +101,7 @@ const RatingReviews = () => {
                         <div className="flex items-center">
                             <div className="rating_badge">
                                 <span>{review.ratings}</span>
-                                <i className="fa fa-star" />
+                                <BiStar />
                             </div>
                             <h4 className="ml-2">{review.title}</h4>
                         </div>
@@ -108,8 +110,8 @@ const RatingReviews = () => {
 
                         <div>
                             <h4 className="mr-40">{review.username}</h4>
-                            <h5 className="">
-                                <i className="mr-2 fa fa-check-circle" />
+                            <h5 className="flex items-center ">
+                                <BiCheck />
                                 Certified Buyer
                             </h5>
                             <h4 className="ml-2 date">{new Date(review.created_at).toDateString()}</h4>

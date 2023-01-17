@@ -1,8 +1,10 @@
 import React from 'react';
 import {Button, Carousel} from "UI/index";
 import staticImagePath from "src/utills/staticImagePath";
+import useLanguage from "src/hooks/useLanguage";
 
 const SliderSection = () => {
+    const l = useLanguage()
 
     const carouselData = [
         {img:"gh11-banner copy.webp", desc: `
@@ -34,7 +36,7 @@ Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Quisque velit nisi,
                                 {item.desc.substring(100)}
                             </span>
                             </h1>
-                            <Button theme="primary" className="slider-btn mt-4">Shop Now</Button>
+                            <Button theme="primary" className="slider-btn mt-4">{l("Shop Now")}</Button>
                         </div>
                     </div>
                 )) }

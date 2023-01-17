@@ -17,6 +17,7 @@ import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";
 import ActionModal from "components/ActionModal/ActionModal";
 import {addFlatCategory, fetchCategoryDetailAction} from "actions/categoryAction";
+import {Attribute} from "reducers/categoryReducer";
 
 interface props {
     // flatCategories, productAttributes, categoryDetail, onCloseForm, updateId, onUpdate
@@ -29,7 +30,7 @@ const AddCategory = (props) => {
     const navigate = useNavigate();
 
     const {
-        categoryState: { flatCategories, productFilterAttributes }
+        categoryState: {flatCategories, productFilterAttributes}
     } = useAppSelector(state => state);
 
     const dispatch = useAppDispatch();
@@ -55,7 +56,10 @@ const AddCategory = (props) => {
     const {formData} = state;
 
     function makeSections(productDescriptionSection: {}) {
-        let sections = []
+        let sections: {
+            sectionName: string,
+            specification: any[]
+        }[] = []
         for (let productDescriptionSectionKey in productDescriptionSection) {
             sections.push({
                 sectionName: productDescriptionSectionKey,
@@ -65,9 +69,9 @@ const AddCategory = (props) => {
         return sections
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchFlatCategoriesAction(flatCategories, dispatch);
-        fetchProductAttributesAction( dispatch);
+        fetchProductAttributesAction(dispatch);
     }, [])
 
     useEffect(() => {
@@ -92,13 +96,12 @@ const AddCategory = (props) => {
     }, [updateId]);
 
 
-
     useEffect(() => {
         if (state.categoryDetail && productFilterAttributes) {
             let catDetail: any = state.categoryDetail;
 
             setState((p) => {
-                let filterAttributes = [];
+                let filterAttributes: Attribute[] = [];
 
                 catDetail.filterAttributes?.forEach((attName) => {
                     let att = productFilterAttributes.find((pAtt) => pAtt.attributeName === attName);
@@ -106,7 +109,7 @@ const AddCategory = (props) => {
                         filterAttributes.push(att);
                     }
                 });
-                let defaultExpandAttr = [];
+                let defaultExpandAttr: Attribute[] = [];
                 catDetail.defaultExpand?.forEach((attName) => {
                     let att = productFilterAttributes.find((pAtt) => pAtt.attributeName === attName);
                     if (att) {
@@ -148,7 +151,7 @@ const AddCategory = (props) => {
     });
 
     function handleFetchAttributes() {
-        if(!productFilterAttributes) {
+        if (!productFilterAttributes) {
             fetchProductAttributesAction(dispatch);
         }
     }
@@ -165,7 +168,7 @@ const AddCategory = (props) => {
                 errorMessage: updateFormData[name] ? "" : updateFormData[name].errorMessage,
             },
         };
-        if(name === "parentId" && updateFormData.parentId.value === "null") {
+        if (name === "parentId" && updateFormData.parentId.value === "null") {
             updateFormData.parentId.value = null
         }
 
@@ -179,13 +182,13 @@ const AddCategory = (props) => {
 
     async function handleAdd(e) {
         e.preventDefault();
-        setHttpResponse((p) => ({ ...p, message: "", isSuccess: false }));
+        setHttpResponse((p) => ({...p, message: "", isSuccess: false}));
 
         let isComplete = true;
         let payload: any = {};
         let errorMessage = "";
-        for (let fieldKey in formData) {
 
+        for (let fieldKey in formData) {
             if (fieldKey === "filterAttributes") {
                 payload[fieldKey] = formData[fieldKey]?.value?.map((att) => att.attributeName) || []
 
@@ -194,12 +197,15 @@ const AddCategory = (props) => {
 
             } else if (fieldKey === "isProductLevel") {
                 payload[fieldKey] = formData[fieldKey].value;
+
+            } else if (fieldKey === "parentId") {
+                payload[fieldKey] =  formData[fieldKey].value
+
             } else {
                 if (formData[fieldKey].value) {
                     payload[fieldKey] = formData[fieldKey].value;
                 } else {
                     errorMessage = "Please select " + fieldKey;
-
                     isComplete = false;
                 }
             }
@@ -231,37 +237,36 @@ const AddCategory = (props) => {
 
 
         try {
-            setHttpResponse(p=>({...p, message: "", loading: true }));
+            setHttpResponse(p => ({...p, message: "", loading: true}));
 
             if (updateId) {
-                let { data, status} = await apis.patch("/api/category/" + updateId, payload)
+                let {data, status} = await apis.patch("/api/category/" + updateId, payload)
                 if (status === StatusCode.Created) {
-                    setTimeout(()=>{
-                        setHttpResponse({ message: data.message, loading: false, isSuccess: true });
+                    setTimeout(() => {
+                        setHttpResponse({message: data.message, loading: false, isSuccess: true});
                     }, 300)
                 }
 
             } else {
                 // add as a category
-                let { data, status} = await  apis.post("/api/category", payload)
+                let {data, status} = await apis.post("/api/category", payload)
                 if (status === StatusCode.Created) {
                     dispatch(addFlatCategory(data.category))
-                    setTimeout(()=>{
-                        setHttpResponse({ message: data.message, loading: false, isSuccess: true });
+                    setTimeout(() => {
+                        setHttpResponse({message: data.message, loading: false, isSuccess: true});
                     }, 300)
 
                 }
             }
         } catch (ex) {
-            setTimeout(()=> {
+            setTimeout(() => {
                 setHttpResponse({message: errorMessageCatch(ex), loading: false, isSuccess: false});
             }, 300)
         } finally {
-            setHttpResponse(p=>({...p, message: "", loading: false, isSuccess: true }));
+            setHttpResponse(p => ({...p, message: "", loading: false, isSuccess: true}));
         }
 
     }
-
 
 
     function specificationValueChange(value, sectionIndex, specificationIndex) {
@@ -366,8 +371,6 @@ const AddCategory = (props) => {
     }
 
 
-
-
     return (
         <Card className="">
             <form onSubmit={handleAdd}>
@@ -377,7 +380,7 @@ const AddCategory = (props) => {
                 <ActionModal
                     {...httpResponse}
                     loadingTitle={`Product is  ${updateId ? "Updating" : "Adding"}...`}
-                    onClose={()=>httpResponse.message !== "" && setHttpResponse((p)=>({...p, message: ""})) }/>
+                    onClose={() => httpResponse.message !== "" && setHttpResponse((p) => ({...p, message: ""}))}/>
 
                 <InputGroup
                     name="name"

@@ -12,9 +12,9 @@ import {ProductType} from "reducers/productReducer";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
     product: ProductType;
-    handleAddToWishList: any;
-    isWished: any;
-    renderProductAtt: any;
+    handleAddToWishList?: (args: ProductType)=>void;
+    isWished?: (args: ProductType)=> boolean;
+    renderProductAtt?: string[];
 }
 
 const Product: FC<Props> = (props) => {
@@ -22,7 +22,7 @@ const Product: FC<Props> = (props) => {
 
     return (
         <div className="card">
-            {isWished && <FaHeart onClick={()=>handleAddToWishList(Product)} className={`add_wish_list_btn ${isWished(Product)? 'wish': ''} `}  />}
+            {isWished && <FaHeart onClick={()=>handleAddToWishList && handleAddToWishList(product)} className={`add_wish_list_btn ${isWished(product)? 'wish': ''} `}  />}
             <div className="head p-4">
                 <div className="add_wish_list_btn -left-1">
                     <Badge className="!bg-green-450 !rounded-sm !text-xs whitespace-nowrap !py-1">
@@ -45,7 +45,7 @@ const Product: FC<Props> = (props) => {
                 </Title>
                 <h4 className="product__title">
                     <Tooltip theme="simple-white" tooltip={product.title} placement="top-right" tooltipClass="w-36">
-                        <Link to={`/products/${product.slug}`} className="text-green-500 font-medium">
+                        <Link to={`/${product.slug}`} className="text-green-500 font-medium">
                             {product.title.slice(0, 40)}
                             {product.title && product.title.length > 40 ? "..." : ""}
                         </Link>

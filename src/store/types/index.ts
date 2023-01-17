@@ -119,6 +119,21 @@ export interface CategoryType {
 }
 
 
+export interface ProductDescriptionType {
+    _id?: string ,
+    productId?: string
+    summary?: string
+    videoLink?: string
+    specification?: {}
+    highlight?: string[],
+    sellerRules?: string[],
+    shippingCost?: number
+    tax?: number
+    minOrder?: number
+    images?: string[]
+}
+
+
 export interface Brand {
     _id: string,
     name: string,
@@ -142,14 +157,17 @@ export interface AuthType {
     lastName?: string
     roles?: Roles[]
     createdAt?: Date
-    updatedAt: Date
+    updatedAt?: Date
     username?: string
 }
 
 
 
 export interface Profile extends AuthType{
-
+    state?: string,
+    city?: string,
+    address?: string
+    phone?: string
 }
 
 

@@ -1,17 +1,16 @@
 
 .category-dropdown{
-    @apply absolute shadow-2xl rounded-lg flex-col md:flex-row;
+    @apply absolute shadow-2xl rounded-lg flex-col md:flex-row bg-white dark:bg-neutral-800 ;
     padding: 20px 10px;
     top: 100%;
     transform: translateX(-50%);
     justify-content: space-between;
-    background: white;
     display: flex;
 
     &__submenu-panel{
         position: relative;
         &__right{
-            padding: 0px 30px;
+            padding: 0 30px;
             h4{
                 @apply hover:bg-green-500/10 hover:text-green-450 rounded;
                 white-space: nowrap;

@@ -7,7 +7,7 @@ interface Props extends HTMLAttributes<HTMLInputElement> {
     name: string;
     preview?: string;
     previewImageClass?: string;
-    defaultValue?: string;
+    defaultValue?: string | null;
     errorMessage?: string;
     labelAddition?: () => ReactNode;
     inputClass?: string;

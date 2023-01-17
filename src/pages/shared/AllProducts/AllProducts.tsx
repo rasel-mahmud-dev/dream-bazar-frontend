@@ -4,7 +4,7 @@ import api, {getApi} from "src/apis";
 import Table, {Column} from "UI/table/Table";
 import staticImagePath from "src/utills/staticImagePath";
 import {BsPencilSquare, FcEmptyTrash} from "react-icons/all";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import isoStringToDate from "src/utills/isoStringToDate";
 import {fetchProducts} from "actions/adminProductAction";
 import Switch from "UI/Form/switch/Switch";
@@ -14,6 +14,7 @@ import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";
 import usePrompt from "src/hooks/usePrompt";
 import useScrollTop from "src/hooks/useScrollTop";
+import {Roles} from "store/types";
 
 
 const AllProducts = (props) => {
@@ -21,8 +22,12 @@ const AllProducts = (props) => {
 
     const [products, setProducts] = React.useState<ProductType[]>([]);
 
-    const {allBrands} = useAppSelector(state => state.brandState)
+    const {
+        brandState: {allBrands},
+        authState: { auth }
+    } = useAppSelector(state => state)
 
+    let isAdmin = auth && auth.roles?.includes(Roles.ADMIN)
 
     const dispatch = useAppDispatch()
 
@@ -43,17 +48,9 @@ const AllProducts = (props) => {
                 setProducts(result)
             }
 
-
             if (!allBrands || allBrands?.length === 0) {
                 dispatch(fetchBrands())
             }
-
-            // Promise.allSettled([api.get("/api/categories/?type=lastLevel")]).then((result: any) => {
-            //     if (result[0].status === "fulfilled") {
-            //         // setCategories(result[1].value.data.categories);
-            //     }
-            // });
-
         }())
 
 
@@ -66,6 +63,7 @@ const AllProducts = (props) => {
         for (let dataKey in data) {
             formData.append(dataKey, data[dataKey]);
         }
+        formData.append("_id", productId)
 
         // send toke for different scope userActionTypes.ts
         getApi()
@@ -150,7 +148,7 @@ const AllProducts = (props) => {
             className: "text-center",
             render: (_, item) => (
                 <div className="flex justify-center items-center gap-x-2">
-                    <Link to={`/admin/product/edit/${item._id}`}>
+                    <Link to={`/${isAdmin ? "admin": "seller"}/products/edit/${item._id}`}>
                         <BsPencilSquare className="text-md cursor-pointer"/>
                     </Link>
                     <FcEmptyTrash className="text-xl cursor-pointer" onClick={() => prompt.open(item._id)}/>
@@ -159,11 +157,13 @@ const AllProducts = (props) => {
         },
     ];
 
+
+
     return (
         <div className="">
             <div className="flex items-center justify-between mt-4">
                 <h1 className="route-title !mt-0">Product List</h1>
-                <Link to="/admin/product/new">
+                <Link to={`/${isAdmin ? "admin": "seller"}/products/new`}>
                     <Button theme="primary">Add New Product</Button>
                 </Link>
             </div>

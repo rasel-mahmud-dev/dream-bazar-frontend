@@ -6,6 +6,7 @@ import Circle from "UI/Circle/Circle";
 import {CgPen} from "react-icons/all";
 import Avatar from "UI/Avatar/Avatar";
 import chooseImageNode from "src/utills/chooseImageNode";
+import PublicProfile from "pages/customerDashboard/AccountDetail/PublicProfile";
 
 const AccountDetail = () => {
     const {profile} = useAppSelector(state => state.authState)
@@ -61,6 +62,8 @@ const AccountDetail = () => {
                         </div>
                     </div>
                 )}
+
+                <PublicProfile profile={profile} />
             </div>
         </div>
     );

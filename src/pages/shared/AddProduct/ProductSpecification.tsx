@@ -1,7 +1,5 @@
 import React, {FC, useEffect, useRef, useState} from 'react';
 import {Button} from "UI/index";
-import {getApi} from "src/apis";
-import {StatusCode} from "store/types";
 import {useNavigate} from "react-router-dom";
 import InputGroup from "UI/Form/InputGroup";
 import {BsTrash} from "react-icons/all";
@@ -11,6 +9,8 @@ import {CategoryDetail} from "reducers/categoryReducer";
 interface Props {
     categoryDetail: CategoryDetail
     onChangeSpecifications: (data: Specification[]) => void
+    defaultValue: {}
+
 }
 
 
@@ -27,6 +27,7 @@ export type Specification = {
         value: string
         required: boolean // for input required
     }
+
 }
 
 
@@ -90,10 +91,7 @@ let fakeSpecificationData = {
     ]
 }
 
-const ProductSpecification: FC<Props> = ({categoryDetail, onChangeSpecifications}) => {
-
-
-
+const ProductSpecification: FC<Props> = ({categoryDetail, onChangeSpecifications, defaultValue}) => {
 
     const [specifications, setSpecifications] = useState<Specification[]>()
 
@@ -107,13 +105,13 @@ const ProductSpecification: FC<Props> = ({categoryDetail, onChangeSpecifications
             handleSelectSpecificationSection(categoryDetail)
         } else if(categoryDetail === null){
             handleSelectSpecificationSection(categoryDetail, true)
-
         }
 
-
-
-
     }, [categoryDetail, categoryDetail?._id])
+
+    useEffect(()=>{
+
+    }, [defaultValue])
 
 
 
@@ -214,14 +212,14 @@ const ProductSpecification: FC<Props> = ({categoryDetail, onChangeSpecifications
 
     function handleSelectSpecificationSection(categoryDetail: CategoryDetail, isFake: boolean = false) {
 
-        let productDescriptionSectionInput = {};
+        let productDescriptionSectionInput: Specification = {};
         let obj = categoryDetail?.productDescriptionSection;
         if(isFake){
             obj = fakeSpecificationData
         }
         if (obj) {
             for (let objKey in obj) {
-                let specifications = obj[objKey];
+                let specifications: any = obj[objKey];
                 specifications = specifications.map((spec) => ({specificationName: spec, value: "", required: true}));
                 productDescriptionSectionInput[objKey] = specifications;
                 // if(specifications && specifications.length > 0){

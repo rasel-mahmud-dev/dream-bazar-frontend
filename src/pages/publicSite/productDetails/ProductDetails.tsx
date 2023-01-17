@@ -22,13 +22,14 @@ import apis from "src/apis";
 import fullLink from "src/utills/fullLink";
 // import {toggleAppMask} from "actions/appAction";
 import calculateDiscount from "src/utills/calculateDiscount";
-import CategoryNavbar from "components/categoryNavbar/CategoryNavbar";
 import staticImagePath from "src/utills/staticImagePath";
 import SpecificationDetail from "pages/publicSite/productDetails/SpecificationDetail";
 import RatingReviews from "pages/publicSite/productDetails/RatingReviews";
 import Questions from "pages/publicSite/productDetails/Questions";
 import ProductDetailsSkeleton from "pages/publicSite/productDetails/ProductDetails.Skeleton";
-import {BiStar} from "react-icons/all";
+import {BiStar, FaAngleDown} from "react-icons/all";
+import useScrollTop from "src/hooks/useScrollTop";
+
 
 interface ProductDetailsProps {
     toggleLoader?: (loadingState: string, isLoading: boolean) => any;
@@ -41,6 +42,8 @@ const FAKE_DESCRIPTION_ID = "60e03983c4db28a6a4fdcb80"
 
 
 const ProductDetails: FC<ProductDetailsProps> = (props) => {
+
+    useScrollTop();
     const params = useParams();
 
     const navigate = useNavigate();
@@ -92,19 +95,22 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
 
     useEffect(() => {
         (async function () {
-            let { status, data } = await apis.get(`/api/product/${params.slug}`);
+            let { status, data } = await apis.get(`/api/product?slug=${params.slug}`);
 
             if (status === StatusCode.Ok) {
                 setProduct(data);
-            }
 
-            // if (response.data && response.data.product) {
-            //     setProduct({ ...product, ...response.data.product });
-            //     response = await apis.get(`/api/products/details/${response.data.product._id}`);
-            //     setProductDescription(response.data);
-            // }
+                if (data) {
+
+                    let response = await apis.get(`/api/product/detail/${data._id}`);
+                    if(response.data && response.status === StatusCode.Ok){
+                        setProductDescription(response.data);
+                    }
+                }
+            }
         })();
     }, [params.slug]);
+
 
     useEffect(() => {
         if (product?._id) {
@@ -116,7 +122,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                 }
             })();
             if(product.sellerId) {
-                fetchProductStoreInfo(`sellerId=${product.sellerId}`).then(data=>{
+                fetchProductStoreInfo(`sellerId=${product.sellerId}`).then((data: any)=>{
                     data && setSellerInfo(data)
                 })
             }
@@ -140,6 +146,12 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
         { rating: 4, amount: 20 },
         { rating: 5, amount: 10 },
     ];
+    const highlight = (productDescription && productDescription?.highlight) ? productDescription.highlight : [
+            "Tur non nulla sit amet nisl tempus convallis quis ac lectus.",
+            "Quisque velit nist tortor eget felis porttitor volutpat",
+            " Pellentesque in ip nisl tempus convallis quis ac lectus.",
+            "tur non nulla sit amet nisl tempus convallis quis ac lectus."
+    ]
 
     const dispatch = useDispatch();
     const { loadingStates } = props;
@@ -192,7 +204,6 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
     // get rate =  (rating * amount)n + (rating * amount)n / totalAmount
 
 
-    console.log(productDescription)
     return (
         <div>
             <div className="">
@@ -221,7 +232,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                             </div>
 
                                             <div onClick={scrollDownHandler} className="image_list_each-div bb text-center">
-                                                <i className="fa fa-angle-down" />
+                                                <FaAngleDown />
                                             </div>
                                         </div>
 
@@ -237,7 +248,9 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                         </div>
 
                                         <div className="mt-5 flex gap-x-4 w-full">
-                                            <Button  className="btn-primary w-full" onClick={() => addToCartHandler(product)}>Add To Cart</Button>
+                                            <Button
+                                                className="btn-primary w-full"
+                                                onClick={() => addToCartHandler(product)}>Add To Cart</Button>
                                             <Button className="btn-primary w-full">Buy Now</Button>
                                         </div>
                                     </div>
@@ -280,37 +293,35 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                             </div>
                             <div className="card !shadow-xxs col-span-8">
                                 <h4 className="text-lg font-medium mb-2">{product.title}</h4>
-                                <div>
-                                    <div className="rating_badge">
+                                <div className="flex items-center gap-x-1">
+                                    <div className="flex items-center gap-x-1 bg-primary-600 px-2 py-1 text-white rounded-md w-max">
                                         <span>{calculateRate()}</span>
-                                        <i className="fa fa-star" />
+                                        <BiStar />
                                     </div>
                                     <h5 className="ml-2 text-sm"> 1,50,723 Ratings & 7,095 Reviews</h5>
                                 </div>
                                 <div className="pt-3 flex items-center">
                                     <h4 className="text-lg font-bold">TK {calculateDiscount(product.discount || 0, product.price || 0)}</h4>
-                                    <h5 className="off-div d-flex ml-3 ">
+                                    <h5 className="off-div flex items-center ml-3 ">
                                         <span>TK{product.price}</span>
                                         <span>{product.discount}% off</span>
                                     </h5>
                                 </div>
                                 <h6>No Cost EMI</h6>
 
-                                <div>
+                                <div className="">
                                     <div className="mt-5">
                                         <div className="description_key">
                                             <img style={{ maxWidth: "20px" }} src={image} alt="" />
                                         </div>
-                                        <h5 className="description_key--value">1 Year Warranty for Mobile and 6 Months for Accessories Know More</h5>
+                                        <h5 className="description_key--value text-dark-600 dark:text-dark-50">1 Year Warranty for Mobile and 6 Months for Accessories Know More</h5>
                                     </div>
                                     <div className="mt-5">
                                         <div className="description_key">
                                             <h4 className="section_title">Highlights</h4>
                                         </div>
-
                                         <ul className="description_key--value highlights">
-                                            {productDescription.highlight &&
-                                                productDescription.highlight.map((h) => <li className="highlight_item">{h}</li>)}
+                                            {highlight?.map((h) => <li className="highlight_item text-dark-600 dark:text-dark-50">{h}</li>)}
                                         </ul>
                                     </div>
                                     <div className="mt-5">
@@ -347,7 +358,11 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                         <div className="description_key">
                                             <h4 className="section_title">Description</h4>
                                         </div>
-                                        <p className="p-theme">{productDescription.summary}</p>
+                                        <p className="p-theme">{productDescription.summary || `Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla porttitor accumsan tincidunt.
+
+                                                Proin eget tortor risus. Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Nulla quis lorem ut libero malesuada feugiat.
+
+                                            Donec sollicitudin molestie malesuada. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.`}</p>
                                     </div>
                                 </div>
 

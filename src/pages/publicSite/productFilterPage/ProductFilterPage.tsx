@@ -1,22 +1,12 @@
 import React, { FC, useEffect, useState } from "react";
-// import json from "src/breadcrumbData.json"
-import {  Spin } from "UI/index";
 import Pagination from "components/Pagination/Pagination"
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import api, {getApi} from "src/apis";
-import apis from "src/apis";
 import { useDispatch, useSelector } from "react-redux";
 import { ACTION_TYPES } from "store/types";
 import "./productFilterPage.scss";
-import { nonInitialEffect } from "src/reactTools";
-
-// import Store from "pages/storePage/StorePage"
 import NotFoundProduct from "UI/404-Product/Not-Found-Product";
-import { PaginationWhereEnum } from "reducers/productReducer";
-// import {Dispatch} from "redux";
 import { filterProductsAction } from "actions/productAction";
-// import {toggleAppMask} from "actions/appAction";
-import { getPagination } from "actions/localActions";
 import { RootState } from "src/store";
 import BrandList from "pages/publicSite/productFilterPage/BrandList";
 import Product from "components/Product/Product";
@@ -27,16 +17,11 @@ import Sidebar from "components/sidebar/Sidebar";
 import Circle from "UI/Circle/Circle";
 import { FaAngleLeft } from "react-icons/all";
 import {setFilter, SetFilterActionPayload} from "actions/filterSidebar.action";
-import product from "components/Product/Product";
-import CategoryNavbar from "components/categoryNavbar/CategoryNavbar";
 import FilterAttribute from "pages/publicSite/productFilterPage/Filter.Attribute";
 import {fetchBrandForCategory} from "actions/brandAction";
-import {FetchBrandForCategoriesAction} from "store/types/brandActionTypes";
 import useAppDispatch from "src/hooks/useAppDispatch";
 
-let initialLoad = true;
 
-let preCollapsCat;
 
 interface ProductFilterType {
 	toggleLoader: any;
@@ -101,13 +86,6 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 		currentPage: 1,
 	});
 
-	const [collapseMenus, setCollapseMenus] = React.useState({});
-	const [expandSubMenu, setExpandSubMenu] = React.useState<ExpandSubMenuProps>({
-		id: "",
-		isExpand: false,
-		name: "",
-		sub_menu: { _id: "", id: "", isExpand: false, name: "", sub_menu: { _id: "", id: "", isExpand: false, name: "" } },
-	});
 
 	const [httpResponse, setHttpResponse] = useState({
 		isSuccess: false,
@@ -117,150 +95,8 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 
     let [currentFullCategoryName, setCurrentFullCategoryName] = useState("")
 
-
-
-	const [breadcrumbData, setBrandcrumbData] = React.useState({});
-	const [categoryData, setCategoryData] = React.useState<{ expand?: boolean; id?: string; name?: string; sub_menu?: [] }>({});
-
 	// when enter filter Product page with queryparams category id
 	// and rootCategory id, we find rootCategory and store it.
-
-
-
-	// React.useEffect( function (){
-	//   (async function () {
-	//
-	//
-	//     try{
-	//       // console.log(currentCategorySelected)
-	//       // fetch category for filter sidebar items
-	//       // console.log(currentCategorySelected)
-	//
-	//       /**
-	//         Fetch Product if subcategory exists like jeans, t-sharts   sub_category means url params &cat_tree=
-	//        */
-	//
-	//       if(currentNestedSubCategory) {
-	//         // we need category id that need to find category from  database
-	//
-	//         const { sortBy, brands=[] } = filters
-	//
-	//         // if has sub_category mongodb database _id... or _ids []
-	//         if (currentNestedSubCategory._id || currentNestedSubCategory._ids) {
-	//           let params = ""
-	//           if (currentNestedSubCategory._ids && currentNestedSubCategory._ids.length > 0){
-	//             currentNestedSubCategory._ids.forEach((i, index)=>{
-	//               if(index !== 0){
-	//                 params += "+" + i
-	//               } else {
-	//                 params += i
-	//               }
-	//             })
-	//           } else {
-	//             params = currentNestedSubCategory._id
-	//           }
-	//
-	//           // now we need category filter sections
-	//           // console.log(params)
-	//           // let { data } = await api.get(`/api/categories/filter-section/${params}`)
-	//           // console.log(data)
-	//           // if (data.category) {
-	//           //   dispatch({type: "SET_CATEGORY", payload: data.category[0]})
-	//           // }
-	//
-	//           let pagination = getPagination(paginations, PaginationWhereEnum.filter_products_page)
-	//
-	//           let data = {
-	//             currentNestedSubCategory,
-	//             selectedCatSections,
-	//             brands,
-	//             filteredAttributes,
-	//             sortBy,
-	//             paginate: {currentPage: pagination ? pagination.currentPage : 1, perPage: pagination ? pagination.perPage : 20},
-	//           }
-	//
-	//           // filterProductWithState(data,  true, function (data) {
-	//           //   dispatch({
-	//           //     type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
-	//           //     payload: data.total
-	//           //   })
-	//           // })
-	//           //
-	//           // filterProductWithState(data,  false, function (data) {
-	//           //   // console.log(data)
-	//           //   dispatch({
-	//           //     type: ACTION_TYPES.FETCH_PRODUCTS,
-	//           //     payload: data
-	//           //   })
-	//           // })
-	//
-	//
-	//         } else {
-	//           // dispatch({
-	//           //   type: ACTION_TYPES.FETCH_PRODUCTS,
-	//           //   payload: []
-	//           // })
-	//         }
-	//       }
-	//     } catch(ex){
-	//       console.log("error,,,,,,,,", ex)
-	//     }
-	//
-	//   }())
-	//
-	// }, [currentNestedSubCategory, selectedCatSections])
-
-	// re-fetch Product if change
-	// brands, filteredAttributes, sortBy
-	// React.useEffect(()=>{
-	//
-	//   try {
-	//     /**
-	//       Don't re-fetch Product count if only change pagination or sort value.
-	//      */
-	//
-	//     const { sortBy, brands } = filters
-	//
-	//     // fetch category for filter sidebar items
-	//     if(currentNestedSubCategory && currentNestedSubCategory._id){
-	//
-	//       // console.log("sdfsdfdsf", filters.brands)
-	//
-	//       // we need category id that need to find category from  database
-	//
-	//       // fetching Product with fetched this category id..
-	//       let pagination = getPagination(paginations, PaginationWhereEnum.filter_products_page)
-	//       let data = {
-	//         brands,
-	//         currentNestedSubCategory,
-	//         filteredAttributes,
-	//         selectedCatSections,
-	//         sortBy,
-	//         paginate: {currentPage: pagination ? pagination.currentPage : 1, perPage: pagination ? pagination.perPage : 30},
-	//       }
-	//
-	//       filterProductWithState(data,  true, function (data) {
-	//         dispatch({
-	//           type: ACTION_TYPES.COUNT_TOTAL_FILTERABLE_PRODUCT,
-	//           payload: data.total
-	//         })
-	//       }).then(r=>{})
-	//
-	//       filterProductWithState(data, false, function (data) {
-	//         dispatch({
-	//           type: ACTION_TYPES.FETCH_PRODUCTS,
-	//           payload: data
-	//         })
-	//       }).then( r =>{})
-	//       // console.log(currentCategorySelected, filteredAttributes)
-	//     }
-	//   } catch(ex){
-	//     console.log("error,,,,,,,,", ex)
-	//   }
-	//
-	//
-	//
-	// }, [filters.brands, filteredAttributes, filters.sortBy, currentNestedSubCategory])
 
 	useEffect(() => {
 

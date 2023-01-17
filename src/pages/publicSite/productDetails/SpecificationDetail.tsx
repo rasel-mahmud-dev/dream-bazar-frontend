@@ -11,7 +11,7 @@ const SpecificationDetail = ({specification}) => {
                     return (
                         <div className="">
                             <div className="mt-5">
-                                <div className="text-dark-900  font-semibold">{sectionKey}</div>
+                                <div className="text-dark-600 dark:text-dark-50  font-semibold">{sectionKey}</div>
                                 <div className="">
                                     {specification &&
                                         specification[sectionKey] &&
@@ -30,7 +30,7 @@ const SpecificationDetail = ({specification}) => {
                 })
             }
 
-            <div className="p-5 disclimer">
+            <div className="py-5 disclimer">
                 <p>
                     <span className="strong">Disclaimer</span>. We can not guarantee that the information on this page is 100% correct.
                     Read more

@@ -11,6 +11,7 @@ import "./style.scss";
 
 import homeNavData from "./data";
 import useWindowResize from "src/hooks/useWindowResize";
+import useLanguage from "src/hooks/useLanguage";
 
 const { SubMenu } = Menu;
 
@@ -24,6 +25,7 @@ interface moreHomeNavDataType {
 const HomeCategoryNav = () => {
     const [moreHomeNavData, setMoreHomeNavData] = React.useState<moreHomeNavDataType | null>(null);
 
+    const l = useLanguage()
 
     const [isMobile, setMobile] = useState(false)
 
@@ -62,8 +64,8 @@ const HomeCategoryNav = () => {
     const MAX_DROPDOWN_WIDTH = 288;
 
     function handleClickSubMenu(e:  React.MouseEvent<HTMLDivElement, MouseEvent>, section: any) {
-        // @ts-ignore
-        let offsetLeft = e.target.offsetLeft;
+
+        let offsetLeft = (e.target as HTMLDivElement).offsetLeft;
 
         // check if category item x position is greater than dropdown width than set dropdown position as category item position.
         if (offsetLeft > MAX_DROPDOWN_WIDTH) {
@@ -182,7 +184,7 @@ const HomeCategoryNav = () => {
                     >
                         <div className="flex flex-col items-center pointer-events-none border md:border-none rounded-full bg-primary-500 md:bg-transparent ">
                             <Image className="w-10 m-1 md:w-20" src={staticImagePath(section.logo)} />
-                            <h4 className="hidden md:block text-sm font-medium">{section.label}</h4>
+                            <h4 className="hidden md:block text-sm font-medium">{l(section.label)}</h4>
                         </div>
                         { !isMobile && renderDropdown(section) }
                     </div>

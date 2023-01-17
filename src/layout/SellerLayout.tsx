@@ -13,13 +13,12 @@ import Footer from "components/Footer/Footer";
 import PrivateRoute from "src/middleware/PrivateRoute";
 import {Roles, Scope} from "store/types";
 import CreateShop from "pages/shared/Shop/CreateShop";
-import ProductList from "pages/adminDashboard/productList/ProductList";
 import AddProduct from "pages/shared/AddProduct/AddProduct";
+import AllProductsLite from "pages/shared/AllProducts/AllProductsLite";
 
 
 const ShopInfo = lazy(() => import("pages/shared/Shop/ShopInfo"));
 const SellerDashboardHome = lazy(() => import("pages/sellerDashboard/dashboardHome/DashboardHome"));
-const SellerProducts = lazy(() => import("pages/sellerDashboard/sellerProducts/SellerProducts"));
 
 
 export const sellerRoute = [
@@ -40,7 +39,7 @@ export const sellerRoute = [
         path: "products",
         element: (
             <PrivateRoute scope={Scope.SELLER_USER}>
-                <ProductList scope={Scope.SELLER_USER}/>
+                <AllProductsLite scope={Scope.SELLER_USER}/>
             </PrivateRoute>
         ),
     },

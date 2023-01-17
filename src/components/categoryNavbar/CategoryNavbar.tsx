@@ -5,6 +5,7 @@ import "./CategoryNavbar.scss";
 import { Link } from "react-router-dom";
 import Dropdown from "components/Dropdown/Dropdown";
 import useWindowResize from "src/hooks/useWindowResize";
+import useLanguage from "src/hooks/useLanguage";
 
 const CategoryNavbar = (props) => {
 
@@ -12,6 +13,8 @@ const CategoryNavbar = (props) => {
     const [isMobile, setMobile] = useState(true)
 
     let innerWidth = useWindowResize()
+
+    const l = useLanguage()
 
 
     useEffect(()=>{
@@ -865,7 +868,7 @@ const CategoryNavbar = (props) => {
                                             className="row-title text-xs"
                                             to={`/p/${eachSec.rootCategory}?catTree=${eachSec.id}`}
                                         >
-                                            {eachSec.name}
+                                            {l(eachSec.name)}
                                         </Link>
                                         <i className="collapse-icon fa fa-chevron-right" />
                                     </div>
@@ -893,7 +896,9 @@ const CategoryNavbar = (props) => {
                             onMouseEnter={(e) => handleMouseHover(e, item.id, "enter")}
                             className="category_main_nav--item"
                         >
-                            <li className={`whitespace-nowrap ${openSectionId === item.id ? "text-primary-500 font-semibold " : ""}`}>{item.name}</li>
+                            <li className={`whitespace-nowrap ${openSectionId === item.id ? "text-primary-500 font-semibold " : ""}`}>
+                                {l(item.name)}
+                            </li>
 
                             { !isMobile && <Dropdown className="category_submenu_popup" isShow={openSectionId === item.id}>
                                 <div>{renderSection(item)}</div>

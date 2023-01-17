@@ -7,7 +7,7 @@ import FileUpload from "UI/Form/File/FileUpload";
 import {Button} from "UI/index";
 import MultipleFileChooser from "UI/Form/File/MultipleFileChooser";
 import generateSku from "src/utills/generateSku";
-import {Roles, StatusCode} from "store/types";
+import {ProductDescriptionType, Roles, StatusCode} from "store/types";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 
 import useToast from "src/hooks/useToast";
@@ -22,6 +22,8 @@ import useAppSelector from "src/hooks/useAppSelector";
 import {CategoryDetail} from "reducers/categoryReducer";
 import {fetchCategoryDetail, fetchFlatCategoriesAction} from "actions/categoryAction";
 import useScrollTop from "src/hooks/useScrollTop";
+import {ProductType} from "reducers/productReducer";
+
 
 
 const AddProduct = ({roleFor}) => {
@@ -99,7 +101,8 @@ const AddProduct = ({roleFor}) => {
         minOrder: {value: 0, errorMessage: "", required: false},
     })
 
-    const [productDetail, setProductDetail] = useState({})
+    const [productDetail, setProductDetail] = useState<ProductDescriptionType>({})
+    const [product, setProduct] = useState<ProductType>({} as ProductType)
 
     const [categoryDetail, setCategoryDetail] = useState<CategoryDetail>({} as CategoryDetail)
 
@@ -127,33 +130,49 @@ const AddProduct = ({roleFor}) => {
         })
     }
 
+    function fetchProduct(productId: string) {
+        return new Promise<[any, any]>(async (resolve) => {
+            try {
+                let {status, data} = await apis.get(`/api/product?id=${productId}`)
+                if (status === StatusCode.Ok) {
+                    resolve([data, null])
+                }
+
+            } catch (ex) {
+                resolve([null, errorMessageCatch(ex)])
+            }
+        })
+    }
+
 
 
 
     // fetch product data that need to update
     useEffect(() => {
-        if (productId && productId.length === 24) {
-            fetchProductDetail(productId).then(([data])=>{
-                if(data) {
-                    let updateProductData = {...newProductData};
+        (async function(){
+            if (!(productId && productId.length === 24)) return
 
-                    for (let updateProductDataKey in updateProductData) {
-                        if (data[updateProductDataKey]) {
-                            updateProductData[updateProductDataKey].value = data[updateProductDataKey];
-                        }
+            let [product] = await fetchProduct(productId)
+            if(product) {
+                let updateProductData = {...newProductData};
+
+                for (let updateProductDataKey in updateProductData) {
+                    if (product[updateProductDataKey]) {
+                        updateProductData[updateProductDataKey].value = product[updateProductDataKey];
                     }
-
-                    if (data.productDescription) {
-                        updateProductData["summary"].value = data.productDescription?.summary;
-                    }
-
-                    setNewProductData(updateProductData)
-                    setProductDetail(data)
                 }
-            })
 
-
-        }
+                let [productDetailData] =  await fetchProductDetail(productId)
+                if(productDetailData){
+                    if(productDetailData.summary){
+                        updateProductData["summary"].value = productDetailData.summary;
+                    }
+                    setProductDetail(productDetailData)
+                }
+                setNewProductData(updateProductData)
+                setProduct(product)
+            }
+        }())
     }, [productId]);
 
 
@@ -322,12 +341,13 @@ const AddProduct = ({roleFor}) => {
             let redirectPath = roleFor === Roles.ADMIN ? "admin" : "seller"
 
             if (productId) {
+                formData.append("_id", params.productId)
                 let {status, data} = await getApi().patch("/api/product/" + params.productId, formData);
                 if (status === StatusCode.Created) {
 
                     setTimeout(() => {
                         setHttpResponse({message: data.message, loading: false, isSuccess: true});
-                        navigate(   `/${redirectPath}/products`)
+                        // navigate(   `/${redirectPath}/products`)
                     }, 300)
 
                 }
@@ -367,8 +387,9 @@ const AddProduct = ({roleFor}) => {
         }))
 
         setCategoryDetail(null as unknown as CategoryDetail)
-
     }
+
+
 
     return (
         <div className="">
@@ -505,6 +526,7 @@ const AddProduct = ({roleFor}) => {
                 {/*********** Filter Attributes Information **********/}
                 <ProductAttribute
                     productDetail={productDetail}
+                    defaultAttribute={product.attributes}
                     onAttributeChange={handleAttributeChange}
                     categoryDetail={categoryDetail}
                 />
@@ -652,6 +674,7 @@ const AddProduct = ({roleFor}) => {
                 {/******** Product Description sections **********/}
                 <ProductSpecification
                     categoryDetail={categoryDetail}
+                    defaultValue={productDetail.specification}
                     onChangeSpecifications={handleChangeSpecification}
                 />
 
@@ -664,7 +687,8 @@ const AddProduct = ({roleFor}) => {
                             {!params.productId ? "Add Product" : "Update Product"}
                         </Button>
 
-                        <Button type="button" onClick={handleFilWithFakeData} className="bg-secondary-300 ">
+                        <Button type="button" onClick={handleFilWithFakeData}
+                                className="bg-secondary-300 ">
                             Fil-Up Fake Data
                         </Button>
                     </div>

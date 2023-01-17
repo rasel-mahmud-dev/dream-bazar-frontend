@@ -1,17 +1,17 @@
 import React, {FC, useEffect, useState} from 'react';
 import Card from "UI/Form/Card/Card";
+import {ProductDescriptionType} from "store/types";
 
 
 interface Props {
-    productDetail: {
-        attributes: any
-    }
+    productDetail: ProductDescriptionType
     categoryDetail: any,
     onAttributeChange: (args: any) => void
+    defaultAttribute: {}
 }
 
 
-const ProductAttribute: FC<Props> = ({productDetail, categoryDetail, onAttributeChange}) => {
+const ProductAttribute: FC<Props> = ({productDetail, categoryDetail, onAttributeChange, defaultAttribute}) => {
 
     const [attributes, setAttributes ] = useState({})
 
@@ -29,17 +29,13 @@ const ProductAttribute: FC<Props> = ({productDetail, categoryDetail, onAttribute
     }
 
     useEffect(()=>{
-        const {attributes} = productDetail
 
-        if(attributes && typeof attributes === "object") {
-            setAttributes(attributes)
-            onAttributeChange && onAttributeChange(attributes)
+        if(defaultAttribute && typeof defaultAttribute === "object") {
+            setAttributes(defaultAttribute)
+            onAttributeChange && onAttributeChange(defaultAttribute)
         }
 
-
-
-
-    }, [productDetail.attributes])
+    }, [defaultAttribute])
 
 
 

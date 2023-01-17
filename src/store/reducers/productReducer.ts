@@ -2,7 +2,6 @@ import {ACTION_TYPES, Brand, CategoryType} from "store/types";
 
 import filterSidebar from "./filterSidebar.reducer";
 import {FetchHomeSectionProductAction, ProductActionTypes} from "store/types/productActionTypes";
-import {stat} from "fs";
 
 
 export enum PaginationWhereEnum {
@@ -22,19 +21,38 @@ export interface ProductType {
     slug: string
     title: string;
     coverPhoto: string;
+    attributes: {},
     brand: { name: string };
     discount: number;
     price: number;
+    qty: number,
+    sold?: number,
+    views?: number,
+    brandId?: string
+    categoryId?: string
+    sellerId?:  string
+    createdAt?: Date,
+    updatedAt?: Date,
+    isApproved: boolean
+    isActive: boolean
+    sku: number
+    isMall: boolean
+    productType: "Digital" | "Physical"
 }
 
 export interface ProductStateType {
     totalProduct: number;
-    homePageSectionProducts: any;
-    homePageSectionsData: any[];
-    productDetails: any;
-    oneTypeProductsLength: any;
-    totalFilterAbleProductCount: number;
+    totalFilterAbleProductCount: 0,
     filterProducts: ProductType[];
+    productDetails: {[key: string]: ProductType}
+    homePageSectionsData: {
+        name: string
+        langKey: string
+        type: string
+        filterBy: string
+        params: string
+    }[]
+    homePageSectionProducts: {}
     filters: {
         pagination: {
             totalItems: number;
@@ -205,28 +223,8 @@ const productReducer = (state = initialState, action: ProductActionTypes) => {
             };
 
 
-        // case ACTION_TYPES.SET_SELECT_CATEGORY:
-        //     updatedState.selectCategory.root = action.payload.root;
-        //     if (action.payload.tree) {
-        //         updatedState.selectCategory.tree = action.payload.tree;
-        //     }
-        //     return updatedState;
-
-
         case ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS:
             // mark it if already fetched without dependencies change
-            // let oldFetchedData = [...updatedState.fetchedData];
-            // let fetchedDataFind = oldFetchedData.findIndex((fd) => fd.where === "home_page");
-            //
-            // if (fetchedDataFind !== -1) {
-            //     oldFetchedData[fetchedDataFind] = {
-            //         ...oldFetchedData[fetchedDataFind],
-            //         isFetched: true,
-            //     };
-            // }
-            // updatedState.fetchedData = oldFetchedData;
-
-            // update section
             updatedState.homePageSectionProducts = {
                 ...updatedState.homePageSectionProducts,
                 ...action.payload,
@@ -259,7 +257,6 @@ const productReducer = (state = initialState, action: ProductActionTypes) => {
 
                 }
 
-
                 // updateAttributes[attributeName] = attributeItem
 
             } else {
@@ -275,36 +272,6 @@ const productReducer = (state = initialState, action: ProductActionTypes) => {
                 attributes: updateAttributes
             }
             return updatedState
-
-
-        // case ACTION_TYPES.SET_filtered_Attributes:
-        //     updatedState.filteredAttributes = action.payload;
-        //     return updatedState;
-        //
-        // case "SET_CATEGORY":
-        //     updatedState.category = action.payload;
-        //     return updatedState;
-        //
-        // case "SET_FILTER_SECTION_TOGGLE_ATTRIBUTE_NAME":
-        //     updatedState.expandFilterItems_sectionIds = action.payload;
-        //     return updatedState;
-        //
-        // case ACTION_TYPES.ADD_FILTER:
-        //     const {brands, sortBy, ideals} = action.payload;
-        //     let updatedFilters = {...updatedState.filters};
-        //     if (brands) {
-        //         updatedFilters.brands = brands;
-        //     }
-        //     if (sortBy) {
-        //         updatedFilters.sortBy = sortBy;
-        //     }
-        //     if (ideals) {
-        //         updatedFilters.ideals = ideals;
-        //     }
-        //     updatedState.filters = updatedFilters;
-        //     // updatedState.filteredAttributes = action.payload
-        //     return updatedState;
-
 
         default:
             // pass switch case to another function........
