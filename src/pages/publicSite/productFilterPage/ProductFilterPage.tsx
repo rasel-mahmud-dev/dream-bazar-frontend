@@ -276,7 +276,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 		// )
 
 		return (
-			<div className="products-views-ssds grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+			<div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 				{filterProducts && filterProducts.length > 0 ? (
 					filterProducts.map((product, i) => (
 						<Product
@@ -284,7 +284,7 @@ const ProductFilter: FC<ProductFilterType> = ({ innerWidth }) => {
 							product={product}
 							handleAddToWishList={handleAddToWishList}
 							isWished={isWished}
-							renderProductAtt={renderProductAtt}
+							// renderProductAtt={renderProductAtt}
 						/>
 					))
 				) : (

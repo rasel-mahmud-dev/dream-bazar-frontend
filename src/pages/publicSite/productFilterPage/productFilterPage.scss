@@ -116,14 +116,13 @@
       position: absolute;
       top: 12px;
       right: 10px;
-      color: #6a6a6adb;
       font-size: 20px;
       &:hover{
         color: $primary;
       }
       &.left{
-        left: 10px;
-        right: auto;
+        //left: 10px;
+        //right: auto;
       }
     }
     
@@ -197,6 +196,4 @@
     }
   }
 }
-.wish{
-  color: red;
-}
+

@@ -347,7 +347,7 @@ const AddProduct = ({roleFor}) => {
 
                     setTimeout(() => {
                         setHttpResponse({message: data.message, loading: false, isSuccess: true});
-                        // navigate(   `/${redirectPath}/products`)
+                        navigate(   `/${redirectPath}/products`)
                     }, 300)
 
                 }

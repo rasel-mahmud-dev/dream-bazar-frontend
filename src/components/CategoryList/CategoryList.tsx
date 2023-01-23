@@ -38,14 +38,13 @@ function CategoryList(props) {
             let c = await fetchFlatCategoriesAction(flatCategories, dispatch)
             if (c) {
                 getCat(c)
-                console.log("call init")
             }
         }())
     }, [])
 
 
 
-    const [currentCategory, setCurrentCategory] = useState({})
+    const [currentCategory, setCurrentCategory] = useState<any>({})
     const [expandCategories, setExpandCategories] = useState({})
 
     /**
@@ -59,7 +58,6 @@ function CategoryList(props) {
         if(params.pId) {
             rootCategory = flatCategories.find(item => item.name === params.pId);
         }
-        console.log(flatCategories)
 
         if(!rootCategory){
             // if userActionTypes.ts put wrong root category name then set electronic as root category
@@ -145,7 +143,7 @@ function CategoryList(props) {
         findNLevelParent(categories, currentItem)
 
 
-        let nestedCategory = {};
+        let nestedCategory: any = {};
         let current = nestedCategory;
 
 
@@ -242,9 +240,11 @@ function CategoryList(props) {
         let allNestedIds: string[] =  []
 
         let allChildCategories = []
-        findAllNestedCat(categoryItem, allChildCategories, flatCategories)
-        if(allChildCategories){
-            allNestedIds = allChildCategories.map(item=>item._id)
+        if(!categoryItem.isProductLevel) {
+            findAllNestedCat(categoryItem, allChildCategories, flatCategories)
+            if (allChildCategories) {
+                allNestedIds = allChildCategories.map(item => item._id)
+            }
         }
 
         dispatch(changeCategoryAction({

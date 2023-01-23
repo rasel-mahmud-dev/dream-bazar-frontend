@@ -22,13 +22,13 @@ const Product: FC<Props> = (props) => {
 
     return (
         <div className="card">
-            {isWished && <FaHeart onClick={()=>handleAddToWishList && handleAddToWishList(product)} className={`add_wish_list_btn ${isWished(product)? 'wish': ''} `}  />}
+            {isWished && <FaHeart onClick={()=>handleAddToWishList && handleAddToWishList(product)} className={`add_wish_list_btn text-dark-300 ${isWished(product)? 'wish': ''} `}  />}
             <div className="head p-4">
-                <div className="add_wish_list_btn -left-1">
-                    <Badge className="!bg-green-450 !rounded-sm !text-xs whitespace-nowrap !py-1">
-                        {product.discount !== 0 && <h5 className="product__discount_row">{product.discount}%</h5>}
-                    </Badge>
-                </div>
+                {/*<div className="add_wish_list_btn -left-1">*/}
+                {/*    <Badge className="!bg-green-450 !rounded-sm !text-xs whitespace-nowrap !py-1">*/}
+                {/*        {product.discount !== 0 && <h5 className="product__discount_row">{product.discount}%</h5>}*/}
+                {/*    </Badge>*/}
+                {/*</div>*/}
 
                 <Link className="block mx-auto" to={`/${product.slug}`}>
                     <div className="product_image_div">

@@ -1,4 +1,21 @@
-const homeNavData = [
+export interface HomeNavDataType {
+    label: string,
+    logo?: string,
+    name: string,
+    rootCategory?: string,
+    cat_tree?: string
+    sub_menu?: SubMenuType[]
+}
+
+
+interface SubMenuType extends HomeNavDataType{
+    for_category?: string[]
+    id?: string
+    ideal?: string
+    cat_name?: string
+}
+
+const homeNavData: HomeNavDataType[] = [
     {
         label: "Top Offer",
         logo: "f15c02bfeb02d15d.png",
@@ -31,9 +48,9 @@ const homeNavData = [
                 label: "Desktop PCs",
                 name: "desktop pcs",
                 sub_menu: [
-                    { label: "All In One PCs", id: "all in one pc" },
-                    { label: "Mini PCs", id: "mini pcs" },
-                    { label: "Tower PCs", id: "tower pcs" },
+                    { label: "All In One PCs", name: "all in one pc" },
+                    { label: "Mini PCs", name: "mini pcs" },
+                    { label: "Tower PCs", name: "tower pcs" },
                 ],
             },
             {
@@ -45,8 +62,8 @@ const homeNavData = [
     {
         label: "Mobiles",
         logo: "22fddf3c7da4c4f4.png",
-        name: "mobiles-store",
-        type: "store",
+        name: "Mobiles",
+        rootCategory: "Electronics",
     },
     {
         rootCategory: "Clothes",
@@ -415,7 +432,6 @@ const homeNavData = [
             {
                 label: "Audio",
                 name: "audio and video",
-                _name: "",
                 sub_menu: [
                     { label: "All", name: "All" },
                     {
@@ -448,113 +464,94 @@ const homeNavData = [
             {
                 label: "Cameras & Accessories",
                 name: "Cameras & Accessories",
-                _name: "",
             },
             {
                 label: "Computer Peripherals",
                 name: "Computer Peripherals",
-                _name: "",
                 sub_menu: [
-                    { label: "All", name: "All", _name: "" },
-                    { label: "Printers", name: "Printers", _name: "" },
-                    { label: "Monitors", name: "Monitors", _name: "" },
-                    { label: "Projectors", name: "Projectors", _name: "" },
+                    { label: "All", name: "All" },
+                    { label: "Printers", name: "Printers" },
+                    { label: "Monitors", name: "Monitors" },
+                    { label: "Projectors", name: "Projectors" },
                     {
                         label: "Portable Projectors",
                         name: "Portable Projectors",
-                        _name: "",
                     },
-                    { label: "Toners", name: "Toners", _name: "" },
+                    { label: "Toners", name: "Toners" },
                     {
                         label: "Ink Cartridges",
                         name: "Ink Cartridges",
-                        _name: "",
                     },
                     {
                         label: "Ink Bottles",
                         name: "Ink Bottles",
-                        _name: "",
                     },
                     {
                         label: "Receipt Printers",
                         name: "Receipt Printers",
-                        _name: "",
                     },
                     {
                         label: "Lamination Machines",
                         name: "Lamination Machines",
-                        _name: "",
                     },
                     {
                         label: "Note Counting Machines",
                         name: "Note Counting Machines",
-                        _name: "",
                     },
                     {
                         label: "Barcode Scanners",
                         name: "Barcode Scanners",
-                        _name: "",
                     },
                     {
                         label: "Currency Detectors",
                         name: "Currency Detectors",
-                        _name: "",
                     },
                 ],
             },
-            { label: "Gaming", name: "Gaming", _name: "" },
+            { label: "Gaming", name: "Gaming" },
             {
                 label: "Laptop Accessories",
                 name: "Laptop Accessories",
-                _name: "",
                 sub_menu: [
-                    { label: "All", name: "All", _name: "" },
-                    { label: "Mouse", name: "Mouse", _name: "" },
+                    { label: "All", name: "All" },
+                    { label: "Mouse", name: "Mouse" },
                     {
                         label: "Laptop Keyboards",
                         name: "Laptop Keyboards",
-                        _name: "",
                     },
-                    { label: "Router", name: "Router", _name: "" },
-                    { label: "Data Cards", name: "Data Cards", _name: "" },
-                    { label: "UPS", name: "UPS", _name: "" },
+                    { label: "Router", name: "Router" },
+                    { label: "Data Cards", name: "Data Cards" },
+                    { label: "UPS", name: "UPS" },
                     {
                         label: "USB Gadgets",
                         name: "USB Gadgets",
-                        _name: "",
                     },
                     {
                         label: "Security Software",
                         name: "Security Software",
-                        _name: "",
                     },
                     {
                         label: "Laptop Battery",
                         name: "Laptop Battery",
-                        _name: "",
                     },
                     {
                         label: "Laptop Adapter",
                         name: "Laptop Adapter",
-                        _name: "",
                     },
                     {
                         label: "Wireless USB Adapter",
                         name: "Wireless USB Adapter",
-                        _name: "",
                     },
-                    { label: "Processor", name: "Processor", _name: "" },
+                    { label: "Processor", name: "Processor" },
                     {
                         label: "Other Accessories",
                         name: "Other Accessories",
-                        _name: "",
                     },
                 ],
             },
             {
                 label: "Laptop and Desktop",
                 name: "Laptop and Desktop",
-                _name: "",
                 sub_menu: [
                     { label: "All", name: "All" },
                     { label: "Laptops", name: "Laptops" },
@@ -577,53 +574,44 @@ const homeNavData = [
             {
                 label: "MobileAccessory",
                 name: "MobileAccessory",
-                _name: "",
             },
-            { label: "Powerbank", name: "Powerbank", _name: "" },
+            { label: "Powerbank", name: "Powerbank" },
             {
                 label: "Smart Home automation",
                 name: "Smart Home automation",
-                _name: "",
             },
             {
                 label: "Smart Wearables",
                 name: "Smart Wearables",
-                _name: "",
             },
             {
                 label: "Storage",
                 name: "Storage",
-                _name: "",
                 sub_menu: [
-                    { label: "All", name: "All", _name: "" },
+                    { label: "All", name: "All" },
                     {
                         label: "MobileMemoryCard",
                         name: "MobileMemoryCard",
-                        _name: "",
                     },
                     {
                         label: "ComputerStoragePendrive",
                         name: "ComputerStoragePendrive",
-                        _name: "",
                     },
                     {
                         label: "MobileStoragePendrive",
                         name: "MobileStoragePendrive",
-                        _name: "",
                     },
                     {
                         label: "ExternalHardDrive",
                         name: "ExternalHardDrive",
-                        _name: "",
                     },
                     {
                         label: "InternalHardDrive",
                         name: "InternalHardDrive",
-                        _name: "",
                     },
                 ],
             },
-            { label: "Tablets", name: "Tablets", _name: "" },
+            { label: "Tablets", name: "Tablets" },
         ],
     },
     // {label: 'Laptops', logo: "69c6589653afdb9a.png", name: "laptop-store", type: "store"},
@@ -637,243 +625,200 @@ const homeNavData = [
                 label: "Televisions",
                 cat_name: "Home Entertainment",
                 name: "Televisions",
-                _name: "",
                 sub_menu: [
-                    { label: "All", name: "All", _name: "" },
+                    { label: "All", name: "All" },
                     {
                         label: "New Launches",
                         name: "New Launches",
-                        _name: "",
                     },
                     {
                         label: "Top Sellers",
                         name: "Top Sellers",
-                        _name: "",
                     },
-                    { label: "24-32 Inch", name: "24-32 Inch", _name: "" },
-                    { label: "40-43 Inch", name: "40-43 Inch", _name: "" },
-                    { label: "50-55 Inch", name: "50-55 Inch", _name: "" },
+                    { label: "24-32 Inch", name: "24-32 Inch" },
+                    { label: "40-43 Inch", name: "40-43 Inch" },
+                    { label: "50-55 Inch", name: "50-55 Inch" },
                     {
                         label: "Big Screen TVs",
                         name: "Big Screen TVs",
-                        _name: "",
                     },
-                    { label: "Smart TVs", name: "Smart TVs", _name: "" },
-                    { label: "4K UHD TVs", name: "4K UHD TVs", _name: "" },
-                    { label: "The Frame", name: "The Frame", _name: "" },
-                    { label: "OLED TVs", name: "OLED TVs", _name: "" },
-                    { label: "QLED TVs", name: "QLED TVs", _name: "" },
+                    { label: "Smart TVs", name: "Smart TVs" },
+                    { label: "4K UHD TVs", name: "4K UHD TVs" },
+                    { label: "The Frame", name: "The Frame" },
+                    { label: "OLED TVs", name: "OLED TVs" },
+                    { label: "QLED TVs", name: "QLED TVs" },
                     {
                         label: "Nanocell TVs",
                         name: "Nanocell TVs",
-                        _name: "",
                     },
                 ],
             },
             {
                 label: "Washing Machines",
                 name: "Washing Machines",
-                _name: "",
             },
             {
                 label: "Air Conditioners",
                 name: "Air Conditioners",
-                _name: "",
             },
             {
                 label: "Refrigerators",
                 name: "Refrigerators",
-                _name: "",
                 sub_menu: [
-                    { label: "All", name: "All", _name: "" },
+                    { label: "All", name: "All" },
                     {
                         label: "New Launches",
                         name: "New Launches",
-                        _name: "",
                     },
                     {
                         label: "Single Door",
                         name: "Single Door",
-                        _name: "",
                     },
                     {
                         label: "Double Door",
                         name: "Double Door",
-                        _name: "",
                     },
                     {
                         label: "Triple door",
                         name: "Triple door",
-                        _name: "",
                     },
                     {
                         label: "Side by Side",
                         name: "Side by Side",
-                        _name: "",
                     },
-                    { label: "4 Door", name: "4 Door", _name: "" },
+                    { label: "4 Door", name: "4 Door" },
                     {
                         label: "Mini Refrigerators",
                         name: "Mini Refrigerators",
-                        _name: "",
                     },
                     {
                         label: "Convertible",
                         name: "Convertible",
-                        _name: "",
                     },
                     {
                         label: "Bottom Mount",
                         name: "Bottom Mount",
-                        _name: "",
                     },
                     {
                         label: "Energy-Efficient",
                         name: "Energy-Efficient",
-                        _name: "",
                     },
                 ],
             },
             {
                 label: "Kitchen Appliances",
                 name: "Kitchen Appliances",
-                _name: "",
                 sub_menu: [
-                    { label: "All", name: "All", _name: "" },
+                    { label: "All", name: "All" },
                     {
                         label: "New Launches",
                         name: "New Launches",
-                        _name: "",
                     },
                     {
                         label: "Microwave Ovens",
                         name: "Microwave Ovens",
-                        _name: "",
                     },
                     {
                         label: "Oven Toaster Grills (OTG)",
                         name: "Oven Toaster Grills (OTG)",
-                        _name: "",
                     },
                     {
                         label: "Juicer/Mixer/Grinder",
                         name: "Juicer/Mixer/Grinder",
-                        _name: "",
                     },
                     {
                         label: "Electric Kettle",
                         name: "Electric Kettle",
-                        _name: "",
                     },
                     {
                         label: "Induction Cooktops",
                         name: "Induction Cooktops",
-                        _name: "",
                     },
-                    { label: "Chimneys", name: "Chimneys", _name: "" },
+                    { label: "Chimneys", name: "Chimneys" },
                     {
                         label: "Coffee Makers",
                         name: "Coffee Makers",
-                        _name: "",
                     },
                     {
                         label: "Sandwich Makers",
                         name: "Sandwich Makers",
-                        _name: "",
                     },
                     {
                         label: "Pop Up Toasters",
                         name: "Pop Up Toasters",
-                        _name: "",
                     },
                     {
                         label: "Electric Cookers",
                         name: "Electric Cookers",
-                        _name: "",
                     },
                     {
                         label: "Wet Grinders",
                         name: "Wet Grinders",
-                        _name: "",
                     },
                 ],
             },
             {
                 label: "Home Appliances",
                 name: "Home Appliances",
-                _name: "",
                 sub_menu: [
-                    { label: "All", name: "All", _name: "" },
+                    { label: "All", name: "All" },
                     {
                         label: "New Launches",
                         name: "New Launches",
-                        _name: "",
                     },
-                    { label: "Irons", name: "Irons", _name: "" },
+                    { label: "Irons", name: "Irons" },
                     {
                         label: "Water Purifiers",
                         name: "Water Purifiers",
-                        _name: "",
                     },
-                    { label: "Inverters", name: "Inverters", _name: "" },
+                    { label: "Inverters", name: "Inverters" },
                     {
                         label: "Vacuum Cleaners",
                         name: "Vacuum Cleaners",
-                        _name: "",
                     },
                     {
                         label: "Sewing Machines",
                         name: "Sewing Machines",
-                        _name: "",
                     },
                     {
                         label: "Voltage Stabilizers",
                         name: "Voltage Stabilizers",
-                        _name: "",
                     },
                     {
                         label: "Air Purifiers",
                         name: "Air Purifiers",
-                        _name: "",
                     },
                     {
                         label: "Landline Phones",
                         name: "Landline Phones",
-                        _name: "",
                     },
                 ],
             },
             {
                 label: "Seasonal Appliances",
                 name: "Seasonal Appliances",
-                _name: "",
                 sub_menu: [
-                    { label: "All", name: "All", _name: "" },
+                    { label: "All", name: "All" },
                     {
                         label: "New Launches",
                         name: "New Launches",
-                        _name: "",
                     },
                     {
                         label: "Air Coolers",
                         name: "Air Coolers",
-                        _name: "",
                     },
-                    { label: "Fans", name: "Fans", _name: "" },
+                    { label: "Fans", name: "Fans" },
                     {
                         label: "Water Geysers",
                         name: "Water Geysers",
-                        _name: "",
                     },
                     {
                         label: "Immersion Rods",
                         name: "Immersion Rods",
-                        _name: "",
                     },
                     {
                         label: "Room Heater",
                         name: "Room Heater",
-                        _name: "",
                     },
                 ],
             },

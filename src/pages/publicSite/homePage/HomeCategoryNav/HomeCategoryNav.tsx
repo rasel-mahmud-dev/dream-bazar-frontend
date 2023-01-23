@@ -1,6 +1,6 @@
 import { Menu, Popup } from "UI/index";
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import staticImagePath from "src/utills/staticImagePath";
 import Dropdown from "components/Dropdown/Dropdown";
 import Backdrop from "components/UI/Backdrop/Backdrop";
@@ -26,6 +26,8 @@ const HomeCategoryNav = () => {
     const [moreHomeNavData, setMoreHomeNavData] = React.useState<moreHomeNavDataType | null>(null);
 
     const l = useLanguage()
+
+    const navigate  = useNavigate()
 
     const [isMobile, setMobile] = useState(false)
 
@@ -170,6 +172,12 @@ const HomeCategoryNav = () => {
         )
     }
 
+    function handleClickToJump(section){
+        let {sub_menu, rootCategory, name} = section
+        if(!sub_menu && rootCategory){
+            navigate(`/p/${section.rootCategory}?catTree=${section.name}`)
+        }
+    }
 
 
     return (
@@ -179,12 +187,19 @@ const HomeCategoryNav = () => {
                     <div
                         key={idx}
                         className="relative"
+                        onClick={()=>handleClickToJump(section)}
                         onMouseEnter={(e) => handleClickSubMenu(e, section)}
                         onMouseLeave={handleCloseDropdown}
                     >
-                        <div className="flex flex-col items-center pointer-events-none border md:border-none rounded-full bg-primary-500 md:bg-transparent ">
+                        <div className="flex flex-col items-center  border md:border-none rounded-full bg-primary-500 md:bg-transparent ">
                             <Image className="w-10 m-1 md:w-20" src={staticImagePath(section.logo)} />
-                            <h4 className="hidden md:block text-sm font-medium">{l(section.label)}</h4>
+                            <h4 className="hidden md:block text-sm font-medium">
+                                {(!section.sub_menu && section.rootCategory) ? (
+                                    <Link  to={`/p/${section.rootCategory}?catTree=${section.name}`}>
+                                        {l(section.label)} dsafsdf
+                                    </Link>
+                                ):     l(section.label)}
+                            </h4>
                         </div>
                         { !isMobile && renderDropdown(section) }
                     </div>
