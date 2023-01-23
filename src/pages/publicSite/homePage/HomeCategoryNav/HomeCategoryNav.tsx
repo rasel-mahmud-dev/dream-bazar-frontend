@@ -196,7 +196,7 @@ const HomeCategoryNav = () => {
                             <h4 className="hidden md:block text-sm font-medium">
                                 {(!section.sub_menu && section.rootCategory) ? (
                                     <Link  to={`/p/${section.rootCategory}?catTree=${section.name}`}>
-                                        {l(section.label)} dsafsdf
+                                        {l(section.label)}
                                     </Link>
                                 ):     l(section.label)}
                             </h4>

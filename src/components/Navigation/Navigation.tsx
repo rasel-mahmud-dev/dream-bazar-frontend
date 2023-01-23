@@ -186,7 +186,7 @@ function Navigation(props) {
                     </div>
                 </div>
 
-                <div className="main-nav bg-green-450">
+                <div className="main-nav bg-green-450 dark:bg-dark-600">
                     <div className="max-w-8xl mx-auto px-4 flex items-center">
                         {/*<div className="md:hidden block mr-3 ">*/}
                         {/*    <FaBars className="text-xl text-neutral-100" onClick={handleToggleLeftBar} />*/}

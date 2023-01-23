@@ -29,7 +29,7 @@ function CategoryList(props) {
     const [selectedCategory, setSelectedCategory] = useState<CategoryType>(null as unknown as CategoryType);
 
     const navigate = useNavigate();
-    const params = useParams();
+    const {pId} = useParams();
 
 
 
@@ -40,9 +40,7 @@ function CategoryList(props) {
                 getCat(c)
             }
         }())
-    }, [])
-
-
+    }, [pId, catTree])
 
     const [currentCategory, setCurrentCategory] = useState<any>({})
     const [expandCategories, setExpandCategories] = useState({})
@@ -55,8 +53,8 @@ function CategoryList(props) {
 
         let rootCategory;
 
-        if(params.pId) {
-            rootCategory = flatCategories.find(item => item.name === params.pId);
+        if(pId) {
+            rootCategory = flatCategories.find(item => item.name === pId);
         }
 
         if(!rootCategory){
@@ -255,7 +253,7 @@ function CategoryList(props) {
         if(!categoryItem.parentId){
             navigate(`/p/${categoryItem.name}`);
         } else {
-            navigate(`/p/${params.pId}?catTree=${categoryItem.name}`);
+            navigate(`/p/${pId}?catTree=${categoryItem.name}`);
         }
     }
 

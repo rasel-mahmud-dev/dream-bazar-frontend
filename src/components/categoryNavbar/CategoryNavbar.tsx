@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Dropdown from "components/Dropdown/Dropdown";
 import useWindowResize from "src/hooks/useWindowResize";
 import useLanguage from "src/hooks/useLanguage";
+import sellerReducer from "reducers/sellerReducer";
 
 const CategoryNavbar = (props) => {
 
@@ -36,11 +37,29 @@ const CategoryNavbar = (props) => {
      *
      * */
 
-    const data = [
+    interface Item{
+        name: string,
+        rootCategory?: string
+        id: string
+        section?: {
+            name: string,
+            id: string,
+            rootCategory: string,
+            subMenu?: SubMenuItem[]
+        }[][]
+    }
+
+    interface SubMenuItem {
+        name: string,
+        brand?: string
+        _id?: string
+        id?: string
+    }
+
+    const data : Item[] = [
         {
             name: "Electronics",
             id: "electronics",
-            _id: "",
             section: [
                 [
                     {
@@ -73,11 +92,10 @@ const CategoryNavbar = (props) => {
                 [
                     {
                         name: "Mobile Accessories",
-                        cat: "mobile and accessories",
-                        id: "mobile-accessories",
-                        _id: "",
+                        id: "Mobiles and Tablet",
+                        rootCategory: "Electronics",
                         subMenu: [
-                            { name: "Mobile Cases", id: "mobile-case" },
+                            { name: "Mobile Cases", id: "Cases and Covers" },
                             { name: "Headphones & Headsets", id: "Headphones" },
                             { name: "Power Banks", id: "Power-Banks" },
                             { name: "Mobile Battery", id: "Mobile Battery" },
@@ -91,6 +109,8 @@ const CategoryNavbar = (props) => {
                     },
                     {
                         name: "Smart Wearable Tech",
+                        id: "Smart Wearable Tech",
+                        rootCategory: "Electronics",
                         subMenu: [
                             { name: "Smart Watches", _id: "", id: "" },
                             { name: "Smart Glasses (VR)", _id: "", id: "" },
@@ -101,28 +121,26 @@ const CategoryNavbar = (props) => {
                 [
                     {
                         name: "Laptops",
-                        cat: "computers",
-                        id: "laptops",
+                        rootCategory: "Electronics",
+                        id: "Laptop",
                         subMenu: [{ name: "Gaming Laptops", id: "gaming laptop", _id: "" }],
                     },
                     {
                         name: "Desktop PCs",
-                        cat: "computers",
-                        id: "",
-                        _id: "",
+                        id: "Desktop PCs",
+                        rootCategory: "Electronics",
                         subMenu: [],
                     },
                     {
                         name: "Gaming & Accessories",
                         id: "Gaming and Accessories",
-                        cat: "computers",
+                        rootCategory: "Electronics",
                         subMenu: [],
                     },
                     {
                         name: "Computer Accessories",
-                        id: "Computer Accessories",
-                        cat: "computers",
-                        _id: "",
+                        id: "Computer and Laptop Accessories",
+                        rootCategory: "Electronics",
                         subMenu: [
                             { name: "External Hard Disks", id: "External Hard Disks" },
                             { name: "Pendrives", id: "Pendrives" },
@@ -134,12 +152,12 @@ const CategoryNavbar = (props) => {
 
                     {
                         name: "Computer Peripherals",
-                        cat: "computers",
                         id: "computer peripherals",
+                        rootCategory: "Electronics",
                         subMenu: [
                             { name: "Printers & Ink Cartridges", id: "Printers & Inks" },
-                            { name: "Monitors", id: "monitors" },
-                            { name: "Tablets", cat: "mobile and accessories", id: "tablets" },
+                            { name: "Monitors", id: "Monitors" },
+                            { name: "Tablets", id: "tablets" },
                             { name: "Apple iPads", id: "Apple iPads" },
                         ],
                     },
