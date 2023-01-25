@@ -45,7 +45,7 @@ const ShopInfo = () => {
             } else {
                 formData.append("shopLogo", files[0], files[0].name)
             }
-            dispatch(updateSellerShopInfoAction({payload: formData, cb}))
+            dispatch(updateSellerShopInfoAction([formData, cb]))
         }
     }
 

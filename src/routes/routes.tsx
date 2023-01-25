@@ -10,25 +10,13 @@ import ExcludeAuthRoute from "src/middleware/ExcludeAuthRoute";
 import {adminRoute} from "src/layout/AdminLayout";
 import ProductDetailLite from "pages/publicSite/productDetails/ProductDetailLite";
 import ProductFilterPageLite from "pages/publicSite/productFilterPage/ProductFilterPageLite";
-import StoreList from "pages/shared/Shop/StoreList";
-import CreateShop from "pages/shared/Shop/CreateShop";
 import {sellerRoute} from "src/layout/SellerLayout";
 
-const ProductFilterPage = lazy(() => import("pages/publicSite/productFilterPage/ProductFilterPage"));
 const JoinHome = lazy(() => import("pages/publicSite/auth/JoinHome"));
 const Registration = lazy(() => import("pages/shared/Registration"));
 const LoginPage = lazy(() => import("pages/shared/LoginPage"));
 const AdminLayout = lazy(() => import("src/layout/AdminLayout"));
-const AdminDashboardHome = lazy(() => import("pages/adminDashboard/DashboardHomePage"));
 
-const AddCategory = lazy(() => import("pages/adminDashboard/categoryList/AddCategory"));
-
-const ProductAttribute = lazy(() => import("pages/adminDashboard/productAttribute/ProductAttribute"));
-const ProductList = lazy(() => import("pages/adminDashboard/productList/ProductList"));
-const AddBrand = lazy(() => import("pages/adminDashboard/brandList/AddBrand"));
-const BrandList = lazy(() => import("pages/adminDashboard/brandList/Brands"));
-const AddProduct = lazy(() => import("pages/shared/AddProduct/AddProduct"));
-const CategoryList = lazy(() => import("pages/adminDashboard/categoryList/Categories"));
 
 import SellerLayout from "src/layout/SellerLayout"
 import ShopDetail from "pages/publicSite/ShopDetail/ShopDetail";
@@ -94,7 +82,7 @@ const router = createBrowserRouter([
                     {path: "cart", element: <ShoppingCart/>},
                     {path: "account", element: <AccountDetail/>},
                     {path: "address-books", element: <AddressBook/>},
-                    {path: "address-books/add", element: <AddShippingAddress/>}
+                    {path: "address-books/add", element: <AddShippingAddress isOpen={false}/>}
                     // {
                     //     path: "products",
                     //     element: (

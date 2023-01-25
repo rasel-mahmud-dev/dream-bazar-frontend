@@ -53,7 +53,7 @@ export const fetchShopInfo = createAsyncThunk("", async (payload, state) => {
 })
 
 
-export const updateSellerShopInfoAction = createAsyncThunk("", async ({payload, cb}, state) => {
+export const updateSellerShopInfoAction = createAsyncThunk("", async ([payload, cb]: [object, (args: any)=>void], state) => {
     try {
         const response = await getApi().patch(`/api/shop`, payload);
         if (response.status === StatusCode.Ok) {

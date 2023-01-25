@@ -18,7 +18,17 @@ interface Props {
 }
 
 interface ShippingAddress {
-
+    firstName: string,
+    lastName?: string,
+    phone?: string,
+    email: string,
+    isDefault: boolean,
+    zipCode: string,
+    state: string,
+    city: string,
+    address: string,
+    apartmentSuit?: string,
+    country?: string,
 }
 
 export const inputFields = {
@@ -109,7 +119,7 @@ const AddShippingAddress: FC<Props> = (props) => {
         lastName: "",
         phone: "",
         email: "",
-        idDefault: false,
+        isDefault: false,
         zipCode: "",
         state: "",
         city: "",
@@ -122,7 +132,7 @@ const AddShippingAddress: FC<Props> = (props) => {
         lastName: "",
         phone: "",
         email: "",
-        idDefault: "",
+        isDefault: "",
         zipCode: "",
         state: "",
         city: "",
@@ -134,17 +144,17 @@ const AddShippingAddress: FC<Props> = (props) => {
     useEffect(() => {
         return () => {
             setShippingAddress({
+                address: "",
+                apartmentSuit: "",
+                city: "",
+                country: "",
+                email: "",
                 firstName: "",
+                isDefault: false,
                 lastName: "",
                 phone: "",
-                email: "",
-                idDefault: false,
-                post_code: "",
                 state: "",
-                city: "",
-                address: "",
-                apartment_suit: "",
-                country: "",
+                zipCode: ""
             })
         }
     }, [])
@@ -186,13 +196,13 @@ const AddShippingAddress: FC<Props> = (props) => {
             lastName: "mahmud",
             email: 'rasel@gmail.com',
             phone: '1712513135',
-            idDefault: true,
-            post_code: '7726',
+            isDefault: true,
             state: "Bogra",
             city: "Sador",
             address: "Feri, Sador-bogra",
-            apartment_suit: "none",
+            apartmentSuit: "none",
             country: "Bangladesh",
+            zipCode: "5826"
         })
     }
 
@@ -252,7 +262,7 @@ const AddShippingAddress: FC<Props> = (props) => {
 
 
                     <div className="flex items-center mt-4">
-                        <input onChange={handleChange} name="idDefault" checked={shippingAddress.idDefault} type="checkbox"
+                        <input onChange={handleChange} name="isDefault" checked={shippingAddress.isDefault} type="checkbox"
                                id="make-default"/>
                         <label htmlFor="make-default" className="text-sm ml-2">Make default</label>
                     </div>

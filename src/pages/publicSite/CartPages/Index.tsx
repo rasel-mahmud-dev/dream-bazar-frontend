@@ -2,7 +2,7 @@ import React from 'react'
 import {useParams, Link} from "react-router-dom"
 import {Button, Image} from "UI/index"
 import {connect, useDispatch} from "react-redux"
-import {fetchProduct, toggleLoader} from "actions/productAction"
+import {fetchProduct} from "actions/productAction"
 import {ACTION_TYPES} from "store/types"
 
 import Title from 'UI/typography/Title';
@@ -148,5 +148,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
     fetchProduct,
-    toggleLoader
 })(CartPage)

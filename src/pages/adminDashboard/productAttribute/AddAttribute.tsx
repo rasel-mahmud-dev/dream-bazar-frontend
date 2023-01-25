@@ -156,18 +156,18 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
     }
 
 
-    function handleOptionValueChange(name, value, index, rangeInputIndex) {
+    function handleOptionValueChange(name: string, value: string, index: number, rangeInputIndex?: any) {
         let updatedOptionsFields = [...state.optionsFields];
 
         // store value as tuple instead of one value
         if(formData.isRange.value && rangeInputIndex !== undefined){
 
-            if(isNaN(value)){
+            if(isNaN(Number(value))){
                 alert("Please Provider numeric value")
 
             } else {
 
-                let prevValue = updatedOptionsFields[index].value
+                let prevValue = updatedOptionsFields[index].value as string[]
 
                 if (typeof prevValue === "string") {
                     prevValue = []
@@ -180,8 +180,6 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                     [name]: tupleValue,
                 };
             }
-
-            // console.log(prevValue)
 
         } else {
 

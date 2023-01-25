@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
 
-import {fetchProduct, fetchProductStoreInfo, fetchRelevantProductsAction, toggleLoader} from "actions/productAction";
+import {fetchProduct, fetchProductStoreInfo, fetchRelevantProductsAction} from "actions/productAction";
 
 import { ACTION_TYPES, StatusCode } from "store/types";
 
@@ -90,10 +90,10 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
         seller_rules?: string[];
     }>({});
 
-
     const [sellerInfo, setSellerInfo] = React.useState<{
         _id?: string;
         shopName?: string;
+        shopLogo?: string
         seller: {username: string}
     }>({} as any);
 
@@ -146,14 +146,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
     }, [product?._id]);
 
     const productImageListRef = React.useRef<HTMLDivElement>(null);
-    const relatedDevices = [
-        { title: "Xiaomi Redmi Note 10S", _id: "" },
-        { title: "Xiaomi Redmi Note 10 Pro", _id: "" },
-        { title: "Xiaomi Redmi 10", _id: "" },
-        { title: "Xiaomi Redmi Note 10 5G", _id: "" },
-        { title: "Xiaomi Redmi Note 9", _id: "" },
-        { title: "Xiaomi Redmi 9T", _id: "" },
-    ];
+
 
     const rating = [
         { rating: 1, amount: 20 },
@@ -280,23 +273,6 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                     </div>
 
 
-
-                                    <div className="mt-5">
-                                        <h4 className="section_title mb-3">POPULAR FROM XIAOMI</h4>
-                                        <div className="flex flex-wrap">
-                                            {relatedDevices.map((dev) => (
-                                                <div className="w-32 m-2">
-                                                    <div className="w-10 m-auto">
-                                                        <img src={fullLink(image)} />
-                                                    </div>
-                                                    <h4 className="mt-2 text-center font-medium text-xs">{dev.title}</h4>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <Button className="text-primary" type="text">
-                                            MORE RELATED DEVICES{" "}
-                                        </Button>
-                                    </div>
                                 </div>
                             </div>
                             <div className="card !shadow-xxs col-span-8">
