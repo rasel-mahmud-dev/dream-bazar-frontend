@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
 
-import {fetchProduct, fetchProductStoreInfo, toggleLoader} from "actions/productAction";
+import {fetchProduct, fetchProductStoreInfo, fetchRelevantProductsAction, toggleLoader} from "actions/productAction";
 
 import { ACTION_TYPES, StatusCode } from "store/types";
 
@@ -29,6 +29,9 @@ import Questions from "pages/publicSite/productDetails/Questions";
 import ProductDetailsSkeleton from "pages/publicSite/productDetails/ProductDetails.Skeleton";
 import {BiStar, FaAngleDown} from "react-icons/all";
 import useScrollTop from "src/hooks/useScrollTop";
+import useAppDispatch from "src/hooks/useAppDispatch";
+import useAppSelector from "src/hooks/useAppSelector";
+import RelevantProducts from "pages/publicSite/productDetails/RelevantProducts";
 
 
 interface ProductDetailsProps {
@@ -46,10 +49,12 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
     useScrollTop();
     const params = useParams();
 
-    const navigate = useNavigate();
-    // let history = useHistory()
 
-    // const {homePageSectionData} = props.productState
+
+
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { loadingStates } = props;
 
     const [isShowImage, setShowImage] = React.useState(0);
 
@@ -60,10 +65,10 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
         qty?: number;
         views?: number;
         sold?: number;
-        brand_id?: string;
+        brandId?: string;
         sellerId: string,
         brand?: {};
-        category_id?: string;
+        categoryId?: string;
         category?: {};
         images?: string[];
         coverPhoto?: string;
@@ -101,10 +106,16 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                 setProduct(data);
 
                 if (data) {
-
                     let response = await apis.get(`/api/product/detail/${data._id}`);
                     if(response.data && response.status === StatusCode.Ok){
                         setProductDescription(response.data);
+
+                        // fetch relevant products
+                        dispatch(fetchRelevantProductsAction({
+                            title: data.title,
+                            brandId: data.brandId,
+                            categoryId: data.categoryId,
+                        }))
                     }
                 }
             }
@@ -119,6 +130,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                 let { status, data } = await apis.get(`/api/product/detail/${product._id}`);
                 if (status === StatusCode.Ok) {
                     setProductDescription(data);
+
                 }
             })();
             if(product.sellerId) {
@@ -126,6 +138,10 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                     data && setSellerInfo(data)
                 })
             }
+
+
+
+
         }
     }, [product?._id]);
 
@@ -153,8 +169,6 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
             "tur non nulla sit amet nisl tempus convallis quis ac lectus."
     ]
 
-    const dispatch = useDispatch();
-    const { loadingStates } = props;
 
     function handlePushBack() {
         navigate(-1);
@@ -255,23 +269,17 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                         </div>
                                     </div>
 
+
+                                    {/********* relevant products **********/}
                                     <div className="mt-5">
-                                        <h4 className="section_title mb-3">RELATED DEVICES</h4>
-                                        <div className="flex flex-wrap justify-center">
-                                            {relatedDevices &&
-                                                relatedDevices.map((dev) => (
-                                                    <div className="w-32 m-2">
-                                                        <div className="w-10 m-auto">
-                                                            <Image className="m-auto" src={fullLink(image)} />
-                                                        </div>
-                                                        <h4 className="mt-2 text-center font-medium text-xs">{dev.title}</h4>
-                                                    </div>
-                                                ))}
-                                        </div>
-                                        <Button className="text-primary" type="text">
-                                            MORE RELATED DEVICES{" "}
-                                        </Button>
+                                        <RelevantProducts product={{
+                                            title: product?.title,
+                                            brandId: product?.brandId,
+                                            categoryId: product?.categoryId,
+                                        }} />
                                     </div>
+
+
 
                                     <div className="mt-5">
                                         <h4 className="section_title mb-3">POPULAR FROM XIAOMI</h4>
@@ -387,7 +395,6 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
     fetchProduct,
-    toggleLoader,
     // toggleAppMask,
     addToCart,
 })(ProductDetails);

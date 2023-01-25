@@ -91,5 +91,15 @@ export type FetchProductStoreInfoAction  = {
     payload: any
 }
 
+
+// fetch relevant products and store in caches
+export type FetchRelevantProductsAction  = {
+    type: ACTION_TYPES.FETCH_RELEVANT_PRODUCTS,
+    payload: {
+        cacheName: string,
+        products: ProductType[]
+    }
+}
+
 export type ProductActionTypes = FetchHomeSectionProductAction | FilterProductAction | ChangePaginationAction | ChangeProductAttributeAction |
-    SelectFilterBrandAction | ClearFilterBrandAction | FetchProductStoreInfoAction
+    SelectFilterBrandAction | ClearFilterBrandAction | FetchProductStoreInfoAction | FetchRelevantProductsAction

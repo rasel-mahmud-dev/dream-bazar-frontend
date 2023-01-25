@@ -53,6 +53,7 @@ export interface ProductStateType {
         params: string
     }[]
     homePageSectionProducts: {}
+    relevantProducts: {[cacheName: string]: ProductType[]}
     filters: {
         pagination: {
             totalItems: number;
@@ -136,6 +137,7 @@ const initialState: ProductStateType = {
         // {name: "Power Supply", type: "products", filterBy: "category", id: "60df5e546419f56b9761060b"}
     ],
     homePageSectionProducts: {},
+    relevantProducts: {},
 
 
     filters: {
@@ -233,6 +235,18 @@ const productReducer = (state = initialState, action: ProductActionTypes) => {
             // log2(updatedState.loadingStates)
 
             return updatedState;
+
+
+
+
+        case ACTION_TYPES.FETCH_RELEVANT_PRODUCTS:
+            let updateRelevantProducts = {...state.relevantProducts}
+            updateRelevantProducts[action.payload.cacheName as string] = action.payload.products
+
+            return {
+                ...state,
+                relevantProducts: updateRelevantProducts
+            };
 
 
 

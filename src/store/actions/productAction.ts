@@ -348,12 +348,33 @@ function fetchOneTypeProductsFromDb(homePageSectionData, api, currentPage=1, per
 
 
 
-export const toggleLoader = (where, isLoading)=> async (dispatch)=>{
-  dispatch({
-    type: ACTION_TYPES.LOADER_CIRCLE,
-    payload: {isLoading, where}
-  })
-}
+
+
+// fetch relevant products
+export const fetchRelevantProductsAction = createAsyncThunk("", async (payload: {}, thunkAPI)=>{
+    let cacheName = ""
+    for (let payloadKey in payload) {
+        cacheName+=payloadKey +"_"
+    }
+
+    // prevent duplicate fetch request if already fetch these relevant products
+    let store = thunkAPI.getState() as RootState
+    if(store && store?.productState?.relevantProducts[cacheName]) return;
+
+    let response = await apis.post(`/api/products/relevant`, payload)
+    if(response.status === StatusCode.Ok) {
+
+        thunkAPI.dispatch ({
+            type: ACTION_TYPES.FETCH_RELEVANT_PRODUCTS,
+            payload: {
+                cacheName: cacheName,
+                products: response.data
+            }
+        })
+    }
+})
+
+
 
 function handlerLoader(dispatch, state){
   dispatch({

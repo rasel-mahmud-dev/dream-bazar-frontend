@@ -226,7 +226,6 @@ const CategoryNavbar = (props) => {
                     {
                         name: "Top Brands",
                         id: "Televisions",
-                        cat: "Home Entertainment",
                         rootCategory: "Electronics",
                         subMenu: [
                             { name: "Mi", brand: "mi" },
@@ -242,7 +241,8 @@ const CategoryNavbar = (props) => {
                     },
                     {
                         name: "Shop by Screen Size",
-                        id: "",
+                        id: "Televisions",
+                        rootCategory: "Electronics",
                         subMenu: [
                             { name: "24 & below", id: "" },
                             { name: "28 - 32", id: "" },
