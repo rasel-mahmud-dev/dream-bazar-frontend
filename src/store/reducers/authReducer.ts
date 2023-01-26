@@ -33,6 +33,8 @@ export interface Shop {
     createdAt?: Date
     updatedAt?: Date
     products?: ProductType[]
+
+
 }
 
 interface AuthStateType {

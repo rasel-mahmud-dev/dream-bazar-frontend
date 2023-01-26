@@ -399,6 +399,9 @@ export const changePagination = (payload: changePaginationType) => {
 }
 
 
+
+// shop products actions
+
 export const fetchProductStoreInfo =  function (query: string) {
         return new Promise(async (resolve)=>{
             try {
