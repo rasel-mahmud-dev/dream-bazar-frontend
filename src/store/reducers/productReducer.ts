@@ -1,7 +1,7 @@
 import {ACTION_TYPES, Brand, CategoryType} from "store/types";
 
-import filterSidebar from "./filterSidebar.reducer";
-import {FetchHomeSectionProductAction, ProductActionTypes} from "store/types/productActionTypes";
+
+import {ProductActionTypes} from "store/types/productActionTypes";
 
 
 export enum PaginationWhereEnum {
@@ -66,6 +66,11 @@ export interface ProductStateType {
         ideals: string[],
         attributes: {
             [attributeName: string]: (string| number)[]
+        },
+        searchBy: {
+            fieldName: string,
+            order: number
+            value?: string
         }
     };
     filteredAttributes: {
@@ -151,6 +156,11 @@ const initialState: ProductStateType = {
         sortBy: [{field: "views", order: -1, id: "1"}],
         ideals: [],
         attributes: {},
+        searchBy: {
+            fieldName: "title",
+            value: undefined,
+            order: 1
+        }
     },
 
     filteredAttributes: [],
@@ -184,7 +194,6 @@ const productReducer = (state = initialState, action: ProductActionTypes) => {
             }
             return updatedState;
 
-
         case ACTION_TYPES.SET_FILTER_PAGINATION:
             updatedState.filters = {
                 ...updatedState.filters,
@@ -194,8 +203,6 @@ const productReducer = (state = initialState, action: ProductActionTypes) => {
                 },
             };
             return updatedState;
-
-
 
         case ACTION_TYPES.SELECT_FILTER_BRAND:
             let updateBrands = [...updatedState.filters.brands]
@@ -224,6 +231,28 @@ const productReducer = (state = initialState, action: ProductActionTypes) => {
 
             };
 
+        case ACTION_TYPES.CHANGE_FILTER_SEARCH:
+            let {fieldName, value, order} = action.payload
+            let updateSearchBy = {...state.filters.searchBy}
+            if(fieldName) {
+                updateSearchBy.fieldName = fieldName
+            }
+
+            if(value !== undefined) {
+                updateSearchBy.value = value
+            }
+
+            if(order !== undefined) {
+                updateSearchBy.order = order
+            }
+
+            return {
+                ...state,
+                filters: {
+                    ...state.filters,
+                    searchBy: updateSearchBy
+                }
+            }
 
         case ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS:
             // mark it if already fetched without dependencies change
@@ -236,9 +265,6 @@ const productReducer = (state = initialState, action: ProductActionTypes) => {
 
             return updatedState;
 
-
-
-
         case ACTION_TYPES.FETCH_RELEVANT_PRODUCTS:
             let updateRelevantProducts = {...state.relevantProducts}
             updateRelevantProducts[action.payload.cacheName as string] = action.payload.products
@@ -247,8 +273,6 @@ const productReducer = (state = initialState, action: ProductActionTypes) => {
                 ...state,
                 relevantProducts: updateRelevantProducts
             };
-
-
 
         case ACTION_TYPES.CHANGE_ATTRIBUTE_VALUES:
             const { attributeName, attributeValue } = action.payload
@@ -288,9 +312,6 @@ const productReducer = (state = initialState, action: ProductActionTypes) => {
             return updatedState
 
         default:
-            // pass switch case to another function........
-            // this function should be return updated state
-            updatedState = filterSidebar(state, action);
             return updatedState;
     }
 };

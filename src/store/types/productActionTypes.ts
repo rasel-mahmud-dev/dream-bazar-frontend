@@ -78,6 +78,16 @@ export type ChangePaginationAction = {
     },
 }
 
+// change filter search values
+export type ChangeFilterSearchAction = {
+    type: ACTION_TYPES.CHANGE_FILTER_SEARCH,
+    payload: {
+        fieldName: string;
+        value?: string;
+        order?: number;
+    },
+}
+
 export type ChangeProductAttributeAction  = {
     type: ACTION_TYPES.CHANGE_ATTRIBUTE_VALUES,
     payload: {
@@ -102,4 +112,4 @@ export type FetchRelevantProductsAction  = {
 }
 
 export type ProductActionTypes = FetchHomeSectionProductAction | FilterProductAction | ChangePaginationAction | ChangeProductAttributeAction |
-    SelectFilterBrandAction | ClearFilterBrandAction | FetchProductStoreInfoAction | FetchRelevantProductsAction
+    SelectFilterBrandAction | ClearFilterBrandAction | FetchProductStoreInfoAction | FetchRelevantProductsAction | ChangeFilterSearchAction
