@@ -2,20 +2,22 @@ import React, {FC} from 'react';
 import useAppSelector from "src/hooks/useAppSelector";
 import {Button, Image} from "UI/index";
 import staticImagePath from "src/utills/staticImagePath";
+import {Link} from "react-router-dom";
 let image = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
 
 
 type RelevantProductsType = {
     product: {title?: string, brandId?: string, categoryId?: string}
+    slug: string
 }
 
 const RelevantProducts: FC<RelevantProductsType> = (props) => {
 
     const {relevantProducts} = useAppSelector(state=>state.productState)
-    let cacheName = ""
-    for (let payloadKey in props.product) {
-        cacheName+=payloadKey +"_"
-    }
+    let cacheName = props.slug
+    // for (let payloadKey in props.product) {
+    //     cacheName+=payloadKey +"_"
+    // }
 
 
     const relatedDevices = [
@@ -33,12 +35,16 @@ const RelevantProducts: FC<RelevantProductsType> = (props) => {
             <h4 className="section_title mb-3">RELATED DEVICES</h4>
             <div className="flex flex-wrap justify-center">
                 { relevantProducts && relevantProducts[cacheName]?.map((product) => (
-                        <div className="w-32 m-2">
-                            <div className="w-10 m-auto">
-                                <Image className="m-auto" imgClass="!rounded-none" src={staticImagePath(product.coverPhoto)} />
+                        <Link to={`/${product.slug}`}>
+                            <div className="w-32 m-2">
+                                <div className="w-10 m-auto">
+                                    <Image className="m-auto" imgClass="!rounded-none" src={staticImagePath(product.coverPhoto)} />
+                                </div>
+                                <h4 className="mt-2 text-center font-medium text-xs">{
+                                    product.title.length > 20 ? product.title.slice(0, 20)+"..." : product.title
+                                }</h4>
                             </div>
-                            <h4 className="mt-2 text-center font-medium text-xs">{product.title}</h4>
-                        </div>
+                        </Link>
                     ))}
             </div>
             <Button className="text-primary" type="text">

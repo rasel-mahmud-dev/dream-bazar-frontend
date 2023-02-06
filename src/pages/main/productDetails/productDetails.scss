@@ -301,6 +301,7 @@
 .description-sidebar{
     position: sticky;
     height: 100vh;
+    overflow-y: auto;
     top: var(--header-height);
     @include get_down(1024px){
         position: static;

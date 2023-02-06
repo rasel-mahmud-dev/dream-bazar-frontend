@@ -1,11 +1,11 @@
-import React, { FC, useEffect } from "react";
+import React, {FC, useEffect} from "react";
 
 import {fetchProduct, fetchProductStoreInfo, fetchRelevantProductsAction} from "actions/productAction";
 
-import { ACTION_TYPES, StatusCode } from "store/types";
+import {ACTION_TYPES, StatusCode} from "store/types";
 
-import { Button, Badge, Image, Typography, Spin } from "UI/index";
-import { connect, useDispatch } from "react-redux";
+import {Button, Badge, Image, Typography, Spin} from "UI/index";
+import {connect, useDispatch} from "react-redux";
 
 let image = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
 let image2 = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
@@ -13,7 +13,7 @@ let image2 = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbh
 import {Link, useNavigate, useParams} from "react-router-dom";
 import "./productDetails.scss";
 
-import { addToCart } from "actions/cartAction";
+import {addToCart} from "actions/cartAction";
 
 import apis from "src/apis";
 
@@ -23,15 +23,15 @@ import fullLink from "src/utills/fullLink";
 // import {toggleAppMask} from "actions/appAction";
 import calculateDiscount from "src/utills/calculateDiscount";
 import staticImagePath from "src/utills/staticImagePath";
-import SpecificationDetail from "pages/publicSite/productDetails/SpecificationDetail";
-import RatingReviews from "pages/publicSite/productDetails/RatingReviews";
-import Questions from "pages/publicSite/productDetails/Questions";
-import ProductDetailsSkeleton from "pages/publicSite/productDetails/ProductDetails.Skeleton";
+import SpecificationDetail from "pages/main/productDetails/SpecificationDetail";
+import RatingReviews from "pages/main/productDetails/RatingReviews";
+import Questions from "pages/main/productDetails/Questions";
+import ProductDetailsSkeleton from "pages/main/productDetails/ProductDetails.Skeleton";
 import {BiStar, FaAngleDown} from "react-icons/all";
 import useScrollTop from "src/hooks/useScrollTop";
 import useAppDispatch from "src/hooks/useAppDispatch";
-import useAppSelector from "src/hooks/useAppSelector";
-import RelevantProducts from "pages/publicSite/productDetails/RelevantProducts";
+import RelevantProducts from "pages/main/productDetails/RelevantProducts";
+import {fetchShopDetail} from "actions/shopAction";
 
 
 interface ProductDetailsProps {
@@ -50,11 +50,9 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
     const params = useParams();
 
 
-
-
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { loadingStates } = props;
+    const {loadingStates} = props;
 
     const [isShowImage, setShowImage] = React.useState(0);
 
@@ -94,24 +92,25 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
         _id?: string;
         shopName?: string;
         shopLogo?: string
-        seller: {username: string}
+        seller: { username: string }
     }>({} as any);
 
 
     useEffect(() => {
         (async function () {
-            let { status, data } = await apis.get(`/api/product?slug=${params.slug}`);
+            let {status, data} = await apis.get(`/api/product?slug=${params.slug}`);
 
             if (status === StatusCode.Ok) {
                 setProduct(data);
 
                 if (data) {
                     let response = await apis.get(`/api/product/detail/${data._id}`);
-                    if(response.data && response.status === StatusCode.Ok){
+                    if (response.data && response.status === StatusCode.Ok) {
                         setProductDescription(response.data);
 
                         // fetch relevant products
                         dispatch(fetchRelevantProductsAction({
+                            slug: params.slug,
                             title: data.title,
                             brandId: data.brandId,
                             categoryId: data.categoryId,
@@ -127,39 +126,36 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
         if (product?._id) {
             (async function () {
                 // let { status, data } = await apis.get(`/api/product/detail/${FAKE_DESCRIPTION_ID}`);
-                let { status, data } = await apis.get(`/api/product/detail/${product._id}`);
+                let {status, data} = await apis.get(`/api/product/detail/${product._id}`);
                 if (status === StatusCode.Ok) {
                     setProductDescription(data);
 
                 }
             })();
-            if(product.sellerId) {
-                fetchProductStoreInfo(`sellerId=${product.sellerId}`).then((data: any)=>{
+            if (product.sellerId) {
+                fetchShopDetail(`sellerId=${product.sellerId}`).then((data: any) => {
                     data && setSellerInfo(data)
                 })
             }
-
-
-
-
         }
+
     }, [product?._id]);
 
     const productImageListRef = React.useRef<HTMLDivElement>(null);
 
 
     const rating = [
-        { rating: 1, amount: 20 },
-        { rating: 2, amount: 30 },
-        { rating: 3, amount: 10 },
-        { rating: 4, amount: 20 },
-        { rating: 5, amount: 10 },
+        {rating: 1, amount: 20},
+        {rating: 2, amount: 30},
+        {rating: 3, amount: 10},
+        {rating: 4, amount: 20},
+        {rating: 5, amount: 10},
     ];
     const highlight = (productDescription && productDescription?.highlight) ? productDescription.highlight : [
-            "Tur non nulla sit amet nisl tempus convallis quis ac lectus.",
-            "Quisque velit nist tortor eget felis porttitor volutpat",
-            " Pellentesque in ip nisl tempus convallis quis ac lectus.",
-            "tur non nulla sit amet nisl tempus convallis quis ac lectus."
+        "Tur non nulla sit amet nisl tempus convallis quis ac lectus.",
+        "Quisque velit nist tortor eget felis porttitor volutpat",
+        " Pellentesque in ip nisl tempus convallis quis ac lectus.",
+        "tur non nulla sit amet nisl tempus convallis quis ac lectus."
     ]
 
 
@@ -173,7 +169,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
 
     function renderLoader(where) {
         let loadingState = loadingStates && loadingStates.find((ls) => ls.where === where);
-        return <div className="text-center">{loadingState && loadingState.isLoading && <Spin />}</div>;
+        return <div className="text-center">{loadingState && loadingState.isLoading && <Spin/>}</div>;
     }
 
     function calculateRate() {
@@ -226,7 +222,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                             {/*<BiHeart className="text-2xl" />*/}
 
                                             <div ref={productImageListRef} className="image_list">
-                                                <img src={staticImagePath(product?.coverPhoto)} />
+                                                <img src={staticImagePath(product?.coverPhoto)}/>
                                                 {/*{product.images &&*/}
                                                 {/*    product.images.map((g, i) => (*/}
                                                 {/*        <div*/}
@@ -239,7 +235,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                             </div>
 
                                             <div onClick={scrollDownHandler} className="image_list_each-div bb text-center">
-                                                <FaAngleDown />
+                                                <FaAngleDown/>
                                             </div>
                                         </div>
 
@@ -269,7 +265,8 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                             title: product?.title,
                                             brandId: product?.brandId,
                                             categoryId: product?.categoryId,
-                                        }} />
+                                        }} slug={params.slug}
+                                        />
                                     </div>
 
 
@@ -280,7 +277,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                 <div className="flex items-center gap-x-1">
                                     <div className="flex items-center gap-x-1 bg-primary-600 px-2 py-1 text-white rounded-md w-max">
                                         <span>{calculateRate()}</span>
-                                        <BiStar />
+                                        <BiStar/>
                                     </div>
                                     <h5 className="ml-2 text-sm"> 1,50,723 Ratings & 7,095 Reviews</h5>
                                 </div>
@@ -296,9 +293,10 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                 <div className="">
                                     <div className="mt-5">
                                         <div className="description_key">
-                                            <img style={{ maxWidth: "20px" }} src={image} alt="" />
+                                            <img style={{maxWidth: "20px"}} src={image} alt=""/>
                                         </div>
-                                        <h5 className="description_key--value text-dark-600 dark:text-dark-50">1 Year Warranty for Mobile and 6 Months for Accessories Know More</h5>
+                                        <h5 className="description_key--value text-dark-600 dark:text-dark-50">1 Year Warranty for Mobile and 6 Months
+                                            for Accessories Know More</h5>
                                     </div>
                                     <div className="mt-5">
                                         <div className="description_key">
@@ -320,7 +318,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                                         <div className="flex items-center">
                                                             <div className="flex items-center bg-primary-600 text-white gap-x-1 px-2 py-1 rounded">
                                                                 <span>{calculateRate()}</span>
-                                                                <BiStar />
+                                                                <BiStar/>
                                                             </div>
                                                             <h5 className="heading-5">
                                                                 <Link to={`/shop/${sellerInfo.shopName}`}>{sellerInfo.shopName}</Link>
@@ -350,12 +348,12 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                     </div>
                                 </div>
 
-                                <SpecificationDetail specification={productDescription?.specification} />
-                                <RatingReviews />
-                                <Questions />
+                                <SpecificationDetail specification={productDescription?.specification}/>
+                                <RatingReviews/>
+                                <Questions/>
                             </div>
                         </div>
-                    ): (<ProductDetailsSkeleton />)}
+                    ) : (<ProductDetailsSkeleton/>)}
                 </div>
             </div>
         </div>

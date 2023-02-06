@@ -440,12 +440,17 @@ function fetchOneTypeProductsFromDb(homePageSectionData, api, currentPage = 1, p
 }
 
 
+
 // fetch relevant products
-export const fetchRelevantProductsAction = createAsyncThunk("", async (payload: {}, thunkAPI) => {
-    let cacheName = ""
-    for (let payloadKey in payload) {
-        cacheName += payloadKey + "_"
-    }
+type RelevantProductsActionType = {
+    slug: string
+    title: string
+    brandId: string
+    categoryId: string
+}
+export const fetchRelevantProductsAction = createAsyncThunk("", async (payload: RelevantProductsActionType, thunkAPI) => {
+
+    let cacheName = payload.slug
 
     // prevent duplicate fetch request if already fetch these relevant products
     let store = thunkAPI.getState() as RootState

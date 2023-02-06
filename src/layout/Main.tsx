@@ -87,7 +87,7 @@ export const mainRoute = [
     },
 ]
 
-const Main = (props) => {
+const Main = () => {
 
     return (
         <div className="slot-root">

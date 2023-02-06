@@ -8,7 +8,7 @@ import "./productFilterPage.scss";
 import NotFoundProduct from "UI/404-Product/Not-Found-Product";
 import {filterProductsAction, filterProductsAction2222222222} from "actions/productAction";
 import {RootState} from "src/store";
-import BrandList from "pages/publicSite/productFilterPage/BrandList";
+import BrandList from "pages/main/productFilterPage/BrandList";
 import Product from "components/Product/Product";
 import SEO from "components/SEO/SEO";
 import CategoryList from "components/CategoryList/CategoryList";
@@ -17,7 +17,7 @@ import Sidebar from "components/sidebar/Sidebar";
 import Circle from "UI/Circle/Circle";
 import {FaAngleLeft} from "react-icons/all";
 import {setFilter, SetFilterActionPayload} from "actions/filterSidebar.action";
-import FilterAttribute from "pages/publicSite/productFilterPage/Filter.Attribute";
+import FilterAttribute from "pages/main/productFilterPage/Filter.Attribute";
 import useAppDispatch from "src/hooks/useAppDispatch";
 
 

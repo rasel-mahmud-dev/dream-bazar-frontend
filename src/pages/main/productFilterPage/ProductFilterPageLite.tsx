@@ -1,6 +1,6 @@
 import React, {lazy, Suspense} from 'react';
 import CategoryNavbar from "components/categoryNavbar/CategoryNavbar";
-import ProductFilterPageSkeleton from "pages/publicSite/productFilterPage/ProductFilterPage.Skeleton";
+import ProductFilterPageSkeleton from "pages/main/productFilterPage/ProductFilterPage.Skeleton";
 
 const ProductFilterPage  = lazy(()=>import("./ProductFilterPage"))
 
