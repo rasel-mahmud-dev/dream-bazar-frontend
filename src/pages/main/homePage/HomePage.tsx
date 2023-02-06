@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {lazy, useContext} from "react";
 import "./HomePage.scss";
 import { ACTION_TYPES } from "store/types";
 import { connect, useDispatch } from "react-redux";
@@ -9,13 +9,14 @@ import { Button, Carousel, Image, Menu, Popup, Spin } from "UI/index";
 import { closeNotify } from "actions/appAction";
 import fullLink from "src/utills/fullLink";
 
-import HomeCategoryNav from "pages/publicSite/homePage/HomeCategoryNav/HomeCategoryNav";
+
 import staticImagePath from "src/utills/staticImagePath";
 import useLanguage from "src/hooks/useLanguage";
 import { BiCart,  MdFavorite } from "react-icons/all";
 import SEO from "components/SEO/SEO";
 import useScrollTop from "src/hooks/useScrollTop";
-import SliderSection from "pages/publicSite/homePage/SliderSection";
+const HomeCategoryNav  = lazy(()=> import("pages/main/homePage/HomeCategoryNav/HomeCategoryNav"));
+const SliderSection  = lazy(()=> import("pages/main/homePage/SliderSection"));
 
 
 const HomePage = (props) => {

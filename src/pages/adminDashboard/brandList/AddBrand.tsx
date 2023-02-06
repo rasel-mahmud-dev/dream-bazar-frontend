@@ -14,6 +14,7 @@ import {ACTION_TYPES, Brand, StatusCode} from "store/types";
 import {fetchBrands} from "actions/brandAction";
 import {fetchFlatCategoriesAction} from "actions/categoryAction";
 import HttpResponse from "components/HttpResponse/HttpResponse";
+import useAppDispatch from "src/hooks/useAppDispatch";
 
 const AddBrand = () => {
     const {
@@ -25,7 +26,7 @@ const AddBrand = () => {
 
     const navigate = useNavigate();
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const [formData, setFormData] = useState<any>({
         name: {value: "", errorMessage: ""},

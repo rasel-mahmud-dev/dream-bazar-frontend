@@ -88,11 +88,6 @@ export interface ProductStateType {
     nestedCategoriesCache: {
         [key: string]: any;
     };
-
-    selectCategory: {
-        root: CategoryType;
-        tree: CategoryType;
-    };
 }
 
 const initialState: ProductStateType = {

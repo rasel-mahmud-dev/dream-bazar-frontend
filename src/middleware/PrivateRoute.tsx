@@ -22,20 +22,20 @@ const PrivateRoute: FC<Props> = (props) => {
     useEffect(()=>{
 
         if(!(auth && authChecked)){
-            currentAuthAction(dispatch,  (errorMessage, user)=>{
-
-                if(!user.roles.includes(scope)){
-                    navigate("/")
-                }
-
-                // if(errorMessage || !userActionTypes.ts.roles.includes(Scope.ADMIN_USER)){
-                //     // if somehow this userActionTypes.ts not admin or fail fetch current userActionTypes.ts then redirect home page
-                //     navigate("/")
-                // } else if(errorMessage || !userActionTypes.ts.roles.includes(Scope.SELLER_USER)){
-                //     // if somehow this userActionTypes.ts not admin or fail fetch current userActionTypes.ts then redirect home page
-                //     navigate("/")
-                // }
-            });
+            // currentAuthAction(dispatch,  (errorMessage, user)=>{
+            //
+            //     if(!user.roles.includes(scope)){
+            //         navigate("/")
+            //     }
+            //
+            //     // if(errorMessage || !userActionTypes.ts.roles.includes(Scope.ADMIN_USER)){
+            //     //     // if somehow this userActionTypes.ts not admin or fail fetch current userActionTypes.ts then redirect home page
+            //     //     navigate("/")
+            //     // } else if(errorMessage || !userActionTypes.ts.roles.includes(Scope.SELLER_USER)){
+            //     //     // if somehow this userActionTypes.ts not admin or fail fetch current userActionTypes.ts then redirect home page
+            //     //     navigate("/")
+            //     // }
+            // });
         }
 
     }, [])

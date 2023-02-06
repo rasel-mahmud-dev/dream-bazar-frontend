@@ -5,7 +5,7 @@ import { ACTION_TYPES } from "store/types";
 import { Button } from "components/UI";
 
 import { fetchBrandForCategory } from "actions/productAction";
-import { LastSelectedCategoryProps, SelectedCatSectionType, UI_CATEGORY_INFO_TYPE } from "reducers/productReducer";
+
 
 import getFilterItems from "src/utills/getFilterItems";
 import { removeAllFilteredValue } from "actions/filterSidebar.action";
@@ -31,11 +31,6 @@ interface FilterSidebarProps {
     filterItem_sections_data?: { category_id: string; filterItem_sections: any[] };
     cb?: any;
     brandsForCategory: { id: string; brands: [] }[];
-    selectedCatSections?: SelectedCatSectionType;
-    currentNestedSubCategory?: LastSelectedCategoryProps;
-    ui_filterItems?: any[];
-    ui_category_info?: UI_CATEGORY_INFO_TYPE[];
-    ui_categories?: any[];
     filters?: any;
     removeAllFilteredValue?: any;
     queryObject?: object;
@@ -66,16 +61,10 @@ const FilterSidebar = (props: FilterSidebarProps) => {
     const {
         category,
         filteredAttributes, // we got it from category collection in database...
-        currentCategorySelected,
-        currentCategoryRoot,
-        currentNestedSubCategory,
-        selectedCatSections,
         expandFilterItems_sectionIds,
         filterItem_sections_data,
         brandsForCategory,
         filters,
-        ui_category_info,
-        ui_categories,
         cb,
     } = props;
 
@@ -94,211 +83,7 @@ const FilterSidebar = (props: FilterSidebarProps) => {
         }[]
     >([]);
 
-    useEffect(() => {
-        /**
-         * this condition won't be change state if switch page unless page reload or change category
-         *  */
 
-        let defaultExpand = [];
-
-        // console.log(filterItem_sections_data, currentNestedSubCategory)
-
-        // console.log(currentNestedSubCategory.id, filterItem_sections_data.category_id)
-
-        // console.log(filterItem_sections_data)
-
-        if (filterItem_sections_data && currentNestedSubCategory.id) {
-            // collect filter items from root category............
-            let firstLevelUICategoryFilterItems = [];
-            if (selectedCatSections && selectedCatSections.oneLevel) {
-                let findFirstLevelUICategory = props.ui_category_info && props.ui_category_info.find((c) => c.id === selectedCatSections.oneLevel.id);
-
-                if (findFirstLevelUICategory && findFirstLevelUICategory.filter_items) {
-                    if (findFirstLevelUICategory.default_expand) {
-                        defaultExpand = [...findFirstLevelUICategory.default_expand];
-                    }
-                    // Product attribute filter items section that given root or first level category..........
-                    firstLevelUICategoryFilterItems = getFilterItems(props.ui_filterItems, [...findFirstLevelUICategory.filter_items]);
-                }
-            }
-
-            excludeArr = null;
-            // collect filter items from last selected categories
-            let childCategoryFilterItems = [];
-            if (currentNestedSubCategory) {
-                let findChildCategory = props.ui_category_info && props.ui_category_info.find((c) => c.id === currentNestedSubCategory.id);
-                if (findChildCategory && findChildCategory.filter_items) {
-                    childCategoryFilterItems = getFilterItems(props.ui_filterItems, [...findChildCategory.filter_items]);
-                    excludeArr = findChildCategory.filter_items_exclude;
-                    if (findChildCategory.default_expand) {
-                        defaultExpand = [...defaultExpand, ...findChildCategory.default_expand];
-                    }
-                }
-            }
-
-            if (firstLevelUICategoryFilterItems && firstLevelUICategoryFilterItems.length > 0) {
-                if (excludeArr && excludeArr.length > 0) {
-                    excludeArr.forEach((exItem) => {
-                        let m = firstLevelUICategoryFilterItems.findIndex((aa) => aa.attribute_name === exItem);
-                        if (m !== -1) {
-                            firstLevelUICategoryFilterItems.splice(m, 1);
-                        }
-                    });
-                }
-
-                firstLevelUICategoryFilterItems.push(...childCategoryFilterItems);
-            } else {
-                if (childCategoryFilterItems && childCategoryFilterItems.length > 0) {
-                    firstLevelUICategoryFilterItems = childCategoryFilterItems;
-                }
-            }
-
-            // initial expand filter Items
-            firstLevelUICategoryFilterItems.forEach((item) => {
-                let i = defaultExpand.indexOf(item.attribute_name);
-                if (i !== -1) {
-                    firstLevelUICategoryFilterItems[i] = {
-                        ...firstLevelUICategoryFilterItems[i],
-                        expand: true,
-                    };
-                }
-            });
-
-            /** We need ...
-             * 1. compare both parent category filter attributes section and child category filter attributes section
-             * 2. if exits child and parent category same filter section then overwrite to parent category
-             *   filter item section.
-             * */
-
-            if (firstLevelUICategoryFilterItems) {
-                let unique = [];
-                for (let i = 0; i < firstLevelUICategoryFilterItems.length; i++) {
-                    const el = firstLevelUICategoryFilterItems[i];
-                    let ii = unique.findIndex((u) => u.attribute_name === el.attribute_name);
-                    if (ii !== -1) {
-                        unique.push(el);
-                    }
-                }
-                console.log(unique);
-            }
-
-            dispatch({
-                type: "SET_FILTER_ITEM_SECTIONS",
-                payload: { category_id: currentNestedSubCategory.id, filterItem_sections: firstLevelUICategoryFilterItems },
-            });
-            // console.log(firstLevelUICategoryFilterItems)
-
-            // make uniq list............
-        }
-    }, [currentNestedSubCategory]);
-    let n = [];
-
-    function findReCur(items, cat_tree) {
-        for (let i = 0; i < items.length; i++) {
-            if (items[i].sub_menu && items[i].sub_menu.length > 0) {
-                findReCur(items[i].sub_menu, cat_tree);
-            } else {
-                if (items[i].id === cat_tree) {
-                    n.push(items[i].id);
-                }
-                console.log("end..........");
-            }
-        }
-    }
-
-    useEffect(() => {
-        (async function () {
-            let { cat, cat_tree, brand } = qstring.parse(location.search);
-            // find cat_tree all parent category
-
-            let cIndex = ui_categories.findIndex((c) => c.id === cat);
-
-            // if(cIndex !== -1) {
-            //   findReCur(ui_categories[cIndex].sub_menu, cat_tree)
-            //   console.log(n)
-            // }
-
-            // let ids = []
-            // let names  = Object.keys(selectedCatSections)
-            // names.forEach(name=>{
-            //   if(selectedCatSections[name]) {
-            //     ids.push(selectedCatSections[name].id)
-            //   }
-            // })
-
-            // console.log(selectedCatSections)
-
-            // let categoryInfoRes = await apis.post(`/api/ui-data/category-info`, {ids})
-
-            // if(categoryInfoRes.status === 200){
-            //
-            //   let filter_items = []
-            //   let i = []
-            //   categoryInfoRes.data.category_info.forEach( (ci, index) => {
-            //     (async function (){
-            //       let filterItemsRes = await apis.post("/api/ui-data/filter-items", {attributeNames: ci.filter_items})
-            //       if (filterItemsRes.status === 200) {
-            //         ci.filter_items.forEach(item => {
-            //           filterItemsRes.data.forEach(fItem => {
-            //             if (item === fItem.attribute_name) {
-            //               if(i.findIndex(item=> (item.attribute_name === fItem.attribute_name)) === -1){
-            //                 i.push(fItem)
-            //               }
-            //             }
-            //           })
-            //         })
-            //
-            //         filter_items.push({
-            //           ...ci,
-            //           filter_items_populated: i
-            //         })
-            //       }
-            //       if(categoryInfoRes.data.category_info.length === (index + 1)){
-            //         dispatch({
-            //           type: ACTION_TYPES.SET_UI_CATEGORY_INFO,
-            //           payload: filter_items
-            //         })
-            //         // let uu = []
-            //         // i.forEach(item=> uu )
-            //         dispatch({
-            //           type: ACTION_TYPES.SET_UI_FILTER_ITEM,
-            //           payload: i
-            //         })
-            //       }
-            //
-            //     }())
-            //
-            //   })
-            // }
-        })();
-
-        // setFilterItem_currentCategory({})
-    }, [selectedCatSections]);
-
-    nonInitialEffect(() => {
-        let ids = [];
-        let names = Object.keys(selectedCatSections);
-        names.forEach((name) => {
-            if (selectedCatSections[name]) {
-                ids.push(selectedCatSections[name].id);
-            }
-        });
-        let renderAttributesFilterSection = [];
-        let a = ui_category_info.filter((category_info) => ids.indexOf(category_info.id) !== -1);
-        a.forEach((item) => {
-            item.filter_items_populated.forEach((po: any) => {
-                if (renderAttributesFilterSection.findIndex((rafs) => rafs.attribute_name === po.attribute_name) === -1) {
-                    renderAttributesFilterSection.push(po);
-                }
-            });
-            // console.log(item)
-            // if(renderAttributesFilterSection.findIndex(re=>re.attribute_name === item.attribute_name) === -1){
-            // renderAttributesFilterSection.push(...item.filter_items_populated)
-            // }
-        });
-
-        setFilterItem_currentCategory(renderAttributesFilterSection);
-    }, [ui_category_info]);
 
     function toggleShowMoreFilterItems_Handler(filterItemId: { attribute_name: string; values: any[] }) {
         setToggleShowMoreFilterItems({ [filterItemId.attribute_name]: filterItemId.values.length });
@@ -749,84 +534,6 @@ const FilterSidebar = (props: FilterSidebarProps) => {
                 return selectedBrandIndex !== -1;
             }
             return false;
-        }
-
-        let findBrands = brandsForCategory.find((bc) => bc.id === currentNestedSubCategory.id);
-        if (findBrands) {
-            return (
-                findBrands.brands &&
-                findBrands.brands.length > 0 && (
-                    <div className="filter_section">
-                        <div className="filter_section--each_section">
-                            <div onClick={() => toggleFilterItem_SectionHandler_For_LocalState("brands")} className="filter_section--header">
-                                <h4 className="filter_section__title">{"Brands".toUpperCase()}</h4>
-                                <div className="collapse_icon">
-                                    <i
-                                        className={["fa", isCollapseIds.indexOf("brands") === -1 ? "fa-chevron-right" : "fa-chevron-down"].join(" ")}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className={["ml-2 mt-3", isCollapseIds.indexOf("brands") === -1 ? "hide" : "show"].join(" ")}>
-                                <div className="brand_search_input_row">
-                                    <div className="div">
-                                        {/*<Input.Menu*/}
-                                        {/*  placeholder="Search brands..."*/}
-                                        {/*  addonAfter={<i className="far fa-search"/>}*/}
-                                        {/*  dropdownMenu={findBrands.brands ? findBrands.brands : []}*/}
-                                        {/*  handleEnterButton={handleEnterButton}*/}
-                                        {/*  // suffix={<i className="fa fa-search"/>}*/}
-                                        {/*  // prefix={<i className="fa fa-search"/>}*/}
-                                        {/*  // addonBefore={<i className="fal fa-search"/>}*/}
-                                        {/*/>*/}
-                                    </div>
-                                </div>
-
-                                {findBrands.brands &&
-                                    findBrands.brands
-                                        .slice(0, toggleShowMoreFilterItems["brands"] ? toggleShowMoreFilterItems["brands"] : 5)
-                                        .map((brand: any) => (
-                                            <div className="input_item">
-                                                <input
-                                                    onChange={(e) => handleChangeBrand(brand)}
-                                                    type="checkbox"
-                                                    checked={isChecked(brand._id)}
-                                                    name={brand._id}
-                                                    id={brand.name}
-                                                />
-                                                <label className={brand.not_available ? "disabled" : ""} htmlFor={brand.name}>
-                                                    {brand.name}
-                                                </label>
-                                            </div>
-                                        ))}
-                                {findBrands.brands.length >= toggleShowMoreFilterItems["brands"]
-                                    ? ""
-                                    : findBrands.brands.length > 6 && (
-                                          <Button
-                                              type="text"
-                                              className="pl-1 ml-0"
-                                              onClick={() =>
-                                                  toggleShowMoreFilterItems_Handler({
-                                                      attribute_name: "brands",
-                                                      values: findBrands.brands ? [...findBrands.brands] : [],
-                                                  })
-                                              }
-                                          >
-                                              More
-                                              <span className="ml-2">Brands</span>
-                                          </Button>
-                                      )}
-                            </div>
-                        </div>
-                    </div>
-                )
-            );
-        } else {
-            return (
-                <div>
-                    <h4>No dsf</h4>
-                </div>
-            );
         }
     }
 

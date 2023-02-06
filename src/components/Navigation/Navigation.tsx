@@ -58,7 +58,7 @@ function Navigation(props) {
     const l = useLanguage();
     const windowWidth = useWindowResize();
 
-    const timeSearchDelayTimeout = useRef<NodeJS.Timeout>(0)
+    const timeSearchDelayTimeout = useRef<NodeJS.Timeout>()
 
     const news = "From Yesterday our Online Shop will be Shutdown until Government don't declare next info.";
 
@@ -311,9 +311,10 @@ function Navigation(props) {
                                     <MobileCartSidebar isOpen={state.openMobileRightSidebar} handleClose={closeMobileRightSidebar}/>
 
 
-                                    <li className="hidden md:flex items-center gap-x-2 py-5 ">
-                                        <FaHeart className="text-white text-2xl"/>
-                                        <span className="font-medium text-white hidden md:block whitespace-nowrap">{l("Favorite")}</span>
+                                    <li className=" ">
+                                        <Link to="/wishlist" className="hidden md:flex items-center gap-x-2 py-5">
+                                            <FaHeart className="text-white text-2xl"/>
+                                            <span className="font-medium text-white hidden md:block whitespace-nowrap">{l("Favorite")}</span></Link>
                                     </li>
 
                                     <li

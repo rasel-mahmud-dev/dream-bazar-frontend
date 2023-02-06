@@ -8,7 +8,7 @@ import {CategoryDetail} from "reducers/categoryReducer";
 
 interface Props {
     categoryDetail: CategoryDetail
-    onChangeSpecifications: (data: Specification[]) => void
+    onChangeSpecifications: (data: Specification) => void
     defaultValue: {}
 
 }
@@ -93,7 +93,7 @@ let fakeSpecificationData = {
 
 const ProductSpecification: FC<Props> = ({categoryDetail, onChangeSpecifications, defaultValue}) => {
 
-    const [specifications, setSpecifications] = useState<Specification[]>()
+    const [specifications, setSpecifications] = useState<{}>()
 
 
     const navigate = useNavigate();

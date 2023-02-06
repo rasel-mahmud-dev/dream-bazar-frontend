@@ -234,7 +234,7 @@ const AddProduct = ({roleFor}) => {
         }))
     }
 
-    function handleChangeSpecification(specifications: Specification[]) {
+    function handleChangeSpecification(specifications: Specification) {
         setState(prevState => ({...prevState, specifications: specifications}))
     }
 

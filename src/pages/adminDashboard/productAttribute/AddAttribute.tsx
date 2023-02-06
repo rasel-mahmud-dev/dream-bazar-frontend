@@ -227,19 +227,22 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
         state.optionsFields.forEach((field) => {
             if (field.name) {
                 if(formData.isRange.value && Array.isArray(field.value)){
-                    let fieldValue = []
+                    let fieldValue:  [string | number, string | number] = ["", ""]
                     let tupleArr = field.value;
 
                     if(tupleArr[0]){
-                        fieldValue[0] = convStringToNumber(tupleArr[0]);
+                        fieldValue[0] = convStringToNumber(tupleArr[0] as string)
                     }
                     if(tupleArr[1]){
-                        fieldValue[1] = convStringToNumber(tupleArr[1]);
+                        fieldValue[1] = convStringToNumber(tupleArr[1] as string)
                     }
+
                     field.value = fieldValue;
 
                 } else {
-                    field.value = convStringToNumber(field.value)
+                    if(typeof field.value === "string"){
+                        field.value = convStringToNumber(field.value)
+                    }
 
                 }
                options.push(field)
@@ -248,7 +251,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
 
         payload.options = options.filter(item=>{
             if(item.name){
-                if(formData.isRange.value){
+                if(formData.isRange.value && item.value && Array.isArray(item.value)){
                     if(item.value.length === 2){
                         return item
                     }
@@ -320,6 +323,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
         setState((prevState) => {
             let updateOptionsFields = [...prevState.optionsFields];
             if(formData.isRange.value) {
+                // @ts-ignore
                 updateOptionsFields.push({name: "", value: []});
             } else{
                 updateOptionsFields.push({name: "", value: ""});

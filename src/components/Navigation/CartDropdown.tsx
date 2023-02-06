@@ -55,7 +55,7 @@ const CartDropdown: FC<Props> = (props) => {
 			            dataSource={cartState.cartProducts ? cartState.cartProducts : []} columns={headers}/>
 		            
 		            <div className="ml-auto ">
-			            <Button to="/auth/customer/dashboard/cart" className="bg-green-450 mr-4 mt-4">Go to Cart Page</Button>
+			            <Button to="/cart" className="bg-green-450 mr-4 mt-4">Go to Cart Page</Button>
 		            </div>
 		            
 	            </div>

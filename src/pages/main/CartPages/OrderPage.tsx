@@ -2,7 +2,7 @@ import React from 'react'
 import {useParams, Link, useNavigate} from "react-router-dom"
 import {Button, Spin} from "UI/index"
 import {connect, useDispatch} from "react-redux"
-import { fetchProduct, toggleLoader } from "actions/productAction"
+import { fetchProduct } from "actions/productAction"
 
 
 const OrderPage = (props) => { 
@@ -84,6 +84,5 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps, {
-  fetchProduct,
-  toggleLoader
+  fetchProduct
 })(OrderPage)

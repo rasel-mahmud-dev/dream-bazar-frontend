@@ -44,6 +44,7 @@ const CategoryNavbar = (props) => {
         section?: {
             name: string,
             id: string,
+            ideal?: string,
             rootCategory: string,
             subMenu?: SubMenuItem[]
         }[][]
@@ -56,7 +57,7 @@ const CategoryNavbar = (props) => {
         id?: string
     }
 
-    const data : Item[] = [
+    const data : Item[] | any = [
         {
             name: "Electronics",
             id: "electronics",
@@ -431,7 +432,7 @@ const CategoryNavbar = (props) => {
                     },
                     {
                         name: "Innerwear & Loungewear",
-                        cat: "clothing and accessories",
+                        rootCategory: "Electronics",
                         id: "Innerwear and Loungewear",
                         subMenu: [
                             { name: "Vests", id: "Vests" },
@@ -440,12 +441,13 @@ const CategoryNavbar = (props) => {
                             { name: "Night Suits", id: "Night Suits" },
                         ],
                     },
-                    { name: "Raincoats & Windcheaters", id: "" },
+                    // { name: "Raincoats & Windcheaters", id: "" },
                 ],
                 [
                     {
                         name: "Watches",
-                        id: "",
+                        id: "Watches",
+                        rootCategory: "Electronics",
                         subMenu: [
                             { name: "Fastrack", id: "" },
                             { name: "Casio", id: "" },
@@ -457,7 +459,8 @@ const CategoryNavbar = (props) => {
 
                     {
                         name: "Accessories",
-                        id: "",
+                        rootCategory: "Electronics",
+                        id: "Accessories",
                         subMenu: [
                             { name: "Backpacks", id: "" },
                             { name: "Wallets", id: "" },
@@ -468,14 +471,15 @@ const CategoryNavbar = (props) => {
                             { name: "Jewellery", id: "" },
                         ],
                     },
-                    { name: "Sports & Fitness Store", id: "" },
+                    { name: "Sports & Fitness Store", id: "",              rootCategory: "Electronics", },
                 ],
                 [
-                    { name: "Smart Watches", id: "" },
-                    { name: "Smart Bands", id: "" },
+                    { name: "Smart Watches", id: "",              rootCategory: "Electronics", },
+                    { name: "Smart Bands", id: "",              rootCategory: "Electronics", },
                     {
                         name: "Personal Care Appliances",
                         id: "",
+                        rootCategory: "Electronics",
                         subMenu: [
                             { name: "Trimmers", id: "" },
                             { name: "Shavers", id: "" },
@@ -484,6 +488,7 @@ const CategoryNavbar = (props) => {
                     },
                     {
                         name: "Featured",
+                        rootCategory: "Electronics",
                         id: "",
                         subMenu: [
                             { name: "Watches Store", id: "" },
@@ -506,13 +511,12 @@ const CategoryNavbar = (props) => {
             ideal: "women",
             section: [
                 [
-                    { name: "Clothes", rootCategory: "Clothes" },
+                    { name: "Clothes", id: "Clothes", rootCategory: "Clothes" },
                     {
                         name: "Women Western & Maternity Wear",
                         id: "",
-                        cat: "clothing and accessories",
-                        ideal: "women",
                         rootCategory: "Clothes",
+                        ideal: "women",
                         subMenu: [
                             { name: "Topwear", id: "" },
                             { name: "Dresses", id: "" },
@@ -525,6 +529,7 @@ const CategoryNavbar = (props) => {
                     },
                     {
                         name: "Lingerie & Sleepwear",
+                        id: "Lingerie & Sleepwear",
                         rootCategory: "Clothes",
                         subMenu: [
                             { name: "Bras", id: "" },
@@ -535,15 +540,16 @@ const CategoryNavbar = (props) => {
                             { name: "Camisoles & Slips", id: "" },
                         ],
                     },
-                    { name: "Swim & Beachwear", id: "" },
-                    { name: "Party Dresses", id: "" },
-                    { name: "Sports Wear", id: "" },
-                    { name: "Winter Wear", id: "" },
+                    { name: "Swim & Beachwear", id: "",           rootCategory: "Clothes", },
+                    { name: "Party Dresses", id: "",           rootCategory: "Clothes", },
+                    { name: "Sports Wear", id: "",           rootCategory: "Clothes", },
+                    { name: "Winter Wear", id: "",           rootCategory: "Clothes", },
                 ],
                 [
                     {
                         name: "Ethnic Wear",
                         rootCategory: "Clothes",
+                        id: "Clothes",
                         subMenu: [
                             { name: "Sarees", id: "sarees" },
                             { name: "Kurtas & Kurtis", id: "" },
@@ -558,6 +564,7 @@ const CategoryNavbar = (props) => {
                     {
                         name: "Ethnic Bottoms",
                         rootCategory: "Clothes",
+                        id: "Clothes",
                         subMenu: [
                             { name: "Leggings & Churidars", id: "" },
                             { name: "Palazzos", id: "" },
@@ -680,7 +687,7 @@ const CategoryNavbar = (props) => {
                 [
                     {
                         name: "Kitchen, Cookware & Serveware",
-                        cat: "Home And Kitchen",
+
                         id: "Home And Kitchen",
                         subMenu: [
                             { name: "Gas Stoves", id: "Pressure Cookers" },
@@ -692,7 +699,7 @@ const CategoryNavbar = (props) => {
                     {
                         name: "Bed Room Furniture",
                         id: "Bed Room Furniture",
-                        cat: "Home And Kitchen",
+
                         subMenu: [
                             { name: "Beds", id: "Beds" },
                             { name: "Mattresses", id: "Mattresses" },
@@ -702,7 +709,7 @@ const CategoryNavbar = (props) => {
                     {
                         name: "Living Room Furniture",
                         id: "Living Room Furniture",
-                        cat: "furniture",
+
                         subMenu: [
                             { name: "Sofa", id: "Sofa" },
                             { name: "Sofa Beds", id: "Sofa Beds" },
@@ -715,7 +722,6 @@ const CategoryNavbar = (props) => {
                 [
                     {
                         name: "Home Lighting",
-                        cat: "furniture",
                         id: "Home Lighting",
                         subMenu: [
                             { name: "Bulbs", id: "Bulbs" },
@@ -734,7 +740,6 @@ const CategoryNavbar = (props) => {
                     {
                         name: "Sports",
                         id: "Sports",
-                        _id: "",
                         subMenu: [
                             { name: "Cricket", id: "Cricket", _id: "" },
                             { name: "Badminton", id: "Badminton", _id: "" },
