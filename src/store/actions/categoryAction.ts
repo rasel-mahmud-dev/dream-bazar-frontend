@@ -28,6 +28,23 @@ export const fetchFlatCategoriesAction = (flatCategories, dispatch: Dispatch) =>
 
 
 
+export const fetchProductCategoriesAction = (dispatch: Dispatch) => {
+    return new Promise<CategoryType[]>(async (resolve, reject) => {
+        let {data, status} = await apis.get<CategoryType[]>(`/api/categories/products`)
+        if (status === StatusCode.Ok) {
+            dispatch({
+                type: ACTION_TYPES.FETCH_PRODUCT_CATEGORIES,
+                payload: data
+            })
+            resolve(data)
+        } else {
+            resolve(null as unknown as CategoryType[])
+        }
+    })
+}
+
+
+
 export function changeCategoryAction({selected, allNestedIds}): ChangeCategoryAction {
     return {
         type: ACTION_TYPES.CHANGE_CATEGORY,

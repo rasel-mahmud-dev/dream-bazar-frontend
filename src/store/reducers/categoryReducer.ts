@@ -44,6 +44,7 @@ export interface CategoryStateType {
     brandsForCategory: { [key: string]: Brand[] };
     attributeExpand: { [categoryId: string]: string[]};
     flatCategories: CategoryType[]
+    productCategories: CategoryType[]
     productFilterAttributes: Attribute[]
 }
 
@@ -57,6 +58,7 @@ const initialState: CategoryStateType = {
     categoryDetailCache: {},
     attributeExpand: {},
     flatCategories: null as unknown as CategoryType[],
+    productCategories: null as unknown as CategoryType[],
     productFilterAttributes: []
 };
 
@@ -69,6 +71,11 @@ const categoryReducer = (state = initialState, action: CategoryActionTypes) => {
 
         case ACTION_TYPES.FETCH_FLAT_CATEGORIES:
             updateState.flatCategories = action.payload;
+            return updateState;
+
+
+        case ACTION_TYPES.FETCH_PRODUCT_CATEGORIES:
+            updateState.productCategories = action.payload;
             return updateState;
 
 

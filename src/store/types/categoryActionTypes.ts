@@ -74,6 +74,15 @@ export interface FetchFlatCategoriesAction {
 }
 
 
+/**
+ Fetch database categories
+ */
+export interface FetchProductCategoriesAction {
+    type: ACTION_TYPES.FETCH_PRODUCT_CATEGORIES,
+    payload: CategoryType[]
+}
+
+
 
 /**
  add flat category
@@ -100,6 +109,6 @@ export interface FetchFilterAttributesAction {
 export type CategoryActionTypes = ToggleProductAttributeAction | ChangeCategoryAction | FetchCategoryBrandsAction | FetchCategoryDetailAction
     | ChangeProductFilterPaginationAction
     | FetchFlatCategoriesAction
-|   AddFlatCategoryAction | FetchFilterAttributesAction
+|   AddFlatCategoryAction | FetchFilterAttributesAction | FetchProductCategoriesAction
 
 
