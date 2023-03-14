@@ -2,6 +2,9 @@ import {ACTION_TYPES, Brand, CategoryType} from "store/types";
 
 
 import {ProductActionTypes} from "store/types/productActionTypes";
+import {createSlice} from "@reduxjs/toolkit";
+import {fetchHomePageSectionProducts, filterProductsAction} from "actions/productAction";
+import {build} from "vite";
 
 
 export enum PaginationWhereEnum {
@@ -30,7 +33,7 @@ export interface ProductType {
     views?: number,
     brandId?: string
     categoryId?: string
-    sellerId?:  string
+    sellerId?: string
     createdAt?: Date,
     updatedAt?: Date,
     isApproved: boolean
@@ -44,7 +47,7 @@ export interface ProductStateType {
     totalProduct: number;
     totalFilterAbleProductCount: 0,
     filterProducts: ProductType[];
-    productDetails: {[key: string]: ProductType}
+    productDetails: { [key: string]: ProductType }
     homePageSectionsData: {
         name: string
         langKey: string
@@ -53,7 +56,7 @@ export interface ProductStateType {
         params: string
     }[]
     homePageSectionProducts: {}
-    relevantProducts: {[cacheName: string]: ProductType[]}
+    relevantProducts: { [cacheName: string]: ProductType[] }
     filters: {
         pagination: {
             totalItems: number;
@@ -65,7 +68,7 @@ export interface ProductStateType {
         sortBy: { field: string; id: string; order: number }[];
         ideals: string[],
         attributes: {
-            [attributeName: string]: (string| number)[]
+            [attributeName: string]: (string | number)[]
         },
         searchBy: {
             fieldName: string,
@@ -169,149 +172,181 @@ const initialState: ProductStateType = {
 };
 
 
-const productReducer = (state = initialState, action: ProductActionTypes) => {
-    let updatedState: ProductStateType = {...state};
-    switch (action.type) {
+const productSlice = createSlice({
+    name: "productSlice",
+    initialState: initialState,
+    reducers: {},
 
-        case ACTION_TYPES.FETCH_FILTER_PRODUCTS:
-            const {products, totalItems} = action.payload;
-
-            updatedState.filterProducts = products;
-
-            if (typeof totalItems === "number") {
-                updatedState.filters = {
-                    ...updatedState.filters,
-                    pagination: {
-                        ...updatedState.filters.pagination,
-                        totalItems: totalItems,
-                    },
-                };
+    extraReducers: (builder) => {
+        builder.addCase(fetchHomePageSectionProducts.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.homePageSectionProducts = action.payload
             }
-            return updatedState;
+        })
 
-        case ACTION_TYPES.SET_FILTER_PAGINATION:
-            updatedState.filters = {
-                ...updatedState.filters,
-                pagination: {
-                    ...updatedState.filters.pagination,
-                    ...action.payload,
-                },
-            };
-            return updatedState;
 
-        case ACTION_TYPES.SELECT_FILTER_BRAND:
-            let updateBrands = [...updatedState.filters.brands]
-            let index  = updateBrands.findIndex(brand=>brand._id === action.payload._id)
-            if(index !== -1){
-                 updateBrands.splice(index, 1)
-            } else {
-                updateBrands = [...updateBrands, action.payload]
-            }
-            return {
-                ...updatedState,
-                filters: {
-                    ...updatedState.filters,
-                    brands: updateBrands
-                }
+        builder.addCase(filterProductsAction.fulfilled, (state, action) => {
+            if (action.payload) {
+                const {products, totalItems} = action.payload;
 
-            };
+                state.filterProducts = products;
 
-        case ACTION_TYPES.CLEAR_FILTER_BRAND:
-            return {
-                ...updatedState,
-                filters: {
-                    ...updatedState.filters,
-                    brands: []
-                }
-
-            };
-
-        case ACTION_TYPES.CHANGE_FILTER_SEARCH:
-            let {fieldName, value, order} = action.payload
-            let updateSearchBy = {...state.filters.searchBy}
-            if(fieldName) {
-                updateSearchBy.fieldName = fieldName
-            }
-
-            if(value !== undefined) {
-                updateSearchBy.value = value
-            }
-
-            if(order !== undefined) {
-                updateSearchBy.order = order
-            }
-
-            return {
-                ...state,
-                filters: {
-                    ...state.filters,
-                    searchBy: updateSearchBy
+                if (typeof totalItems === "number") {
+                    state.filters = {
+                        ...state.filters,
+                        pagination: {
+                            ...state.filters.pagination,
+                            totalItems: totalItems,
+                        },
+                    };
                 }
             }
-
-        case ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS:
-            // mark it if already fetched without dependencies change
-            updatedState.homePageSectionProducts = {
-                ...updatedState.homePageSectionProducts,
-                ...action.payload,
-            };
-
-            // log2(updatedState.loadingStates)
-
-            return updatedState;
-
-        case ACTION_TYPES.FETCH_RELEVANT_PRODUCTS:
-            let updateRelevantProducts = {...state.relevantProducts}
-            updateRelevantProducts[action.payload.cacheName as string] = action.payload.products
-
-            return {
-                ...state,
-                relevantProducts: updateRelevantProducts
-            };
-
-        case ACTION_TYPES.CHANGE_ATTRIBUTE_VALUES:
-            const { attributeName, attributeValue } = action.payload
-
-            let updateAttributes = {...updatedState.filters.attributes}
-            if (updateAttributes[attributeName]) {
-                let attributeItem = updateAttributes[attributeName];
-
-
-
-                // insert a new attribute value
-                if (!updateAttributes[attributeName].includes(attributeValue)) {
-                    updateAttributes[attributeName] =  [
-                        ...updateAttributes[attributeName],
-                        attributeValue
-                    ]
-                } else {
-                    // or delete exist one
-                    updateAttributes[attributeName] = updateAttributes[attributeName].filter(v=>v !== attributeValue)
-
-                }
-
-                // updateAttributes[attributeName] = attributeItem
-
-            } else {
-                updateAttributes = {
-                    ...updateAttributes,
-                    [attributeName]: [attributeValue]
-                }
-            }
-
-
-            updatedState.filters =  {
-                ...updatedState.filters,
-                attributes: updateAttributes
-            }
-            return updatedState
-
-        default:
-            return updatedState;
+        })
     }
-};
+})
 
 
+// let updatedState: ProductStateType = {...state};
+// switch (action.type) {
+//
+//     case ACTION_TYPES.FETCH_FILTER_PRODUCTS:
+//         const {products, totalItems} = action.payload;
+//
+//         updatedState.filterProducts = products;
+//
+//         if (typeof totalItems === "number") {
+//             updatedState.filters = {
+//                 ...updatedState.filters,
+//                 pagination: {
+//                     ...updatedState.filters.pagination,
+//                     totalItems: totalItems,
+//                 },
+//             };
+//         }
+//         return updatedState;
+//
+//     case ACTION_TYPES.SET_FILTER_PAGINATION:
+//         updatedState.filters = {
+//             ...updatedState.filters,
+//             pagination: {
+//                 ...updatedState.filters.pagination,
+//                 ...action.payload,
+//             },
+//         };
+//         return updatedState;
+//
+//     case ACTION_TYPES.SELECT_FILTER_BRAND:
+//         let updateBrands = [...updatedState.filters.brands]
+//         let index  = updateBrands.findIndex(brand=>brand._id === action.payload._id)
+//         if(index !== -1){
+//             updateBrands.splice(index, 1)
+//         } else {
+//             updateBrands = [...updateBrands, action.payload]
+//         }
+//         return {
+//             ...updatedState,
+//             filters: {
+//                 ...updatedState.filters,
+//                 brands: updateBrands
+//             }
+//
+//         };
+//
+//     case ACTION_TYPES.CLEAR_FILTER_BRAND:
+//         return {
+//             ...updatedState,
+//             filters: {
+//                 ...updatedState.filters,
+//                 brands: []
+//             }
+//
+//         };
+//
+//     case ACTION_TYPES.CHANGE_FILTER_SEARCH:
+//         let {fieldName, value, order} = action.payload
+//         let updateSearchBy = {...state.filters.searchBy}
+//         if(fieldName) {
+//             updateSearchBy.fieldName = fieldName
+//         }
+//
+//         if(value !== undefined) {
+//             updateSearchBy.value = value
+//         }
+//
+//         if(order !== undefined) {
+//             updateSearchBy.order = order
+//         }
+//
+//         return {
+//             ...state,
+//             filters: {
+//                 ...state.filters,
+//                 searchBy: updateSearchBy
+//             }
+//         }
+//
+//     case ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS:
+//         // mark it if already fetched without dependencies change
+//         updatedState.homePageSectionProducts = {
+//             ...updatedState.homePageSectionProducts,
+//             ...action.payload,
+//         };
+//
+//         // log2(updatedState.loadingStates)
+//
+//         return updatedState;
+//
+//     case ACTION_TYPES.FETCH_RELEVANT_PRODUCTS:
+//         let updateRelevantProducts = {...state.relevantProducts}
+//         updateRelevantProducts[action.payload.cacheName as string] = action.payload.products
+//
+//         return {
+//             ...state,
+//             relevantProducts: updateRelevantProducts
+//         };
+//
+//     case ACTION_TYPES.CHANGE_ATTRIBUTE_VALUES:
+//         const { attributeName, attributeValue } = action.payload
+//
+//         let updateAttributes = {...updatedState.filters.attributes}
+//         if (updateAttributes[attributeName]) {
+//             let attributeItem = updateAttributes[attributeName];
+//
+//
+//
+//             // insert a new attribute value
+//             if (!updateAttributes[attributeName].includes(attributeValue)) {
+//                 updateAttributes[attributeName] =  [
+//                     ...updateAttributes[attributeName],
+//                     attributeValue
+//                 ]
+//             } else {
+//                 // or delete exist one
+//                 updateAttributes[attributeName] = updateAttributes[attributeName].filter(v=>v !== attributeValue)
+//
+//             }
+//
+//             // updateAttributes[attributeName] = attributeItem
+//
+//         } else {
+//             updateAttributes = {
+//                 ...updateAttributes,
+//                 [attributeName]: [attributeValue]
+//             }
+//         }
+//
+//
+//         updatedState.filters =  {
+//             ...updatedState.filters,
+//             attributes: updateAttributes
+//         }
+//         return updatedState
+//
+//     default:
+//         return updatedState;
+// }
 
 
-export default productReducer
+export const {} = productSlice.actions
+
+export default productSlice.reducer

@@ -9,19 +9,17 @@ import categoryReducer from "reducers/categoryReducer";
 import brandReducer from "reducers/brandReducer";
 
 
-const rootReducer = combineReducers({
-    productState: productReducer,
-    categoryState: categoryReducer,
-    brandState: brandReducer,
-    cartState: cartReducer,
-    authState: authReducer,
-    appState: appReducer,
-    sellerState: sellerReducer,
-    adminState: adminReducer,
-})
-
 const store =  configureStore({
-    reducer: rootReducer,
+    reducer: {
+        productState: productReducer,
+        categoryState: categoryReducer,
+        brandState: brandReducer,
+        cartState: cartReducer,
+        authState: authReducer,
+        appState: appReducer,
+        sellerState: sellerReducer,
+        adminState: adminReducer,
+    },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
             serializableCheck: {
                 // Ignore these action types

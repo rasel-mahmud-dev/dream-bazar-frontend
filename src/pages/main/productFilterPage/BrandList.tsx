@@ -6,6 +6,7 @@ import useLanguage from "src/hooks/useLanguage";
 import {setFilter} from "actions/filterSidebar.action";
 import {FaAngleRight, FaAngleUp} from "react-icons/all";
 import {Button} from "UI/index";
+import apis from "src/apis";
 
 
 const BrandList = ({currentFullCategoryName}) => {
@@ -23,17 +24,17 @@ const BrandList = ({currentFullCategoryName}) => {
 
     let currentCategoryId = category.selected?._id || ""
 
-    // useEffect(()=>{
-    // 	// apis.get("/api/brands").then(res=>{
-    // 	// 	dispatch({
-    // 	// 		type: ACTION_TYPES.FETCH_BRANDS,
-    // 	// 		payload: {
-    // 	// 			brands: res.data,
-    // 	// 			categoryId: 'all'
-    // 	// 		}
-    // 	// 	})
-    // 	// })
-    // }, [])
+    useEffect(()=>{
+    	apis.get("/api/brands").then(res=>{
+    		dispatch({
+    			type: ACTION_TYPES.FETCH_BRANDS,
+    			payload: {
+    				brands: res.data,
+    				categoryId: 'all'
+    			}
+    		})
+    	})
+    }, [])
 
 
     function handleChangeBrand(brand) {
@@ -57,6 +58,7 @@ const BrandList = ({currentFullCategoryName}) => {
     }, [filters, brandsForCategory])
 
     console.log(filters.brands)
+    console.log(brandsForCategory)
 
 
     return (

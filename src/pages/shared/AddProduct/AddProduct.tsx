@@ -41,7 +41,7 @@ const AddProduct = ({roleFor}) => {
 
     const {
         categoryState: {flatCategories},
-        brandState: {allBrands}
+        brandState: { allBrands}
     } = useAppSelector(state => state);
 
     const [httpResponse, setHttpResponse] = useState({
@@ -494,8 +494,7 @@ const AddProduct = ({roleFor}) => {
                                     <option className="cursor-pointer py-1 menu-item" value="63c063e7310ae08eea4d6929">
                                         Other
                                     </option>
-                                    {allBrands &&
-                                        allBrands.map((cat: any) => (
+                                    { allBrands?.map((cat: any) => (
                                             <option key={cat._id} className="cursor-pointer py-1 menu-item" value={cat._id}>
                                                 {cat.name}
                                             </option>

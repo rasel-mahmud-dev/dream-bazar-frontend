@@ -215,7 +215,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                 <div className="container">
                     {product ? (
                         <div className="block lg:grid lg:grid-cols-12 gap-x-6">
-                            <div className="description-sidebar card !shadow-xxs  col-span-4">
+                            <div className="description-sidebar card !shadow-xxs  col-span-4 custom_scrollbar">
                                 <div className="">
                                     <div className="flex flex-col">
                                         <div className="product-photo--sidebar">

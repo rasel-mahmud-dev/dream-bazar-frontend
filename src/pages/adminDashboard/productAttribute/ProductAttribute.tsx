@@ -14,6 +14,7 @@ import {FetchFilterAttributesAction} from "store/types/categoryActionTypes";
 import usePrompt from "src/hooks/usePrompt";
 
 
+
 const ProductAttribute = (props) => {
     const {
         categoryState: {productFilterAttributes}

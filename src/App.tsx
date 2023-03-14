@@ -9,8 +9,8 @@ import {currentAuthAction} from "actions/authAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import {setLanguageAction, toggleThemeAction} from "actions/appAction";
 
-function App(props) {
 
+function App() {
     const dispatch = useAppDispatch()
 
     useEffect(() => {

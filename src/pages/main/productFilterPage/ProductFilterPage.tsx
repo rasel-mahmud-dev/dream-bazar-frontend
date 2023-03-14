@@ -318,8 +318,8 @@ const ProductFilter: FC<ProductFilterType> = ({innerWidth}) => {
             {/*)}*/}
 
             <div className="product-filter-page--layout">
-                <Sidebar isOpen={isOpenLeftBar} position="left" onClickOnBackdrop={handleClickSidebarBackdrop}>
 
+                <Sidebar isOpen={isOpenLeftBar} position="left" onClickOnBackdrop={handleClickSidebarBackdrop}>
                     <div className="">
                         {/**** sidebar fixed navigation ******/}
                         <div className="sidebar-fixed-bar top-0 bg-white py-3 px-4 md:hidden">
@@ -369,7 +369,6 @@ const ProductFilter: FC<ProductFilterType> = ({innerWidth}) => {
                     </div>
 
                     {renderProducts()}
-
 
                 </div>
             </div>

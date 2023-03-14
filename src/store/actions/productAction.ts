@@ -1,11 +1,12 @@
 import {ACTION_TYPES, CategoryType, StatusCode} from "store/types"
 import apis from "src/apis";
-import {RootState} from "src/store";
+import {AppDispatch, RootState} from "src/store";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import api from "src/apis";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {FetchBrandForCategoriesAction} from "store/types/brandActionTypes";
 import {ChangeFilterSearchAction, FetchProductStoreInfoAction} from "store/types/productActionTypes";
+import {fetchBrandForCategory} from "actions/brandAction";
 
 
 export const fetchProducts = () => async (dispatch, getState, api) => {
@@ -33,15 +34,15 @@ export const fetchProductForUpdate = (id, cb: (err: string, result: any) => void
 }
 
 
-export const fetchBrandForCategory = (current_category_id) => async (dispatch, getState: () => RootState, api) => {
-    let data = await api.get("/api/brands",)
-
-}
+// export const fetchBrandForCategory = (current_category_id) => async (dispatch, getState: () => RootState, api) => {
+//     let data = await api.get("/api/brands",)
+//
+// }
 
 
 // only count total filtered products. if changed these state
 
-export function filterProductsAction(payload, isCount: boolean, dispatch) {
+export function filterProductsAction2(payload, isCount: boolean, dispatch) {
 
     // !isCount && props.toggleAppMask(true)
     // !isCount && (props.toggleLoader && props.toggleLoader("Product-filter", true))
@@ -125,8 +126,75 @@ export function filterProductsAction(payload, isCount: boolean, dispatch) {
     })
 }
 
+interface MyData {
+    brands: any,
+    attributes: any,
+    sortBy: any,
+    paginate: any
+    categoryIds: string[]
+}
+
+// Return type of the payload creator
+// First argument to the payload creator
+export const filterProductsAction = createAsyncThunk<any, MyData>("productStater/filterProducts", async (payload, thunkAPI) => {
+
+    const {
+        brands,
+        attributes,
+        sortBy,
+        paginate
+    } = payload
+
+
+    let brandIds: string[] = []
+    if (brands) {
+        brands.forEach((brand: any) => {
+            brandIds.push(brand._id)
+        })
+    }
+
+    interface bodyDataType {
+        categoryId?: string,
+        categoryIds?: string[],
+        pageNumber: any;
+        perPage: any;
+        brandIds: string[];
+        attributes: {};
+        sortBy?: any
+    }
+
+    let bodyData: bodyDataType = {
+        attributes: attributes,
+        categoryIds: payload.categoryIds,
+        brandIds: brandIds.length > 0 ? brandIds : [],
+        sortBy: sortBy && sortBy.length > 0 ? sortBy : [],
+        // category_id: currentCategorySelected._id,
+        pageNumber: paginate && paginate.currentPage,
+        perPage: paginate && paginate.viewPerPage
+    }
+
+
+    try {
+        let {status, data} = await api.post(`/api/products/filter/v2`, bodyData)
+        if (status === 200) {
+            return {
+
+                    products: data.products,
+                    totalItems: data?.totalItems
+
+            }
+        }
+
+    } catch (ex) {
+
+    }
+
+})
+
 
 export function filterProductsAction2222222222({category, filters, brandsForCategory, dispatch, setCurrentFullCategoryName, setHttpResponse}) {
+
+
     if (category.selected || (category?.allNestedIds && category.allNestedIds.length > 0)) {
         const {pagination} = filters
         let data: {
@@ -178,6 +246,7 @@ export function filterProductsAction2222222222({category, filters, brandsForCate
          Motherboard_Processor_Ram_Keyboard_power-supply : (19) [{…}, {…}, {…}, {…}, {…}]
          */
 
+
         // check if brand already fetched or not
         if (!brandsForCategory[allCatName]) {
             dispatch(fetchBrandForCategory({allCatName, categoryIds: data.categoryIds}))
@@ -186,7 +255,9 @@ export function filterProductsAction2222222222({category, filters, brandsForCate
         setCurrentFullCategoryName(allCatName)
         /******************* Fetch brand for category END ***************/
 
-        filterProductsAction(data, false, dispatch)
+
+        dispatch(filterProductsAction(data))
+            .unwrap()
             .then((data) => {
                 setHttpResponse(p => ({...p, loading: false}))
             })
@@ -197,7 +268,7 @@ export function filterProductsAction2222222222({category, filters, brandsForCate
 }
 
 
-export function searchProductsAction(searchBy: {fieldName: string, value?: string}, dispatch) {
+export function searchProductsAction(searchBy: { fieldName: string, value?: string }, dispatch) {
 
     return new Promise(async function (resolve, reject) {
         try {
@@ -252,19 +323,11 @@ export function deleteFlatCategoryAction(dispatch, id, callback) {
 
 }
 
+
 // fetch homepage section Product...
-export const fetchHomePageSectionProducts = () => async (dispatch, getState: () => RootState, api) => {
+export const fetchHomePageSectionProducts = createAsyncThunk("", async function (payload, thunkAPI) {
 
-    // handlerLoader(dispatch, {isLoading: true, where: "home_section"})
-
-    let {homePageSectionsData} = getState().productState
-
-    // console.log(homePageSectionsData)
-
-    // let loadingState = loadingStates.find(ls=>ls.where === "home_section")
-
-
-    let h = {}
+    let {homePageSectionsData} = (thunkAPI.getState() as RootState).productState
 
     let data = homePageSectionsData.map(section => {
         return {
@@ -277,96 +340,132 @@ export const fetchHomePageSectionProducts = () => async (dispatch, getState: () 
         data: data
     })
 
-    if (response.status === 200) {
-        dispatch({
-            type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
-            payload: response.data
-        })
+    if (response.status !== 200) {
+        //   do other staff
+
+        return;
     }
 
-
-    // homePageSectionsData.forEach( (data, i)=>{
-    //   (async function(){
-    //     try {
-    //
-    //       // await api.get(`/api/products/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
-    //       if(data.params){
-    //         // let response = await apis.get(`/api/products/filter/v2?${data.params}`)
-    //
-    //
-    //         let response = await apis.post(`/api/products/home-section`, {
-    //           data: data.params
-    //         })
-    //
-    //         console.log(response)
-    //
-    //         // console.log(data.params)
-    //
-    //         // h[data.name] = { values: response.data, type: data.type }
-    //         //
-    //         // if(homePageSectionsData.length === (i + 1)){
-    //         //   // console.log(h)
-    //         //   dispatch({
-    //         //     type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
-    //         //     payload: h
-    //         //   })
-    //         //
-    //         //   // handlerLoader(dispatch, {isLoading: false, where: "home_section"})
-    //         // }
-    //
-    //       }
-    //
-    //     } catch (ex){
-    //       console.log(ex)
-    //     }
-    //
-    //   })()
-    // })
+    return response.data
 
 
-    // let pagination = paginations && paginations.find(pg=>pg.where === "home_section")
-
-    // const paginatedHomePageSectionsData = homePageSectionsData.slice(pagination.perPage * (pagination.currentPage - 1), (pagination.perPage * pagination.currentPage) )
+})
 
 
-    // paginatedHomePageSectionsData.forEach( (data, i)=>{
-    //   (async function(){
-    //     try {
-    //
-    //       // await api.get(`/api/products/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
-    //       if(data.params){
-    //         let response = await apis.get(`/api/products/filter/v2?${data.params}`)
-    //
-    //         h[data.name] = { values: response.data, type: data.type }
-    //
-    //         if(paginatedHomePageSectionsData.length === (i + 1)){
-    //           dispatch({
-    //             type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
-    //             payload: h
-    //           })
-    //           handlerLoader(dispatch, {isLoading: false, where: "home_section"})
-    //         }
-    //       }
-    //
-    //     } catch (ex){
-    //       console.log(ex.message)
-    //     }
-    //
-    //   })()
-    // })
-
-
-    // console.log(h)
-
-    // let id = setTimeout(() => {
-    //   dispatch({
-    //     type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
-    //     payload: h
-    //   })
-    //   handlerLoader(dispatch, {isLoading: false, where: "home_section"})
-    //
-    // }, 100)
-}
+//     {
+//
+//     // handlerLoader(dispatch, {isLoading: true, where: "home_section"})
+//
+//     let {homePageSectionsData} = getState().productState
+//
+//     // console.log(homePageSectionsData)
+//
+//     // let loadingState = loadingStates.find(ls=>ls.where === "home_section")
+//
+//
+//     let h = {}
+//
+//     let data = homePageSectionsData.map(section => {
+//         return {
+//             name: section.name,
+//             params: section.params
+//         }
+//     })
+//
+//     let response = await apis.post(`/api/products/home-section`, {
+//         data: data
+//     })
+//
+//     if (response.status === 200) {
+//         dispatch({
+//             type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
+//             payload: response.data
+//         })
+//     }
+//
+//
+//     // homePageSectionsData.forEach( (data, i)=>{
+//     //   (async function(){
+//     //     try {
+//     //
+//     //       // await api.get(`/api/products/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
+//     //       if(data.params){
+//     //         // let response = await apis.get(`/api/products/filter/v2?${data.params}`)
+//     //
+//     //
+//     //         let response = await apis.post(`/api/products/home-section`, {
+//     //           data: data.params
+//     //         })
+//     //
+//     //         console.log(response)
+//     //
+//     //         // console.log(data.params)
+//     //
+//     //         // h[data.name] = { values: response.data, type: data.type }
+//     //         //
+//     //         // if(homePageSectionsData.length === (i + 1)){
+//     //         //   // console.log(h)
+//     //         //   dispatch({
+//     //         //     type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
+//     //         //     payload: h
+//     //         //   })
+//     //         //
+//     //         //   // handlerLoader(dispatch, {isLoading: false, where: "home_section"})
+//     //         // }
+//     //
+//     //       }
+//     //
+//     //     } catch (ex){
+//     //       console.log(ex)
+//     //     }
+//     //
+//     //   })()
+//     // })
+//
+//
+//     // let pagination = paginations && paginations.find(pg=>pg.where === "home_section")
+//
+//     // const paginatedHomePageSectionsData = homePageSectionsData.slice(pagination.perPage * (pagination.currentPage - 1), (pagination.perPage * pagination.currentPage) )
+//
+//
+//     // paginatedHomePageSectionsData.forEach( (data, i)=>{
+//     //   (async function(){
+//     //     try {
+//     //
+//     //       // await api.get(`/api/products/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
+//     //       if(data.params){
+//     //         let response = await apis.get(`/api/products/filter/v2?${data.params}`)
+//     //
+//     //         h[data.name] = { values: response.data, type: data.type }
+//     //
+//     //         if(paginatedHomePageSectionsData.length === (i + 1)){
+//     //           dispatch({
+//     //             type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
+//     //             payload: h
+//     //           })
+//     //           handlerLoader(dispatch, {isLoading: false, where: "home_section"})
+//     //         }
+//     //       }
+//     //
+//     //     } catch (ex){
+//     //       console.log(ex.message)
+//     //     }
+//     //
+//     //   })()
+//     // })
+//
+//
+//     // console.log(h)
+//
+//     // let id = setTimeout(() => {
+//     //   dispatch({
+//     //     type: ACTION_TYPES.FETCH_HOMEPAGE_SECTION_PRODUCTS,
+//     //     payload: h
+//     //   })
+//     //   handlerLoader(dispatch, {isLoading: false, where: "home_section"})
+//     //
+//     // }, 100)
+// }
 
 
 // get length of one-type-products
@@ -438,7 +537,6 @@ function fetchOneTypeProductsFromDb(homePageSectionData, api, currentPage = 1, p
         resolve(arrOfProducts)
     })
 }
-
 
 
 // fetch relevant products

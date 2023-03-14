@@ -20,7 +20,7 @@ const LoginPage = lazy(() => import( "pages/shared/LoginPage"));
 const Registration = lazy(() => import( "pages/shared/Registration"));
 const CustomerDashboard = lazy(() => import( "pages/customerDashboard/CustomerDashboard"));
 const CustomerDashboardHomePage = lazy(() => import( "pages/customerDashboard/CustomerDashboardHomePage"));
-const ProductDetailLite = lazy(() => import( "pages/main/productDetails/ProductDetailLite"));
+import ProductDetailLite from "pages/main/productDetails/ProductDetailLite";
 
 export const mainRoute = [
     {

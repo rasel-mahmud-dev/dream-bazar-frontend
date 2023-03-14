@@ -4,13 +4,11 @@ import { connect, useDispatch } from "react-redux";
 import { ACTION_TYPES } from "store/types";
 import { Button } from "components/UI";
 
-import { fetchBrandForCategory } from "actions/productAction";
 
 
-import getFilterItems from "src/utills/getFilterItems";
+
+
 import { removeAllFilteredValue } from "actions/filterSidebar.action";
-import qstring from "query-string";
-import { nonInitialEffect } from "src/reactTools/nonInitialEffect";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface FilterSidebarProps {
@@ -603,7 +601,7 @@ const FilterSidebar = (props: FilterSidebarProps) => {
           pass this render-able jsx via callback in parent component
         */}
             {cb(selectedFilterItems())}
-            saddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+
             {renderBrandFilterSection()}
             {/****** Filter Item From Database Category */}
             {/*<div className="filter_section">
@@ -666,6 +664,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-    fetchBrandForCategory,
     removeAllFilteredValue
 })(FilterSidebar)

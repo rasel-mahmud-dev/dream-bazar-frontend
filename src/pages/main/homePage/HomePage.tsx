@@ -1,30 +1,32 @@
 import React, {lazy, useContext} from "react";
 import "./HomePage.scss";
-import { ACTION_TYPES } from "store/types";
-import { connect, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { fetchHomePageSectionProducts, fetchProducts } from "actions/productAction";
-import { addToCart } from "actions/cartAction";
-import { Button, Carousel, Image, Menu, Popup, Spin } from "UI/index";
-import { closeNotify } from "actions/appAction";
+import {ACTION_TYPES} from "store/types";
+import {connect, useDispatch, useSelector} from "react-redux";
+import {Link, useNavigate} from "react-router-dom";
+import {fetchHomePageSectionProducts, fetchProducts} from "actions/productAction";
+import {addToCart} from "actions/cartAction";
+import {Button, Carousel, Image, Menu, Popup, Spin} from "UI/index";
+import {closeNotify} from "actions/appAction";
 import fullLink from "src/utills/fullLink";
 
 
 import staticImagePath from "src/utills/staticImagePath";
 import useLanguage from "src/hooks/useLanguage";
-import { BiCart,  MdFavorite } from "react-icons/all";
+import {BiCart, MdFavorite} from "react-icons/all";
 import SEO from "components/SEO/SEO";
 import useScrollTop from "src/hooks/useScrollTop";
-const HomeCategoryNav  = lazy(()=> import("pages/main/homePage/HomeCategoryNav/HomeCategoryNav"));
-const SliderSection  = lazy(()=> import("pages/main/homePage/SliderSection"));
+import useAppSelector from "src/hooks/useAppSelector";
+import useAppDispatch from "src/hooks/useAppDispatch";
+
+const HomeCategoryNav = lazy(() => import("pages/main/homePage/HomeCategoryNav/HomeCategoryNav"));
+const SliderSection = lazy(() => import("pages/main/homePage/SliderSection"));
 
 
 const HomePage = (props) => {
 
     useScrollTop()
 
-    const dispatch = useDispatch();
-
+    const dispatch = useAppDispatch();
 
 
     const navigate = useNavigate();
@@ -32,18 +34,21 @@ const HomePage = (props) => {
     const l = useLanguage();
 
     const {
-        homePageSectionsData,
-        homePageSectionProducts: productSectionsWithProduct,
-        products,
-        loadingStates,
-        paginations,
-        fetchedData,
-    } = props.productState;
+        appState,
+        productState: {
+            homePageSectionsData,
+            homePageSectionProducts: productSectionsWithProduct,
+            // products,
+            // loadingStates,
+            // paginations,
+            // fetchedData,
+        }
+    } = useAppSelector(state => state)
 
 
-    const { selectedLang, lang } = props.appState;
+    const {selectedLang, lang} = appState;
 
-    const [pagination, setPagination] = React.useState({ perSection: 2, sectionNumber: 1 });
+    const [pagination, setPagination] = React.useState({perSection: 2, sectionNumber: 1});
 
     function loadMoreSection(where) {
         dispatch({
@@ -53,7 +58,7 @@ const HomePage = (props) => {
 
         dispatch({
             type: ACTION_TYPES.CHANGE_PAGINATION,
-            payload: { where },
+            payload: {where},
         });
     }
 
@@ -62,7 +67,8 @@ const HomePage = (props) => {
     }
 
     React.useEffect(() => {
-        props.fetchHomePageSectionProducts();
+
+        dispatch(fetchHomePageSectionProducts());
 
         // let fetchedDataa =  fetchedData.find(fd=>fd.where === "home_page")
         // console.log(fetchedDataa)
@@ -71,7 +77,7 @@ const HomePage = (props) => {
         // } else {
         //
         // }
-    }, [paginations]); // with watch when change paginations currentPage
+    }, []); // with watch when change paginations currentPage
 
     function handleScroll(e) {
         // let el = e.target
@@ -114,7 +120,7 @@ const HomePage = (props) => {
     function renderProduct(product) {
         return (
             <div className="product">
-                <Image className="w-16" src={"df"} />
+                <Image className="w-16" src={"df"}/>
                 <h5 className="product_name">{product.title}</h5>
                 <h5 className="product_price">${product.price}</h5>
                 <Button onClick={() => handleAddToCart(product)}>Add To Cart</Button>
@@ -125,26 +131,16 @@ const HomePage = (props) => {
 
     function handleJumpOneTypeProductPage(sectionName, productSectionsWithProduct) {
         let n;
-        homePageSectionsData.map((item) => {
-            if (item.name === sectionName && !item.id) {
-                // history.push(`/prod/${item.name}/${item.type}/${item.params}`)
-                navigate(`/prod/${item.name}`);
-            } else if (item.name === sectionName && item.id) {
-                navigate(`/products/?slug=${item.name}&type=${item.filterBy}&id=${item.id}`);
-            }
-        });
+        // homePageSectionsData.map((item) => {
+        //     if (item.name === sectionName && !item.id) {
+        //         // history.push(`/prod/${item.name}/${item.type}/${item.params}`)
+        //         navigate(`/prod/${item.name}`);
+        //     } else if (item.name === sectionName && item.id) {
+        //         navigate(`/products/?slug=${item.name}&type=${item.filterBy}&id=${item.id}`);
+        //     }
+        // });
     }
 
-    function renderLoader(where, btnLabel, handler) {
-        let loadingState = loadingStates.find((ls) => ls.where === where);
-        if (loadingState) {
-            return (
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                    {loadingState && loadingState.isLoading ? <Spin /> : <Button onClick={() => handler(where)}>{btnLabel}</Button>}
-                </div>
-            );
-        }
-    }
 
     //! this a Bug
     function handleAddToCart(pp) {
@@ -163,12 +159,12 @@ const HomePage = (props) => {
 
     return (
         <div className="homepage">
-            <SEO title={`Dream Bazar online ecommerce shop`} description="Product filter" />
+            <SEO title={`Dream Bazar online ecommerce shop`} description="Product filter"/>
 
-            <HomeCategoryNav />
+            <HomeCategoryNav/>
 
             <div className="bg-dark-600 ">
-                <SliderSection />
+                <SliderSection/>
             </div>
 
             <div className="r max-w-8xl mx-auto" onScroll={handleScroll}>
@@ -176,8 +172,9 @@ const HomePage = (props) => {
                     {Object.keys(productSectionsWithProduct) &&
                         Object.keys(productSectionsWithProduct).map((sectionName, index: number) => (
                             <div key={index}>
-                                <div className="bg-body mt-10" >
-                                    <div className="flex items-center justify-between py-2 px-4 mb-8 border-b border-b-neutral-900/10 dark:border-neutral-600 ">
+                                <div className="bg-body mt-10">
+                                    <div
+                                        className="flex items-center justify-between py-2 px-4 mb-8 border-b border-b-neutral-900/10 dark:border-neutral-600 ">
                                         <h1 className="text-neutral-800 dark:text-white font-medium text-md md:text-lg lg:text-2xl">
                                             {l(sectionName)}
                                         </h1>
@@ -201,13 +198,13 @@ const HomePage = (props) => {
                                                     {productSectionsWithProduct[sectionName].type === "brands" ||
                                                     productSectionsWithProduct[sectionName].type === "categories" ? (
                                                         <div className="product_image small">
-                                                            <img src={fullLink(pp.logo)} alt="" />
+                                                            <img src={fullLink(pp.logo)} alt=""/>
                                                         </div>
                                                     ) : (
                                                         <Link to={`/${pp.slug}`}>
                                                             <div className="product_image_div">
                                                                 <div className="product_image_wra">
-                                                                    <img src={staticImagePath(pp.coverPhoto)} alt="cover" />
+                                                                    <img src={staticImagePath(pp.coverPhoto)} alt="cover"/>
                                                                 </div>
                                                             </div>
                                                         </Link>
@@ -219,8 +216,8 @@ const HomePage = (props) => {
                                                                 {productSectionsWithProduct[sectionName].type === "categories"
                                                                     ? pp.name
                                                                     : productSectionsWithProduct[sectionName].type === "brands"
-                                                                    ? pp.name
-                                                                    : shortTitle(pp.title)}
+                                                                        ? pp.name
+                                                                        : shortTitle(pp.title)}
                                                             </Link>
                                                         </h4>
 
@@ -234,10 +231,10 @@ const HomePage = (props) => {
 
                                                         <div className="flex justify-center gap-x-2 items-center mt-2">
                                                             <div className="bg-gray-400/20 p-1.5 rounded-full">
-                                                                <MdFavorite className="text-sm text-red-500" />
+                                                                <MdFavorite className="text-sm text-red-500"/>
                                                             </div>
                                                             <div className="bg-gray-400/20 p-1.5 rounded-full">
-                                                                <BiCart className="text-sm" />
+                                                                <BiCart className="text-sm"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -265,16 +262,18 @@ const HomePage = (props) => {
     );
 };
 
-function mapStateToProps(state) {
-    return {
-        appState: state.appState,
-        productState: state.productState,
-    };
-}
+// function mapStateToProps(state) {
+//     return {
+//         appState: state.appState,
+//         productState: state.productState,
+//     };
+// }
 
-export default connect(mapStateToProps, {
-    fetchProducts,
-    fetchHomePageSectionProducts,
-    addToCart,
-    closeNotify,
-})(HomePage);
+export default HomePage
+
+// export default connect(mapStateToProps, {
+//     fetchProducts,
+//     fetchHomePageSectionProducts,
+//     addToCart,
+//     closeNotify,
+// })(HomePage);
