@@ -1,44 +1,68 @@
-import React, { useEffect } from "react";
-import {useNavigate, useParams, useSearchParams} from "react-router-dom";
-import { getApi } from "src/apis";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {getApi} from "src/apis";
 import {loginHandler, logoutAction} from "actions/authAction";
-import { Scope } from "store/types";
+import {Scope} from "store/types";
 import {useDispatch} from "react-redux";
 import axios from "axios";
 import Loader from "UI/Loader/Loader";
+import useHttpResponse from "src/hooks/useHttpResponse";
+import Alert from "UI/Alert/Alert";
+import {Button} from "UI/index";
 
 const AuthCallback = () => {
-    
+
     const [searchParams, setParams] = useSearchParams()
     const params = useParams()
-    
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    //
-    
-    useEffect( () => {
+
+    const {httpStatus, setHttpStatus, resetHttpStatus} = useHttpResponse()
+
+
+    useEffect(() => {
+        setHttpStatus({isLoading: true})
         let token = searchParams.get("token")
         if (token) {
-            localStorage.removeItem("token")
-            getApi( token).get("/api/auth/current-auth").then(({data, status})=>{
+            getApi(token).get("/api/auth/current-auth").then(({data, status}) => {
                 if (status === 200) {
+                    localStorage.removeItem("token")
                     logoutAction(dispatch)
-                    loginHandler(data,  dispatch)
+                    loginHandler(data, dispatch)
                     navigate("/", {replace: true})
                     localStorage.setItem("token", token)
                 }
-            }).catch(ex=>{
-                navigate("/auth/join/login", {replace: true})
+            }).catch(ex => {
+                setHttpStatus({isLoading: false, message: "Login Session expire, Please try again"})
+            }).finally(() => {
+                setHttpStatus({isLoading: false})
             })
-        
+        } else {
+            setHttpStatus({isLoading: false, message: "Login Session expire, Please try again"})
         }
-    
+
     }, [params.provider])
-    
+
     return (
         <div className="my-20">
-            <Loader className="flex justify-center" title="Please wait You are logged" />
-     </div>
+
+            {httpStatus.isLoading ? (
+                <Loader className="flex justify-center" title="Please wait You are logged"></Loader>
+            ) : (
+                <div className="max-w-md mx-auto">
+                    <div className="text-white font-semibold text-lg md:text-xl md:block">
+                        <img className="w-16 mx-auto" src="/static/icons/login-icon.svg" alt=""/>
+                        <Alert className="mt-4 text-center text-red-500" message={httpStatus.message}/>
+                    </div>
+                    <div className="flex items-center justify-center mt-6 gap-x-4">
+                        <Link to="/"><Button theme="primary" className="">Back To Home</Button></Link>
+                        <Link to="/join/login"><Button theme="primary" className="">Go To Login Page</Button></Link>
+                    </div>
+                </div>
+            )}
+
+        </div>
     );
 };
 

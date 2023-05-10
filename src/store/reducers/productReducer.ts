@@ -3,8 +3,8 @@ import {ACTION_TYPES, Brand, CategoryType} from "store/types";
 
 import {ProductActionTypes} from "store/types/productActionTypes";
 import {createSlice} from "@reduxjs/toolkit";
-import {fetchHomePageSectionProducts, filterProductsAction} from "actions/productAction";
-import {build} from "vite";
+import {fetchHomePageSectionProducts, fetchRelevantProductsAction, filterProductsAction} from "actions/productAction";
+
 
 
 export enum PaginationWhereEnum {
@@ -142,7 +142,6 @@ const initialState: ProductStateType = {
     homePageSectionProducts: {},
     relevantProducts: {},
 
-
     filters: {
         pagination: {
             totalItems: 0,
@@ -185,6 +184,7 @@ const productSlice = createSlice({
         })
 
 
+        // filter products for all category and categories
         builder.addCase(filterProductsAction.fulfilled, (state, action) => {
             if (action.payload) {
                 const {products, totalItems} = action.payload;
@@ -200,6 +200,17 @@ const productSlice = createSlice({
                         },
                     };
                 }
+            }
+        })
+
+
+        // async action for fetch relevant products
+        builder.addCase(fetchRelevantProductsAction.fulfilled, (state, action) => {
+            if (action.payload) {
+                const { products, cacheName} = action.payload;
+                let updateRelevantProducts = {...state.relevantProducts}
+                updateRelevantProducts[cacheName] = products
+                state.relevantProducts = updateRelevantProducts
             }
         })
     }

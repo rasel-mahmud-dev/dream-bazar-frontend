@@ -80,7 +80,7 @@
     @include get_down(768px){
         left: 0%;
     }
-    backdrop-filter: blur(5px);
+    //backdrop-filter: blur(5px);
 
     .slider-title {
         transition: all 1s ease;

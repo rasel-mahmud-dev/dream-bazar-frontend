@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 
 const Footer = () => {
     return (
-        <>
+        <section>
             <footer className="bg-green-900 dark:bg-primary-9 pb-10 py-14 text-neutral-50">
                 <div className="container grid grid-cols-1 md:grid-cols-8  gap-0 md:gap-10">
                     <div className="col-auto md:col-span-3 lg:col-span-2">
@@ -139,7 +139,7 @@ const Footer = () => {
                     <h1>Copyright © {new Date().getFullYear()} Rasel Mahmud. All Rights Reserved.</h1>
                 </div>
             </footer>
-        </>
+        </section>
     );
 };
 

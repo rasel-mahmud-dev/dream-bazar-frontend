@@ -1,4 +1,4 @@
-@import "styles/--colors.scss";
+@import "styles/index";
 @import "styles/--variable.scss";
 @import "styles/--breakpoint";
 
@@ -87,14 +87,16 @@ img{ font-size: 12px}
 }
 
 
-.App{
+.slot-root{
     display: flex;
     min-height: 100vh;
     flex-direction: column;
 }
+
 .app-content{
     flex-grow: 1;
 }
+
 
 .right{
   margin-left: auto !important; 
@@ -286,7 +288,7 @@ table td {
   }
 
   .content {
-
+    background: red;
   }
 
   .menu-item {

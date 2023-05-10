@@ -1,15 +1,11 @@
 import React, {FC, useEffect} from "react";
 
-import {fetchProduct, fetchProductStoreInfo, fetchRelevantProductsAction} from "actions/productAction";
+import {fetchProduct, fetchRelevantProductsAction} from "actions/productAction";
 
-import {ACTION_TYPES, StatusCode} from "store/types";
+import {StatusCode} from "store/types";
 
-import {Button, Badge, Image, Typography, Spin} from "UI/index";
-import {connect, useDispatch} from "react-redux";
-
-let image = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
-let image2 = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
-
+import {Button, Spin} from "UI/index";
+import {connect} from "react-redux";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import "./productDetails.scss";
 
@@ -18,7 +14,6 @@ import {addToCart} from "actions/cartAction";
 import apis from "src/apis";
 
 // import avatar from "src/asserts/images/avatar/avatar-1.jpg"
-
 import fullLink from "src/utills/fullLink";
 // import {toggleAppMask} from "actions/appAction";
 import calculateDiscount from "src/utills/calculateDiscount";
@@ -32,6 +27,9 @@ import useScrollTop from "src/hooks/useScrollTop";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import RelevantProducts from "pages/main/productDetails/RelevantProducts";
 import {fetchShopDetail} from "actions/shopAction";
+
+let image = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
+let image2 = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
 
 
 interface ProductDetailsProps {
@@ -217,21 +215,27 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                         <div className="block lg:grid lg:grid-cols-12 gap-x-6">
                             <div className="description-sidebar card !shadow-xxs  col-span-4 custom_scrollbar">
                                 <div className="">
-                                    <div className="flex flex-col">
+                                    <div className="flex flex-col product-sidebar-image-div">
                                         <div className="product-photo--sidebar">
                                             {/*<BiHeart className="text-2xl" />*/}
 
-                                            <div ref={productImageListRef} className="image_list">
-                                                <img src={staticImagePath(product?.coverPhoto)}/>
-                                                {/*{product.images &&*/}
-                                                {/*    product.images.map((g, i) => (*/}
-                                                {/*        <div*/}
-                                                {/*            onClick={() => setShowImage(i + 1)}*/}
-                                                {/*            className={[isShowImage == i ? "active_image" : "", "image_list_each-div"].join(" ")}*/}
-                                                {/*        >*/}
-                                                {/*            <img src={fullLink(g)} alt="" />*/}
-                                                {/*        </div>*/}
-                                                {/*    ))}*/}
+                                            <div>
+                                                <div ref={productImageListRef} className="image_list">
+                                                    {Array.from({length: 10}).map((item)=>(
+                                                        <div className="image_list_item">
+                                                            <img src={staticImagePath(product?.coverPhoto)}/>
+                                                        </div>
+                                                    ))}
+                                                    {/*{product.images &&*/}
+                                                    {/*    product.images.map((g, i) => (*/}
+                                                    {/*        <div*/}
+                                                    {/*            onClick={() => setShowImage(i + 1)}*/}
+                                                    {/*            className={[isShowImage == i ? "active_image" : "", "image_list_each-div"].join(" ")}*/}
+                                                    {/*        >*/}
+                                                    {/*            <img src={fullLink(g)} alt="" />*/}
+                                                    {/*        </div>*/}
+                                                    {/*    ))}*/}
+                                                </div>
                                             </div>
 
                                             <div onClick={scrollDownHandler} className="image_list_each-div bb text-center">
@@ -243,8 +247,8 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                             <img
                                                 src={
                                                     isShowImage
-                                                        ? fullLink(product.images ? product.images[isShowImage - 1] : "")
-                                                        : fullLink(product.coverPhoto ? product.coverPhoto : "")
+                                                        ? staticImagePath(product.images ? product.images[isShowImage - 1] : "")
+                                                        : staticImagePath(product.coverPhoto ? product.coverPhoto : "")
                                                 }
                                                 alt=""
                                             />

@@ -3,8 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import {Link, useNavigate} from "react-router-dom";
 import staticImagePath from "src/utills/staticImagePath";
 import Dropdown from "components/Dropdown/Dropdown";
-import Backdrop from "components/UI/Backdrop/Backdrop";
-import Modal from "components/UI/Modal/Modal";
 import Image from "UI/Image/Image";
 import "./style.scss";
 
@@ -181,18 +179,18 @@ const HomeCategoryNav = () => {
 
 
     return (
-        <div className="bg-white py-4 dark:bg-neutral-800 dark:text-white shadow-md">
-            <div className="flex items-center justify-between max-w-8xl mx-auto px-4  gap-x-4 scroll-x-transparent overflow-x-auto md:overflow-visible ">
+        <div className="home-category-list">
+            <div className="flex items-center justify-between max-w-8xl mx-auto px-2  gap-x-2 md:gap-x-4 scroll-x-transparent overflow-x-auto md:overflow-visible ">
                 {homeNavData.map((section, idx) => (
                     <div
                         key={idx}
-                        className="relative"
+                        className="home-category-list-item"
                         onClick={()=>handleClickToJump(section)}
                         onMouseEnter={(e) => handleClickSubMenu(e, section)}
                         onMouseLeave={handleCloseDropdown}
                     >
-                        <div className="flex flex-col items-center  border md:border-none rounded-full bg-primary-500 md:bg-transparent ">
-                            <Image className="w-10 m-1 md:w-20" src={staticImagePath(section.logo)} />
+                        <div className="flex home-category-list-item-content flex-col items-center  border md:border-none rounded-full md:bg-transparent ">
+                            <Image className="category-list-item-img" src={staticImagePath(section.logo)} />
                             <h4 className="hidden md:block text-sm font-medium">
                                 {(!section.sub_menu && section.rootCategory) ? (
                                     <Link  to={`/p/${section.rootCategory}?catTree=${section.name}`}>

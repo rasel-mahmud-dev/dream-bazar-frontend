@@ -1,15 +1,15 @@
-import React, {FormEvent, lazy, Suspense, useContext, useEffect, useRef, useState} from "react";
+import React, {FormEvent, lazy, Suspense, useEffect, useRef, useState} from "react";
 import "./Navigation.scss";
 import {Link, useNavigate} from "react-router-dom";
 
 import {Badge, Menu, OnScroll} from "components/UI";
 // import ProductCategoryDropdown from "components/ProductCategoryDropdown/ProductCategoryDropdown"
-
 import {
+    AiOutlineUser,
     BiChevronsDown,
     BiSearch,
     BiUser,
-    BsGithub,
+    BsGithub, CiSearch, CiShoppingCart,
     FaFacebook,
     FaHeart,
     FaLanguage,
@@ -22,6 +22,8 @@ import {
 } from "react-icons/all";
 
 
+import {HiOutlineHeart,HiOutlineBars3} from "react-icons/hi2"
+
 import useLanguage from "src/hooks/useLanguage";
 import staticImagePath from "src/utills/staticImagePath";
 import CartDropdown from "components/Navigation/CartDropdown";
@@ -33,8 +35,7 @@ import {logoutAction} from "actions/authAction";
 import useAppSelector from "src/hooks/useAppSelector";
 import {setLanguageAction, toggleThemeAction} from "actions/appAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
-import {changeFilterSearchAction, filterProductsAction2222222222, searchProductsAction} from "actions/productAction";
-
+import {changeFilterSearchAction, searchProductsAction} from "actions/productAction";
 
 
 const AuthDropdown = lazy(() => import("../Dropdown/AuthDropdown"));
@@ -153,23 +154,25 @@ function Navigation(props) {
         if (searchBy.value !== undefined) {
             clearTimeout(timeSearchDelayTimeout.current)
 
-            timeSearchDelayTimeout.current = setTimeout(()=>{
+            timeSearchDelayTimeout.current = setTimeout(() => {
 
                 searchProductsAction(searchBy, dispatch)
 
-                navigate("/p/search?value="+ searchBy.value)
+                navigate("/p/search?value=" + searchBy.value)
 
             }, 400)
         }
     }, [searchBy])
 
+    function handleToggleLeftBar(){
 
+    }
 
     return (
         <div className="header_space">
             <div ref={headerRef} className={["navigation", isFixed ? "nav_fixed" : ""].join(" ")}>
                 {/* top navigation */}
-                <div className="bg-white dark:bg-neutral-800 py-1 hidden lg:block">
+                <div className="top-navigation">
                     <div className="grid grid-cols-12 justify-between w-full max-w-8xl mx-auto px-4">
                         <div className="col-span-2 flex items-center gap-x-4  dark:text-white">
                             <FaFacebook/>
@@ -219,17 +222,17 @@ function Navigation(props) {
                     </div>
                 </div>
 
-                <div className="main-nav bg-green-450 dark:bg-dark-600">
+                <div className="main-nav ">
                     <div className="max-w-8xl mx-auto px-4 flex items-center">
-                        {/*<div className="md:hidden block mr-3 ">*/}
-                        {/*    <FaBars className="text-xl text-neutral-100" onClick={handleToggleLeftBar} />*/}
-                        {/*</div>*/}
+                        <div className="md:hidden block mr-3 ">
+                            <HiOutlineBars3 className="text-2xl nav-text" onClick={handleToggleLeftBar} />
+                        </div>
 
                         <div className="grid grid-cols-12 items-center w-full ">
                             <div className="col-span-2 logo">
                                 <Link to="/" className="flex items-center">
                                     <img src="/logo-2.png" alt="" className="w-9 md:w-11"/>
-                                    <h4 className="text-white font-semibold text-lg md:text-xl   md:block">DreamBajar</h4>
+                                    <h4 className="nav-text font-semibold text-lg md:text-xl   md:block">Dream</h4>
                                 </Link>
                             </div>
 
@@ -238,12 +241,12 @@ function Navigation(props) {
 
                                 {/***** search bar *******/}
                                 <div className="hidden items-center  w-full  lg:flex">
-                                    <div className="bg-white/30 py-2 px-4 flex justify-between items-center rounded-full w-full">
+                                    <div className="dark:bg-neutral-800 bg-white/10 py-2 px-4 flex justify-between items-center rounded-full w-full">
                                         <div className="flex items-center border-r border-white pr-2">
                                             <select
                                                 defaultValue={searchBy.fieldName}
                                                 onChange={(e: FormEvent<HTMLSelectElement>) => handleChangeSearchInput((e.target as HTMLInputElement).value, "fieldName")}
-                                                className="bg-transparent text-white outline-none border-none w-auto placeholder-white"
+                                                className="dark:text-dark-30  bg-transparent text-white outline-none border-none w-auto placeholder-white"
                                             >
                                                 <option value="title">Title</option>
                                                 <option value="brand">Brand</option>
@@ -254,7 +257,7 @@ function Navigation(props) {
                                             onChange={(e: FormEvent<HTMLInputElement>) => handleChangeSearchInput((e.target as HTMLInputElement).value, "value")}
                                             value={searchBy.value}
                                             placeholder="Search for products, brand and more"
-                                            className="bg-transparent w-full outline-none text-white placeholder-white ml-2 "
+                                            className="dark:text-dark-30 dark:placeholder-dark-30 bg-transparent w-full outline-none text-white placeholder-white ml-2 "
                                         />
                                         <BiSearch className="text-white text-xl"/>
                                     </div>
@@ -270,9 +273,15 @@ function Navigation(props) {
                                         onMouseEnter={() => setState({...state, openDropdown: "more"})}
                                         onMouseLeave={() => setState({...state, openDropdown: ""})}
                                     >
-                                        <BiChevronsDown className="text-neutral-50 text-xl"/>
+                                        <BiChevronsDown className="nav-text text-xl"/>
                                         <Suspense fallback={<h1>loading</h1>}>
-                                            <MoreDropdown className="left-0 top-8 !shadow-xl rounded-lg" isShow={state.openDropdown === "more"}/>
+                                            <MoreDropdown
+                                                lang={lang}
+                                                theme={theme}
+                                                onChangeTheme={handleChangeTheme}
+                                                className="left-0 top-8 !shadow-xl rounded-lg"
+                                                isShow={state.openDropdown === "more"}
+                                            />
                                         </Suspense>
                                     </Circle>
 
@@ -288,7 +297,7 @@ function Navigation(props) {
                                     {/*** mobile search icon *****/}
                                     <li className="md:hidden relative flex items-center gap-x-2">
                                         <div className="flex justify-end ">
-                                            <BiSearch className="text-2xl text-white"/>
+                                            <CiSearch className="text-2xl nav-text"/>
                                         </div>
                                     </li>
 
@@ -301,24 +310,25 @@ function Navigation(props) {
                                         <Badge className="bg-blue-500 text-white rounded-full -right-2 px-1.5 absolute top-2">
                                             {cartState.cartProducts.length > 0 ? cartState.cartProducts.length : ""}
                                         </Badge>
-                                        <GiShoppingBag className="text-white text-2xl "/>
+                                        <CiShoppingCart className="nav-text text-2xl "/>
 
-                                        <span className="font-medium text-white hidden md:block">{l("In Cart")}</span>
+                                        <span className="font-medium nav-text hidden md:block">{l("In Cart")}</span>
                                         <Suspense fallback={<h1>loading</h1>}>
                                             <CartDropdown className="right-0 top-14" isShow={state.openDropdown === "cart"}/>
                                         </Suspense>
                                     </li>
+
                                     <MobileCartSidebar isOpen={state.openMobileRightSidebar} handleClose={closeMobileRightSidebar}/>
 
 
                                     <li className=" ">
-                                        <Link to="/wishlist" className="hidden md:flex items-center gap-x-2 py-5">
-                                            <FaHeart className="text-white text-2xl"/>
-                                            <span className="font-medium text-white hidden md:block whitespace-nowrap">{l("Favorite")}</span></Link>
+                                        <Link to="/wishlist" className="items-center gap-x-2 py-5">
+                                            <HiOutlineHeart className="nav-text text-xl"/>
+                                            <span className="font-medium nav-text hidden md:block whitespace-nowrap">{l("Favorite")}</span></Link>
                                     </li>
 
                                     <li
-                                        className="relative flex items-center gap-x-2 py-5  "
+                                        className="relative flex items-center gap-x-2 py-4  "
                                         onMouseEnter={() => setState({...state, openDropdown: "auth"})}
                                         onMouseLeave={() => setState({...state, openDropdown: ""})}
                                     >
@@ -327,10 +337,9 @@ function Navigation(props) {
                                                 <img className="rounded-full" src={staticImagePath(auth.avatar)} alt=""/>
                                             </div>
                                         ) : (
-                                            <BiUser className="text-white text-2xl"/>
+                                            <AiOutlineUser className="nav-text text-2xl"/>
                                         )}
-
-                                        <span className="font-medium text-white hidden md:block">{auth ? auth.firstName : l("Account")}</span>
+                                        <span className="font-medium nav-text hidden md:block">{auth ? auth.firstName : l("Account")}</span>
 
                                         <Suspense fallback={<h1>loading</h1>}>
                                             <AuthDropdown

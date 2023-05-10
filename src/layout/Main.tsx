@@ -21,6 +21,8 @@ const Registration = lazy(() => import( "pages/shared/Registration"));
 const CustomerDashboard = lazy(() => import( "pages/customerDashboard/CustomerDashboard"));
 const CustomerDashboardHomePage = lazy(() => import( "pages/customerDashboard/CustomerDashboardHomePage"));
 import ProductDetailLite from "pages/main/productDetails/ProductDetailLite";
+import {Scope} from "store/types";
+import AuthCallback from "pages/main/auth/AuthCallback";
 
 export const mainRoute = [
     {
@@ -50,10 +52,10 @@ export const mainRoute = [
             // { path: "opt-validate", element: <OTPValidate /> },
         ],
     },
-    // {
-    //     path: "/auth/callback/:provider",
-    //     element:  <ExcludeAuthRoute scope={Scope.CUSTOMER_USER}><AuthCallback /></ExcludeAuthRoute>
-    // },
+    {
+        path: "/auth/callback/:provider",
+        element:  <ExcludeAuthRoute scope={Scope.CUSTOMER_USER}><AuthCallback /></ExcludeAuthRoute>
+    },
     {
         path: "/dashboard",
         element: <CustomerDashboard/>,

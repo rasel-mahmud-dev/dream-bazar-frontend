@@ -9,7 +9,7 @@ import NotFoundProduct from "UI/404-Product/Not-Found-Product";
 import {filterProductsAction, filterProductsAction2222222222} from "actions/productAction";
 import {RootState} from "src/store";
 import BrandList from "pages/main/productFilterPage/BrandList";
-import Product from "components/Product/Product";
+import Product2 from "components/Product2/Product";
 import SEO from "components/SEO/SEO";
 import CategoryList from "components/CategoryList/CategoryList";
 import WithWidth from "UI/withWidth/withWidth";
@@ -200,16 +200,17 @@ const ProductFilter: FC<ProductFilterType> = ({innerWidth}) => {
         // )
 
         return (
-            <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            <div className="grid gap-0 md:gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                 {filterProducts && filterProducts.length > 0 ? (
                     filterProducts.map((product, i) => (
-                        <Product
+                        <Product2
                             key={i}
                             product={product}
                             handleAddToWishList={handleAddToWishList}
                             isWished={isWished}
                             // renderProductAtt={renderProductAtt}
                         />
+
                     ))
                 ) : (
                     <NotFoundProduct title="Product not found on this Category "/>

@@ -61,7 +61,7 @@ const DashboardNavigation = ({auth}) => {
 
                     <div className="hidden lg:flex items-center border px-2 py-2.5 w-4/12 mx-auto rounded-lg text-neutral-400 ">
                         <BiSearch className="mr-1 text-lg"/>
-                        <input type="text" placeholder="Search" className="w-full outline-none"/>
+                        <input type="text" placeholder="Search" className="w-full outline-none bg-transparent"/>
                     </div>
 
                     <div className="flex items-center gap-x-1">

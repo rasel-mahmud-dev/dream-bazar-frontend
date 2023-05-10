@@ -1,0 +1,15 @@
+
+.single-filterpage-product {
+    @apply dark:bg-neutral-800 bg-white;
+    position: relative;
+    min-width: 200px;
+    max-width: 240px;
+    padding: 15px;
+    transition: all .3s ease;
+    border-radius: 5px;
+
+    &:hover {
+        @apply dark:bg-dark-600 bg-white;
+        box-shadow: 0 2px 16px -3px #3131316b
+    }
+}

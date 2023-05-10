@@ -27,8 +27,9 @@ Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Quisque velit nisi,
         <div className="homepage_slider">
             <Carousel>
                 { carouselData.map((item, index)=>(
-                    <div className="relative" key={index}>
+                    <div className="relative slider_item" key={index}>
                         <img src={staticImagePath(item.img)} alt=""/>
+                        <div className="image-overlay"></div>
                         <div className="swiper-caption  w-full max-w-sm md:max-w-md " >
                             <h1 className="slider-title font-medium text-lg md:text-2xl lg:text-3xl xl:text-5xl text-white ">{item.title}</h1>
                             <h1 className="slider-para text-white ">{item.desc.substring(0, 100)}

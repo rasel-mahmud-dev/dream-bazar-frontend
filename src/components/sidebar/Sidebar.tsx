@@ -17,7 +17,12 @@ const Sidebar: FC<Props> = (props) => {
 
     return (
         <>
-            {isOpen && <Backdrop isOpenBackdrop={isOpen} onClose={onClose} className={backdropClass} />}
+            {/*{isOpen && <Backdrop isOpenBackdrop={isOpen} onClose={onClose} className={backdropClass} />}*/}
+
+                <div className={`backdrop-overlay ${backdropClass} ${isOpen ? "backdrop-overlay-open" : ""}`}>
+
+                </div>
+
             <div className={`sidebar ${className} sidebar-${position} ${isOpen ? "sidebar-mobile_show" : "sidebar-mobile_hide"}`}>{children}</div>
         </>
     );

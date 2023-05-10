@@ -546,24 +546,27 @@ type RelevantProductsActionType = {
     brandId: string
     categoryId: string
 }
-export const fetchRelevantProductsAction = createAsyncThunk("", async (payload: RelevantProductsActionType, thunkAPI) => {
 
+
+export const fetchRelevantProductsAction = createAsyncThunk(
+    "productState/fetchRelevantProducts",
+    async (payload: RelevantProductsActionType, thunkAPI) => {
     let cacheName = payload.slug
 
     // prevent duplicate fetch request if already fetch these relevant products
     let store = thunkAPI.getState() as RootState
     if (store && store?.productState?.relevantProducts[cacheName]) return;
 
-    let response = await apis.post(`/api/products/relevant`, payload)
-    if (response.status === StatusCode.Ok) {
-
-        thunkAPI.dispatch({
-            type: ACTION_TYPES.FETCH_RELEVANT_PRODUCTS,
-            payload: {
+    try{
+        let response = await apis.post(`/api/products/relevant`, payload)
+        if (response.status === StatusCode.Ok) {
+            return {
                 cacheName: cacheName,
                 products: response.data
             }
-        })
+        }
+    } catch(ex){
+
     }
 })
 

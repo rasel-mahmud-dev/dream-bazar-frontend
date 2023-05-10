@@ -4,6 +4,10 @@ import {Provider} from "react-redux";
 import "./index.css";
 import store, {RootState} from "src/store";
 
+import "./App.scss";
+import "./styles/--breakpoint.scss"
+import "./styles/shared.scss";
+
 
 import useToast from "src/hooks/useToast";
 import App from "src/App";

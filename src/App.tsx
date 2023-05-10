@@ -1,7 +1,6 @@
 import * as React from "react";
 import {Suspense, useContext, useEffect, useState} from "react";
-import "./App.scss";
-import "./styles/shared.scss";
+
 import { RouterProvider} from "react-router-dom";
 import {TopProgressBar} from "components/UI";
 import router from "src/routes/routes";

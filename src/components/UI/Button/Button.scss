@@ -1,30 +1,32 @@
 
-.btn{
-  box-sizing: border-box;
-  outline:none;
-  border:none;
-  padding: 10.5px 14px;
-  cursor: pointer;
-  font-weight: 500;
-  color: white;
-  display: flex;
-  align-items: center;
-    justify-content: center;
-  text-decoration: none !important;
-  -webkit-tap-highlight-color: transparent;
-
-  a{
-    color: inherit;
-    text-decoration: none;
-  }
-  &-large{
+.btn {
     box-sizing: border-box;
-    padding: 10px 15px;
+    outline: none;
+    border: none;
+    padding: 8px 20px;
+    cursor: pointer;
     font-weight: 500;
-    margin: 10px;
-    font-size: 18px;
-  }
-    &-sm{
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    -webkit-tap-highlight-color: transparent;
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    &-large {
+        box-sizing: border-box;
+        padding: 10px 15px;
+        font-weight: 500;
+        margin: 10px;
+        font-size: 18px;
+    }
+
+    &-sm {
         box-sizing: border-box;
         padding: 6px 10px;
         font-weight: 500;
@@ -32,85 +34,101 @@
         font-size: 12px;
     }
 }
-.btn-block{
-  box-sizing: border-box !important;
-  display: block;
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
+
+.btn-block {
+    box-sizing: border-box !important;
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
 }
 
-.btn-primary{;
-  @apply bg-green-500 hover:bg-green-600;
-  color: white;
-  &:hover{
-    box-shadow: 0 2px 5px 0px grey;
-  }
+.btn-shadow-dark{
+    box-shadow: 0 10px 20px rgba(56, 56, 56, 0.49);
 }
 
-.btn-default{
-  background: white;
-  color: #1c1c1cff;
-  border: 1px solid #d3d3d384;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-
-  &:hover{
-    //background: darken(white, 4%) !important;
-    box-shadow: 0px 1px 4px -2px #565656a8
-  }
-  &:focus{
-    // background: white;
-    box-shadow: 0 2px 10px 0px #47474787;
-  }
-}
-.btn-text{
-  background: transparent ;
-  color: #1c1c1c;
-  border: none;
-  &:hover{
-    background: #e8e8e867;
-  }
-}
-.btn-link{
-  background: white;
-  color: var(--color-primary);
-  border: none;
-  text-decoration: none;
-  &:hover{
-    color: red;
-  }
+.btn-primary {
+    @apply bg-green-500 hover:bg-green-600 btn-shadow-dark;
+    color: white;
+    &:hover {
+        box-shadow: 0 2px 5px 0px grey;
+    }
 }
 
+.btn-default {
+    background: white;
+    color: #1c1c1cff;
+    border: 1px solid #d3d3d384;
+    border-radius: 2px;
+    transition: all 0.3s ease;
 
-.btn-disable{
-  background: darken(#8ab5ffa5, 10%);
-  cursor: none;
-  pointer-events: none;
-  &:hover{
+    &:hover {
+        //background: darken(white, 4%) !important;
+        box-shadow: 0px 1px 4px -2px #565656a8
+    }
+
+    &:focus {
+        // background: white;
+        box-shadow: 0 2px 10px 0px #47474787;
+    }
+}
+
+.btn-text {
+    background: transparent;
+    color: #1c1c1c;
+    border: none;
+    &:hover {
+        background: #e8e8e867;
+    }
+}
+
+.btn-link {
+    background: white;
+    color: var(--color-primary);
+    border: none;
+    text-decoration: none;
+
+    &:hover {
+        color: red;
+    }
+}
+
+
+.btn-disable {
     background: darken(#8ab5ffa5, 10%);
-  }
+    cursor: none;
+    pointer-events: none;
+
+    &:hover {
+        background: darken(#8ab5ffa5, 10%);
+    }
 }
 
-.btn-loading-circle{
-  width: 20px;
-  height: 20px;
-  border: 3px solid transparent;
-  border-bottom-color: #3f3f3f;
+.btn-loading-circle {
+    width: 20px;
+    height: 20px;
+    border: 3px solid transparent;
+    border-bottom-color: #3f3f3f;
 
-  border-top-color: transparent!important;
-  border-right-color: transparent!important;
+    border-top-color: transparent !important;
+    border-right-color: transparent !important;
 
-  border-left-color: #3f3f3f;
+    border-left-color: #3f3f3f;
 
-  border-radius: 100%;
-  animation: spin .5s linear infinite;
+    border-radius: 100%;
+    animation: spin .5s linear infinite;
 }
-.dark .btn-loading-circle{
-  border-bottom-color: white;
-  border-left-color: white;
+
+.dark .btn-loading-circle {
+    border-bottom-color: white;
+    border-left-color: white;
 }
-@keyframes spin{
-  0%{transform: rotate(0deg)}
-  100%{transform: rotate(360deg)}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
 }

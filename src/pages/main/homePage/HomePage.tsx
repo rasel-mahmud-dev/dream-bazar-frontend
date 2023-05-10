@@ -1,22 +1,23 @@
-import React, {lazy, useContext} from "react";
+import React, {lazy} from "react";
 import "./HomePage.scss";
 import {ACTION_TYPES} from "store/types";
-import {connect, useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
-import {fetchHomePageSectionProducts, fetchProducts} from "actions/productAction";
-import {addToCart} from "actions/cartAction";
-import {Button, Carousel, Image, Menu, Popup, Spin} from "UI/index";
-import {closeNotify} from "actions/appAction";
+import {fetchHomePageSectionProducts} from "actions/productAction";
+import {Button, Image} from "UI/index";
 import fullLink from "src/utills/fullLink";
 
 
 import staticImagePath from "src/utills/staticImagePath";
 import useLanguage from "src/hooks/useLanguage";
-import {BiCart, MdFavorite} from "react-icons/all";
+import {BiCart, BiUser, CiShoppingCart, MdFavorite} from "react-icons/all";
+import { HiOutlineHome} from "react-icons/hi2";
 import SEO from "components/SEO/SEO";
 import useScrollTop from "src/hooks/useScrollTop";
 import useAppSelector from "src/hooks/useAppSelector";
 import useAppDispatch from "src/hooks/useAppDispatch";
+import {HiOutlineHeart} from "react-icons/hi2";
+import {FreeMode} from "swiper";
+import {Swiper, SwiperSlide} from "swiper/react";
 
 const HomeCategoryNav = lazy(() => import("pages/main/homePage/HomeCategoryNav/HomeCategoryNav"));
 const SliderSection = lazy(() => import("pages/main/homePage/SliderSection"));
@@ -32,6 +33,31 @@ const HomePage = (props) => {
     const navigate = useNavigate();
 
     const l = useLanguage();
+
+
+    const dayDeals = [
+        {
+            title: "Pink Hoodie t-shirt full",
+            seller: {shopName: "Mango"},
+            price: "32.00", discount: 20,
+            thumb: "https://themes.pixelstrap.com/multikart-app/assets/images/products/1.jpg"
+        },
+        {
+            title: "Men Blue Denim Jacket",
+            seller: {shopName: "Zara"},
+            price: "32.00",
+            discount: 20,
+            thumb: "https://themes.pixelstrap.com/multikart-app/assets/images/products/2.jpg"
+
+        },
+        {
+            title: "Pink Hoodie t-shirt full",
+            seller: {shopName: "H&M"},
+            price: "32.00", discount: 20,
+            thumb: "https://themes.pixelstrap.com/multikart-app/assets/images/products/3.jpg"
+        }
+    ]
+
 
     const {
         appState,
@@ -157,15 +183,180 @@ const HomePage = (props) => {
         }
     }
 
+
+    const brands = [
+        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/1.png"},
+        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/2.png"},
+        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/3.png"},
+        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/4.png"},
+        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/5.png"},
+        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/6.png"},
+        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/7.png"},
+    ]
+
     return (
         <div className="homepage">
             <SEO title={`Dream Bazar online ecommerce shop`} description="Product filter"/>
 
             <HomeCategoryNav/>
 
-            <div className="bg-dark-600 ">
+            <div className="homepage-carousel ">
                 <SliderSection/>
             </div>
+
+            <div className="day-deals px-2 mt-6">
+
+                <div className="flex items-center justify-between mb-2 mt-5">
+                    <h2 className="font-semibold text-lg dark:text-dark-40 text-dark-800">Deals of the day</h2>
+                    <Link to="/" className="font-medium text-primary-450">See all</Link>
+                </div>
+
+                <div className="products-list">
+                    {dayDeals.map(deal => (
+                        <div className="product-list-view">
+
+                            <div className="fav-icon">
+                                <HiOutlineHeart/>
+                            </div>
+
+
+                            <div className="img-root">
+                                <img src={staticImagePath(deal.thumb)} alt=""/>
+                            </div>
+                            <div className="product-meta">
+                                <h3 className="p-title">{deal.title}</h3>
+                                <p className="p-seller">{deal.seller.shopName}</p>
+
+                                <div className="p-price-row">
+                                    <h4 className="p-price">{deal.price}</h4>
+                                    <h4 className="p-discount">SAVE {deal.discount}% </h4>
+                                </div>
+
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+
+            <div className="day-deals px-2 mt-10">
+
+                <div className="flex items-center justify-between mb-2 mt-5">
+                    <h2 className="font-semibold text-lg dark:text-dark-40 text-dark-800">Deals of the day</h2>
+                    <Link to="/" className="font-medium text-primary-450">See all</Link>
+                </div>
+
+                <div className="products-grid">
+                    {dayDeals.map(deal => (
+                        <div className="product-list-view product-card">
+
+                            <div className="fav-icon">
+                                <HiOutlineHeart/>
+                            </div>
+
+
+                            <div className="img-root">
+                                <img src={staticImagePath(deal.thumb)} alt=""/>
+                            </div>
+                            <div className="product-meta">
+                                <h3 className="p-title">{deal.title}</h3>
+                                <p className="p-seller">{deal.seller.shopName}</p>
+
+                                <div className="p-price-row">
+                                    <h4 className="p-price">{deal.price}</h4>
+                                    <h4 className="p-discount">SAVE {deal.discount}% </h4>
+                                </div>
+
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+
+                <div className="offer-remain-time mt-10">
+                    <div className="flex items-center justify-between mb-2 mt-5">
+                        <h2 className="font-semibold text-lg dark:text-dark-40 text-dark-800">Biggest Deals on Top Brands</h2>
+                        {/*<Link to="/" className="font-medium text-primary-450">See all</Link>*/}
+                    </div>
+
+
+                    <div className="flex items-center">
+
+                        <Swiper
+                            slidesPerView={3}
+                            spaceBetween={10}
+                            freeMode={true}
+                            modules={[FreeMode]}
+                            className="mySwiper"
+                        >
+
+                            {brands.map(brand => (
+                                <SwiperSlide>
+                                    <div className="brand-item">
+                                        <img src={staticImagePath(brand.img)} alt=""/>
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+
+                        </Swiper>
+                    </div>
+
+                </div>
+
+
+                <div className="offer-remain-time mt-10">
+                    <div className="flex items-center justify-between mb-2 mt-5">
+                        <h2 className="font-semibold text-lg dark:text-dark-40 text-dark-800">Biggest Deals on Top Brands</h2>
+                        {/*<Link to="/" className="font-medium text-primary-450">See all</Link>*/}
+                    </div>
+
+
+                    <div className="flex items-center">
+
+                        <Swiper
+                            // width={300}
+                            slidesPerView={2}
+                            spaceBetween={10}
+                            freeMode={true}
+                            centeredSlides={false}
+                            modules={[]}
+                            className="mySwiper"
+                        >
+
+                            {dayDeals.map(deal => (
+                                <SwiperSlide>
+                                    <div className="product-list-view product-card product-wide">
+
+                                        <div className="fav-icon">
+                                            <HiOutlineHeart/>
+                                        </div>
+
+
+                                        <div className="img-root">
+                                            <img src={staticImagePath(deal.thumb)} alt=""/>
+                                        </div>
+                                        <div className="product-meta">
+                                            <h3 className="p-title">{deal.title}</h3>
+                                            <p className="p-seller">{deal.seller.shopName}</p>
+
+                                            <div className="p-price-row">
+                                                <h4 className="p-price">{deal.price}</h4>
+                                                <h4 className="p-discount">SAVE {deal.discount}% </h4>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+
+
+                        </Swiper>
+                    </div>
+
+                </div>
+
+            </div>
+
 
             <div className="r max-w-8xl mx-auto" onScroll={handleScroll}>
                 <div className="my-20">
@@ -256,6 +447,33 @@ const HomePage = (props) => {
                         ))}
 
                     <Button className="!mx-auto text-green-500 mt-10">Load More Section</Button>
+                </div>
+            </div>
+
+
+
+
+            <div className="bottom-nav home-nav">
+                <div className="nav-items ">
+                    <li className="h-nav-item">
+                        <HiOutlineHome />
+                        <label htmlFor="">Home</label>
+                    </li>
+
+                    <li className="h-nav-item">
+                        <CiShoppingCart />
+                        <label htmlFor="">My Cart</label>
+                    </li>
+
+                    <li className="h-nav-item">
+                        <HiOutlineHeart />
+                        <label htmlFor="">Wishlist</label>
+                    </li>
+
+                    <li className="h-nav-item">
+                        <BiUser />
+                        <label htmlFor="">Account</label>
+                    </li>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "components/sidebar/Sidebar";
-import { FaTimes } from "react-icons/all";
+import { IoCloseOutline} from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { RootState } from "src/store";
 import staticImagePath from "src/utills/staticImagePath";
@@ -36,19 +36,19 @@ const MobileCartSidebar = ({ isOpen, handleClose }) => {
 
 
     return (
-        <div>
             <Sidebar
-                backdropClass="!bg-dark-900/20 mobile-cart-sidebar-backdrop"
+                backdropClass="mobile-cart-sidebar-backdrop"
                 isOpen={isOpen}
                 position="right"
                 onClose={handleClose}
                 className="mobile-cart-sidebar"
             >
+
                 <div className="p-4">
                     <div className="flex justify-between items-center">
-                        <h4 className="heading-5">Your Cart</h4>
+                        <h4 className="heading-5">Your Cart items</h4>
                         <Circle className="ml-auto !w-8 !h-8">
-                            <FaTimes onClick={handleClose} className="" />
+                            <IoCloseOutline onClick={handleClose} className="text-2xl" />
                         </Circle>
                     </div>
                     <div>
@@ -65,7 +65,7 @@ const MobileCartSidebar = ({ isOpen, handleClose }) => {
                     </div>
                 </div>
             </Sidebar>
-        </div>
+
     );
 };
 
