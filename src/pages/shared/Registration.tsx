@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link, useLocation, useNavigate, useOutletContext } from "react-router-dom";
+import React, {useState} from "react";
+import {Link, useLocation, useNavigate, useOutletContext, useParams} from "react-router-dom";
 
-import { Button, Spin, Popup } from "UI/index";
-import { useDispatch, useSelector } from "react-redux";
-import errorMessageCatch from "src/utills/errorMessageCatch";
-import qs from "query-string";
-import { InputGroup } from "UI/Form";
-import apis, { backend } from "src/apis";
-import { BsFacebook, BsGoogle } from "react-icons/all";
-import { RootState } from "src/store";
-import { registrationAction } from "actions/authAction";
-import { Scope } from "store/types";
+import {Button} from "UI/index";
+import {useDispatch, useSelector} from "react-redux";
+import {InputGroup} from "UI/Form";
+import {RootState} from "src/store";
+import {registrationAction} from "actions/authAction";
 import SocialLogin from "components/SocialLogin/SocialLogin";
 import ActionModal from "components/ActionModal/ActionModal";
 import useHttpResponse from "src/hooks/useHttpResponse";
 
+import "./loginPage.scss"
+import useLanguage from "src/hooks/useLanguage";
+import Divider from "UI/Divider/Divider";
+
+
 const Registration = (props) => {
     const {} = useSelector((state: RootState) => state);
-
-    const { parentState, setParentState, handleChange } = useOutletContext<{
+    const l = useLanguage();
+    const {parentState, setParentState, handleChange} = useOutletContext<{
         parentState: any;
         setParentState: any;
         handleChange: () => void;
     }>();
 
-    let { httpStatus, setHttpStatus, resetHttpStatus } = useHttpResponse();
+    let {httpStatus, setHttpStatus, resetHttpStatus} = useHttpResponse();
 
     let params = useParams();
 
@@ -35,7 +35,7 @@ const Registration = (props) => {
 
     const [loadings, setLoading] = React.useState([]);
 
-    const { loadingStates, cartState } = props;
+    const {loadingStates, cartState} = props;
 
     const [state, setState] = useState({
         httpResponse: "",
@@ -44,10 +44,12 @@ const Registration = (props) => {
 
     async function submitHandler(e) {
         e.preventDefault();
-        setHttpStatus( {isLoading: false, message: "", isSuccess: true});
+        setHttpStatus({isLoading: false, message: "", isSuccess: true});
+
+        const l = useLanguage()
 
         let isCompleted = true;
-        let updatedUserData = { ...parentState.userData };
+        let updatedUserData = {...parentState.userData};
 
         let loginData = {
             firstName: updatedUserData.firstName,
@@ -75,15 +77,15 @@ const Registration = (props) => {
             return;
         }
 
-        setHttpStatus( {isLoading: true, message: ""});
+        setHttpStatus({isLoading: true, message: ""});
 
-        registrationAction(payload,  dispatch, function (data, errorMessage) {
+        registrationAction(payload, dispatch, function (data, errorMessage) {
             if (!errorMessage) {
                 if (!errorMessage) {
                     location.state?.redirect && navigate(location.state?.redirect);
                 }
             }
-            setHttpStatus( {isLoading: false, message: ""});
+            setHttpStatus({isLoading: false, message: ""});
         });
     }
 
@@ -93,8 +95,15 @@ const Registration = (props) => {
     });
 
     return (
-        <div>
-            <h1 className="card-title">Create an Account</h1>
+        <div className="login-page">
+
+
+            <div className="login-header">
+                <img src={"/icons/lock.svg"} alt=""/>
+            </div>
+
+            <h1 className=" uppercase text-center text-3xl font-extrabold mt-6 dark:text-dark-10 text-dark-700">Create an Account</h1>
+
 
             <ActionModal
                 onClose={resetHttpStatus}
@@ -105,23 +114,26 @@ const Registration = (props) => {
                 loadingTitle="Please wait your registered "
             />
 
-            <form onSubmit={submitHandler}>
+            <form onSubmit={submitHandler} className="p-4">
                 <InputGroup
+                    inputClass="bg-input-group"
                     state={parentState.userData}
                     name="firstName"
                     onChange={handleChange}
                     placeholder="Enter firstName"
                 />
                 <InputGroup
+                    inputClass="bg-input-group"
                     state={parentState.userData}
                     name="lastName"
                     onChange={handleChange}
                     placeholder="Enter lastName"
                 />
-                <InputGroup state={parentState.userData} name="email" onChange={handleChange} placeholder="Enter Email"  />
+                <InputGroup inputClass="bg-input-group" state={parentState.userData} name="email" onChange={handleChange} placeholder="Enter Email"/>
 
                 <InputGroup
                     state={parentState.userData}
+                    inputClass="bg-input-group"
                     name="password"
                     type="password"
                     onChange={handleChange}
@@ -131,11 +143,20 @@ const Registration = (props) => {
                 <p className="my-5 text-right text-link">
                     Already have an account? <Link to="/join/login">login here</Link>
                 </p>
-                <button className="w-full bg-green-450 px-4 py-2 border-none text-white font-semibold text-lg rounded-xl">Create</button>
-            </form>
-            <p className="my-5 text-center text-neutral-600">Or sign in with</p>
 
-            <SocialLogin className="mb-6" />
+
+                <Button className="w-full !py-2.5 !shadow-xs" color="primary" theme="primary">{l("Register")}</Button>
+
+            </form>
+
+            <div className="px-3">
+                <Divider text="OR"/>
+            </div>
+
+
+            <div className="p-3">
+                <SocialLogin className="mb-6"/>
+            </div>
         </div>
     );
 };

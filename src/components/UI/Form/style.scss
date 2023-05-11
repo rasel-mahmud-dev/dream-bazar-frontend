@@ -1,47 +1,61 @@
-.input-affix-wrapper, .input-wrapper{
-  background: white;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  /* display: inline-block; */
-  outline: none;
-  border-radius: 3px;
-  border: 1px solid #9b9b9b4f;
-  padding: 5px 10px;
-  margin: 5px 0px;
-  box-sizing: border-box;
-  transition: box-shadow .5s ease, border 1s ease;  
-  &-focused{
-    box-shadow: 0 0 5px 0px rgba(61, 97, 243, 0.87);
-    border: 1px solid var(--color-primary);
-  };
-
-  .input{
+.input-affix-wrapper, .input-wrapper {
+    background: white;
+    display: flex;
+    align-items: center;
     width: 100%;
-    border: none;
+    /* display: inline-block; */
     outline: none;
-    background: transparent;
-  }
+    border-radius: 3px;
+    border: 1px solid #9b9b9b4f;
+    padding: 5px 10px;
+    margin: 5px 0px;
+    box-sizing: border-box;
+    transition: box-shadow .5s ease, border 1s ease;
+
+    &-focused {
+        box-shadow: 0 0 5px 0px rgba(61, 97, 243, 0.87);
+        border: 1px solid var(--color-primary);
+    }
+;
+
+    .input {
+        width: 100%;
+        border: none;
+        outline: none;
+        background: transparent;
+    }
 }
 
-.input-suffix{
-  color: #c7c7c7;
-  margin-left: 5px;
-  &:hover{
-    color: #2a2929;
-  }
+.input-suffix {
+    color: #c7c7c7;
+    margin-left: 5px;
+
+    &:hover {
+        color: #2a2929;
+    }
 }
 
-.input-prefix{
+.input-prefix {
     margin-right: 5px;
     margin-left: 0px;
     color: blue;
-   &:hover{
-    color: #2a2929;
-  }
+
+    &:hover {
+        color: #2a2929;
+    }
 }
 
 
-.input-icon{
-  color: red;
+.input-icon {
+    color: red;
+}
+
+.bg-input-group{
+    @apply dark:bg-dark-800 bg-dark-10;
+    input{
+        @apply text-dark-800 dark:text-dark-10;
+        &::placeholder{
+           color: inherit;
+        }
+    }
 }

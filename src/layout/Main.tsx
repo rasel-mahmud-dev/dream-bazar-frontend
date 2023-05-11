@@ -5,6 +5,10 @@ import Footer from "components/Footer/Footer";
 
 import {TopProgressBar} from "UI/index";
 import ExcludeAuthRoute from "src/middleware/ExcludeAuthRoute";
+import ProductDetailLite from "pages/main/productDetails/ProductDetailLite";
+import {Scope} from "store/types";
+import AuthCallback from "pages/main/auth/AuthCallback";
+import BottomMobileNav from "components/BottomMobileNav/BottomMobileNav";
 
 const Orders = lazy(() => import( "pages/shared/Orders/Orders"));
 const Wishlist = lazy(() => import( "pages/customerDashboard/wishlist/Wishlist"));
@@ -20,9 +24,6 @@ const LoginPage = lazy(() => import( "pages/shared/LoginPage"));
 const Registration = lazy(() => import( "pages/shared/Registration"));
 const CustomerDashboard = lazy(() => import( "pages/customerDashboard/CustomerDashboard"));
 const CustomerDashboardHomePage = lazy(() => import( "pages/customerDashboard/CustomerDashboardHomePage"));
-import ProductDetailLite from "pages/main/productDetails/ProductDetailLite";
-import {Scope} from "store/types";
-import AuthCallback from "pages/main/auth/AuthCallback";
 
 export const mainRoute = [
     {
@@ -54,7 +55,7 @@ export const mainRoute = [
     },
     {
         path: "/auth/callback/:provider",
-        element:  <ExcludeAuthRoute scope={Scope.CUSTOMER_USER}><AuthCallback /></ExcludeAuthRoute>
+        element: <ExcludeAuthRoute scope={Scope.CUSTOMER_USER}><AuthCallback/></ExcludeAuthRoute>
     },
     {
         path: "/dashboard",
@@ -81,26 +82,33 @@ export const mainRoute = [
             // },
         ],
     },
-    {path: "cart", element: <ShoppingCart renderOnDashboard={false} />},
+    {path: "cart", element: <ShoppingCart renderOnDashboard={false}/>},
+    {path: "m/carts", element: <ShoppingCart renderOnDashboard={false}/>},
     {path: "wishlist", element: <Wishlist renderOnDashboard={false}/>},
     {
         path: "/:slug",
-        element: <ProductDetailLite />,
+        element: <ProductDetailLite/>,
     },
 ]
 
 const Main = () => {
 
     return (
-        <div className="slot-root">
-            <Navigation/>
-            <div className="app-content">
-                <Suspense fallback={<TopProgressBar/>}>
-                    <Outlet/>
-                </Suspense>
+        <>
+            <div className="slot-root ">
+                <Navigation/>
+                <div className="app-content">
+                    <Suspense fallback={<TopProgressBar/>}>
+                        <Outlet/>
+                    </Suspense>
+                        <BottomMobileNav/>
+
+                </div>
+                <Footer/>
+
+
             </div>
-            <Footer/>
-        </div>
+        </>
     );
 };
 

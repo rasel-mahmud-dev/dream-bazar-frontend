@@ -1,0 +1,16 @@
+.login-page{
+    .login-header{
+        background: rgb(0,6,36);
+        background: -moz-linear-gradient(90deg, rgba(0,6,36,1) 0%, rgba(80,80,255,1) 49%, rgba(0,0,121,1) 94%);
+        background: -webkit-linear-gradient(90deg, rgba(0,6,36,1) 0%, rgba(80,80,255,1) 49%, rgba(0,0,121,1) 94%);
+        background: linear-gradient(90deg, rgba(0,6,36,1) 0%, rgba(80,80,255,1) 49%, rgba(0,0,121,1) 94%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000624",endColorstr="#000079",GradientType=1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 157px;
+        img{
+            width: 58px;
+        }
+    }
+}

@@ -1,0 +1,68 @@
+
+@mixin dark(){
+    @at-root {
+        .dark{
+            @content()
+        }
+    }
+}
+
+.cart-product-item {
+
+    @apply bg-dark-10 dark:bg-dark-800 ;
+
+    display: flex;
+
+    .img {
+        height: 100px;
+        //width: 100px;
+
+        img {
+            object-fit: contain;
+            background-position: top;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            mix-blend-mode: inherit;
+        }
+    }
+
+    .content {
+        background: transparent;
+        @apply px-2 py-1;
+        h3 {
+            @apply text-dark-800 dark:text-dark-10 font-semibold
+        }
+
+        .price {
+            @apply text-dark-600 dark:text-dark-200 font-semibold
+        }
+
+        .p-size {
+            @apply text-dark-600 dark:text-dark-200 font-semibold
+        }
+
+        .p-select {
+            background: #f6f6f6;
+            padding: 5px 20px;
+            border-radius: 3px;
+            @include dark(){
+                .p-select {
+                    background: #2d2d2d !important;
+                    color: #f6f6f6 !important;
+                }
+            }
+
+        }
+
+
+
+
+
+
+        .p-select {
+            //background: red;
+
+        }
+    }
+}

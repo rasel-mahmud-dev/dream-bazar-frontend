@@ -354,7 +354,6 @@ const HomePage = (props) => {
                     </div>
 
                 </div>
-
             </div>
 
 
@@ -450,32 +449,6 @@ const HomePage = (props) => {
                 </div>
             </div>
 
-
-
-
-            <div className="bottom-nav home-nav">
-                <div className="nav-items ">
-                    <li className="h-nav-item">
-                        <HiOutlineHome />
-                        <label htmlFor="">Home</label>
-                    </li>
-
-                    <li className="h-nav-item">
-                        <CiShoppingCart />
-                        <label htmlFor="">My Cart</label>
-                    </li>
-
-                    <li className="h-nav-item">
-                        <HiOutlineHeart />
-                        <label htmlFor="">Wishlist</label>
-                    </li>
-
-                    <li className="h-nav-item">
-                        <BiUser />
-                        <label htmlFor="">Account</label>
-                    </li>
-                </div>
-            </div>
         </div>
     );
 };

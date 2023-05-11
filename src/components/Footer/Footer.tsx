@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 const Footer = () => {
     return (
         <section>
-            <footer className="bg-green-900 dark:bg-primary-9 pb-10 py-14 text-neutral-50">
+            <footer className=" pb-10 py-14 text-neutral-50">
                 <div className="container grid grid-cols-1 md:grid-cols-8  gap-0 md:gap-10">
                     <div className="col-auto md:col-span-3 lg:col-span-2">
                         <div className="col-span-2 logo">
@@ -133,7 +133,7 @@ const Footer = () => {
                 </div>
             </footer>
 
-            <footer className="bg-green-900 border-t border-green-800 py-4 ">
+            <footer className="py-4 ">
                 <div className="container flex flex-col md:flex-row text-center md:text-start gap-4 md:gap-4 justify-between text-white">
                     <h1>Terms of Policy</h1>
                     <h1>Copyright © {new Date().getFullYear()} Rasel Mahmud. All Rights Reserved.</h1>

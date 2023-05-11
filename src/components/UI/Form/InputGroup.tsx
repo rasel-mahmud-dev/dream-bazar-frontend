@@ -1,6 +1,8 @@
 import { FC, forwardRef, InputHTMLAttributes, ReactNode, Ref } from "react";
 import { twMerge } from "tailwind-merge";
 
+import "./style.scss"
+
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	name: string;
 	state?: { [key: string]: { value?: string | number | any; errorMessage?: string } };
@@ -41,7 +43,7 @@ const InputGroup: FC<Props | any> = forwardRef((props, ref) => {
 			{label && (
 				<div className={`flex flex-wrap items-center gap-x-2 mb-2 md:mb-0 ${labelClass}`}>
 					{label && (
-						<label htmlFor={name} className={twMerge(`block font-medium text-gray-900  flex items-center whitespace-nowrap`)}>
+						<label htmlFor={name} className={twMerge(` font-medium text-gray-900  flex items-center whitespace-nowrap`)}>
 							{label}
 							{required && <span className="text-red-500 ml-1">*</span>}
 						</label>
@@ -53,8 +55,7 @@ const InputGroup: FC<Props | any> = forwardRef((props, ref) => {
 			<div className="w-full">
 				<div
 					className={twMerge(
-						`rounded-md flex justify-between items-center  w-full placeholder:text-gray-400 text-gray-800 hover:border-green-450`,
-						" bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200 ",
+						`rounded-md flex  justify-between items-center  w-full `,
 						inputClass
 					)}
 				>
@@ -79,7 +80,7 @@ const InputGroup: FC<Props | any> = forwardRef((props, ref) => {
 							id={name}
 							placeholder={placeholder}
 							onChange={onChange && onChange}
-							className={twMerge(`bg-transparent rounded-md px-2 py-2 w-full outline-none border-none`)}
+							className={twMerge(`bg-transparent rounded-md px-2 py-3 w-full outline-none border-none`)}
 						/>
 					)}
 					{!label && required && <span className="text-red-500 mr-2 font-bold">*</span>}

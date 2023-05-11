@@ -1,15 +1,17 @@
-import React, { FC, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import React, {FC, useState} from "react";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 
-import { useDispatch } from "react-redux";
-import { loginAction } from "actions/authAction";
+import {useDispatch} from "react-redux";
+import {loginAction} from "actions/authAction";
 // import { toggleAppMask } from "actions/appAction";
-
-import { InputGroup } from "UI/Form";
+import {InputGroup} from "UI/Form";
 import useLanguage from "src/hooks/useLanguage";
 import SocialLogin from "components/SocialLogin/SocialLogin";
 import HttpResponse from "components/HttpResponse/HttpResponse";
 import Divider from "UI/Divider/Divider";
+
+import "./loginPage.scss"
+import {Button} from "UI/index";
 
 interface LoginPageProps {
     toggleLoader?: any;
@@ -40,19 +42,19 @@ const LoginPage: FC<LoginPageProps> = (props) => {
         httpResponse: "",
         httpStatus: 0,
         userData: {
-            phone: { value: "", errorMessage: "" },
-            email: { value: "rasel.mahmud.dev@gmail.com", errorMessage: "" },
-            password: { value: "1", errorMessage: "" },
-            remember: { value: "", errorMessage: "" },
+            phone: {value: "", errorMessage: ""},
+            email: {value: "rasel.mahmud.dev@gmail.com", errorMessage: ""},
+            password: {value: "1", errorMessage: ""},
+            remember: {value: "", errorMessage: ""},
         },
     });
 
     async function loginHandler(e) {
 
         e.preventDefault();
-        setHttpResponse(p=>({ ...p, loading: false, message: "" }));
+        setHttpResponse(p => ({...p, loading: false, message: ""}));
         let isCompleted = true;
-        let updatedUserData = { ...state.userData };
+        let updatedUserData = {...state.userData};
 
         let loginData = {
             email: updatedUserData.email,
@@ -78,20 +80,20 @@ const LoginPage: FC<LoginPageProps> = (props) => {
         }
 
 
-        setHttpResponse(p=>({ ...p, loading: true, }));
+        setHttpResponse(p => ({...p, loading: true,}));
         loginAction(payload, dispatch, function (data, errorMessage) {
             if (!errorMessage) {
                 location.state?.redirect && navigate(location.state?.redirect);
-            } else{
-                setHttpResponse({ loading: false, isSuccess: false, message: errorMessage});
+            } else {
+                setHttpResponse({loading: false, isSuccess: false, message: errorMessage});
             }
         });
 
     }
 
     function handleChange(e) {
-        const { name, value } = e.target;
-        let updateUserData = { ...state.userData };
+        const {name, value} = e.target;
+        let updateUserData = {...state.userData};
 
         updateUserData = {
             ...updateUserData,
@@ -111,19 +113,26 @@ const LoginPage: FC<LoginPageProps> = (props) => {
 
 
     return (
-        <div>
-            <h1 className="card-title">User Login</h1>
+        <div className="login-page">
 
-            <HttpResponse state={httpResponse} />
+            <div className="login-header">
+                <img src={"/icons/lock.svg"} alt=""/>
+            </div>
 
-            <form onSubmit={loginHandler}>
+            <h1 className=" uppercase text-center text-3xl font-extrabold mt-6 dark:text-dark-10 text-dark-700">Login</h1>
+
+            <HttpResponse state={httpResponse}/>
+
+            <form onSubmit={loginHandler} className="p-4">
                 <InputGroup
                     state={state.userData}
                     name="email"
+                    inputClass="bg-input-group"
                     onChange={handleChange}
                     placeholder={l("Enter Email")}
                 />
                 <InputGroup
+                    inputClass="bg-input-group"
                     state={state.userData}
                     name="password"
                     type="password"
@@ -134,13 +143,16 @@ const LoginPage: FC<LoginPageProps> = (props) => {
                 <p className="my-5 text-right text-link">
                     {l("Forget password")} ? <Link to="/customer/join/forget-password?action=reset-password">{l("reset password")}</Link>{" "}
                 </p>
-                <button className="w-full bg-green-450 px-4 py-2 border-none text-white font-semibold text-lg rounded-xl">{l("LoginPage")}</button>
+                <Button className="w-full !py-2.5 !shadow-xs" color="primary" theme="primary">{l("Login")}</Button>
             </form>
 
-            <Divider text="OR"/>
+            <div className="px-3">
+                <Divider text="OR"/>
+            </div>
 
-
-            <SocialLogin />
+            <div className="px-3">
+                <SocialLogin/>
+            </div>
 
             <p className="text-center  mb-4 mt-6 dark:text-neutral-400">
                 {l("Not a member")}?
