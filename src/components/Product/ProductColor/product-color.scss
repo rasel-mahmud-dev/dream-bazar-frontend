@@ -1,0 +1,14 @@
+
+.product-colors {
+    @apply flex flex-wrap;
+
+    gap: 5px;
+
+    .product-color {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        display: block;
+        cursor: pointer;
+    }
+}

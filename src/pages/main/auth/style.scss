@@ -38,5 +38,31 @@
 }
 
 .input-group {
-    @apply bg-neutral-200/50 dark:bg-neutral-900/50 text-neutral-800  dark:text-neutral-300 placeholder:text-neutral-800  dark:placeholder:text-neutral-400  rounded-lg border border-transparent focus:border focus:border-green-400 py-3 px-4;
+    //@apply bg-neutral-200/50 dark:bg-neutral-900/50 text-neutral-800  dark:text-neutral-300 placeholder:text-neutral-800  dark:placeholder:text-neutral-400  rounded-lg border border-transparent focus:border focus:border-green-400 py-3 px-4;
+    //@apply text-neutral-800  dark:text-neutral-300 placeholder:text-neutral-800  dark:placeholder:text-neutral-400  rounded-lg border border-transparent focus:border focus:border-green-400 py-3 px-4;
+
+    label{
+        @apply text-dark-800 dark:text-dark-5;
+        margin-bottom: 5px;
+    }
+
+    .input{
+        @apply bg-dark-20 dark:bg-dark-600;
+        border-radius: 4px;
+    }
+
+    input, textarea, select{
+        @apply text-dark-700 dark:text-dark-5;
+        padding: 10px 10px;
+        background: transparent;
+        width: 100%;
+        font-weight: 400;
+        outline: none;
+        border: none;
+        &::placeholder{
+            color: inherit;
+            font-weight: 400;
+        }
+    }
+
 }

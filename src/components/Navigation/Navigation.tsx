@@ -9,20 +9,20 @@ import {
     BiChevronsDown,
     BiSearch,
     BiUser,
-    BsGithub, CiSearch, CiShoppingCart,
+    BsGithub,
+    CiSearch,
+    CiShoppingCart,
     FaFacebook,
-    FaHeart,
     FaLanguage,
     FaSignInAlt,
     FiMoon,
-    GiShoppingBag,
     GrOrderedList,
     IoLanguageOutline,
     MdFavorite,
 } from "react-icons/all";
 
 
-import {HiOutlineHeart,HiOutlineBars3} from "react-icons/hi2"
+import {HiOutlineBars3, HiOutlineHeart} from "react-icons/hi2"
 
 import useLanguage from "src/hooks/useLanguage";
 import staticImagePath from "src/utills/staticImagePath";
@@ -164,7 +164,7 @@ function Navigation(props) {
         }
     }, [searchBy])
 
-    function handleToggleLeftBar(){
+    function handleToggleLeftBar() {
 
     }
 
@@ -225,7 +225,7 @@ function Navigation(props) {
                 <div className="main-nav ">
                     <div className="max-w-8xl mx-auto px-4 flex items-center">
                         <div className="md:hidden block mr-3 ">
-                            <HiOutlineBars3 className="text-2xl nav-text" onClick={handleToggleLeftBar} />
+                            <HiOutlineBars3 className="text-2xl nav-text" onClick={handleToggleLeftBar}/>
                         </div>
 
                         <div className="grid grid-cols-12 items-center w-full ">
@@ -241,25 +241,27 @@ function Navigation(props) {
 
                                 {/***** search bar *******/}
                                 <div className="hidden items-center  w-full  lg:flex">
-                                    <div className="dark:bg-neutral-800 bg-white/10 py-2 px-4 flex justify-between items-center rounded-full w-full">
-                                        <div className="flex items-center border-r border-white pr-2">
-                                            <select
-                                                defaultValue={searchBy.fieldName}
-                                                onChange={(e: FormEvent<HTMLSelectElement>) => handleChangeSearchInput((e.target as HTMLInputElement).value, "fieldName")}
-                                                className="dark:text-dark-30  bg-transparent text-white outline-none border-none w-auto placeholder-white"
-                                            >
-                                                <option value="title">Title</option>
-                                                <option value="brand">Brand</option>
-                                            </select>
-                                            {/*<FaAngleDown className="text-white text-xl" />*/}
+                                    <div className="desktop-navigation-input-textbox ">
+                                        <div className="flex flex-1">
+                                            <div className="flex items-center border-r border-white pr-2">
+                                                <select
+                                                    defaultValue={searchBy.fieldName}
+                                                    onChange={(e: FormEvent<HTMLSelectElement>) => handleChangeSearchInput((e.target as HTMLInputElement).value, "fieldName")}
+                                                    className="navigation-input"
+                                                >
+                                                    <option value="title">Title</option>
+                                                    <option value="brand">Brand</option>
+                                                </select>
+                                                {/*<FaAngleDown className="text-white text-xl" />*/}
+                                            </div>
+                                            <input
+                                                onChange={(e: FormEvent<HTMLInputElement>) => handleChangeSearchInput((e.target as HTMLInputElement).value, "value")}
+                                                value={searchBy.value}
+                                                placeholder="Search for products, brand and more"
+                                                className="navigation-input"
+                                            />
                                         </div>
-                                        <input
-                                            onChange={(e: FormEvent<HTMLInputElement>) => handleChangeSearchInput((e.target as HTMLInputElement).value, "value")}
-                                            value={searchBy.value}
-                                            placeholder="Search for products, brand and more"
-                                            className="dark:text-dark-30 dark:placeholder-dark-30 bg-transparent w-full outline-none text-white placeholder-white ml-2 "
-                                        />
-                                        <BiSearch className="text-white text-xl"/>
+                                        <BiSearch className="desktop-navigation-input-search-icon text-xl"/>
                                     </div>
                                 </div>
                             </div>
@@ -312,7 +314,7 @@ function Navigation(props) {
                                         </Badge>
                                         <CiShoppingCart className="nav-text text-2xl "/>
 
-                                        <span className="font-medium nav-text hidden md:block">{l("In Cart")}</span>
+                                        <span className="font-medium whitespace-nowrap nav-text hidden md:block">{l("In Cart")}</span>
                                         <Suspense fallback={<h1>loading</h1>}>
                                             <CartDropdown className="right-0 top-14" isShow={state.openDropdown === "cart"}/>
                                         </Suspense>
@@ -322,7 +324,7 @@ function Navigation(props) {
 
 
                                     <li className=" ">
-                                        <Link to="/wishlist" className="items-center gap-x-2 py-5">
+                                        <Link to="/wishlist" className="flex items-center gap-x-2 py-5">
                                             <HiOutlineHeart className="nav-text text-xl"/>
                                             <span className="font-medium nav-text hidden md:block whitespace-nowrap">{l("Favorite")}</span></Link>
                                     </li>

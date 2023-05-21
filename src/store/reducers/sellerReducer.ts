@@ -7,7 +7,8 @@ export interface ShopType {
     shopAddress: string
     shopLogo: string
     shopPhone: string
-    shopBanner?: string
+    shopBanner?: string,
+    featuresProducts?: string[]
 }
 
 export interface SellerStateType {

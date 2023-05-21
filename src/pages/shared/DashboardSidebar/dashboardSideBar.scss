@@ -1,8 +1,7 @@
 @import "src/styles/--breakpoint";
 
+
 .dashboard-sidebar {
-
-
     @include get_down(1024px) {
         transition: all .4s ease;
         left: -100% !important;

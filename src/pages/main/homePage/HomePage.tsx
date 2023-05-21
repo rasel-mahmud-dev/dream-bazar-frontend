@@ -1,23 +1,20 @@
-import React, {lazy} from "react";
+import React, {lazy, useEffect} from "react";
 import "./HomePage.scss";
 import {ACTION_TYPES} from "store/types";
 import {Link, useNavigate} from "react-router-dom";
-import {fetchHomePageSectionProducts} from "actions/productAction";
+import {fetchHomePageSection, fetchHomePageSectionProducts} from "actions/productAction";
 import {Button, Image} from "UI/index";
-import fullLink from "src/utills/fullLink";
-
-
-import staticImagePath from "src/utills/staticImagePath";
 import useLanguage from "src/hooks/useLanguage";
-import {BiCart, BiUser, CiShoppingCart, MdFavorite} from "react-icons/all";
-import { HiOutlineHome} from "react-icons/hi2";
 import SEO from "components/SEO/SEO";
 import useScrollTop from "src/hooks/useScrollTop";
 import useAppSelector from "src/hooks/useAppSelector";
 import useAppDispatch from "src/hooks/useAppDispatch";
-import {HiOutlineHeart} from "react-icons/hi2";
-import {FreeMode} from "swiper";
-import {Swiper, SwiperSlide} from "swiper/react";
+import RenderHomeSection from "components/HomePage/RenderHomeSection";
+import CarouselView from "components/Product/CarouselView";
+import ProductCartView from "components/Product/ProductCartView";
+import apis from "src/apis";
+import {HomePageSectionProduct} from "reducers/productSlice";
+import TopBrandsCarousel from "components/HomePage/TopBrandsCarousel";
 
 const HomeCategoryNav = lazy(() => import("pages/main/homePage/HomeCategoryNav/HomeCategoryNav"));
 const SliderSection = lazy(() => import("pages/main/homePage/SliderSection"));
@@ -37,6 +34,11 @@ const HomePage = (props) => {
 
     const dayDeals = [
         {
+            title: "Pink Hoodie t-shirt full",
+            seller: {shopName: "Mango"},
+            price: "32.00", discount: 20,
+            thumb: "https://themes.pixelstrap.com/multikart-app/assets/images/products/1.jpg"
+        }, {
             title: "Pink Hoodie t-shirt full",
             seller: {shopName: "Mango"},
             price: "32.00", discount: 20,
@@ -63,13 +65,29 @@ const HomePage = (props) => {
         appState,
         productState: {
             homePageSectionsData,
-            homePageSectionProducts: productSectionsWithProduct,
+            homePageSection,
+            homePageSectionProducts
+
             // products,
             // loadingStates,
             // paginations,
             // fetchedData,
         }
     } = useAppSelector(state => state)
+
+    useEffect(() => {
+
+        let homeSectionItemSlugs = homePageSection.map(sec => sec.sectionSlug)
+        if (!homeSectionItemSlugs) return;
+        apis.post<HomePageSectionProduct>("/api/products/home-section-products", {
+            sectionSlugs: [...homeSectionItemSlugs.slice(0, 2)]
+        }).then(({data}) => {
+            dispatch(fetchHomePageSectionProducts(data))
+        }).catch(ex => {
+            console.log(ex)
+        })
+
+    }, [homePageSection])
 
 
     const {selectedLang, lang} = appState;
@@ -94,7 +112,7 @@ const HomePage = (props) => {
 
     React.useEffect(() => {
 
-        dispatch(fetchHomePageSectionProducts());
+        dispatch(fetchHomePageSection());
 
         // let fetchedDataa =  fetchedData.find(fd=>fd.where === "home_page")
         // console.log(fetchedDataa)
@@ -155,20 +173,6 @@ const HomePage = (props) => {
         );
     }
 
-    function handleJumpOneTypeProductPage(sectionName, productSectionsWithProduct) {
-        let n;
-        // homePageSectionsData.map((item) => {
-        //     if (item.name === sectionName && !item.id) {
-        //         // history.push(`/prod/${item.name}/${item.type}/${item.params}`)
-        //         navigate(`/prod/${item.name}`);
-        //     } else if (item.name === sectionName && item.id) {
-        //         navigate(`/products/?slug=${item.name}&type=${item.filterBy}&id=${item.id}`);
-        //     }
-        // });
-    }
-
-
-    //! this a Bug
     function handleAddToCart(pp) {
         props.closeNotify();
         props.addToCart(pp);
@@ -183,17 +187,6 @@ const HomePage = (props) => {
         }
     }
 
-
-    const brands = [
-        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/1.png"},
-        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/2.png"},
-        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/3.png"},
-        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/4.png"},
-        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/5.png"},
-        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/6.png"},
-        {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/7.png"},
-    ]
-
     return (
         <div className="homepage">
             <SEO title={`Dream Bazar online ecommerce shop`} description="Product filter"/>
@@ -204,267 +197,17 @@ const HomePage = (props) => {
                 <SliderSection/>
             </div>
 
-            <div className="day-deals px-2 mt-6">
-
-                <div className="flex items-center justify-between mb-2 mt-5">
-                    <h2 className="font-semibold text-lg dark:text-dark-40 text-dark-800">Deals of the day</h2>
-                    <Link to="/" className="font-medium text-primary-450">See all</Link>
-                </div>
-
-                <div className="products-list">
-                    {dayDeals.map(deal => (
-                        <div className="product-list-view">
-
-                            <div className="fav-icon">
-                                <HiOutlineHeart/>
-                            </div>
-
-
-                            <div className="img-root">
-                                <img src={staticImagePath(deal.thumb)} alt=""/>
-                            </div>
-                            <div className="product-meta">
-                                <h3 className="p-title">{deal.title}</h3>
-                                <p className="p-seller">{deal.seller.shopName}</p>
-
-                                <div className="p-price-row">
-                                    <h4 className="p-price">{deal.price}</h4>
-                                    <h4 className="p-discount">SAVE {deal.discount}% </h4>
-                                </div>
-
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-
-            <div className="day-deals px-2 mt-10">
-
-                <div className="flex items-center justify-between mb-2 mt-5">
-                    <h2 className="font-semibold text-lg dark:text-dark-40 text-dark-800">Deals of the day</h2>
-                    <Link to="/" className="font-medium text-primary-450">See all</Link>
-                </div>
-
-                <div className="products-grid">
-                    {dayDeals.map(deal => (
-                        <div className="product-list-view product-card">
-
-                            <div className="fav-icon">
-                                <HiOutlineHeart/>
-                            </div>
-
-
-                            <div className="img-root">
-                                <img src={staticImagePath(deal.thumb)} alt=""/>
-                            </div>
-                            <div className="product-meta">
-                                <h3 className="p-title">{deal.title}</h3>
-                                <p className="p-seller">{deal.seller.shopName}</p>
-
-                                <div className="p-price-row">
-                                    <h4 className="p-price">{deal.price}</h4>
-                                    <h4 className="p-discount">SAVE {deal.discount}% </h4>
-                                </div>
-
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-
-                <div className="offer-remain-time mt-10">
-                    <div className="flex items-center justify-between mb-2 mt-5">
-                        <h2 className="font-semibold text-lg dark:text-dark-40 text-dark-800">Biggest Deals on Top Brands</h2>
-                        {/*<Link to="/" className="font-medium text-primary-450">See all</Link>*/}
+            <div className="container">
+                {homePageSection.map((section, index) => (
+                    <div>
+                        <RenderHomeSection homePageSectionProducts={homePageSectionProducts} section={section}/>
                     </div>
-
-
-                    <div className="flex items-center">
-
-                        <Swiper
-                            slidesPerView={3}
-                            spaceBetween={10}
-                            freeMode={true}
-                            modules={[FreeMode]}
-                            className="mySwiper"
-                        >
-
-                            {brands.map(brand => (
-                                <SwiperSlide>
-                                    <div className="brand-item">
-                                        <img src={staticImagePath(brand.img)} alt=""/>
-                                    </div>
-                                </SwiperSlide>
-                            ))}
-
-                        </Swiper>
-                    </div>
-
-                </div>
-
-
-                <div className="offer-remain-time mt-10">
-                    <div className="flex items-center justify-between mb-2 mt-5">
-                        <h2 className="font-semibold text-lg dark:text-dark-40 text-dark-800">Biggest Deals on Top Brands</h2>
-                        {/*<Link to="/" className="font-medium text-primary-450">See all</Link>*/}
-                    </div>
-
-
-                    <div className="flex items-center">
-
-                        <Swiper
-                            // width={300}
-                            slidesPerView={2}
-                            spaceBetween={10}
-                            freeMode={true}
-                            centeredSlides={false}
-                            modules={[]}
-                            className="mySwiper"
-                        >
-
-                            {dayDeals.map(deal => (
-                                <SwiperSlide>
-                                    <div className="product-list-view product-card product-wide">
-
-                                        <div className="fav-icon">
-                                            <HiOutlineHeart/>
-                                        </div>
-
-
-                                        <div className="img-root">
-                                            <img src={staticImagePath(deal.thumb)} alt=""/>
-                                        </div>
-                                        <div className="product-meta">
-                                            <h3 className="p-title">{deal.title}</h3>
-                                            <p className="p-seller">{deal.seller.shopName}</p>
-
-                                            <div className="p-price-row">
-                                                <h4 className="p-price">{deal.price}</h4>
-                                                <h4 className="p-discount">SAVE {deal.discount}% </h4>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </SwiperSlide>
-                            ))}
-
-
-                        </Swiper>
-                    </div>
-
-                </div>
-            </div>
-
-
-            <div className="r max-w-8xl mx-auto" onScroll={handleScroll}>
-                <div className="my-20">
-                    {Object.keys(productSectionsWithProduct) &&
-                        Object.keys(productSectionsWithProduct).map((sectionName, index: number) => (
-                            <div key={index}>
-                                <div className="bg-body mt-10">
-                                    <div
-                                        className="flex items-center justify-between py-2 px-4 mb-8 border-b border-b-neutral-900/10 dark:border-neutral-600 ">
-                                        <h1 className="text-neutral-800 dark:text-white font-medium text-md md:text-lg lg:text-2xl">
-                                            {l(sectionName)}
-                                        </h1>
-                                        {productSectionsWithProduct[sectionName].type === "products" && null}
-                                        <Button
-                                            loading={false}
-                                            className="bg-green-500 text-white"
-                                            loaderClass="!border-l-white !border-b-white"
-                                            onClick={() => handleJumpOneTypeProductPage(sectionName, productSectionsWithProduct)}
-                                        >
-                                            {l("More")}
-                                        </Button>
-                                    </div>
-
-                                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                                        {productSectionsWithProduct[sectionName] &&
-                                        productSectionsWithProduct[sectionName].values &&
-                                        productSectionsWithProduct[sectionName].values.length > 0 ? (
-                                            productSectionsWithProduct[sectionName].values.map((pp, index) => (
-                                                <div className="product bg-red-100 p-4" key={index}>
-                                                    {productSectionsWithProduct[sectionName].type === "brands" ||
-                                                    productSectionsWithProduct[sectionName].type === "categories" ? (
-                                                        <div className="product_image small">
-                                                            <img src={fullLink(pp.logo)} alt=""/>
-                                                        </div>
-                                                    ) : (
-                                                        <Link to={`/${pp.slug}`}>
-                                                            <div className="product_image_div">
-                                                                <div className="product_image_wra">
-                                                                    <img src={staticImagePath(pp.coverPhoto)} alt="cover"/>
-                                                                </div>
-                                                            </div>
-                                                        </Link>
-                                                    )}
-
-                                                    <div className="desc mt-4">
-                                                        <h4 className="text-neutral-700 hover:text-secondary-400 dark:text-neutral-100">
-                                                            <Link to={`/${pp.slug}`}>
-                                                                {productSectionsWithProduct[sectionName].type === "categories"
-                                                                    ? pp.name
-                                                                    : productSectionsWithProduct[sectionName].type === "brands"
-                                                                        ? pp.name
-                                                                        : shortTitle(pp.title)}
-                                                            </Link>
-                                                        </h4>
-
-                                                        {productSectionsWithProduct[sectionName].type === "products" && (
-                                                            <>
-                                                                <h5 className="mt-2 text-green-450 font-medium">${pp.price}</h5>
-                                                                {/*<Button onClick={()=>handleAddToCart(pp)}>{ isEn(selectedLang) ? 'Add To Cart': lang.add_to_cart}</Button>*/}
-                                                                {/*<Link className="Product-detail-link" to={`/products/${pp._id}`}> { isEn(selectedLang) ? 'Details' : lang.details}</Link>*/}
-                                                            </>
-                                                        )}
-
-                                                        <div className="flex justify-center gap-x-2 items-center mt-2">
-                                                            <div className="bg-gray-400/20 p-1.5 rounded-full">
-                                                                <MdFavorite className="text-sm text-red-500"/>
-                                                            </div>
-                                                            <div className="bg-gray-400/20 p-1.5 rounded-full">
-                                                                <BiCart className="text-sm"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <div className="product-404">
-                                                <h1 className="product-404__title">Product Not Found</h1>
-                                                <ul className="product-404__causes">
-                                                    <li>May be product not found from database.</li>
-                                                    <li>May be network problem.</li>
-                                                    <li>May not added these type of product from admin.</li>
-                                                </ul>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-
-                    <Button className="!mx-auto text-green-500 mt-10">Load More Section</Button>
-                </div>
+                ))}
             </div>
 
         </div>
     );
 };
 
-// function mapStateToProps(state) {
-//     return {
-//         appState: state.appState,
-//         productState: state.productState,
-//     };
-// }
 
 export default HomePage
-
-// export default connect(mapStateToProps, {
-//     fetchProducts,
-//     fetchHomePageSectionProducts,
-//     addToCart,
-//     closeNotify,
-// })(HomePage);

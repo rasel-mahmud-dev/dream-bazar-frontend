@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {BiCart, BiDollar, CgProductHunt} from "react-icons/all";
 import "./Dashboard.scss";
 
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Card from "UI/Form/Card/Card";
 import VisitorChart from "./dashboardHome/visitorChart/VisitorChart"
+import apis from "src/apis";
 
 
 const AdminDashboardHome = () => {
@@ -15,13 +16,17 @@ const AdminDashboardHome = () => {
     ];
 
 
+    useEffect(()=>{
+        apis.get("")
+    }, [])
+
     
     return (
         <div>
 			<h3 className="route-title">Admin Dashboard</h3>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4">
 				{slats.map((stat) => (
-                    <Card>
+                    <Card >
 						<div className="flex items-center gap-x-4 py-3">
 							<div
                                 className={`text-white w-12 h-12 flex items-center justify-center rounded-full outline outline-8 ${stat.iconClassName}`}>
@@ -54,6 +59,7 @@ const AdminDashboardHome = () => {
 		</div>
     );
 };
+
 
 export default AdminDashboardHome;
 

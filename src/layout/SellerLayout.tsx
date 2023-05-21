@@ -15,6 +15,7 @@ import {Roles, Scope} from "store/types";
 import CreateShop from "pages/shared/Shop/CreateShop";
 import AddProduct from "pages/shared/AddProduct/AddProduct";
 import AllProductsLite from "pages/shared/AllProducts/AllProductsLite";
+import SellerProducts from "pages/sellerDashboard/sellerProducts/SellerProducts";
 
 
 const ShopInfo = lazy(() => import("pages/shared/Shop/ShopInfo"));
@@ -39,7 +40,7 @@ export const sellerRoute = [
         path: "products",
         element: (
             <PrivateRoute scope={Scope.SELLER_USER}>
-                <AllProductsLite scope={Scope.SELLER_USER}/>
+                <SellerProducts scope={Scope.SELLER_USER}/>
             </PrivateRoute>
         ),
     },
@@ -184,8 +185,6 @@ const SellerLayout = () => {
     // }, [location.pathname]);
 
     useEffect(() => {
-
-
         if (auth) {
             dispatch(fetchShopInfo())
         } else {

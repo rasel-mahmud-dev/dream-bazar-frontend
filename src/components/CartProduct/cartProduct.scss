@@ -1,11 +1,5 @@
 
-@mixin dark(){
-    @at-root {
-        .dark{
-            @content()
-        }
-    }
-}
+@import "src/styles/--mixin";
 
 .cart-product-item {
 

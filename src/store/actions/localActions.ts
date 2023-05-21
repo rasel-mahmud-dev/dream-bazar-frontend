@@ -1,4 +1,4 @@
-import {PaginationType} from "reducers/productReducer";
+import {PaginationType} from "reducers/productSlice";
 
 
 export const getPagination =(paginations:PaginationType[] = [], where: any): (undefined | PaginationType)=>{

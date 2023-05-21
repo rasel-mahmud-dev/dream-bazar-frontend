@@ -386,8 +386,7 @@ const AddCategory = (props) => {
                     name="name"
                     label="Category Name"
                     className="!flex-col"
-                    inputClass="input-group"
-                    labelClass="dark:text-white !mb-2"
+                    labelClass=""
                     state={formData}
                     placeholder="enter category name"
                     onChange={handleChange}
@@ -396,10 +395,8 @@ const AddCategory = (props) => {
 
                 <SelectGroup
                     name="parentId"
-                    labelClass="dark:text-white !mb-2"
-                    className={"!flex-col"}
+                    className={"!flex-col mt-4"}
                     label="Select ParentId"
-                    inputClass="input-group"
                     placeholder="parentId"
                     onChange={handleChange}
                     state={formData}

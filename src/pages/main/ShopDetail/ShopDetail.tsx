@@ -5,7 +5,7 @@ import staticImagePath from "src/utills/staticImagePath";
 import Product from "components/Product/Product";
 import RatingStar from "UI/RatingStar";
 import Pagination from "components/Pagination/Pagination";
-import {ProductType} from "reducers/productReducer";
+import {ProductType} from "reducers/productSlice";
 import {fetchShopDetail, fetchShopProducts} from "actions/shopAction";
 import useFetchProductCategory from "src/hooks/fetchProductCategory";
 import useAppSelector from "src/hooks/useAppSelector";
@@ -133,7 +133,7 @@ const ShopDetail = () => {
                          <div>
                              {Object.keys(groupProduct).map(categoryName=>(
                                  <div>
-                                     <div className="flex justify-between items-center card !shadow-none !mt-6 !mb-0">
+0                                     <div className="flex justify-between items-center card !shadow-none !mt-6 !mb-0">
                                          <h2 className="heading-4">{categoryName}</h2>
 
                                          <Button

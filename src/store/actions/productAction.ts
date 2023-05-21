@@ -7,6 +7,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {FetchBrandForCategoriesAction} from "store/types/brandActionTypes";
 import {ChangeFilterSearchAction, FetchProductStoreInfoAction} from "store/types/productActionTypes";
 import {fetchBrandForCategory} from "actions/brandAction";
+import {HomePageSectionProduct} from "reducers/productSlice";
 
 
 export const fetchProducts = () => async (dispatch, getState, api) => {
@@ -325,29 +326,67 @@ export function deleteFlatCategoryAction(dispatch, id, callback) {
 
 
 // fetch homepage section Product...
-export const fetchHomePageSectionProducts = createAsyncThunk("", async function (payload, thunkAPI) {
+export const fetchHomePageSection = createAsyncThunk("", async function (payload, thunkAPI) {
 
-    let {homePageSectionsData} = (thunkAPI.getState() as RootState).productState
+    let { homePageSectionsData} = (thunkAPI.getState() as RootState).productState
 
-    let data = homePageSectionsData.map(section => {
-        return {
-            name: section.name,
-            params: section.params
+    try{
+        let data = homePageSectionsData.map(section => {
+            return {
+                name: section.name,
+                params: section.params
+            }
+        })
+
+        let response = await apis.post(`/api/products/home-section`, {
+            data: data
+        })
+
+        if (response.status !== 200) {
+            //   do other staff
+            return;
         }
-    })
 
-    let response = await apis.post(`/api/products/home-section`, {
-        data: data
-    })
+        return response.data
 
-    if (response.status !== 200) {
-        //   do other staff
+    } catch (ex){
 
-        return;
     }
 
-    return response.data
+})
 
+
+// fetch homepage section Product...
+export const fetchHomePageSectionProducts = createAsyncThunk<HomePageSectionProduct, HomePageSectionProduct>("fetchHomePageSectionProducts",  function (payload, thunkAPI) {
+
+    // let { homePageSectionsData} = (thunkAPI.getState() as RootState).productState
+
+
+    return payload
+
+
+    // try{
+    //     let data = homePageSectionsData.map(section => {
+    //         return {
+    //             name: section.name,
+    //             params: section.params
+    //         }
+    //     })
+    //
+    //     let response = await apis.post(`/api/products/home-section`, {
+    //         data: data
+    //     })
+    //
+    //     if (response.status !== 200) {
+    //         //   do other staff
+    //         return;
+    //     }
+    //
+    //     return response.data
+    //
+    // } catch (ex){
+    //
+    // }
 
 })
 

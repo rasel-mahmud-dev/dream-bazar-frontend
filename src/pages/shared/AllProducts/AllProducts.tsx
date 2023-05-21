@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 import isoStringToDate from "src/utills/isoStringToDate";
 import {fetchProducts} from "actions/adminProductAction";
 import Switch from "UI/Form/switch/Switch";
-import {ProductType} from "reducers/productReducer";
+import {ProductType} from "reducers/productSlice";
 import {fetchBrands} from "actions/brandAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";

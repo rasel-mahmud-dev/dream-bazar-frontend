@@ -22,7 +22,7 @@ import useAppSelector from "src/hooks/useAppSelector";
 import {CategoryDetail} from "reducers/categoryReducer";
 import {fetchCategoryDetail, fetchFlatCategoriesAction} from "actions/categoryAction";
 import useScrollTop from "src/hooks/useScrollTop";
-import {ProductType} from "reducers/productReducer";
+import {ProductType} from "reducers/productSlice";
 
 
 
@@ -402,12 +402,21 @@ const AddProduct = ({roleFor}) => {
 
             <form onSubmit={handleSubmit}>
                 <Card>
+
+                    {/*<InputGroup*/}
+                    {/*    state={state.userData}*/}
+                    {/*    name="email"*/}
+                    {/*    inputClass="bg-input-group"*/}
+                    {/*    onChange={handleChange}*/}
+                    {/*    placeholder={l("Enter Email")}*/}
+                    {/*/>*/}
+
                     <InputGroup
                         name="title"
                         required={newProductData.title.required}
                         label="Product Title"
-                        className="!flex-col bg-white  "
-                        inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                        className="!flex-col   "
+                        inputClass="bg-input-group"
                         labelClass="dark:text-white !mb-2"
                         state={newProductData}
                         placeholder="New Product"
@@ -418,9 +427,6 @@ const AddProduct = ({roleFor}) => {
                         label="Summary"
                         as="textarea"
                         required={newProductData.summary.required}
-                        className="!flex-col bg-white "
-                        inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
-                        labelClass="dark:text-white !mb-2"
                         state={newProductData}
                         placeholder="Product summary"
                         onChange={handleChange}
@@ -435,10 +441,8 @@ const AddProduct = ({roleFor}) => {
                         <SelectGroup
                             required={newProductData.productType.required}
                             name="categoryId"
-                            labelClass="dark:text-white !mb-2"
                             className={"!flex-col"}
                             label="Product Type"
-                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             placeholder="categoryId"
                             onChange={handleChange}
                             state={newProductData}
@@ -459,7 +463,7 @@ const AddProduct = ({roleFor}) => {
                             labelClass="dark:text-white !mb-2"
                             className={"!flex-col"}
                             label="Category"
-                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            inputClass="bg-input-group"
                             placeholder="categoryId"
                             onChange={handleChange}
                             state={newProductData}
@@ -480,11 +484,9 @@ const AddProduct = ({roleFor}) => {
 
                         <SelectGroup
                             name="brandId"
-                            labelClass="dark:text-white !mb-2"
                             className={"!flex-col"}
                             label="Brand"
                             required={newProductData.brandId.required}
-                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                             placeholder="brandId"
                             onChange={handleChange}
                             state={newProductData}
@@ -512,9 +514,7 @@ const AddProduct = ({roleFor}) => {
                                     Generate Code
                                 </span>
                             )}
-                            className="!flex-col bg-white "
-                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
-                            labelClass="dark:text-white !mb-2"
+                            className="!flex-col "
                             state={newProductData}
                             placeholder="Code"
                             onChange={handleChange}
@@ -540,7 +540,7 @@ const AddProduct = ({roleFor}) => {
                             label="Discount"
                             type="number"
                             className="!flex-col"
-                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            inputClass="bg-input-group"
                             labelClass="dark:text-white !mb-2"
                             state={newProductData}
                             placeholder="Discount"
@@ -552,7 +552,7 @@ const AddProduct = ({roleFor}) => {
                             label="Price"
                             type="number"
                             className="!flex-col"
-                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            inputClass="bg-input-group"
                             labelClass="dark:text-white !mb-2"
                             state={newProductData}
                             placeholder="Price"
@@ -567,7 +567,7 @@ const AddProduct = ({roleFor}) => {
                             labelAddition={() => (
                                 <span className="badge bg-teal-400/10 text-teal-400 font-medium px-1 py-px rounded text-xs">Percent %</span>
                             )}
-                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            inputClass="bg-input-group"
                             labelClass="dark:text-white !mb-2"
                             state={newProductData}
                             placeholder="Tax"
@@ -580,7 +580,7 @@ const AddProduct = ({roleFor}) => {
                             label="Total Quantity"
                             type="number"
                             className="!flex-col"
-                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            inputClass="bg-input-group"
                             labelClass="dark:text-white !mb-2"
                             state={newProductData}
                             placeholder="qty"
@@ -593,7 +593,7 @@ const AddProduct = ({roleFor}) => {
                             label="Minimum Order Quantity"
                             type="number"
                             className="!flex-col"
-                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            inputClass="bg-input-group"
                             labelClass="dark:text-white !mb-2 w-full"
                             state={newProductData}
                             placeholder="Minimum order quantity"
@@ -605,7 +605,7 @@ const AddProduct = ({roleFor}) => {
                             label="Shipping Cost"
                             type="number"
                             className="!flex-col"
-                            inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                            inputClass="bg-input-group"
                             labelClass="dark:text-white !mb-2"
                             state={newProductData}
                             placeholder="Shipping cost"
@@ -623,7 +623,7 @@ const AddProduct = ({roleFor}) => {
                         name="videoLink"
                         label="Youtube Video Link"
                         className="!flex-col"
-                        inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
+                        inputClass="bg-input-group"
                         labelClass="dark:text-white !mb-2"
                         state={newProductData}
                         placeholder="EX: https://www.youtube.com/embed/5Rdsf45"
@@ -636,7 +636,7 @@ const AddProduct = ({roleFor}) => {
                             name="images"
                             label="Upload Product Images"
                             labelAddition={() => <span className="text-xs font-medium">Ratio (1:1)</span>}
-                            inputClass="input-group"
+                            inputClass="bg-input-group"
                             onChange={handleChange}
                             defaultValue={newProductData.images.value}
                             labelClass="dark:text-white !mb-2"
@@ -649,7 +649,7 @@ const AddProduct = ({roleFor}) => {
                             required={newProductData.coverPhoto.required}
                             label="Upload Thumbnail"
                             labelAddition={() => <span className="text-xs font-medium">Ratio (1:1)</span>}
-                            inputClass="input-group"
+                            inputClass="bg-input-group"
                             placeholder="Choose Cover Photo"
                             onChange={handleChange}
                             defaultValue={newProductData.coverPhoto.value}

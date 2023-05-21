@@ -39,11 +39,11 @@ const InputGroup: FC<Props | any> = forwardRef((props, ref) => {
 	} = props;
 
     return (
-		<div className={twMerge(`mt-4 flex items-start flex-col md:flex-row`, className)}>
+		<div className={twMerge(`input-group mt-4 flex items-start flex-col md:flex-row`, className)}>
 			{label && (
 				<div className={`flex flex-wrap items-center gap-x-2 mb-2 md:mb-0 ${labelClass}`}>
 					{label && (
-						<label htmlFor={name} className={twMerge(` font-medium text-gray-900  flex items-center whitespace-nowrap`)}>
+						<label htmlFor={name} className={twMerge(` font-medium  flex items-center whitespace-nowrap`)}>
 							{label}
 							{required && <span className="text-red-500 ml-1">*</span>}
 						</label>
@@ -52,7 +52,7 @@ const InputGroup: FC<Props | any> = forwardRef((props, ref) => {
 				</div>
 			)}
 
-			<div className="w-full">
+			<div className="w-full input">
 				<div
 					className={twMerge(
 						`rounded-md flex  justify-between items-center  w-full `,
@@ -68,7 +68,7 @@ const InputGroup: FC<Props | any> = forwardRef((props, ref) => {
 							id={name}
 							placeholder={placeholder}
 							onChange={onChange && onChange}
-							className={twMerge(`bg-transparent rounded-md px-2 py-2 w-full outline-none border-none h-20`)}
+							className={inputClass}
                         ></textarea>
 					) : (
 						<input
@@ -80,7 +80,7 @@ const InputGroup: FC<Props | any> = forwardRef((props, ref) => {
 							id={name}
 							placeholder={placeholder}
 							onChange={onChange && onChange}
-							className={twMerge(`bg-transparent rounded-md px-2 py-3 w-full outline-none border-none`)}
+							className={inputClass}
 						/>
 					)}
 					{!label && required && <span className="text-red-500 mr-2 font-bold">*</span>}

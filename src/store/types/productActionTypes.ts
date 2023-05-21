@@ -1,5 +1,5 @@
 import {ACTION_TYPES, Brand} from "store/types/index";
-import { ProductType} from "reducers/productReducer";
+import { ProductType} from "reducers/productSlice";
 
 
 /**

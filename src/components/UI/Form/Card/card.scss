@@ -1,13 +1,13 @@
 
 .card{
-    @apply  bg-white dark:bg-neutral-800 shadow-card-deep dark:shadow-md;
+    @apply  bg-white dark:bg-dark-750  dark:shadow-md;
     //box-shadow: 0px 9px 14px 9px rgb(149 149 149 / 5%), -1px 1px 18px -15px rgb(77 179 75 / 45%), 0 14px 20px 0px rgb(226 255 226 / 60%);
     //box-shadow: 0px 9px 14px 9px rgb(149 149 149 / 5%), -1px 1px 18px -15px rgb(48 48 48), 0 14px 20px 0px rgb(223 223 223 / 33%);
     //background: white;
     border-radius: 10px;
     padding: 1rem;
     margin: 1rem 0;
-    //box-shadow: 0px 9px 14px 9px rgb(149 149 149 / 5%), 0 3px 15px 2px rgb(156 217 156 / 32%), 0 14px 20px 0px rgb(204 251 204 / 32%)
+    box-shadow: 0 5px 12px -2px #0c0c0c40;
 
 
     .card-title{

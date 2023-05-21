@@ -8,7 +8,7 @@ import calculateDiscount from "src/utills/calculateDiscount";
 import RatingStar from "UI/RatingStar";
 
 import "./styles.scss";
-import {ProductType} from "reducers/productReducer";
+import {ProductType} from "reducers/productSlice";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
     product: ProductType;

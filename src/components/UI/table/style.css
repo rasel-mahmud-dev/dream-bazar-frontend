@@ -1,18 +1,27 @@
-.rsl-table{
+.rsl-table {
     box-sizing: border-box;
 }
 
-.rsl-table table{
+.rsl-table table {
     width: 100%;
     box-sizing: border-box;
     border-spacing: 0;
 }
 
-.rsl-table table tr th{
+.rsl-table table tr th {
     padding: 10px;
 }
 
-.rsl-table thead .thead-item{
+.rsl-table tbody tr td {
+    padding: 20px 10px;
+}
+.rsl-table tbody tr {
+    background: #ffffff;
+}
+.rsl-table tbody tr:nth-child(2n) {
+    background: #f8f8f8;
+}
+.rsl-table thead .thead-item {
     display: flex;
     align-items: center;
 }
@@ -28,16 +37,26 @@
 
 
 .table-fixed tbody {
-
+    @apply dark:text-white text-dark-800;
 }
 
-.table-fixed thead tr  {
+.table-fixed thead tr {
     position: sticky !important;
     top: 0;
     z-index: 1;
     background: white;
+    cursor: pointer;
+    @apply dark:bg-dark-800 bg-dark-5 dark:text-white text-dark-800;
+
+
 }
 
+.table-fixed thead tr th {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 14px;
+    font-weight: 300;
+}
 
 
 .table-fixed tbody::-webkit-scrollbar,
@@ -46,27 +65,31 @@
     height: 4px;
     overflow: hidden;
 }
-.table-fixed tbody::-webkit-scrollbar-track , .rsl-table::-webkit-scrollbar-track {
+
+.table-fixed tbody::-webkit-scrollbar-track, .rsl-table::-webkit-scrollbar-track {
     background: rgba(194, 194, 194, 0.11);
     border-radius: 10px;
 }
+
 .table-fixed tbody::-webkit-scrollbar-thumb,
 .rsl-table::-webkit-scrollbar-thumb {
-    background: rgba(66, 206, 114, 0.67);
+    /*background: rgba(66, 206, 114, 0.67);*/
     border-radius: 10px;
 }
 
-.table-cell{
+.table-cell {
     word-break: break-word;
     padding: 10px;
 }
-.pagination{
+
+.pagination {
     margin-top: 40px;
     display: flex;
     justify-content: flex-end;
     gap: 20px;
 }
-.pagination-item{
+
+.pagination-item {
     width: 40px;
     height: 40px;
     background: orange;
@@ -78,10 +101,12 @@
     color: white;
     cursor: pointer;
 }
-.pagination-item-active{
+
+.pagination-item-active {
     background: #4f57ff;
 }
 
-.sort-icon{
+.sort-icon {
     margin-right: 5px;
+    fill: #ffffff;
 }

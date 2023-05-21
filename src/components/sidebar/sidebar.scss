@@ -1,4 +1,5 @@
 @import "src/styles/--breakpoint";
+@import "src/styles/--mixin";
 
 
 :root {
@@ -6,8 +7,11 @@
     --sidebar-width-mobile: 250px
 }
 
+@include dark(){
+
+}
 .sidebar {
-    @apply dark:bg-neutral-800 bg-white dark:text-dark-10 text-dark-800;
+    @apply dark:bg-dark-750 bg-white dark:text-dark-10 text-dark-800 dark:shadow-md;
     z-index: 998;
     --sidebar-width: 260px;
     display: flex;
@@ -23,6 +27,7 @@
     left: -260px;
     overflow-y: auto;
     max-height: calc(100vh - var(--header-height));
+    box-shadow: 0 1px 14px -1px #3434345c;
 
     &::-webkit-scrollbar {
         height: 1px;
@@ -34,7 +39,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        background: #e2e2e2;
+        background: rgba(226, 226, 226, 0);
     }
 
 

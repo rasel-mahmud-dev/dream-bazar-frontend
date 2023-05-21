@@ -1,6 +1,6 @@
 import {ACTION_TYPES, AdminType, AuthType, OrderType, Profile} from "store/types";
 import {AuthActionTypes} from "store/types/authActionTypes";
-import {ProductType} from "reducers/productReducer";
+import {ProductType} from "reducers/productSlice";
 
 export interface StoreType {
     _id?: string;

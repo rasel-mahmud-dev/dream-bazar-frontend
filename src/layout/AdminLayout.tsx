@@ -1,19 +1,13 @@
-import React, {lazy, ReactNode, useEffect, useState, Suspense} from "react";
+import React, {lazy, Suspense, useEffect, useState} from "react";
 
-import { useLocation, useNavigate } from "react-router-dom";
-
-import { Outlet } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import Footer from "components/Footer/Footer";
-
-import { RootState } from "src/store";
 import DashboardSidebar, {SidebarDataType} from "pages/shared/DashboardSidebar/DashboardSidebar";
-import { BiCart, BiNote, BiPlus, BsList, FiMail, MdOutlineSpaceDashboard} from "react-icons/all";
+import {FiMail} from "react-icons/all";
 import staticImagePath from "src/utills/staticImagePath";
 import DashboardNavigation from "pages/shared/DashboardNavigation/DashboardNavigation";
 import PrivateRoute from "src/middleware/PrivateRoute";
 import {Roles, Scope} from "store/types";
-import BrandListSkeleton from "pages/adminDashboard/brandList/BrandList.Skeleton";
 import BrandListLite from "pages/adminDashboard/brandList/BrandListLite";
 import CategoryDetail from "pages/adminDashboard/categoryList/CategoryDetail";
 import useAppSelector from "src/hooks/useAppSelector";
@@ -35,20 +29,18 @@ const AddProduct = lazy(() => import("pages/shared/AddProduct/AddProduct"));
 const CategoryList = lazy(() => import("pages/adminDashboard/categoryList/Categories"));
 
 
-
-
-export const adminRoute =   [
+export const adminRoute = [
     // { path: "update-Product/:productId", element: <PrivateRoute roles={["SELLER"]}> <AddProduct /> </PrivateRoute> },
     // { path: "all-transactions", element: <PrivateRoute roles={["ADMIN"]}> <AllTransactions /> </PrivateRoute> },
 
-    { path: "", element: <AdminDashboardHome /> },
-    { path: "dashboard", element: <AdminDashboardHome /> },
+    {path: "", element: <AdminDashboardHome/>},
+    {path: "dashboard", element: <AdminDashboardHome/>},
 
     {
         path: "products",
         element: (
             <PrivateRoute scope={Scope.ADMIN_USER}>
-                <AllProductsLite />
+                <AllProductsLite/>
             </PrivateRoute>
         ),
     },
@@ -56,7 +48,7 @@ export const adminRoute =   [
         path: "products/new",
         element: (
             <PrivateRoute scope={Scope.ADMIN_USER}>
-                <AddProduct roleFor={Roles.ADMIN} />
+                <AddProduct roleFor={Roles.ADMIN}/>
             </PrivateRoute>
         ),
     },
@@ -64,21 +56,23 @@ export const adminRoute =   [
         path: "products/edit/:productId",
         element: (
             <PrivateRoute scope={Scope.ADMIN_USER}>
-                <AddProduct roleFor={Roles.ADMIN}  />
+                <AddProduct roleFor={Roles.ADMIN}/>
             </PrivateRoute>
         ),
     },
     {
         path: "categories",
         element: (
-            <CategoryList />
+            <PrivateRoute scope={Scope.ADMIN_USER}>
+                <CategoryList/>
+            </PrivateRoute>
         ),
     },
     {
         path: "categories/new",
         element: (
 
-            <AddCategory />
+            <AddCategory/>
 
         ),
     },
@@ -86,21 +80,21 @@ export const adminRoute =   [
         path: "categories/edit/:id",
         element: (
 
-            <AddCategory />
+            <AddCategory/>
 
         ),
     },
     {
         path: "categories/:id",
         element: (
-            <CategoryDetail />
+            <CategoryDetail/>
         ),
     },
     {
         path: "Product-attribute",
         element: (
 
-            <ProductAttribute />
+            <ProductAttribute/>
 
         ),
     },
@@ -109,7 +103,7 @@ export const adminRoute =   [
         element: (
 
             <>
-                <BrandListLite />
+                <BrandListLite/>
 
             </>
 
@@ -119,7 +113,7 @@ export const adminRoute =   [
         path: "brands/new",
         element: (
 
-            <AddBrand />
+            <AddBrand/>
 
         ),
     },
@@ -127,31 +121,31 @@ export const adminRoute =   [
         path: "brands/edit/:id",
         element: (
 
-            <AddBrand />
+            <AddBrand/>
 
         ),
     },
     {
         path: "shop",
         element: (
-
-            <ShopInfo />
-
+            <PrivateRoute scope={Scope.ADMIN_USER}>
+                <ShopInfo/>
+            </PrivateRoute>
         ),
     },
     {
         path: "store-list",
         element: (
-
-            <StoreList />
-
+            <PrivateRoute scope={Scope.ADMIN_USER}>
+                <StoreList/>
+            </PrivateRoute>
         ),
     },
     {
         path: "shop/new",
         element: (
 
-            <CreateShop />
+            <CreateShop/>
 
         ),
     },
@@ -159,7 +153,7 @@ export const adminRoute =   [
         path: "shop/edit",
         element: (
 
-            <CreateShop isUpdate={true} />
+            <CreateShop isUpdate={true}/>
 
         ),
     },
@@ -178,8 +172,8 @@ const AdminLayout = () => {
 
     const dispatch = useAppDispatch();
     const {
-        appState: { isOpenLeftBar },
-        authState: { auth },
+        appState: {isOpenLeftBar},
+        authState: {auth},
     } = useAppSelector(state => state);
 
     const navigate = useNavigate();
@@ -189,22 +183,20 @@ const AdminLayout = () => {
     const [activeItem, setActiveItem] = useState(0);
 
 
-
-    useEffect(()=>{
-        if(auth){
+    useEffect(() => {
+        if (auth) {
             dispatch(fetchShopInfo())
-        }else{
+        } else {
 
         }
     }, [auth])
-
 
 
     const sidebarLinks: SidebarDataType[] = [
         {
             name: "Dashboard",
             to: "/admin/dashboard",
-            icon: ()=> <img className="w-4" src={staticImagePath("icons/dashboard-3.svg")} />,
+            icon: () => <img className="w-4" src={staticImagePath("icons/dashboard-3.svg")}/>,
             iconClassName: "text-xl mr-1",
         },
         {
@@ -212,7 +204,7 @@ const AdminLayout = () => {
             items: [
                 {
                     name: "Orders",
-                    icon: ()=> <img className="w-4" src={staticImagePath("icons/orders.svg")} />,
+                    icon: () => <img className="w-4" src={staticImagePath("icons/orders.svg")}/>,
                     subItems: [
                         {label: "All", value: 14},
                         {label: "Pending", value: 14},
@@ -228,7 +220,7 @@ const AdminLayout = () => {
                 {
                     name: "Refund Request List",
                     to: "/",
-                    icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (6).svg")} />,
+                    icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (6).svg")}/>,
                     subItems: [
                         {label: "Pending", value: 10},
                         {label: "Approved", value: 10},
@@ -241,21 +233,26 @@ const AdminLayout = () => {
         {
             section: "Product Management",
             items: [
-                {name: "Products", to: "/admin/products",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (1).svg")} />},
-                {name: "Add", to: "/admin/products/new",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (5).svg")} />}
+                {name: "Products", to: "/admin/products", icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (1).svg")}/>},
+                {name: "Add", to: "/admin/products/new", icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (5).svg")}/>}
             ],
         },
         {
             section: "Category Management",
             items: [
-                {name: "Categories", to: "/admin/categories",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (4).svg")} />},
-                {name: "Add Category", to: "/admin/categories/new",  icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (4).svg")} />}
+                {name: "Categories", to: "/admin/categories", icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (4).svg")}/>},
+                {
+                    name: "Add Category",
+                    to: "/admin/categories/new",
+                    icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (4).svg")}/>
+                }
             ],
-        },{
+        }, {
             section: "Attribute Management",
             items: [
-                {name: "Attributes", to: "/admin/Product-attribute",
-                    icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (2).svg")} />
+                {
+                    name: "Attributes", to: "/admin/Product-attribute",
+                    icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (2).svg")}/>
                 },
                 // {name: "Add", to: "/admin/dashboard/Product-attribute/new", icon: <BiPlus/>}
             ],
@@ -263,8 +260,9 @@ const AdminLayout = () => {
         {
             section: "Brand Management",
             items: [
-                {name: "Brands", to: "/admin/brands",
-                    icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (3).svg")} />
+                {
+                    name: "Brands", to: "/admin/brands",
+                    icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (3).svg")}/>
 
                 }
             ],
@@ -272,12 +270,14 @@ const AdminLayout = () => {
         {
             section: "Store Management",
             items: [
-                {name: "All Store", to: "/admin/store-list",
-                    icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (3).svg")} />
+                {
+                    name: "All Store", to: "/admin/store-list",
+                    icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (3).svg")}/>
 
                 },
-                {name: "Dream Store", to: "/admin/shop",
-                    icon: ()=> <img className="w-5" src={staticImagePath("icons/icons----- (3).svg")} />
+                {
+                    name: "Dream Store", to: "/admin/shop",
+                    icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (3).svg")}/>
 
                 }
             ],
@@ -288,7 +288,7 @@ const AdminLayout = () => {
         }
     ];
     // const sidebarLinks = [
-        // { label: "CustomerDashboard", roles: ["SELLER", "BUYER", "ADMIN"], to: "/dashboard", icon:  <Image imgClass="" className="w-5" src="/icons/dashboard2.svg" />},
+    // { label: "CustomerDashboard", roles: ["SELLER", "BUYER", "ADMIN"], to: "/dashboard", icon:  <Image imgClass="" className="w-5" src="/icons/dashboard2.svg" />},
     // ];
 
     // useEffect(() => {
@@ -301,22 +301,22 @@ const AdminLayout = () => {
     return (
         <div className="">
             <div className="">
-                <DashboardNavigation auth={auth} />
+                <DashboardNavigation auth={auth}/>
 
                 <div className="mx-auto">
                     <div className="flex">
-                        <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar}  auth={auth}/>
+                        <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar} auth={auth}/>
 
                         <div className="container !px-3">
                             <Suspense fallback={<h1>Hi loading</h1>}>
-                                <Outlet />
+                                <Outlet/>
                             </Suspense>
 
                         </div>
                     </div>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </div>
     );
 };

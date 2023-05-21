@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {HiOutlineHeart, HiOutlineHome} from "react-icons/hi2";
-import {BiUser, CiShoppingCart} from "react-icons/all";
+import {AiOutlineAppstore, BiUser, CiShoppingCart} from "react-icons/all";
 
 import "./bottomMobileNav.scss"
 
@@ -14,6 +14,12 @@ const BottomMobileNav = () => {
                         <li className="h-nav-item">
                             <HiOutlineHome />
                             <label htmlFor="">Home</label>
+                        </li>
+                    </Link>
+                    <Link to="/stores">
+                        <li className="h-nav-item">
+                            <AiOutlineAppstore />
+                            <label htmlFor="">Store</label>
                         </li>
                     </Link>
                     <Link to="/m/carts">

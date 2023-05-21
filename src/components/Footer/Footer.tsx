@@ -1,6 +1,7 @@
 import React from "react";
 import { FaFacebookF, FaGithub, FaInstagram, FaYoutube } from "react-icons/fa";
 import { Button } from "../UI";
+import "./Footer.scss"
 
 import {Link} from "react-router-dom";
 
@@ -8,7 +9,7 @@ import {Link} from "react-router-dom";
 const Footer = () => {
     return (
         <section>
-            <footer className=" pb-10 py-14 text-neutral-50">
+            <footer className="pb-10 py-14 text-neutral-50">
                 <div className="container grid grid-cols-1 md:grid-cols-8  gap-0 md:gap-10">
                     <div className="col-auto md:col-span-3 lg:col-span-2">
                         <div className="col-span-2 logo">

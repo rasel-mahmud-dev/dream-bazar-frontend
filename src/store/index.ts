@@ -1,10 +1,10 @@
 import { configureStore, combineReducers} from '@reduxjs/toolkit'
-import productReducer from "reducers/productReducer";
+import productReducer from "reducers/productSlice";
 import cartReducer from "reducers/cartReducer";
 import authReducer from "reducers/authReducer";
 import appReducer from "reducers/appReducer";
 import sellerReducer from "reducers/sellerReducer";
-import adminReducer from "reducers/adminReducer";
+import adminSlice from "reducers/adminSlice";
 import categoryReducer from "reducers/categoryReducer";
 import brandReducer from "reducers/brandReducer";
 
@@ -18,7 +18,7 @@ const store =  configureStore({
         authState: authReducer,
         appState: appReducer,
         sellerState: sellerReducer,
-        adminState: adminReducer,
+        adminState: adminSlice,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
             serializableCheck: {

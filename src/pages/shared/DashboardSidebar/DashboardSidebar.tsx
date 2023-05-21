@@ -59,34 +59,6 @@ const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
                 >
                     <div className="">
 
-                        {/**** sidebar fixed navigation ******/}
-                        {/*<div className="sidebar-fixed-bar top-0 py-3 px-4 lg:hidden">*/}
-                        {/*    <div className="flex items-center  ">*/}
-                        {/*        <div className="mr-3 ">*/}
-                        {/*            <Circle onClick={toggleSidebar}>*/}
-                        {/*                <FaAngleLeft*/}
-                        {/*                    className="text-lg"*/}
-
-                        {/*                />*/}
-                        {/*            </Circle>*/}
-                        {/*        </div>*/}
-
-                        {/*        <Link*/}
-                        {/*            to="/seller/dashboard"*/}
-                        {/*            className="flex items-center"*/}
-                        {/*        >*/}
-                        {/*            <img*/}
-                        {/*                src="/logo-2.png"*/}
-                        {/*                alt=""*/}
-                        {/*                className="w-9 md:w-11"*/}
-                        {/*            />*/}
-                        {/*            <h4 className="text-neutral-900 font-semibold text-lg md:text-xl   md:block">*/}
-                        {/*                Dream Bazar*/}
-                        {/*            </h4>*/}
-                        {/*        </Link>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-
                         {/**** sidebar content ******/}
                         <div className="mt-20 lg:mt-2 px-3">
                             {sidebarData?.map((section, idx) => (

@@ -1,5 +1,6 @@
 @import "src/styles/index.scss";
 @import "src/styles/--breakpoint.scss";
+@import "src/styles/--mixin.scss";
 
 
 li {
@@ -56,7 +57,7 @@ body {
 
     .main-nav {
 
-        @apply bg-white dark:bg-dark-800;
+        @apply bg-dark-5 dark:bg-dark-750;
 
         .main-nav--container {
             display: flex;
@@ -97,6 +98,44 @@ body {
 
     i {
         color: red
+    }
+}
+
+@include dark(){
+    .desktop-navigation-input-textbox{
+        @apply bg-neutral-800 text-dark-30
+    }
+}
+
+.desktop-navigation-input-textbox{
+    background: rgba(220, 220, 220, 0.45);
+    justify-content: space-between;
+    width: 100%;
+    display: flex;
+    padding: 10px 15px;
+    border-radius: 20px;
+    @apply text-neutral-700;
+    font-weight: 400;
+
+    input, select{
+        outline: none;
+        border: none;
+        background: transparent;
+        color: inherit;
+        font-weight: 400;
+        &::placeholder{
+            font-weight: inherit;
+            color: inherit;
+        }
+    }
+
+    input{
+        width: 100%;
+        padding-left: 10px;
+    }
+    
+    .desktop-navigation-input-search-icon{
+        cursor: pointer;
     }
 }
 

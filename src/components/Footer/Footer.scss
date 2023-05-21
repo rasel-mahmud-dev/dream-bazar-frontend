@@ -1,9 +1,10 @@
 
-.footer{
+footer{
     min-height: 100px;
     display: block;
     background: rgb(58, 58, 58);
     padding: 10px 0px;
+
 
     .footer_row{
         display: flex;
@@ -30,7 +31,7 @@
 
     h3{
         color: white;
-        text-align: center;
+        //text-align: center;
 
     }
 

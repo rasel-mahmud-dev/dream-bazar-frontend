@@ -24,17 +24,16 @@
             align-items: center;
             font-size: 20px;
             padding: 0px 10px;
-            @apply text-dark-600 dark:text-dark-10;
+            @apply text-dark-600 dark:text-dark-50;
             label{
                 text-align: center;
-                font-size: 11px;
+                font-size: 10px;
                 font-weight: 500;
-                text-transform: uppercase;
+                text-transform: capitalize;
                 color: inherit;
             }
         }
     }
-
 
     @include get_up(768px){
         display: none;

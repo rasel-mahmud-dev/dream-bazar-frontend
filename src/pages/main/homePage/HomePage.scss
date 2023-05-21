@@ -1,6 +1,7 @@
 @import "../../../styles/--colors";
 @import "../../../styles/--shadow";
 @import "../../../styles/--breakpoint";
+@import "src/styles/--mixin";
 
 .image_cover {
     width: 100%;
@@ -291,15 +292,6 @@
     }
 }
 
-
-.day-deals{
-    .products-list{
-        display: flex;
-        flex-direction: column;
-        row-gap: 14px;
-    }
-}
-
 .product-list-view{
     display: flex;
     align-items: center;
@@ -398,11 +390,14 @@
 
     .brand-item{
         height: 45px;
+        //width: 40px;
         background: #e9ebf1;
         padding: 10px;
         border-radius: 6px;
         img{
             width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
     }
 
@@ -412,3 +407,7 @@
 
 }
 
+
+.home-section-title{
+    @apply font-semibold text-lg dark:text-dark-40 text-dark-800;
+}

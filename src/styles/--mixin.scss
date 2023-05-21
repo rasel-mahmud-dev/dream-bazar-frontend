@@ -1,5 +1,11 @@
 
-
+@mixin dark(){
+    @at-root {
+        .dark{
+            @content()
+        }
+    }
+}
 
 @mixin inline-animation($duration, $count) {
   $name: inline-#{unique-id()};

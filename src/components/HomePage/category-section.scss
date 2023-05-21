@@ -1,0 +1,49 @@
+@import "src/styles/--mixin";
+@import "src/styles/--breakpoint";
+
+.category-section {
+    @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3;
+
+    .category-item {
+
+        @apply bg-dark-10 p-3;
+
+        & > div {
+            text-align: center;
+            width: 90px;
+            height: 90px;
+            margin: auto;
+            img {
+                mix-blend-mode: multiply;
+            }
+        }
+
+        h4{
+            @apply dark:text-dark-10 text-dark-800 text-center font-medium mt-2
+        }
+    }
+
+    @include dark() {
+        .category-item {
+            //display: flex;
+            //align-items: center;
+            //justify-content: center;
+            border-radius: 5px;
+            @apply bg-dark-800;
+            & > div {
+                margin: auto;
+
+                img {
+                    mix-blend-mode: normal;
+                }
+                .missing-image-text{
+                    text-align: center;
+                    @apply text-dark-600;
+                    line-height: 90px;
+                    font-weight: 300;
+                }
+
+            }
+        }
+    }
+}

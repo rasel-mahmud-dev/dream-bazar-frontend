@@ -3,7 +3,7 @@ import {ACTION_TYPES, Brand, CategoryType} from "store/types";
 
 import {ProductActionTypes} from "store/types/productActionTypes";
 import {createSlice} from "@reduxjs/toolkit";
-import {fetchHomePageSectionProducts, fetchRelevantProductsAction, filterProductsAction} from "actions/productAction";
+import {fetchHomePageSection, fetchHomePageSectionProducts, fetchRelevantProductsAction, filterProductsAction} from "actions/productAction";
 
 
 
@@ -43,6 +43,22 @@ export interface ProductType {
     productType: "Digital" | "Physical"
 }
 
+export type HomePageSection = {
+    sectionName: string,
+    sectionSlug: string,
+    filter: []
+}
+export type HomePageSectionProduct = {
+    [key in HomePageSection["sectionSlug"]]: {
+        total: number,
+        pageNumber: number,
+        pageSize: number,
+        data: ProductType[]
+    }
+}
+
+
+
 export interface ProductStateType {
     totalProduct: number;
     totalFilterAbleProductCount: 0,
@@ -55,7 +71,8 @@ export interface ProductStateType {
         filterBy: string
         params: string
     }[]
-    homePageSectionProducts: {}
+    homePageSectionProducts: HomePageSectionProduct,
+    homePageSection: HomePageSection[]
     relevantProducts: { [cacheName: string]: ProductType[] }
     filters: {
         pagination: {
@@ -139,6 +156,7 @@ const initialState: ProductStateType = {
         // {name: "Graphics Card", type: "products", filterBy: "category", id: "60df5e546419f56b97610608"},
         // {name: "Power Supply", type: "products", filterBy: "category", id: "60df5e546419f56b9761060b"}
     ],
+    homePageSection: [],
     homePageSectionProducts: {},
     relevantProducts: {},
 
@@ -177,9 +195,16 @@ const productSlice = createSlice({
     reducers: {},
 
     extraReducers: (builder) => {
+
         builder.addCase(fetchHomePageSectionProducts.fulfilled, (state, action) => {
-            if (action.payload) {
+            if (action.payload ) {
                 state.homePageSectionProducts = action.payload
+            }
+        })
+
+        builder.addCase(fetchHomePageSection.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.homePageSection = action.payload
             }
         })
 

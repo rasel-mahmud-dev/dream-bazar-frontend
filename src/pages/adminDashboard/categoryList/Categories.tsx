@@ -160,7 +160,7 @@ const Categories = (props) => {
                     dataSource={flatCategories ? flatCategories : []}
                     columns={columns}
                     tbodyClass={{
-                        tr: "hover:bg-green-500/10",
+                        tr: "hover:bg-primary-500/10",
                     }}
                     fixed={true}
                     scroll={{x: 1000, y: 600}}
