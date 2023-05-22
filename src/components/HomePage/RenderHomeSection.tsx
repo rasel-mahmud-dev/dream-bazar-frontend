@@ -10,6 +10,7 @@ import BiggestDealTopProductsCarousel from "components/HomePage/BiggestDealTopPr
 import RecentlyViewed from "components/HomePage/RecentlyViewed";
 import TopDealsOnTVsAppliances from "components/HomePage/TopDealsOnTVsAppliances";
 import FeaturedProducts from "components/HomePage/FeaturedProducts";
+import TrendingNow from "components/HomePage/TrendingNow";
 
 type RenderHomeSectionProps = {
     section: HomePageSection
@@ -25,7 +26,7 @@ const sectionData = {
     [HomeSection.Categories]: CategorySection,
     [HomeSection.LatestOffer]: LatestOffer,
     [HomeSection.FeaturedProducts]: FeaturedProducts,
-    [HomeSection.TrendingNow]: LatestOffer,
+    [HomeSection.TrendingNow]: TrendingNow,
     [HomeSection.HomeANDKitchenEssentials]: LatestOffer,
     [HomeSection.RecentlyViewed]: RecentlyViewed,
     [HomeSection.TopDealsOnTVsAppliances]: TopDealsOnTVsAppliances,

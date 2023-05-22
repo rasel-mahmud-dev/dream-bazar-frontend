@@ -1,4 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {ProductType} from "reducers/productSlice";
+import {fetchProductsForAdmin} from "actions/adminProductAction";
 
 
 export interface Attributes {
@@ -12,12 +14,20 @@ export interface Attributes {
 export interface AdminStateType {
     categoryDetails: any[]
     productAttributes: Attributes[]
+    allProducts: {
+        products: ProductType[],
+        total: number
+    }
 }
 
 
 const initialState: AdminStateType = {
     categoryDetails: [],
-    productAttributes: []
+    productAttributes: [],
+    allProducts: {
+        products: [],
+        total: 0,
+    }
 }
 
 
@@ -39,6 +49,17 @@ const adminSlice = createSlice({
         fetchProductAttributes: function (state, action) {
             state.productAttributes = action.payload
         }
+    },
+
+    extraReducers: (builder) => {
+
+        builder.addCase(fetchProductsForAdmin.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.allProducts = action.payload
+            }
+        })
+
+
     }
 })
 

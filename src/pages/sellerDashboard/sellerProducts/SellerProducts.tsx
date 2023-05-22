@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from "react";
 import apis from "src/apis";
 import staticImagePath from "src/utills/staticImagePath";
-import {FaMinus, FaPenAlt, FaPlug, FaPlus, FaTrash, FiEye, IoPencil} from "react-icons/all";
-import {Badge, Button} from "UI/index";
-import { useNavigate} from "react-router-dom";
+import {FaMinus, FaPlus, FaTrash, FiEye, IoPencil} from "react-icons/all";
+import {Badge} from "UI/index";
+import {useNavigate} from "react-router-dom";
 import {StatusCode} from "store/types";
 import {ProductType} from "reducers/productSlice";
 import "./sellerProduct.scss"
-import Circle from "UI/Circle/Circle";
 import useAppSelector from "src/hooks/useAppSelector";
 import subStr from "src/utills/subStr";
 import Table, {Column} from "UI/table/Table";
 import Box from "UI/Box/Box";
 import Switch from "UI/Form/switch/Switch";
+import {ApproveStatus} from "src/types/enum";
+import approveColors from "src/utills/approveColors";
 
 const SellerProducts = ({}) => {
 
@@ -110,10 +111,17 @@ const SellerProducts = ({}) => {
         { dataIndex: "title", title: "Title", className: "whitespace-nowrap" },
         { dataIndex: "discount", title: "Discount", className: "whitespace-nowrap", render: (d)=>  <Badge className="w-auto">{d}%</Badge> },
         { dataIndex: "price", title: "Purchase Price", className: "whitespace-nowrap" },
-        { dataIndex: "isApproved", title: "Verify Status", className: "whitespace-nowrap", render: (isApproved)=>(
+        { dataIndex: "qty", title: "Stock", className: "whitespace-nowrap" },
+        { dataIndex: "approveStatus", title: "Verify Status", className: "whitespace-nowrap", render: (approveStatus: ApproveStatus)=>(
                 <div>
-                    <Badge className={`${!isApproved ? "bg-red-500/10 text-red-500" : ""}`}>
-                        {isApproved ? "Approved" : "Rejected"}
+
+                    <Badge style={{background: approveColors[approveStatus]?.bg, color: approveColors[approveStatus]?.text}}>
+                        {approveStatus === ApproveStatus.Pending
+                            ? "Pending"
+                            : approveStatus === ApproveStatus.Rejected
+                                ? "Rejected"
+                                : "Accepted"
+                        }
                     </Badge>
                 </div>
             ) },
@@ -155,7 +163,7 @@ const SellerProducts = ({}) => {
                         dataSource={products}
                         columns={columns}
                         fixed={true}
-                        scroll={{ x: 900 }}
+                        scroll={{ x: 900, y: "70vh" }}
                     />
                     <div className="seller-products-grid mt-3">
                         {/*{products.map(prod => (*/}

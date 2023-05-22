@@ -416,8 +416,6 @@ const AddProduct = ({roleFor}) => {
                         required={newProductData.title.required}
                         label="Product Title"
                         className="!flex-col   "
-                        inputClass="bg-input-group"
-                        labelClass="dark:text-white !mb-2"
                         state={newProductData}
                         placeholder="New Product"
                         onChange={handleChange}
@@ -426,6 +424,7 @@ const AddProduct = ({roleFor}) => {
                         name="summary"
                         label="Summary"
                         as="textarea"
+                        className="!flex-col   "
                         required={newProductData.summary.required}
                         state={newProductData}
                         placeholder="Product summary"

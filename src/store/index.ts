@@ -18,7 +18,7 @@ const store =  configureStore({
         authState: authReducer,
         appState: appReducer,
         sellerState: sellerReducer,
-        adminState: adminSlice,
+        adminState: adminSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
             serializableCheck: {

@@ -17,6 +17,7 @@ import CreateShop from "pages/shared/Shop/CreateShop";
 import StoreList from "pages/shared/Shop/StoreList";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import {fetchShopInfo} from "actions/userAction";
+import ProductList from "pages/adminDashboard/productList/ProductList";
 
 const AdminDashboardHome = lazy(() => import("pages/adminDashboard/DashboardHomePage"));
 
@@ -40,7 +41,7 @@ export const adminRoute = [
         path: "products",
         element: (
             <PrivateRoute scope={Scope.ADMIN_USER}>
-                <AllProductsLite/>
+                <ProductList/>
             </PrivateRoute>
         ),
     },

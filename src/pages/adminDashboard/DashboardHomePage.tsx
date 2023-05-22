@@ -17,7 +17,7 @@ const AdminDashboardHome = () => {
 
 
     useEffect(()=>{
-        apis.get("")
+
     }, [])
 
     

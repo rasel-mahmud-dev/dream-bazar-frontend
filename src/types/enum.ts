@@ -25,3 +25,9 @@ export enum Size {
     XL = "XL",
     XXL = "XXL",
 }
+
+export enum ApproveStatus {
+    Pending = "pending",
+    Rejected = "rejected",
+    Accepted = "accepted",
+}

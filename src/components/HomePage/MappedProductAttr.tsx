@@ -2,8 +2,10 @@
 import React, {FC} from 'react';
 import {HomePageSection, HomePageSectionProduct} from "reducers/productSlice";
 import LatestOffer from "components/HomePage/LatestOffer";
+import TrendingNow from "components/HomePage/TrendingNow";
 import {HomeSection} from "src/types/enum";
 import CategorySection from "components/HomePage/CategorySection";
+import latestOffer from "components/HomePage/LatestOffer";
 
 
 type MappedProductAttrProps = {
@@ -18,7 +20,7 @@ const sectionData = {
     [HomeSection.BooksToysMore]: LatestOffer,
     [HomeSection.Categories]: CategorySection,
     [HomeSection.LatestOffer]: LatestOffer,
-    [HomeSection.TrendingNow]: LatestOffer,
+    [HomeSection.TrendingNow]: TrendingNow,
     [HomeSection.HomeANDKitchenEssentials]: LatestOffer,
 }
 

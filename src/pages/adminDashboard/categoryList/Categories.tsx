@@ -14,6 +14,7 @@ import makeFlatToNested from "src/utills/makeFlatToNested";
 import "./styles.scss";
 import {fetchFlatCategoriesAction} from "actions/categoryAction";
 import usePrompt from "src/hooks/usePrompt";
+import staticImagePath from "src/utills/staticImagePath";
 
 
 const Categories = (props) => {
@@ -68,6 +69,13 @@ const Categories = (props) => {
 
     
     const columns: Column[] = [
+        {
+            dataIndex: "logo",
+            title: "Image",
+            render: (image) => (
+                <img className="w-7" src={staticImagePath(image)}  alt=""/>
+            ),
+        },
         {title: "Name", dataIndex: "name", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0)},
         {title: "ID", dataIndex: "_id", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0)},
         {title: "ParentID", dataIndex: "parentId", sorter: (a: string, b: string) => (a > b ? 1 : a < b ? -1 : 0)},

@@ -1,8 +1,7 @@
-import apis from "src/apis";
-import api, {getApi} from "src/apis";
-import {ACTION_TYPES, CategoryType, Scope, StatusCode} from "store/types";
+import apis, {getApi} from "src/apis";
+import {ACTION_TYPES, CategoryType, StatusCode} from "store/types";
 import {Dispatch} from "redux";
-
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
 
 export const fetchProductAttributesAction = (productAttributes, dispatch: Dispatch) => {
@@ -28,7 +27,6 @@ export const fetchProductAttributesAction = (productAttributes, dispatch: Dispat
         }
     })
 }
-
 
 
 export function fetchProducts(pageNumber) {
@@ -63,3 +61,15 @@ export function updateProductAction<T>(adminProducts, productId: string, updated
         }
     })
 }
+
+
+export const fetchProductsForAdmin = createAsyncThunk("/adminSlice", async function (payload) {
+    try {
+
+        const {data} = await apis.get("/api/products/products-list")
+        return data
+
+    } catch (ex) {
+
+    }
+})

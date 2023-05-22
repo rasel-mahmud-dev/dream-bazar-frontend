@@ -80,7 +80,7 @@ const HomePage = (props) => {
         let homeSectionItemSlugs = homePageSection.map(sec => sec.sectionSlug)
         if (!homeSectionItemSlugs) return;
         apis.post<HomePageSectionProduct>("/api/products/home-section-products", {
-            sectionSlugs: [...homeSectionItemSlugs.slice(0, 2)]
+            sectionSlugs: [...homeSectionItemSlugs.slice(0, 22)]
         }).then(({data}) => {
             dispatch(fetchHomePageSectionProducts(data))
         }).catch(ex => {

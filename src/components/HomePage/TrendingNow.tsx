@@ -3,13 +3,9 @@ import React from 'react';
 import "./latest-offer.scss"
 import ProductColor from "components/Product/ProductColor/ProductColor";
 import staticImagePath from "src/utills/staticImagePath";
-import navigateProductDetail from "src/utills/navigateProductDetail";
-import {useNavigate} from "react-router-dom";
 
 
-const FeaturedProducts = ({sectionProduct}) => {
-
-    const navigate = useNavigate()
+const TrendingNow = ({sectionProduct}) => {
 
     // const product = {
     //     _id: 1,
@@ -22,19 +18,20 @@ const FeaturedProducts = ({sectionProduct}) => {
 
     return (
         <div className="latest-product">
-            {sectionProduct?.data && Array.isArray(sectionProduct.data) && sectionProduct.data.map((product) => (
-                <div className="product-item" onClick={()=>navigateProductDetail(product, navigate)}>
+            { sectionProduct?.data && Array.isArray(sectionProduct.data) && sectionProduct.data.map((product)=>(
+                <div className="product-item">
                     <div className="product-item-img">
                         <img src={staticImagePath(product.coverPhoto)} alt=""/>
                     </div>
                     <div className="product-item-content">
                         <h4>{product.title}</h4>
                         <div className="price-row flex items-center gap-x-2">
-                            <span className="price">{product.price} Taka</span>
-                            <span className="discount">{product.discount}% off</span>
+                            {/*<span className="price">{product.price} Taka</span>*/}
+                            <span className="sold">Sold: <span className="font-medium text-primary-500">{product.sold}</span> items</span>
+                            <span className="view">View: <span className="font-medium text-primary-500">{product.views}</span></span>
                         </div>
 
-                        <ProductColor categoryName={product.categoryName}/>
+                        <ProductColor categoryName={product.categoryName} />
 
                     </div>
                 </div>
@@ -43,4 +40,4 @@ const FeaturedProducts = ({sectionProduct}) => {
     );
 };
 
-export default FeaturedProducts;
+export default TrendingNow;

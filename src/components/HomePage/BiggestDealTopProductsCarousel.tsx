@@ -1,6 +1,7 @@
 import React from 'react';
 import CarouselView from "components/Product/CarouselView";
 import ProductCartView from "components/Product/ProductCartView";
+import {Autoplay} from "swiper";
 
 
 const brands = [
@@ -24,13 +25,19 @@ const TopBrandsCarousel = ({sectionProduct}) => {
                 {/*</div>*/}
 
 
-                <div className="">
+                <div className="py-">
                     <CarouselView
                         slidesPerView={2}
                         spaceBetween={10}
                         centeredSlides={false}
+                        autoplay={{
+                            delay: 250,
+                            disableOnInteraction: false,
+                        }}
+                        // speed={1200}
                         loop={true}
                         lazy={true}
+                        modules={[Autoplay]}
                         // rebuildOnUpdate={true}
                         breakpoints={{
                             768: {
@@ -38,25 +45,28 @@ const TopBrandsCarousel = ({sectionProduct}) => {
 
                             },
                             1024: {
-                                slidesPerView: 3,
-
-                            },
-                            1190: {
                                 slidesPerView: 4,
 
                             },
-                            1300: {
+                            1190: {
                                 slidesPerView: 5,
+
+                            },
+                            1300: {
+                                slidesPerView: 6,
 
                             },
                         }}
 
                         renderItems={() => (
                             sectionProduct?.data && Array.isArray(sectionProduct.data) && sectionProduct.data.map((product => (
-                                    <ProductCartView product={product}/>
+                                    <div className="p-2">
+                                        <ProductCartView className="sliderview" product={product}/>
+                                    </div>
                                 ))
                             ))}
                     />
+
 
                 </div>
             </div>
