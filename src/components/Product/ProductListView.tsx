@@ -7,11 +7,11 @@ import "./product.scss"
 
 const ProductListView = (props) => {
 
-    const {product} = props
+    const {product, className = ""} = props
 
     return (
 
-            <div className="product-list-view">
+            <div className={`product-list-view ${className}`}>
 
                 <div className="fav-icon">
                     <HiOutlineHeart/>

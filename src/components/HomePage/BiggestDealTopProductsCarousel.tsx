@@ -31,10 +31,11 @@ const TopBrandsCarousel = ({sectionProduct}) => {
                         spaceBetween={10}
                         centeredSlides={false}
                         autoplay={{
-                            delay: 250,
+                            delay: 0,
+                            // waitForTransition: true,
                             disableOnInteraction: false,
                         }}
-                        // speed={1200}
+                        speed={5000}
                         loop={true}
                         lazy={true}
                         modules={[Autoplay]}

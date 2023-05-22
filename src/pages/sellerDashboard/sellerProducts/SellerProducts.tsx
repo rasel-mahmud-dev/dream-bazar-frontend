@@ -41,7 +41,7 @@ const SellerProducts = ({}) => {
         //  now populate features product from id
         let featuresProductList = []
         products?.forEach(prod => {
-            if (shop?.featuresProducts.includes(prod._id)) {
+            if (shop?.featuresProducts?.includes(prod._id)) {
                 featuresProductList.push(prod)
             }
         })

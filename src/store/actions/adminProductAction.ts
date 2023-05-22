@@ -63,10 +63,10 @@ export function updateProductAction<T>(adminProducts, productId: string, updated
 }
 
 
-export const fetchProductsForAdmin = createAsyncThunk("/adminSlice", async function (payload) {
+export const fetchProductsForAdmin = createAsyncThunk<any, {query: string}>("/adminSlice", async function (payload) {
     try {
 
-        const {data} = await apis.get("/api/products/products-list")
+        const {data} = await apis.get(`/api/products/products-list${payload.query ? `?${payload.query}`: ''}`)
         return data
 
     } catch (ex) {

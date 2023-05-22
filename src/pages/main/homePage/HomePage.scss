@@ -338,6 +338,23 @@
         }
     }
 
+    &.product-wide{
+        //display: none;
+        .img-root{
+            width: 70px;
+            height: 70px;
+            overflow: hidden;
+            display: block;
+            flex: none;
+            img{
+                object-fit: contain;
+                width: inherit;
+                height: inherit;
+            }
+        }
+    }
+
+
     .fav-icon{
         width: 26px;
         height: 26px;
@@ -368,6 +385,7 @@
     }
 
     .product-meta{
+        flex: auto;
         margin-left: 10px;
         .p-title{
             font-size: 14px;
