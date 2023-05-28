@@ -54,7 +54,7 @@ const TopBrandsCarousel = ({sectionProduct}) => {
                         renderItems={() => (
                             sectionProduct?.data && Array.isArray(sectionProduct.data) && sectionProduct.data.map((brand => (
                                     <div className="brand-item">
-                                        <img src={staticImagePath(brand.img)} alt=""/>
+                                        <img src={staticImagePath(brand.logo)} alt=""/>
                                     </div>
                                 ))
                             ))}

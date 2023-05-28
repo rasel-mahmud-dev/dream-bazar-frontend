@@ -54,7 +54,7 @@ const TopBrandsCarousel = ({sectionProduct}) => {
 
                             },
                             1300: {
-                                slidesPerView: 6,
+                                slidesPerView: 5,
 
                             },
                         }}

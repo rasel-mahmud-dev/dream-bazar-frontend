@@ -37,11 +37,18 @@ body {
     //background: #f8f8f8;
     //@apply dark:bg-body-dark bg-body-light;
     //background: #ebfaf059;
-    @apply bg-white dark:bg-neutral-800;
+    //@apply bg-white dark:bg-neutral-800;
     font-weight: 400;
     font-size: 14px;
     color: #212121;
     line-height: 1.4;
+
+
+    --tw-bg-opacity: 1;
+    background-color: rgb(248 250 252 / 1);
+    --tw-text-opacity: 1;
+    //color: rgb(51 65 85 / var(--tw-text-opacity));
+
 
     .bg-overlay {
         height: 100vh;
@@ -296,6 +303,14 @@ table td {
     }
 }
 
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    --tw-text-opacity: 1;
+    color: rgb(71 85 105 / var(--tw-text-opacity));
+}
+
 .heading-1 {
     @apply dark:text-white font-bold text-4xl
 }
@@ -313,11 +328,15 @@ table td {
 }
 
 .heading-5 {
-    @apply dark:text-white font-bold text-sm
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    @apply dark:text-white;
 }
 
 .heading-6 {
-    @apply dark:text-white font-bold text-xs
+    font-size: 1rem;
+    line-height: 1.5rem;
+    @apply dark:text-white;
 }
 
 .p {
@@ -331,16 +350,11 @@ table td {
 
 /******* dashboard sidebar **************/
 .dashboard-container {
-
-    @include get_down(1910px) {
-        max-width: 1400px;
-        margin: auto;
-    }
-
-    @include get_up(1921px) {
-        max-width: 1400px;
-        margin: auto;
-    }
+    max-width: 1600px;
+    margin: auto;
+    width: 100%;
+    //padding-left: 16px;
+    //padding-right: 16px;
 
     .content {
         background: red;
@@ -374,6 +388,10 @@ table td {
 
     }
 
+}
+
+.dashboard-content{
+    padding: 24px;
 }
 
 

@@ -1,5 +1,6 @@
 import React, {FC, useEffect, useState} from 'react'
 import "./styles.scss";
+import {TiTimes} from "react-icons/all";
 
 
 interface Props {
@@ -67,14 +68,27 @@ const MultiSelect: FC<Props> = ({
     
     function handleToggleSelect(e) {
         onClick && onClick(e)
-        setOpen(!isOpen)
     }
-    
-    return (
-        <div className={["mt-4 flex items-start flex-col md:flex-row", className].join(" ")}>
-            <label htmlFor={name} className={`block font-medium mb-2 md:mb-0 ${labelClass}`}>{label}</label>
-            <div className="w-full">
 
+    function handleFocus(e){
+        setOpen(true)
+    }
+
+    function toggle(e){
+        e.stopPropagation();
+        setOpen(!isOpen )
+    }
+
+    function handleBlur(e){
+        console.log(e, "blur")
+        setOpen(false)
+    }
+
+
+    return (
+        <div className={["mt-4 input-group select flex items-start flex-col md:flex-row", className].join(" ")}>
+            <label htmlFor={name} className={`block font-medium mb-2 md:mb-0 ${labelClass}`}>{label}</label>
+            <div className="w-full" >
                 {selectedItem && selectedItem.length ? <div className="flex flex-wrap gap-x-1 gap-y-1 mb-2">
                     {selectedItem.map((v, i) => (
                         <li key={i} className="list-none flex items-center px-2 py-2 bg-secondary-300 rounded ">
@@ -89,13 +103,16 @@ const MultiSelect: FC<Props> = ({
                     ))}
                 </div> : ""}
     
-                <div
-                    className={`input flex relative items-center text-[15px] rounded px-2 py-1.5 w-full  bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200  ${inputClass} text-gray-800 `}
-                    onClick={handleToggleSelect}
+                <div onClick={toggle}
+                    tabIndex={-1} onBlur={handleBlur}  onFocus={handleFocus}
+                    className={`input ${inputClass}`}
+                    // onClick={handleToggleSelect}
                 >
                     {placeholder}
                     {isOpen && <ul className="option-list absolute top-12 left-0  w-full p-4 ">
+                        <span className="close-icon-btn"><TiTimes onClick={()=>setOpen(false)} /></span>
                         {options(handleClick)}
+
                     </ul>}
                 </div>
     

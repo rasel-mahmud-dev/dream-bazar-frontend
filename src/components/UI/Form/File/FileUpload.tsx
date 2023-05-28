@@ -1,6 +1,7 @@
 import React, {FC, HTMLAttributes, ReactNode, useRef} from "react";
 import staticImagePath from "src/utills/staticImagePath.js";
 import {twMerge} from "tailwind-merge";
+import {toast} from "react-toastify";
 
 interface Props extends HTMLAttributes<HTMLInputElement> {
     label?: string;
@@ -11,6 +12,7 @@ interface Props extends HTMLAttributes<HTMLInputElement> {
     errorMessage?: string;
     labelAddition?: () => ReactNode;
     inputClass?: string;
+    maxSize?: number;
     labelClass?: string;
     onChange: (e: any) => void;
     className?: string;
@@ -26,6 +28,7 @@ const FileUpload: FC<Props> = (props) => {
 		labelAddition,
 		preview = true,
 		inputClass = "",
+        maxSize = 1000000,
 		labelClass = "",
 		defaultValue,
 		errorMessage,
@@ -40,7 +43,9 @@ const FileUpload: FC<Props> = (props) => {
 
 	function handleChange(e) {
 		let file = e.target.files[0];
-
+        if(file.size > maxSize) {
+            return toast.error("Please choose less a photo less than " + Math.round(maxSize / 1000) + "KB")
+        }
 		let reader = new FileReader();
 		reader.onload = function (event) {
 			setBase64(event.target.result as string);
@@ -73,7 +78,7 @@ const FileUpload: FC<Props> = (props) => {
 				name={name}
 				hidden={true}
 				type="file"
-				accept="image/jpeg"
+				accept="image/**"
 				id={name}
 				placeholder={placeholder}
 				onChange={handleChange}

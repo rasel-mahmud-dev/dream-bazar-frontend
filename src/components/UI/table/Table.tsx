@@ -1,18 +1,20 @@
-import React, { FC, HTMLAttributes, useEffect, useState } from "react";
+import React, {FC, HTMLAttributes, useEffect, useState} from "react";
 import Thead from "./Thead";
 import Tbody from "./Tbody";
 
-import "./style.css";
+import "./table.scss";
 
 export interface Column extends HTMLAttributes<HTMLElement> {
     id?: string;
     title: string;
     dataIndex?: string;
+    dataClass?: string;
     className?: string;
     colWidth?: number;
     sorter?: (args1: any, args2: any) => any;
     render?: (value: any, data: any) => React.ReactNode;
 }
+
 [];
 
 interface TableProps extends HTMLAttributes<HTMLTableElement> {
@@ -26,9 +28,9 @@ interface TableProps extends HTMLAttributes<HTMLTableElement> {
 }
 
 const Table: FC<TableProps> = (props) => {
-    const { theadClass, tbodyClass, className, dataSource, columns, fixed, scroll, pagination } = props;
-    
-    let fixedTable = { maxHeight: fixed ? 500 : "auto", minWidth: 0 };
+    const {theadClass, tbodyClass, className, dataSource, columns, fixed, scroll, pagination} = props;
+
+    let fixedTable = {maxHeight: fixed ? 500 : "auto", minWidth: 0};
 
     const [state, setState] = useState({
         items: [],
@@ -83,7 +85,7 @@ const Table: FC<TableProps> = (props) => {
     }
 
     function handleSort(compareFn: (args1: any, args2: any) => void, column: any) {
-        if(!compareFn) return;
+        if (!compareFn) return;
 
         let list: any = state.items;
         if (state.order) {
@@ -190,10 +192,10 @@ const Table: FC<TableProps> = (props) => {
     return (
         <div>
             <div
-                className={`rsl-table ${fixed ? "table-fixed" : ""}`}
-                style={fixedTable.maxHeight ? { maxHeight: fixedTable.maxHeight } : {}}
+                className={`table-responsive ${fixed ? "table-fixed" : ""}`}
+                style={fixedTable.maxHeight ? {maxHeight: fixedTable.maxHeight} : {}}
             >
-                <table className={className} style={fixedTable.minWidth ? { minWidth: fixedTable.minWidth } : {}}>
+                <table className={className} style={fixedTable.minWidth ? {minWidth: fixedTable.minWidth} : {}}>
                     <Thead
                         onSort={handleSort}
                         theadClass={theadClass}
@@ -210,7 +212,7 @@ const Table: FC<TableProps> = (props) => {
             </div>
 
             {pagination && (
-                <div className="pagination">
+                <div className="pagination justify-end">
                     {state.pages.map((pageNumber) => (
                         <div
                             className={`pagination-item ${

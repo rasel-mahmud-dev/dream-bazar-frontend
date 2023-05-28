@@ -6,12 +6,19 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 import Card from "UI/Form/Card/Card";
 import VisitorChart from "./dashboardHome/visitorChart/VisitorChart"
 import apis from "src/apis";
+import SalesReport from "components/Charts/SalesReport/SalesReport";
+import OrderStatus from "components/Charts/OrderStatus/OrderStatus";
+import ShippingStatus from "components/Charts/ShippingStatus/ShippingStatus";
+import PopularProducts from "components/AdminDashboard/PopularProducts/PopularProducts";
+import RecentOrder from "components/AdminDashboard/RecentOrder/RecentOrder";
+import PopularCategory from "components/AdminDashboard/PopularCategory/PopularCategory";
 
 
 const AdminDashboardHome = () => {
     const slats = [
         {icon: <BiDollar/>, value: "53,223,013,12", label: "Total Sales", iconClassName: "bg-orange-400 outline-orange-100", unit: "$"},
         {icon: <BiCart/>, value: "423", label: "Total Orders", iconClassName: "bg-green-400 outline-green-100"},
+        {icon: <CgProductHunt/>, value: "2231", label: "Total Products", iconClassName: "bg-blue-400 outline-blue-100"},
         {icon: <CgProductHunt/>, value: "2231", label: "Total Products", iconClassName: "bg-blue-400 outline-blue-100"}
     ];
 
@@ -23,10 +30,10 @@ const AdminDashboardHome = () => {
     
     return (
         <div>
-			<h3 className="route-title">Admin Dashboard</h3>
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4">
+			<h3 className="heading-5">Admin Dashboard</h3>
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-4">
 				{slats.map((stat) => (
-                    <Card >
+                    <Card className="dashboard-card">
 						<div className="flex items-center gap-x-4 py-3">
 							<div
                                 className={`text-white w-12 h-12 flex items-center justify-center rounded-full outline outline-8 ${stat.iconClassName}`}>
@@ -42,19 +49,46 @@ const AdminDashboardHome = () => {
 					</Card>
                 ))}
 			</div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                
-                <BarChartDemo />
-            
-            <Card>
-                <h3 className="heading-4 mb-4 px-4">Business Analytics </h3>
-                <div className="flex justify-center">
-                    <VisitorChart />
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 mt-6">
+                <div className="card dashboard-card col-span-1 md:col-span-2">
+                    <SalesReport />
                 </div>
-            </Card>
-            
+
+                <div className="card dashboard-card xl:col-span-1">
+                    <OrderStatus />
+                </div>
+
+                <div className="card dashboard-card col-span-1">
+                    <ShippingStatus />
+                </div>
             </div>
+
+            <div className="card dashboard-card mt-6 ">
+                <RecentOrder />
+            </div>
+
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                <div className="card dashboard-card mt-6 ">
+                    <PopularProducts />
+                </div>
+                <div className="card dashboard-card mt-6 ">
+                    <PopularCategory />
+                </div>
+            </div>
+
+            {/*<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">*/}
+            {/*    */}
+            {/*    <BarChartDemo />*/}
+            
+            {/*<Card>*/}
+            {/*    <h3 className="heading-4 mb-4 px-4">Business Analytics </h3>*/}
+            {/*    <div className="flex justify-center">*/}
+            {/*        <VisitorChart />*/}
+            {/*    </div>*/}
+            {/*</Card>*/}
+            
+            {/*</div>*/}
             
 		</div>
     );

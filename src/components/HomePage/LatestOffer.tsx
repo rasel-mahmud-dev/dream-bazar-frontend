@@ -3,6 +3,8 @@ import React from 'react';
 import "./latest-offer.scss"
 import ProductColor from "components/Product/ProductColor/ProductColor";
 import staticImagePath from "src/utills/staticImagePath";
+import subStr from "src/utills/subStr";
+import {Link} from "react-router-dom";
 
 
 const LatestOffer = ({sectionProduct}) => {
@@ -24,7 +26,7 @@ const LatestOffer = ({sectionProduct}) => {
                         <img src={staticImagePath(product.coverPhoto)} alt=""/>
                     </div>
                     <div className="product-item-content">
-                        <h4>{product.title}</h4>
+                        <Link to={`/${product.slug}`}><h4>{subStr(product.title, 50)}</h4></Link>
                         <div className="price-row flex items-center gap-x-2">
                             <span className="price">{product.price} Taka</span>
                             <span className="discount">{product.discount}% off</span>

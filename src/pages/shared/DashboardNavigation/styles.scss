@@ -11,4 +11,10 @@
     svg{
         @apply  dark:text-dark-10 text-dark-800
     }
+
+    .admin-navigation-container{
+        width: 100%;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
 }

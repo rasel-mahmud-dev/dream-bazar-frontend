@@ -197,7 +197,7 @@ const HomePage = (props) => {
                 <SliderSection/>
             </div>
 
-            <div className="container">
+            <div className="container pb-20">
                 {homePageSection.map((section, index) => (
                     <div>
                         <RenderHomeSection homePageSectionProducts={homePageSectionProducts} section={section}/>

@@ -61,24 +61,28 @@ const Thead: FC<Props> = (props) => {
                         className={`${column.className ? column.className : ""} ${theadClass.th}`}
                         style={{ width: column.colWidth }}
                     >
-                        <div className="thead-item">
-                            {column.sorter &&
-                                (sortedField === column.dataIndex ? (
-                                    <SortIcon
-                                        className="sort-icon"
-                                        onClick={() => (onSort ? onSort(column.sorter, column) : {})}
-                                        order={order}
-                                    />
-                                ) : (
-                                    <SS
-                                        className="sort-icon"
-                                        onClick={() => (onSort ? onSort(column.sorter, column) : {})}
-                                        order={order}
-                                    />
-                                ))}
+                        {column.sorter ? (
+                            <div className="thead-item">
+                                {column.sorter &&
+                                    (sortedField === column.dataIndex ? (
+                                        <SortIcon
+                                            className="sort-icon"
+                                            onClick={() => (onSort ? onSort(column.sorter, column) : {})}
+                                            order={order}
+                                        />
+                                    ) : (
+                                        <SS
+                                            className="sort-icon"
+                                            onClick={() => (onSort ? onSort(column.sorter, column) : {})}
+                                            order={order}
+                                        />
+                                    ))}
 
-                            <span onClick={() => (onSort ? onSort(column.sorter, column) : {})}>{column.title}</span>
-                        </div>
+                                <span onClick={() => (onSort ? onSort(column.sorter, column) : {})}>{column.title}</span>
+                            </div>
+                        ): (
+                            column.title
+                        )}
                     </th>
                 ))}
             </tr>

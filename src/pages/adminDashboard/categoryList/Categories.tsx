@@ -171,7 +171,7 @@ const Categories = (props) => {
                         tr: "hover:bg-primary-500/10",
                     }}
                     fixed={true}
-                    scroll={{x: 1000, y: 600}}
+                    scroll={{x: 1000, y: '80vh'}}
                 /> : renderNestingCategory(deepNestedCategory)}
 			</Card>
 		</div>

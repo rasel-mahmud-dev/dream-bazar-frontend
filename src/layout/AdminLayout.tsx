@@ -308,7 +308,7 @@ const AdminLayout = () => {
                     <div className="flex">
                         <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar} auth={auth}/>
 
-                        <div className="container !px-3">
+                        <div className="dashboard-container dashboard-content">
                             <Suspense fallback={<h1>Hi loading</h1>}>
                                 <Outlet/>
                             </Suspense>

@@ -4,7 +4,8 @@ import "./latest-offer.scss"
 import ProductColor from "components/Product/ProductColor/ProductColor";
 import staticImagePath from "src/utills/staticImagePath";
 import navigateProductDetail from "src/utills/navigateProductDetail";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import subStr from "src/utills/subStr";
 
 
 const FeaturedProducts = ({sectionProduct}) => {
@@ -28,7 +29,7 @@ const FeaturedProducts = ({sectionProduct}) => {
                         <img src={staticImagePath(product.coverPhoto)} alt=""/>
                     </div>
                     <div className="product-item-content">
-                        <h4>{product.title}</h4>
+                        <Link to={`/${product.slug}`}><h4>{subStr(product.title, 50)}</h4></Link>
                         <div className="price-row flex items-center gap-x-2">
                             <span className="price">{product.price} Taka</span>
                             <span className="discount">{product.discount}% off</span>

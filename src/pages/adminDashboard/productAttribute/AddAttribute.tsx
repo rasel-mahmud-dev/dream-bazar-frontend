@@ -344,7 +344,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
 
 			<InputGroup
                 name="attributeName"
-                labelClass="dark:text-white !mb-2"
+                labelClass="dark:text-white"
                 className={"!flex-col"}
                 label="Attribute Name"
                 placeholder="Attribute Name"
@@ -354,7 +354,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
 
 			<InputGroup
                 name="attributeLabel"
-                labelClass="dark:text-white !mb-2"
+                labelClass="dark:text-white"
                 className={"!flex-col"}
                 label="Attribute Label"
                 placeholder="Attribute Label"
@@ -370,12 +370,11 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
 
 			<h3 className="text-lg font-bold mt-5">Attribute Option values</h3>
             {state.optionsFields.map((field, index) => (
-                <div className="mt-2">
-					<label className="heading-5 text-gray-600">Option {index + 1}</label>
+                <div className="mt-3">
+					<label className="heading-6 text-gray-600">Option {index + 1}</label>
 					<div className="flex gap-x-4">
 						<InputGroup
-                            className="mt-0 w-full"
-                            inputClass="!mt-1"
+                            className="mt-1 w-full"
                             type="text"
                             name="name"
                             value={field.name}
@@ -386,8 +385,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                         { formData.isRange.value ? (
                             <div className="flex items-center gap-x-2 w-full">
                                 <InputGroup
-                                    className="mt-0"
-                                    inputClass="!mt-1"
+                                    className="mt-1"
                                     type="text"
                                     name="value"
                                     value={formData.isRange.value && field.value[0]}
@@ -395,8 +393,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                                     onChange={(e) => handleOptionValueChange("value", e.target.value, index, 0)}
                                 />
                                 <InputGroup
-                                    className="mt-0"
-                                    inputClass="!mt-1"
+                                    className="mt-1"
                                     type="text"
                                     name="value"
                                     value={formData.isRange.value && field.value[1]}
@@ -406,8 +403,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
                             </div>
                         ) : (
                             <InputGroup
-                                className="mt-0 w-full"
-                                inputClass="!mt-1"
+                                className="mt-1 w-full"
                                 type="text"
                                 name="value"
                                 value={field.value}

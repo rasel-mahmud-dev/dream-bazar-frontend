@@ -70,7 +70,7 @@
     }
 
     .input{
-        @apply bg-dark-20 dark:bg-dark-600;
+        @apply bg-dark-10 dark:bg-dark-600;
         border-radius: 4px;
     }
 
@@ -85,6 +85,14 @@
         &::placeholder{
             color: inherit;
             font-weight: 400;
+        }
+    }
+    
+    &.select{
+        .input{
+            padding: 9px 20px;
+            position: relative;
+
         }
     }
 

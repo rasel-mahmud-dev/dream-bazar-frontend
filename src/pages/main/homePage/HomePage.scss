@@ -323,11 +323,16 @@
         @apply dark:bg-dark-750;
         border-radius: 5px;
         box-shadow: 0 2px 10px -3px rgb(38 38 39 / 25%);
-        min-height: 300px;
+        min-height: 280px;
+        display: flex;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: column !important;
+        padding: 20px !important;
         .img-root{
-            width: 90px;
-            height: 90px;
-            margin: auto;
+            width: 100% !important;
+            height: 100px !important;
+            margin: auto !important;
             img{
                 display: flex;
                 object-fit: contain;

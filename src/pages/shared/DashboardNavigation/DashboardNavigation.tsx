@@ -47,7 +47,7 @@ const DashboardNavigation = ({auth}) => {
     return (
         <div>
             <div ref={headerRef} className="admin-navigation">
-                <header className="container flex items-center justify-between">
+                <header className="admin-navigation-container flex items-center justify-between">
                     <div className="logo flex items-center">
                         <Circle className="lg:hidden block  mr-3" onClick={handleToggleLeftBar}>
                             <FaBars className="text-sm"/>

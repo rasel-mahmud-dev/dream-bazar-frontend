@@ -17,10 +17,8 @@ const ProductList = () => {
     const {allProducts} = useAppSelector(state => state.adminState)
 
     const [paginationState, setPaginationState] = useReducer((prevState, action) => ({
-
         ...prevState,
         ...action,
-
     }), {
         perPage: 10,
         currentPage: 1,
@@ -42,15 +40,16 @@ const ProductList = () => {
         {
             dataIndex: "coverPhoto",
             title: "Image",
+            className: "text-start",
             render: (image) => (
-                <img className="w-7" src={staticImagePath(image)} alt=""/>
+                <img className="w-10 h-10 object-contain" src={staticImagePath(image)} alt=""/>
             ),
         },
-        {dataIndex: "title", title: "Title", className: "whitespace-nowrap"},
-        {dataIndex: "discount", title: "Discount", className: "whitespace-nowrap", render: (d) => <Badge className="w-auto">{d}%</Badge>},
-        {dataIndex: "price", title: "Price", className: "whitespace-nowrap"},
+        {dataIndex: "title", title: "Title", className: "whitespace-nowrap text-start", dataClass: " w-[290px] text-start" },
+        {dataIndex: "discount", title: "Discount", className: "whitespace-nowrap text-center", render: (d) => <Badge className="w-auto">{d}%</Badge>},
+        {dataIndex: "price", title: "Price", className: "whitespace-nowrap text-center"},
         {
-            dataIndex: "approveStatus", title: "Verify Status", className: "whitespace-nowrap", render: (approveStatus: ApproveStatus) => (
+            dataIndex: "approveStatus", title: "Verify Status", className: "whitespace-nowrap text-center", render: (approveStatus: ApproveStatus) => (
                 <div>
 
                     <Badge style={{background: approveColors[approveStatus]?.bg, color: approveColors[approveStatus]?.text}}>
@@ -65,7 +64,7 @@ const ProductList = () => {
             )
         },
         {
-            dataIndex: "isActive", title: "Active Status", className: "whitespace-nowrap", render: (isActive) => (
+            dataIndex: "isActive", title: "Active Status", className: "whitespace-nowrap mx-auto", render: (isActive) => (
                 <Badge style={{
                     background: approveColors[isActive ? "accepted" : "rejected"]?.bg,
                     color: approveColors[isActive ? "accepted" : "rejected"]?.text
@@ -103,25 +102,29 @@ const ProductList = () => {
     }
 
     return (
-        <div>
+        <div className="py-6">
             <h1 className="heading-4 flex items-center gap-x-2">
                 All Products
                 <Badge className="!text-xs bg-gray-100">{allProducts?.total || 0 }</Badge>
             </h1>
 
 
-            <div>
+            <div className="mt-6">
                 <Table
+                    className="dashboard-card"
                     dataSource={allProducts.products || []}
                     columns={columns}
+                    tbodyClass={{td: "text-center"}}
                 />
 
 
             </div>
-            <Pagination onChange={handlePageChange}
-                        totalItem={paginationState.totalItem}
-                        perPage={paginationState.perPage}
-                        currentPage={paginationState.currentPage}/>
+            <Pagination
+                className="!justify-end mt-5"
+                onChange={handlePageChange}
+                totalItem={paginationState.totalItem}
+                perPage={paginationState.perPage}
+                currentPage={paginationState.currentPage}/>
         </div>
 
     );

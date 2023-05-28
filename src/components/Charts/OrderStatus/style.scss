@@ -1,0 +1,39 @@
+
+#sales-report-chart {
+    text {
+        fill: #94a3b8 !important;
+    }
+}
+
+
+.order-report-pie {
+    min-height: 341.8px;
+
+    .apexcharts-canvas{
+        //display: none;
+        margin: auto;
+    }
+
+    .apexcharts-legend{
+        margin-top: 50px !important;
+    }
+
+    .apexcharts-legend-series {
+        padding: 0px 3px;
+
+
+
+        .pie-label {
+            display: block;
+            //margin: 0 20px;
+            margin-left: 6px;
+
+            p {
+                color: #94a3b8;
+                &:nth-child(1) {
+                    color: #1e1e1e;
+                }
+            }
+        }
+    }
+}

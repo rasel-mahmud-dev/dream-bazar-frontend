@@ -18,6 +18,8 @@ import useAppSelector from "src/hooks/useAppSelector";
 import ActionModal from "components/ActionModal/ActionModal";
 import {addFlatCategory, fetchCategoryDetailAction} from "actions/categoryAction";
 import {Attribute} from "reducers/categoryReducer";
+import FileUpload from "UI/Form/File/FileUpload";
+import axios from "axios";
 
 interface props {
     // flatCategories, productAttributes, categoryDetail, onCloseForm, updateId, onUpdate
@@ -42,6 +44,7 @@ const AddCategory = (props) => {
             name: {value: "", errorMessage: ""},
             isProductLevel: {value: false, errorMessage: ""},
             parentId: {value: null, errorMessage: ""},
+            logo: {value: null, errorMessage: ""}
         },
 
         sections: [
@@ -73,6 +76,7 @@ const AddCategory = (props) => {
         fetchFlatCategoriesAction(flatCategories, dispatch);
         fetchProductAttributesAction(dispatch);
     }, [])
+
 
     useEffect(() => {
         if (updateId) {
@@ -237,10 +241,15 @@ const AddCategory = (props) => {
 
 
         try {
-            setHttpResponse(p => ({...p, message: "", loading: true}));
+
+            let formData1 = convObjectToFormDate(payload, {
+                logo: handleProcessLogo
+            })
+
+            // setHttpResponse(p => ({...p, message: "", loading: true}));
 
             if (updateId) {
-                let {data, status} = await apis.patch("/api/category/" + updateId, payload)
+                let {data, status} = await apis.patch("/api/category/" + updateId, formData1)
                 if (status === StatusCode.Created) {
                     setTimeout(() => {
                         setHttpResponse({message: data.message, loading: false, isSuccess: true});
@@ -249,7 +258,7 @@ const AddCategory = (props) => {
 
             } else {
                 // add as a category
-                let {data, status} = await apis.post("/api/category", payload)
+                let {data, status} = await apis.post("/api/category", formData1)
                 if (status === StatusCode.Created) {
                     dispatch(addFlatCategory(data.category))
                     setTimeout(() => {
@@ -265,6 +274,8 @@ const AddCategory = (props) => {
         } finally {
             setHttpResponse(p => ({...p, message: "", loading: false, isSuccess: true}));
         }
+
+        setHttpResponse({loading: false})
 
     }
 
@@ -370,6 +381,37 @@ const AddCategory = (props) => {
         setState((p) => ({...p, sections: data}))
     }
 
+    function convObjectToFormDate(obj, handle){
+        let formData = new FormData()
+        for (let objKey in obj) {
+            if(handle && handle[objKey]){
+                let item = handle[objKey](objKey, obj[objKey], formData)
+                if(item) {
+                    formData.append(objKey, item);
+                }
+            } else {
+                formData.append(objKey, JSON.stringify(obj[objKey]))
+            }
+        }
+        return formData;
+    }
+
+    // let f = convObjectToFormDate({
+    //     name: "sdfsdf",
+    //     age: 23432,
+    //     items: [2, 34],
+    //     logo: new Blob()
+    // }, {
+    //     logo: handleProcessLogo
+    // })
+
+    function handleProcessLogo(name, value, formData){
+        if(value instanceof Blob){
+            formData.append(name, value, value.name)
+        }
+    }
+
+
 
     return (
         <Card className="">
@@ -391,7 +433,24 @@ const AddCategory = (props) => {
                     placeholder="enter category name"
                     onChange={handleChange}
                 />
-                {/*********** Cover **************/}
+
+
+                {/*********** Logo **************/}
+
+                <FileUpload
+                    name="logo"
+                    label="Logo"
+                    maxSize={200000} // allow 200kb max size
+                    inputClass=""
+                    previewImageClass="w-20 h-20 object-contain"
+                    placeholder="Choose Cover Photo"
+                    onChange={handleChange}
+                    defaultValue={formData.logo.value}
+                    labelClass="dark:text-white !mb-2"
+                    // errorMessage={formData.logo.errorMessage}
+                    className={"!flex-col max-w-xs"}
+                />
+
 
                 <SelectGroup
                     name="parentId"
@@ -432,7 +491,6 @@ const AddCategory = (props) => {
                     className={"!flex-col"}
                     label="Filter Attributes"
                     defaultValue={state.formData.filterAttributes.value}
-                    inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                     placeholder="Attributes Name"
                     onChange={handleChange}
                     state={formData}
@@ -451,7 +509,6 @@ const AddCategory = (props) => {
 
                 <MultiSelect
                     name="defaultExpand"
-                    inputClass="bg-white focus:border-gray-100 border focus:border-green-450 !placeholder:text-neutral-200"
                     labelClass="dark:text-white !mb-2"
                     onClick={handleFetchAttributes}
                     className={"!flex-col"}
