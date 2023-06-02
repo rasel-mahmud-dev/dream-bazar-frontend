@@ -36,6 +36,7 @@ import useAppSelector from "src/hooks/useAppSelector";
 import {setLanguageAction, toggleThemeAction} from "actions/appAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import {changeFilterSearchAction, searchProductsAction} from "actions/productAction";
+import {setLanguage, setTheme} from "reducers/appSlice";
 
 
 const AuthDropdown = lazy(() => import("../Dropdown/AuthDropdown"));
@@ -114,7 +115,7 @@ function Navigation(props) {
     }, [props.offsetTop]);
 
     function handleChangeTheme(e) {
-        dispatch(toggleThemeAction(e.target.value));
+        dispatch(setTheme(e.target.value))
     }
 
     function handleChangeLanguage(e) {

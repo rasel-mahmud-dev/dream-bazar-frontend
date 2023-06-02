@@ -28,7 +28,7 @@
         tbody {
             //@apply bg-dark-0 dark:bg-dark-600;
             tr{
-                @apply bg-[#f4faff] dark:bg-dark-900;
+                @apply bg-[#f4faff] dark:bg-dark-900 dark:text-dark-50 text-gray-700;
             }
 
             tr td {
@@ -40,7 +40,6 @@
                 }
             }
 
-
             tr:nth-child(2n) {
                 @apply bg-dark-0 dark:bg-dark-800;
 
@@ -51,7 +50,7 @@
 
 
     .table-cell {
-        word-break: break-word;
+        //word-break: break-word;
         padding: 10px;
     }
 
@@ -61,30 +60,6 @@
         justify-content: flex-end;
         gap: 20px;
     }
-
-    .pagination-item {
-        width: 40px;
-        height: 40px;
-        background: orange;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 100%;
-        font-weight: 600;
-        color: white;
-        cursor: pointer;
-    }
-
-    .pagination-item-active {
-        background: #4f57ff;
-    }
-
-    .sort-icon {
-        margin-right: 5px;
-        fill: #ffffff;
-    }
-
-
 }
 
 

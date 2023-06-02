@@ -10,11 +10,8 @@ import useScrollTop from "src/hooks/useScrollTop";
 import useAppSelector from "src/hooks/useAppSelector";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import RenderHomeSection from "components/HomePage/RenderHomeSection";
-import CarouselView from "components/Product/CarouselView";
-import ProductCartView from "components/Product/ProductCartView";
 import apis from "src/apis";
 import {HomePageSectionProduct} from "reducers/productSlice";
-import TopBrandsCarousel from "components/HomePage/TopBrandsCarousel";
 
 const HomeCategoryNav = lazy(() => import("pages/main/homePage/HomeCategoryNav/HomeCategoryNav"));
 const SliderSection = lazy(() => import("pages/main/homePage/SliderSection"));
@@ -77,20 +74,23 @@ const HomePage = (props) => {
 
     useEffect(() => {
 
-        let homeSectionItemSlugs = homePageSection.map(sec => sec.sectionSlug)
-        if (!homeSectionItemSlugs) return;
-        apis.post<HomePageSectionProduct>("/api/products/home-section-products", {
-            sectionSlugs: [...homeSectionItemSlugs.slice(0, 22)]
-        }).then(({data}) => {
-            dispatch(fetchHomePageSectionProducts(data))
-        }).catch(ex => {
-            console.log(ex)
-        })
+        console.log(homePageSection)
+        if (homePageSection && Array.isArray(homePageSection)) {
+            let homeSectionItemSlugs = homePageSection?.map(sec => sec.sectionSlug)
+            if (!homeSectionItemSlugs) return;
+            apis.post<HomePageSectionProduct>("/api/products/home-section-products", {
+                sectionSlugs: [...homeSectionItemSlugs.slice(0, 22)]
+            }).then(({data}) => {
+                dispatch(fetchHomePageSectionProducts(data))
+            }).catch(ex => {
+                console.log(ex)
+            })
+        }
 
     }, [homePageSection])
 
 
-    const {selectedLang, lang} = appState;
+    // const {selectedLang, lang} = appState;
 
     const [pagination, setPagination] = React.useState({perSection: 2, sectionNumber: 1});
 
@@ -198,7 +198,7 @@ const HomePage = (props) => {
             </div>
 
             <div className="container pb-20">
-                {homePageSection.map((section, index) => (
+                {homePageSection && Array.isArray(homePageSection) &&  homePageSection?.map((section, index) => (
                     <div>
                         <RenderHomeSection homePageSectionProducts={homePageSectionProducts} section={section}/>
                     </div>

@@ -2,40 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer {
-    :root {
-        --bg-primary-light: #f8f8f8;
-        --bg-primary-dark: #161616;
-        --secondary: rgb(77, 98, 231);
-        --primary-50: #7283ef;
-        --primary-100: #6678e7;
-        --primary-200: #5c6fe0;
-        --primary-300: #5366e0;
-        --primary-400: #4c5fd9;
-        --primary-500: #4d61e5;
-        --primary-600: #4c60ee;
-        --primary-700: #465bf1;
-        --primary-800: #435af8;
-        --primary-900: #3d56ff;
-        --dark-0: #ffffff;
-        --dark-5: #f6f6f6;
-        --dark-10: #f3f3f3;
-        --dark-20: #efefef;
-        --dark-30: #e7e7e7;
-        --dark-40: #dadada;
-        --dark-50: #e1e1e1;
-        --dark-100: #bdbdbd;
-        --dark-200: #9a9a9a;
-        --dark-300: #797979;
-        --dark-400: #606060;
-        --dark-500: #484848;
-        --dark-600: #363636;
-        --dark-700: #282828;
-        --dark-750: #2e2e2e;
-        --dark-800: #1e1e1e;
-        --dark-900: #15151;
-    }
+
+:root {
+    --bg-primary-light: #f8f8f8;
+    --bg-primary-dark: #161616;
+    --secondary: rgb(77, 98, 231);
+    --primary-50: #7283ef;
+    --primary-100: #6678e7;
+    --primary-200: #5c6fe0;
+    --primary-300: #5366e0;
+    --primary-400: #4c5fd9;
+    --primary-500: #4d61e5;
+    --primary-600: #4c60ee;
+    --primary-700: #465bf1;
+    --primary-800: #435af8;
+    --primary-900: #3d56ff;
+    --dark-0: #ffffff;
+    --dark-5: #f6f6f6;
+    --dark-10: #f3f3f3;
+    --dark-20: #efefef;
+    --dark-30: #e7e7e7;
+    --dark-40: #dadada;
+    --dark-50: #e1e1e1;
+    --dark-100: #bdbdbd;
+    --dark-200: #9a9a9a;
+    --dark-300: #797979;
+    --dark-400: #606060;
+    --dark-500: #484848;
+    --dark-600: #363636;
+    --dark-700: #282828;
+    --dark-750: #2e2e2e;
+    --dark-800: #1e1e1e;
+    --dark-900: #15151;
 }
+
 
 body {
     margin: 0;

@@ -42,7 +42,6 @@ export function fetchProducts(pageNumber) {
 
 
 export function updateProductAction<T>(adminProducts, productId: string, updatedProduct, dispatch) {
-
     return new Promise<[status: number, data: T]>(async (resolve, reject) => {
         try {
             const {data, status} = await apis.patch("/api/product/" + productId, updatedProduct)
@@ -63,10 +62,32 @@ export function updateProductAction<T>(adminProducts, productId: string, updated
 }
 
 
-export const fetchProductsForAdmin = createAsyncThunk<any, {query: string}>("/adminSlice", async function (payload) {
+export const updateProductAttributeAction =
+    createAsyncThunk<any, { productId: string, updatedProduct: any }>
+    ("", async ({
+            productId,
+            updatedProduct
+        }) => {
+
+        console.log()
+
+        try {
+            const {data, status} = await apis.patch("/api/product/admin/" + productId, updatedProduct)
+            if (status === 201) {
+                console.log(data)
+            }
+
+        } catch (ex) {
+
+        }
+
+    })
+
+
+export const fetchProductsForAdmin = createAsyncThunk<any, { query: string }>("/adminSlice", async function (payload) {
     try {
 
-        const {data} = await apis.get(`/api/products/products-list${payload.query ? `?${payload.query}`: ''}`)
+        const {data} = await apis.get(`/api/products/products-list${payload.query ? `?${payload.query}` : ''}`)
         return data
 
     } catch (ex) {

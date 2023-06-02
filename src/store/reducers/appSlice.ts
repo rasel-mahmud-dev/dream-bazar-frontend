@@ -2,6 +2,7 @@ import {ACTION_TYPES} from "store/types"
 import {AppActions} from "store/types/appActionType";
 import {createSlice} from "@reduxjs/toolkit";
 import app from "src/App";
+import {setLanguageAction} from "actions/appAction";
 
 
 interface AppStateType {
@@ -43,13 +44,32 @@ const appSlice = createSlice({
             state.openLeftSidebar = action.payload
         },
         setLanguage(state, action){
-            state.translations = action.payload.translations
+            // state.translations = action.payload.translations
             state.lang = action.payload.lang
         },
 
         setTheme(state, action){
-            state.theme = action.payload
+            let theme = action.payload;
+            if(theme) {
+                localStorage.setItem("theme", theme)
+            } else {
+                theme = localStorage.getItem("theme") || ""
+            }
+
+            let html  = document.documentElement
+            html.className = theme
+
+            state.theme = theme
         }
+    },
+    extraReducers: (builder)=>{
+        builder.addCase(setLanguageAction.fulfilled, (state, action)=>{
+            if(action.payload?.translations)
+                state.translations = action.payload.translations
+
+            if(action.payload?.lang)
+                state.lang = action.payload.lang
+        })
     }
 })
 

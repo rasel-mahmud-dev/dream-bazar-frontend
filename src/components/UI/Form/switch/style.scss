@@ -17,7 +17,7 @@
         pointer-events: none;
         background: rgba(229, 229, 229, 0.54);
         &.switch-on {
-            background: rgba(51, 176, 58, 0.3) !important;
+            background: rgba(76, 95, 217, 0.28) !important;
         }
     }
 
@@ -33,7 +33,7 @@
     }
 
     &-on{
-        background: #33b03a;
+        background: var(--primary-400);
         .thumb{
             transition: all .2s linear;
             transform: translateX(calc(100% - -1px));

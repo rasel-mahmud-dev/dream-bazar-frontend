@@ -7,6 +7,7 @@ import router from "src/routes/routes";
 import {currentAuthAction} from "actions/authAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import {setLanguageAction, toggleThemeAction} from "actions/appAction";
+import {setTheme} from "reducers/appSlice";
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
     useEffect(() => {
         dispatch(currentAuthAction())
         dispatch(setLanguageAction(""))
-        dispatch(toggleThemeAction())
+        dispatch(setTheme(""))
 
     }, []);
 

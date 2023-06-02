@@ -1,99 +1,74 @@
-import { ACTION_TYPES } from "../types"
+import {ACTION_TYPES} from "../types"
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {ChangeLanguageAction} from "store/types/appActionType";
 
 
-export const toggleNotify=(status, notificationType, message)=>{ 
-  return {
-    type: ACTION_TYPES.TOGGLE_NOTIFY,
-    payload: {message: message, isNotify: status, notificationType}  
-  }
+export const toggleNotify = (status, notificationType, message) => {
+    return {
+        type: ACTION_TYPES.TOGGLE_NOTIFY,
+        payload: {message: message, isNotify: status, notificationType}
+    }
 }
 
 
-export const closeNotify=()=>{ 
-  return {
-    type: ACTION_TYPES.TOGGLE_NOTIFY,
-    payload: {message: "", isNotify: false, notificationType: ""}  
-  }
+export const closeNotify = () => {
+    return {
+        type: ACTION_TYPES.TOGGLE_NOTIFY,
+        payload: {message: "", isNotify: false, notificationType: ""}
+    }
 }
 
 
-
-export const toggleLeftSidebarAction=(dispatch)=>{
+export const toggleLeftSidebarAction = (dispatch) => {
     dispatch({
         type: ACTION_TYPES.TOGGLE_LEFT_BAR
     })
 }
 
 
-export const toggleBackdrop=(data: {isOpen: boolean, scope: "app" | "global" | "custom"})=>{
-  if(data.isOpen){
-    document.body.classList.add("block-page")}
-  else{
-    document.body.classList.remove("block-page")
-  }
-  return {
-    type: ACTION_TYPES.TOGGLE_BACKDROP,
-    payload: data
-  }
+export const toggleBackdrop = (data: { isOpen: boolean, scope: "app" | "global" | "custom" }) => {
+    if (data.isOpen) {
+        document.body.classList.add("block-page")
+    } else {
+        document.body.classList.remove("block-page")
+    }
+    return {
+        type: ACTION_TYPES.TOGGLE_BACKDROP,
+        payload: data
+    }
 }
 
 
+export const setLanguageAction = createAsyncThunk("", async (lang: string = "", store) => {
+    let locales = lang;
+    let whitelist = ["en", "bn"]
 
-export const setLanguageAction = createAsyncThunk("", async (lang: string = "", store)=>{
-
-
-        let locales = lang;
-        let whitelist = ["en", "bn"]
-
-        if(!locales){
-            let lang = localStorage.getItem("lang");
-            if(!lang){
-                locales = "en"
-            }else {
-                locales = lang;
-            }
+    if (!locales) {
+        let lang = localStorage.getItem("lang");
+        if (!lang) {
+            locales = "en"
+        } else {
+            locales = lang;
         }
+    }
 
-        if(!whitelist.includes(locales)){
-            return;
-        }
+    if (!whitelist.includes(locales)) {
+        return;
+    }
 
-        try{
-            let response = await fetch(`/locales/${locales}/translation.json`)
-            let translations = await response.json();
-            localStorage.setItem("lang", locales)
-            store.dispatch<ChangeLanguageAction>({
-                type: ACTION_TYPES.SET_LANGUAGE,
-                payload: {lang: locales, translations}
-            })
-        } catch (ex){
+    try {
+        let response = await fetch(`/locales/${locales}/translation.json`)
+        let translations = await response.json();
+        localStorage.setItem("lang", locales)
+        return {lang: locales, translations}
+    } catch (ex) {
 
-        }
+    }
 
 })
 
 
-export const toggleThemeAction = (theme="")=>{
+export const toggleThemeAction = (theme = "") => {
     console.log(theme)
-
-    if(theme) {
-        localStorage.setItem("theme", theme)
-    } else {
-        theme = localStorage.getItem("theme") || ""
-    }
-
-    let html  = document.documentElement
-    html.className = theme
-    return {
-        type: ACTION_TYPES.SET_THEME,
-        payload: theme
-    }
-
-
-
-
 
 
 }

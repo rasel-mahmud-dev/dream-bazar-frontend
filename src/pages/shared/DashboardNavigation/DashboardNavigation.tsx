@@ -15,7 +15,7 @@ import useAppSelector from "src/hooks/useAppSelector";
 
 
 import "./styles.scss"
-import {setOpenLeftSidebar} from "reducers/appSlice";
+import {setOpenLeftSidebar, setTheme} from "reducers/appSlice";
 
 const DashboardNavigation = ({auth}) => {
 
@@ -41,7 +41,7 @@ const DashboardNavigation = ({auth}) => {
     }, [headerRef.current])
 
     function changeChangeTheme() {
-        dispatch(toggleThemeAction(theme === "dark" ? "light" : "dark"))
+        dispatch(setTheme(theme === "dark" ? "light" : "dark"))
     }
 
 
