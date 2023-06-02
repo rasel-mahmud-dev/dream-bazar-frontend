@@ -19,7 +19,7 @@ const Sidebar: FC<Props> = (props) => {
         <>
             {/*{isOpen && <Backdrop isOpenBackdrop={isOpen} onClose={onClose} className={backdropClass} />}*/}
 
-                <div className={`backdrop-overlay ${backdropClass} ${isOpen ? "backdrop-overlay-open" : ""}`}>
+                <div onClick={onClose}   className={`backdrop-overlay ${backdropClass} ${isOpen ? "backdrop-overlay-open" : ""}`}>
 
                 </div>
 

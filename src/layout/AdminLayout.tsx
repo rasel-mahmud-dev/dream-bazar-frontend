@@ -173,7 +173,7 @@ const AdminLayout = () => {
 
     const dispatch = useAppDispatch();
     const {
-        appState: {isOpenLeftBar},
+        appState: {openLeftSidebar},
         authState: {auth},
     } = useAppSelector(state => state);
 
@@ -306,7 +306,7 @@ const AdminLayout = () => {
 
                 <div className="mx-auto">
                     <div className="flex">
-                        <DashboardSidebar sidebarData={sidebarLinks} isOpenLeftBar={isOpenLeftBar} auth={auth}/>
+                        <DashboardSidebar sidebarData={sidebarLinks} isOpen={openLeftSidebar === "dashboard"} auth={auth}/>
 
                         <div className="dashboard-container dashboard-content">
                             <Suspense fallback={<h1>Hi loading</h1>}>

@@ -2,7 +2,7 @@ import { configureStore, combineReducers} from '@reduxjs/toolkit'
 import productReducer from "reducers/productSlice";
 import cartReducer from "reducers/cartReducer";
 import authReducer from "reducers/authReducer";
-import appReducer from "reducers/appReducer";
+import appSlice from "reducers/appSlice";
 import sellerReducer from "reducers/sellerReducer";
 import adminSlice from "reducers/adminSlice";
 import categoryReducer from "reducers/categoryReducer";
@@ -16,7 +16,7 @@ const store =  configureStore({
         brandState: brandReducer,
         cartState: cartReducer,
         authState: authReducer,
-        appState: appReducer,
+        appState: appSlice.reducer,
         sellerState: sellerReducer,
         adminState: adminSlice.reducer,
     },

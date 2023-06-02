@@ -13,8 +13,11 @@
             tr th {
                 padding: 12px 20px;
                 font-weight: 600;
-                color: #334155;
-                background: #fff !important;
+                //color: #334155;
+                @apply text-gray-700 dark:text-dark-5;
+                //background: #fff !important;
+
+                @apply bg-dark-0 dark:bg-dark-800
             }
             .thead-item {
                 display: flex;
@@ -23,9 +26,9 @@
         }
 
         tbody {
-
+            //@apply bg-dark-0 dark:bg-dark-600;
             tr{
-                background: #f4faff;
+                @apply bg-[#f4faff] dark:bg-dark-900;
             }
 
             tr td {
@@ -39,7 +42,8 @@
 
 
             tr:nth-child(2n) {
-                background: #ffffff;
+                @apply bg-dark-0 dark:bg-dark-800;
+
             }
         }
 

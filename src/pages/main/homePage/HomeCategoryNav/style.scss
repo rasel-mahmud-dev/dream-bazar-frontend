@@ -29,6 +29,7 @@
             h4{
                 white-space: nowrap;
                 margin-top: 5px;
+                @apply text-dark-900 dark:text-dark-5;
                 @include get_down(768px){
                     margin-top: 0px;
                 }
@@ -86,19 +87,29 @@
             padding: 0 30px;
 
             h4 {
-                @apply hover:bg-green-500/10 hover:text-green-450 rounded;
+                @apply hover:bg-primary-500/10 rounded text-dark-600 dark:text-dark-100;
+
+                &:hover{
+                    @apply text-primary-400;
+                }
                 white-space: nowrap;
                 cursor: pointer;
                 padding: 5px;
+
             }
         }
 
         .category-sub-item {
-            @apply p-2 rounded
+            @apply p-2 rounded;
+
+            a{
+                @apply text-dark-800 dark:text-dark-50
+            }
+
         }
 
         .active-category-sub-item {
-            @apply bg-green-500/10 text-green-450;
+            @apply bg-primary-500/10 text-primary-400;
 
             h4 {
                 @apply font-semibold

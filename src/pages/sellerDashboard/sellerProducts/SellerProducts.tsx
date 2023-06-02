@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useReducer, useState} from "react";
 import apis from "src/apis";
 import staticImagePath from "src/utills/staticImagePath";
 import {FaMinus, FaPlus, FaTrash, FiEye, IoPencil} from "react-icons/all";
-import {Badge} from "UI/index";
+import {Badge, Pagination} from "UI/index";
 import {useNavigate} from "react-router-dom";
 import {StatusCode} from "store/types";
 import {ProductType} from "reducers/productSlice";
@@ -14,6 +14,7 @@ import Box from "UI/Box/Box";
 import Switch from "UI/Form/switch/Switch";
 import {ApproveStatus} from "src/types/enum";
 import approveColors from "src/utills/approveColors";
+import {fetchProductsForAdmin} from "actions/adminProductAction";
 
 const SellerProducts = ({}) => {
 
@@ -24,11 +25,28 @@ const SellerProducts = ({}) => {
 
     const [featuresProducts, setFeaturesProducts] = useState([])
 
+    const [paginationState, setPaginationState] = useReducer((prevState, action) => ({
+        ...prevState,
+        ...action,
+    }), {
+        perPage: 10,
+        currentPage: 1,
+        totalItem: 0,
+    })
+
+    function handlePageChange(page: number) {
+        setPaginationState(page)
+        // dispatch(fetchProductsForAdmin({
+        //     query: `perPage=${paginationState.perPage}&pageNumber=${page}`}
+        // ))
+    }
+
 
     useEffect(() => {
         apis.get("/api/seller/products")
             .then(({data, status}) => {
                 if (status === 200) {
+                    setPaginationState({totalItem: data.products.length})
                     setProducts(data.products);
                 }
             });
@@ -162,9 +180,15 @@ const SellerProducts = ({}) => {
                     <Table
                         dataSource={products}
                         columns={columns}
-                        fixed={true}
-                        scroll={{ x: 900, y: "70vh" }}
                     />
+
+                    <Pagination
+                        className="!justify-end mt-5"
+                        onChange={handlePageChange}
+                        totalItem={paginationState.totalItem}
+                        perPage={paginationState.perPage}
+                        currentPage={paginationState.currentPage}/>
+
                     <div className="seller-products-grid mt-3">
                         {/*{products.map(prod => (*/}
                         {/*    <div className=" seller-product relative">*/}

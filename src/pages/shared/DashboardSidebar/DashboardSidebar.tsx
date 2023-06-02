@@ -1,13 +1,13 @@
 import React, {FC, ReactNode, useState} from "react";
 import Sidebar from "components/sidebar/Sidebar";
-import {toggleLeftSidebarAction} from "actions/appAction";
 import {useDispatch} from "react-redux";
 import {FaAngleDown, FaAngleLeft, FaAngleRight} from "react-icons/all";
 import {Link, useNavigate} from "react-router-dom";
-import Circle from "UI/Circle/Circle";
+
 
 import "./dashboardSideBar.scss";
 import {AuthType} from "store/types";
+import {setOpenLeftSidebar} from "reducers/appSlice";
 
 
 export type SidebarDataType = {
@@ -20,13 +20,13 @@ export type SidebarDataType = {
 }
 
 interface Props {
-    isOpenLeftBar: boolean
+    isOpen: boolean
     auth: AuthType | null
     sidebarData: SidebarDataType[]
 }
 
 
-const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
+const DashboardSidebar: FC<Props> = ({auth, isOpen, sidebarData}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
@@ -35,8 +35,8 @@ const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
         openItem: ""
     })
 
-    function toggleSidebar() {
-        toggleLeftSidebarAction(dispatch);
+    function handleCloseSidebar() {
+        dispatch(setOpenLeftSidebar(""));
     }
 
     function handleClickItem(item) {
@@ -54,8 +54,8 @@ const DashboardSidebar: FC<Props> = ({auth, isOpenLeftBar, sidebarData}) => {
                 <Sidebar
                     className="dashboard-sidebar"
                     backdropClass="!bg-dark-900/40 dashboard-backdrop"
-                    isOpen={isOpenLeftBar}
-                    onClose={toggleSidebar}
+                    isOpen={isOpen}
+                    onClose={handleCloseSidebar}
                 >
                     <div className="">
 

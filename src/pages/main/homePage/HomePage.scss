@@ -27,10 +27,15 @@
 
     .slider_item{
         //background: red;
-        margin: 0 10px;
-        img{
-            border-radius: 9px;
+
+        @include get_down(640px){
+            //margin: 0 10px;
+            img{
+                //border-radius: 9px;
+            }
         }
+
+
     }
 
     .image-overlay{
@@ -125,7 +130,7 @@
     }
 
     .homepage-carousel {
-        margin-top: 10px;
+        //margin-top: 10px;
     }
 }
 

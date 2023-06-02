@@ -15,6 +15,7 @@ import useAppSelector from "src/hooks/useAppSelector";
 
 
 import "./styles.scss"
+import {setOpenLeftSidebar} from "reducers/appSlice";
 
 const DashboardNavigation = ({auth}) => {
 
@@ -30,7 +31,7 @@ const DashboardNavigation = ({auth}) => {
     const headerRef = useRef<HTMLDivElement>(null)
 
     function handleToggleLeftBar() {
-        toggleLeftSidebarAction(dispatch);
+        dispatch(setOpenLeftSidebar("dashboard"));
     }
 
     useEffect(() => {
@@ -50,12 +51,12 @@ const DashboardNavigation = ({auth}) => {
                 <header className="admin-navigation-container flex items-center justify-between">
                     <div className="logo flex items-center">
                         <Circle className="lg:hidden block  mr-3" onClick={handleToggleLeftBar}>
-                            <FaBars className="text-sm"/>
+                            <FaBars className="text-lg"/>
                         </Circle>
 
                         <Link to="/admin/dashboard" className="flex items-center">
                             <img src="/public/logo-2.png" alt="" className="w-9 md:w-11"/>
-                            <h4 className="font-semibold text-lg md:text-xl   md:block">Dream Bazar</h4>
+                            <h4 className="font-semibold text-lg md:text-xl   md:block">Dream</h4>
                         </Link>
                     </div>
 

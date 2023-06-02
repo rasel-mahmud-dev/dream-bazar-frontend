@@ -1,6 +1,7 @@
 @import "styles/index";
 @import "styles/--variable.scss";
 @import "styles/--breakpoint";
+@import "styles/--mixin";
 
 :root {
     --header-height: 100px;
@@ -32,6 +33,13 @@ html {
 //  }
 //}
 
+
+@include dark(){
+   body{
+       background: #171717;
+   }
+}
+
 body {
     //background: #f0f3f8;
     //background: #f8f8f8;
@@ -42,8 +50,6 @@ body {
     font-size: 14px;
     color: #212121;
     line-height: 1.4;
-
-
     --tw-bg-opacity: 1;
     background-color: rgb(248 250 252 / 1);
     --tw-text-opacity: 1;
@@ -353,12 +359,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     max-width: 1600px;
     margin: auto;
     width: 100%;
-    //padding-left: 16px;
-    //padding-right: 16px;
-
-    .content {
-        background: red;
-    }
 
     .menu-item {
         @apply flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer

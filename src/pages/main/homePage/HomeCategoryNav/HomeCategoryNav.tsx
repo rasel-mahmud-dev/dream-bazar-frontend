@@ -1,5 +1,5 @@
-import { Menu, Popup } from "UI/index";
-import React, { useEffect, useRef, useState } from "react";
+import {Menu} from "UI/index";
+import React, {useEffect, useRef, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import staticImagePath from "src/utills/staticImagePath";
 import Dropdown from "components/Dropdown/Dropdown";
@@ -11,7 +11,7 @@ import homeNavData from "./data";
 import useWindowResize from "src/hooks/useWindowResize";
 import useLanguage from "src/hooks/useLanguage";
 
-const { SubMenu } = Menu;
+const {SubMenu} = Menu;
 
 interface moreHomeNavDataType {
     name?: string;
@@ -25,17 +25,17 @@ const HomeCategoryNav = () => {
 
     const l = useLanguage()
 
-    const navigate  = useNavigate()
+    const navigate = useNavigate()
 
     const [isMobile, setMobile] = useState(false)
 
     let innerWidth = useWindowResize()
 
 
-    useEffect(()=>{
-        if(innerWidth < 1024) {
+    useEffect(() => {
+        if (innerWidth < 1024) {
             setMobile(true)
-        } else{
+        } else {
             setMobile(false)
         }
     }, [innerWidth])
@@ -43,7 +43,7 @@ const HomeCategoryNav = () => {
 
     const [openItemId, setOpenItemId] = React.useState(-1);
 
-    const [openDropdown, setOpenDropdown] = React.useState<{name?: string}>({});
+    const [openDropdown, setOpenDropdown] = React.useState<{ name?: string }>({});
 
     const [subMenuIds, setSubMenuIds] = React.useState([]);
 
@@ -63,7 +63,7 @@ const HomeCategoryNav = () => {
     // assume min width of dropdown panel
     const MAX_DROPDOWN_WIDTH = 288;
 
-    function handleClickSubMenu(e:  React.MouseEvent<HTMLDivElement, MouseEvent>, section: any) {
+    function handleClickSubMenu(e: React.MouseEvent<HTMLDivElement, MouseEvent>, section: any) {
 
         let offsetLeft = (e.target as HTMLDivElement).offsetLeft;
 
@@ -71,7 +71,7 @@ const HomeCategoryNav = () => {
         if (offsetLeft > MAX_DROPDOWN_WIDTH) {
             // out of x right viewport;
             if (offsetLeft + MAX_DROPDOWN_WIDTH > window.innerWidth) {
-                setDropdownStyle({ transform: "translateX(0)", right: -50 });
+                setDropdownStyle({transform: "translateX(0)", right: -50});
             } else {
                 setDropdownStyle({
                     transform: "translateX(-50%)",
@@ -79,7 +79,7 @@ const HomeCategoryNav = () => {
                 });
             }
         } else {
-            setDropdownStyle({ left: "auto", transform: "translateX(0)" });
+            setDropdownStyle({left: "auto", transform: "translateX(0)"});
         }
 
         if (!section) return;
@@ -102,7 +102,7 @@ const HomeCategoryNav = () => {
         setOpenSubMenuName(subCat.name);
     }
 
-    function renderDropdown(section){
+    function renderDropdown(section) {
 
         return section && (
             <Dropdown isShow={openDropdown?.name === section.name && section?.sub_menu && section?.sub_menu.length > 0} className="z-500">
@@ -118,7 +118,7 @@ const HomeCategoryNav = () => {
                                     className={`category-sub-item ${openSubMenuName === subMenu.name ? "active-category-sub-item" : ""}`}
                                 >
                                     <h4
-                                        onTouchStart={()=>setOpenSubMenuName(subMenu.name)}
+                                        onTouchStart={() => setOpenSubMenuName(subMenu.name)}
                                         onClick={() => setOpenSubMenuName(subMenu.name)}
                                         className="whitespace-nowrap cursor-pointer text-sm font-medium"
                                     >
@@ -141,7 +141,7 @@ const HomeCategoryNav = () => {
                                             <div>
                                                 {subMenu?.sub_menu && subMenu.sub_menu.length > 0 ? (
                                                     subMenu.sub_menu.map((subSubMenu) => (
-                                                        <div key={subSubMenu.name }>
+                                                        <div key={subSubMenu.name}>
                                                             <h4>
                                                                 <Link
                                                                     to={`/p/${
@@ -170,9 +170,9 @@ const HomeCategoryNav = () => {
         )
     }
 
-    function handleClickToJump(section){
+    function handleClickToJump(section) {
         let {sub_menu, rootCategory, name} = section
-        if(!sub_menu && rootCategory){
+        if (!sub_menu && rootCategory) {
             navigate(`/p/${section.rootCategory}?catTree=${section.name}`)
         }
     }
@@ -180,31 +180,33 @@ const HomeCategoryNav = () => {
 
     return (
         <div className="home-category-list">
-            <div className="flex items-center justify-between max-w-8xl mx-auto px-2  gap-x-2 md:gap-x-4 scroll-x-transparent overflow-x-auto md:overflow-visible ">
+            <div
+                className="flex items-center justify-between max-w-8xl mx-auto px-2  gap-x-2 md:gap-x-4 scroll-x-transparent overflow-x-auto md:overflow-visible ">
                 {homeNavData.map((section, idx) => (
                     <div
                         key={idx}
                         className="home-category-list-item"
-                        onClick={()=>handleClickToJump(section)}
+                        onClick={() => handleClickToJump(section)}
                         onMouseEnter={(e) => handleClickSubMenu(e, section)}
                         onMouseLeave={handleCloseDropdown}
                     >
-                        <div className="flex home-category-list-item-content flex-col items-center  border md:border-none rounded-full md:bg-transparent ">
-                            <Image className="category-list-item-img" src={staticImagePath(section.logo)} />
+                        <div
+                            className="flex home-category-list-item-content flex-col items-center  border md:border-none rounded-full md:bg-transparent ">
+                            <Image className="category-list-item-img" src={staticImagePath(section.logo)}/>
                             <h4 className="hidden md:block text-sm font-medium">
                                 {(!section.sub_menu && section.rootCategory) ? (
-                                    <Link  to={`/p/${section.rootCategory}?catTree=${section.name}`}>
+                                    <Link to={`/p/${section.rootCategory}?catTree=${section.name}`}>
                                         {l(section.label)}
                                     </Link>
-                                ):     l(section.label)}
+                                ) : l(section.label)}
                             </h4>
                         </div>
-                        { !isMobile && renderDropdown(section) }
+                        {!isMobile && renderDropdown(section)}
                     </div>
                 ))}
             </div>
 
-            { isMobile && renderDropdown(openDropdown) }
+            {isMobile && renderDropdown(openDropdown)}
         </div>
     );
 };
