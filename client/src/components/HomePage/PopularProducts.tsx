@@ -9,8 +9,7 @@ import ProductSkeleton from "components/Product2/ProductSkeleton";
 import Loader from "UI/Loader/Loader";
 
 
-const TrendingNow = ({sectionProducts, isLoaded}) => {
-
+const PopularProducts = ({sectionProducts, isLoaded}) => {
     // const product = {
     //     _id: 1,
     //     title: "Men tiger black jeans",
@@ -20,8 +19,10 @@ const TrendingNow = ({sectionProducts, isLoaded}) => {
     //     stock: 40,
     // }
 
+
     return (
         <div className="latest-product">
+
             {!isLoaded && Array.from({length: 6}).map((_, i) => (
                 <ProductSkeleton key={i} imagePlaceholder={<Loader size="xs"/>}/>
             ))}
@@ -34,9 +35,8 @@ const TrendingNow = ({sectionProducts, isLoaded}) => {
                     <div className="product-item-content">
                         <Link to={`/${product.slug}`}><h4>{subStr(product.title, 50)}</h4></Link>
                         <div className="price-row flex items-center gap-x-2">
-                            {/*<span className="price">{product.price} Taka</span>*/}
-                            <span className="sold">Sold: <span className="font-medium text-primary-500">{product.sold}</span> items</span>
-                            <span className="view">View: <span className="font-medium text-primary-500">{product.views}</span></span>
+                            <span className="price">{product.price} Taka</span>
+                            <span className="discount">{product.discount}% off</span>
                         </div>
 
                         <ProductColor categoryName={product.categoryName}/>
@@ -51,8 +51,9 @@ const TrendingNow = ({sectionProducts, isLoaded}) => {
                 </div>
             )}
 
+
         </div>
     );
 };
 
-export default TrendingNow;
+export default PopularProducts;

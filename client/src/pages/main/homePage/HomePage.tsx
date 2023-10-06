@@ -10,12 +10,9 @@ import useScrollTop from "src/hooks/useScrollTop";
 import useAppSelector from "src/hooks/useAppSelector";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import RenderHomeSection from "components/HomePage/RenderHomeSection";
-import apis from "src/apis";
-import {HomePageSectionProduct} from "reducers/productSlice";
 
 const HomeCategoryNav = lazy(() => import("pages/main/homePage/HomeCategoryNav/HomeCategoryNav"));
 const SliderSection = lazy(() => import("pages/main/homePage/SliderSection"));
-
 
 const HomePage = (props) => {
 
@@ -58,7 +55,7 @@ const HomePage = (props) => {
     ]
 
 
-    const {homeSections, homeSectionData} = useAppSelector(state => state.productState)
+    const {homeSections, homeSectionLoaded, homeSectionData} = useAppSelector(state => state.productState)
 
     useEffect(() => {
         // if (homeSections && Array.isArray(homeSections)) {
@@ -187,7 +184,7 @@ const HomePage = (props) => {
 
             <div className="container pb-20">
                 {homeSections && Array.isArray(homeSections) && homeSections.map((section) => (
-                    <RenderHomeSection key={section.id} sectionProducts={homeSectionData[section.id]} section={section}/>
+                    <RenderHomeSection  key={section.id} isLoaded={!!homeSectionLoaded[section.id]} sectionProducts={homeSectionData[section.id]} section={section}/>
                 ))}
             </div>
 

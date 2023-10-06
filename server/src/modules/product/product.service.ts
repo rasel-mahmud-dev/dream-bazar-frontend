@@ -1,5 +1,7 @@
 import Product, {ProductType} from "../../models/Product";
 import {AggregationCursor} from "mongodb";
+import Category from "../../models/Category";
+import Brand from "../../models/Brand";
 
 
 class ProductService {
@@ -214,28 +216,57 @@ class ProductService {
 
         return new Promise(async (resolve, reject) => {
             const collections = await Product.collection
+            const CategoryCollections = await Category.collection
+            const BrandCollections = await Brand.collection
             try {
 
                 let result: { [key: string]: ProductType[] } = {}
 
                 for (let sectionId of sectionIds) {
                     let cursor;
-                    if (sectionId === "TopSelling") {
-                        cursor = collections.aggregate([
-                            {$sort: {sold: 1}},
-                            {$limit: 20}
-                        ])
-                    } else if (sectionId === "LatestOffer") {
-                        cursor = collections.aggregate([
-                            {$sort: {discount: 1}},
-                            {$limit: 20}
-                        ])
-                    } else if (sectionId === "MostView") {
-                        cursor = collections.aggregate([
-                            {$sort: {views: 1}},
-                            {$limit: 20}
-                        ])
+
+                    switch (sectionId) {
+
+                        case "TopSelling":
+                            cursor = collections.aggregate([
+                                {$sort: {sold: 1}},
+                                {$limit: 10}
+                            ])
+                            break;
+
+                        case "LatestOffer":
+                            cursor = collections.aggregate([
+                                {$sort: {discount: 1}},
+                                {$limit: 10}
+                            ])
+                            break;
+                        case "MostView":
+                            cursor = collections.aggregate([
+                                {$sort: {views: 1}},
+                                {$limit: 10}
+                            ])
+                            break;
+
+                        case "TopCategoryList":
+                            cursor = CategoryCollections.aggregate([
+                                {$sort: {views: 1}},
+                                {$limit: 30}
+                            ])
+
+                            break;
+
+                        case "TopBrandsCarousel":
+                            cursor = BrandCollections.aggregate([
+                                {$sort: {views: 1}},
+                                {$limit: 30}
+                            ])
+                            break;
+
+                        default:
+                            break;
+
                     }
+
 
                     let p: ProductType[] = []
                     await cursor?.forEach(c => {

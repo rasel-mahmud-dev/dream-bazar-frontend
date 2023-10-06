@@ -6,9 +6,11 @@ import staticImagePath from "src/utills/staticImagePath";
 import navigateProductDetail from "src/utills/navigateProductDetail";
 import {Link, useNavigate} from "react-router-dom";
 import subStr from "src/utills/subStr";
+import ProductSkeleton from "components/Product2/ProductSkeleton";
+import Loader from "UI/Loader/Loader";
 
 
-const FeaturedProducts = ({sectionProducts}) => {
+const FeaturedProducts = ({sectionProducts, isLoaded}) => {
 
     const navigate = useNavigate()
 
@@ -23,8 +25,11 @@ const FeaturedProducts = ({sectionProducts}) => {
 
     return (
         <div className="latest-product">
+            {!isLoaded && Array.from({length: 6}).map((_, i) => (
+                <ProductSkeleton key={i} imagePlaceholder={<Loader size="xs"/>}/>
+            ))}
             {sectionProducts && Array.isArray(sectionProducts) && sectionProducts.map((product) => (
-                <div className="product-item" onClick={()=>navigateProductDetail(product, navigate)}>
+                <div className="product-item" onClick={() => navigateProductDetail(product, navigate)}>
                     <div className="product-item-img">
                         <img src={staticImagePath(product.coverPhoto)} alt=""/>
                     </div>
@@ -40,6 +45,13 @@ const FeaturedProducts = ({sectionProducts}) => {
                     </div>
                 </div>
             ))}
+
+            {isLoaded && !sectionProducts.length && (
+                <div>
+                    <h4>No item found.</h4>
+                </div>
+            )}
+
         </div>
     );
 };

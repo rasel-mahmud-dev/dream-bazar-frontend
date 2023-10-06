@@ -2,11 +2,26 @@
 	$colors: #7ef9ff, #89cff0, #4682b4, #0f52ba, #000080;
 	display: flex;
 	justify-content: center;
+	--scale-size: 2.5;
+	--ball-size: 1.6em;
+
+	@keyframes wave {
+		50%,
+		75% {
+			transform: scale(var(--scale-size));
+		}
+
+		80%,
+		100% {
+			opacity: 0;
+		}
+	}
+
 
 	.dot {
 		position: relative;
-		width: 1.6em;
-		height: 1.6em;
+		width: var(--ball-size);
+		height: var(--ball-size);
 		margin: 0.5em;
 		border-radius: 50%;
 
@@ -30,21 +45,27 @@
 			}
 		}
 	}
-}
 
-@keyframes wave {
-	50%,
-	75% {
-		transform: scale(2.5);
+
+	&.loader-size-sm {
+		--scale-size: 2.3;
+		--ball-size: 0.9em;
+		.dot {
+			margin: 5px 2px;
+		}
 	}
 
-	80%,
-	100% {
-		opacity: 0;
+	&.loader-size-xs {
+		--scale-size: 2.1;
+		--ball-size: 0.6em;
+		.dot {
+			margin: 5px 1px;
+		}
 	}
 }
 
-.center-loader{
+
+.center-loader {
 	position: fixed;
 	top: 40%;
 	left: 50%;

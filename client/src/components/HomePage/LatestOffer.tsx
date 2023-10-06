@@ -5,10 +5,11 @@ import ProductColor from "components/Product/ProductColor/ProductColor";
 import staticImagePath from "src/utills/staticImagePath";
 import subStr from "src/utills/subStr";
 import {Link} from "react-router-dom";
+import ProductSkeleton from "components/Product2/ProductSkeleton";
+import Loader from "UI/Loader/Loader";
 
 
-const LatestOffer = ({sectionProducts}) => {
-
+const LatestOffer = ({sectionProducts, isLoaded}) => {
     // const product = {
     //     _id: 1,
     //     title: "Men tiger black jeans",
@@ -18,9 +19,15 @@ const LatestOffer = ({sectionProducts}) => {
     //     stock: 40,
     // }
 
+
     return (
         <div className="latest-product">
-            { sectionProducts && Array.isArray(sectionProducts) && sectionProducts.map((product)=>(
+
+            {!isLoaded && Array.from({length: 6}).map((_, i) => (
+                <ProductSkeleton key={i} imagePlaceholder={<Loader size="xs"/>}/>
+            ))}
+
+            {sectionProducts && Array.isArray(sectionProducts) && sectionProducts.map((product) => (
                 <div className="product-item">
                     <div className="product-item-img">
                         <img src={staticImagePath(product.coverPhoto)} alt=""/>
@@ -32,11 +39,19 @@ const LatestOffer = ({sectionProducts}) => {
                             <span className="discount">{product.discount}% off</span>
                         </div>
 
-                        <ProductColor categoryName={product.categoryName} />
+                        <ProductColor categoryName={product.categoryName}/>
 
                     </div>
                 </div>
             ))}
+
+            {isLoaded && !sectionProducts.length && (
+                <div>
+                    <h4>No item found.</h4>
+                </div>
+            )}
+
+
         </div>
     );
 };

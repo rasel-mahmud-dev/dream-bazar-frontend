@@ -1,9 +1,8 @@
+const staticImagePath = (fileName: string) => {
+    let fullUrl = ""
 
-const staticImagePath = (fileName: string)=>{
-    let fullUrl =  ""
-
-    if(fileName && fileName.startsWith("http")){
-        fullUrl =  fileName
+    if (fileName && fileName.startsWith("http")) {
+        fullUrl = fileName
     } else {
         fullUrl = "/static/" + fileName
     }

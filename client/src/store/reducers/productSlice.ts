@@ -141,15 +141,15 @@ const initialState: ProductStateType = {
             params: "discount=-1",
         },
         // {name: "Today's Fashion Deals", id: HomeSection.LatestOffer, type: "products", filterBy: "top-discount", params: "discount=-1&cat=60df5e546419f56b97610608"},
-        // {name: "Featured Brands", id: HomeSection.LatestOffer, type: "products", filterBy: "top-discount", params: "discount=-1&cat=60df5e546419f56b97610608"},
+        {name: "Featured Brands", id: HomeSection.LatestOffer, type: "products", filterBy: "top-discount", params: "discount=-1&cat=60df5e546419f56b97610608"},
         // {name: "Best of Electronics", id: HomeSection.LatestOffer, type: "products", filterBy: "top-views", params: "cat=60df5e546419f56b97610608"},
         // {name: "Fashion Best Sellers", id: HomeSection.LatestOffer, type: "products", filterBy: "top-views", params: "cat=60df5e546419f56b97610608"},
         // {name: "Bestselling Furniture", id: HomeSection.LatestOffer, type: "products", filterBy: "top-views", params: "cat=60df5e546419f56b97610608"},
         // {name: "TVs & Appliances", id: HomeSection.LatestOffer, type: "products", filterBy: "top-views", params: "cat=60df5e546419f56b97610608"},
         // {name: "Top Deals on Electronics", id: HomeSection.LatestOffer, type: "products", filterBy: "top-views", params: "/api/products/filter/v2?cat=60df5e546419f56b97610608"},
         // {name: "Men's Footwear", id: HomeSection.LatestOffer, type: "products", filterBy: "men-footwear"},
-        // {name: "Shop By Categories", id: HomeSection.LatestOffer, type: "categories", filterBy: "fetch-categories", ids: ["60df5e546419f56b97610608", "60df5e546419f56b9761060a", "60df5e546419f56b97610609"]},
-        // {name: "Shop By Brands", id: HomeSection.LatestOffer, type: "brands", filterBy: "fetch-brands", ids: ["60e03b7bc4db28a6a4fdcb82", "60e03b83c4db28a6a4fdcb83"]},
+        {name: "Shop By Categories", id: HomeSection.TopCategoryList, type: "categories", filterBy: "fetch-categories", ids: ["60df5e546419f56b97610608", "60df5e546419f56b9761060a", "60df5e546419f56b97610609"]},
+        {name: "Shop By Brands", id: HomeSection.TopBrandsCarousel, type: "brands", filterBy: "fetch-brands", ids: ["60e03b7bc4db28a6a4fdcb82", "60e03b83c4db28a6a4fdcb83"]},
         // {name: "motherboard",  id: HomeSection.LatestOffer, type: "products",  filterBy: "category", },
         // {name: "mobile",  id: HomeSection.LatestOffer, type: "products", filterBy: "category", },
         // {name: "ram", id: HomeSection.LatestOffer, type: "products", filterBy: "category",},
@@ -258,6 +258,14 @@ const productSlice = createSlice({
         builder.addCase(fetchHomePageSection.fulfilled, (state, action) => {
             if (action.payload) {
                 state.homeSectionData = action.payload
+
+                let loadedItems = {}
+                for (let sectionItem in action.payload) {
+                    loadedItems[sectionItem] = true
+                }
+
+                state.homeSectionLoaded = {...state.homeSectionLoaded, ...loadedItems}
+
             }
         })
 

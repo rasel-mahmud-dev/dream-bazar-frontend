@@ -1,6 +1,7 @@
 
 export enum HomeSection {
     DealsOfTheDay = "DealsOfTheDay",
+    TopCategoryList = "TopCategoryList",
     LatestOffer = "LatestOffer",
     TopSelling = "TopSelling",
     PopularProducts = "PopularProducts",

@@ -3,19 +3,8 @@ import CarouselView from "components/Product/CarouselView";
 import {Autoplay, FreeMode} from "swiper";
 import staticImagePath from "src/utills/staticImagePath";
 
-
-const brands = [
-    {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/1.png"},
-    {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/2.png"},
-    {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/3.png"},
-    {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/4.png"},
-    {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/5.png"},
-    {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/6.png"},
-    {title: "", img: "https://themes.pixelstrap.com/multikart-app/assets/images/brand-logos/7.png"},
-]
-
-
 const TopBrandsCarousel = ({sectionProducts}) => {
+    console.log(sectionProducts)
     return (
         <div>
             <div className="offer-remain-time mt-10">
