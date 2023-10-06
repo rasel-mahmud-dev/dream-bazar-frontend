@@ -120,6 +120,7 @@ const AddCategory = (props) => {
                     }
                 });
 
+
                 return {
                     ...p,
                     formData: {
@@ -128,6 +129,7 @@ const AddCategory = (props) => {
                             value: filterAttributes,
                             errorMessage: "",
                         },
+                        logo: {value: catDetail.logo,  errorMessage: ""},
                         defaultExpand: {
                             value: defaultExpandAttr,
                             errorMessage: "",
@@ -248,7 +250,7 @@ const AddCategory = (props) => {
             // setHttpResponse(p => ({...p, message: "", loading: true}));
 
             if (updateId) {
-                let {data, status} = await apis.patch("/api/categories/" + updateId, formData1)
+                let {data, status} = await apis.patch("/api/v1/categories/" + updateId, formData1)
                 if (status === StatusCode.Created) {
                     setTimeout(() => {
                         setHttpResponse({message: data.message, loading: false, isSuccess: true});

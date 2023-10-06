@@ -30,8 +30,6 @@ class CategoryController {
     }
 
     async createNewCategory(req: Request, res: Response, next: NextFunction) {
-
-
         const form = formidable({multiples: true})
         form.parse(req, async (err, fields, files) => {
             if (err) {
@@ -40,43 +38,23 @@ class CategoryController {
 
             try {
                 let data = await CategoryService.saveCategory(fields, files)
-                successResponse(res, StatusCode.Ok, data);
+                successResponse(res, StatusCode.Created, data);
             } catch (ex) {
                 next(ex)
             }
-            // if(Object.keys(files).length > 0){
-            //     let renamed = {}
-            //     try{
-            //         for (let filesKey in files) {
-            //             let newPath = files[filesKey].filepath.replace(files[filesKey].newFilename, files[filesKey].originalFilename)
-            //             await cpSync(files[filesKey].filepath, newPath)
-            //             renamed[filesKey] = newPath
-            //         }
-            //
-            //         callback(false, {fields, files: renamed })
-            //     } catch (ex){
-            //         callback(false, {fields, files: false })
-            //     }
-            // } else {
-            //     callback(false, {fields, files: false })
-            // }
         })
-
-
     }
 
 
     async updateCategory(req: Request, res: Response, next: NextFunction) {
-
         const form = formidable({multiples: true})
         form.parse(req, async (err, fields, files) => {
             if (err) {
                 return errorResponse(next, "Form data parse fail")
             }
-
             try {
-                let data = await CategoryService.saveCategory(fields, files)
-                successResponse(res, StatusCode.Ok, data);
+                let data = await CategoryService.udpateCategory(req.query.id as string, fields, files)
+                successResponse(res, StatusCode.Created, data);
             } catch (ex) {
                 next(ex)
             }

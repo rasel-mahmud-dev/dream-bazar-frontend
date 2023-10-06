@@ -8,7 +8,7 @@ const router = Router()
 router.get("/", CategoryController.getCategories)
 router.get("/detail", CategoryController.getCategoryDetail)
 router.post("/", CategoryController.createNewCategory)
-router.patch("/", CategoryController.updateCategory)
+router.patch("/:categoryId", CategoryController.updateCategory)
 
 
 export default router;
