@@ -30,7 +30,7 @@ class CategoryController {
     }
 
     async createNewCategory(req: Request, res: Response, next: NextFunction) {
-        const form = formidable({multiples: true})
+        const form = formidable({multiples: false})
         form.parse(req, async (err, fields, files) => {
             if (err) {
                 return errorResponse(next, "Form data parse fail")
@@ -47,14 +47,17 @@ class CategoryController {
 
 
     async updateCategory(req: Request, res: Response, next: NextFunction) {
-        const form = formidable({multiples: true})
+        const form = formidable({multiples: false})
         form.parse(req, async (err, fields, files) => {
             if (err) {
                 return errorResponse(next, "Form data parse fail")
             }
             try {
-                let data = await CategoryService.udpateCategory(req.query.id as string, fields, files)
-                successResponse(res, StatusCode.Created, data);
+                let data = await CategoryService.udpateCategory(req.params.categoryId as string, fields, files)
+                successResponse(res, StatusCode.Created, {
+                    message: "Category update successfully",
+                    data
+                });
             } catch (ex) {
                 next(ex)
             }

@@ -54,7 +54,7 @@ const AddBrand = () => {
 
         handleCollapseCategory();
 
-        apis.get("/api/v1/brand/" + updateId)
+        apis.get("/api/v1/brands/" + updateId)
             .then(({data, status}) => {
                 if (status === StatusCode.Ok) {
                     setCategoryDetail(data)
@@ -182,7 +182,7 @@ const AddBrand = () => {
         });
 
         if (updateId) {
-            apis.patch("/api/brand/" + updateId, payload)
+            apis.patch("/api/v1/brands/" + updateId, payload)
                 .then(({status, data}) => {
                     if (status === 201) {
                         setHttpResponse({isSuccess: true, message: data.message, loading: false});
@@ -194,7 +194,7 @@ const AddBrand = () => {
                 });
         } else {
             // add as a new brand
-            apis.post("/api/brand", payload)
+            apis.post("/api/v1/brands", payload)
                 .then(({status, data}) => {
                     if (status === 201) {
                         setHttpResponse({isSuccess: true, message: data.message, loading: false});
@@ -232,7 +232,7 @@ const AddBrand = () => {
 
             }
         }
-        navigate("/admin/brand");
+        navigate("/admin/brands");
     }
 
 

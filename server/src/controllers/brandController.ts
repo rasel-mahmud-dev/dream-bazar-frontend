@@ -7,6 +7,7 @@ import fileUpload from "../services/fileUpload/fileUpload";
 import {uploadImage} from "../services/cloudinary";
 import {StatusCode} from "../types";
 import {mongoConnect} from "../services/mongodb/database.service";
+import parseJson from "../utilities/parseJson";
 
 
 export const getBrandsCount = async (req: Request, res: Response, next: NextFunction) => {
@@ -89,58 +90,6 @@ export const getBrand = async (req: Request, res: Response, next: NextFunction) 
 }
 
 
-// save brand controller
-export const saveBrands = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        // parse formdata
-        fileUpload(req, async (err, {fields, files}) => {
-            if (err) return errorResponse(next, "Form data parsing error")
-            
-            if (err) return errorResponse(next, "Internal Error. Please try Again")
-            
-            const {name, forCategory = '[]', logo} = fields as any
-            
-            
-            // check it this brand already exists or not
-            let result = await Brand.findOne({name: name})
-            if (result) return errorResponse(next, "Brand already exists", 401)
-            
-            let newPath = logo;
-            
-            if (files && files["logo"]) {
-
-                let info = await uploadImage(files["logo"], {dir: "dream-bazar"})
-                if(info) {
-                    newPath = info.secure_url
-                }
-            }
-            
-            let c = []
-            try {
-                c = JSON.parse(forCategory)
-            } catch (ex) {
-            }
-            
-            let newBrand = new Brand({
-                name,
-                logo: newPath,
-                forCategory: c
-            })
-            
-            newBrand = await newBrand.save() as any
-            
-            if (!newBrand) return errorResponse(next, "Internal error. Please try Again")
-            
-            successResponse(res, StatusCode.Created, {
-                message: "brand added",
-                brand: newBrand
-            })
-        })
-        
-    } catch (ex) {
-        return errorResponse(next, "Internal error. Please try Again")
-    }
-}
 
 export const updateBrand = async (req: Request, res: Response, next: NextFunction) => {
     

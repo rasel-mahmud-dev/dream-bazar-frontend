@@ -141,7 +141,7 @@ class CategoryService {
             // check it this category already exist or not
 
             let category = await Category.findOne<Category>({_id: new ObjectId(id)})
-            if (!category) return throwError("Category Already exists", StatusCode.Conflict)
+            if (!category) return throwError("Category not exists", StatusCode.Conflict)
 
             let newPath = logo;
             const newLogo = files?.["logo"]?.[0]?.filepath
@@ -169,9 +169,9 @@ class CategoryService {
                 }
             })
 
-            if (!updateResult) return throwError("Internal error. Please try Again")
+            if (!updateResult.modifiedCount) return throwError("Internal error. Please try Again")
 
-            return updateResult
+            return updatedCategory
 
         } catch (ex) {
             throw ex
