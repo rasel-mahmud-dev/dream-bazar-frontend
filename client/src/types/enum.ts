@@ -2,6 +2,7 @@
 export enum HomeSection {
     DealsOfTheDay = "DealsOfTheDay",
     LatestOffer = "LatestOffer",
+    TopSelling = "TopSelling",
     PopularProducts = "PopularProducts",
     TrendingNow = "TrendingNow",
     Categories = "Categories",

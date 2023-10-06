@@ -58,36 +58,21 @@ const HomePage = (props) => {
     ]
 
 
-    const {
-        appState,
-        productState: {
-            homePageSectionsData,
-            homePageSection,
-            homePageSectionProducts
-
-            // products,
-            // loadingStates,
-            // paginations,
-            // fetchedData,
-        }
-    } = useAppSelector(state => state)
+    const {homeSections, homeSectionData} = useAppSelector(state => state.productState)
 
     useEffect(() => {
-
-        console.log(homePageSection)
-        if (homePageSection && Array.isArray(homePageSection)) {
-            let homeSectionItemSlugs = homePageSection?.map(sec => sec.sectionSlug)
-            if (!homeSectionItemSlugs) return;
-            apis.post<HomePageSectionProduct>("/api/products/home-section-products", {
-                sectionSlugs: [...homeSectionItemSlugs.slice(0, 22)]
-            }).then(({data}) => {
-                dispatch(fetchHomePageSectionProducts(data))
-            }).catch(ex => {
-                console.log(ex)
-            })
-        }
-
-    }, [homePageSection])
+        // if (homeSections && Array.isArray(homeSections)) {
+        //     let homeSectionItemIds = homeSections?.map(sec => sec.id)
+        //     if (!homeSectionItemIds) return;
+        //     apis.post<HomePageSectionProduct>("/api/products/home-section-products", {
+        //         sectionSlugs: [...homeSectionItemIds.slice(0, 22)]
+        //     }).then(({data}) => {
+        //         dispatch(fetchHomePageSectionProducts(data))
+        //     }).catch(ex => {
+        //         console.log(ex)
+        //     })
+        // }
+    }, [homeSections])
 
 
     // const {selectedLang, lang} = appState;
@@ -111,9 +96,11 @@ const HomePage = (props) => {
     }
 
     React.useEffect(() => {
-
-        dispatch(fetchHomePageSection());
-
+        if (homeSections && Array.isArray(homeSections)) {
+            let homeSectionItemIds = homeSections?.map(sec => sec.id)
+            if (!homeSectionItemIds) return;
+            dispatch(fetchHomePageSection(homeSectionItemIds));
+        }
         // let fetchedDataa =  fetchedData.find(fd=>fd.where === "home_page")
         // console.log(fetchedDataa)
         // if(!fetchedDataa.isFetched) {
@@ -121,7 +108,7 @@ const HomePage = (props) => {
         // } else {
         //
         // }
-    }, []); // with watch when change paginations currentPage
+    }, [homeSections]); // with watch when change paginations currentPage
 
     function handleScroll(e) {
         // let el = e.target
@@ -187,6 +174,7 @@ const HomePage = (props) => {
         }
     }
 
+
     return (
         <div className="homepage">
             <SEO title={`Dream Bazar online ecommerce shop`} description="Product filter"/>
@@ -198,10 +186,8 @@ const HomePage = (props) => {
             </div>
 
             <div className="container pb-20">
-                {homePageSection && Array.isArray(homePageSection) &&  homePageSection?.map((section, index) => (
-                    <div>
-                        <RenderHomeSection homePageSectionProducts={homePageSectionProducts} section={section}/>
-                    </div>
+                {homeSections && Array.isArray(homeSections) && homeSections.map((section) => (
+                    <RenderHomeSection key={section.id} sectionProducts={homeSectionData[section.id]} section={section}/>
                 ))}
             </div>
 

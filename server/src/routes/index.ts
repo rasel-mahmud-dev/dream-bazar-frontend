@@ -8,13 +8,14 @@ import express from "express"
 // import sellerRouter from "./sellerRouter";
 
 import authRouter from "../modules/auth/auth.route";
+import productRouter from "../modules/product/product.route";
 
 
 
 
 const router = express.Router()
 
-// router.use("/api/", productRouter)
+router.use("/api/v1/products", productRouter)
 // router.use("/api/", categoryRouter)
 router.use("/api/v1/auth", authRouter)
 // router.use("/api/", brandRouter)

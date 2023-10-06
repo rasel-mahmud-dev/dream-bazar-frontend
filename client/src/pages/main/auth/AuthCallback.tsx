@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate, useParams, useSearchParams} from "react-router-dom";
-import {currentAuthAction, logoutAction} from "actions/authAction";
+import {currentAuthAction} from "actions/authAction";
 
 
 import useHttpResponse from "src/hooks/useHttpResponse";
@@ -8,6 +8,7 @@ import Alert from "UI/Alert/Alert";
 import {Button} from "UI/index";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import Loader from "UI/Loader/Loader";
+import {logout} from "reducers/authSlice";
 
 const AuthCallback = () => {
 
@@ -25,8 +26,7 @@ const AuthCallback = () => {
         let token = searchParams.get("token")
         if (token) {
             dispatch(currentAuthAction()).unwrap().then(()=>{
-                localStorage.removeItem("token")
-                logoutAction(dispatch)
+                dispatch(logout)
                 navigate("/", {replace: true})
                 localStorage.setItem("token", token)
             }).catch(ex=>{

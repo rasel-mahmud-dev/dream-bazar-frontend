@@ -180,8 +180,8 @@ export const filterProductsAction = createAsyncThunk<any, MyData>("productStater
         if (status === 200) {
             return {
 
-                    products: data.products,
-                    totalItems: data?.totalItems
+                products: data.products,
+                totalItems: data?.totalItems
 
             }
         }
@@ -197,9 +197,9 @@ export function filterProductsAction2222222222({category, filters, brandsForCate
 
 
     if (category.selected || (category?.allNestedIds && category.allNestedIds.length > 0)) {
-        const {pagination} = filters 
+        const {pagination} = filters
 
-        
+
         let data: {
             categoryIds: string[],
             brands: { name: string, _id: string }[],
@@ -328,30 +328,13 @@ export function deleteFlatCategoryAction(dispatch, id, callback) {
 
 
 // fetch homepage section Product...
-export const fetchHomePageSection = createAsyncThunk("", async function (payload, thunkAPI) {
-
-    let { homePageSectionsData} = (thunkAPI.getState() as RootState).productState
-
-    try{
-        let data = homePageSectionsData.map(section => {
-            return {
-                name: section.name,
-                params: section.params
-            }
+export const fetchHomePageSection = createAsyncThunk("", async function (sectionIds: string[], thunkAPI) {
+    try {
+        let {data} = await apis.post(`/api/v1/products/home-section`, {
+            sectionIds
         })
-
-        let response = await apis.post(`/api/products/home-section`, {
-            data: data
-        })
-
-        if (response.status !== 200) {
-            //   do other staff
-            return;
-        }
-
-        return response.data
-
-    } catch (ex){
+        return data || {}
+    } catch (ex) {
 
     }
 
@@ -359,7 +342,7 @@ export const fetchHomePageSection = createAsyncThunk("", async function (payload
 
 
 // fetch homepage section Product...
-export const fetchHomePageSectionProducts = createAsyncThunk<HomePageSectionProduct, HomePageSectionProduct>("fetchHomePageSectionProducts",  function (payload, thunkAPI) {
+export const fetchHomePageSectionProducts = createAsyncThunk<HomePageSectionProduct, HomePageSectionProduct>("fetchHomePageSectionProducts", function (payload, thunkAPI) {
 
     // let { homePageSectionsData} = (thunkAPI.getState() as RootState).productState
 
@@ -592,24 +575,24 @@ type RelevantProductsActionType = {
 export const fetchRelevantProductsAction = createAsyncThunk(
     "productState/fetchRelevantProducts",
     async (payload: RelevantProductsActionType, thunkAPI) => {
-    let cacheName = payload.slug
+        let cacheName = payload.slug
 
-    // prevent duplicate fetch request if already fetch these relevant products
-    let store = thunkAPI.getState() as RootState
-    if (store && store?.productState?.relevantProducts[cacheName]) return;
+        // prevent duplicate fetch request if already fetch these relevant products
+        let store = thunkAPI.getState() as RootState
+        if (store && store?.productState?.relevantProducts[cacheName]) return;
 
-    try{
-        let response = await apis.post(`/api/products/relevant`, payload)
-        if (response.status === StatusCode.Ok) {
-            return {
-                cacheName: cacheName,
-                products: response.data
+        try {
+            let response = await apis.post(`/api/products/relevant`, payload)
+            if (response.status === StatusCode.Ok) {
+                return {
+                    cacheName: cacheName,
+                    products: response.data
+                }
             }
-        }
-    } catch(ex){
+        } catch (ex) {
 
-    }
-})
+        }
+    })
 
 
 function handlerLoader(dispatch, state) {

@@ -7,7 +7,7 @@ import subStr from "src/utills/subStr";
 import {Link} from "react-router-dom";
 
 
-const TopDealsOnTVsAppliances = ({sectionProduct}) => {
+const TopDealsOnTVsAppliances = ({sectionProducts}) => {
 
     // const product = {
     //     _id: 1,
@@ -20,7 +20,7 @@ const TopDealsOnTVsAppliances = ({sectionProduct}) => {
 
     return (
         <div className="latest-product">
-            { sectionProduct?.data && Array.isArray(sectionProduct.data) && sectionProduct.data.map((product)=>(
+            { sectionProducts && Array.isArray(sectionProducts) && sectionProducts.map((product)=>(
                 <div className="product-item">
                     <div className="product-item-img">
                         <img src={staticImagePath(product.coverPhoto)} alt=""/>

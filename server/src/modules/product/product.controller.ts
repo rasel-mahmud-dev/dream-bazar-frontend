@@ -1,20 +1,16 @@
 import {NextFunction, Response, Request} from "express"
-import RoleService from "./product.service";
+import ProductService from "./product.service";
+import {successResponse} from "../../response";
+import {StatusCode} from "../../types";
 
 class ProductController {
-    async getAllUsers(req: Request, res: Response, next: NextFunction) {
-        const users = await RoleService.getAllUsers()
-        res.json(users);
-    }
-
-    async getAllRoles(req: Request, res: Response, next: NextFunction) {
-        const roles = await RoleService.getAllRoles()
-        return roles
-    }
-
-    async getAllFeatures(req: Request, res: Response, next: NextFunction) {
-        const features = await RoleService.getAllFeatures()
-        return features
+    async getHomepageSectionProducts(req: Request, res: Response, next: NextFunction) {
+        try {
+            const data = await ProductService.getHomepageSectionProducts(req.body)
+            successResponse(res, StatusCode.Ok, data);
+        } catch (ex) {
+            next(ex)
+        }
     }
 }
 

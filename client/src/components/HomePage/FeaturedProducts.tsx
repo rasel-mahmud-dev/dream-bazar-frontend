@@ -8,7 +8,7 @@ import {Link, useNavigate} from "react-router-dom";
 import subStr from "src/utills/subStr";
 
 
-const FeaturedProducts = ({sectionProduct}) => {
+const FeaturedProducts = ({sectionProducts}) => {
 
     const navigate = useNavigate()
 
@@ -23,7 +23,7 @@ const FeaturedProducts = ({sectionProduct}) => {
 
     return (
         <div className="latest-product">
-            {sectionProduct?.data && Array.isArray(sectionProduct.data) && sectionProduct.data.map((product) => (
+            {sectionProducts && Array.isArray(sectionProducts) && sectionProducts.map((product) => (
                 <div className="product-item" onClick={()=>navigateProductDetail(product, navigate)}>
                     <div className="product-item-img">
                         <img src={staticImagePath(product.coverPhoto)} alt=""/>

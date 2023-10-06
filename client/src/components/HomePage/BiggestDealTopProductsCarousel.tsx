@@ -15,7 +15,7 @@ const brands = [
 ]
 
 
-const TopBrandsCarousel = ({sectionProduct}) => {
+const TopBrandsCarousel = ({sectionProducts}) => {
     return (
         <div>
             <div className="offer-remain-time mt-10">
@@ -60,7 +60,7 @@ const TopBrandsCarousel = ({sectionProduct}) => {
                         }}
 
                         renderItems={() => (
-                            sectionProduct?.data && Array.isArray(sectionProduct.data) && sectionProduct.data.map((product => (
+                            sectionProducts && Array.isArray(sectionProducts) && sectionProducts.map((product => (
                                     <div className="p-2">
                                         <ProductCartView className="sliderview" product={product}/>
                                     </div>

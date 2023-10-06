@@ -10,13 +10,13 @@ import AuthDropdown from "components/Dropdown/AuthDropdown";
 import MoreDropdown from "./MoreDropdown";
 import Dropdown from "components/Dropdown/Dropdown";
 import {Badge} from "UI/index";
-import {logoutAction} from "actions/authAction";
 import useAppSelector from "src/hooks/useAppSelector";
 
 
 import "./styles.scss"
 import {setOpenLeftSidebar, setTheme} from "reducers/appSlice";
 import Avatar from "UI/Avatar/Avatar";
+import {logout} from "reducers/authSlice";
 
 const DashboardNavigation = ({auth}) => {
 
@@ -146,7 +146,7 @@ const DashboardNavigation = ({auth}) => {
                                                 <li className="text-xs pb-2">
                                                     <Link to="/settings">Settings</Link>
                                                 </li>
-                                                <li className="text-xs pb-2" onClick={() => logoutAction(dispatch)}>Sign out</li>
+                                                <li className="text-xs pb-2" onClick={() => dispatch(logout())}>Sign out</li>
                                             </>
                                         ) : (
                                             <>

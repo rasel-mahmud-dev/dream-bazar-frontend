@@ -15,7 +15,7 @@ const brands = [
 ]
 
 
-const TopBrandsCarousel = ({sectionProduct}) => {
+const TopBrandsCarousel = ({sectionProducts}) => {
     return (
         <div>
             <div className="offer-remain-time mt-10">
@@ -52,7 +52,7 @@ const TopBrandsCarousel = ({sectionProduct}) => {
                         modules={[Autoplay, FreeMode]}
                         className="mySwiper"
                         renderItems={() => (
-                            sectionProduct?.data && Array.isArray(sectionProduct.data) && sectionProduct.data.map((brand => (
+                            sectionProducts && Array.isArray(sectionProducts) && sectionProducts.map((brand => (
                                     <div className="brand-item">
                                         <img src={staticImagePath(brand.logo)} alt=""/>
                                     </div>

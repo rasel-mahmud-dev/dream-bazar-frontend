@@ -14,7 +14,7 @@ import TrendingNow from "components/HomePage/TrendingNow";
 
 type RenderHomeSectionProps = {
     section: HomePageSection
-    homePageSectionProducts: HomePageSectionProduct
+    sectionProducts: Array<Object>
 }
 
 const sectionData = {
@@ -35,21 +35,19 @@ const sectionData = {
 
 
 const RenderHomeSection: FC<RenderHomeSectionProps> = (props) => {
-    const {section, homePageSectionProducts} = props
-
-
-    const Component = sectionData[section.sectionSlug]
+    const {section, sectionProducts} = props
+    const Component = sectionData[section.id]
 
     return (
         <div className="mt-14">
 
             <div className="flex justify-between">
-                <h2 className="home-section-title">{section.sectionName}</h2>
+                <h2 className="home-section-title">{section.name}</h2>
                 <Link to="/" className="font-medium text-primary-500">See all</Link>
             </div>
 
             <div className="mt-2">
-                {Component && <Component sectionProduct={homePageSectionProducts[section.sectionSlug]}/>}
+                {Component && <Component sectionProducts={sectionProducts}/>}
             </div>
         </div>
     );
