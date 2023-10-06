@@ -1,0 +1,114 @@
+@import "src/styles/--breakpoint";
+.category_navigation {
+    position: relative;
+    user-select: none;
+    //z-index: 999;
+    //@apply bg-white dark:bg-neutral-800 shadow-card-deep dark:shadow-md;
+    @apply bg-primary-400 dark:bg-neutral-800 shadow-card-deep dark:shadow-md;
+
+    box-shadow: 0 1px 8px 0 rgb(0 0 0 / 6%);
+
+    .category_main_nav {
+        @apply flex justify-start md:justify-center gap-x-0 md:gap-x-4;
+        &--item {
+            padding: 15px 0px;
+            //position: relative;
+            li {
+                font-size: 14px;
+                font-weight: 500;
+                padding: 0 10px;
+                cursor: pointer;
+                letter-spacing: 0.3px;
+                //@apply text-dark-400 dark:text-dark-10;
+                @apply text-dark-10 dark:text-dark-10;
+
+                &:hover {
+                    color: var(--primary-400);
+                }
+            }
+        }
+    }
+}
+
+.category_submenu_popup {
+    @apply absolute rounded-lg w-11/12 md:w-auto;
+    //padding: 20px 10px;
+    position: absolute;
+    left: 50%;
+    top: 40px;
+    z-index: 1000;
+    transform: translateX(-50%);
+    justify-content: space-between;
+    background: white;
+    display: flex;
+
+    @include get_down(780px){
+        max-height: calc(100vh - 40vh);
+        overflow-y: auto;
+    }
+}
+
+.category_submenu {
+    //display: flex;
+    display: grid;
+    padding: 0px 0px;
+    width: 100%;
+    @apply grid-cols-1 md:grid-cols-5;
+
+    &--each_column {
+        //min-width: 200px;
+        padding: 5px 10px;
+        //overflow: hidden;
+        width: 100%;
+        &:nth-child(even) {
+            //background: #f8f8f8;
+            @apply bg-dark-10 dark:bg-body-dark
+        }
+
+        &--row {
+            //padding: 5px 5px;
+            margin-bottom: 5px;
+
+            &--title {
+                margin-bottom: 5px;
+                display: flex;
+                align-items: center;
+
+                .row-title {
+                    font-size: 13px;
+                    font-weight: 600;
+                    text-decoration: none;
+                    @apply text-dark-400 dark:text-dark-10;
+                    &:hover {
+                        @apply text-primary-600
+                    }
+                }
+
+                .collapse-icon {
+                    font-size: 8px;
+                    margin-left: 5px;
+                }
+            }
+
+            &--submenu {
+                display: flex;
+                flex-direction: column;
+
+                &--name {
+                    padding: 0;
+                    font-weight: 400;
+                    margin: 2px 0px;
+                    font-size: 13px;
+                    @apply text-dark-400 dark:text-dark-100;
+                    cursor: pointer;
+
+                    &:hover {
+                        @apply text-primary-600
+                    }
+                }
+            }
+
+
+        }
+    }
+}

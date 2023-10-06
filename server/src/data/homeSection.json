@@ -1,0 +1,101 @@
+[
+    {
+        "index": 1,
+        "sectionName": "Featured Products",
+        "isActive": true,
+        "sectionSlug": "FeaturedProducts",
+        "filter": {
+        }
+    },
+    {
+        "index": 2,
+        "sectionName": "Our Latest Offer",
+        "isActive": true,
+        "sectionSlug": "LatestOffer",
+        "filter": {
+        }
+    },
+    {
+        "index": 7,
+        "sectionName": "Deals of the day",
+        "isActive": true,
+        "sectionSlug": "DealsOfTheDay",
+        "filter": {
+        }
+    },
+    {
+        "index": 3,
+        "sectionName": "Biggest Deals on Top Brands",
+        "isActive": true,
+        "sectionSlug": "TopBrandsCarousel",
+        "filter": {
+        }
+    },
+    {
+        "index": 4,
+        "sectionName": "Biggest Deals on Top Products",
+        "isActive": true,
+        "sectionSlug": "BiggestDealTopProductsCarousel",
+        "filter": {
+        }
+    },
+    {
+        "index": 5,
+        "sectionName": "Trending Now",
+        "isActive": true,
+        "sectionSlug": "TrendingNow",
+        "filter": {
+        }
+    },
+    {
+        "index": 6,
+        "sectionName": "Popular Products",
+        "isActive": false,
+        "sectionSlug": "PopularProducts",
+        "filter": {
+        }
+    },
+    {
+        "index": 2,
+        "sectionName": "Categories",
+        "isActive": true,
+        "sectionSlug": "Categories",
+        "filter": {
+        }
+    },
+
+    {
+        "index": 9,
+        "sectionName": "Home & Kitchen Essentials",
+        "isActive": true,
+        "sectionSlug": "HomeANDKitchenEssentials",
+        "filter": {
+            "categoryIds": ["646bbe248e61ecd72bae1f9c"]
+        }
+    },
+    {
+        "index": 10,
+        "sectionName": "Books, Toys & More",
+        "isActive": false,
+        "sectionSlug": "BooksToysMore",
+        "filter": {
+        }
+    },
+    {
+        "index": 11,
+        "sectionName": "Top Deals On TVs & Appliances",
+        "isActive": true,
+        "sectionSlug": "TopDealsOnTVsAppliances",
+        "filter": {
+            "categoryIds": ["61489d4e841259e4451165f2"]
+        }
+    },
+    {
+        "index": 12,
+        "sectionName": "Recently Viewed",
+        "isActive": true,
+        "sectionSlug": "RecentlyViewed",
+        "filter": {
+        }
+    }
+]

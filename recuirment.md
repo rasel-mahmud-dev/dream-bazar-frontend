@@ -1,7 +1,7 @@
 # Dream Bazar
 
 
-Dream Bazar is Multi-Product and Vendor Ecommerce website, build with Nodejs, 
+Dream Bajar is Multi-Product and Vendor Ecommerce website, build with Nodejs, 
 React js and Mongodb
 
 

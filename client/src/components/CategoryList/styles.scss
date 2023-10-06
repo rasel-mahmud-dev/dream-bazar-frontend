@@ -1,0 +1,28 @@
+
+
+
+.category__item{
+    margin: 10px 5px;
+}
+.category_selected{
+    font-weight: 500 !important;
+    color: #1c1c1c !important;
+}
+
+.expanded-category{
+    color: #505050;
+    font-weight: 400;
+}
+.last-expand-category{
+    font-weight: bold;
+    color: #0e0e0e;
+}
+
+.category-item{
+    @apply dark:text-neutral-200
+}
+
+.category-item-name{
+    font-weight: 500;
+    @apply dark:text-dark-5 text-dark-900
+}

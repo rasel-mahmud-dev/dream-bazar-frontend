@@ -1,0 +1,27 @@
+
+@import "src/styles/--mixin";
+
+#sales-report-chart {
+    min-height: 341.8px;
+    text {
+        fill: #94a3b8 !important;
+    }
+
+
+
+    .select{
+
+        outline: none;
+        background: transparent;
+        padding: 4px 10px;
+        border-radius: 6px;
+        color: white;
+
+        @apply text-dark-700 dark:text-dark-5 border  border-dark-30 dark:border-dark-400;
+    }
+
+
+
+}
+
+

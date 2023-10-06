@@ -1,0 +1,6 @@
+src
+bin
+.idea
+.git
+node_modules
+public/static

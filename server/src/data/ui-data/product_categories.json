@@ -1,0 +1,390 @@
+[{
+  "_id": "617080e473b3851a1e7dbb78",
+  "name": "Perfume",
+  "parent_id": "6170784f55f4a0b4747a30e3",
+  "created_at": "2021-10-20T20:49:40.419Z",
+  "updated_at": "2021-10-20T20:51:18.994Z",
+  "is_product_level": true,
+  "parent": {
+    "name": "Beauty and Grooming"
+  }
+},
+{
+  "_id": "6170784f55f4a0b4747a30e3",
+  "name": "Beauty and Grooming",
+  "parent_id": null,
+  "created_at": "2021-10-20T20:13:03.019Z",
+  "updated_at": "2021-10-20T20:13:03.019Z"
+},
+{
+  "_id": "617044aab915d460965a3058",
+  "name": "Heels",
+  "parent_id": "616ed4e947cdd777fb383273",
+  "created_at": "2021-10-20T16:32:42.563Z",
+  "updated_at": "2021-10-20T16:32:42.563Z"
+},
+{
+  "_id": "616f1d3ca99f7fc73e1acce1",
+  "name": "Microphone",
+  "parent_id": "61489843841259e4451165e0",
+  "created_at": "2021-10-19T19:32:12.958Z",
+  "updated_at": "2021-10-19T19:32:28.058Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "616f14298ae9a90aa4434f75",
+  "name": "DTH",
+  "parent_id": "60df5e546419f56b97610600",
+  "created_at": "2021-10-19T18:53:29.921Z",
+  "updated_at": "2021-10-19T18:53:50.986Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "616ed57c47cdd777fb383276",
+  "name": "Formal Shoes",
+  "parent_id": "616ed4e947cdd777fb383273",
+  "created_at": "2021-10-19T14:26:04.669Z",
+  "updated_at": "2021-10-19T14:50:40.461Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "616ed57047cdd777fb383275",
+  "name": "Sports Shoes",
+  "parent_id": "616ed4e947cdd777fb383273",
+  "created_at": "2021-10-19T14:25:52.569Z",
+  "updated_at": "2021-10-19T14:50:19.037Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "616ed52b47cdd777fb383274",
+  "name": "Casual Shoes",
+  "parent_id": "616ed4e947cdd777fb383273",
+  "created_at": "2021-10-19T14:24:43.527Z",
+  "updated_at": "2021-10-19T14:32:26.830Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "616ed4e947cdd777fb383273",
+  "name": "Footwear",
+  "parent_id": null,
+  "created_at": "2021-10-19T14:23:37.699Z",
+  "updated_at": "2021-10-19T14:23:37.699Z"
+},
+{
+  "_id": "6148b1a1841259e445116614",
+  "name": "Internal Modems",
+  "parent_id": "6148b0ce841259e44511660e",
+  "is_product_level": true,
+  "filters": [],
+  "updated_at": "2021-10-19T14:53:30.694Z"
+},
+{
+  "_id": "6148b191841259e445116613",
+  "name": "Antenna Amplifiers",
+  "parent_id": "6148b0ce841259e44511660e",
+  "filters": [],
+  "is_product_level": true,
+  "updated_at": "2021-09-29T20:08:11.815Z"
+},
+{
+  "_id": "6148b17e841259e445116612",
+  "name": "Wireless USB Adapters",
+  "parent_id": "6148b0ce841259e44511660e",
+  "filters": [],
+  "is_product_level": true,
+  "updated_at": "2021-09-27T06:02:45.838Z"
+},
+{
+  "_id": "6148b16d841259e445116611",
+  "name": "LAN Adapters",
+  "parent_id": "6148b0ce841259e44511660e",
+  "filters": [],
+  "updated_at": "2021-10-19T14:53:27.359Z"
+},
+{
+  "_id": "6148b15a841259e445116610",
+  "name": "Cables",
+  "parent_id": "6148b0ce841259e44511660e",
+  "filters": [],
+  "is_product_level": true,
+  "updated_at": "2021-09-29T20:08:18.306Z"
+},
+{
+  "_id": "6148b14a841259e44511660f",
+  "name": "Routers",
+  "parent_id": "6148b0ce841259e44511660e",
+  "filters": [],
+  "is_product_level": true,
+  "updated_at": "2021-09-27T06:06:59.597Z"
+},
+{
+  "_id": "6148b0ce841259e44511660e",
+  "name": "Network Components",
+  "parent_id": "60e00694402ddf2ba7d26d43",
+  "filters": [],
+  "updated_at": "2021-10-19T14:59:04.739Z",
+  "created_at": "2021-10-19T14:59:04.739Z"
+},
+{
+  "_id": "6148a849841259e44511660a",
+  "name": "Speaker",
+  "parent_id": "61489843841259e4451165e0",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-09-27T06:06:45.021Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "6148a190841259e445116609",
+  "name": "Smart Watches",
+  "parent_id": "6148a0bd841259e445116608",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-09-27T06:06:53.230Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "6148a0bd841259e445116608",
+  "name": "Watches and Watch Accessories",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z"
+},
+{
+  "_id": "6148a0bd841259e445116607",
+  "name": "Personal Care Appliances",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z"
+},
+{
+  "_id": "6148a0bd841259e445116606",
+  "name": "Home & Furniture",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z"
+},
+{
+  "_id": "6148a0bd841259e445116604",
+  "name": "Water Purifiers",
+  "parent_id": "61489e7a841259e4451165f9",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-10-19T14:54:01.767Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "6148a0bd841259e445116603",
+  "name": "Vacuum Cleaners",
+  "parent_id": "61489e7a841259e4451165f9",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z"
+},
+{
+  "_id": "6148a0bd841259e445116602",
+  "name": "Voltage Stabilizers",
+  "parent_id": "61489e7a841259e4451165f9",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z"
+},
+{
+  "_id": "6148a0bd841259e445116601",
+  "name": "Inverters",
+  "parent_id": "61489e7a841259e4451165f9",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z"
+},
+{
+  "_id": "6148a0bd841259e445116600",
+  "name": "Air Coolers",
+  "parent_id": "61489e7a841259e4451165f9",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-09-29T20:10:57.096Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "6148a0bd841259e4451165ff",
+  "name": "Fans",
+  "parent_id": "61489e7a841259e4451165f9",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z",
+  "is_product_level": true
+},
+{
+  "_id": "6148a0bd841259e4451165fe",
+  "name": "Irons",
+  "parent_id": "61489e7a841259e4451165f9",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-09-29T20:08:58.566Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "6148a0bd841259e4451165fd",
+  "name": "Home Appliances",
+  "parent_id": "60df5e546419f56b97610600",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z"
+},
+{
+  "_id": "6148a0bd841259e4451165fc",
+  "name": "Coffee Makers",
+  "parent_id": "61489d4e841259e4451165f5",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-09-29T20:12:03.995Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "61489e7a841259e4451165f7",
+  "name": "Chimneys",
+  "parent_id": "61489d4e841259e4451165f5",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z"
+},
+{
+  "_id": "61489e7a841259e4451165f6",
+  "name": "Juicer/Mixer/Grinder",
+  "parent_id": "61489d4e841259e4451165f5",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-09-29T20:11:47.556Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "61489d4e841259e4451165f5",
+  "name": "Kitchen Appliances",
+  "parent_id": "60df5e546419f56b97610600",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z"
+},
+{
+  "_id": "61489d4e841259e4451165f4",
+  "name": "Refrigerators",
+  "parent_id": "60df5e546419f56b97610600",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-09-27T06:07:07.894Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "61489d4e841259e4451165f3",
+  "name": "Washing Machine",
+  "parent_id": "60df5e546419f56b97610600",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z"
+},
+{
+  "_id": "61489d4e841259e4451165f2",
+  "name": "Television.",
+  "parent_id": "60df5e546419f56b97610600",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-10-19T14:57:15.599Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "61489d4e841259e4451165f1",
+  "name": "Tripods",
+  "parent_id": "61489c1f841259e4451165e7",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z"
+},
+{
+  "_id": "61489d4e841259e4451165f0",
+  "name": "Lens",
+  "parent_id": "61489c1f841259e4451165e7",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-09-27T06:08:28.797Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "61489d4e841259e4451165ef",
+  "name": "Cameras",
+  "parent_id": "61489c1f841259e4451165e7",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-09-29T20:08:31.534Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "61489d4e841259e4451165eb",
+  "name": "Laptop Skins & Decals",
+  "parent_id": "60e00694402ddf2ba7d26d43",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z",
+  "is_product_level": true
+},
+{
+  "_id": "61489d4e841259e4451165e8",
+  "name": "Gaming & Accessories",
+  "parent_id": "60e00694402ddf2ba7d26d43",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z",
+  "logo": ""
+},
+{
+  "_id": "61489c1f841259e4451165e7",
+  "name": "Cameras & Accessories",
+  "parent_id": "60df5e546419f56b97610600",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-08-12T00:00:00.000Z"
+},
+{
+  "_id": "61489c1f841259e4451165e5",
+  "name": "Laptop Bags",
+  "parent_id": "60e00694402ddf2ba7d26d43",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-09-27T06:08:42.797Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "61489c1f841259e4451165e3",
+  "name": "Pendrives",
+  "parent_id": "60e00694402ddf2ba7d26d43",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-09-27T04:30:25.836Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "61489843841259e4451165e0",
+  "name": "Audio & Video",
+  "parent_id": "60df5e546419f56b97610600",
+  "created_at": "2021-08-12T00:00:00.000Z",
+  "updated_at": "2021-10-19T14:53:19.165Z",
+  "filters": []
+},
+{
+  "_id": "61489843841259e4451165df",
+  "name": "Mouse",
+  "parent_id": "60e00694402ddf2ba7d26d43",
+  "created_at": "",
+  "updated_at": "2021-09-27T04:30:21.715Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "61489843841259e4451165db",
+  "name": "External Hard Disks",
+  "parent_id": "60e00694402ddf2ba7d26d43",
+  "created_at": "",
+  "updated_at": "2021-09-29T20:15:11.380Z",
+  "filters": [],
+  "is_product_level": true
+},
+{
+  "_id": "61488d37d7c3a8485f011b09",
+  "name": "Headphones",
+  "parent_id": "60e0131fc4db28b79bb36aa3",
+  "created_at": "1625938629282",
+  "updated_at": "2021-09-27T04:30:03.380Z",
+  "logo": "",
+  "filters": [],
+  "is_product_level": true
+}]

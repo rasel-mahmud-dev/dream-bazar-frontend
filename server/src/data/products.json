@@ -1,0 +1,2054 @@
+ [
+    {
+      "_id": "60e03983c4db28a6a4fdcb80",
+      "qty": 2,
+      "sold": 5,
+      "views": 8,
+      "title": "MSI Z61 PRO SATA3&USB3.1/ M.2/ A&GbE/MicroATX Motherboard Motherboard",
+      "categoryId": "60df5e546419f56b97610608",
+      "price": 4004,
+      "brandId": "60e05bc6c4db28a6a4fdcb89",
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "discount": "50",
+        "generation": 9,
+        "form_factor": "mini_itx",
+        "processor_type": "intel"
+      },
+      "coverPhoto": "images/products/zebronics-zebronics-h61-board-intel-core-i3-cpu-3220-3mb-cache-3-original-imaewhqm5xexwsxm.jpeg",
+      "discount": 10,
+      "images": [
+        "images/products/zebronics-zebronics-h61-board-intel-core-i3-cpu-3220-3mb-cache-3-original-imaewhqm5xexwsxm.jpeg"
+      ],
+      "updatedAt": "2021-10-20T13:47:59.206Z",
+      "sellerId": "6165b0ecd28d389c0a4dbc57"
+    },
+    {
+      "_id": "60e05520c4db28a6a4fdcb84",
+      "qty": 5,
+      "sold": 1,
+      "views": 2,
+      "title": "MSI H61DH3 updated",
+      "categoryId": "60df5e546419f56b97610608",
+      "price": 4000,
+      "brandId": "61702049ed596803892403ef",
+      "createdAt": "2020-08-04T11:56:52.294Z",
+      "attributes": {
+        "discount": 50,
+        "generation": 2,
+        "form_factor": "itx",
+        "processor_type": "intel"
+      },
+      "coverPhoto": "images/products/zebronics-zebronics-zeb-h61-original-imafdf8ujpfaxmsf.jpeg",
+      "discount": 12,
+      "updatedAt": "2021-10-20T14:54:05.260Z",
+      "images": [
+        "images/products/zebronics-zebronics-zeb-h61-original-imafdf8ujpfaxmsf.jpeg"
+      ],
+      "sellerId": "60fd77168e914a4b2cc47ba1"
+    },
+    {
+      "_id": "60e05a59c4db28a6a4fdcb85",
+      "qty": 1,
+      "sold": 1,
+      "views": 1,
+      "title": "MSI h310m m2 prop plus",
+      "categoryId": "60df5e546419f56b97610608",
+      "price": 7000.23,
+      "brandId": "60e03b7bc4db28a6a4fdcb82",
+      "attributes": {
+        "discount": 25,
+        "generation": 9,
+        "form_factor": "micro_atx",
+        "processor_type": "intel"
+      },
+      "createdAt": "2020-07-04T12:03:27.275Z",
+      "discount": 10,
+      "coverPhoto": "images/products/zebronics-zebronics-h61-board-intel-core-i3-cpu-3220-3mb-cache-3-original-imaewhqm5xexwsxm.jpeg"
+    },
+    {
+      "_id": "60e05a61c4db28a6a4fdcb86",
+      "qty": 1,
+      "sold": 1,
+      "views": 3,
+      "title": "Gigabyte h310m vdh",
+      "categoryId": "60df5e546419f56b97610608",
+      "price": 23.23,
+      "discount": 10,
+      "brandId": "60e05bc6c4db28a6a4fdcb89",
+      "attributes": {
+        "generation": 9,
+        "form_factor": "micro_atx",
+        "processor_type": "intel"
+      },
+      "createdAt": "2017-08-04T12:04:55.090Z",
+      "coverPhoto": "images/products/h81m-vg4-r4-asrock-original-imag4yfgyx5pdxew.jpeg"
+    },
+    {
+      "_id": "60e05a66c4db28a6a4fdcb87",
+      "qty": 1,
+      "sold": 1,
+      "views": 1,
+      "discount": 10,
+      "title": "Gigabyte Z390M Mini ITX Wifi",
+      "categoryId": "60df5e546419f56b97610608",
+      "price": 333.23,
+      "brandId": "60e05bc6c4db28a6a4fdcb89",
+      "attributes": {
+        "discount": 12,
+        "generation": 9,
+        "form_factor": "mini_atx",
+        "processor_type": "amd"
+      },
+      "createdAt": "2010-08-04T12:05:33.192Z",
+      "coverPhoto": "images/products/h81m-vg4-r4-asrock-original-imag4yfgyx5pdxew.jpeg"
+    },
+    {
+      "_id": "60e41033fd34cd50def30df3",
+      "title": "intel Core-i5",
+      "price": "10",
+      "qty": "100",
+      "categoryId": "60df5e546419f56b97610609",
+      "brandId": "60e16ec9eb7929109752d85d",
+      "createdAt": "2010-08-04T12:05:33.192Z",
+      "updatedAt": "2010-08-04T12:05:33.192Z",
+      "sold": 0,
+      "discount": 10,
+      "views": 0,
+      "coverPhoto": "images/processor/intel-corporation-core-i5-9400f-9th-generation-desktop-processor-original-imafeyyd76m5gfvg.jpeg"
+    },
+    {
+      "_id": "60e72e1e5cad7521b14751b4",
+      "title": "MSI Z590I Wifi",
+      "qty": "10",
+      "categoryId": "60df5e546419f56b97610608",
+      "brandId": "60e03b7bc4db28a6a4fdcb82",
+      "sold": 0,
+      "views": 0,
+      "discount": 10,
+      "updatedAt": "2010-08-04T12:05:33.192Z",
+      "price": 150000,
+      "coverPhoto": "images/products/asrock-b450m-steel-legend-socket-am4-amd-3rd-generation-ryzen-original-imafzbdaczggzxvv.jpeg"
+    },
+    {
+      "_id": "60e72e1e5cad7521b14751b5",
+      "title": "MSI H450M",
+      "qty": "10",
+      "categoryId": "60df5e546419f56b97610608",
+      "brandId": "60e03b7bc4db28a6a4fdcb82",
+      "sold": 0,
+      "views": 0,
+      "discount": 10,
+      "updatedAt": "2010-08-04T12:05:33.192Z",
+      "price": 120000.5,
+      "coverPhoto": "images/products/asrock-b450m-steel-legend-socket-am4-amd-3rd-generation-ryzen-original-imafzbdaczggzxvv.jpeg"
+    },
+    {
+      "_id": "60e9dafc19bf331c9efa438a",
+      "title": "Symphony Inova",
+      "price": 8350,
+      "qty": 2,
+      "categoryId": "60df5e546419f56b97610602",
+      "brandId": "613d2233c9247b736856e2a5",
+      "sold": 0,
+      "discount": 10,
+      "views": 0,
+      "attributes": {
+        "ram": [
+          2
+        ],
+        "internal_storage": [
+          32
+        ],
+        "screen_size": "6.4",
+        "processor_core": "quad-core",
+        "network_type": [
+          "3G",
+          "4G",
+          "5G"
+        ],
+        "os": "Android",
+        "primary_camera": "1,2",
+        "customer_rate": "3,4",
+        "discount": "10,20",
+        "sim_type": "Dual Sim",
+        "processor_brand": "Exynos",
+        "os_version": "Oreo",
+        "clock_speed": "2,2.5",
+        "cpu_core": "8"
+      },
+      "updatedAt": "2022-01-13T13:04:55.574Z",
+      "coverPhoto": "images/products_images/xiaomi-redmi-note-9-pro-global-.jpg",
+      "images": [
+        "images/products_images/xiaomi-redmi-note-9-pro-global-.jpg"
+      ],
+      "sellerId": "61e02377aa72cce1692d0382"
+    },
+    {
+      "_id": "610a82f0dd705124cd575db1",
+      "title": "Corsire 16GB DDR4",
+      "price": 6399,
+      "qty": 2,
+      "categoryId": "60df5e546419f56b9761060a",
+      "brandId": "60e039ffc4db28a6a4fdcb81",
+      "sold": 0,
+      "discount": 10,
+      "views": 0,
+      "updatedAt": "2010-08-04T12:05:33.192Z",
+      "createdAt": "2020-01-04T12:06:59.714Z",
+      "coverPhoto": "images/products/kingston-hx316c10f-8-original-imaexqgdfdbzgpn6.jpeg"
+    },
+    {
+      "_id": "613510e9a937c621233341c5",
+      "qty": 11,
+      "sold": 5,
+      "views": 8,
+      "title": "Lenovo Ideapad 3 Athlon Dual Core 3050U - (4 GB/1 TB HDD/Windows",
+      "categoryId": "60df5e546419f56b97610607",
+      "price": 40000,
+      "brandId": "613511bba937c621233341c8",
+      "discount": 10,
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "discount": "50",
+        "generation": 9,
+        "form_factor": "mini_itx",
+        "processor_type": "intel"
+      },
+      "coverPhoto": "images/computers/lenovo-na-laptop-original-imafuzt8r5jqppfn.jpeg"
+    },
+    {
+      "_id": "613512c9a937c621233341cb",
+      "qty": 11,
+      "sold": 5,
+      "discount": 10,
+      "views": 8,
+      "title": "Lenovo IdeaPad 3 Core i3 10th Gen - (8 GB/1 TB HDD/Windows 10 Hom...",
+      "categoryId": "60df5e546419f56b97610607",
+      "price": 41000,
+      "brandId": "613511bba937c621233341c8",
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "discount": "50",
+        "generation": 9,
+        "form_factor": "mini_itx",
+        "processor_type": "intel"
+      },
+      "coverPhoto": "images/computers/lenovo-na-laptop-original-imafuzt8r5jqppfn.jpeg"
+    },
+    {
+      "_id": "613512dea937c621233341cc",
+      "qty": 11,
+      "sold": 5,
+      "views": 8,
+      "title": "Lenovo IdeaPad Core i3 10th Gen - (8 GB/256 GB SSD/Windows 10 Hom...",
+      "categoryId": "60df5e546419f56b97610607",
+      "price": 41000,
+      "brandId": "613511bba937c621233341c8",
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "discount": "50",
+        "generation": 9,
+        "form_factor": "mini_itx",
+        "processor_type": "intel"
+      },
+      "discount": 10,
+      "coverPhoto": "images/computers/lenovo-na-laptop-original-imafuzt8r5jqppfn.jpeg"
+    },
+    {
+      "_id": "61356b01a937c621233341d1",
+      "qty": 11,
+      "sold": 5,
+      "views": 8,
+      "title": "Solid Men Polo Neck Black T-Shirt",
+      "categoryId": "610660933763b883da37222f",
+      "price": 500,
+      "brandId": "61356bcaa937c621233341d8",
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "discount": "50",
+        "generation": 9,
+        "form_factor": "mini_itx",
+        "processor_type": "intel"
+      },
+      "discount": 10,
+      "coverPhoto": "images/products/3xl-askporgff17647-allen-solly-original-imafk8s5wv5mcfm9.jpeg"
+    },
+    {
+      "_id": "61358a53a937c621233341f0",
+      "qty": 4,
+      "sold": 5,
+      "views": 8,
+      "title": "Men Slim Fit Checkered Spread Collar Casual Shirt",
+      "categoryId": "6137a040a75f8548ba40c3af",
+      "price": 500,
+      "brandId": "61356beca937c621233341da",
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "discount": 5,
+      "attributes": {
+        "discount": "50",
+        "generation": 9,
+        "form_factor": "mini_itx",
+        "processor_type": "intel"
+      },
+      "coverPhoto": "images/products/40-assfwmof195238-allen-solly-original-imafphp6fywsathf.jpeg",
+      "images": [
+        "images/products/40-assfwmof195238-allen-solly-original-imafphp6fywsathf.jpeg"
+      ],
+      "sellerId": "61e03206e923f9df32239922",
+      "updatedAt": "2022-01-13T14:07:02.720Z"
+    },
+    {
+      "_id": "61358aeca937c621233341f1",
+      "qty": 3,
+      "sold": 5,
+      "views": 8,
+      "title": "Men Slim Fit Checkered Button Down Collar Casual Shirt",
+      "categoryId": "6137a040a75f8548ba40c3af",
+      "price": 500,
+      "brandId": "61356bcaa937c621233341d8",
+      "discount": 10,
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "discount": "50",
+        "generation": 9,
+        "form_factor": "mini_itx",
+        "processor_type": "intel"
+      },
+      "coverPhoto": "images/products/48-assfwspfh25291-allen-solly-original-imafpf7fgsughvth.jpeg",
+      "images": [
+        "images/products/48-assfwspfh25291-allen-solly-original-imafpf7fgsughvth.jpeg"
+      ],
+      "sellerId": "61e03303e923f9df32239925",
+      "updatedAt": "2022-01-13T14:11:15.118Z"
+    },
+    {
+      "_id": "6137b148a75f8548ba40c3b6",
+      "qty": 5,
+      "sold": 1,
+      "views": 10,
+      "title": "Jogger Fit Men Grey Jeans",
+      "categoryId": "610661183763b883da372230",
+      "price": 700,
+      "brandId": "61356bcaa937c621233341d8",
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "ideal_for": [
+        "6106637d3763b883da372235"
+      ],
+      "discount": 10,
+      "attributes": {
+        "ideal_for": [
+          "men",
+          "women"
+        ],
+        "discount": "50",
+        "color": [
+          "White",
+          "Green"
+        ],
+        "size": [
+          "L",
+          "S",
+          "XL",
+          "XXL",
+          "2XL"
+        ]
+      },
+      "coverPhoto": "images/jeans/30-000894-highlander-original-imafpchpgkqbzmr5.jpeg"
+    },
+    {
+      "_id": "6137b247a75f8548ba40c3b7",
+      "qty": 5,
+      "sold": 1,
+      "views": 10,
+      "title": "Slim Men Blue Jeans",
+      "categoryId": "610661183763b883da372230",
+      "price": 700,
+      "brandId": "61356bcaa937c621233341d8",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "discount": 10,
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "ideal_for": [
+          "men"
+        ],
+        "discount": "50",
+        "color": [
+          "Blue",
+          "Red"
+        ],
+        "size": [
+          "L",
+          "S",
+          "XL",
+          "XXL",
+          "2XL"
+        ]
+      },
+      "coverPhoto": "images/jeans/30-pgmj-014-podge-original-imag49dmktkm8ckh.jpeg"
+    },
+    {
+      "_id": "61382173a75f8548ba40c3bc",
+      "qty": 2,
+      "sold": 1,
+      "views": 10,
+      "title": "Slim Women Blue Jeans",
+      "categoryId": "610661183763b883da372230",
+      "price": 700.4,
+      "brandId": "61356bcaa937c621233341d8",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "ideal_for": [
+          "women"
+        ],
+        "discount": "10",
+        "color": [
+          "Blue",
+          "Red"
+        ],
+        "size": [
+          "L",
+          "S",
+          "XL",
+          "XXL",
+          "2XL"
+        ]
+      },
+      "discount": 10,
+      "coverPhoto": "images/jeans/30-pgmj-014-podge-original-imag49dmktkm8ckh.jpeg"
+    },
+    {
+      "_id": "6139801d9d681052496d245a",
+      "qty": 5,
+      "sold": 1,
+      "views": 10,
+      "title": "Self Design Banarasi Silk Blend, Cotton Blend Saree",
+      "categoryId": "61397fe19d681052496d2457",
+      "price": 700.4,
+      "discount": 10,
+      "brandId": "613e7748729d0bf644170a9a",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "ideal_for": [
+          "women"
+        ],
+        "discount": "10",
+        "color": [
+          "Orange",
+          "Red",
+          "Black",
+          "Yellow",
+          "Gold",
+          "Grey",
+          "Brown",
+          "Pink",
+          "Blue"
+        ],
+        "size": [
+          "L",
+          "S",
+          "XL",
+          "XXL",
+          "2XL"
+        ],
+        "sari_length": 6.3
+      },
+      "coverPhoto": "images/products/free-1294sr201-swaron-original-imafmtz9keafbn9r.jpeg"
+    },
+    {
+      "_id": "613980489d681052496d245b",
+      "qty": 2,
+      "sold": 1,
+      "views": 2,
+      "title": "Benaroshi Shrees for Women",
+      "categoryId": "61397fe19d681052496d2457",
+      "price": 1200.4,
+      "brandId": "61356bcaa937c621233341d8",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "discount": 10,
+      "attributes": {
+        "ideal_for": [
+          "women"
+        ],
+        "discount": "10",
+        "color": [
+          "Blue",
+          "Red"
+        ],
+        "size": [
+          "L",
+          "S",
+          "XL",
+          "XXL",
+          "2XL"
+        ]
+      },
+      "coverPhoto": "images/products/free-276s107-saara-original-imafdnzy3y8fpset.jpeg"
+    },
+    {
+      "_id": "613980639d681052496d245c",
+      "qty": 2,
+      "sold": 1,
+      "views": 2,
+      "title": "Irani Shrees for Women",
+      "categoryId": "61397fe19d681052496d2457",
+      "price": 1200.4,
+      "brandId": "61356bcaa937c621233341d8",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "discount": 10,
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "ideal_for": [
+          "women"
+        ],
+        "discount": "10",
+        "color": [
+          "Blue",
+          "Red"
+        ],
+        "size": [
+          "L",
+          "S",
+          "XL",
+          "XXL",
+          "2XL"
+        ]
+      },
+      "coverPhoto": "images/products/free-hitesh2series-fumvel-unstitched-original-imafwypg4fwky3a7.jpeg"
+    },
+    {
+      "_id": "613a483c4b72d984efe8c457",
+      "qty": 1,
+      "sold": 1,
+      "views": 0,
+      "title": "Polo Neck Black T-Shirt",
+      "categoryId": "610660933763b883da37222f",
+      "price": 300,
+      "discount": 10,
+      "brandId": "61356bcaa937c621233341d8",
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "discount": "50",
+        "generation": 9,
+        "form_factor": "mini_itx",
+        "processor_type": "intel"
+      },
+      "coverPhoto": "images/t-sharts/m-askpqrgfa30971-allen-solly-original-imag3suzmhefzy5g.jpeg"
+    },
+    {
+      "_id": "613a48974b72d984efe8c458",
+      "qty": 1,
+      "sold": 1,
+      "views": 0,
+      "title": "allen solly original T-Shirt",
+      "categoryId": "610660933763b883da37222f",
+      "price": 300,
+      "brandId": "61356bcaa937c621233341d8",
+      "discount": 10,
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "ideal_for": [
+          "men"
+        ],
+        "size": [
+          "39",
+          "42",
+          "XL",
+          "L",
+          "XX",
+          "S",
+          "XS",
+          "5XL"
+        ],
+        "color": [
+          "Yellow",
+          "Black",
+          "Blue",
+          "Beige",
+          "Brown",
+          "Dark Blue",
+          "Dark Green",
+          "Gold",
+          "Light Green",
+          "Multicolor",
+          "Orange",
+          "Purple"
+        ]
+      },
+      "coverPhoto": "images/t-sharts/xxl-246599708-jack-jones-original-imagf7c6dzsfdgzz.jpeg",
+      "images": [
+        "images/t-sharts/xxl-246599708-jack-jones-original-imagf7c6dzsfdgzz.jpeg"
+      ],
+      "sellerId": "61e03138e923f9df3223991a",
+      "updatedAt": "2022-01-13T14:03:36.734Z"
+    },
+    {
+      "_id": "613ae2cd4b72d984efe8c45e",
+      "qty": 1,
+      "sold": 1,
+      "views": 5,
+      "title": "LG HD 1080p 32inch Monitor",
+      "categoryId": "613ae2344b72d984efe8c45b",
+      "price": 15000,
+      "brandId": "60e03b7bc4db28a6a4fdcb82",
+      "discount": 10,
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {},
+      "coverPhoto": "images/products/qa65q60aaklxl-samsung-original-imag4qf6mvjszgkd.jpeg"
+    },
+    {
+      "_id": "613ae3134b72d984efe8c45f",
+      "qty": 1,
+      "sold": 1,
+      "views": 5,
+      "title": "Samsung HD 1080p 32inch Monitor",
+      "categoryId": "613ae2344b72d984efe8c45b",
+      "price": 15000,
+      "brandId": "60e03b7bc4db28a6a4fdcb82",
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {},
+      "discount": 10,
+      "coverPhoto": "images/products/qa65q60aaklxl-samsung-original-imag4qf6mvjszgkd.jpeg"
+    },
+    {
+      "_id": "613ae4344b72d984efe8c460",
+      "title": "Nokia 5",
+      "price": 23324,
+      "qty": 21,
+      "categoryId": "60df5e546419f56b97610602",
+      "brandId": "6115fd304fb6923fc8faef4e",
+      "sold": 0,
+      "views": 0,
+      "discount": 10,
+      "attributes": {
+        "ram": 8,
+        "internal_storage": 32,
+        "screen_size": 6.5,
+        "processor_core": "octa-core"
+      },
+      "updatedAt": 1625938684924,
+      "coverPhoto": "images/products/b557147a306b3791cf62dfeb90c5594a.jpg"
+    },
+    {
+      "_id": "613b93c663f75c69f64c4693",
+      "title": "Huawei Nova 5",
+      "price": 15350,
+      "qty": 2,
+      "categoryId": "60df5e546419f56b97610602",
+      "brandId": "61e018aba5ae2006505a2bb9",
+      "sold": 0,
+      "views": 0,
+      "attributes": {
+        "ram": 3,
+        "internal_storage": 32,
+        "screen_size": 5.5,
+        "processor_core": "octa-core"
+      },
+      "updatedAt": 1625938684924,
+      "discount": 10,
+      "coverPhoto": "images/products/20c8a952a1fe70993c09656ac02ee783.jpg"
+    },
+    {
+      "_id": "613b941163f75c69f64c4694",
+      "title": "Huawei Nova 10",
+      "price": 19350,
+      "qty": 2,
+      "categoryId": "60df5e546419f56b97610602",
+      "brandId": "61e018aba5ae2006505a2bb9",
+      "sold": 0,
+      "views": 0,
+      "attributes": {
+        "ram": 4,
+        "internal_storage": 64,
+        "screen_size": 6.5,
+        "processor_core": "octa-core"
+      },
+      "discount": 10,
+      "updatedAt": 1625938684924,
+      "coverPhoto": "images/products/39eb928ff15a6252c8b31c2eb67fe0a7.jpg"
+    },
+    {
+      "_id": "613b945f63f75c69f64c4695",
+      "title": "Apple IPhone 12.",
+      "price": 150350,
+      "qty": 2,
+      "categoryId": "60df5e546419f56b97610602",
+      "brandId": "613b948a63f75c69f64c4698",
+      "sold": 0,
+      "views": 0,
+      "attributes": {
+        "internal_storage": [
+          8,
+          16,
+          32,
+          64,
+          128,
+          256
+        ],
+        "ram": [
+          2,
+          3,
+          6,
+          8
+        ],
+        "screen_size": "6.5",
+        "primary_camera": "3,4",
+        "os": "iOS",
+        "network_type": [
+          "3G",
+          "4G",
+          "4G-VOLTE",
+          "5G"
+        ],
+        "sim_type": "Dual Sim",
+        "processor_brand": "Apple",
+        "clock_speed": "2.5,0",
+        "cpu_core": "8"
+      },
+      "discount": 20,
+      "updatedAt": "2021-10-21T19:22:08.700Z",
+      "coverPhoto": "images/products_images/apple-iphone-xr-new (2).jpg",
+      "images": [
+        "images/products_images/apple-iphone-xr-new (2).jpg"
+      ],
+      "sellerId": "6171bde099b9ea10a7fbb688"
+    },
+    {
+      "_id": "613e77a7729d0bf644170a9f",
+      "qty": 5,
+      "sold": 1,
+      "views": 10,
+      "title": "Self Design Banarasi Silk Blend, Cotton Blend Saree",
+      "categoryId": "61397fe19d681052496d2457",
+      "price": 700.4,
+      "brandId": "613e7748729d0bf644170a9a",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "discount": 10,
+      "attributes": {
+        "ideal_for": [
+          "women"
+        ],
+        "discount": "10",
+        "color": [
+          "Blue",
+          "Red"
+        ],
+        "size": [
+          "L",
+          "S",
+          "XL",
+          "XXL",
+          "2XL"
+        ],
+        "sari_length": 6.3
+      },
+      "coverPhoto": "images/products/free-1694s126-1159s88-saara-unstitched-original-imag54d7swbbuafh.jpeg"
+    },
+    {
+      "_id": "613e77e6729d0bf644170aa0",
+      "qty": 5,
+      "sold": 1,
+      "views": 10,
+      "title": "Self Design Banarasi Silk Blend, Cotton Blend Saree",
+      "categoryId": "61397fe19d681052496d2457",
+      "discount": 10,
+      "price": 700.4,
+      "brandId": "613e7748729d0bf644170a9a",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "ideal_for": [
+          "women"
+        ],
+        "discount": "10",
+        "color": [
+          "Blue",
+          "Red"
+        ],
+        "size": [
+          "L",
+          "S",
+          "XL",
+          "XXL",
+          "2XL"
+        ],
+        "sari_length": 6.3
+      },
+      "coverPhoto": "images/products/free-23536-mirchi-fashion-unstitched-original-imag5v6yz3qprza2.jpeg"
+    },
+    {
+      "_id": "613e77fd729d0bf644170aa1",
+      "qty": 5,
+      "sold": 1,
+      "views": 10,
+      "title": "Self Design Banarasi Silk Blend, Cotton Blend Saree",
+      "categoryId": "61397fe19d681052496d2457",
+      "price": 700.4,
+      "brandId": "613e7748729d0bf644170a9a",
+      "discount": 10,
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "ideal_for": [
+          "women"
+        ],
+        "discount": "10",
+        "color": [
+          "Blue",
+          "Red"
+        ],
+        "size": [
+          "L",
+          "S",
+          "XL",
+          "XXL",
+          "2XL"
+        ],
+        "sari_length": 6.3
+      },
+      "coverPhoto": "images/products/free-new-more-kanjivaram-fashion-anusuya-saree-original-imafjpaae2mdwzhu.jpeg"
+    },
+    {
+      "_id": "613e781e729d0bf644170aa2",
+      "qty": 5,
+      "sold": 1,
+      "views": 10,
+      "title": "Self Design Banarasi Silk Blend, Cotton Blend Saree",
+      "categoryId": "61397fe19d681052496d2457",
+      "price": 700.4,
+      "brandId": "613e7748729d0bf644170a9a",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "discount": 10,
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "ideal_for": [
+          "women"
+        ],
+        "discount": "10",
+        "color": [
+          "Blue",
+          "Red"
+        ],
+        "size": [
+          "L",
+          "S",
+          "XL",
+          "XXL",
+          "2XL"
+        ],
+        "sari_length": 6.3
+      },
+      "coverPhoto": "images/products/free-lxmi-1-blue-wish-unstitched-original-imafyydfhytuy38e.jpeg",
+      "color": [
+        "Orange",
+        "Red",
+        "Black",
+        "Yellow",
+        "Gold",
+        "Grey",
+        "Brown",
+        "Pink",
+        "Blue"
+      ]
+    },
+    {
+      "_id": "613e7833729d0bf644170aa3",
+      "qty": 5,
+      "sold": 1,
+      "views": 10,
+      "title": "Self Design Banarasi Silk Blend, Cotton Blend Saree",
+      "categoryId": "61397fe19d681052496d2457",
+      "price": 700.4,
+      "discount": 10,
+      "brandId": "613e7748729d0bf644170a9a",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "ideal_for": [
+          "women"
+        ],
+        "discount": "10",
+        "color": [
+          "Blue",
+          "Red"
+        ],
+        "size": [
+          "L",
+          "S",
+          "XL",
+          "XXL",
+          "2XL"
+        ],
+        "sari_length": 6.3
+      },
+      "color": [
+        "Orange",
+        "Red",
+        "Black",
+        "Yellow",
+        "Gold",
+        "Grey",
+        "Brown",
+        "Pink",
+        "Blue"
+      ],
+      "coverPhoto": "images/products/free-rajvadi-komalpankh-unstitched-original-imag325tgyyxzwr3.jpeg"
+    },
+    {
+      "_id": "613e784c729d0bf644170aa4",
+      "qty": 5,
+      "sold": 1,
+      "views": 10,
+      "title": "Self Design Banarasi Silk Blend, Cotton Blend Saree",
+      "categoryId": "61397fe19d681052496d2457",
+      "price": 700.4,
+      "brandId": "613e7748729d0bf644170a9a",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "discount": 10,
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "ideal_for": [
+          "women"
+        ],
+        "discount": "10",
+        "color": [
+          "Orange",
+          "Red",
+          "Black",
+          "Yellow",
+          "Gold",
+          "Grey",
+          "Brown",
+          "Pink",
+          "Blue"
+        ],
+        "size": [
+          "L",
+          "S",
+          "XL",
+          "XXL",
+          "2XL"
+        ],
+        "sari_length": 6.3
+      },
+      "coverPhoto": "images/products/free-lxmi-1-blue-wish-unstitched-original-imafyydfhytuy38e.jpeg"
+    },
+    {
+      "_id": "6144ee1c38af6a8644f3c274",
+      "qty": 2,
+      "sold": 1,
+      "views": 1,
+      "title": "Round Neck Women Blouse",
+      "categoryId": "6144ed2a38af6a8644f3c271",
+      "price": 10.4,
+      "discount": 10,
+      "brandId": "61356bcaa937c621233341d8",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "ideal_for": [
+          "women"
+        ],
+        "discount": "10",
+        "color": [
+          "Blue",
+          "Red"
+        ],
+        "size": [
+          "L",
+          "S",
+          "XL",
+          "XXL",
+          "2XL"
+        ]
+      },
+      "coverPhoto": "images/products/xl-round-neck-cotton-lycra-women-blouse.jpeg"
+    },
+    {
+      "_id": "614836d49b58188dc670596f",
+      "title": "intel Core-i3",
+      "price": "10",
+      "qty": "100",
+      "categoryId": "60df5e546419f56b97610609",
+      "discount": 10,
+      "brandId": "60e16ec9eb7929109752d85d",
+      "createdAt": "2017-04-18T16:00:00Z",
+      "updatedAt": "2017-05-18T16:00:00Z",
+      "sold": 0,
+      "views": 0,
+      "coverPhoto": "images/processor/i3-10100f-lga1200-intel-original-imag4vjyhycvbkbk.jpeg"
+    },
+    {
+      "_id": "6148d80a841259e445116632",
+      "qty": 5,
+      "sold": 1,
+      "views": 10,
+      "title": "D-Link DWA 131 USB Adapter",
+      "categoryId": "6148b17e841259e445116612",
+      "price": 700.4,
+      "discount": 10,
+      "brandId": "6148b34e841259e44511661b",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "discount": "10",
+        "speed": "300Mbps"
+      },
+      "coverPhoto": "images/network//zeb-usb150wf1-wifi-usb-mini-adapter-zebronics-original-imag2pjw8nuzkxhf.jpeg"
+    },
+    {
+      "_id": "6148d80a841259e445116633",
+      "qty": 2,
+      "sold": 2,
+      "discount": 10,
+      "views": 5,
+      "title": "TP-Link TL-WN725N Wi-Fi Receiver 150 Mbps Wireless Nano",
+      "categoryId": "6148b17e841259e445116612",
+      "price": 1200.5,
+      "brandId": "6148b35c841259e44511661c",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "discount": "10",
+        "speed": "150Mbps",
+        "color": [
+          "black"
+        ]
+      },
+      "coverPhoto": "images/network/d-link-wireless-n-nano-usb-adapter-d-link-wireless-n-nano-usb-original-imaegg2bzbaj44ca.jpeg"
+    },
+    {
+      "_id": "6148d80a841259e445116634",
+      "qty": 2,
+      "sold": 2,
+      "views": 5,
+      "title": "D-Link DIR-819 750 Mbps Wireless Router",
+      "categoryId": "6148b14a841259e44511660f",
+      "price": 1200.5,
+      "discount": 10,
+      "brandId": "6148b34e841259e44511661b",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "discount": "10",
+        "speed": "150Mbps",
+        "color": [
+          "black"
+        ]
+      },
+      "coverPhoto": "images/network/a-dir-819-d-link-original-imafwjfvpfynagup.jpeg"
+    },
+    {
+      "_id": "6148d80a841259e445116635",
+      "qty": 2,
+      "sold": 2,
+      "views": 5,
+      "discount": 10,
+      "title": "Terabyte 5 METER Ethernet Cable CAT5/5E Network Cable",
+      "categoryId": "6148b15a841259e445116610",
+      "price": 1200.5,
+      "brandId": "6148b427841259e44511661d",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "discount": "10",
+        "speed": "150Mbps",
+        "color": [
+          "blue",
+          "black"
+        ]
+      },
+      "coverPhoto": "images/network/rhonnium-vixi-cat-6-lan-cable-rj45-ethernet-cable-network-patch-original-imafvfpyhy2q7ny3.jpeg"
+    },
+    {
+      "_id": "6148d80a841259e445116636",
+      "qty": 2,
+      "sold": 2,
+      "views": 5,
+      "title": "D-Link DIR-650IN 300 Mbps Wireless Router",
+      "categoryId": "6148b14a841259e44511660f",
+      "price": 1200.5,
+      "brandId": "6148b34e841259e44511661b",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "discount": 10,
+      "attributes": {
+        "discount": "10",
+        "speed": "300Mbps",
+        "color": [
+          "blue",
+          "black"
+        ]
+      },
+      "coverPhoto": "images/network/archer-c6-v3-tp-link-original-imagyzebqnmp67y7.jpeg"
+    },
+    {
+      "_id": "6148d80a841259e445116637",
+      "qty": 2,
+      "sold": 2,
+      "views": 5,
+      "title": "TP-Link Archer C6 Wireless MU-MIMO Gigabit 1200 Mbps",
+      "categoryId": "6148b14a841259e44511660f",
+      "price": 1200.5,
+      "brandId": "6148b35c841259e44511661c",
+      "discount": 10,
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "discount": "10",
+        "speed": "1200Mbps",
+        "color": [
+          "blue",
+          "black"
+        ]
+      },
+      "coverPhoto": "images/network/archer-c6-v3-tp-link-original-imagyzebqnmp67y7.jpeg"
+    },
+    {
+      "_id": "6148d80a841259e445116638",
+      "qty": 2,
+      "sold": 2,
+      "views": 5,
+      "title": "Terabyte TB-WD-1111 USB Adapter",
+      "categoryId": "6148b17e841259e445116612",
+      "price": 350.5,
+      "brandId": "6148b35c841259e44511661c",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "discount": 10,
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "attributes": {
+        "discount": "10",
+        "speed": "350Mbps",
+        "color": [
+          "black"
+        ]
+      },
+      "coverPhoto": "images/network/terabyte-600mbps-tb-wd-1111-original-imaf7uyghcpyhfne.jpeg"
+    },
+    {
+      "_id": "6148d80a841259e445116639",
+      "qty": 2,
+      "sold": 2,
+      "views": 5,
+      "title": "QUANTUM QHM8106 Lan Adapter Lan Adapter",
+      "categoryId": "6148b16d841259e445116611",
+      "price": 350.5,
+      "brandId": "6148b35c841259e44511661c",
+      "ideal_for": [
+        "610663713763b883da372234"
+      ],
+      "createdAt": "2011-08-04T11:55:16.887Z",
+      "discount": 10,
+      "attributes": {
+        "discount": "10",
+        "speed": "500Mbps",
+        "color": [
+          "white"
+        ]
+      },
+      "coverPhoto": "images/network/qhm8106-quantum-original-imag6d2vjumfky2a.jpeg"
+    },
+    {
+      "_id": "61655c710a8cdcbfc17b02c2",
+      "title": "Samsung M35 6/128",
+      "price": 35000,
+      "qty": 122,
+      "sold": 0,
+      "views": 0,
+      "discount": 5,
+      "coverPhoto": "images/products_images/huawei-nova7-5g.jpg",
+      "categoryId": "60df5e546419f56b97610602",
+      "brandId": "60e03b83c4db28a6a4fdcb83",
+      "attributes": {
+        "discount": "50",
+        "generation": 9,
+        "form_factor": "mini_itx",
+        "processor_type": "intel",
+        "ram": [
+          3
+        ],
+        "internal_storage": [
+          32
+        ],
+        "screen_size": "5",
+        "primary_camera": "3,4",
+        "os": "Android",
+        "network_type": [
+          "4G",
+          "4G-VOLTE",
+          "3G"
+        ],
+        "sim_type": "Dual Sim",
+        "processor_brand": "Mediatek",
+        "clock_speed": "1.5,1.9",
+        "os_version": "Pie",
+        "cpu_core": "6"
+      },
+      "createdAt": "2021-10-12T09:59:13.658Z",
+      "updatedAt": "2022-01-13T13:35:39.157Z",
+      "images": [
+        "images/products_images/huawei-nova7-5g.jpg"
+      ],
+      "sellerId": "61e02aab1385aac565eacbb9"
+    },
+    {
+      "_id": "616eeef6fe5b8c5e9d2d410d",
+      "title": "Puma best case",
+      "price": 455,
+      "discount": 12,
+      "brandId": "616ede6e0d0ae1d531df6dd6",
+      "categoryId": "616ed57047cdd777fb383275",
+      "sellerId": "60fd77168e914a4b2cc47ba1",
+      "updatedAt": "2021-10-20T14:59:49.263Z",
+      "createdAt": "2021-10-19T16:14:46.019Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": {
+        "0": "{",
+        "1": "\"",
+        "2": "i",
+        "3": "d",
+        "4": "e",
+        "5": "a",
+        "6": "l",
+        "7": "_",
+        "8": "f",
+        "9": "o",
+        "10": "r",
+        "11": "\"",
+        "12": ":",
+        "13": "\"",
+        "14": "m",
+        "15": "e",
+        "16": "n",
+        "17": "\"",
+        "18": "}",
+        "ideal_for": "men"
+      },
+      "coverPhoto": "images/products/38099-1216-9-levi-s-dark-blue-original-imafjjr5fggznghe.jpeg",
+      "images": [
+        "images/products/38099-1216-9-levi-s-dark-blue-original-imafjjr5fggznghe.jpeg"
+      ]
+    },
+    {
+      "_id": "616f19cd056d30b6c91e6e1f",
+      "title": "OnePlus Y Series 80 cm (32 inch) HD Ready LED Smart And...",
+      "price": 20000,
+      "discount": 20,
+      "brandId": "616f16c75744520e05800680",
+      "categoryId": "61489d4e841259e4451165f2",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-19T19:17:33.513Z",
+      "createdAt": "2021-10-19T19:17:33.513Z",
+      "qty": 5,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "coverPhoto": "static/upload/32ha0a00-oneplus-original-imag4gy8yezxdhen.jpeg",
+      "images": [
+        "static/upload/32ha0a00-oneplus-original-imag4gy8yezxdhen.jpeg"
+      ]
+    },
+    {
+      "_id": "616f19e2a99f7fc73e1accd2",
+      "title": "OnePlus Y Series 80 cm (32 inch) HD Ready LED Smart And...",
+      "price": 20000,
+      "discount": 20,
+      "brandId": "616f16c75744520e05800680",
+      "categoryId": "61489d4e841259e4451165f2",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-19T19:17:54.016Z",
+      "createdAt": "2021-10-19T19:17:54.016Z",
+      "qty": 5,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "coverPhoto": "static/upload/32ha0a00-oneplus-original-imag4gy8yezxdhen.jpeg",
+      "images": [
+        "static/upload/32ha0a00-oneplus-original-imag4gy8yezxdhen.jpeg"
+      ]
+    },
+    {
+      "_id": "616f1a04a99f7fc73e1accd4",
+      "title": "OnePlus Y Series 100 cm (40 inch) Full HD LED Smart And...",
+      "price": 21000,
+      "discount": 15,
+      "brandId": "616f16c75744520e05800680",
+      "categoryId": "61489d4e841259e4451165f2",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-19T19:18:28.288Z",
+      "createdAt": "2021-10-19T19:18:28.288Z",
+      "qty": 5,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "coverPhoto": "static/upload/40y1-40fa1a00-oneplus-original-imag3p45tdgyvpqa.jpeg",
+      "images": [
+        "static/upload/40y1-40fa1a00-oneplus-original-imag3p45tdgyvpqa.jpeg"
+      ]
+    },
+    {
+      "_id": "616f1a13a99f7fc73e1accd6",
+      "title": "OnePlus Y Series 100 cm (40 inch) Full HD LED Smart And...",
+      "price": 21000,
+      "discount": 15,
+      "brandId": "616f16c75744520e05800680",
+      "categoryId": "61489d4e841259e4451165f2",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-19T19:18:43.325Z",
+      "createdAt": "2021-10-19T19:18:43.325Z",
+      "qty": 5,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "coverPhoto": "static/upload/40y1-40fa1a00-oneplus-original-imag3p45tdgyvpqa.jpeg",
+      "images": [
+        "static/upload/40y1-40fa1a00-oneplus-original-imag3p45tdgyvpqa.jpeg"
+      ]
+    },
+    {
+      "_id": "616f1a14a99f7fc73e1accd8",
+      "title": "OnePlus Y Series 100 cm (40 inch) Full HD LED Smart And...",
+      "price": 21000,
+      "discount": 15,
+      "brandId": "616f16c75744520e05800680",
+      "categoryId": "61489d4e841259e4451165f2",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-19T19:18:44.330Z",
+      "createdAt": "2021-10-19T19:18:44.330Z",
+      "qty": 5,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "coverPhoto": "static/upload/40y1-40fa1a00-oneplus-original-imag3p45tdgyvpqa.jpeg",
+      "images": [
+        "static/upload/40y1-40fa1a00-oneplus-original-imag3p45tdgyvpqa.jpeg"
+      ]
+    },
+    {
+      "_id": "616f1a98a99f7fc73e1accdb",
+      "title": "Mi 4X 108 cm (43 inch) Ultra HD (4K) LED Smart Android ...",
+      "price": 18000,
+      "discount": 10,
+      "brandId": "616f1a7ea99f7fc73e1accda",
+      "categoryId": "61489d4e841259e4451165f2",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-19T19:20:56.987Z",
+      "createdAt": "2021-10-19T19:20:56.987Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "coverPhoto": "static/upload/24hdndmsvab-marq-original-imag76pxgpuzzefz.jpeg",
+      "images": [
+        "static/upload/24hdndmsvab-marq-original-imag76pxgpuzzefz.jpeg"
+      ]
+    },
+    {
+      "_id": "616f1adda99f7fc73e1accdd",
+      "title": "Mi 4A Horizon Edition 108 cm (43 inch) Full HD LED Smar...",
+      "price": 23000,
+      "discount": 10,
+      "brandId": "616f1a7ea99f7fc73e1accda",
+      "categoryId": "61489d4e841259e4451165f2",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-19T19:22:05.064Z",
+      "createdAt": "2021-10-19T19:22:05.064Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "coverPhoto": "static/upload/l43m6-ei-mi-original-imag4xqrfhrewu2c.jpeg",
+      "images": [
+        "static/upload/l43m6-ei-mi-original-imag4xqrfhrewu2c.jpeg",
+        "static/upload/24hdndmsvab-marq-original-imag76pxgpuzzefz.jpeg"
+      ]
+    },
+    {
+      "_id": "616f1c7da99f7fc73e1accdf",
+      "title": "Airtel Digital TV HD Set top Box 1 month Value Lite Pac...",
+      "price": 2300,
+      "discount": 9,
+      "brandId": "616f14738ae9a90aa4434f77",
+      "categoryId": "616f14298ae9a90aa4434f75",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-19T19:29:01.143Z",
+      "createdAt": "2021-10-19T19:29:01.143Z",
+      "qty": 5,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "coverPhoto": "static/upload/1-month-value-sports-sd-hd-set-top-box-airtel-digital-tv-original-imafdfy4yrng2njd.jpeg",
+      "images": [
+        "static/upload/1-month-value-sports-sd-hd-set-top-box-airtel-digital-tv-original-imafdfy4yrng2njd.jpeg"
+      ]
+    },
+    {
+      "_id": "616f1de2a99f7fc73e1acce3",
+      "title": "MAONO AU-PM461S Microphone",
+      "price": 3500,
+      "discount": 10,
+      "brandId": "616f1d93a99f7fc73e1acce2",
+      "categoryId": "616ed57047cdd777fb383275",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-19T19:34:58.376Z",
+      "createdAt": "2021-10-19T19:34:58.376Z",
+      "qty": 5,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "coverPhoto": "static/upload/au-pm461s-maono-original-imag5zqsaqfgg9p2.jpeg",
+      "images": [
+        "static/upload/au-pm461s-maono-original-imag5zqsaqfgg9p2.jpeg"
+      ]
+    },
+    {
+      "_id": "616f23753de4058443b1b856",
+      "title": "JBL Commercial CSSM100 Studio Condenser Microphone",
+      "price": 6000,
+      "discount": 5,
+      "brandId": "616f22ec3de4058443b1b855",
+      "categoryId": "616f1d3ca99f7fc73e1acce1",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-19T19:58:45.961Z",
+      "createdAt": "2021-10-19T19:58:45.961Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "coverPhoto": "static/upload/cssm100-jbl-commercial-original-imag6fzscw3ucqsh.jpeg",
+      "images": [
+        "static/upload/cssm100-jbl-commercial-original-imag6fzscw3ucqsh.jpeg"
+      ]
+    },
+    {
+      "_id": "616fe22afa64c63c9b6b7e60",
+      "title": "LG Smart Android TV",
+      "price": 17000,
+      "discount": 5,
+      "brandId": "617019bf0d5ab181fda990f6",
+      "categoryId": "61489d4e841259e4451165f2",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T13:30:57.226Z",
+      "createdAt": "2021-10-20T09:32:26.068Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "\"{}\"",
+      "coverPhoto": "static/upload/lg-32lm565bpta-32lm565bpta-original-imafurgkdrjfggbw.jpeg",
+      "images": [
+        "static/upload/lg-32lm565bpta-32lm565bpta-original-imafurgkdrjfggbw.jpeg"
+      ]
+    },
+    {
+      "_id": "61701d798c896119a0705e16",
+      "title": "MSI Z390 PRO SATA3&USB3.1/ M.2/ A&GbE/MicroATX Motherboard Motherboard",
+      "price": 12000,
+      "discount": 10,
+      "brandId": "60e05bc6c4db28a6a4fdcb89",
+      "categoryId": "60df5e546419f56b97610608",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T13:45:29.270Z",
+      "createdAt": "2021-10-20T13:45:29.270Z",
+      "qty": 2,
+      "sold": 5,
+      "views": 8,
+      "attributes": "{\"discount\":\"50\",\"generation\":9,\"form_factor\":\"mini_itx\",\"processor_type\":\"intel\"}",
+      "images": [
+        "images/products/msi-b550m-pro-vdh-wifi-b550m-pro-vdh-wifi-original-imafw8qxjsjwdwfd.jpeg",
+        "images/products/msi-b550m-pro-vdh-wifi-b550m-pro-vdh-wifi-original-imafw8qxjsjwdwfd.jpeg",
+        "images/products/msi-b550m-pro-vdh-wifi-b550m-pro-vdh-wifi-original-imafw8qxjsjwdwfd.jpeg",
+        "images/products/msi-b550m-pro-vdh-wifi-b550m-pro-vdh-wifi-original-imafw8qxjsjwdwfd.jpeg",
+        "images/products/msi-b550m-pro-vdh-wifi-b550m-pro-vdh-wifi-original-imafw8qxjsjwdwfd.jpeg"
+      ],
+      "coverPhoto": "images/products/msi-b550m-pro-vdh-wifi-b550m-pro-vdh-wifi-original-imafw8qxjsjwdwfd.jpeg"
+    },
+    {
+      "_id": "61701e348c896119a0705e18",
+      "title": "MSI Z61 PRO SATA3&USB3.1/ M.2/ A&GbE/MicroATX Motherboard Motherboard",
+      "price": 4004,
+      "discount": 10,
+      "brandId": "60e05bc6c4db28a6a4fdcb89",
+      "categoryId": "60df5e546419f56b97610608",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T13:48:36.366Z",
+      "createdAt": "2021-10-20T13:48:36.366Z",
+      "qty": 2,
+      "sold": 5,
+      "views": 8,
+      "attributes": "{\"discount\":\"50\",\"generation\":9,\"form_factor\":\"mini_itx\",\"processor_type\":\"intel\"}",
+      "images": [
+        "images/products/zebronics-zebronics-h61-board-intel-core-i3-cpu-3220-3mb-cache-3-original-imaewhqm5xexwsxm.jpeg"
+      ],
+      "coverPhoto": "images/products/zebronics-zebronics-h61-board-intel-core-i3-cpu-3220-3mb-cache-3-original-imaewhqm5xexwsxm.jpeg"
+    },
+    {
+      "_id": "61701ecc37e93d11298f42a9",
+      "title": "MSI Z390 PRO SATA3&USB3.1/ M.2/ A&GbE/MicroATX Motherboard Motherboard",
+      "price": 12000,
+      "discount": 10,
+      "brandId": "60e05bc6c4db28a6a4fdcb89",
+      "categoryId": "60df5e546419f56b97610608",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T13:51:08.011Z",
+      "createdAt": "2021-10-20T13:51:08.011Z",
+      "qty": 2,
+      "sold": 5,
+      "views": 8,
+      "attributes": "{\"discount\":\"50\",\"generation\":9,\"form_factor\":\"mini_itx\",\"processor_type\":\"intel\"}",
+      "images": [
+        "images/products/msi-b550m-pro-vdh-wifi-b550m-pro-vdh-wifi-original-imafw8qxjsjwdwfd.jpeg",
+        "images/products/msi-b550m-pro-vdh-wifi-b550m-pro-vdh-wifi-original-imafw8qxjsjwdwfd.jpeg",
+        "images/products/msi-b550m-pro-vdh-wifi-b550m-pro-vdh-wifi-original-imafw8qxjsjwdwfd.jpeg",
+        "images/products/msi-b550m-pro-vdh-wifi-b550m-pro-vdh-wifi-original-imafw8qxjsjwdwfd.jpeg",
+        "images/products/msi-b550m-pro-vdh-wifi-b550m-pro-vdh-wifi-original-imafw8qxjsjwdwfd.jpeg"
+      ],
+      "coverPhoto": "images/products/msi-b550m-pro-vdh-wifi-b550m-pro-vdh-wifi-original-imafw8qxjsjwdwfd.jpeg"
+    },
+    {
+      "_id": "61701ecc37e93d11298f42aa",
+      "title": "MSI Z61 PRO SATA3&USB3.1/ M.2/ A&GbE/MicroATX Motherboard Motherboard",
+      "price": 4004,
+      "discount": 10,
+      "brandId": "60e05bc6c4db28a6a4fdcb89",
+      "categoryId": "60df5e546419f56b97610608",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T14:59:12.517Z",
+      "createdAt": "2021-10-20T13:51:08.015Z",
+      "qty": 2,
+      "sold": 5,
+      "views": 8,
+      "attributes": "{\"discount\":\"50\",\"generation\":9,\"form_factor\":\"mini_itx\",\"processor_type\":\"intel\"}",
+      "images": [
+        "images/products/zebronics-zebronics-h61-board-intel-core-i3-cpu-3220-3mb-cache-3-original-imaewhqm5xexwsxm.jpeg"
+      ],
+      "coverPhoto": "images/products/zebronics-zebronics-h61-board-intel-core-i3-cpu-3220-3mb-cache-3-original-imaewhqm5xexwsxm.jpeg"
+    },
+    {
+      "_id": "61702f29ed596803892403f1",
+      "title": "Puma best case",
+      "price": 12000,
+      "discount": 5,
+      "brandId": "616ede6e0d0ae1d531df6dd6",
+      "categoryId": "616ed52b47cdd777fb383274",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T15:11:37.624Z",
+      "createdAt": "2021-10-20T15:00:57.387Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{\"0\":\"{\",\"1\":\"\\\"\",\"2\":\"i\",\"3\":\"d\",\"4\":\"e\",\"5\":\"a\",\"6\":\"l\",\"7\":\"_\",\"8\":\"f\",\"9\":\"o\",\"10\":\"r\",\"11\":\"\\\"\",\"12\":\":\",\"13\":\"\\\"\",\"14\":\"m\",\"15\":\"e\",\"16\":\"n\",\"17\":\"\\\"\",\"18\":\"}\",\"ideal_for\":\"men\",\"size\":\"L\"}",
+      "images": [
+        "images/products/7-ew6399-9-5-reebok-coll-navy-flat-grey-sunglow-skull-original-imagfwxns7zxe5zq.jpeg"
+      ],
+      "coverPhoto": "images/products/7-ew6399-9-5-reebok-coll-navy-flat-grey-sunglow-skull-original-imagfwxns7zxe5zq.jpeg"
+    },
+    {
+      "_id": "61702f30ed596803892403f3",
+      "title": "Puma best case",
+      "price": 12000,
+      "discount": 5,
+      "brandId": "616ede6e0d0ae1d531df6dd6",
+      "categoryId": "616ed52b47cdd777fb383274",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T15:01:04.256Z",
+      "createdAt": "2021-10-20T15:01:04.256Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{\"0\":\"{\",\"1\":\"\\\"\",\"2\":\"i\",\"3\":\"d\",\"4\":\"e\",\"5\":\"a\",\"6\":\"l\",\"7\":\"_\",\"8\":\"f\",\"9\":\"o\",\"10\":\"r\",\"11\":\"\\\"\",\"12\":\":\",\"13\":\"\\\"\",\"14\":\"m\",\"15\":\"e\",\"16\":\"n\",\"17\":\"\\\"\",\"18\":\"}\",\"ideal_for\":\"men\",\"size\":\"L\"}",
+      "images": [
+        "images/products/9-sx0482g-9-olive-yellow-sparx-original-imafhgrjhhkazf4h.jpeg"
+      ],
+      "coverPhoto": "images/products/9-sx0482g-9-olive-yellow-sparx-original-imafhgrjhhkazf4h.jpeg"
+    },
+    {
+      "_id": "61702f31ed596803892403f5",
+      "title": "Puma best case",
+      "price": 12000,
+      "discount": 5,
+      "brandId": "616ede6e0d0ae1d531df6dd6",
+      "categoryId": "616ed52b47cdd777fb383274",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T15:12:53.809Z",
+      "createdAt": "2021-10-20T15:01:05.226Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{\"0\":\"{\",\"1\":\"\\\"\",\"2\":\"i\",\"3\":\"d\",\"4\":\"e\",\"5\":\"a\",\"6\":\"l\",\"7\":\"_\",\"8\":\"f\",\"9\":\"o\",\"10\":\"r\",\"11\":\"\\\"\",\"12\":\":\",\"13\":\"\\\"\",\"14\":\"m\",\"15\":\"e\",\"16\":\"n\",\"17\":\"\\\"\",\"18\":\"}\",\"ideal_for\":\"men\",\"size\":\"L\"}",
+      "images": [
+        "images/products/373640-10-puma-rhubarb-white-original-imafpmppwcztd8gw.jpeg"
+      ],
+      "coverPhoto": "images/products/373640-10-puma-rhubarb-white-original-imafpmppwcztd8gw.jpeg"
+    },
+    {
+      "_id": "61702f3fed596803892403f7",
+      "title": "Puma best case",
+      "price": 12000,
+      "discount": 5,
+      "brandId": "616ede6e0d0ae1d531df6dd6",
+      "categoryId": "616ed52b47cdd777fb383274",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T15:14:13.270Z",
+      "createdAt": "2021-10-20T15:01:19.499Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{\"0\":\"{\",\"1\":\"\\\"\",\"2\":\"i\",\"3\":\"d\",\"4\":\"e\",\"5\":\"a\",\"6\":\"l\",\"7\":\"_\",\"8\":\"f\",\"9\":\"o\",\"10\":\"r\",\"11\":\"\\\"\",\"12\":\":\",\"13\":\"\\\"\",\"14\":\"m\",\"15\":\"e\",\"16\":\"n\",\"17\":\"\\\"\",\"18\":\"}\",\"ideal_for\":\"men\",\"size\":\"L\"}",
+      "images": [
+        "images/products/9-sx0482g-9-olive-yellow-sparx-original-imafhgrjhhkazf4h.jpeg",
+        "images/products/10-ck2089-100nike-nike-white-royal-tint-original-imag3hgty5s4sgkg.jpeg"
+      ],
+      "coverPhoto": "images/products/10-ck2089-100nike-nike-white-royal-tint-original-imag3hgty5s4sgkg.jpeg"
+    },
+    {
+      "_id": "61702f84ed596803892403f9",
+      "title": "Puma best case",
+      "price": 455,
+      "discount": 12,
+      "brandId": "616ede6e0d0ae1d531df6dd6",
+      "categoryId": "616ed57047cdd777fb383275",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T15:13:28.303Z",
+      "createdAt": "2021-10-20T15:02:28.408Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{\"0\":\"{\",\"1\":\"\\\"\",\"2\":\"i\",\"3\":\"d\",\"4\":\"e\",\"5\":\"a\",\"6\":\"l\",\"7\":\"_\",\"8\":\"f\",\"9\":\"o\",\"10\":\"r\",\"11\":\"\\\"\",\"12\":\":\",\"13\":\"\\\"\",\"14\":\"m\",\"15\":\"e\",\"16\":\"n\",\"17\":\"\\\"\",\"18\":\"}\",\"ideal_for\":\"men\"}",
+      "images": [
+        "images/products/bq3204-006-11-nike-platinum-tint-white-pink-blast-original-imafzvwpmn8swpag_New1.jpeg"
+      ],
+      "coverPhoto": "images/products/bq3204-006-11-nike-platinum-tint-white-pink-blast-original-imafzvwpmn8swpag_New1.jpeg"
+    },
+    {
+      "_id": "61703291826617d8642a9ac0",
+      "title": "Puma best case",
+      "price": 12000,
+      "discount": 5,
+      "brandId": "616ede6e0d0ae1d531df6dd6",
+      "categoryId": "616ed52b47cdd777fb383274",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T15:15:29.990Z",
+      "createdAt": "2021-10-20T15:15:29.990Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "\"{\\\"0\\\":\\\"{\\\",\\\"1\\\":\\\"\\\\\\\"\\\",\\\"2\\\":\\\"i\\\",\\\"3\\\":\\\"d\\\",\\\"4\\\":\\\"e\\\",\\\"5\\\":\\\"a\\\",\\\"6\\\":\\\"l\\\",\\\"7\\\":\\\"_\\\",\\\"8\\\":\\\"f\\\",\\\"9\\\":\\\"o\\\",\\\"10\\\":\\\"r\\\",\\\"11\\\":\\\"\\\\\\\"\\\",\\\"12\\\":\\\":\\\",\\\"13\\\":\\\"\\\\\\\"\\\",\\\"14\\\":\\\"m\\\",\\\"15\\\":\\\"e\\\",\\\"16\\\":\\\"n\\\",\\\"17\\\":\\\"\\\\\\\"\\\",\\\"18\\\":\\\"}\\\",\\\"ideal_for\\\":\\\"men\\\",\\\"size\\\":\\\"L\\\"}\"",
+      "images": [
+        "images/products/9-sx0482g-9-olive-yellow-sparx-original-imafhgrjhhkazf4h.jpeg",
+        "images/products/10-ck2089-100nike-nike-white-royal-tint-original-imag3hgty5s4sgkg.jpeg"
+      ],
+      "coverPhoto": "images/products/9-sx0482g-9-olive-yellow-sparx-original-imafhgrjhhkazf4h.jpeg"
+    },
+    {
+      "_id": "617075dac187d8cd6f3b9a7d",
+      "title": "Asus Tablet",
+      "price": 12000,
+      "discount": 5,
+      "brandId": "60e16ec9eb7929109752d85c",
+      "categoryId": "60df5e546419f56b97610603",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T20:02:34.737Z",
+      "createdAt": "2021-10-20T20:02:34.737Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "images": [
+        "images/products/alcatel-8088t-3aalin1-a-original-imafgbephybye6fy_New1.jpeg"
+      ],
+      "coverPhoto": "images/products/alcatel-8088t-3aalin1-a-original-imafgbephybye6fy_New1.jpeg"
+    },
+    {
+      "_id": "61707650c24e0b50623e89eb",
+      "title": "Asus Tablet",
+      "price": 12000,
+      "discount": 5,
+      "brandId": "60e16ec9eb7929109752d85c",
+      "categoryId": "60df5e546419f56b97610603",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T20:04:32.967Z",
+      "createdAt": "2021-10-20T20:04:32.967Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "images": [
+        "images/products/alcatel-8088t-3aalin1-a-original-imafgbephybye6fy_New1.jpeg"
+      ],
+      "coverPhoto": "images/products/alcatel-8088t-3aalin1-a-original-imafgbephybye6fy_New1.jpeg"
+    },
+    {
+      "_id": "6170801c73b3851a1e7dbb71",
+      "title": "Oriflame Sweden 2 Body Spray Perfume - 150 ml  (For Women)",
+      "price": 560,
+      "discount": 10,
+      "brandId": "61707f4773b3851a1e7dbb6f",
+      "categoryId": "617080e473b3851a1e7dbb78",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T20:51:29.669Z",
+      "createdAt": "2021-10-20T20:46:20.273Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "images": [
+        "static/upload/300-deo-combo-pack-absolute-dynamic-300ml-body-spray-fogg-men-original-imafygffcvubgckz.jpeg"
+      ],
+      "coverPhoto": "static/upload/300-deo-combo-pack-absolute-dynamic-300ml-body-spray-fogg-men-original-imafygffcvubgckz.jpeg"
+    },
+    {
+      "_id": "6170806d73b3851a1e7dbb74",
+      "title": "Oriflame Sensity Midnight Mist Spray Cologne For Women ...",
+      "price": 560,
+      "discount": 10,
+      "brandId": "6170806273b3851a1e7dbb73",
+      "categoryId": "617080e473b3851a1e7dbb78",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T20:51:45.593Z",
+      "createdAt": "2021-10-20T20:47:41.050Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "images": [
+        "static/upload/150-blush-deodorant-spray-for-women-150-ml-deodorant-spray-original-imafwazdzkhrpzk3.jpeg"
+      ],
+      "coverPhoto": "static/upload/150-blush-deodorant-spray-for-women-150-ml-deodorant-spray-original-imafwazdzkhrpzk3.jpeg"
+    },
+    {
+      "_id": "6170809a73b3851a1e7dbb76",
+      "title": "Engage Blush Deodorant For Women, Fruity and Floral, Sk",
+      "price": 560,
+      "discount": 10,
+      "brandId": "61707f4773b3851a1e7dbb6f",
+      "categoryId": "617080e473b3851a1e7dbb78",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-20T20:52:04.547Z",
+      "createdAt": "2021-10-20T20:48:26.470Z",
+      "qty": 2,
+      "sold": 0,
+      "views": 0,
+      "attributes": "{}",
+      "images": [
+        "static/upload/150-spark-urge-deodorant-2-deodorant-spray-kamasutra-men-original-imag2zy8pfxszmbu.jpeg"
+      ],
+      "coverPhoto": "static/upload/150-spark-urge-deodorant-2-deodorant-spray-kamasutra-men-original-imag2zy8pfxszmbu.jpeg"
+    },
+    {
+      "_id": "6170fe74c4da22e845d128be",
+      "title": "Super Skinny Women Blue Jeans",
+      "price": 1117,
+      "discount": 30,
+      "brandId": "6170fdc3c4da22e845d128bd",
+      "categoryId": "610661183763b883da372230",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2021-10-21T16:13:50.187Z",
+      "createdAt": "2021-10-21T05:45:24.242Z",
+      "qty": 5,
+      "sold": 0,
+      "views": 0,
+      "attributes": {
+        "size": [
+          "L",
+          "XX",
+          "5XL",
+          "S",
+          "XS",
+          "39",
+          "42",
+          "XL",
+          "4XL",
+          "3XL",
+          "2XL"
+        ],
+        "ideal_for": [
+          "women"
+        ],
+        "color": [
+          "White",
+          "Black",
+          "Grey",
+          "Light Blue"
+        ]
+      },
+      "images": [
+        "static/upload/30-21306-0510-levi-s-original-imag75stuxmxdhn5.jpeg"
+      ],
+      "coverPhoto": "static/upload/30-21306-0510-levi-s-original-imag75stuxmxdhn5.jpeg"
+    },
+    {
+      "_id": "6171913aa59d7e4a95a83962",
+      "title": "saddddddddd",
+      "price": 3,
+      "discount": 3,
+      "brandId": "6135b4c9e65b6f9410e2ffb5",
+      "categoryId": "610661183763b883da372230",
+      "sellerId": "61e02e6ce923f9df3223990c",
+      "updatedAt": "2022-01-13T13:51:40.785Z",
+      "createdAt": "2021-10-21T16:11:38.600Z",
+      "qty": 3,
+      "sold": 0,
+      "views": 0,
+      "attributes": {
+        "size": [
+          "3XL",
+          "4XL",
+          "XX",
+          "XL",
+          "L",
+          "S",
+          "2XL",
+          "5XL"
+        ],
+        "ideal_for": [
+          "men",
+          "women"
+        ],
+        "color": [
+          "Black",
+          "Grey",
+          "Light Blue",
+          "Multicolor"
+        ],
+        "discount": "20,30"
+      },
+      "images": [
+        "images/jeans/36-lj3127-lzard-original-imafwdxzcxy54wys.jpeg"
+      ],
+      "coverPhoto": "images/jeans/36-lj3127-lzard-original-imafwdxzcxy54wys.jpeg"
+    },
+    {
+      "_id": "61e015e4a5ae2006505a2bb0",
+      "title": "Realme c25",
+      "price": 23324,
+      "qty": 21,
+      "categoryId": "60df5e546419f56b97610602",
+      "brandId": "613d230cc9247b736856e2a8",
+      "sold": 0,
+      "views": 0,
+      "discount": 10,
+      "attributes": {
+        "ram": 8,
+        "internal_storage": 32,
+        "screen_size": 6.5,
+        "processor_core": "octa-core"
+      },
+      "updatedAt": 1625938684924,
+      "coverPhoto": "images/products/b557147a306b3791cf62dfeb90c5594a.jpg"
+    },
+    {
+      "_id": "61e02d9ae923f9df32239909",
+      "title": "Samsung M40 8/256",
+      "price": 45000,
+      "discount": 5,
+      "brandId": "60e03b83c4db28a6a4fdcb83",
+      "categoryId": "60df5e546419f56b97610602",
+      "sellerId": "61e02df5e923f9df3223990b",
+      "updatedAt": "2022-01-13T13:49:41.257Z",
+      "createdAt": "2022-01-13T13:48:10.383Z",
+      "qty": 1,
+      "sold": 0,
+      "views": 0,
+      "attributes": {},
+      "images": [
+        "images/products_images/huawei-nova7-5g.jpg"
+      ],
+      "coverPhoto": "images/products_images/huawei-nova7-5g.jpg"
+    },
+    {
+      "_id": "61e03122e923f9df3223990e",
+      "title": "allen solly original T-Shirt",
+      "price": 300,
+      "discount": 10,
+      "brandId": "61356bcaa937c621233341d8",
+      "categoryId": "610660933763b883da37222f",
+      "sellerId": "61e0315be923f9df3223991b",
+      "updatedAt": "2022-01-13T14:04:11.049Z",
+      "createdAt": "2022-01-13T14:03:14.804Z",
+      "qty": 1,
+      "sold": 1,
+      "views": 0,
+      "attributes": {},
+      "images": [
+        "images/products/xxl-219119704-jack-jones-original-imafwddvm5rnvhh5.jpeg"
+      ],
+      "coverPhoto": "images/products/xxl-219119704-jack-jones-original-imafwddvm5rnvhh5.jpeg"
+    },
+    {
+      "_id": "61e03124e923f9df32239910",
+      "title": "allen solly original T-Shirt",
+      "price": 300,
+      "discount": 10,
+      "brandId": "61356bcaa937c621233341d8",
+      "categoryId": "610660933763b883da37222f",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2022-01-13T14:03:16.048Z",
+      "createdAt": "2022-01-13T14:03:16.048Z",
+      "qty": 1,
+      "sold": 1,
+      "views": 0,
+      "attributes": {},
+      "images": [
+        "images/products/m-askporgfl84936-allen-solly-original-imafknh2zgyfddb5.jpeg"
+      ],
+      "coverPhoto": "images/products/m-askporgfl84936-allen-solly-original-imafknh2zgyfddb5.jpeg"
+    },
+    {
+      "_id": "61e03124e923f9df32239912",
+      "title": "allen solly original T-Shirt",
+      "price": 300,
+      "discount": 10,
+      "brandId": "61356bcaa937c621233341d8",
+      "categoryId": "610660933763b883da37222f",
+      "sellerId": "61e0316fe923f9df3223991c",
+      "updatedAt": "2022-01-13T14:04:31.179Z",
+      "createdAt": "2022-01-13T14:03:16.665Z",
+      "qty": 1,
+      "sold": 1,
+      "views": 0,
+      "attributes": {},
+      "images": [
+        "images/t-sharts/s-211497901-jack-jones-original-imagyx8rhzvbgjzp.jpeg"
+      ],
+      "coverPhoto": "images/t-sharts/s-211497901-jack-jones-original-imagyx8rhzvbgjzp.jpeg"
+    },
+    {
+      "_id": "61e03125e923f9df32239914",
+      "title": "allen solly original T-Shirt",
+      "price": 300,
+      "discount": 10,
+      "brandId": "61356bcaa937c621233341d8",
+      "categoryId": "610660933763b883da37222f",
+      "sellerId": "61e031bee923f9df3223991f",
+      "updatedAt": "2022-01-13T14:05:50.190Z",
+      "createdAt": "2022-01-13T14:03:17.025Z",
+      "qty": 1,
+      "sold": 1,
+      "views": 0,
+      "attributes": {},
+      "images": [
+        "images/t-sharts/m-atkpdrgf757368-allen-solly-original-imag2dwgewbtqzy6.jpeg"
+      ],
+      "coverPhoto": "images/t-sharts/m-atkpdrgf757368-allen-solly-original-imag2dwgewbtqzy6.jpeg"
+    },
+    {
+      "_id": "61e03125e923f9df32239916",
+      "title": "allen solly original T-Shirt",
+      "price": 300,
+      "discount": 10,
+      "brandId": "61356bcaa937c621233341d8",
+      "categoryId": "610660933763b883da37222f",
+      "sellerId": "61e03187e923f9df3223991d",
+      "updatedAt": "2022-01-13T14:04:55.944Z",
+      "createdAt": "2022-01-13T14:03:17.966Z",
+      "qty": 1,
+      "sold": 1,
+      "views": 0,
+      "attributes": {},
+      "images": [
+        "images/products/xl-askporgft09359-allen-solly-original-imafh96zwzhpxfzb.jpeg"
+      ],
+      "coverPhoto": "images/products/xl-askporgft09359-allen-solly-original-imafh96zwzhpxfzb.jpeg"
+    },
+    {
+      "_id": "61e03126e923f9df32239918",
+      "title": "allen solly original T-Shirt",
+      "price": 300,
+      "discount": 10,
+      "brandId": "61356bcaa937c621233341d8",
+      "categoryId": "610660933763b883da37222f",
+      "sellerId": "61e031a3e923f9df3223991e",
+      "updatedAt": "2022-01-13T14:05:23.077Z",
+      "createdAt": "2022-01-13T14:03:18.576Z",
+      "qty": 1,
+      "sold": 1,
+      "views": 0,
+      "attributes": {},
+      "images": [
+        "images/t-sharts/xxl-234121001-jack-jones-original-imafzwqf59p5jpbg.jpeg"
+      ],
+      "coverPhoto": "images/t-sharts/xxl-234121001-jack-jones-original-imafzwqf59p5jpbg.jpeg"
+    },
+    {
+      "_id": "61e031ede923f9df32239920",
+      "title": "Men Slim Fit Checkered Spread Collar Casual Shirt",
+      "price": 500,
+      "discount": 5,
+      "brandId": "61356beca937c621233341da",
+      "categoryId": "6137a040a75f8548ba40c3af",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2022-01-13T14:06:37.997Z",
+      "createdAt": "2022-01-13T14:06:37.997Z",
+      "qty": 4,
+      "sold": 5,
+      "views": 8,
+      "attributes": {},
+      "images": [
+        "images/products/4xl-mfs-11129-k-black-red-mufti-original-imafy4akg7mspgyv.jpeg"
+      ],
+      "coverPhoto": "images/products/4xl-mfs-11129-k-black-red-mufti-original-imafy4akg7mspgyv.jpeg"
+    },
+    {
+      "_id": "61e032aae923f9df32239923",
+      "title": "Men Slim Fit Checkered Button Down Collar Casual Shirt",
+      "price": 500,
+      "discount": 10,
+      "brandId": "61356bcaa937c621233341d8",
+      "categoryId": "6137a040a75f8548ba40c3af",
+      "sellerId": "6165b0ecd28d389c0a4dbc57",
+      "updatedAt": "2022-01-13T14:09:46.399Z",
+      "createdAt": "2022-01-13T14:09:46.399Z",
+      "qty": 3,
+      "sold": 5,
+      "views": 8,
+      "attributes": {},
+      "images": [
+        "images/products/40-assfwmofu03257-allen-solly-original-imafphykxzewdfgh.jpeg"
+      ],
+      "coverPhoto": "images/products/40-assfwmofu03257-allen-solly-original-imafphykxzewdfgh.jpeg"
+    }
+  ]

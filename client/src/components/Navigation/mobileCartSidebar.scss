@@ -1,0 +1,51 @@
+@import "src/styles/--breakpoint";
+
+
+.backdrop-overlay{
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 110%;
+    transform: translateX(-100%);
+    transition: all .5s ease-in-out;
+    background: #00000087;
+    z-index: 1000;
+
+    &.dropdown-backdrop{
+
+    }
+}
+
+.backdrop-overlay-open{
+    transform: translateX(0);
+}
+
+.mobile-cart-sidebar-backdrop{
+    @include get_up(1024px) {
+        display: none;
+    }
+    z-index: 1001;
+}
+.mobile-cart-sidebar {
+    @include get_up(1024px) {
+        display: none;
+    }
+
+    @include get_down(1024px) {
+        transition: all .4s ease;
+        right: -100% !important;
+        position: fixed;
+        left: -100%;
+        z-index: 1001;
+        top: 0px;
+    }
+}
+
+.sidebar-mobile_show{
+    right: 0 !important;
+}
+
+.sidebar-mobile_hide{
+    right: -100% !important;
+}

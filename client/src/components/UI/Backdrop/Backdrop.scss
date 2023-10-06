@@ -1,0 +1,63 @@
+@import "src/styles/--breakpoint";
+
+.backdrop {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background: #414141;
+    z-index: 1003;
+    cursor: pointer;
+
+    &.contentMask {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        background: #414141;
+        z-index: 600 !important;
+        top: 0;
+    }
+
+    &.appMask {
+    }
+
+    &.global {
+    }
+}
+
+.bg-transparent {
+    background: transparent;
+}
+
+
+
+.backdrop-base {
+    &-enter {
+        opacity: 0;
+    }
+
+    &-enter-active {
+        opacity: 1;
+        transition: opacity 300ms;
+    }
+
+    &-exit {
+        opacity: 1;
+    }
+
+    &-exit-active {
+        opacity: 0;
+        transition: opacity 500ms;
+    }
+
+}
+
+
+.backdrop-overlay{
+    &.dropdown-backdrop{
+        background: rgba(0, 0, 0, 0.21) !important;
+
+        @include get_up(780px){
+            display: none;
+        }
+    }
+}

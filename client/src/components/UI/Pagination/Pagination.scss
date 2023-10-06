@@ -1,0 +1,42 @@
+@import "src/styles/--mixin";
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    .pagination_item {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.4rem;
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 0.3s;
+        box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
+        margin: 5px;
+        cursor: pointer;
+        background: var(--dark-0);
+        transition: background-color .4s ease, color .4s ease;
+        &:hover{
+            background: var(--primary-400);
+            color: white;
+        }
+    }
+
+    @include dark(){
+        .pagination_item {
+            background: var(--dark-700);
+            color: white;
+        }
+    }
+
+
+    .active_item {
+        color: white;
+        background: var(--primary-400);
+    }
+}

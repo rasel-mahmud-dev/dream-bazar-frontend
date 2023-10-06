@@ -1,11 +1,13 @@
-# Dream Bazar Multi-Product Ecommerce Application 
+# Dream Bajar Multi-Product Ecommerce Application 
 
-Dream Bazar is Multi-Product and Vendor Ecommerce website, build with Nodejs, React js and Mongodb
+Dream Bajar is Multi-Product and Vendor Ecommerce website, build with Nodejs, React js and Mongodb
 
 Project Directory
 - client [client side]
 - client/public/static [static directory for development mode]`
 
+- server [server side]
+- server/public/static [static directory and client bundle for production mode]
 
 
 ### This Application under development
@@ -20,8 +22,8 @@ Live Link [upcoming preview]()
 - Reset password via sending email using nodemailer
 - Multiple Category system
 - Multiple vendor system. also multiple store for seller.
-- Customer CustomerDashboard. customer manage their order, payment, shipping addresses, cart item and profile.
-- Admin CustomerDashboard. admin can manage product, brands, category etc 
+- Customer Dashboard. customer manage their order, payment, shipping addresses, cart item and profile.
+- Admin Dashboard. admin can manage product, brands, category etc 
   like added, update, delete. manage customer orders, order cancellation
 
 
@@ -53,17 +55,17 @@ Live Link [upcoming preview]()
 ### Preview screenshot
 
 ####  Homepage
-![preview-image](previews/preview-homepage.png)
+![preview-image](client/previews/preview-homepage.png)
 
 <br/>
 
-#### Customer CustomerDashboard
-![preview-image](previews/customer-dashboard.png)
+#### Customer Dashboard
+![preview-image](client/previews/customer-dashboard.png)
 
 <br/>
 
 #### Product Filter Page
-![preview-image](previews/preview-v13.png)
+![preview-image](client/previews/preview-v13.png)
 
 <br/>
 

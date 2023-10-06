@@ -1,0 +1,14 @@
+
+
+.menu-dropdown{
+    .menu-dropdown-content{
+        background: white;
+        @apply bg-dark-0 dark:bg-dark-700;
+        left: 50%;
+        transform: translateX(-50%);
+         outline: none;
+        border: none;
+        z-index: 10;
+        box-shadow: var(--box-shadow-1);
+    }
+}

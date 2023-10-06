@@ -1,0 +1,6 @@
+root = true
+
+[*]
+indent_size = 4
+max_line_length = 150
+tab_width = 4
