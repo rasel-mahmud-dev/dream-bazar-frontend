@@ -1,7 +1,7 @@
 import express, {NextFunction, Request, Response} from "express";
 import morgan from "morgan"
 
-const bodyParser = require("body-parser")
+import bodyParser from "body-parser";
 const cors = require("cors");
 
 import passport from 'passport';
@@ -11,7 +11,7 @@ require('dotenv').config()
 
 import routes from "../routes"
 
-import {initialMongodbIndexes} from "../services/mongodb/database.service";
+// import {initialMongodbIndexes} from "../services/mongodb/database.service";
 
 // create all mongodb collection indexes
 // initialMongodbIndexes()
@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(morgan("dev"))
 
 
-const allowedOrigin = ["http://localhost:6600"]
+const allowedOrigin = ["http://localhost:7000"]
 
 const corsOptions = {
     origin: (origin: any[], cb: any)=>{

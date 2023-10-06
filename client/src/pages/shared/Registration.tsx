@@ -5,7 +5,7 @@ import {Button} from "UI/index";
 import {useDispatch, useSelector} from "react-redux";
 import {InputGroup} from "UI/Form";
 import {RootState} from "src/store";
-import {registrationAction} from "actions/authAction";
+import {loginAction, registrationAction} from "actions/authAction";
 import SocialLogin from "components/SocialLogin/SocialLogin";
 import ActionModal from "components/ActionModal/ActionModal";
 import useHttpResponse from "src/hooks/useHttpResponse";
@@ -79,14 +79,18 @@ const Registration = (props) => {
 
         setHttpStatus({isLoading: true, message: ""});
 
-        registrationAction(payload, dispatch, function (data, errorMessage) {
-            if (!errorMessage) {
-                if (!errorMessage) {
-                    location.state?.redirect && navigate(location.state?.redirect);
-                }
-            }
+        dispatch(registrationAction({
+            email: loginData.email.value,
+            password: loginData.password.value,
+            firstName: loginData.firstName.value,
+            lastName: loginData.lastName.value,
+        })).unwrap().then(() => {
+            location.state?.redirect && navigate(location.state?.redirect);
+        }).catch(ex => {
+            setHttpStatus({isLoading: false, message: ex});
+        }).finally(() => {
             setHttpStatus({isLoading: false, message: ""});
-        });
+        })
     }
 
     const [errorMessage, setErrorMessage] = React.useState({

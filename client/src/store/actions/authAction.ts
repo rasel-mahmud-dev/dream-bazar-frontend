@@ -1,79 +1,57 @@
-import {ACTION_TYPES, OrderType, Scope, StatusCode} from "store/types";
-import apis, {getApi} from "src/apis";
+import { StatusCode} from "store/types";
+import apis from "src/apis";
 import errorMessageCatch from "src/utills/errorMessageCatch";
-import {Shop} from "reducers/authReducer";
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {
-    AddShippingAddressAction,
-    FetchAllShippingAddressesAction,
-    FetchShopAction,
-    FetchStoresAction,
-    UpdateShopAction
-} from "store/types/userActionTypes";
-
-export const loginHandler = (user, dispatch) => {
-    dispatch({
-        type: ACTION_TYPES.LOGIN,
-        payload: user,
-    });
-};
 
 function setToken(token) {
     window.localStorage.setItem("token", token);
 }
 
-
 // login action for customer, seller and admin userActionTypes.ts separately
-export const loginAction = async (userData, dispatch, cb: (data: object, errorMessage?: string) => void) => {
+export const loginAction = createAsyncThunk("auth/login",
+    async (payload: { email: string, password: string }, ThunkApi) => {
+        try {
+            const {status, data} = await apis.post("/api/v1/auth/login", payload);
+            if (status === StatusCode.Created) {
+                setToken(data.token);
+                return data.user
+            } else {
+                ThunkApi.rejectWithValue("unable to connect with server");
+            }
+        } catch (ex) {
+            return ThunkApi.rejectWithValue(errorMessageCatch(ex))
+        }
+
+    })
+
+
+export const registrationAction = createAsyncThunk("auth/registration",
+    async (payload: { email: string, password: string, firstName: string, lastName: string }, ThunkApi) => {
+        try {
+            const {status, data} = await apis.post("/api/v1/auth/registration", payload);
+            if (status === StatusCode.Created) {
+                setToken(data.token);
+                return data.user
+            } else {
+                ThunkApi.rejectWithValue("unable to connect with server");
+            }
+        } catch (ex) {
+            return ThunkApi.rejectWithValue(errorMessageCatch(ex))
+        }
+    })
+
+
+export const currentAuthAction = createAsyncThunk("auth/verify", async (payload, ThunkApi) => {
     try {
-        const {status, data} = await apis.post("/api/auth/login", userData);
-        if (status === 201) {
-            loginHandler(data.user, dispatch);
-            setToken(data.token);
-            cb && cb(data.user, "");
+        let {status, data} = await apis.get("/api/v1/auth/verify");
+        if (status === StatusCode.Ok) {
+            return data.user
         } else {
-            loginHandler(null, dispatch);
-            cb && cb({}, "unable to connect with server");
+            ThunkApi.rejectWithValue("unable to connect with server");
         }
     } catch (ex) {
-        cb && cb({}, errorMessageCatch(ex));
-        loginHandler(null, dispatch);
-    }
-};
-
-
-export const registrationAction = async (userData, dispatch, cb: (data: object, errorMessage?: string) => void) => {
-    try {
-        const {data, status} = await apis.post("/api/auth/registration", userData);
-        if (status === 201) {
-            loginHandler(data.user, dispatch);
-            cb && cb(data.user, "");
-        } else {
-            cb && cb({}, "Error");
-        }
-    } catch (ex) {
-        cb && cb({}, errorMessageCatch(ex));
-    }
-};
-
-
-export const currentAuthAction = createAsyncThunk("", async function (arg, store) {
-
-    try {
-        let response = await getApi().get("/api/auth/current-auth");
-        if (response.status === StatusCode.Ok) {
-            loginHandler(response.data, store.dispatch);
-        } else {
-            loginHandler(null, store.dispatch);
-        }
-    } catch (ex) {
-        loginHandler(null, store.dispatch);
+        return ThunkApi.rejectWithValue(errorMessageCatch(ex))
     }
 
 })
 
-
-export const logoutAction = (dispatch) => {
-    window.localStorage.removeItem("token");
-    loginHandler(null, dispatch);
-};

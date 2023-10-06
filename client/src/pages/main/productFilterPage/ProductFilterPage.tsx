@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from "react";
 import Pagination from "components/UI/Pagination/Pagination"
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
-import api, {getApi} from "src/apis";
+import api from "src/apis";
 import {useSelector} from "react-redux";
 import {ACTION_TYPES} from "store/types";
 import "./productFilterPage.scss";
@@ -19,6 +19,7 @@ import FilterAttribute from "pages/main/productFilterPage/Filter.Attribute";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import {setOpenLeftSidebar} from "reducers/appSlice";
 import { changePaginationAction } from "src/store/reducers/productSlice";
+import apis from "src/apis";
 
 
 interface ProductFilterType {
@@ -125,7 +126,7 @@ const ProductFilter: FC<ProductFilterType> = ({innerWidth}) => {
                 brandNames.forEach((brand, index) => {
                     brandQuery += `${brand}___`
                 })
-                let {data, status} = await getApi().get<T>("/api/brands/info/" + brandQuery)
+                let {data, status} = await apis.get<T>("/api/brands/info/" + brandQuery)
                 if (status === 200) {
                     resolve(data)
                 } else {

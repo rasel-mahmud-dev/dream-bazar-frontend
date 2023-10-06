@@ -1,6 +1,5 @@
 import React, {useEffect, useReducer} from "react";
 import {useDispatch} from "react-redux";
-import {getApi} from "src/apis";
 import {ACTION_TYPES, StatusCode} from "store/types";
 import {Button, Modal, Pagination} from "UI/index";
 import {FcEmptyTrash} from "react-icons/fc";
@@ -12,6 +11,7 @@ import {fetchProductAttributesAction} from "actions/categoryAction";
 import useAppSelector from "src/hooks/useAppSelector";
 import {FetchFilterAttributesAction} from "store/types/categoryActionTypes";
 import usePrompt from "src/hooks/usePrompt";
+import apis from "src/apis";
 
 
 const ProductAttribute = (props) => {
@@ -114,7 +114,7 @@ const ProductAttribute = (props) => {
     }
 
     function handleDeleteItem(attributeId: string) {
-        getApi().delete("/api/product/attribute/" + attributeId).then(({status}) => {
+        apis.delete("/api/product/attribute/" + attributeId).then(({status}) => {
             if (status === StatusCode.Ok) {
                 dispatch<FetchFilterAttributesAction>({
                     type: ACTION_TYPES.FETCH_FILTER_ATTRIBUTES,

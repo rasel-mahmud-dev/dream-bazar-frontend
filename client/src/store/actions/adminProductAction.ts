@@ -1,4 +1,4 @@
-import apis, {getApi} from "src/apis";
+import apis from "src/apis";
 import {ACTION_TYPES, CategoryType, StatusCode} from "store/types";
 import {Dispatch} from "redux";
 import {createAsyncThunk} from "@reduxjs/toolkit";
@@ -32,7 +32,7 @@ export const fetchProductAttributesAction = (productAttributes, dispatch: Dispat
 export function fetchProducts(pageNumber) {
     return new Promise<[any, any]>(async (resolve) => {
         try {
-            const {data, status} = await getApi().get(`/api/products?perPage=200&pageNumber=${pageNumber}`)
+            const {data, status} = await apis.get(`/api/products?perPage=200&pageNumber=${pageNumber}`)
             resolve([data.products, null])
         } catch (ex) {
             resolve([null, ex])

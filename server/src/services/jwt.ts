@@ -1,46 +1,38 @@
-import {ObjectId} from "mongodb";
-import {Roles} from "../types";
+import {Request} from "express";
 import jwt from 'jsonwebtoken';
 import {JWT_SECRET} from "../config/env";
 
+export interface JwtTokenPayload {
+    id: string,
+    roles: string[]
+}
+
 const JwtService = {
-    createToken(_id: string | ObjectId, email: string, roles: Roles[]) {
-        let token = jwt.sign({
-                _id: _id,
-                email: email,
-                roles: roles
-            },
+    createToken(data: JwtTokenPayload) {
+        return jwt.sign(data,
             JWT_SECRET, {expiresIn: '5h'}
-        );
-
-        return token
+        )
     },
 
-    parseToken(token: string, cb: any) {
-        jwt.verify(token, JWT_SECRET, (err: any, d: any) => {
-            if (err) {
-                return cb(err, null)
+    parseToken(token: string) {
+        return new Promise<JwtTokenPayload | null>(async (resolve, reject) => {
+            try {
+                let decoded = jwt.verify(token, JWT_SECRET) as JwtTokenPayload;
+                if (typeof decoded !== "object") return reject(null)
+                return resolve(decoded as JwtTokenPayload)
+            } catch (ex) {
+                reject(null)
             }
-            cb(null, d)
-        });
-
+        })
     },
-
-// exports.parseToken = (token)=> {
-//   return new Promise(async (resolve, reject)=>{
-//       try{
-//         let decoded = await jwt.verify(token, process.env.SECRET);
-//         // verify a token symmetric
-//         return resolve({data: decoded, err: false})
-//       } catch(ex){
-//         reject({data: null, err: ex})
-//       }
-//   })
-// }
 
     getToken(req: Request) {
-        return req.headers["authorization"]
-
+        let au = req.headers["authorization"]
+        let token = ""
+        if (au && typeof au === "string") {
+            token = au.split(" ")?.[1] ?? ""
+        }
+        return token
     },
 
     isValid() {

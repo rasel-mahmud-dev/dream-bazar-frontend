@@ -23,7 +23,6 @@ export async function mongoConnect() {
 
 // for initial database connection and create indexes
 export async function initialMongodbIndexes() {
-    
     const Product = require("../../models/Product");
     const User = require("../../models/User");
     const Shop = require("../../models/Shop");

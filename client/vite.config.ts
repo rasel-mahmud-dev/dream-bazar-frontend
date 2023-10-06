@@ -26,7 +26,7 @@ export default defineConfig({
         'process.env.BASE_URL': '"/"',
     },
     server: {
-      port: 6600,
+      port: 7000,
         host: "0.0.0.0"
     },
     build: {

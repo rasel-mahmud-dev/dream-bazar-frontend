@@ -19,8 +19,6 @@ export type ObjectFlags<Type> = {
 };
 
 
-
-
 export enum Roles {
     CUSTOMER = "CUSTOMER",
     SALES_MANAGER = "SALES_MANAGER",
@@ -48,8 +46,6 @@ export enum Scope {
     ADMIN_USER = "ADMIN",
     CUSTOMER_USER = "CUSTOMER"
 }
-
-
 
 export enum ApproveStatus {
     Pending = "pending",

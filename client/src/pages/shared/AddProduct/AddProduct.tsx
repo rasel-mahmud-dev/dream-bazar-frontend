@@ -12,7 +12,7 @@ import errorMessageCatch from "src/utills/errorMessageCatch";
 
 import useToast from "src/hooks/useToast";
 
-import apis, {getApi} from "src/apis";
+import apis from "src/apis";
 import ProductAttribute from "pages/shared/AddProduct/ProductAttribute";
 import ProductSpecification, {Specification} from "pages/shared/AddProduct/ProductSpecification";
 import ActionModal from "components/ActionModal/ActionModal";
@@ -342,7 +342,7 @@ const AddProduct = ({roleFor}) => {
 
             if (productId) {
                 formData.append("_id", params.productId)
-                let {status, data} = await getApi().patch("/api/product/" + params.productId, formData);
+                let {status, data} = await apis.patch("/api/product/" + params.productId, formData);
                 if (status === StatusCode.Created) {
 
                     setTimeout(() => {
@@ -352,7 +352,7 @@ const AddProduct = ({roleFor}) => {
 
                 }
             } else {
-                let {status, data} = await getApi().post("/api/product", formData);
+                let {status, data} = await apis.post("/api/product", formData);
                 if (status === StatusCode.Created) {
 
                     setTimeout(() => {

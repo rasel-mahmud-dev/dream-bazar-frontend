@@ -30,13 +30,13 @@ import {Roles} from "store/types";
 import Circle from "UI/Circle/Circle";
 import MobileCartSidebar from "components/Navigation/MobileCartSidebar";
 import useWindowResize from "src/hooks/useWindowResize";
-import {logoutAction} from "actions/authAction";
 import useAppSelector from "src/hooks/useAppSelector";
 import {setLanguageAction} from "actions/appAction";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import {changeFilterSearchAction, searchProductsAction} from "actions/productAction";
 import {setOpenLeftSidebar, setTheme} from "reducers/appSlice";
 import {IoLanguageOutline} from "react-icons/io5";
+import {logout} from "reducers/authSlice";
 
 
 const AuthDropdown = lazy(() => import("../Dropdown/AuthDropdown"));
@@ -412,7 +412,7 @@ function Navigation(props) {
 
                                                     {auth ? (
                                                         <Menu.Item
-                                                            onClick={() => logoutAction(dispatch)}
+                                                            onClick={() => dispatch(logout())}
                                                             className="flex gap-x-2 items-center text-neutral-700 dark:text-neutral-300 font-normal hover:bg-green-300/20 p-2 cursor-pointer"
                                                         >
                                                             <FaSignInAlt/>

@@ -1,5 +1,5 @@
 import {ACTION_TYPES, OrderType, Profile} from "store/types/index";
-import {ShippingAddress, Shop} from "reducers/authReducer";
+import {ShippingAddress, Shop} from "reducers/authSlice";
 
 /**
  Fetch Current User profile

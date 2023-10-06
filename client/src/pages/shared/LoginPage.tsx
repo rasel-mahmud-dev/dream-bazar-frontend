@@ -1,7 +1,5 @@
 import React, {FC, useState} from "react";
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
-
-import {useDispatch} from "react-redux";
 import {loginAction} from "actions/authAction";
 // import { toggleAppMask } from "actions/appAction";
 import {InputGroup} from "UI/Form";
@@ -12,6 +10,7 @@ import Divider from "UI/Divider/Divider";
 
 import "./loginPage.scss"
 import {Button} from "UI/index";
+import useAppDispatch from "src/hooks/useAppDispatch";
 
 interface LoginPageProps {
     toggleLoader?: any;
@@ -29,7 +28,7 @@ const LoginPage: FC<LoginPageProps> = (props) => {
     const location = useLocation();
 
     // let history = useHistory()
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const [httpResponse, setHttpResponse] = useState({
@@ -79,16 +78,15 @@ const LoginPage: FC<LoginPageProps> = (props) => {
             return;
         }
 
-
         setHttpResponse(p => ({...p, loading: true,}));
-        loginAction(payload, dispatch, function (data, errorMessage) {
-            if (!errorMessage) {
-                location.state?.redirect && navigate(location.state?.redirect);
-            } else {
-                setHttpResponse({loading: false, isSuccess: false, message: errorMessage});
-            }
-        });
-
+        dispatch(loginAction({
+            email: loginData.email.value,
+            password: loginData.password.value,
+        })).unwrap().then(()=>{
+            location.state?.redirect && navigate(location.state?.redirect);
+        }).catch(ex=>{
+            setHttpResponse({loading: false, isSuccess: false, message: ex});
+        })
     }
 
     function handleChange(e) {

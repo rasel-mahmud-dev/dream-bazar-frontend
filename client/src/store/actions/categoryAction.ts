@@ -1,6 +1,6 @@
 import {ACTION_TYPES, CategoryType, StatusCode} from "store/types";
 import {AddFlatCategoryAction, ChangeCategoryAction, FetchCategoryDetailAction, FetchFilterAttributesAction} from "store/types/categoryActionTypes";
-import apis, {getApi} from "src/apis";
+import apis from "src/apis";
 import {AppDispatch} from "src/store";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import {Dispatch} from "redux";
@@ -57,7 +57,7 @@ export function changeCategoryAction({selected, allNestedIds}): ChangeCategoryAc
 
 export async function fetchCategoryDetailAction(dispatch: AppDispatch, categoryId: string) {
     try {
-        let {data, status} = await getApi().get("/api/category?id=" + categoryId)
+        let {data, status} = await apis.get("/api/category?id=" + categoryId)
         if (status === 200) {
             dispatch({
                 type: ACTION_TYPES.FETCH_CATEGORY_DETAILS,
@@ -73,7 +73,7 @@ export async function fetchCategoryDetailAction(dispatch: AppDispatch, categoryI
 export function fetchCategoryDetail(categoryId: string) {
     return new Promise<[any, any]>(async (resolve) => {
         try {
-            let {status, data} = await getApi().get(`/api/category?id=${categoryId}`)
+            let {status, data} = await apis.get(`/api/category?id=${categoryId}`)
             if (status === StatusCode.Ok) {
                 resolve([data, null])
             }
@@ -95,7 +95,7 @@ export function addFlatCategory(category: CategoryType): AddFlatCategoryAction {
 export async function fetchProductAttributesAction(dispatch: (args: FetchFilterAttributesAction) => void) {
 
     try {
-        let {status, data} = await getApi().get(`/api/product-attributes`)
+        let {status, data} = await apis.get(`/api/product-attributes`)
         if (status === StatusCode.Ok) {
             dispatch({
                 type: ACTION_TYPES.FETCH_FILTER_ATTRIBUTES,

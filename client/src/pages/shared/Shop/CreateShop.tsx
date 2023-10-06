@@ -5,7 +5,7 @@ import InputGroup from "UI/Form/InputGroup";
 import FileUpload from "UI/Form/File/FileUpload";
 import {Button} from "UI/index";
 import Card from "UI/Form/Card/Card";
-import apis, {getApi} from "src/apis";
+import apis from "src/apis";
 import {ACTION_TYPES, Roles, StatusCode} from "store/types";
 import useAppSelector from "src/hooks/useAppSelector";
 import ActionModal from "components/ActionModal/ActionModal";
@@ -104,7 +104,7 @@ const CreateShop = ({isUpdate = false}) => {
         try {
             setHttpResponse(p => ({...p, message: "", loading: true}));
             if (isUpdate) {
-                let {data, status} = await getApi().patch("/api/shop", payload);
+                let {data, status} = await apis.patch("/api/shop", payload);
                 if(status === StatusCode.Created){
                     dispatch({
                         type: ACTION_TYPES.FETCH_SELLER_SHOP,
@@ -119,7 +119,7 @@ const CreateShop = ({isUpdate = false}) => {
                     }, 300)
                 }
             } else {
-                let { data, status } = await getApi().post("/api/shop/create", payload);
+                let { data, status } = await apis.post("/api/shop/create", payload);
                 if(status === StatusCode.Created){
                     dispatch({
                         type: ACTION_TYPES.FETCH_SELLER_SHOP,

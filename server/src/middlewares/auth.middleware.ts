@@ -1,15 +1,16 @@
 import {NextFunction, Response, Request} from "express";
+import JwtService from "../services/jwt";
 
 const AuthMiddleware = {
     async requiredAuth(req: Request, _res: Response, next: NextFunction) {
         try {
-            const token = req.headers["token"]
+            const token = JwtService.getToken(req)
             if (!token) return next("Token expired, Please login first")
-
-            let data = await Jwt.parseToken(token as string)
+            let data = await JwtService.parseToken(token as string)
             if (!data) return next("Token expired, Please login first")
-            req.user = {
-                userId: data.userId
+            req.authUser = {
+                roles: [],
+                id: data.id
             }
             next()
         } catch (ex) {

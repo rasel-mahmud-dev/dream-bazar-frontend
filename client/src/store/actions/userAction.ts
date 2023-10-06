@@ -1,4 +1,3 @@
-import {getApi} from "src/apis";
 import {ACTION_TYPES, OrderType, Profile, StatusCode} from "store/types";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {
@@ -8,10 +7,11 @@ import {
     FetchShopAction, UpdateCustomerProfileAction,
     UpdateShopAction
 } from "store/types/userActionTypes";
+import apis from "src/apis";
 
 export const fetchCustomerProfileAction = createAsyncThunk("", async (payload, state) => {
     try {
-        const response = await getApi().get<Profile>(`/api/auth/profile`);
+        const response = await apis.get<Profile>(`/api/auth/profile`);
         if (response.status === StatusCode.Ok && response.data) {
             state.dispatch<FetchCurrentUserProfileAction>({
                 type: ACTION_TYPES.FETCH_CURRENT_USER_PROFILE,
@@ -25,7 +25,7 @@ export const fetchCustomerProfileAction = createAsyncThunk("", async (payload, s
 
 export const fetchOrdersAction = async (dispatch) => {
     try {
-        const response = await getApi().get<OrderType[]>(`/api/orders`);
+        const response = await apis.get<OrderType[]>(`/api/orders`);
         if (response.status === 200 && response.data) {
             dispatch({
                 type: ACTION_TYPES.FETCH_ORDERS,
@@ -40,7 +40,7 @@ export const fetchOrdersAction = async (dispatch) => {
 
 export const fetchShopInfo = createAsyncThunk("", async (payload, state) => {
     try {
-        const response = await getApi().get(`/api/shop/info`);
+        const response = await apis.get(`/api/shop/info`);
         if (response.status === StatusCode.Ok) {
             state.dispatch<FetchShopAction>({
                 type: ACTION_TYPES.FETCH_SELLER_SHOP,
@@ -55,7 +55,7 @@ export const fetchShopInfo = createAsyncThunk("", async (payload, state) => {
 
 export const updateSellerShopInfoAction = createAsyncThunk("", async ([payload, cb]: [object, (args: any)=>void], state) => {
     try {
-        const response = await getApi().patch(`/api/shop`, payload);
+        const response = await apis.patch(`/api/shop`, payload);
         if (response.status === StatusCode.Ok) {
             state.dispatch<UpdateShopAction>({
                 type: ACTION_TYPES.UPDATE_SHOP_INFO,
@@ -71,7 +71,7 @@ export const updateSellerShopInfoAction = createAsyncThunk("", async ([payload, 
 
 export const fetchAllStores = createAsyncThunk("", async (_, state) => {
     try {
-        const response = await getApi().get(`/api/shops`);
+        const response = await apis.get(`/api/shops`);
         if (response.status === StatusCode.Ok) {
             state.dispatch({
                 type: ACTION_TYPES.FETCH_STORES,
@@ -86,7 +86,7 @@ export const fetchAllStores = createAsyncThunk("", async (_, state) => {
 
 export const updateStoreAction = createAsyncThunk("", async ({shopId, update = {}}: { shopId: string, update: object }, state) => {
     try {
-        const response = await getApi().patch(`/api/shop/` + shopId, {update});
+        const response = await apis.patch(`/api/shop/` + shopId, {update});
         if (response.status === StatusCode.Ok) {
             state.dispatch({
                 type: ACTION_TYPES.FETCH_STORES,
@@ -101,7 +101,7 @@ export const updateStoreAction = createAsyncThunk("", async ({shopId, update = {
 
 export const updateStoreActiveStatusAction = createAsyncThunk("", async (isActive: boolean, state) => {
     try {
-        const response = await getApi().patch(`/api/shop/update-active`, {isActive});
+        const response = await apis.patch(`/api/shop/update-active`, {isActive});
         if (response.status === StatusCode.Ok) {
             state.dispatch({
                 type: ACTION_TYPES.FETCH_STORES,
@@ -116,7 +116,7 @@ export const updateStoreActiveStatusAction = createAsyncThunk("", async (isActiv
 
 export const getShippingAddresses = createAsyncThunk("", async (_, state) => {
     try {
-        const response = await getApi().get(`/api/shipping-addresses`);
+        const response = await apis.get(`/api/shipping-addresses`);
         if (response.status === StatusCode.Ok) {
             state.dispatch<FetchAllShippingAddressesAction>({
                 type: ACTION_TYPES.FETCH_SHIPPING_ADDRESSES,
@@ -140,7 +140,7 @@ export const addShippingAddress = (shippingAddress): AddShippingAddressAction =>
 
 export const updateCustomerProfileAction = createAsyncThunk("", async ([payload, cb]: [any, (args?: any)=> void] , thunkAPI) => {
     try {
-        const response = await getApi().post(`/api/auth/profile`, payload);
+        const response = await apis.post(`/api/auth/profile`, payload);
         if (response.status === StatusCode.Created) {
             thunkAPI.dispatch<UpdateCustomerProfileAction>({
                 type: ACTION_TYPES.UPDATE_CUSTOMER_PROFILE,

@@ -3,16 +3,12 @@ import pool from "../../database";
 class AuthRepository {
 
     async getUserByEmail(email: string) {
-        let result = await pool.query(`select *
-                                       from users
-                                       where email = $1`, [email])
+        let result = await pool.query(`select *  from users where email = $1`, [email])
         return result.rows[0]
     }
 
     async getUserByUserId(userId: string) {
-        let result = await pool.query(`select *
-                                       from users
-                                       where id = $1`, [userId])
+        let result = await pool.query(`select * from users  where id = $1`, [userId])
         return result.rows[0]
     }
 

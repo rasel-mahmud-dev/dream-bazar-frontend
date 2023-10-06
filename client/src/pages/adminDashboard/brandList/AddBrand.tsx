@@ -3,7 +3,7 @@ import {InputGroup} from "UI/Form";
 import FileUpload from "UI/Form/File/FileUpload";
 import MultiSelect from "UI/Form/multiSelect/MultiSelect";
 import {Button} from "UI/index";
-import apis, {getApi} from "src/apis";
+import apis from "src/apis";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "src/store";
@@ -54,7 +54,7 @@ const AddBrand = () => {
 
         handleCollapseCategory();
 
-        getApi().get("/api/brand/" + updateId)
+        apis.get("/api/brand/" + updateId)
             .then(({data, status}) => {
                 if (status === StatusCode.Ok) {
                     setCategoryDetail(data)
@@ -182,7 +182,7 @@ const AddBrand = () => {
         });
 
         if (updateId) {
-            getApi().patch("/api/brand/" + updateId, payload)
+            apis.patch("/api/brand/" + updateId, payload)
                 .then(({status, data}) => {
                     if (status === 201) {
                         setHttpResponse({isSuccess: true, message: data.message, loading: false});
@@ -194,7 +194,7 @@ const AddBrand = () => {
                 });
         } else {
             // add as a new brand
-            getApi().post("/api/brand", payload)
+            apis.post("/api/brand", payload)
                 .then(({status, data}) => {
                     if (status === 201) {
                         setHttpResponse({isSuccess: true, message: data.message, loading: false});

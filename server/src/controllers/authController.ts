@@ -1,10 +1,9 @@
-import e, {NextFunction, Request, Response} from "express"
+import  {NextFunction, Request, Response} from "express"
 import {RequestWithAuth, Roles, Scope, StatusCode} from "../types";
 import {mongoConnect} from "../services/mongodb/database.service";
 import User, { UserType } from "../models/User";
 import {createHash, hashCompare} from "../hash";
 import * as mongoDB from "mongodb"
-import {createToken} from "../jwt";
 
 
 import {ObjectId} from "mongodb"
@@ -12,100 +11,11 @@ import {errorResponse, successResponse} from "../response"
 
 import fileUpload from "../services/fileUpload/fileUpload";
 import { uploadImage } from "../services/cloudinary";
+import JwtService from "../services/jwt";
 
 
-export const login = async (req: Request, res: Response, next: NextFunction) => {
-    
-    const {email, password, scope} = req.body;
-    
-    try {
-        if (!(email && password)) {
-            return errorResponse(next, 'Please provide valid credential', StatusCode.Forbidden)
-        }
-        let user: null | User;
-
-        user = await User.findOne<User>({
-            email
-        })
-
-        
-        if (!user) {
-            return errorResponse(next, 'You are not registered', 404)
-        }
-        
-        if (!user.password) {
-            return errorResponse(next, 'You haven"t any password', 409)
-        }
-        
-        const isMatched = await hashCompare(password, user.password)
-        if (!isMatched) {
-            return errorResponse(next, 'Password Error', 404)
-        }
-        
-        let token = createToken(user._id as any, user.email, user.roles)
-        
-        delete user.password;
-        
-        successResponse(res, 201, {
-            user,
-            token
-        })
-        
-    } catch (ex) {
-        next(ex)
-    }
-}
 
 
-export const registration = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const {email, firstName, lastName, password} = req.body
-        
-        if(!(email && firstName && password)){
-            return errorResponse(next, "Please provide valid credential", StatusCode.UnprocessableEntity)
-        }
-        
-        const database = await mongoConnect();
-        
-        const user = await database.collection("users").findOne<User>({email})
-        if (user) {
-            return next({message: "User already registered", status: 401})
-        }
-        
-        let newUser = new User({
-            firstName,
-            email,
-            lastName: (lastName ? " " + lastName : ""),
-            username: firstName + (lastName ? " " + lastName : ""),
-            roles: [Roles.CUSTOMER]
-        })
-        
-        const [err, hashPassword] = await createHash(password)
-        if (!err) {
-            newUser.password = hashPassword;
-        }
-        
-        const doc: mongoDB.InsertOneResult = await database.collection("users").insertOne(newUser)
-        
-        if (doc.insertedId) {
-            
-            let token = createToken(doc.insertedId as any, newUser.email, newUser.roles)
-            delete newUser.password;
-            newUser._id = doc.insertedId
-            
-            successResponse(res, 201, {
-                user: newUser,
-                token
-            })
-            
-        } else {
-            return errorResponse(next, "Registration fail. please try again.")
-        }
-        
-    } catch (ex) {
-        next(ex)
-    }
-}
 
 
 
@@ -121,7 +31,7 @@ export const currentAuth = async (req: RequestWithAuth, res: Response, next: Nex
         
         // validate user roles
         const user = await database.collection("users").findOne<User>({
-            _id: new ObjectId(req.authUser._id)
+            _id: new ObjectId(req.authUser.id)
         })
         
         if (!user) {

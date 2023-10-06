@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
-import {Shop} from "reducers/authReducer";
+import {Shop} from "reducers/authSlice";
 import staticImagePath from "src/utills/staticImagePath";
 import Product from "components/Product/Product";
 import RatingStar from "UI/RatingStar";

@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {Button} from "UI/index";
-import api, {getApi} from "src/apis";
+import api from "src/apis";
 import Table, {Column} from "UI/table/Table";
 import staticImagePath from "src/utills/staticImagePath";
 import {BsPencilSquare, FcEmptyTrash} from "react-icons/all";
@@ -15,6 +15,7 @@ import useAppSelector from "src/hooks/useAppSelector";
 import usePrompt from "src/hooks/usePrompt";
 import useScrollTop from "src/hooks/useScrollTop";
 import {Roles} from "store/types";
+import apis from "src/apis";
 
 
 const AllProducts = (props) => {
@@ -66,7 +67,7 @@ const AllProducts = (props) => {
         formData.append("_id", productId)
 
         // send toke for different scope userActionTypes.ts
-        getApi()
+        apis
             .patch(`/api/product/${productId}`, formData)
             .then(({data, status}) => {
                 let updatedProducts = [...products];

@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Suspense, useContext, useEffect, useState} from "react";
 
-import { RouterProvider} from "react-router-dom";
+import {RouterProvider} from "react-router-dom";
 import {TopProgressBar} from "components/UI";
 import router from "src/routes/routes";
 import {currentAuthAction} from "actions/authAction";
@@ -27,10 +27,9 @@ function App() {
                     <RouterProvider router={router}/>
                 </Suspense>
             </div>
-		</div>
+        </div>
     );
 }
-
 
 
 export default App

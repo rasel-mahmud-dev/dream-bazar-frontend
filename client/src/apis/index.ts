@@ -2,23 +2,21 @@ import axios from "axios"
 
 
 export const backend = import.meta.env.DEV
-    ? "http://localhost:4000"
-    // ? "http://192.168.126.224:4000"
+    // ? "http://localhost:4000"
+    ? "http://192.168.72.203:4000"
     : "https://dream-bazar.vercel.app"
 
 
 // export const backend = "https://localhost"
 
-const token = window.localStorage.getItem("token")
+
 const apis = axios.create({
     baseURL: backend,
-    headers: {
-      authorization: token
-    }
 })
 
 apis.interceptors.request.use(function (config){
-    config.headers["authorization"] =  token ? token : window.localStorage.getItem("token")
+    const token = window.localStorage.getItem("token") || ""
+    config.headers["Authorization"] =  "Bearer " + token
     return config;
 })
 
@@ -41,10 +39,5 @@ apis.interceptors.response.use(function (config) {
     return Promise.reject(error);
 })
 
-
-export function getApi(token?: string){
-    apis.defaults.headers["authorization"] =  token ? token : window.localStorage.getItem("token")
-    return apis;
-}
 
 export default apis

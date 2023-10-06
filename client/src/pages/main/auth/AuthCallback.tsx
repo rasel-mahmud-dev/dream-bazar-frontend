@@ -1,21 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate, useParams, useSearchParams} from "react-router-dom";
-import {getApi} from "src/apis";
-import {loginHandler, logoutAction} from "actions/authAction";
-import {Scope} from "store/types";
-import {useDispatch} from "react-redux";
-import axios from "axios";
-import Loader from "UI/Loader/Loader";
+import {currentAuthAction, logoutAction} from "actions/authAction";
+
+
 import useHttpResponse from "src/hooks/useHttpResponse";
 import Alert from "UI/Alert/Alert";
 import {Button} from "UI/index";
+import useAppDispatch from "src/hooks/useAppDispatch";
+import Loader from "UI/Loader/Loader";
 
 const AuthCallback = () => {
 
     const [searchParams, setParams] = useSearchParams()
     const params = useParams()
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     const {httpStatus, setHttpStatus, resetHttpStatus} = useHttpResponse()
@@ -25,15 +24,12 @@ const AuthCallback = () => {
         setHttpStatus({isLoading: true})
         let token = searchParams.get("token")
         if (token) {
-            getApi(token).get("/api/auth/current-auth").then(({data, status}) => {
-                if (status === 200) {
-                    localStorage.removeItem("token")
-                    logoutAction(dispatch)
-                    loginHandler(data, dispatch)
-                    navigate("/", {replace: true})
-                    localStorage.setItem("token", token)
-                }
-            }).catch(ex => {
+            dispatch(currentAuthAction()).unwrap().then(()=>{
+                localStorage.removeItem("token")
+                logoutAction(dispatch)
+                navigate("/", {replace: true})
+                localStorage.setItem("token", token)
+            }).catch(ex=>{
                 setHttpStatus({isLoading: false, message: "Login Session expire, Please try again"})
             }).finally(() => {
                 setHttpStatus({isLoading: false})

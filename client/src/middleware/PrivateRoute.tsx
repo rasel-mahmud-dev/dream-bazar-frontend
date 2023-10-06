@@ -14,14 +14,14 @@ interface Props {
 const PrivateRoute: FC<Props> = (props) => {
     const location = useLocation();
     const {scope} = props
-    const { auth, authChecked } = useSelector((state: RootState)=>state.authState)
+    const { auth, authLoaded } = useSelector((state: RootState)=>state.authState)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
 
     useEffect(()=>{
 
-        if(!(auth && authChecked)){
+        if(!(auth && authLoaded)){
             // currentAuthAction(dispatch,  (errorMessage, user)=>{
             //
             //     if(!user.roles.includes(scope)){
@@ -40,7 +40,7 @@ const PrivateRoute: FC<Props> = (props) => {
 
     }, [])
     
-    if (!authChecked) {
+    if (!authLoaded) {
         return <Loader className="flex justify-center mt-36" />;
     }
     

@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 import Button from "UI/Button/Button";
-import {getApi} from "src/apis";
+import apis from "src/apis";
 import {InputGroup} from "UI/Form";
 import "./shipping-address.scss"
 import inputValidator from "src/utills/inputValidator";
@@ -178,7 +178,7 @@ const AddShippingAddress: FC<Props> = (props) => {
 
         try {
 
-            let response = await getApi().post("/api/shipping-addresses", shippingAddress)
+            let response = await apis.post("/api/shipping-addresses", shippingAddress)
             if (response.status === StatusCode.Created) {
                 dispatch(addShippingAddress(response.data))
                 navigate("/dashboard/address-books")
