@@ -50,7 +50,7 @@ export const getShopDetail = async (req: Request, res: Response, next: NextFunct
                     shopPhone: 1,
                     updatedAt: 1,
                     totalProducts: {
-                        $size: "$products"
+                        $size: "$brand"
                     }
                 }
             }
@@ -114,7 +114,7 @@ export const getAllShops = async (req: Request, res: Response, next: NextFunctio
 }
 
 
-/** Fetch shop products with pagination .*/
+/** Fetch shop brand with pagination .*/
 export const getShopProducts = async (req: Request, res: Response, next: NextFunction) => {
 
     if(!isObjectId(req.params.sellerId)){

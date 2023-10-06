@@ -170,7 +170,7 @@ const AllProducts = (props) => {
             </div>
 
             {/*<h3>*/}
-            {/*	Products fetch {products.length} of {adminProducts.total}{" "}*/}
+            {/*	Products fetch {brand.length} of {adminProducts.total}{" "}*/}
             {/*</h3>*/}
 
             <div className="card">

@@ -73,7 +73,7 @@ export const mainRoute = [
             {path: "address-books", element: <AddressBook/>},
             {path: "address-books/add", element: <AddShippingAddress isOpen={false}/>}
             // {
-            //     path: "products",
+            //     path: "brand",
             //     element: (
             //         <PrivateRoute scope={Scope.ADMIN_USER}>
             //             <ProductList />

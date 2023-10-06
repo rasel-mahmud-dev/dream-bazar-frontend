@@ -45,7 +45,7 @@ export const sellerRoute = [
         ),
     },
     {
-        path: "products/new",
+        path: "brand/new",
         element: (
             <PrivateRoute scope={Scope.SELLER_USER}>
                 <AddProduct roleFor={Roles.SELLER}/>
@@ -53,7 +53,7 @@ export const sellerRoute = [
         ),
     },
     {
-        path: "products/edit/:productId",
+        path: "brand/edit/:productId",
         element: (
             <PrivateRoute scope={Scope.SELLER_USER}>
                 <AddProduct roleFor={Roles.SELLER}/>
@@ -151,8 +151,8 @@ const SellerLayout = () => {
         {
             section: "PRODUCT MANAGEMENT",
             items: [
-                {name: "Products", to: "/seller/products", icon: <BiCart/>},
-                {name: "Add", to: "/seller/products/new", icon: <BiPlus/>},
+                {name: "Products", to: "/seller/brand", icon: <BiCart/>},
+                {name: "Add", to: "/seller/brand/new", icon: <BiPlus/>},
                 {name: "Bulk import", to: "/", icon: <BiNote/>},
             ],
         },

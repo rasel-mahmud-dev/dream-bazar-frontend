@@ -12,7 +12,7 @@ function PopularProducts(props) {
     const [popularProducts, setRecentOrders] =
         useState(Array.from({length: 8}).map((item, index) => ({
             logo: "https://www.getadmintoolkit.com/images/avatar1.png",
-            title: "Test products",
+            title: "Test brand",
             price: 233,
             sold: 234,
             sku: 324323,

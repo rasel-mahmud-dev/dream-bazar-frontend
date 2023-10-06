@@ -14,7 +14,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 interface FilterSidebarProps {
     category: {
         // filters: {name: string, values: {name: "string", value: any}[]}[]
-        brands: { not_available: boolean; _id: string; name: string }[]; // populated property from database brands collections
+        brands: { not_available: boolean; _id: string; name: string }[]; // populated property from database brand collections
         is_top: any;
         last_level: any;
         name: string;
@@ -233,7 +233,7 @@ const FilterSidebar = (props: FilterSidebarProps) => {
      * */
     function calculateChecked(attribute_name, name, section = false) {
         //  if( typeof section === "string" && section === "brand"){
-        //     let selectedBrandIndex = category && category.brands && category.brands.findIndex(br=>br._id === attribute_name)
+        //     let selectedBrandIndex = category && category.brand && category.brand.findIndex(br=>br._id === attribute_name)
         //     return selectedBrandIndex !== -1;
         //  }
         // let updatedFilteredAttributes = [...filteredAttributes]
@@ -597,7 +597,7 @@ const FilterSidebar = (props: FilterSidebarProps) => {
     return (
         <div className="product_sidebar">
             {/*
-          selected all filter attributes like selected brands, Product attributes
+          selected all filter attributes like selected brand, Product attributes
           pass this render-able jsx via callback in parent component
         */}
             {cb(selectedFilterItems())}

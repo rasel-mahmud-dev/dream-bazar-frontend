@@ -181,7 +181,6 @@ const AddProduct = ({roleFor}) => {
         if(newProductData.categoryId.value){
             fetchCategoryDetail(newProductData.categoryId.value).then(([data]) => {
                 if(data) {
-
                     setCategoryDetail(data)
                 }
             })

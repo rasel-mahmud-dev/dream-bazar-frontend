@@ -197,7 +197,7 @@ const SellerProducts = ({}) => {
                         currentPage={paginationState.currentPage}/>
 
                     <div className="seller-products-grid mt-3">
-                        {/*{products.map(prod => (*/}
+                        {/*{brand.map(prod => (*/}
                         {/*    <div className=" seller-product relative">*/}
                         {/*        <div className="seller-product-image">*/}
                         {/*            <img src={staticImagePath(prod.coverPhoto)} alt={prod.slug}/>*/}

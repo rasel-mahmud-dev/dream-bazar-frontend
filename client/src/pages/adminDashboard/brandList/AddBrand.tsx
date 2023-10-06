@@ -54,7 +54,7 @@ const AddBrand = () => {
 
         handleCollapseCategory();
 
-        apis.get("/api/brand/" + updateId)
+        apis.get("/api/v1/brand/" + updateId)
             .then(({data, status}) => {
                 if (status === StatusCode.Ok) {
                     setCategoryDetail(data)
@@ -232,7 +232,7 @@ const AddBrand = () => {
 
             }
         }
-        navigate("/admin/brands");
+        navigate("/admin/brand");
     }
 
 

@@ -19,7 +19,7 @@ router.get("/shops", isAuth(), permission([Roles.ADMIN]), shopController.getAllS
 
 
 
-// get shop products with pagination
+// get shop brand with pagination
 router.get("/shop/products/:sellerId",  shopController.getShopProducts)
 
 

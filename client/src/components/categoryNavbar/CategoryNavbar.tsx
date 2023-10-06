@@ -207,7 +207,7 @@ const CategoryNavbar = (props) => {
                         id: "Featured",
                         subMenu: [
                             {name: "Google Assistant Store", id: "Google Assistant Store"},
-                            {name: "Apple products", id: "Apple products"},
+                            {name: "Apple brand", id: "Apple brand"},
                         ],
                     },
                 ],

@@ -117,7 +117,7 @@ const Store = (props: StorePropsType) => {
         let i = 0;
         storeDesc.sections && storeDesc.sections.map((section, i) => {
             if (section.render_products) {
-                // apis.post("/api/products/filter/v2", {product_ids: section.render_products}).then(r =>{
+                // apis.post("/api/brand/filter/v2", {product_ids: section.render_products}).then(r =>{
                 //   updateRender_products[section.name] = r.data
                 //   if(storeDesc.sections.length === (i + 1)){
                 //     setRenderProducts(updateRender_products)

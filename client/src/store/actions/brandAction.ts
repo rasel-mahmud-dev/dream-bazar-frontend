@@ -4,7 +4,6 @@ import {FetchBrandForCategoriesAction, FetchBrands} from "store/types/brandActio
 import {createAsyncThunk} from "@reduxjs/toolkit";
 
 
-
 // this async action for redux toolkits
 export const fetchBrandForCategory = createAsyncThunk(
     ACTION_TYPES.FETCH_CATEGORY_BRANDS,
@@ -27,8 +26,7 @@ export const fetchBrandForCategory = createAsyncThunk(
 );
 
 
-
-// fetch all brands for admin or seller userActionTypes.ts
+// fetch all brand for admin or seller userActionTypes.ts
 
 
 // this async action for redux toolkits
@@ -36,7 +34,7 @@ export const fetchBrands = createAsyncThunk(
     ACTION_TYPES.FETCH_BRANDS,
     async function (_, store) {
         try {
-            let {data, status} = await apis.get("/api/brands")
+            let {data, status} = await apis.get("/api/v1/brands")
             if (status === StatusCode.Ok) {
                 store.dispatch<FetchBrands>({
                     type: ACTION_TYPES.FETCH_BRANDS,

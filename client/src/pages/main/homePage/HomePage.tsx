@@ -61,7 +61,7 @@ const HomePage = (props) => {
         // if (homeSections && Array.isArray(homeSections)) {
         //     let homeSectionItemIds = homeSections?.map(sec => sec.id)
         //     if (!homeSectionItemIds) return;
-        //     apis.post<HomePageSectionProduct>("/api/products/home-section-products", {
+        //     apis.post<HomePageSectionProduct>("/api/brand/home-section-brand", {
         //         sectionSlugs: [...homeSectionItemIds.slice(0, 22)]
         //     }).then(({data}) => {
         //         dispatch(fetchHomePageSectionProducts(data))
@@ -123,15 +123,15 @@ const HomePage = (props) => {
     async function handleMoreItem(sectionName, obj) {
         // let old = {...productSectionsWithProduct}
         // let res;
-        // if(obj[sectionName].type === "categories" || obj[sectionName].type === "brands"){
+        // if(obj[sectionName].type === "categories" || obj[sectionName].type === "brand"){
         //     // fetch more category or brand without change route
         //     // this means ... remove more item down this section
         //   if(obj[sectionName].type === "categories"){
         //     res = await api.get("/api/categories")
         //     old[sectionName].values.push(...res.data.categories)
         //   } else {
-        //     res = await api.get("/api/brands")
-        //     old[sectionName].values.push(...res.data.brands)
+        //     res = await api.get("/api/brand")
+        //     old[sectionName].values.push(...res.data.brand)
         //   }
         //   let arr = [...old[sectionName].values]
         //   let uniqArr = []

@@ -14,7 +14,7 @@ export const getBrandsCount = async (req: Request, res: Response, next: NextFunc
         let count = await Brand.count()
         successResponse(res, 200, count as any)
     } catch (ex) {
-        errorResponse(next, "brands row count fail")
+        errorResponse(next, "brand row count fail")
     }
 }
 

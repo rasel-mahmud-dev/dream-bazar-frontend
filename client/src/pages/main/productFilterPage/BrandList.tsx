@@ -65,10 +65,10 @@ const BrandList = ({currentFullCategoryName}) => {
         <div>
 
 
-            {/*Selected brands  */}
+            {/*Selected brand  */}
 
 
-            {/**** show all selected brands *********/}
+            {/**** show all selected brand *********/}
             {filters.brands && filters.brands.length > 0 && <div className="flex flex-wrap gap-2 my-4">
                 {filters.brands.map(brand => (
                     <div

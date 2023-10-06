@@ -55,7 +55,7 @@ const ShopDetail = () => {
         //     return
         // }
 
-        // if not fetch products for this page, if cache available then only change page
+        // if not fetch brand for this page, if cache available then only change page
         if(shopInfo || sellerId){
 
             let data = await fetchShopProducts(shopSellerId, query) as ProductType[]

@@ -28,7 +28,7 @@ const brandReducer = (state: BrandStateType = initialState, action: BrandActionT
 
     switch (action.type) {
 
-        /// fetch all brands
+        /// fetch all brand
         case ACTION_TYPES.FETCH_BRANDS:
             return {
                 ...state,

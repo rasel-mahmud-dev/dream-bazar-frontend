@@ -9,16 +9,16 @@ import express from "express"
 
 import authRouter from "../modules/auth/auth.route";
 import productRouter from "../modules/product/product.route";
-
-
+import brandRouter from "../modules/brand/brand.route";
+import categoryRouter from "../modules/category/category.route";
 
 
 const router = express.Router()
 
 router.use("/api/v1/products", productRouter)
-// router.use("/api/", categoryRouter)
+router.use("/api/v1/categories", categoryRouter)
 router.use("/api/v1/auth", authRouter)
-// router.use("/api/", brandRouter)
+router.use("/api/v1/brands", brandRouter)
 // router.use("/api/", shopRouter)
 // router.use("/api/", shippingAddressRouter)
 // router.use("/api/", sellerRouter)
@@ -33,10 +33,9 @@ router.use("/api/v1/auth", authRouter)
 // filesRouter(router)
 
 
-router.get("/health", (req, res)=>{
+router.get("/health", (req, res) => {
     res.send("success")
 })
-
 
 
 export default router

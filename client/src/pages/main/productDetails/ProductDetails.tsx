@@ -107,7 +107,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                     if (response.data && response.status === StatusCode.Ok) {
                         setProductDescription(response.data);
 
-                        // fetch relevant products
+                        // fetch relevant brand
                         dispatch(fetchRelevantProductsAction({
                             slug: params.slug,
                             title: data.title,
@@ -262,7 +262,7 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                             onClick={() => addToCartHandler(product)}>Add To Cart</Button>
                                         <Button className="btn-primary w-full">Buy Now</Button>
                                     </div>
-                                    {/********* relevant products **********/}
+                                    {/********* relevant brand **********/}
                                     <div className="mt-5">
                                         <RelevantProducts product={{
                                             title: product?.title,

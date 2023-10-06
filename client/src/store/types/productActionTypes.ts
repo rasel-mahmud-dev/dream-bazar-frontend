@@ -102,7 +102,7 @@ export type FetchProductStoreInfoAction  = {
 }
 
 
-// fetch relevant products and store in caches
+// fetch relevant brand and store in caches
 export type FetchRelevantProductsAction  = {
     type: ACTION_TYPES.FETCH_RELEVANT_PRODUCTS,
     payload: {

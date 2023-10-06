@@ -83,7 +83,7 @@ const AddCategory = (props) => {
 
             fetchCategoryDetailAction(dispatch, updateId)
 
-            apis.get(`/api/category?id=${updateId}`)
+            apis.get(`/api/v1/categories/detail?id=${updateId}`)
                 .then(({status, data}) => {
                     if (status === StatusCode.Ok) {
                         let sections;
@@ -248,7 +248,7 @@ const AddCategory = (props) => {
             // setHttpResponse(p => ({...p, message: "", loading: true}));
 
             if (updateId) {
-                let {data, status} = await apis.patch("/api/category/" + updateId, formData1)
+                let {data, status} = await apis.patch("/api/categories/" + updateId, formData1)
                 if (status === StatusCode.Created) {
                     setTimeout(() => {
                         setHttpResponse({message: data.message, loading: false, isSuccess: true});
@@ -257,7 +257,7 @@ const AddCategory = (props) => {
 
             } else {
                 // add as a category
-                let {data, status} = await apis.post("/api/category", formData1)
+                let {data, status} = await apis.post("/api/v1/categories", formData1)
                 if (status === StatusCode.Created) {
                     dispatch(addFlatCategory(data.category))
                     setTimeout(() => {

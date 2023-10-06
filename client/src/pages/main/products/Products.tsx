@@ -58,18 +58,18 @@ export {}
 //
 //         if(Object.keys(query).length > 0 ){
 //           setLoadingStatus("loadStart")
-//            const {data} = await api.get(`/api/products/filter/?type=${query.type}&id=${query.id}&perPage=${productsPagination.perPage}&pageNumber=${productsPagination.pageNumber}`)
+//            const {data} = await api.get(`/api/brand/filter/?type=${query.type}&id=${query.id}&perPage=${productsPagination.perPage}&pageNumber=${productsPagination.pageNumber}`)
 //               setLoadingStatus("loaded")
 //
 //                 if(data.hasChild){
-//                  let respo = await api.get(`/api/products/category-product/${query.id}`)
+//                  let respo = await api.get(`/api/brand/category-product/${query.id}`)
 //                   let o = respo.data.categoryProduct
 //                   setSubcategorySectionsProduct(o)
 //                   setEntryLevel(false)
 //                 } else {
 //
 //                   /// get count all document in current category.
-//                   api.get(`/api/products/count/?category_id=${query.id}`).then(doc=>{
+//                   api.get(`/api/brand/count/?category_id=${query.id}`).then(doc=>{
 //                     setTotalItems(doc.data.count)
 //                     // console.log(doc)
 //                   }).catch(ex=>{
@@ -77,8 +77,8 @@ export {}
 //                   })
 //                   // console.log(countRes)
 //
-//                   // store all fetched products..........
-//                   setFilteredProducts(data.products);
+//                   // store all fetched brand..........
+//                   setFilteredProducts(data.brand);
 //                   //setEntryLevel(true)
 //                   // now we need category filter sections
 //                     api.get(`/api/categories/filter-section/${query.id}`).then(r=>{
@@ -158,13 +158,13 @@ export {}
 //                     if(sub1.name === params.children){
 //                         b = {...sub1}
 //                         let seletedBreadcrumbIndex = productDropdownNavData.findIndex(d=>d.id === pdata.id)
-//                         navigate(`/products/?type=${b.type}&id=${b.id}&slug=${b.name}`)
+//                         navigate(`/brand/?type=${b.type}&id=${b.id}&slug=${b.name}`)
 //                         sub1.subCategory = []
 //                     } else{
 //                         sub1.subCategory.map(sub2=>{
 //                             if(sub2.name === params.children){
 //                                 let seletedBreadcrumbIndex = productDropdownNavData.findIndex(d=>d.id === pdata.id)
-//                                 navigate(`/products/?type=${sub2.type}&id=${sub2.id}&slug=${sub2.name}`)
+//                                 navigate(`/brand/?type=${sub2.type}&id=${sub2.id}&slug=${sub2.name}`)
 //                             } else{
 //                                 sub2.items.map(item=>{
 //                                 if(item.name === params.children){
@@ -212,17 +212,17 @@ export {}
 //     }
 //
 //   function loadMoreProductHandler(){
-//     // api.fetch(`/api/products/fitler/?perPage=${}&pageNumber=${}`)
+//     // api.fetch(`/api/brand/fitler/?perPage=${}&pageNumber=${}`)
 //     setLoadingStatus("loadStart")
-//     api.get(`/api/products/filter/?type=${queryObject.type}&id=${queryObject.id}&perPage=${productsPagination.perPage}&pageNumber=${productsPagination.pageNumber + 1}`)
+//     api.get(`/api/brand/filter/?type=${queryObject.type}&id=${queryObject.id}&perPage=${productsPagination.perPage}&pageNumber=${productsPagination.pageNumber + 1}`)
 //     .then(resp=>{
-//       if(resp.data.products){
+//       if(resp.data.brand){
 //         setLoadingStatus("loaded")
 //         setProductsPagination({
 //           ...productsPagination,
 //           pageNumber: productsPagination.pageNumber + 1
 //         })
-//         setFilteredProducts([...filteredProducts, ...resp.data.products])
+//         setFilteredProducts([...filteredProducts, ...resp.data.brand])
 //       }
 //     })
 //   }
@@ -278,7 +278,7 @@ export {}
 //                                       <h5 className="product_name">{p.title}  </h5>
 //                                       <h5 className="product_price">${p.price}</h5>
 //                                       <button>Add To Cart</button>
-//                                       <Link to={`/products/${p._id}`}>Details</Link>
+//                                       <Link to={`/brand/${p._id}`}>Details</Link>
 //                                   </div>
 //                                 )) : (
 //                                     <h1>No Products found on Database.</h1>
@@ -306,7 +306,7 @@ export {}
 //                                             <h1>{section}</h1>
 //                                             <Button>
 //                                                 <Link
-//                                                 to={`/products/?type=${"category"}&id=${subcategorySectionsProduct[section][0].category_id}&slug=${section}`}>
+//                                                 to={`/brand/?type=${"category"}&id=${subcategorySectionsProduct[section][0].category_id}&slug=${section}`}>
 //                                                     See More</Link>
 //                                             </Button>
 //
@@ -317,7 +317,7 @@ export {}
 //                                             <div>
 //                                                 <Image src={"df"}/>
 //                                                 <h5>{prod.title}</h5>
-//                                                 <Link to={`/products/${prod._id}`}>Details</Link>
+//                                                 <Link to={`/brand/${prod._id}`}>Details</Link>
 //                                             </div>
 //                                             ))
 //                                         }
@@ -389,10 +389,10 @@ export {}
 // //                                         <h5 className="product_name">{p.name}</h5>
 // //                                         <h5 className="product_price">${p.price}</h5>
 // //                                         <button>Add To Cart</button>
-// //                                         <Link to={`/products/${p.id}`}>Details</Link>
+// //                                         <Link to={`/brand/${p.id}`}>Details</Link>
 // //                                     </div>
 // //                                   )) : (
-// //                                       <h1>No products found on Database.</h1>
+// //                                       <h1>No brand found on Database.</h1>
 // //                                   )
 // //                                 }
 // //                               </div>
@@ -408,7 +408,7 @@ export {}
 // //                                                 <h1>{section}</h1>
 // //                                                 <Button>
 // //                                                     <Link
-// //                                                     to={`/products/?type=${"entry_category"}&id=${subcategorySectionsProduct[section][0].category_id}&slug=${section}`}>
+// //                                                     to={`/brand/?type=${"entry_category"}&id=${subcategorySectionsProduct[section][0].category_id}&slug=${section}`}>
 // //                                                         See More</Link>
 // //                                                 </Button>
 //
@@ -419,7 +419,7 @@ export {}
 // //                                                 <div>
 // //                                                     <Image/>
 // //                                                     <h5>{prod.name}</h5>
-// //                                                     <Link to={`/products/${prod.id}`}>Details</Link>
+// //                                                     <Link to={`/brand/${prod.id}`}>Details</Link>
 // //                                                 </div>
 // //                                                 ))
 // //                                             }

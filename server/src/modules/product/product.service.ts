@@ -87,7 +87,7 @@ class ProductService {
     //             pp.push(p)
     //         })
     //
-    //         return {products: pp}
+    //         return {brand: pp}
     //
     //     } catch (ex) {
     //         throw ex
@@ -147,7 +147,7 @@ class ProductService {
     //                         p.push(c)
     //                     })
     //
-    //                     result[item.name] = {values: p, type: "products"}
+    //                     result[item.name] = {values: p, type: "brand"}
     //
     //                     if (index === (data.length - 1)) {
     //                         resolve(result)
@@ -162,7 +162,7 @@ class ProductService {
     //
     //
     //     // try{
-    //     //   const { c: ProductCollection, client: cc } = await dbConnect("products")
+    //     //   const { c: ProductCollection, client: cc } = await dbConnect("brand")
     //     //   client = cc;
     //     //
     //     //   let query = req.query
@@ -285,7 +285,7 @@ class ProductService {
 
 
         // try{
-        //   const { c: ProductCollection, client: cc } = await dbConnect("products")
+        //   const { c: ProductCollection, client: cc } = await dbConnect("brand")
         //   client = cc;
         //
         //   let query = req.query

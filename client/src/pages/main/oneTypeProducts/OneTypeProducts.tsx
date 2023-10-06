@@ -29,7 +29,7 @@ const OneTypeProducts = (props) => {
   }>({})
 
 // params type
-// {name: "Top Popular products", type: "products", filterBy: "top-views"}
+// {name: "Top Popular brand", type: "brand", filterBy: "top-views"}
   useEffect(()=>{
   
     let homePageSectionData = homePageSectionsData.find(homePage_data=>homePage_data.name === params.name)

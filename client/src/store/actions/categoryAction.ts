@@ -12,7 +12,7 @@ export const fetchFlatCategoriesAction = (flatCategories, dispatch: Dispatch) =>
         if (flatCategories) {
             resolve(flatCategories)
         } else {
-            let {data, status} = await apis.get<CategoryType[]>(`/api/categories`)
+            let {data, status} = await apis.get<CategoryType[]>(`/api/v1/categories`)
             if (status === StatusCode.Ok) {
                 dispatch({
                     type: ACTION_TYPES.FETCH_FLAT_CATEGORIES,
@@ -57,7 +57,7 @@ export function changeCategoryAction({selected, allNestedIds}): ChangeCategoryAc
 
 export async function fetchCategoryDetailAction(dispatch: AppDispatch, categoryId: string) {
     try {
-        let {data, status} = await apis.get("/api/category?id=" + categoryId)
+        let {data, status} = await apis.get("/api/v1/categories/detail?id=" + categoryId)
         if (status === 200) {
             dispatch({
                 type: ACTION_TYPES.FETCH_CATEGORY_DETAILS,
@@ -73,7 +73,7 @@ export async function fetchCategoryDetailAction(dispatch: AppDispatch, categoryI
 export function fetchCategoryDetail(categoryId: string) {
     return new Promise<[any, any]>(async (resolve) => {
         try {
-            let {status, data} = await apis.get(`/api/category?id=${categoryId}`)
+            let {status, data} = await apis.get(`/api/v1/categories/detail?id=${categoryId}`)
             if (status === StatusCode.Ok) {
                 resolve([data, null])
             }

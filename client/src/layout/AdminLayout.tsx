@@ -46,7 +46,7 @@ export const adminRoute = [
         ),
     },
     {
-        path: "products/new",
+        path: "brand/new",
         element: (
             <PrivateRoute scope={Scope.ADMIN_USER}>
                 <AddProduct roleFor={Roles.ADMIN}/>
@@ -54,7 +54,7 @@ export const adminRoute = [
         ),
     },
     {
-        path: "products/edit/:productId",
+        path: "brand/edit/:productId",
         element: (
             <PrivateRoute scope={Scope.ADMIN_USER}>
                 <AddProduct roleFor={Roles.ADMIN}/>
@@ -234,8 +234,8 @@ const AdminLayout = () => {
         {
             section: "Product Management",
             items: [
-                {name: "Products", to: "/admin/products", icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (1).svg")}/>},
-                {name: "Add", to: "/admin/products/new", icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (5).svg")}/>}
+                {name: "Products", to: "/admin/brand", icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (1).svg")}/>},
+                {name: "Add", to: "/admin/brand/new", icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (5).svg")}/>}
             ],
         },
         {

@@ -52,7 +52,7 @@ export const getOrders = async (req: Request, res: Response, next: NextFunction)
 //       },
 //       {
 //         $lookup: {
-//           from: "products",
+//           from: "brand",
 //           localField: "product_id",
 //           foreignField: "_id",
 //           as: "product"

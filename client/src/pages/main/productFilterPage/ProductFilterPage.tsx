@@ -28,7 +28,7 @@ interface ProductFilterType {
     category?: any;
     // category: {
     //   // filters: {name: string, values: {name: "string", value: any}[]}[]
-    //   brands: {not_available: boolean, _id: string, name: string}[] // populated property
+    //   brand: {not_available: boolean, _id: string, name: string}[] // populated property
     //   is_top: any
     //   last_level: any
     //   name: string
@@ -118,7 +118,7 @@ const ProductFilter: FC<ProductFilterType> = ({innerWidth}) => {
     ]);
 
 
-    // fetch brands using names
+    // fetch brand using names
     function fetchBrandByNames<T>(...brandNames: string[]) {
         return new Promise<T>(async (resolve, reject) => {
             try {
@@ -182,8 +182,8 @@ const ProductFilter: FC<ProductFilterType> = ({innerWidth}) => {
         let renderProductAtt = ["title", "price"];
 
         // return (
-        //   <div className="products-views">
-        //   { products && products.length > 0 ? products.map(Product=>(
+        //   <div className="brand-views">
+        //   { brand && brand.length > 0 ? brand.map(Product=>(
         //     <div className="Product card pb-5">
         //       {renderProductAtt.map(key=>{
         //         return (

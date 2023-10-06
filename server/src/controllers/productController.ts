@@ -217,7 +217,7 @@ export const getProductDetail = async (req: Request, res: Response, next: NextFu
 // 	const { type, quantity } = req.body;
 // 	let client;
 // 	try {
-// 		const { c: ProductCollection, client: cc } = await dbConnect("products");
+// 		const { c: ProductCollection, client: cc } = await dbConnect("brand");
 // 		client = cc;
 // 		let response;
 // 		if (type === "product_view_increase") {
@@ -757,7 +757,7 @@ export const productFiltersGetV2 = async (req: Request, res: Response, next: Nex
     let client;
 
     // try {
-    // 	const { c: ProductCollection, client: cc } = await dbConnect("products");
+    // 	const { c: ProductCollection, client: cc } = await dbConnect("brand");
     // 	client = cc;
     //
     // 	let query = req.query;
@@ -1074,7 +1074,7 @@ export const productFiltersPostV2 = async (req: TypedRequestBody<{
         })
 
 
-        // set filter for brands
+        // set filter for brand
         let brandObjectIds: ObjectId[] = []
         brandIds.forEach(brand => {
             if (brand.length === 24) {
@@ -1083,7 +1083,7 @@ export const productFiltersPostV2 = async (req: TypedRequestBody<{
         })
 
 
-        // search products
+        // search brand
         let searchFilter: any = []
         if (searchBy && searchBy.value) {
             if (searchBy.fieldName === "title") {
@@ -1183,7 +1183,7 @@ export const deleteProduct = async (req: Request, res: Response, next: NextFunct
 // 		const { db, client: cc } = await dbConnect();
 // 		client = cc;
 // 		const UsersCollection = db.collection("users");
-// 		const ProductCollection = db.collection("products");
+// 		const ProductCollection = db.collection("brand");
 //
 // 		if (req.user_id) {
 // 			let user: any = await UsersCollection.findOne({
@@ -1338,7 +1338,7 @@ export async function deleteAttribute(req: Request, res: Response, next: NextFun
 
 export async function makeLocalCache(req: Request, res: Response, next: NextFunction) {
     // try {
-    //     let products = ""
+    //     let brand = ""
     //     let db = await mongoConnect()
     //     let ii = db.collection("t")
     //     let p: any = await ii.find({}).toArray()

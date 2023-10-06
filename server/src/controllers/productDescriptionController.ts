@@ -15,7 +15,7 @@
 //     let docs = await ProductDescription.aggregate([
 //       {
 //         $lookup: {
-//           from: "products",
+//           from: "brand",
 //           localField: "product_id",
 //           foreignField: "_id",
 //           as: "product"

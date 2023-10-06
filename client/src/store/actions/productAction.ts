@@ -36,12 +36,12 @@ export const fetchProductForUpdate = (id, cb: (err: string, result: any) => void
 
 
 // export const fetchBrandForCategory = (current_category_id) => async (dispatch, getState: () => RootState, api) => {
-//     let data = await api.get("/api/brands",)
+//     let data = await api.get("/api/brand",)
 //
 // }
 
 
-// only count total filtered products. if changed these state
+// only count total filtered brand. if changed these state
 
 export function filterProductsAction2(payload, isCount: boolean, dispatch) {
 
@@ -100,7 +100,7 @@ export function filterProductsAction2(payload, isCount: boolean, dispatch) {
     //     bodyData.categoryIds =  getAllChildrenId(selectCategory.root.id, flatCategories)
     // }
     //
-    // let response = await api.post(`/api/products/filter/v2`, bodyData)
+    // let response = await api.post(`/api/brand/filter/v2`, bodyData)
     //
     // props.toggleAppMask(false)
     // props.toggleLoader("Product-filter", false)
@@ -240,7 +240,7 @@ export function filterProductsAction2222222222({category, filters, brandsForCate
 
         /******************* Fetch brand for category ***************/
         /**
-         * fetch brands for each category
+         * fetch brand for each category
          * example
          Mobiles: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
          Mobiles and Tablet: (19) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
@@ -358,7 +358,7 @@ export const fetchHomePageSectionProducts = createAsyncThunk<HomePageSectionProd
     //         }
     //     })
     //
-    //     let response = await apis.post(`/api/products/home-section`, {
+    //     let response = await apis.post(`/api/brand/home-section`, {
     //         data: data
     //     })
     //
@@ -396,7 +396,7 @@ export const fetchHomePageSectionProducts = createAsyncThunk<HomePageSectionProd
 //         }
 //     })
 //
-//     let response = await apis.post(`/api/products/home-section`, {
+//     let response = await apis.post(`/api/brand/home-section`, {
 //         data: data
 //     })
 //
@@ -412,12 +412,12 @@ export const fetchHomePageSectionProducts = createAsyncThunk<HomePageSectionProd
 //     //   (async function(){
 //     //     try {
 //     //
-//     //       // await api.get(`/api/products/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
+//     //       // await api.get(`/api/brand/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
 //     //       if(data.params){
-//     //         // let response = await apis.get(`/api/products/filter/v2?${data.params}`)
+//     //         // let response = await apis.get(`/api/brand/filter/v2?${data.params}`)
 //     //
 //     //
-//     //         let response = await apis.post(`/api/products/home-section`, {
+//     //         let response = await apis.post(`/api/brand/home-section`, {
 //     //           data: data.params
 //     //         })
 //     //
@@ -456,9 +456,9 @@ export const fetchHomePageSectionProducts = createAsyncThunk<HomePageSectionProd
 //     //   (async function(){
 //     //     try {
 //     //
-//     //       // await api.get(`/api/products/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
+//     //       // await api.get(`/api/brand/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
 //     //       if(data.params){
-//     //         let response = await apis.get(`/api/products/filter/v2?${data.params}`)
+//     //         let response = await apis.get(`/api/brand/filter/v2?${data.params}`)
 //     //
 //     //         h[data.name] = { values: response.data, type: data.type }
 //     //
@@ -492,7 +492,7 @@ export const fetchHomePageSectionProducts = createAsyncThunk<HomePageSectionProd
 // }
 
 
-// get length of one-type-products
+// get length of one-type-brand
 export const fetchOneTypeProductLength = (homePageSectionData: { type: string, params: string }) => async (dispatch, getState, api) => {
 
     let count = 0
@@ -536,14 +536,14 @@ function fetchOneTypeProductsFromDb(homePageSectionData, api, currentPage = 1, p
             // break
 
             // case "top-selling" :
-            //   pData = await api.get(`/api/products/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
-            //   arrOfProducts = pData.data.products && pData.data.products
+            //   pData = await api.get(`/api/brand/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
+            //   arrOfProducts = pData.data.brand && pData.data.brand
             //   break
             //
             // case "top-views" :
-            //   pData = await api.get(`/api/products/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
+            //   pData = await api.get(`/api/brand/fetch-home-page/?type=${item.filterBy}&pageNumber=${currentPage}&perPage=${perPage}`)
             //   // console.log(pData)
-            //   arrOfProducts = pData.data.products && pData.data.products
+            //   arrOfProducts = pData.data.brand && pData.data.brand
             //   break
             //
             // case "fetch-categories" :
@@ -551,9 +551,9 @@ function fetchOneTypeProductsFromDb(homePageSectionData, api, currentPage = 1, p
             //   arrOfProducts = pData.data.categories && pData.data.categories
             //   break
             //
-            // case "fetch-brands" :
-            //   pData = await api.post(`/api/brands/?&pageNumber=${currentPage}&perPage=${perPage}`, { ids: item.ids ? item.ids : [] })
-            //   arrOfProducts = pData.data.brands && pData.data.brands
+            // case "fetch-brand" :
+            //   pData = await api.post(`/api/brand/?&pageNumber=${currentPage}&perPage=${perPage}`, { ids: item.ids ? item.ids : [] })
+            //   arrOfProducts = pData.data.brand && pData.data.brand
             //   break
         }
 
@@ -563,7 +563,7 @@ function fetchOneTypeProductsFromDb(homePageSectionData, api, currentPage = 1, p
 }
 
 
-// fetch relevant products
+// fetch relevant brand
 type RelevantProductsActionType = {
     slug: string
     title: string
@@ -577,7 +577,7 @@ export const fetchRelevantProductsAction = createAsyncThunk(
     async (payload: RelevantProductsActionType, thunkAPI) => {
         let cacheName = payload.slug
 
-        // prevent duplicate fetch request if already fetch these relevant products
+        // prevent duplicate fetch request if already fetch these relevant brand
         let store = thunkAPI.getState() as RootState
         if (store && store?.productState?.relevantProducts[cacheName]) return;
 
@@ -618,7 +618,7 @@ export const changePagination = (payload: changePaginationType) => {
 }
 
 
-// shop products actions
+// shop brand actions
 
 export const fetchProductStoreInfo = function (query: string) {
     return new Promise(async (resolve) => {

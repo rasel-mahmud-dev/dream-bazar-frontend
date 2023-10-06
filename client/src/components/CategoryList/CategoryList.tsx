@@ -181,7 +181,7 @@ function CategoryList(props) {
 
         // setFilter({
         //     ...state.filter,
-        //     brands: [],
+        //     brand: [],
         //     category: updatedCategory,
         //
         // })

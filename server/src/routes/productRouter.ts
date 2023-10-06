@@ -52,7 +52,7 @@ router.delete("/product/:id", isAuth(), permission([Roles.SELLER, Roles.ADMIN]),
 // this route I use worker_threads
 router.post("/products/filter/v2", productFiltersPostV2)
 
-// router.get("/products/filter/v2", async (req, res, next)=>{
+// router.get("/brand/filter/v2", async (req, res, next)=>{
 //   let result = await productsFilterGetReq({query: req.query, params: req.params})
 //   res.send(result)
 // })
@@ -90,7 +90,7 @@ router.post("/products/copy", saveProductsAsDuplicate)
 router.get("/product", getProduct)
 
 
-// get relevant products
+// get relevant brand
 router.post("/products/relevant", getRelevantProducts)
 
 

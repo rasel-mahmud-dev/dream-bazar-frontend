@@ -17,7 +17,7 @@ const router = Router()
 
 router.get("/brands/count", getBrandsCount)
 
-// get brands from collection
+// get brand from collection
 router.get("/brands", getBrands)
 
 // get brand from collection

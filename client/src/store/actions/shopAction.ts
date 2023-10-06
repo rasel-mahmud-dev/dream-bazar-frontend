@@ -1,5 +1,5 @@
 
-// shop products actions
+// shop brand actions
 import apis from "src/apis";
 import {StatusCode} from "store/types";
 
