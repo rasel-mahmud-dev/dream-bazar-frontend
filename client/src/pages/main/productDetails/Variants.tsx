@@ -1,6 +1,80 @@
 import React, {useEffect, useState} from 'react';
 
 
+// const finalVariants = [
+//     {
+//         sku: "1000",
+//         variant_id: "",
+//         tempId: Date.now(),
+//         attributes: [
+//             {
+//                 attribute_id: "Color",
+//                 attribute_value: "Red",
+//                 image: "",
+//                 variant_base: true
+//             },
+//             {
+//                 attribute_id: "Size",
+//                 attribute_value: "MD",
+//                 refAttribute: "Color",
+//                 image: "",
+//                 variant_base: false
+//             },
+//
+//         ],
+//         images: []
+//     },
+//     {
+//         sku: "1001",
+//         variant_id: "",
+//         tempId: Date.now(),
+//         attributes: [
+//             {
+//                 attribute_id: "Color",
+//                 attribute_value: "Blue",
+//                 image: "",
+//                 variant_base: true
+//             },
+//             {
+//                 attribute_id: "Size",
+//                 attribute_value: "XS",
+//                 image: "",
+//                 variant_base: false,
+//                 refAttribute: "Color"
+//             },
+//             {
+//                 attribute_id: "Size",
+//                 attribute_value: "XL",
+//                 image: "",
+//                 variant_base: false,
+//                 refAttribute: "Color"
+//             }
+//         ],
+//         images: []
+//     },
+//     {
+//         sku: "1003",
+//         variant_id: "",
+//         tempId: Date.now(),
+//         attributes: [
+//             {
+//                 attribute_id: "Color",
+//                 attribute_value: "White",
+//                 image: "",
+//                 variant_base: true
+//             },
+//             {
+//                 attribute_id: "Size",
+//                 attribute_value: "XXL",
+//                 image: "",
+//                 variant_base: false,
+//                 refAttribute: "Color"
+//             },
+//         ],
+//         images: []
+//     }
+// ]
+
 const finalVariants = [
     {
         sku: "1000",
@@ -11,16 +85,32 @@ const finalVariants = [
                 attribute_id: "Color",
                 attribute_value: "Red",
                 image: "",
-                variant_base: true
             },
             {
-                attribute_id: "Size",
-                attribute_value: "MD",
-                refAttribute: "Color",
+                attribute_id: "Color",
+                attribute_value: "Black",
                 image: "",
-                variant_base: false
             },
-
+            {
+                attribute_id: "Ram",
+                attribute_value: "8GB",
+                image: ""
+            },
+            {
+                attribute_id: "Ram",
+                attribute_value: "16GB",
+                image: ""
+            },
+            {
+                attribute_id: "ROM",
+                attribute_value: "128GB",
+                image: ""
+            },
+            {
+                attribute_id: "ROM",
+                attribute_value: "256GB",
+                image: ""
+            },
         ],
         images: []
     },
@@ -36,44 +126,20 @@ const finalVariants = [
                 variant_base: true
             },
             {
-                attribute_id: "Size",
-                attribute_value: "XS",
-                image: "",
-                variant_base: false,
-                refAttribute: "Color"
+                attribute_id: "Ram",
+                attribute_value: "16GB",
+                image: ""
             },
             {
-                attribute_id: "Size",
-                attribute_value: "XL",
-                image: "",
-                variant_base: false,
-                refAttribute: "Color"
-            }
-        ],
-        images: []
-    },
-    {
-        sku: "1003",
-        variant_id: "",
-        tempId: Date.now(),
-        attributes: [
-            {
-                attribute_id: "Color",
-                attribute_value: "White",
-                image: "",
-                variant_base: true
-            },
-            {
-                attribute_id: "Size",
-                attribute_value: "XXL",
-                image: "",
-                variant_base: false,
-                refAttribute: "Color"
+                attribute_id: "ROM",
+                attribute_value: "256GB",
+                image: ""
             },
         ],
         images: []
     }
 ]
+
 
 
 const Variants = () => {
@@ -98,7 +164,8 @@ const Variants = () => {
     }, []);
 
     function handleSelectVariant(c){
-        setSelectedVariant(c.sku)
+        // setSelectedVariant(c.sku)
+        console.log(c)
     }
 
     function renderColor() {
@@ -119,12 +186,30 @@ const Variants = () => {
             </div>
         )
     }
+    function renderALl() {
+        return (
+            <div className="mt-2">
+                {Object.keys(group).map((key)=>(
+                    <div>
+                        <h4>{key}: </h4>
+                        <div className="flex gap-2 mt-2">
+                            {group[key].map(c=>(
+                                <div className={`cursor-pointer py-2 px-4 ${selectedVariant === c.sku ? "bg-amber-200" : ""}`} onClick={()=>handleSelectVariant(c)}>
+                                    {c.attribute_value}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        )
+    }
 
     function handleSelectVariantAttribute(c) {
         setAelectedVariantAttribute(c.attribute_value)
     }
 
-    console.log(selectedVariant)
+
 
     function renderSize() {
         let a = finalVariants.find(f=>f.sku === selectedVariant)
@@ -149,14 +234,11 @@ const Variants = () => {
 
     return (
         <div>
-
-
-            {renderColor()}
-
-            {renderSize()}
-
+            {renderALl()}
+            {/*{renderSize()}*/}
         </div>
     );
 };
+
 
 export default Variants;
