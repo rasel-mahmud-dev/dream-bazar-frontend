@@ -25,7 +25,7 @@ const BrandList = ({currentFullCategoryName}) => {
     let currentCategoryId = category.selected?._id || ""
 
     useEffect(()=>{
-    	apis.get("/api/brands").then(res=>{
+    	apis.get("/api/v1/brands").then(res=>{
     		dispatch({
     			type: ACTION_TYPES.FETCH_BRANDS,
     			payload: {

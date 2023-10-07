@@ -176,7 +176,7 @@ export const filterProductsAction = createAsyncThunk<any, MyData>("productStater
 
 
     try {
-        let {status, data} = await api.post(`/api/products/filter/v2`, bodyData)
+        let {status, data} = await api.post(`/api/v1/products/filter/v2`, bodyData)
         if (status === 200) {
             return {
 

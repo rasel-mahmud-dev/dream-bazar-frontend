@@ -1,6 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import Card from "UI/Form/Card/Card";
 import {ProductDescriptionType} from "store/types";
+import {Button} from "UI/index";
 
 
 interface Props {
@@ -8,10 +9,11 @@ interface Props {
     categoryDetail: any,
     onAttributeChange: (args: any) => void
     defaultAttribute: {}
+    onNext: Function
 }
 
 
-const ProductAttribute: FC<Props> = ({productDetail, categoryDetail, onAttributeChange, defaultAttribute}) => {
+const ProductAttribute: FC<Props> = ({productDetail,onNext, categoryDetail, onAttributeChange, defaultAttribute}) => {
 
     const [attributes, setAttributes ] = useState({})
 
@@ -73,6 +75,7 @@ const ProductAttribute: FC<Props> = ({productDetail, categoryDetail, onAttribute
                     ))}
                 </div>
             </Card>
+            <Button className="ml-auto block" theme="primary" onClick={onNext}>Next</Button>
         </div>
     );
 };

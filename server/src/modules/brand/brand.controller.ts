@@ -59,6 +59,17 @@ class BrandController {
             }
         })
     }
+
+    async getCategoryBrands(req: Request, res: Response, next: NextFunction) {
+        try {
+            const data = await BrandService.getCategoryBrands(req.body.categories)
+            successResponse(res, StatusCode.Ok, {
+                data
+            });
+        } catch (ex) {
+            next(ex)
+        }
+    }
 }
 
 

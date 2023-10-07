@@ -1,10 +1,47 @@
 import Product, {ProductType} from "../../models/Product";
-import {AggregationCursor} from "mongodb";
+import {AggregationCursor, ObjectId} from "mongodb";
 import Category from "../../models/Category";
 import Brand from "../../models/Brand";
+import {NextFunction, Request, Response} from "express";
+import {errorResponse, successResponse} from "../../response";
+import {StatusCode} from "../../types";
+import ProductDescription from "../../models/ProductDescription";
 
 
 class ProductService {
+
+    async getAllProducts(query) {
+        const {pageNumber = 1, perPage = 10} = query;
+        const now = Date.now();
+        const Collection = await Product.collection
+        let counts = 0;
+        if (pageNumber == 1) {
+            counts = await Collection.countDocuments();
+        }
+
+        let docs = await Collection.aggregate([
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "sellerId",
+                    foreignField: "_id",
+                    as: "seller"
+                }
+            },
+            {
+                $unwind: {path: "$seller", preserveNullAndEmptyArrays: true}
+            },
+            {
+                $skip: (perPage as number) * ((pageNumber as number) - 1)
+            },
+            {
+                $limit: Number(perPage)
+            }
+        ]).toArray();
+        return {time: Date.now() - now, total: counts, products: docs}
+    };
+
+
     // async getHomepageSectionProducts(body: any) {
     //     const {pageNumber = 1, perPage = 10, type} = body
     //
@@ -333,7 +370,146 @@ class ProductService {
 
     }
 
+    async productFiltersPostV2(body: {
+        categoryIds?: string[]
+        brandIds?: string[]
+        pageNumber: number
+        perPage: number
+        sortBy: { fieldName: string, order: number }
+        attributes: {}
+        searchBy: { fieldName: string, value?: string }
+    }) {
+        try {
 
+            let {
+                sortBy,
+                categoryIds,
+                brandIds = [],
+                attributes,
+                pageNumber = 1,
+                perPage = 10,
+                searchBy
+
+            } = body;
+
+
+            let pipe: any = []
+
+
+            // select attributes
+            let attributesValues = {};
+            if (attributes && Object.keys(attributes).length > 0) {
+                for (let attr in attributes) {
+                    if (attributes[attr] && attributes[attr].length > 0) {
+                        attributesValues[`attributes.${attr}`] = {$in: attributes[attr]};
+                    }
+                }
+            }
+
+
+            // set filter for categories
+            let categoryIdsOBjs: ObjectId[] = []
+            categoryIds?.forEach((id) => {
+                categoryIdsOBjs.push(new ObjectId(id))
+            })
+
+
+            // set filter for brand
+            let brandObjectIds: ObjectId[] = []
+            brandIds.forEach(brand => {
+                if (brand.length === 24) {
+                    brandObjectIds.push(new ObjectId(brand))
+                }
+            })
+
+
+            // search brand
+            let searchFilter: any = []
+            if (searchBy && searchBy.value) {
+                if (searchBy.fieldName === "title") {
+                    // split name part and search partially
+                    if (searchBy.value) {
+                        searchBy.value.split(" ").forEach((part) => {
+                            searchFilter.push({title: RegExp(part, "i")})
+                        })
+                    }
+                }
+            }
+
+
+            if (sortBy && sortBy.fieldName) {
+                pipe.push({$sort: {[sortBy.fieldName]: sortBy.order}})
+            }
+
+            let collection = await Product.collection
+
+            let filter = {
+                $match: {
+                    $and: [
+                        categoryIds && categoryIds.length > 0
+                            ? {
+                                categoryId: {$in: categoryIdsOBjs},
+                            }
+                            : {},
+                        brandObjectIds.length > 0
+                            ? {
+                                brandId: {$in: [...brandObjectIds]},
+                            }
+                            : {},
+
+                        ...searchFilter
+                    ],
+                    $or: [
+                        Object.keys(attributesValues).length > 0
+                            ? {
+                                ...attributesValues,
+                            }
+                            : {},
+                    ],
+                },
+            }
+
+            let total
+            if (pageNumber == 1) {
+                total = await collection.aggregate([
+                    filter,
+                    {$count: "totalDocuments"}
+                ]).toArray();
+            }
+
+            const result = await collection.aggregate([
+                filter,
+                {$skip: (Number(pageNumber) - 1) * Number(perPage)},
+                {$limit: Number(perPage)},
+                ...pipe
+
+            ]).toArray();
+
+
+            let totalDocument = undefined;
+            if (total && total.length > 0) {
+                totalDocument = total[0].totalDocuments
+            }
+
+            return {products: result, totalItems: totalDocument}
+
+        } catch (ex) {
+            throw ex
+        }
+    }
+
+    async getProductDetailForUpdate(filter: { slug?: string, id?: string }) {
+        try {
+            let product = await Product.findOne<Product>(filter)
+            let productDetail = {}
+            if (product) {
+                productDetail = await ProductDescription.findOne({productId: product._id});
+            }
+            return {product, productDetail};
+        } catch (ex) {
+            throw ex
+        }
+    }
 }
 
 

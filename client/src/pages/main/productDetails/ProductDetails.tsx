@@ -28,6 +28,7 @@ import useScrollTop from "src/hooks/useScrollTop";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import RelevantProducts from "pages/main/productDetails/RelevantProducts";
 import {fetchShopDetail} from "actions/shopAction";
+import Variants from "pages/main/productDetails/Variants";
 
 let image = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
 let image2 = `images/products_images/c20-rmx3063-realme-original-imagfxfzjrkqtbhe.jpeg`;
@@ -97,25 +98,25 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
 
     useEffect(() => {
         (async function () {
-            let {status, data} = await apis.get(`/api/product?slug=${params.slug}`);
+            let {status, data} = await apis.get(`/api/v1/products?slug=${params.slug}`);
 
             if (status === StatusCode.Ok) {
-                setProduct(data);
+                setProduct(data.product);
 
-                if (data) {
-                    let response = await apis.get(`/api/product/detail/${data._id}`);
-                    if (response.data && response.status === StatusCode.Ok) {
-                        setProductDescription(response.data);
-
-                        // fetch relevant brand
-                        dispatch(fetchRelevantProductsAction({
-                            slug: params.slug,
-                            title: data.title,
-                            brandId: data.brandId,
-                            categoryId: data.categoryId,
-                        }))
-                    }
-                }
+                // if (data) {
+                //     let response = await apis.get(`/api/v1/products/detail/${data._id}`);
+                //     if (response.data && response.status === StatusCode.Ok) {
+                //         setProductDescription(response.data);
+                //
+                //         // fetch relevant brand
+                //         dispatch(fetchRelevantProductsAction({
+                //             slug: params.slug,
+                //             title: data.title,
+                //             brandId: data.brandId,
+                //             categoryId: data.categoryId,
+                //         }))
+                //     }
+                // }
             }
         })();
     }, [params.slug]);
@@ -292,6 +293,9 @@ const ProductDetails: FC<ProductDetailsProps> = (props) => {
                                     </h5>
                                 </div>
                                 <h6>No Cost EMI</h6>
+
+
+                                <Variants />
 
                                 <div className="">
                                     <div className="mt-5">

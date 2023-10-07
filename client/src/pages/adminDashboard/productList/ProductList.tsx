@@ -84,8 +84,8 @@ const ProductList = () => {
         {dataIndex: "title", title: "Title", className: "whitespace-nowrap text-start", dataClass: " w-[290px] text-start"},
 
         {dataIndex: "seller", title: "Seller", className: "whitespace-nowrap text-start", dataClass: " w-[290px] text-start", render: (seller)=>(
-                <div className="flex">
-                    <img className="w-10 h-10 object-contain" src={staticImagePath(seller?.avatar)} alt=""/>
+                <div className="flex items-center">
+                    <img className="w-5 h-5 rounded-full object-contain" src={staticImagePath(seller?.avatar)} alt=""/>
                     <div className="ml-2">
                         <p>{seller?.firstName}</p>
                         <p>{seller?.email}</p>
@@ -141,7 +141,7 @@ const ProductList = () => {
             render: (_, product) => (
                 <div className="flex gap-x-3 justify-center">
                     <Box className="border border-green-500"><FiEye className="text-green-500 text-xs"/></Box>
-                    <Box className="border border-blue-600" onClick={() => navigate(`/seller/product/edit/${product._id}`)}>
+                    <Box className="border border-blue-600" onClick={() => navigate(`/admin/products/edit/${product._id}`)}>
                         <BiPencil
                             className="text-blue-600 text-xs"/></Box>
                     {/*<Box className="border border-red-500" onClick={()=>handleDeleteProduct(product._id)}><FaTrash className="text-red-500 text-xs" /></Box>*/}

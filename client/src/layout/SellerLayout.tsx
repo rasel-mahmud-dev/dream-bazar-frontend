@@ -14,7 +14,7 @@ import Footer from "components/Footer/Footer";
 import PrivateRoute from "src/middleware/PrivateRoute";
 import {Roles, Scope} from "store/types";
 import CreateShop from "pages/shared/Shop/CreateShop";
-import AddProduct from "pages/shared/AddProduct/AddProduct";
+import AddProduct from "components/AddProduct/AddProduct";
 import SellerProducts from "pages/sellerDashboard/sellerProducts/SellerProducts";
 
 

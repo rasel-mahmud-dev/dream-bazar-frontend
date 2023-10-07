@@ -4,6 +4,7 @@ import {StatusCode} from "../../types";
 import {uploadImage} from "../../cloudinary";
 import {Document, ObjectId} from "mongodb";
 import parseJson from "../../utilities/parseJson";
+import {successResponse} from "../../response";
 
 class BrandService {
     async getBrands() {
@@ -12,6 +13,21 @@ class BrandService {
 
     async getBrand(id: string) {
         return await Brand.findOne<Brand>({_id: new ObjectId(id)})
+    }
+
+    async getCategoryBrands(categories: string[] = []) {
+        try {
+            const allBrands = await Brand.find({
+                forCategory: {
+                    $in: categories
+                }
+            }, {
+                projection: {name: 1}
+            })
+            return allBrands
+        } catch (ex) {
+            throw ex
+        }
     }
 
     async saveBrand(fields: {

@@ -18,6 +18,8 @@ import StoreList from "pages/shared/Shop/StoreList";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import {fetchShopInfo} from "actions/userAction";
 import ProductList from "pages/adminDashboard/productList/ProductList";
+import UpdateProduct from "pages/adminDashboard/UpdateProduct";
+import AddProduct from "pages/adminDashboard/AddProduct";
 
 const AdminDashboardHome = lazy(() => import("pages/adminDashboard/DashboardHomePage"));
 
@@ -26,7 +28,6 @@ const AddCategory = lazy(() => import("pages/adminDashboard/categoryList/AddCate
 const ProductAttribute = lazy(() => import("pages/adminDashboard/productAttribute/ProductAttribute"));
 const AllProducts = lazy(() => import("pages/shared/AllProducts/AllProducts"));
 const AddBrand = lazy(() => import("pages/adminDashboard/brandList/AddBrand"));
-const AddProduct = lazy(() => import("pages/shared/AddProduct/AddProduct"));
 const CategoryList = lazy(() => import("pages/adminDashboard/categoryList/Categories"));
 
 
@@ -46,18 +47,34 @@ export const adminRoute = [
         ),
     },
     {
-        path: "brand/new",
+        path: "products/new",
         element: (
             <PrivateRoute scope={Scope.ADMIN_USER}>
-                <AddProduct roleFor={Roles.ADMIN}/>
+                <AddProduct/>
             </PrivateRoute>
         ),
     },
     {
-        path: "brand/edit/:productId",
+        path: "products/edit/:productId",
         element: (
             <PrivateRoute scope={Scope.ADMIN_USER}>
-                <AddProduct roleFor={Roles.ADMIN}/>
+                <UpdateProduct/>
+            </PrivateRoute>
+        ),
+    },
+    {
+        path: "brands/new",
+        element: (
+            <PrivateRoute scope={Scope.ADMIN_USER}>
+                {/*<AddProduct roleFor={Roles.ADMIN}/>*/}
+            </PrivateRoute>
+        ),
+    },
+    {
+        path: "brands/edit/:productId",
+        element: (
+            <PrivateRoute scope={Scope.ADMIN_USER}>
+                {/*<AddProduct roleFor={Roles.ADMIN}/>*/}
             </PrivateRoute>
         ),
     },
@@ -234,8 +251,8 @@ const AdminLayout = () => {
         {
             section: "Product Management",
             items: [
-                {name: "Products", to: "/admin/brand", icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (1).svg")}/>},
-                {name: "Add", to: "/admin/brand/new", icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (5).svg")}/>}
+                {name: "Products", to: "/admin/products", icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (1).svg")}/>},
+                {name: "Add", to: "/admin/products/new", icon: () => <img className="w-5" src={staticImagePath("icons/icons----- (5).svg")}/>}
             ],
         },
         {

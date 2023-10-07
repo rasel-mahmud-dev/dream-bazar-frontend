@@ -11,11 +11,13 @@ import authRouter from "../modules/auth/auth.route";
 import productRouter from "../modules/product/product.route";
 import brandRouter from "../modules/brand/brand.route";
 import categoryRouter from "../modules/category/category.route";
+import attributeRouter from "../modules/attribute/attribute.route";
 
 
 const router = express.Router()
 
 router.use("/api/v1/products", productRouter)
+router.use("/api/v1/attributes", attributeRouter)
 router.use("/api/v1/categories", categoryRouter)
 router.use("/api/v1/auth", authRouter)
 router.use("/api/v1/brands", brandRouter)

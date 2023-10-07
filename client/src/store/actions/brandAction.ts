@@ -9,12 +9,12 @@ export const fetchBrandForCategory = createAsyncThunk(
     ACTION_TYPES.FETCH_CATEGORY_BRANDS,
     async function (payload: { allCatName: string, categoryIds: string[] }, store) {
         try {
-            let {data, status} = await apis.post("/api/brands-category", {categories: payload.categoryIds})
+            let {data, status} = await apis.post("/api/v1/brands/category", {categories: payload.categoryIds})
             if (status === StatusCode.Ok) {
                 store.dispatch<FetchBrandForCategoriesAction>({
                     type: ACTION_TYPES.FETCH_CATEGORY_BRANDS,
                     payload: {
-                        brands: data.brands,
+                        brands: data.data,
                         categoryName: payload.allCatName,
                     },
                 })

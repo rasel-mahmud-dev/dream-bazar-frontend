@@ -1,0 +1,33 @@
+
+.rs-tab {
+
+	--active-color: var(--primary-500);
+	width: 100%;
+
+	.tab-header {
+		display: flex;
+		background: #ffffff;
+		padding: 0px 0px;
+		box-shadow: 0 5px 11px -9px #60606075;
+		overflow: auto;
+		.tab-item{
+			cursor: pointer;
+			padding: 16px 30px;
+			h2{
+				white-space: nowrap;
+			}
+			&__active{
+				border-bottom: 2px solid var(--active-color);
+				h2{
+					color: var(--active-color) !important;
+					white-space: nowrap;
+				}
+			}
+		}
+	}
+
+	.tab-content {
+		margin-top: 20px;
+		background: white;
+	}
+}

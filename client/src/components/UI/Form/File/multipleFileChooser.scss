@@ -4,3 +4,25 @@
     background-color: red;
 }
 
+.rs-image-picker{
+	--primary-color: var(--primary-500);
+	&__list{
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		.item-image{
+			width: 100px;
+			img{
+				width: 100%;
+				//border: 2px solid var(--primary-color);
+
+				max-width: 80px;
+				max-height: 80px;
+				margin: 0px 5px;
+				cursor: pointer;
+				margin-bottom: 10px;
+				border-radius: 5px;
+			}
+		}
+	}
+}

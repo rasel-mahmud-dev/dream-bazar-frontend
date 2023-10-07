@@ -4,7 +4,7 @@ import apis from "src/apis";
 import {AppDispatch} from "src/store";
 import errorMessageCatch from "src/utills/errorMessageCatch";
 import {Dispatch} from "redux";
-
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
 
 export const fetchFlatCategoriesAction = (flatCategories, dispatch: Dispatch) => {
@@ -27,7 +27,6 @@ export const fetchFlatCategoriesAction = (flatCategories, dispatch: Dispatch) =>
 }
 
 
-
 export const fetchProductCategoriesAction = (dispatch: Dispatch) => {
     return new Promise<CategoryType[]>(async (resolve, reject) => {
         let {data, status} = await apis.get<CategoryType[]>(`/api/categories/products`)
@@ -42,7 +41,6 @@ export const fetchProductCategoriesAction = (dispatch: Dispatch) => {
         }
     })
 }
-
 
 
 export function changeCategoryAction({selected, allNestedIds}): ChangeCategoryAction {
@@ -95,7 +93,7 @@ export function addFlatCategory(category: CategoryType): AddFlatCategoryAction {
 export async function fetchProductAttributesAction(dispatch: (args: FetchFilterAttributesAction) => void) {
 
     try {
-        let {status, data} = await apis.get(`/api/product-attributes`)
+        let {status, data} = await apis.get(`/api/v1/attributes`)
         if (status === StatusCode.Ok) {
             dispatch({
                 type: ACTION_TYPES.FETCH_FILTER_ATTRIBUTES,
@@ -108,3 +106,14 @@ export async function fetchProductAttributesAction(dispatch: (args: FetchFilterA
 
 
 }
+
+export const fetchAttributesAction = createAsyncThunk("fetchAttributesAction", async (payload, ThunkApi) => {
+    try {
+        let {status, data} = await apis.get(`/api/v1/attributes`)
+        if (status === StatusCode.Ok) {
+            return data
+        }
+    } catch (ex) {
+        return ThunkApi.rejectWithValue(errorMessageCatch(ex))
+    }
+})

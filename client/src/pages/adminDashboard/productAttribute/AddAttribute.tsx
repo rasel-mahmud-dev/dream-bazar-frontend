@@ -278,7 +278,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
         });
         
         if (attribute) {
-            apis.patch("/api/product/attribute/" + attribute._id, payload)
+            apis.patch("/api/v1/attributes/" + attribute._id, payload)
             .then(({status, data}) => {
                 if (status === StatusCode.Created) {
                     setHttpResponse({
@@ -298,7 +298,7 @@ const AddAttribute = ({attribute, onCloseForm, onUpdateAttributes}) => {
             });
         } else {
             // add attribute
-            apis.post("/api/product/attribute", payload)
+            apis.post("/api/v1/attributes", payload)
             .then(({status, data}) => {
                 if (status === StatusCode.Created) {
                     setHttpResponse({

@@ -9,6 +9,7 @@ interface Props {
     categoryDetail: CategoryDetail
     onChangeSpecifications: (data: Specification) => void
     defaultValue: {}
+    onNext: Function
 }
 
 /** Product Specification input field like this
@@ -88,7 +89,7 @@ let fakeSpecificationData = {
     ]
 }
 
-const ProductSpecification: FC<Props> = ({categoryDetail, onChangeSpecifications, defaultValue}) => {
+const ProductSpecification: FC<Props> = ({categoryDetail, onChangeSpecifications, defaultValue, onNext}) => {
 
     const [specifications, setSpecifications] = useState<{}>()
 
@@ -294,6 +295,9 @@ const ProductSpecification: FC<Props> = ({categoryDetail, onChangeSpecifications
             <Button type="button" onClick={handleAddMoreSection} className="text-sm bg-secondary-400 !py-1.5  mt-1">
                 Add More Section
             </Button>
+
+            <Button className="ml-auto block" theme="primary" onClick={onNext}>Next</Button>
+
 
         </div>
     );
