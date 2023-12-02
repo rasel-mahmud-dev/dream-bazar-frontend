@@ -2,8 +2,8 @@ import axios from "axios"
 
 
 export const backend = import.meta.env.DEV
-    // ? "http://localhost:4000"
-    ? "http://192.168.72.203:4000"
+    ? "http://localhost:4000"
+    // ? "http://192.168.72.203:4000"
     : "https://dream-bazar.vercel.app"
 
 

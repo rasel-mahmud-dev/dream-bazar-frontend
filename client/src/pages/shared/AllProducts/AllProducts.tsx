@@ -3,7 +3,8 @@ import {Button} from "UI/index";
 import api from "src/apis";
 import Table, {Column} from "UI/table/Table";
 import staticImagePath from "src/utills/staticImagePath";
-import {BsPencilSquare, FcEmptyTrash} from "react-icons/all";
+import {BsPencilSquare} from "react-icons/bs";
+import {FcEmptyTrash} from "react-icons/fc";
 import {Link} from "react-router-dom";
 import isoStringToDate from "src/utills/isoStringToDate";
 import {fetchProducts} from "actions/adminProductAction";
@@ -18,14 +19,14 @@ import {Roles} from "store/types";
 import apis from "src/apis";
 
 
-const AllProducts = (props) => {
+const AllProducts = () => {
     useScrollTop()
 
     const [products, setProducts] = React.useState<ProductType[]>([]);
 
     const {
         brandState: {allBrands},
-        authState: { auth }
+        authState: {auth}
     } = useAppSelector(state => state)
 
     let isAdmin = auth && auth.roles?.includes(Roles.ADMIN)
@@ -149,7 +150,7 @@ const AllProducts = (props) => {
             className: "text-center",
             render: (_, item) => (
                 <div className="flex justify-center items-center gap-x-2">
-                    <Link to={`/${isAdmin ? "admin": "seller"}/products/edit/${item._id}`}>
+                    <Link to={`/${isAdmin ? "admin" : "seller"}/products/edit/${item._id}`}>
                         <BsPencilSquare className="text-md cursor-pointer"/>
                     </Link>
                     <FcEmptyTrash className="text-xl cursor-pointer" onClick={() => prompt.open(item._id)}/>
@@ -159,12 +160,11 @@ const AllProducts = (props) => {
     ];
 
 
-
     return (
         <div className="">
             <div className="flex items-center justify-between mt-4">
                 <h1 className="route-title !mt-0">Product List</h1>
-                <Link to={`/${isAdmin ? "admin": "seller"}/products/new`}>
+                <Link to={`/${isAdmin ? "admin" : "seller"}/products/new`}>
                     <Button theme="primary">Add New Product</Button>
                 </Link>
             </div>

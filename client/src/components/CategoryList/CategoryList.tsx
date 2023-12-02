@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 
 import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {FaTimes} from "react-icons/fa";
-import { CategoryType} from "store/types";
+import {CategoryType} from "store/types";
 
 import "./styles.scss";
 
@@ -10,7 +10,6 @@ import useLanguage from "src/hooks/useLanguage";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";
 import {changeCategoryAction, fetchFlatCategoriesAction} from "actions/categoryAction";
-
 
 
 function CategoryList(props) {
@@ -32,7 +31,6 @@ function CategoryList(props) {
     const {pId} = useParams();
 
 
-
     useEffect(() => {
         (async function () {
             let c = await fetchFlatCategoriesAction(flatCategories, dispatch)
@@ -49,15 +47,15 @@ function CategoryList(props) {
      * this function return deep nested category and subcategory
      * */
 
-    function getCat(flatCategories){
+    function getCat(flatCategories) {
 
         let rootCategory;
 
-        if(pId) {
+        if (pId) {
             rootCategory = flatCategories.find(item => item.name === pId);
         }
 
-        if(!rootCategory){
+        if (!rootCategory) {
             // if userActionTypes.ts put wrong root category name then set electronic as root category
             wrongRootCategory(flatCategories)
             return;
@@ -71,6 +69,7 @@ function CategoryList(props) {
                 return;
             }
 
+
             // now find all level this parent categories;
             let nestedCategory = findNLevelParentWrapper(flatCategories, lastChild)
             setCurrentCategory(nestedCategory)
@@ -78,7 +77,7 @@ function CategoryList(props) {
 
         } else {
 
-            let subCategories =  flatCategories.filter(item=>item.parentId  === rootCategory._id )
+            let subCategories = flatCategories.filter(item => item.parentId === rootCategory._id)
             // console.log(subCategories)
             setCurrentCategory({
                 ...rootCategory,
@@ -90,13 +89,13 @@ function CategoryList(props) {
         }
     }
 
-    function wrongRootCategory(flatCategories){
+    function wrongRootCategory(flatCategories) {
 
-        if(!flatCategories) return;
+        if (!flatCategories) return;
 
         // if userActionTypes.ts put wrong root category name then set electronic as root category
         let rootCategory = flatCategories?.find(item => item.name === "Electronics");
-        if(rootCategory) {
+        if (rootCategory) {
             setCurrentCategory({
                 ...rootCategory,
                 sub: {}
@@ -158,8 +157,6 @@ function CategoryList(props) {
 
         return nestedCategory
     }
-
-
 
 
     function handleRemoveCategory(item: CategoryType) {
@@ -234,11 +231,11 @@ function CategoryList(props) {
     }
 
 
-    function dispatchCategoryChange(categoryItem){
-        let allNestedIds: string[] =  []
+    function dispatchCategoryChange(categoryItem) {
+        let allNestedIds: string[] = []
 
         let allChildCategories = []
-        if(!categoryItem.isProductLevel) {
+        if (!categoryItem.isProductLevel) {
             findAllNestedCat(categoryItem, allChildCategories, flatCategories)
             if (allChildCategories) {
                 allNestedIds = allChildCategories.map(item => item._id)
@@ -250,7 +247,7 @@ function CategoryList(props) {
             allNestedIds
         }))
 
-        if(!categoryItem.parentId){
+        if (!categoryItem.parentId) {
             navigate(`/p/${categoryItem.name}`);
         } else {
             navigate(`/p/${pId}?catTree=${categoryItem.name}`);
@@ -277,11 +274,14 @@ function CategoryList(props) {
         }
     }
 
-
     return (
         <div className="md:block col-span-3 ">
             <div className="grid px-4">
                 <h5 className="heading-6 font-semibold  my-4">{l("PICK A CATEGORY")}</h5>
+
+                <div className="flex items-center">
+                    <RenderBreadcrumb currentCategory={currentCategory}/>
+                </div>
 
                 <div className="">
                     {selectedCategory && (
@@ -326,7 +326,7 @@ function CategoryRecursive({sub, handleToggleExpand, expandCategories, onClickSe
     return sub ? (
         <li className="my-1">
             <p onClick={() => onClickSelectedCategory(sub)}
-                className={`category-item-name`}
+               className={`category-item-name`}
             >{sub.name}</p>
 
 
@@ -353,6 +353,20 @@ function CategoryRecursive({sub, handleToggleExpand, expandCategories, onClickSe
     ) : null
 }
 
+function RenderBreadcrumb({currentCategory}) {
+    if (currentCategory.name) {
+        return (
+            <span>
+                <a href={`${currentCategory.name}`}>{currentCategory.name}</a>
+                 /
+
+                {currentCategory?.sub && <RenderBreadcrumb currentCategory={currentCategory.sub}/>}
+            </span>
+        )
+
+    }
+
+}
 
 export default CategoryList;
 

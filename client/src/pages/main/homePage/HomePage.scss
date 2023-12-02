@@ -131,6 +131,8 @@
 
     .homepage-carousel {
         //margin-top: 10px;
+        max-height: 560px;
+        overflow: hidden;
     }
 }
 
