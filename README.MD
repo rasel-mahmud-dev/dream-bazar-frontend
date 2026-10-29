@@ -112,14 +112,6 @@ This project is fully containerized using Docker and Docker Compose, orchestrati
   docker compose down -v
   ```
 
-### Production Deployment
-
-To build and run production images (featuring optimized multi-stage builds and Nginx serving the static client bundle):
-
-```bash
-docker compose -f docker-compose.prod.yml up -d --build
-```
-
 ### Preview screenshot
 
 ####  Homepage

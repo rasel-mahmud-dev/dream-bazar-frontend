@@ -34,4 +34,7 @@ node_modules
 server/.netlify
 .netlify
 
+
+db/
+
 bac

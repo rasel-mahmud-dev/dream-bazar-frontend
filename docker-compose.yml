@@ -1,7 +1,4 @@
 services:
-  # ==========================================
-  # MongoDB Database Service
-  # ==========================================
   mongodb:
     image: mongo:7.0
     container_name: dream-bazar-mongodb
@@ -11,20 +8,17 @@ services:
     environment:
       MONGO_INITDB_DATABASE: ${DB_NAME:-dream-bazar}
     volumes:
-      - mongodb_data:/data/db
+      - ./db:/data/db
       - ./docker/mongo-init:/docker-entrypoint-initdb.d:ro
     networks:
       - dream-bazar-network
     healthcheck:
-      test: ["CMD-SHELL", "echo 'db.runCommand(\"ping\").ok' | mongosh localhost:27017/test --quiet"]
+      test: [ "CMD-SHELL", "echo 'db.runCommand(\"ping\").ok' | mongosh localhost:27017/test --quiet" ]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 15s
 
-  # ==========================================
-  # Mongo Express (Web UI for MongoDB)
-  # ==========================================
   mongo-express:
     image: mongo-express:latest
     container_name: dream-bazar-mongo-express
@@ -42,9 +36,6 @@ services:
     networks:
       - dream-bazar-network
 
-  # ==========================================
-  # Backend Server (Node.js / Express / TS)
-  # ==========================================
   server:
     build:
       context: ./server
@@ -78,9 +69,6 @@ services:
     networks:
       - dream-bazar-network
 
-  # ==========================================
-  # Frontend Client (React / Vite / Tailwind)
-  # ==========================================
   client:
     build:
       context: ./client
@@ -99,13 +87,6 @@ services:
       - server
     networks:
       - dream-bazar-network
-
-# ==========================================
-# Named Volumes & Networks
-# ==========================================
-volumes:
-  mongodb_data:
-    driver: local
 
 networks:
   dream-bazar-network:
