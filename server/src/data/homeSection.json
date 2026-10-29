@@ -62,7 +62,7 @@
         "sectionSlug": "HomeANDKitchenEssentials",
         "filter": {
             "categoryIds": [
-                "4cd2f04c86fb7aa81fa105b3"
+                "000000000000000000c00004"
             ]
         }
     },
@@ -80,7 +80,7 @@
         "sectionSlug": "TopDealsOnTVsAppliances",
         "filter": {
             "categoryIds": [
-                "4cd2f04c86fb7aa81fa105b3"
+                "000000000000000000c00003"
             ]
         }
     },

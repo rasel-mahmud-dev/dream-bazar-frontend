@@ -19,7 +19,8 @@ const homeNavData: HomeNavDataType[] = [
     {
         label: "Top Offer",
         logo: "f15c02bfeb02d15d.png",
-        name: "kj98759e347",
+        name: "Mobiles",
+        rootCategory: "Electronics",
     },
     {
         label: "Computers",
@@ -161,15 +162,15 @@ const homeNavData: HomeNavDataType[] = [
                 ideal: "women",
                 for_category: ["top wear", "Dresses and Gowns", "Innerwear and Swimwear"],
                 sub_menu: [
-                    { label: "All", name: "" },
-                    { label: "Women Tops", name: "" },
-                    { label: "Women Dresses", name: "" },
+                    { label: "All", name: "Women Western" },
+                    { label: "Women Tops", name: "Women Tops" },
+                    { label: "Women Dresses", name: "Women Dresses" },
                     {
                         label: "Women T-shirts & Polo T-shirts",
                         name: "t-sharts",
                     },
-                    { label: "Women Jeans", name: "jeans" },
-                    { label: "Women Nighties & Night Dresses", name: "" },
+                    { label: "Women Jeans", name: "Women Jeans" },
+                    { label: "Women Nighties & Night Dresses", name: "Women Dresses" },
                     // { label: "Women Nightsuit", name: ""},
                     // { label: "Women Track Pants", name: ""},
                     // { label: "Women Trouser", name: ""},
@@ -827,14 +828,16 @@ const homeNavData: HomeNavDataType[] = [
     {
         label: "Home & Kitchen",
         name: "home & kitchen",
+        rootCategory: "home & kitchen",
         logo: "ab7e2b022a4587dd.jpg",
     },
-    { label: "Glosses", logo: "29327f40e9c4d26b.png", name: "kj98e759347" },
-    { label: "Travels", logo: "71050627a56b4693.png", name: "kj98e759347" },
+    { label: "Glosses", logo: "29327f40e9c4d26b.png", name: "Perfume", rootCategory: "Beauty and Grooming" },
+    { label: "Travels", logo: "71050627a56b4693.png", name: "Bags, Suitcases & Luggage", rootCategory: "Clothes" },
     {
         label: "Beauty, Toys & more",
         logo: "dff3f7adcf3a90c6.png",
-        name: "kj98e759347",
+        name: "Beauty and Grooming",
+        rootCategory: "Beauty and Grooming",
     },
 ];
 

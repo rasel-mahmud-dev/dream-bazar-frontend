@@ -17,10 +17,13 @@ import attributeRouter from "../modules/attribute/attribute.route";
 const router = express.Router()
 
 router.use("/api/v1/products", productRouter)
+router.use("/api/products", productRouter)
 router.use("/api/v1/attributes", attributeRouter)
 router.use("/api/v1/categories", categoryRouter)
+router.use("/api/categories", categoryRouter)
 router.use("/api/v1/auth", authRouter)
 router.use("/api/v1/brands", brandRouter)
+router.use("/api/brands", brandRouter)
 // router.use("/api/", shopRouter)
 // router.use("/api/", shippingAddressRouter)
 // router.use("/api/", sellerRouter)

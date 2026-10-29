@@ -1,26 +1,26 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
-import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
-import {FaTimes} from "react-icons/fa";
-import {CategoryType} from "store/types";
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { FaTimes } from "react-icons/fa";
+import { CategoryType } from "store/types";
 
 import "./styles.scss";
 
 import useLanguage from "src/hooks/useLanguage";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import useAppSelector from "src/hooks/useAppSelector";
-import {changeCategoryAction, fetchFlatCategoriesAction} from "actions/categoryAction";
+import { changeCategoryAction, fetchFlatCategoriesAction } from "actions/categoryAction";
 
 
 function CategoryList(props) {
-    const {onChangeCategory} = props;
+    const { onChangeCategory } = props;
 
     const dispatch = useAppDispatch();
     const location = useLocation();
 
     const l = useLanguage();
 
-    const {flatCategories, category} = useAppSelector(state => state.categoryState);
+    const { flatCategories, category } = useAppSelector(state => state.categoryState);
     let [searchParams, setSearchParams] = useSearchParams();
 
     let catTree = searchParams.get("catTree");
@@ -28,7 +28,7 @@ function CategoryList(props) {
     const [selectedCategory, setSelectedCategory] = useState<CategoryType>(null as unknown as CategoryType);
 
     const navigate = useNavigate();
-    const {pId} = useParams();
+    const { pId } = useParams();
 
 
     useEffect(() => {
@@ -52,7 +52,7 @@ function CategoryList(props) {
         let rootCategory;
 
         if (pId) {
-            rootCategory = flatCategories.find(item => item.name === pId);
+            rootCategory = flatCategories.find(item => item.name?.toLowerCase() === pId?.toLowerCase() || item.name === pId);
         }
 
         if (!rootCategory) {
@@ -63,7 +63,7 @@ function CategoryList(props) {
 
         if (catTree) {
 
-            let lastChild = flatCategories.find(fc => fc.name === catTree);
+            let lastChild = flatCategories.find(fc => fc.name?.toLowerCase() === catTree?.toLowerCase() || fc.name === catTree);
             if (!lastChild) {
                 wrongRootCategory(flatCategories)
                 return;
@@ -84,7 +84,7 @@ function CategoryList(props) {
                 sub: {}
             })
 
-            setExpandCategories({[rootCategory.name]: subCategories})
+            setExpandCategories({ [rootCategory.name]: subCategories })
 
         }
     }
@@ -101,7 +101,7 @@ function CategoryList(props) {
                 sub: {}
             })
             let sub = flatCategories.filter(item => item.parentId === rootCategory._id)
-            setExpandCategories({[rootCategory.name]: sub})
+            setExpandCategories({ [rootCategory.name]: sub })
         }
     }
 
@@ -117,7 +117,7 @@ function CategoryList(props) {
 
         // this for last level sub categories all children items.
         let expandItems = categories?.filter(cat => cat.parentId === currentItem._id)
-        setExpandCategories({[currentItem.name]: expandItems})
+        setExpandCategories({ [currentItem.name]: expandItems })
 
         level++
         temp[level] = currentItem
@@ -160,7 +160,7 @@ function CategoryList(props) {
 
 
     function handleRemoveCategory(item: CategoryType) {
-        let updatedSelectedCategory: CategoryType | null = {...selectedCategory};
+        let updatedSelectedCategory: CategoryType | null = { ...selectedCategory };
 
         // getAllRootCategoryFromLocal(item, (data)=>{
         //     for (let dataKey in data) {
@@ -188,7 +188,7 @@ function CategoryList(props) {
     function handleToggleExpand(item: CategoryType, parentItem) {
 
         // update last nested level category
-        let updateCurrentCategory = {...currentCategory};
+        let updateCurrentCategory = { ...currentCategory };
         setAsLastItem(updateCurrentCategory, item, parentItem)
 
 
@@ -198,7 +198,7 @@ function CategoryList(props) {
 
         // filter all sub child categories
         let expandItems = flatCategories?.filter(cat => cat.parentId === item._id)
-        setExpandCategories({[item.name]: expandItems})
+        setExpandCategories({ [item.name]: expandItems })
 
 
         // find clicked parent sub category and insert new on sub category and make as expand to render dom
@@ -280,7 +280,7 @@ function CategoryList(props) {
                 <h5 className="heading-6 font-semibold  my-4">{l("PICK A CATEGORY")}</h5>
 
                 <div className="flex items-center">
-                    <RenderBreadcrumb currentCategory={currentCategory}/>
+                    <RenderBreadcrumb currentCategory={currentCategory} />
                 </div>
 
                 <div className="">
@@ -291,7 +291,7 @@ function CategoryList(props) {
                                 className="bg-blue-500/20 font-medium px-4 py-2 rounded flex justify-between items-center"
                             >
                                 <span>{selectedCategory.name}</span>
-                                <FaTimes/>
+                                <FaTimes />
                             </div>
                         </div>
                     )}
@@ -312,7 +312,7 @@ function CategoryList(props) {
                         {currentCategory.sub && !expandCategories[currentCategory.name] && (
                             <CategoryRecursive
                                 onClickSelectedCategory={handleClickSelectedCategory}
-                                expandCategories={expandCategories} handleToggleExpand={handleToggleExpand} sub={currentCategory.sub}/>
+                                expandCategories={expandCategories} handleToggleExpand={handleToggleExpand} sub={currentCategory.sub} />
                         )}
                     </div>
                 )}
@@ -322,11 +322,11 @@ function CategoryList(props) {
 }
 
 
-function CategoryRecursive({sub, handleToggleExpand, expandCategories, onClickSelectedCategory}) {
+function CategoryRecursive({ sub, handleToggleExpand, expandCategories, onClickSelectedCategory }) {
     return sub ? (
         <li className="my-1">
             <p onClick={() => onClickSelectedCategory(sub)}
-               className={`category-item-name`}
+                className={`category-item-name`}
             >{sub.name}</p>
 
 
@@ -353,14 +353,14 @@ function CategoryRecursive({sub, handleToggleExpand, expandCategories, onClickSe
     ) : null
 }
 
-function RenderBreadcrumb({currentCategory}) {
+function RenderBreadcrumb({ currentCategory }) {
     if (currentCategory.name) {
         return (
             <span>
                 <a href={`${currentCategory.name}`}>{currentCategory.name}</a>
-                 /
+                /
 
-                {currentCategory?.sub && <RenderBreadcrumb currentCategory={currentCategory.sub}/>}
+                {currentCategory?.sub && <RenderBreadcrumb currentCategory={currentCategory.sub} />}
             </span>
         )
 

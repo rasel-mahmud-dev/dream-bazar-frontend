@@ -123,8 +123,7 @@ const HomeCategoryNav = () => {
                                         className="whitespace-nowrap cursor-pointer text-sm font-medium"
                                     >
                                         <Link
-
-                                            to={`/p/${subMenu.rootCategory}?catTree=${subMenu.name}`}>{subMenu.label}s</Link>
+                                            to={`/p/${subMenu.rootCategory || section.rootCategory || section.name}?catTree=${subMenu.name}`}>{subMenu.label}</Link>
                                     </h4>
                                 </div>
                             </div>
@@ -145,9 +144,10 @@ const HomeCategoryNav = () => {
                                                             <h4>
                                                                 <Link
                                                                     to={`/p/${
-                                                                        subSubMenu.rootCategory
-                                                                            ? subSubMenu.rootCategory
-                                                                            : subMenu.rootCategory
+                                                                        subSubMenu.rootCategory ||
+                                                                        subMenu.rootCategory ||
+                                                                        section.rootCategory ||
+                                                                        section.name
                                                                     }?catTree=${subSubMenu.name}`}
                                                                 >
                                                                     {subSubMenu.label}
@@ -172,8 +172,8 @@ const HomeCategoryNav = () => {
 
     function handleClickToJump(section) {
         let {sub_menu, rootCategory, name} = section
-        if (!sub_menu && rootCategory) {
-            navigate(`/p/${section.rootCategory}?catTree=${section.name}`)
+        if (!sub_menu) {
+            navigate(`/p/${rootCategory || name}?catTree=${name}`)
         }
     }
 
@@ -194,8 +194,8 @@ const HomeCategoryNav = () => {
                             className="flex home-category-list-item-content flex-col items-center  border md:border-none rounded-full md:bg-transparent ">
                             <Image className="category-list-item-img" src={staticImagePath(section.logo)}/>
                             <h4 className="hidden md:block text-sm font-medium">
-                                {(!section.sub_menu && section.rootCategory) ? (
-                                    <Link to={`/p/${section.rootCategory}?catTree=${section.name}`}>
+                                {(!section.sub_menu) ? (
+                                    <Link to={`/p/${section.rootCategory || section.name}?catTree=${section.name}`}>
                                         {l(section.label)}
                                     </Link>
                                 ) : l(section.label)}

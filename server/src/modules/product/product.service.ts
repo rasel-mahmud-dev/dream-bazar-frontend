@@ -263,45 +263,57 @@ class ProductService {
                     let cursor;
 
                     switch (sectionId) {
+                        case "FeaturedProducts":
+                            cursor = collections.aggregate([
+                                {$sort: {views: -1}},
+                                {$limit: 10}
+                            ])
+                            break;
 
                         case "TopSelling":
+                        case "TrendingNow":
+                        case "PopularProducts":
                             cursor = collections.aggregate([
-                                {$sort: {sold: 1}},
+                                {$sort: {sold: -1}},
                                 {$limit: 10}
                             ])
                             break;
 
                         case "LatestOffer":
+                        case "DealsOfTheDay":
+                        case "BiggestDealTopProductsCarousel":
                             cursor = collections.aggregate([
-                                {$sort: {discount: 1}},
+                                {$sort: {discount: -1}},
                                 {$limit: 10}
                             ])
                             break;
+
                         case "MostView":
                             cursor = collections.aggregate([
-                                {$sort: {views: 1}},
+                                {$sort: {views: -1}},
                                 {$limit: 10}
                             ])
                             break;
 
                         case "TopCategoryList":
+                        case "Categories":
                             cursor = CategoryCollections.aggregate([
-                                {$sort: {views: 1}},
+                                {$match: {parentId: null}},
                                 {$limit: 30}
                             ])
-
                             break;
 
                         case "TopBrandsCarousel":
                             cursor = BrandCollections.aggregate([
-                                {$sort: {views: 1}},
                                 {$limit: 30}
                             ])
                             break;
 
                         default:
+                            cursor = collections.aggregate([
+                                {$limit: 10}
+                            ])
                             break;
-
                     }
 
 
