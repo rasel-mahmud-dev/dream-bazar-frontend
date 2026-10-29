@@ -1,0 +1,4097 @@
+[
+  {
+    "_id": "000000000000000000b00000",
+    "name": "Apple",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/apple.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00001",
+    "name": "Samsung",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/samsung.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00002",
+    "name": "Google",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/google.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00003",
+    "name": "OnePlus",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/oneplus.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00004",
+    "name": "Xiaomi",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/xiaomi.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00005",
+    "name": "Realme",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/realme.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00006",
+    "name": "Motorola",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/motorola.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00007",
+    "name": "HP",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hp.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00008",
+    "name": "Dell",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/dell.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00009",
+    "name": "Lenovo",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/lenovo.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0000a",
+    "name": "ASUS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/asus.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0000b",
+    "name": "Acer",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/acer.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0000c",
+    "name": "MSI",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/msi.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0000d",
+    "name": "Intel",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/intel.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0000e",
+    "name": "AMD",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/amd.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0000f",
+    "name": "Corsair",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/corsair.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00010",
+    "name": "Kingston",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kingston.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00011",
+    "name": "Western Digital",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/wd.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00012",
+    "name": "Seagate",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/seagate.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00013",
+    "name": "Logitech",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/logitech.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00014",
+    "name": "Sony",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/sony.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00015",
+    "name": "boAt",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/boat.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00016",
+    "name": "JBL",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jbl.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00017",
+    "name": "Marshall",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/marshall.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00018",
+    "name": "Noise",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/noise.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00019",
+    "name": "Fastrack",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/fastrack.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0001a",
+    "name": "LG",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/lg.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0001b",
+    "name": "Whirlpool",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/whirlpool.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0001c",
+    "name": "Voltas",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/voltas.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0001d",
+    "name": "Haier",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/haier.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0001e",
+    "name": "Philips",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/philips.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0001f",
+    "name": "Prestige",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/prestige.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00020",
+    "name": "Bajaj",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bajaj.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00021",
+    "name": "Kent",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kent.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00022",
+    "name": "Havells",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/havells.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00023",
+    "name": "Crompton",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/crompton.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00024",
+    "name": "Nike",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/nike.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00025",
+    "name": "Adidas",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/adidas.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00026",
+    "name": "Puma",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/puma.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00027",
+    "name": "Bata",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bata.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00028",
+    "name": "Red Tape",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/redtape.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00029",
+    "name": "Woodland",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/woodland.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0002a",
+    "name": "Levi's",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/levis.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0002b",
+    "name": "Roadster",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/roadster.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0002c",
+    "name": "Peter England",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/peterengland.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0002d",
+    "name": "Raymond",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/raymond.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0002e",
+    "name": "Manyavar",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/manyavar.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0002f",
+    "name": "Titan",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/titan.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00030",
+    "name": "Casio",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/casio.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00031",
+    "name": "Fossil",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/fossil.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00032",
+    "name": "Ray-Ban",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/rayban.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00033",
+    "name": "American Tourister",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/americantourister.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00034",
+    "name": "Wildcraft",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/wildcraft.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00035",
+    "name": "Fogg",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/fogg.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00036",
+    "name": "Park Avenue",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/parkavenue.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00037",
+    "name": "Siril",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/siril.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00038",
+    "name": "Vero Moda",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/veromoda.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00039",
+    "name": "Canon",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/canon.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0003a",
+    "name": "Epson",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/epson.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0003b",
+    "name": "TP-Link",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/tplink.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0003c",
+    "name": "Mi",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mi.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0003d",
+    "name": "Spigen",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/spigen.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0003e",
+    "name": "Jape",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jape.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0003f",
+    "name": "AUDICE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/audice.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00040",
+    "name": "ABC",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/abc.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00041",
+    "name": "YuniKase",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/yunikase.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00042",
+    "name": "MOTOGLOBAL",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/motoglobal.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00043",
+    "name": "Jetrive",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jetrive.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00044",
+    "name": "BeeNex",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/beenex.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00045",
+    "name": "kingbell",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kingbell.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00046",
+    "name": "MLK",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mlk.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00047",
+    "name": "iWishKart",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/iwishkart.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00048",
+    "name": "Auxiliary",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/auxiliary.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00049",
+    "name": "MobiLooks",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mobilooks.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0004a",
+    "name": "RightLook",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/rightlook.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0004b",
+    "name": "CELLMASTER",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/cellmaster.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0004c",
+    "name": "LORENZ",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/lorenz.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0004d",
+    "name": "RAGHAV",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/raghav.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0004e",
+    "name": "DRUMSTONE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/drumstone.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0004f",
+    "name": "StyleOxx",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/styleoxx.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00050",
+    "name": "Elevea",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/elevea.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00051",
+    "name": "valente",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/valente.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00052",
+    "name": "Asotai",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/asotai.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00053",
+    "name": "Melbon",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/melbon.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00054",
+    "name": "SanDisk",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/sandisk.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00055",
+    "name": "Bestor",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bestor.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00056",
+    "name": "MOCA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/moca.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00057",
+    "name": "Henture",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/henture.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00058",
+    "name": "jaivix",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jaivix.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00059",
+    "name": "SKOG",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/skog.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0005a",
+    "name": "VOOCME",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/voocme.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0005b",
+    "name": "VYAR",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/vyar.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0005c",
+    "name": "PRODOT",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/prodot.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0005d",
+    "name": "ZEBRONICS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/zebronics.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0005e",
+    "name": "HITRIME",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hitrime.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0005f",
+    "name": "SIGNATIZE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/signatize.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00060",
+    "name": "Jiyancreation",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jiyancreation.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00061",
+    "name": "Flipkart",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/flipkart.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00062",
+    "name": "Ang",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ang.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00063",
+    "name": "JET",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jet.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00064",
+    "name": "GPN",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/gpn.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00065",
+    "name": "Salty",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/salty.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00066",
+    "name": "Dot",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/dot.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00067",
+    "name": "AadyaCartridge",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/aadyacartridge.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00068",
+    "name": "ASV",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/asv.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00069",
+    "name": "wetech",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/wetech.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0006a",
+    "name": "Inkspot",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/inkspot.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0006b",
+    "name": "TonerTown",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/tonertown.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0006c",
+    "name": "verena",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/verena.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0006d",
+    "name": "IMAGE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/image.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0006e",
+    "name": "FINEJET",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/finejet.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0006f",
+    "name": "ASHUCOMPUTERS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ashucomputers.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00070",
+    "name": "Tygot",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/tygot.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00071",
+    "name": "SAVI",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/savi.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00072",
+    "name": "USTINE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ustine.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00073",
+    "name": "Syvo",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/syvo.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00074",
+    "name": "NAFA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/nafa.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00075",
+    "name": "BESTFLY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bestfly.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00076",
+    "name": "Sherali",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/sherali.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00077",
+    "name": "Kubra",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kubra.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00078",
+    "name": "MGULTRA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mgultra.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00079",
+    "name": "KINGJOY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kingjoy.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0007a",
+    "name": "Hold",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hold.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0007b",
+    "name": "DIGITEK",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/digitek.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0007c",
+    "name": "1Goal",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/1goal.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0007d",
+    "name": "ELECTRO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/electro.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0007e",
+    "name": "MBTCO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mbtco.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0007f",
+    "name": "Frontech",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/frontech.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00080",
+    "name": "Trenzu",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/trenzu.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00081",
+    "name": "TAAPSEE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/taapsee.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00082",
+    "name": "OG",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/og.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00083",
+    "name": "Trueview",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/trueview.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00084",
+    "name": "D-Link",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/d-link.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00085",
+    "name": "HIVEN",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hiven.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00086",
+    "name": "Sastaacha",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/sastaacha.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00087",
+    "name": "Circuitbox",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/circuitbox.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00088",
+    "name": "RS TRADERS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/rs-traders.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00089",
+    "name": "Kreo",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kreo.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0008a",
+    "name": "Manifestation",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/manifestation.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0008b",
+    "name": "Craftedlayer studio",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/craftedlayer-studio.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0008c",
+    "name": "The Spark Stores",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/the-spark-stores.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0008d",
+    "name": "Cosmic Byte",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/cosmic-byte.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0008e",
+    "name": "ANUKIRTI",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/anukirti.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0008f",
+    "name": "Clients Trend",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/clients-trend.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00090",
+    "name": "aindiancart",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/aindiancart.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00091",
+    "name": "3DLayerStudio",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/3dlayerstudio.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00092",
+    "name": "Aannie",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/aannie.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00093",
+    "name": "Koyozo",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/koyozo.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00094",
+    "name": "wublue",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/wublue.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00095",
+    "name": "HG WORLD",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hg-world.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00096",
+    "name": "EVOFOX",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/evofox.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00097",
+    "name": "Karcher",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/karcher.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00098",
+    "name": "NOVA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/nova.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00099",
+    "name": "Mat",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mat.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0009a",
+    "name": "JAXHOM",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jaxhom.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0009b",
+    "name": "EUREKA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/eureka.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0009c",
+    "name": "The",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/the.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0009d",
+    "name": "Narwal",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/narwal.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0009e",
+    "name": "DKOR'HOM",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/dkor-hom.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0009f",
+    "name": "Trendiee",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/trendiee.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000a0",
+    "name": "iBELL",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ibell.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000a1",
+    "name": "SEZNIK",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/seznik.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000a2",
+    "name": "Pigeon",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/pigeon.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000a3",
+    "name": "KJ",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kj.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000a4",
+    "name": "Maa",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/maa.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000a5",
+    "name": "Sai",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/sai.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000a6",
+    "name": "Thomson",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/thomson.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000a7",
+    "name": "Electrolux",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/electrolux.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000a8",
+    "name": "VW",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/vw.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000a9",
+    "name": "IFB",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ifb.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000aa",
+    "name": "LOFE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/lofe.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000ab",
+    "name": "Kenstar",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kenstar.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000ac",
+    "name": "Sansui",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/sansui.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000ad",
+    "name": "LIBRA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/libra.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000ae",
+    "name": "DIGISMART",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/digismart.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000af",
+    "name": "Mrfashion",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mrfashion.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000b0",
+    "name": "Longway",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/longway.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000b1",
+    "name": "Moonstruck",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/moonstruck.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000b2",
+    "name": "Deep",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/deep.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000b3",
+    "name": "cookwell",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/cookwell.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000b4",
+    "name": "Athots",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/athots.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000b5",
+    "name": "InstaCuppa",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/instacuppa.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000b6",
+    "name": "SKYTONE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/skytone.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000b7",
+    "name": "Shaaya",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shaaya.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000b8",
+    "name": "ACTIVA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/activa.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000b9",
+    "name": "Zeswin",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/zeswin.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000ba",
+    "name": "Qubo",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/qubo.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000bb",
+    "name": "Bos",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bos.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000bc",
+    "name": "Wipro",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/wipro.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000bd",
+    "name": "SSS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/sss.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000be",
+    "name": "HCG",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hcg.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000bf",
+    "name": "Snekar",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/snekar.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000c0",
+    "name": "PB",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/pb.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000c1",
+    "name": "RSCT",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/rsct.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000c2",
+    "name": "JPY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jpy.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000c3",
+    "name": "A1",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/a1.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000c4",
+    "name": "ARPIT",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/arpit.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000c5",
+    "name": "Khatola",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/khatola.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000c6",
+    "name": "Wishbazaar",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/wishbazaar.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000c7",
+    "name": "Bombay Dyeing",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bombay-dyeing.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000c8",
+    "name": "Cotton",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/cotton.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000c9",
+    "name": "Linen",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/linen.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000ca",
+    "name": "Dizen",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/dizen.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000cb",
+    "name": "Aneeh",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/aneeh.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000cc",
+    "name": "A9",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/a9.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000cd",
+    "name": "ANVIKA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/anvika.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000ce",
+    "name": "LADIES",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ladies.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000cf",
+    "name": "Cozynest",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/cozynest.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000d0",
+    "name": "RAJVEER",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/rajveer.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000d1",
+    "name": "Resah",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/resah.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000d2",
+    "name": "Shrey",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shrey.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000d3",
+    "name": "Enviromedis",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/enviromedis.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000d4",
+    "name": "BGB",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bgb.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000d5",
+    "name": "Ajanta",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ajanta.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000d6",
+    "name": "Chitra",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/chitra.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000d7",
+    "name": "Desi",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/desi.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000d8",
+    "name": "phical",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/phical.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000d9",
+    "name": "RATWIN",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ratwin.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000da",
+    "name": "TEJANI",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/tejani.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000db",
+    "name": "Generic",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/generic.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000dc",
+    "name": "Weshouldgift",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/weshouldgift.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000dd",
+    "name": "WINSOME",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/winsome.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000de",
+    "name": "Vara",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/vara.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000df",
+    "name": "Pamidhar",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/pamidhar.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000e0",
+    "name": "khushbu",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/khushbu.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000e1",
+    "name": "Casa",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/casa.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000e2",
+    "name": "Lucky",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/lucky.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000e3",
+    "name": "CaptainCraft",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/captaincraft.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000e4",
+    "name": "IRONAIKA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ironaika.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000e5",
+    "name": "Shakuntla",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shakuntla.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000e6",
+    "name": "ROYALCRAFTS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/royalcrafts.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000e7",
+    "name": "Jinsharnam",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jinsharnam.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000e8",
+    "name": "jerry",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jerry.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000e9",
+    "name": "OXMEZA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/oxmeza.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000ea",
+    "name": "SHOPOGENIX",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shopogenix.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000eb",
+    "name": "NEST",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/nest.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000ec",
+    "name": "Stivon",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/stivon.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000ed",
+    "name": "HANDECO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/handeco.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000ee",
+    "name": "ENTRYZONE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/entryzone.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000ef",
+    "name": "SEJALCREATION",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/sejalcreation.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000f0",
+    "name": "Sturlite",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/sturlite.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000f1",
+    "name": "One94Store",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/one94store.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000f2",
+    "name": "Zuper",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/zuper.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000f3",
+    "name": "Vinayak",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/vinayak.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000f4",
+    "name": "PARADIGM",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/paradigm.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000f5",
+    "name": "Beurer",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/beurer.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000f6",
+    "name": "Gojeeva",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/gojeeva.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000f7",
+    "name": "Bosch",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bosch.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000f8",
+    "name": "SUPERSTUD",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/superstud.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000f9",
+    "name": "HOTFIX",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hotfix.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000fa",
+    "name": "Hillgrove",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hillgrove.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000fb",
+    "name": "JON",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jon.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000fc",
+    "name": "Padmakshi",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/padmakshi.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000fd",
+    "name": "Meteor",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/meteor.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000fe",
+    "name": "zontic",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/zontic.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b000ff",
+    "name": "BoltCraft",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/boltcraft.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00100",
+    "name": "UKT",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ukt.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00101",
+    "name": "HENGLOBE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/henglobe.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00102",
+    "name": "Tomahawk",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/tomahawk.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00103",
+    "name": "Inditrust",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/inditrust.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00104",
+    "name": "kiyan",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kiyan.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00105",
+    "name": "FINNEST",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/finnest.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00106",
+    "name": "HardWall",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hardwall.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00107",
+    "name": "JIALTO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jialto.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00108",
+    "name": "Harsh",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/harsh.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00109",
+    "name": "keshavraj",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/keshavraj.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0010a",
+    "name": "BS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bs.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0010b",
+    "name": "U.S. Polo Assn.",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/u-s-polo-assn.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0010c",
+    "name": "carrydreams",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/carrydreams.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0010d",
+    "name": "TAPODHANI",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/tapodhani.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0010e",
+    "name": "new",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/new.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0010f",
+    "name": "JILANI",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jilani.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00110",
+    "name": "STYDEN",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/styden.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00111",
+    "name": "Shirazi",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shirazi.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00112",
+    "name": "Flipkids",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/flipkids.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00113",
+    "name": "Mini",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mini.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00114",
+    "name": "SHRI",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shri.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00115",
+    "name": "Svatantra",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/svatantra.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00116",
+    "name": "Chandrika",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/chandrika.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00117",
+    "name": "KIDCHAMP",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kidchamp.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00118",
+    "name": "Biba",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/biba.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00119",
+    "name": "TOP",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/top.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0011a",
+    "name": "Tanu",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/tanu.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0011b",
+    "name": "Divastri",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/divastri.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0011c",
+    "name": "YOVA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/yova.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0011d",
+    "name": "HECOLLY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hecolly.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0011e",
+    "name": "EthnicBasket",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ethnicbasket.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0011f",
+    "name": "QUEUEE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/queuee.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00120",
+    "name": "ANJAYA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/anjaya.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00121",
+    "name": "Hindu",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hindu.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00122",
+    "name": "bigbanana",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bigbanana.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00123",
+    "name": "DIMMY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/dimmy.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00124",
+    "name": "CELLUX",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/cellux.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00125",
+    "name": "IFA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ifa.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00126",
+    "name": "Avira",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/avira.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00127",
+    "name": "SHOPPY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shoppy.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00128",
+    "name": "AHHYAN",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ahhyan.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00129",
+    "name": "Lofn",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/lofn.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0012a",
+    "name": "SULIT",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/sulit.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0012b",
+    "name": "DREAM",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/dream.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0012c",
+    "name": "Mars",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mars.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0012d",
+    "name": "ifadresses",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ifadresses.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0012e",
+    "name": "EloraKids",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/elorakids.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0012f",
+    "name": "MSMERMAID",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/msmermaid.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00130",
+    "name": "Shining",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shining.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00131",
+    "name": "PROMISE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/promise.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00132",
+    "name": "MGRS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mgrs.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00133",
+    "name": "Crocs",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/crocs.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00134",
+    "name": "BOOMER",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/boomer.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00135",
+    "name": "HOOH",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hooh.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00136",
+    "name": "LIBERTY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/liberty.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00137",
+    "name": "asian",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/asian.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00138",
+    "name": "ONYC",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/onyc.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00139",
+    "name": "Santhanakid",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/santhanakid.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0013a",
+    "name": "BINOS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/binos.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0013b",
+    "name": "PASSION",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/passion.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0013c",
+    "name": "Pu-Pine",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/pu-pine.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0013d",
+    "name": "Zoom",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/zoom.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0013e",
+    "name": "kats",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kats.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0013f",
+    "name": "broniq",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/broniq.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00140",
+    "name": "NEXSOLE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/nexsole.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00141",
+    "name": "Zorza",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/zorza.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00142",
+    "name": "VEXIMO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/veximo.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00143",
+    "name": "Mishoes",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mishoes.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00144",
+    "name": "Stride",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/stride.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00145",
+    "name": "SHOE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shoe.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00146",
+    "name": "NALAIN",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/nalain.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00147",
+    "name": "DRAG",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/drag.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00148",
+    "name": "aurish",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/aurish.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00149",
+    "name": "DOCTOR",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/doctor.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0014a",
+    "name": "Vaniya",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/vaniya.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0014b",
+    "name": "StepIndia",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/stepindia.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0014c",
+    "name": "Revelen",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/revelen.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0014d",
+    "name": "Walk",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/walk.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0014e",
+    "name": "hunyza",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hunyza.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0014f",
+    "name": "Global",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/global.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00150",
+    "name": "SRA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/sra.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00151",
+    "name": "Rush",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/rush.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00152",
+    "name": "Jholawala",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jholawala.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00153",
+    "name": "Rainox",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/rainox.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00154",
+    "name": "ezra",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ezra.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00155",
+    "name": "Ankit",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ankit.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00156",
+    "name": "Axen",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/axen.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00157",
+    "name": "Travel",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/travel.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00158",
+    "name": "Frontsy",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/frontsy.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00159",
+    "name": "KNSE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/knse.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0015a",
+    "name": "Supply",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/supply.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0015b",
+    "name": "HRX",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hrx.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0015c",
+    "name": "YES",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/yes.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0015d",
+    "name": "Real",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/real.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0015e",
+    "name": "shree",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shree.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0015f",
+    "name": "ROADWAY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/roadway.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00160",
+    "name": "Khatu",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/khatu.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00161",
+    "name": "Kkhatu",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kkhatu.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00162",
+    "name": "HMOGOVON",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hmogovon.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00163",
+    "name": "VMgold",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/vmgold.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00164",
+    "name": "MENZ",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/menz.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00165",
+    "name": "Niddleman",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/niddleman.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00166",
+    "name": "GOOD",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/good.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00167",
+    "name": "UNIVERSAL",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/universal.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00168",
+    "name": "WiiBross",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/wiibross.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00169",
+    "name": "GIVA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/giva.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0016a",
+    "name": "arina",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/arina.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0016b",
+    "name": "YELLOW",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/yellow.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0016c",
+    "name": "ZENEME",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/zeneme.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0016d",
+    "name": "forevershine",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/forevershine.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0016e",
+    "name": "Aazeen",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/aazeen.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0016f",
+    "name": "house",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/house.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00170",
+    "name": "Aksh",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/aksh.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00171",
+    "name": "Fashion",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/fashion.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00172",
+    "name": "KENNICE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kennice.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00173",
+    "name": "Elara",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/elara.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00174",
+    "name": "Velvet",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/velvet.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00175",
+    "name": "BOMBAY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bombay.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00176",
+    "name": "BEARDO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/beardo.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00177",
+    "name": "SLR",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/slr.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00178",
+    "name": "DENDUES",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/dendues.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00179",
+    "name": "qamanta",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/qamanta.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0017a",
+    "name": "MynxeHTC",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mynxehtc.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0017b",
+    "name": "SHIFOZA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shifoza.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0017c",
+    "name": "QGS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/qgs.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0017d",
+    "name": "MARY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mary.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0017e",
+    "name": "Crabs",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/crabs.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0017f",
+    "name": "Daily",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/daily.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00180",
+    "name": "BoldTrim",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/boldtrim.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00181",
+    "name": "Dandy",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/dandy.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00182",
+    "name": "Virth",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/virth.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00183",
+    "name": "LICHEE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/lichee.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00184",
+    "name": "GFDS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/gfds.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00185",
+    "name": "Fiza",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/fiza.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00186",
+    "name": "VEGA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/vega.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00187",
+    "name": "Sizzling",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/sizzling.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00188",
+    "name": "PAGALY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/pagaly.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00189",
+    "name": "APNA STORE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/apna-store.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0018a",
+    "name": "Winston",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/winston.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0018b",
+    "name": "PKK TRADERS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/pkk-traders.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0018c",
+    "name": "ktein",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ktein.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0018d",
+    "name": "OVER BELIEVE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/over-believe.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0018e",
+    "name": "RuHaNest",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ruhanest.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0018f",
+    "name": "SEASPIRIT",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/seaspirit.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00190",
+    "name": "TUNEBUDDY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/tunebuddy.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00191",
+    "name": "TOROLY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/toroly.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00192",
+    "name": "Hanudhya",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hanudhya.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00193",
+    "name": "Makemebold",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/makemebold.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00194",
+    "name": "Royaltail",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/royaltail.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00195",
+    "name": "Omron",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/omron.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00196",
+    "name": "URJAMEDICARE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/urjamedicare.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00197",
+    "name": "CRETO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/creto.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00198",
+    "name": "Zeom",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/zeom.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00199",
+    "name": "ARPIHARSZ",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/arpiharsz.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0019a",
+    "name": "Thermoneb",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/thermoneb.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0019b",
+    "name": "MuscleBlaze",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/muscleblaze.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0019c",
+    "name": "TATA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/tata.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0019d",
+    "name": "Shelcal",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shelcal.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0019e",
+    "name": "hk",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hk.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0019f",
+    "name": "Resource",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/resource.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001a0",
+    "name": "prohance",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/prohance.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001a1",
+    "name": "OZiva",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/oziva.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001a2",
+    "name": "Bodysterone",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bodysterone.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001a3",
+    "name": "getmymettle",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/getmymettle.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001a4",
+    "name": "ENSURE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ensure.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001a5",
+    "name": "BIGMUSCLES",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bigmuscles.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001a6",
+    "name": "METTLE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mettle.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001a7",
+    "name": "HealthyHey",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/healthyhey.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001a8",
+    "name": "Mabross",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mabross.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001a9",
+    "name": "Alloes",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/alloes.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001aa",
+    "name": "Protinex",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/protinex.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001ab",
+    "name": "VITAPROL",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/vitaprol.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001ac",
+    "name": "Durex",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/durex.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001ad",
+    "name": "SKORE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/skore.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001ae",
+    "name": "Drixa",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/drixa.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001af",
+    "name": "LILIPATI",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/lilipati.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001b0",
+    "name": "medibar",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/medibar.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001b1",
+    "name": "FLORAFACE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/floraface.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001b2",
+    "name": "Vigini",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/vigini.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001b3",
+    "name": "Bold",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/bold.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001b4",
+    "name": "everteen",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/everteen.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001b5",
+    "name": "Nooky",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/nooky.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001b6",
+    "name": "Famire",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/famire.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001b7",
+    "name": "glosswell",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/glosswell.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001b8",
+    "name": "Neovelle",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/neovelle.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001b9",
+    "name": "winry",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/winry.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001ba",
+    "name": "Lickcious",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/lickcious.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001bb",
+    "name": "Pampers",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/pampers.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001bc",
+    "name": "MYLO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mylo.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001bd",
+    "name": "Mumma",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mumma.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001be",
+    "name": "Earth",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/earth.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001bf",
+    "name": "AARISU",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/aarisu.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001c0",
+    "name": "kiclin",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kiclin.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001c1",
+    "name": "PelBart",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/pelbart.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001c2",
+    "name": "Ezoyplus",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ezoyplus.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001c3",
+    "name": "MeeMee",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/meemee.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001c4",
+    "name": "Hushabye",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hushabye.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001c5",
+    "name": "Great",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/great.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001c6",
+    "name": "BabiFy",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/babify.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001c7",
+    "name": "Padycare",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/padycare.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001c8",
+    "name": "DOCURA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/docura.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001c9",
+    "name": "LEGO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/lego.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001ca",
+    "name": "FOZZO-SK",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/fozzo-sk.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001cb",
+    "name": "AJDK",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ajdk.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001cc",
+    "name": "Shoro",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shoro.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001cd",
+    "name": "CountryLink",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/countrylink.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001ce",
+    "name": "Ruffo",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ruffo.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001cf",
+    "name": "Leemo",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/leemo.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001d0",
+    "name": "Pulsbery",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/pulsbery.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001d1",
+    "name": "Appster",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/appster.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001d2",
+    "name": "Chota",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/chota.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001d3",
+    "name": "Axiline",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/axiline.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001d4",
+    "name": "TEQUO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/tequo.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001d5",
+    "name": "Milton",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/milton.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001d6",
+    "name": "Urban",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/urban.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001d7",
+    "name": "CSK",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/csk.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001d8",
+    "name": "SKI",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ski.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001d9",
+    "name": "anayat",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/anayat.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001da",
+    "name": "RETRO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/retro.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001db",
+    "name": "KALRA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kalra.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001dc",
+    "name": "manoj",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/manoj.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001dd",
+    "name": "JEWEL",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jewel.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001de",
+    "name": "JAYCO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jayco.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001df",
+    "name": "TRYFLY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/tryfly.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001e0",
+    "name": "Portronics",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/portronics.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001e1",
+    "name": "COMICAL",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/comical.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001e2",
+    "name": "Priavy",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/priavy.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001e3",
+    "name": "RGV",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/rgv.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001e4",
+    "name": "Apexmobile",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/apexmobile.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001e5",
+    "name": "CABET",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/cabet.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001e6",
+    "name": "BIKETONICS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/biketonics.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001e7",
+    "name": "MGR",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mgr.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001e8",
+    "name": "HOJI",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hoji.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001e9",
+    "name": "HMDMART",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hmdmart.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001ea",
+    "name": "SRPHERE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/srphere.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001eb",
+    "name": "Meco",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/meco.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001ec",
+    "name": "SIGMA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/sigma.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001ed",
+    "name": "Metravi",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/metravi.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001ee",
+    "name": "Verilux",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/verilux.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001ef",
+    "name": "tHemiStO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/themisto.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001f0",
+    "name": "Tech Source Solutions",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/tech-source-solutions.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001f1",
+    "name": "AVIRATH ENTERPRISE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/avirath-enterprise.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001f2",
+    "name": "SpareParts Hub",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/spareparts-hub.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001f3",
+    "name": "HTC",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/htc.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001f4",
+    "name": "vinesto",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/vinesto.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001f5",
+    "name": "Mozarto",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mozarto.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001f6",
+    "name": "Crafts Haveli",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/crafts-haveli.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001f7",
+    "name": "HOUF",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/houf.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001f8",
+    "name": "BALRAMA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/balrama.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001f9",
+    "name": "Mastech",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mastech.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001fa",
+    "name": "Gadariya King",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/gadariya-king.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001fb",
+    "name": "AGpackers",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/agpackers.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001fc",
+    "name": "Penguin",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/penguin.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001fd",
+    "name": "Economics",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/economics.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001fe",
+    "name": "Class",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/class.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b001ff",
+    "name": "Dopamine",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/dopamine.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00200",
+    "name": "Osho",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/osho.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00201",
+    "name": "Lucent's",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/lucent-s.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00202",
+    "name": "Rich",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/rich.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00203",
+    "name": "Surah",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/surah.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00204",
+    "name": "Aditya",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/aditya.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00205",
+    "name": "Pariksha",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/pariksha.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00206",
+    "name": "EPFO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/epfo.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00207",
+    "name": "Hindi",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/hindi.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00208",
+    "name": "IGNOU",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ignou.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00209",
+    "name": "NCERT",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/ncert.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0020a",
+    "name": "My",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/my.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0020b",
+    "name": "Mega",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mega.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0020c",
+    "name": "Mungat",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/mungat.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0020d",
+    "name": "DEW",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/dew.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0020e",
+    "name": "Zyverra",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/zyverra.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0020f",
+    "name": "Aureviaoffical",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/aureviaoffical.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00210",
+    "name": "FASTRUSH",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/fastrush.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00211",
+    "name": "DeskDock",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/deskdock.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00212",
+    "name": "GENIYO",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/geniyo.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00213",
+    "name": "Kebica",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kebica.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00214",
+    "name": "NEEVANTA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/neevanta.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00215",
+    "name": "SkyFurnish",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/skyfurnish.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00216",
+    "name": "NRP",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/nrp.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00217",
+    "name": "NISHIV",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/nishiv.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00218",
+    "name": "FlatKitch",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/flatkitch.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00219",
+    "name": "GIFT",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/gift.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0021a",
+    "name": "Envroeity",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/envroeity.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0021b",
+    "name": "ZoonieceArt",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/zoonieceart.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0021c",
+    "name": "Yamaha",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/yamaha.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0021d",
+    "name": "FRONY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/frony.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0021e",
+    "name": "Wembley",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/wembley.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0021f",
+    "name": "intern",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/intern.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00220",
+    "name": "TOYNDIA",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/toyndia.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00221",
+    "name": "Nilesawar",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/nilesawar.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00222",
+    "name": "KING TOYZ",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/king-toyz.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00223",
+    "name": "Collectionmart",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/collectionmart.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00224",
+    "name": "Toofun",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/toofun.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00225",
+    "name": "USS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/uss.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00226",
+    "name": "Jericos",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/jericos.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00227",
+    "name": "Shamsa",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/shamsa.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00228",
+    "name": "Maa Momai Toys",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/maa-momai-toys.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00229",
+    "name": "Pick N Nick Toys",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/pick-n-nick-toys.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0022a",
+    "name": "Stybits",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/stybits.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0022b",
+    "name": "Nxt",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/nxt.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0022c",
+    "name": "Kidzblend",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/kidzblend.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0022d",
+    "name": "WORLD OF TINY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/world-of-tiny.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0022e",
+    "name": "Boldfit",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/boldfit.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0022f",
+    "name": "COOL",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/cool.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00230",
+    "name": "GymWar",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/gymwar.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00231",
+    "name": "TRUE",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/true.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00232",
+    "name": "VIFITKIT",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/vifitkit.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00233",
+    "name": "L'AVENIR",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/l-avenir.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00234",
+    "name": "QUICK",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/quick.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00235",
+    "name": "BURNLAB",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/burnlab.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00236",
+    "name": "Goness",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/goness.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00237",
+    "name": "HARPWAYS",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/harpways.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00238",
+    "name": "COGNANT",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/cognant.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00239",
+    "name": "Pedigree",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/pedigree.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0023a",
+    "name": "Drools",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/drools.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0023b",
+    "name": "chullbull pet products",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/chullbull-pet-products.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0023c",
+    "name": "Wuff-wuff",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/wuff-wuff.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0023d",
+    "name": "PET HOOD",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/pet-hood.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0023e",
+    "name": "ZARRY",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/zarry.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b0023f",
+    "name": "Heaven Luxurious",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/heaven-luxurious.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00240",
+    "name": "Stylerium",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/stylerium.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00241",
+    "name": "Conziv",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/conziv.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00242",
+    "name": "Active",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/active.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00243",
+    "name": "ORIDOR",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/oridor.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00244",
+    "name": "Nazar Battu",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/nazar-battu.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00245",
+    "name": "Slatters Be Royal Store",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/slatters-be-royal-store.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00246",
+    "name": "decorvaiz",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/decorvaiz.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00247",
+    "name": "Foodie  Puppies",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/foodie-puppies.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000b00248",
+    "name": "Puppy buddy",
+    "logo": "https://rukminim2.flixcart.com/image/100/100/k01wvgu0/brand-logo/puppy-buddy.png",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+]

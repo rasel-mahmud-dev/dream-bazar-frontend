@@ -7,7 +7,7 @@ import Image from "UI/Image/Image";
 import "./style.scss";
 
 
-import homeNavData from "./data";
+import homeNavData, {HomeNavDataType} from "./data";
 import useWindowResize from "src/hooks/useWindowResize";
 import useLanguage from "src/hooks/useLanguage";
 
@@ -21,6 +21,7 @@ interface moreHomeNavDataType {
 }
 
 const HomeCategoryNav = () => {
+    const [navData, setNavData] = useState<HomeNavDataType[]>(homeNavData);
     const [moreHomeNavData, setMoreHomeNavData] = React.useState<moreHomeNavDataType | null>(null);
 
     const l = useLanguage()
@@ -31,6 +32,22 @@ const HomeCategoryNav = () => {
 
     let innerWidth = useWindowResize()
 
+    useEffect(() => {
+        let isMounted = true;
+        fetch("/api/v1/configs/home_category_nav")
+            .then((res) => (res.ok ? res.json() : null))
+            .then((json) => {
+                if (!isMounted || !json) return;
+                const items = json?.data || json;
+                if (Array.isArray(items) && items.length > 0) {
+                    setNavData(items);
+                }
+            })
+            .catch(() => {});
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     useEffect(() => {
         if (innerWidth < 1024) {
@@ -182,7 +199,7 @@ const HomeCategoryNav = () => {
         <div className="home-category-list">
             <div
                 className="flex items-center justify-between max-w-8xl mx-auto px-2  gap-x-2 md:gap-x-4 scroll-x-transparent overflow-x-auto md:overflow-visible ">
-                {homeNavData.map((section, idx) => (
+                {navData.map((section, idx) => (
                     <div
                         key={idx}
                         className="home-category-list-item"

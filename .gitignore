@@ -35,11 +35,11 @@ server/.netlify
 .netlify
 
 
-db/
+/db/
 
-scripts/
-data/
-docker/
+/scripts/
+/data/
+/docker/
 
 bac
 

@@ -65,7 +65,13 @@ function CategoryList(props) {
 
             let lastChild = flatCategories.find(fc => fc.name?.toLowerCase() === catTree?.toLowerCase() || fc.name === catTree);
             if (!lastChild) {
-                wrongRootCategory(flatCategories)
+                let subCategories = flatCategories.filter(item => item.parentId === rootCategory._id);
+                setCurrentCategory({
+                    ...rootCategory,
+                    sub: {}
+                });
+                setExpandCategories({ [rootCategory.name]: subCategories });
+                dispatchCategoryChange(rootCategory);
                 return;
             }
 

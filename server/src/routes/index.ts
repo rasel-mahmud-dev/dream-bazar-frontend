@@ -12,6 +12,7 @@ import productRouter from "../modules/product/product.route";
 import brandRouter from "../modules/brand/brand.route";
 import categoryRouter from "../modules/category/category.route";
 import attributeRouter from "../modules/attribute/attribute.route";
+import appConfigRouter from "../modules/appConfig/appConfig.route";
 
 
 const router = express.Router()
@@ -24,6 +25,11 @@ router.use("/api/categories", categoryRouter)
 router.use("/api/v1/auth", authRouter)
 router.use("/api/v1/brands", brandRouter)
 router.use("/api/brands", brandRouter)
+router.use("/api/v1/configs", appConfigRouter)
+router.use("/api/configs", appConfigRouter)
+router.use("/api/v1/navigation", appConfigRouter)
+router.use("/api/navigation", appConfigRouter)
+
 // router.use("/api/", shopRouter)
 // router.use("/api/", shippingAddressRouter)
 // router.use("/api/", sellerRouter)

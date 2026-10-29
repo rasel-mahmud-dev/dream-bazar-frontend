@@ -1,0 +1,3228 @@
+[
+  {
+    "_id": "000000000000000000c00000",
+    "name": "Electronics",
+    "parentId": null,
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00001",
+    "name": "Clothes",
+    "parentId": null,
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/612/612/xif0q/shirt/r/9/p/m-st1-vebnor-original-imagp524b6fygkzz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00002",
+    "name": "Footwear",
+    "parentId": null,
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/612/612/xif0q/shoe/7/2/m/6-revolution-6-nike-black-white-iron-grey-original-imagg9k8a2fghgzu.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00003",
+    "name": "home entertainment",
+    "parentId": null,
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/612/612/xif0q/television/j/2/j/-original-imaghgphz7h8v9hy.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00004",
+    "name": "home & kitchen",
+    "parentId": null,
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/612/612/xif0q/electric-kettle/w/g/r/-original-imagkfsf5hfqp8gw.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00005",
+    "name": "Beauty and Grooming",
+    "parentId": null,
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/612/612/xif0q/perfume/m/n/b/100-scent-xtremo-eau-de-parfum-fogg-men-original-imagqghfv7ghkzz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00006",
+    "name": "Mobiles",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "ram",
+      "storage",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "ram"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "ram",
+      "storage"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00007",
+    "name": "Tablets",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/l5h2xe80/tablet/4/8/n/-original-imagg49bcmhbpwbc.jpeg",
+    "filterAttributes": [
+      "brand",
+      "storage",
+      "screen_size"
+    ],
+    "defaultExpand": [
+      "brand",
+      "storage"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "storage",
+      "screen_size"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00008",
+    "name": "Computer Components",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00009",
+    "name": "Motherboard",
+    "parentId": "000000000000000000c00008",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "form_factor",
+      "socket"
+    ],
+    "defaultExpand": [
+      "brand",
+      "form_factor"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "form_factor",
+      "socket"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0000a",
+    "name": "Ram",
+    "parentId": "000000000000000000c00008",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "ram_type"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "ram_type"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0000b",
+    "name": "Processor",
+    "parentId": "000000000000000000c00008",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "generation",
+      "cores"
+    ],
+    "defaultExpand": [
+      "brand",
+      "generation"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "generation",
+      "cores"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0000c",
+    "name": "SSD",
+    "parentId": "000000000000000000c00008",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "interface"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "interface"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0000d",
+    "name": "Powersupply",
+    "parentId": "000000000000000000c00008",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "wattage",
+      "efficiency"
+    ],
+    "defaultExpand": [
+      "brand",
+      "wattage"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "wattage",
+      "efficiency"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0000e",
+    "name": "Casing",
+    "parentId": "000000000000000000c00008",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "form_factor",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "form_factor"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "form_factor",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0000f",
+    "name": "desktop pcs",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00010",
+    "name": "all in one pc",
+    "parentId": "000000000000000000c0000f",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "processor",
+      "ram"
+    ],
+    "defaultExpand": [
+      "brand",
+      "processor"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "processor",
+      "ram"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00011",
+    "name": "mini pcs",
+    "parentId": "000000000000000000c0000f",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "processor",
+      "ram"
+    ],
+    "defaultExpand": [
+      "brand",
+      "processor"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "processor",
+      "ram"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00012",
+    "name": "tower pcs",
+    "parentId": "000000000000000000c0000f",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "processor",
+      "graphic"
+    ],
+    "defaultExpand": [
+      "brand",
+      "processor"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "processor",
+      "graphic"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00013",
+    "name": "Laptops",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/computer/m/b/n/-original-imagfdf4xnbyyxpa.jpeg",
+    "filterAttributes": [
+      "brand",
+      "processor",
+      "ram",
+      "ssd_capacity"
+    ],
+    "defaultExpand": [
+      "brand",
+      "processor"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "processor",
+      "ram"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00014",
+    "name": "Gaming Laptops",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "processor",
+      "graphic",
+      "ram"
+    ],
+    "defaultExpand": [
+      "brand",
+      "processor"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "processor",
+      "graphic"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00015",
+    "name": "audio and video",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00016",
+    "name": "Bluetooth Headphones",
+    "parentId": "000000000000000000c00015",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "connectivity"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color",
+      "connectivity"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00017",
+    "name": "Wired Headphones",
+    "parentId": "000000000000000000c00015",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "connector"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color",
+      "connector"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00018",
+    "name": "True Wireless Earbuds",
+    "parentId": "000000000000000000c00015",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "battery_life"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color",
+      "battery_life"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00019",
+    "name": "Bluetooth Speakers",
+    "parentId": "000000000000000000c00015",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "power_output"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color",
+      "power_output"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0001a",
+    "name": "Soundbars",
+    "parentId": "000000000000000000c00015",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "channels",
+      "power_output"
+    ],
+    "defaultExpand": [
+      "brand",
+      "channels"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "channels",
+      "power_output"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0001b",
+    "name": "Home Theatres",
+    "parentId": "000000000000000000c00015",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "channels",
+      "connectivity"
+    ],
+    "defaultExpand": [
+      "brand",
+      "channels"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "channels",
+      "connectivity"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0001c",
+    "name": "Computer Peripherals",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0001d",
+    "name": "Printers",
+    "parentId": "000000000000000000c0001c",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "type",
+      "functions"
+    ],
+    "defaultExpand": [
+      "brand",
+      "type"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "type",
+      "functions"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0001e",
+    "name": "Monitors",
+    "parentId": "000000000000000000c0001c",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "screen_size",
+      "resolution"
+    ],
+    "defaultExpand": [
+      "brand",
+      "screen_size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "screen_size",
+      "resolution"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0001f",
+    "name": "Projectors",
+    "parentId": "000000000000000000c0001c",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "resolution",
+      "lumens"
+    ],
+    "defaultExpand": [
+      "brand",
+      "resolution"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "resolution",
+      "lumens"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00020",
+    "name": "Laptop Accessories",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00021",
+    "name": "Mouse",
+    "parentId": "000000000000000000c00020",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "connectivity",
+      "dpi"
+    ],
+    "defaultExpand": [
+      "brand",
+      "connectivity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "connectivity",
+      "dpi"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00022",
+    "name": "Laptop Keyboards",
+    "parentId": "000000000000000000c00020",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "connectivity",
+      "type"
+    ],
+    "defaultExpand": [
+      "brand",
+      "connectivity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "connectivity",
+      "type"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00023",
+    "name": "Router",
+    "parentId": "000000000000000000c00020",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "speed",
+      "frequency_band"
+    ],
+    "defaultExpand": [
+      "brand",
+      "speed"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "speed",
+      "frequency_band"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00024",
+    "name": "Storage",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00025",
+    "name": "ComputerStoragePendrive",
+    "parentId": "000000000000000000c00024",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "interface"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "interface"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00026",
+    "name": "ExternalHardDrive",
+    "parentId": "000000000000000000c00024",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "connectivity"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "connectivity"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00027",
+    "name": "Smart Wearables",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "display_size",
+      "dial_shape"
+    ],
+    "defaultExpand": [
+      "brand",
+      "display_size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "display_size",
+      "dial_shape"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00028",
+    "name": "Smart Watches",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "display_size",
+      "dial_shape"
+    ],
+    "defaultExpand": [
+      "brand",
+      "display_size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "display_size",
+      "dial_shape"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00029",
+    "name": "top wear",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0002a",
+    "name": "t-sharts",
+    "parentId": "000000000000000000c00029",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color",
+      "fabric"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0002b",
+    "name": "Men's Casual Shirts",
+    "parentId": "000000000000000000c00029",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color",
+      "fit"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0002c",
+    "name": "Men's Formal Shirts",
+    "parentId": "000000000000000000c00029",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color",
+      "fit"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0002d",
+    "name": "Men's Kurtas",
+    "parentId": "000000000000000000c00029",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color",
+      "fabric"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0002e",
+    "name": "Men's Ethnic Sets",
+    "parentId": "000000000000000000c00029",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0002f",
+    "name": "Men's Blazers",
+    "parentId": "000000000000000000c00029",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color",
+      "fit"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00030",
+    "name": "Men's Suit",
+    "parentId": "000000000000000000c00029",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00031",
+    "name": "bottom wear",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00032",
+    "name": "jeans",
+    "parentId": "000000000000000000c00031",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color",
+      "fit"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00033",
+    "name": "Men's Trousers",
+    "parentId": "000000000000000000c00031",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color",
+      "fit"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00034",
+    "name": "Men's Trackpants",
+    "parentId": "000000000000000000c00031",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00035",
+    "name": "Men's Shorts",
+    "parentId": "000000000000000000c00031",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00036",
+    "name": "Men's Cargos",
+    "parentId": "000000000000000000c00031",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00037",
+    "name": "Men's Pyjamas & Loungepants",
+    "parentId": "000000000000000000c00031",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00038",
+    "name": "Women Ethnic",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00039",
+    "name": "sarees",
+    "parentId": "000000000000000000c00038",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "fabric",
+      "pattern"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color",
+      "fabric"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0003a",
+    "name": "blouses",
+    "parentId": "000000000000000000c00038",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "fabric",
+      "size"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color",
+      "fabric"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0003b",
+    "name": "Women Western",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0003c",
+    "name": "Women Tops",
+    "parentId": "000000000000000000c0003b",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "size"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color",
+      "size"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0003d",
+    "name": "Women Dresses",
+    "parentId": "000000000000000000c0003b",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "size",
+      "length"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color",
+      "size"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0003e",
+    "name": "Women Jeans",
+    "parentId": "000000000000000000c0003b",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "size",
+      "fit"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color",
+      "size"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0003f",
+    "name": "men-footwear",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00040",
+    "name": "Men's Sports Shoes",
+    "parentId": "000000000000000000c0003f",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00041",
+    "name": "Men's Casual Shoes",
+    "parentId": "000000000000000000c0003f",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00042",
+    "name": "Men's Formal Shoes",
+    "parentId": "000000000000000000c0003f",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00043",
+    "name": "Men's Sandals & Floaters",
+    "parentId": "000000000000000000c0003f",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00044",
+    "name": "Men's Slippers & Flip Flops",
+    "parentId": "000000000000000000c0003f",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00045",
+    "name": "women-footwear",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00046",
+    "name": "Women Flats",
+    "parentId": "000000000000000000c00045",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00047",
+    "name": "Women Heels",
+    "parentId": "000000000000000000c00045",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00048",
+    "name": "Women Wedges",
+    "parentId": "000000000000000000c00045",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00049",
+    "name": "Women Casual Shoes",
+    "parentId": "000000000000000000c00045",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0004a",
+    "name": "Women Sports Shoes",
+    "parentId": "000000000000000000c00045",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0004b",
+    "name": "Women Sneakers",
+    "parentId": "000000000000000000c00045",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0004c",
+    "name": "Women Boots",
+    "parentId": "000000000000000000c00045",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0004d",
+    "name": "watches-and-accessories",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0004e",
+    "name": "Men & Women Watches",
+    "parentId": "000000000000000000c0004d",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "dial_shape",
+      "strap_color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "dial_shape"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "dial_shape",
+      "strap_color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0004f",
+    "name": "Men & Women Sunglasses",
+    "parentId": "000000000000000000c0004d",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "frame_shape",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "frame_shape"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "frame_shape",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00050",
+    "name": "Wallets",
+    "parentId": "000000000000000000c0004d",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "material"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color",
+      "material"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00051",
+    "name": "Bags, Suitcases & Luggage",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00052",
+    "name": "Backpacks",
+    "parentId": "000000000000000000c00051",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00053",
+    "name": "Suitcases & Trolleys",
+    "parentId": "000000000000000000c00051",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color",
+      "wheels"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00054",
+    "name": "Handbags",
+    "parentId": "000000000000000000c00051",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "material"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color",
+      "material"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00055",
+    "name": "Slingbags",
+    "parentId": "000000000000000000c00051",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "material"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color",
+      "material"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00056",
+    "name": "Kids",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00057",
+    "name": "Boys & Girls Tshirts",
+    "parentId": "000000000000000000c00056",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00058",
+    "name": "Boys & Girls Jeans",
+    "parentId": "000000000000000000c00056",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00059",
+    "name": "Winter",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0005a",
+    "name": "Men's Jackets",
+    "parentId": "000000000000000000c00059",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0005b",
+    "name": "Men's Sweatshirts",
+    "parentId": "000000000000000000c00059",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0005c",
+    "name": "Men's Sweaters",
+    "parentId": "000000000000000000c00059",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0005d",
+    "name": "Women's Jackets",
+    "parentId": "000000000000000000c00059",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0005e",
+    "name": "Women's Sweaters & Cardigans",
+    "parentId": "000000000000000000c00059",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "size",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0005f",
+    "name": "Televisions",
+    "parentId": "000000000000000000c00003",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00060",
+    "name": "Smart TVs",
+    "parentId": "000000000000000000c0005f",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "screen_size",
+      "resolution"
+    ],
+    "defaultExpand": [
+      "brand",
+      "screen_size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "screen_size",
+      "resolution"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00061",
+    "name": "4K UHD TVs",
+    "parentId": "000000000000000000c0005f",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "screen_size",
+      "resolution"
+    ],
+    "defaultExpand": [
+      "brand",
+      "screen_size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "screen_size",
+      "resolution"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00062",
+    "name": "OLED TVs",
+    "parentId": "000000000000000000c0005f",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "screen_size",
+      "resolution"
+    ],
+    "defaultExpand": [
+      "brand",
+      "screen_size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "screen_size",
+      "resolution"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00063",
+    "name": "QLED TVs",
+    "parentId": "000000000000000000c0005f",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "screen_size",
+      "resolution"
+    ],
+    "defaultExpand": [
+      "brand",
+      "screen_size"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "screen_size",
+      "resolution"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00064",
+    "name": "Washing Machines",
+    "parentId": "000000000000000000c00003",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "function_type"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "function_type"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00065",
+    "name": "Air Conditioners",
+    "parentId": "000000000000000000c00003",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "energy_rating"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "energy_rating"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00066",
+    "name": "Refrigerators",
+    "parentId": "000000000000000000c00003",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00067",
+    "name": "Single Door",
+    "parentId": "000000000000000000c00066",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "energy_rating"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "energy_rating"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00068",
+    "name": "Double Door",
+    "parentId": "000000000000000000c00066",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "energy_rating"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "energy_rating"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00069",
+    "name": "Side by Side",
+    "parentId": "000000000000000000c00066",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "energy_rating"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "energy_rating"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0006a",
+    "name": "Kitchen Appliances",
+    "parentId": "000000000000000000c00003",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0006b",
+    "name": "Microwave Ovens",
+    "parentId": "000000000000000000c0006a",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "type"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "type"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0006c",
+    "name": "Juicer/Mixer/Grinder",
+    "parentId": "000000000000000000c0006a",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "power",
+      "jars"
+    ],
+    "defaultExpand": [
+      "brand",
+      "power"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "power",
+      "jars"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0006d",
+    "name": "Electric Kettle",
+    "parentId": "000000000000000000c0006a",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "material"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "material"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0006e",
+    "name": "Chimneys",
+    "parentId": "000000000000000000c0006a",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "suction_capacity",
+      "size"
+    ],
+    "defaultExpand": [
+      "brand",
+      "suction_capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "suction_capacity",
+      "size"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0006f",
+    "name": "Induction Cooktops",
+    "parentId": "000000000000000000c0006a",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "power"
+    ],
+    "defaultExpand": [
+      "brand",
+      "power"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "power"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00070",
+    "name": "Home Appliances",
+    "parentId": "000000000000000000c00003",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00071",
+    "name": "Irons",
+    "parentId": "000000000000000000c00070",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "type",
+      "power"
+    ],
+    "defaultExpand": [
+      "brand",
+      "type"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "type",
+      "power"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00072",
+    "name": "Water Purifiers",
+    "parentId": "000000000000000000c00070",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "purification_technology"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "purification_technology"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00073",
+    "name": "Vacuum Cleaners",
+    "parentId": "000000000000000000c00070",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "type",
+      "power"
+    ],
+    "defaultExpand": [
+      "brand",
+      "type"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "type",
+      "power"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00074",
+    "name": "Seasonal Appliances",
+    "parentId": "000000000000000000c00003",
+    "isProductLevel": false,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color"
+    ],
+    "defaultExpand": [
+      "brand",
+      "color"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "color"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00075",
+    "name": "Air Coolers",
+    "parentId": "000000000000000000c00074",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "capacity",
+      "type"
+    ],
+    "defaultExpand": [
+      "brand",
+      "capacity"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "capacity",
+      "type"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00076",
+    "name": "Fans",
+    "parentId": "000000000000000000c00074",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "blade_sweep",
+      "type"
+    ],
+    "defaultExpand": [
+      "brand",
+      "blade_sweep"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "blade_sweep",
+      "type"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00077",
+    "name": "Room Heater",
+    "parentId": "000000000000000000c00074",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "power",
+      "type"
+    ],
+    "defaultExpand": [
+      "brand",
+      "power"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "power",
+      "type"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00078",
+    "name": "Perfume",
+    "parentId": "000000000000000000c00005",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/d/9/-original-imagtc2qzgnnuhxh.jpeg",
+    "filterAttributes": [
+      "brand",
+      "fragrance",
+      "volume"
+    ],
+    "defaultExpand": [
+      "brand",
+      "fragrance"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "fragrance",
+      "volume"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00079",
+    "name": "Mobile Accessories",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/data-cable/usb-type-c-cable/t/z/h/-original-imagvyb33fgzggqz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0007a",
+    "name": "Cameras & Accessories",
+    "parentId": "000000000000000000c00000",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/k4dlink0/camera/y/a/4/sony-alpha-ilce-6100l-b-in5-mirrorless-original-imafnahhzghdfhzg.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0007b",
+    "name": "Smart Home Automation",
+    "parentId": "000000000000000000c00003",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/k34chzk0/smart-assistant/z/x/r/ga00781-in-google-original-imafmafzhgf8fgyg.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0007c",
+    "name": "Home Furnishing",
+    "parentId": "000000000000000000c00003",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/bedsheet/e/d/k/-original-imagv49fvhgfzgzz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0007d",
+    "name": "Home Decor",
+    "parentId": "000000000000000000c00003",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/wall-clock/b/h/k/-original-imagvf8fvhgfzgzz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0007e",
+    "name": "Home Lighting",
+    "parentId": "000000000000000000c00003",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/smart-lighting/y/v/e/-original-imagv49fvhgfzgzz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0007f",
+    "name": "Home Improvement Tools",
+    "parentId": "000000000000000000c00003",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/power-tool-accessory/h/b/v/-original-imagqhf8fh9f9fgz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00080",
+    "name": "Jewellery",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/pendant-locket/e/d/k/-original-imagv49fvhgfzgzz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00081",
+    "name": "Personal Care Appliances",
+    "parentId": "000000000000000000c00005",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/hair-dryer/v/c/i/-original-imagvh5fvhgzggqq.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00082",
+    "name": "Health Care Devices",
+    "parentId": "000000000000000000c00005",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/blood-pressure-monitor/y/v/e/-original-imagv49fvhgfzgzz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00083",
+    "name": "Health & Nutrition",
+    "parentId": "000000000000000000c00005",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/protein-supplement/h/b/v/-original-imagqhf8fh9f9fgz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00084",
+    "name": "Sexual Wellness",
+    "parentId": "000000000000000000c00005",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/lubricant/p/c/c/-original-imaghxe4wfhgfg3t.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00085",
+    "name": "Baby Care",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/diaper/m/e/s/-original-imagt558gwzzgywz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00086",
+    "name": "Toys & Games",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/block-construction/p/m/g/-original-imagrh9fgghgzqz7.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00087",
+    "name": "School Supplies",
+    "parentId": "000000000000000000c00001",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/water-bottle/x/a/f/-original-imagzwh3fhfgzzgy.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00088",
+    "name": "Auto Accessories",
+    "parentId": "000000000000000000c00004",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/helmet/y/n/i/-original-imagzhg3gh5f6zgz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c00089",
+    "name": "Industrial & Scientific",
+    "parentId": "000000000000000000c00004",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/multimeter/b/h/k/-original-imagvf8fvhgfzgzz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0008a",
+    "name": "Books",
+    "parentId": "000000000000000000c00004",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/book/e/d/k/-original-imagv49fvhgfzgzz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0008b",
+    "name": "Stationery",
+    "parentId": "000000000000000000c00004",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/calculator/b/h/k/-original-imagvf8fvhgfzgzz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0008c",
+    "name": "Musical Instruments",
+    "parentId": "000000000000000000c00004",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/acoustic-guitar/v/c/i/-original-imagvh5fvhgzggqq.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0008d",
+    "name": "Fitness Equipment",
+    "parentId": "000000000000000000c00004",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/yoga-mat/y/v/e/-original-imagv49fvhgfzgzz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "000000000000000000c0008e",
+    "name": "Pet Supplies",
+    "parentId": "000000000000000000c00004",
+    "isProductLevel": true,
+    "logo": "https://rukminim2.flixcart.com/image/832/832/xif0q/pet-food/h/b/v/-original-imagqhf8fh9f9fgz.jpeg",
+    "filterAttributes": [
+      "brand",
+      "color",
+      "price"
+    ],
+    "defaultExpand": [
+      "brand",
+      "price"
+    ],
+    "renderProductAttr": [
+      "brand",
+      "price"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+]

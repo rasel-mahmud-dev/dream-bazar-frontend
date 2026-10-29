@@ -1,0 +1,2727 @@
+[
+  {
+    "_id": "600000000000000000000001",
+    "key": "category_navbar",
+    "label": "Category Top Navbar",
+    "description": "Navigation dropdown items for the top category header bar",
+    "isActive": true,
+    "data": [
+      {
+        "name": "Electronics",
+        "id": "electronics",
+        "section": [
+          [
+            {
+              "name": "Mobiles",
+              "id": "Mobiles",
+              "rootCategory": "Electronics",
+              "subMenu": [
+                {
+                  "name": "Mi",
+                  "brand": "xiaomi"
+                },
+                {
+                  "name": "Realme",
+                  "brand": "realme"
+                },
+                {
+                  "name": "Samsung",
+                  "brand": "Samsung"
+                },
+                {
+                  "name": "Infinix",
+                  "brand": "infinix"
+                },
+                {
+                  "name": "OPPO",
+                  "brand": "oppo"
+                },
+                {
+                  "name": "Apple",
+                  "brand": "Apple"
+                },
+                {
+                  "name": "Vivo",
+                  "brand": "vivo"
+                },
+                {
+                  "name": "Honor",
+                  "brand": "honor"
+                },
+                {
+                  "name": "Asus",
+                  "brand": "asus"
+                },
+                {
+                  "name": "Symphony",
+                  "brand": "symphony"
+                },
+                {
+                  "name": "Poco X2"
+                },
+                {
+                  "name": "realme Narzo 10",
+                  "_id": "613d230cc9247b736856e2a8"
+                },
+                {
+                  "name": "Infinix Hot 9",
+                  "_id": "613d230cc9247b736856e2a8"
+                },
+                {
+                  "name": "IQOO 3",
+                  "_id": "613d230cc9247b736856e2a8"
+                },
+                {
+                  "name": "iPhone SE",
+                  "_id": "613d230cc9247b736856e2a8"
+                },
+                {
+                  "name": "Motorola razr",
+                  "_id": "613d230cc9247b736856e2a8"
+                },
+                {
+                  "name": "realme Narzo 10A",
+                  "_id": "613d230cc9247b736856e2a8"
+                },
+                {
+                  "name": "Motorola g8 power lite",
+                  "_id": "613d230cc9247b736856e2a8"
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Mobile Accessories",
+              "id": "Mobiles and Tablet",
+              "rootCategory": "Electronics",
+              "subMenu": [
+                {
+                  "name": "Mobile Cases",
+                  "id": "Cases and Covers"
+                },
+                {
+                  "name": "Headphones & Headsets",
+                  "id": "Headphones"
+                },
+                {
+                  "name": "Power Banks",
+                  "id": "Power-Banks"
+                },
+                {
+                  "name": "Mobile Battery",
+                  "id": "Mobile Battery"
+                },
+                {
+                  "name": "Screen Guards",
+                  "id": "Screen Guards"
+                },
+                {
+                  "name": "Memory Cards",
+                  "id": "Mobile Sim - SD Card-Trays"
+                },
+                {
+                  "name": "Smart Headphones",
+                  "id": "Headphones"
+                },
+                {
+                  "name": "Mobile Cables",
+                  "id": "Mobile Cables"
+                },
+                {
+                  "name": "Mobile Chargers",
+                  "id": "Mobile Chargers"
+                },
+                {
+                  "name": "OTG Adapters",
+                  "id": "OTG Adapters"
+                }
+              ]
+            },
+            {
+              "name": "Smart Wearable Tech",
+              "id": "Smart Wearable Tech",
+              "rootCategory": "Electronics",
+              "subMenu": [
+                {
+                  "name": "Smart Watches",
+                  "_id": "",
+                  "id": ""
+                },
+                {
+                  "name": "Smart Glasses (VR)",
+                  "_id": "",
+                  "id": ""
+                },
+                {
+                  "name": "Smart Bands",
+                  "_id": "",
+                  "id": ""
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Laptops",
+              "rootCategory": "Electronics",
+              "id": "Laptop",
+              "subMenu": [
+                {
+                  "name": "Gaming Laptops",
+                  "id": "gaming laptop",
+                  "_id": ""
+                }
+              ]
+            },
+            {
+              "name": "Desktop PCs",
+              "id": "Desktop PCs",
+              "rootCategory": "Electronics",
+              "subMenu": []
+            },
+            {
+              "name": "Gaming & Accessories",
+              "id": "Gaming and Accessories",
+              "rootCategory": "Electronics",
+              "subMenu": []
+            },
+            {
+              "name": "Computer Accessories",
+              "id": "Computer and Laptop Accessories",
+              "rootCategory": "Electronics",
+              "subMenu": [
+                {
+                  "name": "External Hard Disks",
+                  "id": "External Hard Disks"
+                },
+                {
+                  "name": "Pendrives",
+                  "id": "Pendrives"
+                },
+                {
+                  "name": "Laptop Skins & Decals",
+                  "id": "Laptop Skins and Decals"
+                },
+                {
+                  "name": "Laptop Bags",
+                  "id": "Laptop Bags"
+                },
+                {
+                  "name": "Mouse",
+                  "id": "Mouse"
+                }
+              ]
+            },
+            {
+              "name": "Computer Peripherals",
+              "id": "computer peripherals",
+              "rootCategory": "Electronics",
+              "subMenu": [
+                {
+                  "name": "Printers & Ink Cartridges",
+                  "id": "Printers & Inks"
+                },
+                {
+                  "name": "Monitors",
+                  "id": "Monitors"
+                },
+                {
+                  "name": "Tablets",
+                  "id": "tablets"
+                },
+                {
+                  "name": "Apple iPads",
+                  "id": "Apple iPads"
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Speakers",
+              "cat": "audio and video",
+              "id": "Speakers",
+              "subMenu": [
+                {
+                  "name": "Home Audio Speakers",
+                  "id": ""
+                },
+                {
+                  "name": "Microphone",
+                  "id": "Microphone"
+                },
+                {
+                  "name": "Home Theatres",
+                  "id": ""
+                },
+                {
+                  "name": "Soundbars",
+                  "id": ""
+                },
+                {
+                  "name": "Bluetooth Speakers",
+                  "id": ""
+                },
+                {
+                  "name": "DTH Set Top Box",
+                  "id": ""
+                }
+              ]
+            },
+            {
+              "name": "Camera",
+              "id": "Cameras",
+              "cat": "Cameras and Accessories",
+              "subMenu": [
+                {
+                  "name": "DSLR & Mirrorless",
+                  "id": ""
+                },
+                {
+                  "name": "Compact & Bridge Cameras",
+                  "id": ""
+                },
+                {
+                  "name": "Sports & Action",
+                  "id": ""
+                }
+              ]
+            },
+            {
+              "name": "Camera Accessories",
+              "id": "Cameras and Accessories",
+              "cat": "Cameras and Accessories",
+              "subMenu": [
+                {
+                  "name": "Lens",
+                  "id": "Lens"
+                },
+                {
+                  "name": "Tripods",
+                  "id": "Tripods"
+                }
+              ]
+            },
+            {
+              "id": "Network Components",
+              "cat": "computers",
+              "name": "Network Components",
+              "subMenu": [
+                {
+                  "name": "Routers",
+                  "id": "Routers"
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Featured",
+              "id": "Featured",
+              "subMenu": [
+                {
+                  "name": "Google Assistant Store",
+                  "id": "Google Assistant Store"
+                },
+                {
+                  "name": "Apple brand",
+                  "id": "Apple brand"
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "name": "TVs & Appliances",
+        "cat": "Home Entertainment",
+        "id": "Home Entertainment",
+        "section": [
+          [
+            {
+              "name": "Television",
+              "rootCategory": "Electronics",
+              "id": "Televisions"
+            },
+            {
+              "name": "New Launches",
+              "id": ""
+            },
+            {
+              "name": "Smart & Ultra HD",
+              "id": ""
+            },
+            {
+              "name": "Top Brands",
+              "id": "Televisions",
+              "rootCategory": "Electronics",
+              "subMenu": [
+                {
+                  "name": "Mi",
+                  "brand": "mi"
+                },
+                {
+                  "name": "Vu",
+                  "brand": ""
+                },
+                {
+                  "name": "Thomson",
+                  "brand": ""
+                },
+                {
+                  "name": "Samsung",
+                  "brand": ""
+                },
+                {
+                  "name": "iFFALCON by TCL",
+                  "brand": ""
+                },
+                {
+                  "name": "Nokia",
+                  "brand": ""
+                },
+                {
+                  "name": "LG",
+                  "brand": ""
+                },
+                {
+                  "name": "realme",
+                  "brand": ""
+                },
+                {
+                  "name": "Motorola",
+                  "brand": ""
+                }
+              ]
+            },
+            {
+              "name": "Shop by Screen Size",
+              "id": "Televisions",
+              "rootCategory": "Electronics",
+              "subMenu": [
+                {
+                  "name": "24 & below",
+                  "id": ""
+                },
+                {
+                  "name": "28 - 32",
+                  "id": ""
+                },
+                {
+                  "name": "39 - 43",
+                  "id": ""
+                },
+                {
+                  "name": "48 - 55",
+                  "id": ""
+                },
+                {
+                  "name": "60 & above",
+                  "id": ""
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Washing Machine",
+              "id": "Washing Machine",
+              "rootCategory": "Electronics",
+              "subMenu": [
+                {
+                  "name": "Fully Automatic Front Load",
+                  "id": "Washing Machine"
+                },
+                {
+                  "name": "Semi Automatic Top Load",
+                  "id": "Washing Machine"
+                },
+                {
+                  "name": "Fully Automatic Top Load",
+                  "id": "Washing Machine"
+                }
+              ]
+            },
+            {
+              "name": "Air Conditioners",
+              "id": "Air Conditioners",
+              "rootCategory": "Electronics",
+              "subMenu": [
+                {
+                  "name": "Inverter AC",
+                  "id": ""
+                },
+                {
+                  "name": "Split ACs",
+                  "id": ""
+                },
+                {
+                  "name": "Window ACs",
+                  "id": ""
+                }
+              ]
+            },
+            {
+              "name": "Shop By Brand",
+              "id": "Air Conditioners",
+              "rootCategory": "Electronics",
+              "subMenu": [
+                {
+                  "name": "LG",
+                  "brand": "LG"
+                },
+                {
+                  "name": "Hitachi",
+                  "brand": "Hitachi"
+                },
+                {
+                  "name": "LG",
+                  "brand": "LG"
+                },
+                {
+                  "name": "Hitachi",
+                  "brand": "Hitachi"
+                },
+                {
+                  "name": "Carrier",
+                  "brand": "Carrier"
+                },
+                {
+                  "name": "Hitachi",
+                  "brand": "Hitachi"
+                }
+              ]
+            },
+            {
+              "name": "Refrigerators",
+              "rootCategory": "Electronics",
+              "id": "Refrigerators",
+              "subMenu": [
+                {
+                  "name": "Single Door",
+                  "id": ""
+                },
+                {
+                  "name": "Double Door",
+                  "id": ""
+                },
+                {
+                  "name": "Triple door",
+                  "id": ""
+                },
+                {
+                  "name": "Side by Side",
+                  "id": ""
+                },
+                {
+                  "name": "Convertible",
+                  "id": ""
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Home And Kitchen Appliances",
+              "rootCategory": "Home And Kitchen",
+              "id": "Home And Kitchen",
+              "subMenu": [
+                {
+                  "name": "Microwave Ovens",
+                  "id": "Microwave Ovens"
+                },
+                {
+                  "name": "Oven Toaster Grills (OTG)",
+                  "id": "Oven Toaster Grills (OTG)"
+                },
+                {
+                  "name": "Juicer/Mixer/Grinder",
+                  "id": "Juicer/Mixer/Grinder"
+                },
+                {
+                  "name": "Electric Kettle",
+                  "id": "Electric Kettle"
+                },
+                {
+                  "name": "Induction Cooktops",
+                  "id": "Induction Cooktops"
+                },
+                {
+                  "name": "Chimneys",
+                  "id": "Chimneys"
+                },
+                {
+                  "name": "Hand Blenders",
+                  "id": "Hand Blenders"
+                },
+                {
+                  "name": "Sandwich Makers",
+                  "id": "Sandwich Makers"
+                },
+                {
+                  "name": "Pop Up Toasters",
+                  "id": "Pop Up Toasters"
+                },
+                {
+                  "name": "Electric Cookers",
+                  "id": "Electric Cookers"
+                },
+                {
+                  "name": "Wet Grinders",
+                  "id": "Wet Grinders"
+                },
+                {
+                  "name": "Food Processors",
+                  "id": "Food Processors"
+                },
+                {
+                  "name": "Coffee Makers",
+                  "id": "Coffee Makers"
+                },
+                {
+                  "name": "Dishwashers",
+                  "id": "Dishwashers"
+                }
+              ]
+            },
+            {
+              "name": "Healthy Living Appliances",
+              "id": ""
+            }
+          ],
+          [
+            {
+              "name": "Small Home Appliances",
+              "id": "Home And Kitchen",
+              "subMenu": [
+                {
+                  "name": "Irons",
+                  "id": "Irons"
+                },
+                {
+                  "name": "Water Purifiers",
+                  "id": ""
+                },
+                {
+                  "name": "Room Heaters",
+                  "id": "Room Heaters"
+                },
+                {
+                  "name": "Fans",
+                  "id": "Fans"
+                },
+                {
+                  "name": "Air Coolers",
+                  "id": "Air Coolers"
+                },
+                {
+                  "name": "Inverters",
+                  "id": "Inverters"
+                },
+                {
+                  "name": "Vacuum Cleaners",
+                  "id": ""
+                },
+                {
+                  "name": "Voltage Stabilizers",
+                  "id": "Voltage Stabilizers"
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "name": "Men",
+        "ideal": "men",
+        "id": "Men",
+        "section": [
+          [
+            {
+              "name": "Footwear",
+              "rootCategory": "Footwear",
+              "id": "",
+              "subMenu": [
+                {
+                  "name": "Sports Shoes",
+                  "id": "sports-shoes"
+                },
+                {
+                  "name": "Casual Shoes",
+                  "id": "casual-shoes"
+                },
+                {
+                  "name": "Formal Shoes",
+                  "id": "formal-shoes"
+                },
+                {
+                  "name": "Sandals & Floaters",
+                  "id": "sandals-floaters"
+                },
+                {
+                  "name": "Boots",
+                  "id": "boots"
+                },
+                {
+                  "name": "Running Shoes",
+                  "id": "running-shoes"
+                },
+                {
+                  "name": "Sneakers",
+                  "id": "sneakers"
+                }
+              ]
+            },
+            {
+              "name": "Men's Grooming",
+              "id": "",
+              "subMenu": [
+                {
+                  "name": "Deodorants",
+                  "id": ""
+                },
+                {
+                  "name": "Perfumes",
+                  "id": ""
+                },
+                {
+                  "name": "Beard Care & Grooming",
+                  "id": ""
+                },
+                {
+                  "name": "Shaving & Aftershave",
+                  "id": ""
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Clothes",
+              "rootCategory": "Clothes",
+              "id": ""
+            },
+            {
+              "name": "Top wear",
+              "rootCategory": "Clothes",
+              "subMenu": [
+                {
+                  "name": "T-Shirts",
+                  "id": "t-shart"
+                },
+                {
+                  "name": "Formal Shirts",
+                  "id": "shart"
+                },
+                {
+                  "name": "Casual Shirts",
+                  "id": "shart"
+                }
+              ]
+            },
+            {
+              "name": "Bottom wear",
+              "rootCategory": "Clothes",
+              "subMenu": [
+                {
+                  "name": "Jeans",
+                  "id": "jeans"
+                },
+                {
+                  "name": "Casual Trousers",
+                  "id": ""
+                },
+                {
+                  "name": "Formal Trousers",
+                  "id": ""
+                },
+                {
+                  "name": "Track pants",
+                  "id": ""
+                },
+                {
+                  "name": "Shorts",
+                  "id": ""
+                },
+                {
+                  "name": "Cargos",
+                  "id": ""
+                },
+                {
+                  "name": "Three Fourths",
+                  "id": ""
+                }
+              ]
+            },
+            {
+              "name": "Suits, Blazers & Waistcoats",
+              "id": ""
+            },
+            {
+              "name": "Ties, Socks, Caps & More",
+              "id": ""
+            },
+            {
+              "name": "Fabrics",
+              "id": ""
+            }
+          ],
+          [
+            {
+              "name": "Winter Wear",
+              "cat": "clothing and accessories",
+              "id": "winter wear",
+              "subMenu": [
+                {
+                  "name": "Sweatshirts",
+                  "id": ""
+                },
+                {
+                  "name": "Jackets",
+                  "id": "Jackets"
+                },
+                {
+                  "name": "Sweater",
+                  "id": ""
+                },
+                {
+                  "name": "Tracksuits",
+                  "id": ""
+                }
+              ]
+            },
+            {
+              "name": "Ethnic wear",
+              "cat": "clothing and accessories",
+              "id": "Kurtas-Ethnic Sets and Bottom",
+              "subMenu": [
+                {
+                  "name": "Kurtas",
+                  "id": "kurtas"
+                },
+                {
+                  "name": "Ethnic Sets",
+                  "id": "ethnic sets"
+                },
+                {
+                  "name": "Sherwanis",
+                  "id": "sherwanis"
+                },
+                {
+                  "name": "Ethnic Pyjama",
+                  "id": "ethnic-pyjama"
+                },
+                {
+                  "name": "Dhoti",
+                  "id": "dhoti"
+                },
+                {
+                  "name": "Palazzos",
+                  "id": "palazzos"
+                },
+                {
+                  "name": "Panjabi",
+                  "id": "panjabi"
+                },
+                {
+                  "name": "Lungi",
+                  "id": "lungi"
+                }
+              ]
+            },
+            {
+              "name": "Innerwear & Loungewear",
+              "rootCategory": "Electronics",
+              "id": "Innerwear and Loungewear",
+              "subMenu": [
+                {
+                  "name": "Vests",
+                  "id": "Vests"
+                },
+                {
+                  "name": "Boxers",
+                  "id": "Boxers"
+                },
+                {
+                  "name": "Thermals",
+                  "id": "Thermals"
+                },
+                {
+                  "name": "Night Suits",
+                  "id": "Night Suits"
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Watches",
+              "id": "Watches",
+              "rootCategory": "Electronics",
+              "subMenu": [
+                {
+                  "name": "Fastrack",
+                  "id": ""
+                },
+                {
+                  "name": "Casio",
+                  "id": ""
+                },
+                {
+                  "name": "Titan",
+                  "id": ""
+                },
+                {
+                  "name": "Fossil",
+                  "id": ""
+                },
+                {
+                  "name": "Sonata",
+                  "id": ""
+                }
+              ]
+            },
+            {
+              "name": "Accessories",
+              "rootCategory": "Electronics",
+              "id": "Accessories",
+              "subMenu": [
+                {
+                  "name": "Backpacks",
+                  "id": ""
+                },
+                {
+                  "name": "Wallets",
+                  "id": ""
+                },
+                {
+                  "name": "Belts",
+                  "id": ""
+                },
+                {
+                  "name": "Sunglasses",
+                  "id": ""
+                },
+                {
+                  "name": "Luggage & Travel",
+                  "id": ""
+                },
+                {
+                  "name": "Frames",
+                  "id": ""
+                },
+                {
+                  "name": "Jewellery",
+                  "id": ""
+                }
+              ]
+            },
+            {
+              "name": "Sports & Fitness Store",
+              "id": "",
+              "rootCategory": "Electronics"
+            }
+          ],
+          [
+            {
+              "name": "Smart Watches",
+              "id": "",
+              "rootCategory": "Electronics"
+            },
+            {
+              "name": "Smart Bands",
+              "id": "",
+              "rootCategory": "Electronics"
+            },
+            {
+              "name": "Personal Care Appliances",
+              "id": "",
+              "rootCategory": "Electronics",
+              "subMenu": [
+                {
+                  "name": "Trimmers",
+                  "id": ""
+                },
+                {
+                  "name": "Shavers",
+                  "id": ""
+                },
+                {
+                  "name": "Grooming Kits",
+                  "id": ""
+                }
+              ]
+            },
+            {
+              "name": "Featured",
+              "rootCategory": "Electronics",
+              "id": "",
+              "subMenu": [
+                {
+                  "name": "Watches Store",
+                  "id": ""
+                },
+                {
+                  "name": "Footwear Club",
+                  "id": ""
+                },
+                {
+                  "name": "Bags & Wallet",
+                  "id": ""
+                },
+                {
+                  "name": "T-Shirt Store",
+                  "id": ""
+                },
+                {
+                  "name": "Adidas",
+                  "id": ""
+                },
+                {
+                  "name": "Beardo",
+                  "id": ""
+                },
+                {
+                  "name": "Reebok",
+                  "id": ""
+                },
+                {
+                  "name": "Skechers",
+                  "id": ""
+                },
+                {
+                  "name": "Nike",
+                  "id": ""
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "name": "Women",
+        "id": "Women",
+        "ideal": "women",
+        "section": [
+          [
+            {
+              "name": "Clothes",
+              "id": "Clothes",
+              "rootCategory": "Clothes"
+            },
+            {
+              "name": "Women Western & Maternity Wear",
+              "id": "",
+              "rootCategory": "Clothes",
+              "ideal": "women",
+              "subMenu": [
+                {
+                  "name": "Topwear",
+                  "id": ""
+                },
+                {
+                  "name": "Dresses",
+                  "id": ""
+                },
+                {
+                  "name": "Jeans",
+                  "id": "jeans"
+                },
+                {
+                  "name": "Shorts",
+                  "id": ""
+                },
+                {
+                  "name": "Skirts",
+                  "id": ""
+                },
+                {
+                  "name": "Jeggings & Tights",
+                  "id": ""
+                },
+                {
+                  "name": "Trousers & Capris",
+                  "id": ""
+                }
+              ]
+            },
+            {
+              "name": "Lingerie & Sleepwear",
+              "id": "Lingerie & Sleepwear",
+              "rootCategory": "Clothes",
+              "subMenu": [
+                {
+                  "name": "Bras",
+                  "id": ""
+                },
+                {
+                  "name": "Panties",
+                  "id": ""
+                },
+                {
+                  "name": "Lingerie Sets",
+                  "id": ""
+                },
+                {
+                  "name": "Night Dresses & Nighties",
+                  "id": ""
+                },
+                {
+                  "name": "Shapewear",
+                  "id": ""
+                },
+                {
+                  "name": "Camisoles & Slips",
+                  "id": ""
+                }
+              ]
+            },
+            {
+              "name": "Swim & Beachwear",
+              "id": "",
+              "rootCategory": "Clothes"
+            },
+            {
+              "name": "Party Dresses",
+              "id": "",
+              "rootCategory": "Clothes"
+            },
+            {
+              "name": "Sports Wear",
+              "id": "",
+              "rootCategory": "Clothes"
+            },
+            {
+              "name": "Winter Wear",
+              "id": "",
+              "rootCategory": "Clothes"
+            }
+          ],
+          [
+            {
+              "name": "Ethnic Wear",
+              "rootCategory": "Clothes",
+              "id": "Clothes",
+              "subMenu": [
+                {
+                  "name": "Sarees",
+                  "id": "sarees"
+                },
+                {
+                  "name": "Kurtas & Kurtis",
+                  "id": ""
+                },
+                {
+                  "name": "Dress Material",
+                  "id": ""
+                },
+                {
+                  "name": "Lehenga Choli",
+                  "id": ""
+                },
+                {
+                  "name": "Blouse",
+                  "id": "blouses"
+                },
+                {
+                  "name": "Kurta Sets & Salwar Suits",
+                  "id": ""
+                },
+                {
+                  "name": "Gowns",
+                  "id": ""
+                },
+                {
+                  "name": "Dupattas",
+                  "id": ""
+                }
+              ]
+            },
+            {
+              "name": "Ethnic Bottoms",
+              "rootCategory": "Clothes",
+              "id": "Clothes",
+              "subMenu": [
+                {
+                  "name": "Leggings & Churidars",
+                  "id": ""
+                },
+                {
+                  "name": "Palazzos",
+                  "id": ""
+                },
+                {
+                  "name": "Shararas",
+                  "id": ""
+                },
+                {
+                  "name": "Salwars & Patiala",
+                  "id": ""
+                },
+                {
+                  "name": "Dhoti Pants",
+                  "id": ""
+                },
+                {
+                  "name": "Ethnic Trousers",
+                  "id": ""
+                },
+                {
+                  "name": "Saree Shapewear & Petticoats",
+                  "id": ""
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Footwear",
+              "rootCategory": "Footwear",
+              "subMenu": []
+            },
+            {
+              "name": "Sandals",
+              "rootCategory": "Footwear",
+              "subMenu": [
+                {
+                  "name": "Flats",
+                  "id": ""
+                },
+                {
+                  "name": "Heels",
+                  "id": ""
+                },
+                {
+                  "name": "Wedges",
+                  "id": ""
+                }
+              ]
+            },
+            {
+              "name": "Shoes",
+              "rootCategory": "Footwear",
+              "subMenu": [
+                {
+                  "name": "Sports Shoes",
+                  "id": ""
+                },
+                {
+                  "name": "Casual Shoes",
+                  "id": ""
+                },
+                {
+                  "name": "Boots",
+                  "id": ""
+                }
+              ]
+            },
+            {
+              "name": "Ballerinas",
+              "id": ""
+            },
+            {
+              "name": "Watches",
+              "id": "",
+              "ideal": "women"
+            },
+            {
+              "name": "Smart Watches",
+              "id": "",
+              "ideal": "women"
+            },
+            {
+              "name": "Personal Care Appliances",
+              "ideal": "women",
+              "subMenu": [
+                {
+                  "name": "Hair Straightners",
+                  "id": ""
+                },
+                {
+                  "name": "Hair Dryers",
+                  "id": ""
+                },
+                {
+                  "name": "Epilators",
+                  "id": ""
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Beauty & Grooming",
+              "cat": "Beauty and Grooming",
+              "id": "",
+              "subMenu": [
+                {
+                  "name": "Make Up",
+                  "id": "Makeup"
+                },
+                {
+                  "name": "Skin Care",
+                  "id": "Body and Face Skin Care"
+                },
+                {
+                  "name": "Hair Care",
+                  "id": "Hair Care and Accessory"
+                },
+                {
+                  "name": "Bath & Spa",
+                  "id": "Bath and Shower"
+                },
+                {
+                  "name": "Deodorants & Perfumes",
+                  "id": "Perfume"
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "name": "Baby & Kids",
+        "id": "Baby & Kids",
+        "section": [
+          [
+            {
+              "name": "Kids Clothes",
+              "id": "Kids Clothes"
+            },
+            {
+              "name": "Boys' Clothes",
+              "id": "Boys' Clothes",
+              "subMenu": [
+                {
+                  "name": "T-Shirts",
+                  "id": "T-Shirts"
+                },
+                {
+                  "name": "Shirts",
+                  "id": "Shirts"
+                }
+              ]
+            },
+            {
+              "name": "Girls' Clothes",
+              "id": "Girls' Clothes",
+              "subMenu": [
+                {
+                  "name": "Dresses & Skirts",
+                  "id": "Dresses and Skirts"
+                },
+                {
+                  "name": "T-shirts & Tops",
+                  "id": "T-shirts and Tops"
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Toys",
+              "id": "Toys",
+              "subMenu": [
+                {
+                  "name": "Remote Control Toys",
+                  "id": "Remote Control Toys"
+                },
+                {
+                  "name": "Educational Toys",
+                  "id": "Educational Toys"
+                },
+                {
+                  "name": "Soft Toys",
+                  "id": "Soft Toys"
+                },
+                {
+                  "name": "Puzzles",
+                  "id": "Puzzles"
+                },
+                {
+                  "name": "Helicopter & Drones",
+                  "id": "Helicopter and Drones"
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Baby Care",
+              "id": "Baby Care",
+              "subMenu": [
+                {
+                  "name": "Diapers",
+                  "id": "Diapers"
+                },
+                {
+                  "name": "Wipes",
+                  "id": "Wipes"
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "name": "Home & Furniture",
+        "id": "Home & Furniture",
+        "section": [
+          [
+            {
+              "name": "Kitchen, Cookware & Serveware",
+              "id": "Home And Kitchen",
+              "subMenu": [
+                {
+                  "name": "Gas Stoves",
+                  "id": "Pressure Cookers"
+                },
+                {
+                  "name": "Pressure Cookers",
+                  "id": "Kitchen tools"
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Bed Room Furniture",
+              "id": "Bed Room Furniture",
+              "subMenu": [
+                {
+                  "name": "Beds",
+                  "id": "Beds"
+                },
+                {
+                  "name": "Mattresses",
+                  "id": "Mattresses"
+                },
+                {
+                  "name": "Wardrobes",
+                  "id": "Wardrobes"
+                }
+              ]
+            },
+            {
+              "name": "Living Room Furniture",
+              "id": "Living Room Furniture",
+              "subMenu": [
+                {
+                  "name": "Sofa",
+                  "id": "Sofa"
+                },
+                {
+                  "name": "Sofa Beds",
+                  "id": "Sofa Beds"
+                },
+                {
+                  "name": "TV Units",
+                  "id": "TV Units"
+                },
+                {
+                  "name": "Dining Tables & Chairs",
+                  "id": "Dining Tables and Chairs"
+                },
+                {
+                  "name": "Coffee Tables",
+                  "id": "Coffee Tables"
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Home Lighting",
+              "id": "Home Lighting",
+              "subMenu": [
+                {
+                  "name": "Bulbs",
+                  "id": "Bulbs"
+                },
+                {
+                  "name": "Wall Lamp",
+                  "id": "Wall Lamp"
+                },
+                {
+                  "name": "Table Lamp",
+                  "id": "Table Lamp"
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "name": "Sports, Books & More",
+        "id": "Sports, Books & More",
+        "section": [
+          [
+            {
+              "name": "Sports",
+              "id": "Sports",
+              "subMenu": [
+                {
+                  "name": "Cricket",
+                  "id": "Cricket",
+                  "_id": ""
+                },
+                {
+                  "name": "Badminton",
+                  "id": "Badminton",
+                  "_id": ""
+                },
+                {
+                  "name": "Football",
+                  "id": "Football",
+                  "_id": ""
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Food Essentials",
+              "id": "Food Essentials",
+              "subMenu": [
+                {
+                  "name": "Nuts & Dry Fruits",
+                  "id": "Nuts and Dry Fruits"
+                },
+                {
+                  "name": "Tea, Coffee and Beverages",
+                  "id": "Tea, Coffee and Beverages"
+                },
+                {
+                  "name": "Chocolates",
+                  "id": "Chocolates"
+                }
+              ]
+            },
+            {
+              "name": "Health & Nutrition",
+              "id": "Health & Nutrition",
+              "subMenu": [
+                {
+                  "name": "All Supplements",
+                  "id": "All Supplements"
+                },
+                {
+                  "name": "Protein Supplements",
+                  "id": "Protein Supplements"
+                },
+                {
+                  "name": "Vitamin Supplements",
+                  "id": "Vitamin Supplements"
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "name": "Books",
+              "id": "Books",
+              "subMenu": [
+                {
+                  "name": "Entrance Exams",
+                  "id": "Entrance Exams"
+                }
+              ]
+            },
+            {
+              "name": "Stationery",
+              "id": "Stationery",
+              "subMenu": [
+                {
+                  "name": "Pens",
+                  "id": "Pens"
+                },
+                {
+                  "name": "Diaries",
+                  "id": "Diaries"
+                },
+                {
+                  "name": "Card Holders",
+                  "id": "Card Holders"
+                },
+                {
+                  "name": "Desk Organizers",
+                  "id": "Desk Organizers"
+                },
+                {
+                  "name": "Calculators",
+                  "id": "Calculators"
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "name": "Flights",
+        "id": "Flights"
+      },
+      {
+        "name": "Offer Zone",
+        "id": "Offer Zone"
+      }
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "600000000000000000000002",
+    "key": "home_category_nav",
+    "label": "Home Category Navigation",
+    "description": "Homepage category icon navigation bar with multi-level dropdowns",
+    "isActive": true,
+    "data": [
+      {
+        "label": "Top Offer",
+        "logo": "f15c02bfeb02d15d.png",
+        "name": "Mobiles",
+        "rootCategory": "Electronics"
+      },
+      {
+        "label": "Computers",
+        "logo": "69c6589653afdb9a.png",
+        "name": "Electronics",
+        "sub_menu": [
+          {
+            "label": "Computer Components",
+            "rootCategory": "Electronics",
+            "logo": "",
+            "name": "Computer Components",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "Computer Components"
+              },
+              {
+                "label": "Motherboard",
+                "name": "Motherboard"
+              },
+              {
+                "label": "Ram",
+                "name": "Ram"
+              },
+              {
+                "label": "Processor",
+                "name": "Processor"
+              },
+              {
+                "label": "SSD",
+                "name": "SSD"
+              },
+              {
+                "label": "Powersupply",
+                "name": "Powersupply"
+              },
+              {
+                "label": "Casing",
+                "name": "Casing"
+              }
+            ]
+          },
+          {
+            "label": "Desktop PCs",
+            "name": "desktop pcs",
+            "sub_menu": [
+              {
+                "label": "All In One PCs",
+                "name": "all in one pc"
+              },
+              {
+                "label": "Mini PCs",
+                "name": "mini pcs"
+              },
+              {
+                "label": "Tower PCs",
+                "name": "tower pcs"
+              }
+            ]
+          },
+          {
+            "label": "Laptops",
+            "name": "laptop-store"
+          }
+        ]
+      },
+      {
+        "label": "Mobiles",
+        "logo": "22fddf3c7da4c4f4.png",
+        "name": "Mobiles",
+        "rootCategory": "Electronics"
+      },
+      {
+        "rootCategory": "Clothes",
+        "label": "Fashions",
+        "name": "clothing and accessories",
+        "logo": "82b3ca5fb2301045.png",
+        "sub_menu": [
+          {
+            "rootCategory": "Clothes",
+            "label": "Men's Top Wear",
+            "name": "top wear",
+            "ideal": "men",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "top wear"
+              },
+              {
+                "label": "Men's T-Shirts",
+                "name": "t-sharts"
+              },
+              {
+                "label": "Men's Casual Shirts",
+                "name": "Men's Casual Shirts"
+              },
+              {
+                "label": "Men's Formal Shirts",
+                "name": "Men's Formal Shirts"
+              },
+              {
+                "label": "Men's Kurtas",
+                "name": "Men's Kurtas"
+              },
+              {
+                "label": "Men's Ethnic Sets",
+                "name": "Men's Ethnic Sets"
+              },
+              {
+                "label": "Men's Blazers",
+                "name": "Men's Blazers"
+              },
+              {
+                "label": "Men's Raincoat",
+                "name": "Men's Raincoat"
+              },
+              {
+                "label": "Men's Windcheaters",
+                "name": "Men's Windcheaters"
+              },
+              {
+                "label": "Men's Suit",
+                "name": "Men's Suit"
+              },
+              {
+                "label": "Men's Fabrics",
+                "name": "Men's Fabrics"
+              }
+            ]
+          },
+          {
+            "rootCategory": "Clothes",
+            "label": "Men's Bottom Wear",
+            "name": "men_top_wear",
+            "ideal": "men",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "top wear"
+              },
+              {
+                "label": "Men's Jeans",
+                "name": "jeans"
+              },
+              {
+                "label": "Men's Trousers",
+                "name": "Men's Trousers"
+              },
+              {
+                "label": "Men's Trackpants",
+                "name": "Men's Trackpants"
+              },
+              {
+                "label": "Men's Shorts",
+                "name": "Men's Shorts"
+              },
+              {
+                "label": "Men's Cargos",
+                "name": "Men's Cargos"
+              },
+              {
+                "label": "Men's Threefourths",
+                "name": "Men's Threefourths"
+              },
+              {
+                "label": "Men's Pyjamas & Loungepants",
+                "name": "Men's Pyjamas & Loungepants"
+              },
+              {
+                "label": "Men's Dhoti",
+                "name": "Men's Dhoti"
+              },
+              {
+                "label": "Men's Ethnic Pyjama",
+                "name": "Men's Ethnic Pyjama"
+              }
+            ]
+          },
+          {
+            "rootCategory": "Clothes",
+            "label": "Women Ethnic",
+            "name": "Women Ethnic",
+            "ideal": "women",
+            "for_category": [
+              "top wear",
+              "sarees"
+            ],
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "Women Sarees",
+                "name": "sarees",
+                "ideal": "women"
+              },
+              {
+                "label": "Women Blouse",
+                "name": "blouses"
+              }
+            ]
+          },
+          {
+            "rootCategory": "Clothes",
+            "label": "Women Western",
+            "name": "Women Western",
+            "ideal": "women",
+            "for_category": [
+              "top wear",
+              "Dresses and Gowns",
+              "Innerwear and Swimwear"
+            ],
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "Women Western"
+              },
+              {
+                "label": "Women Tops",
+                "name": "Women Tops"
+              },
+              {
+                "label": "Women Dresses",
+                "name": "Women Dresses"
+              },
+              {
+                "label": "Women T-shirts & Polo T-shirts",
+                "name": "t-sharts"
+              },
+              {
+                "label": "Women Jeans",
+                "name": "Women Jeans"
+              },
+              {
+                "label": "Women Nighties & Night Dresses",
+                "name": "Women Dresses"
+              }
+            ]
+          },
+          {
+            "rootCategory": "Clothes",
+            "label": "Men Footwear",
+            "name": "men-footwear",
+            "cat_name": "footwear",
+            "ideal": "men",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "Men's Sports Shoes",
+                "name": "Men's Sports Shoes"
+              },
+              {
+                "label": "Men's Casual Shoes",
+                "name": "Men's Casual Shoes"
+              },
+              {
+                "label": "Men's Sandals & Floaters",
+                "name": "Men's Sandals & Floaters"
+              },
+              {
+                "label": "Men's Slippers & Flip Flops",
+                "name": "Men's Slippers & Flip Flops"
+              },
+              {
+                "label": "Men's Formal Shoes",
+                "name": "Men's Formal Shoes"
+              },
+              {
+                "label": "Men's Ethnic Shoes",
+                "name": "Men's Ethnic Shoes"
+              },
+              {
+                "label": "Active Footwear",
+                "name": "Active Footwear"
+              },
+              {
+                "label": "Combo Footwear",
+                "name": "Combo Footwear"
+              },
+              {
+                "label": "Shoe Care",
+                "name": "Shoe Care"
+              }
+            ]
+          },
+          {
+            "label": "Women Footwear",
+            "name": "women-footwear",
+            "ideal": "women",
+            "rootCategory": "Footwear",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "Footwear",
+                "rootCategory": "Footwear"
+              },
+              {
+                "label": "Women Flats",
+                "name": "Women Flats"
+              },
+              {
+                "label": "Women Heels",
+                "name": "Women Heels"
+              },
+              {
+                "label": "Women Wedges",
+                "name": "Women Wedges"
+              },
+              {
+                "label": "Women Slipper Flip Flops",
+                "name": "Women Slipper Flip Flops"
+              },
+              {
+                "label": "Women Casual Shoes",
+                "name": "Women Casual Shoes"
+              },
+              {
+                "label": "Women Sports Shoes",
+                "name": "Women Sports Shoes"
+              },
+              {
+                "label": "Women Ballerinas",
+                "name": "Women Ballerinas"
+              },
+              {
+                "label": "Women Ethnic Shoes",
+                "name": "Women Ethnic Shoes"
+              },
+              {
+                "label": "Women Sneakers",
+                "name": "Women Sneakers"
+              },
+              {
+                "label": "Women Walking Shoes",
+                "name": "Women Walking Shoes"
+              },
+              {
+                "label": "Women Boots",
+                "name": "Women Boots"
+              }
+            ]
+          },
+          {
+            "label": "Watches and Accessories",
+            "name": "watches-and-accessories",
+            "sub_menu": [
+              {
+                "label": "Men & Women Watches",
+                "name": "Men & Women Watches"
+              },
+              {
+                "label": "Men & Women Sunglasses",
+                "name": "Men & Women Sunglasses"
+              },
+              {
+                "label": "Wallets",
+                "name": "Wallets"
+              },
+              {
+                "label": "Men & Women Belts",
+                "name": "Men & Women Belts"
+              },
+              {
+                "label": "Women Fashion Jewellery",
+                "name": "Women Fashion Jewellery"
+              },
+              {
+                "label": "Men Fashion Jewellery",
+                "name": "Men Fashion Jewellery"
+              },
+              {
+                "label": "Precious Jewellery",
+                "name": "Precious Jewellery"
+              },
+              {
+                "label": "Precious Coins & Bars",
+                "name": "Precious Coins & Bars"
+              },
+              {
+                "label": "Precious Articles",
+                "name": "Precious Articles"
+              },
+              {
+                "label": "Frames & Contact Lenses",
+                "name": "Frames & Contact Lenses"
+              },
+              {
+                "label": "Kids Accessories",
+                "name": "Kids Accessories"
+              }
+            ]
+          },
+          {
+            "label": "Bags, Suitcases & Luggage",
+            "name": "Bags, Suitcases & Luggage",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "Backpacks",
+                "name": "Backpacks"
+              },
+              {
+                "label": "Suitcases & Trolleys",
+                "name": "Suitcases & Trolleys"
+              },
+              {
+                "label": "Dufflebags",
+                "name": "Dufflebags"
+              },
+              {
+                "label": "Rucksacks",
+                "name": "Rucksacks"
+              },
+              {
+                "label": "Handbags",
+                "name": "Handbags"
+              },
+              {
+                "label": "Slingbags",
+                "name": "Slingbags"
+              },
+              {
+                "label": "Women's Clutches & Wallets",
+                "name": "Women's Clutches & Wallets"
+              },
+              {
+                "label": "Messenger Bags",
+                "name": "Messenger Bags"
+              },
+              {
+                "label": "Travel Accessories",
+                "name": "Travel Accessories"
+              }
+            ]
+          },
+          {
+            "label": "Kids",
+            "name": "Kids",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "Girls Dresses",
+                "name": "Girls Dresses"
+              },
+              {
+                "label": "Boys & Girls Tshirts",
+                "name": "Boys & Girls Tshirts"
+              },
+              {
+                "label": "Boys & Girls Combosets",
+                "name": "Boys & Girls Combosets"
+              },
+              {
+                "label": "Boys & Girls Ethnic Wear",
+                "name": "Boys & Girls Ethnic Wear"
+              },
+              {
+                "label": "Boys & Girls Jeans",
+                "name": "Boys & Girls Jeans"
+              },
+              {
+                "label": "Boys & Girls Shorts",
+                "name": "Boys & Girls Shorts"
+              },
+              {
+                "label": "Boys & Girls Trackpants",
+                "name": "Boys & Girls Trackpants"
+              },
+              {
+                "label": "Boys & Girls Innerwear",
+                "name": "Boys & Girls Innerwear"
+              },
+              {
+                "label": "Infant Wear",
+                "name": "Infant Wear"
+              },
+              {
+                "label": "Kids Slipper Flip Flops",
+                "name": "Kids Slipper Flip Flops"
+              },
+              {
+                "label": "Kids Sports Shoes",
+                "name": "Kids Sports Shoes"
+              }
+            ]
+          },
+          {
+            "label": "Essentials",
+            "name": "Essentials"
+          },
+          {
+            "label": "Winter",
+            "name": "Winter",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "Men's Jackets",
+                "name": "Men's Jackets",
+                "ideal": "men"
+              },
+              {
+                "label": "Men's Sweatshirts",
+                "name": "Men's Sweatshirts",
+                "ideal": "men"
+              },
+              {
+                "label": "Men's Sweaters",
+                "name": "Men's Sweaters",
+                "ideal": "men"
+              },
+              {
+                "label": "Men's Thermals",
+                "name": "Men's Thermals",
+                "ideal": "men"
+              },
+              {
+                "label": "Women's Jackets",
+                "name": "Women's Jackets",
+                "ideal": "women"
+              },
+              {
+                "label": "Women's Sweatshirts",
+                "name": "Women's Sweatshirts",
+                "ideal": "women"
+              },
+              {
+                "label": "Women's Sweaters & Cardigans",
+                "name": "Women's Sweaters & Cardigans",
+                "ideal": "women"
+              },
+              {
+                "label": "Women's Shrugs",
+                "name": "Women's Shrugs",
+                "ideal": "women"
+              },
+              {
+                "label": "Kids SweatShirts",
+                "name": "Kids SweatShirts"
+              },
+              {
+                "label": "Women Kurtas",
+                "name": "Women Kurtas",
+                "ideal": "women"
+              },
+              {
+                "label": "Kids Jackets",
+                "name": "Kids Jackets"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Electronics",
+        "name": "electronics",
+        "logo": "69c6589653afdb9a.png",
+        "sub_menu": [
+          {
+            "label": "Audio",
+            "name": "audio and video",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "Bluetooth Headphones",
+                "name": "Bluetooth Headphones"
+              },
+              {
+                "label": "Wired Headphones",
+                "name": "Wired Headphones"
+              },
+              {
+                "label": "True Wireless Earbuds",
+                "name": "True Wireless Earbuds"
+              },
+              {
+                "label": "Bluetooth Speakers",
+                "name": "Bluetooth Speakers"
+              },
+              {
+                "label": "Soundbars",
+                "name": "Soundbars"
+              },
+              {
+                "label": "Home Theatres",
+                "name": "Home Theatres"
+              },
+              {
+                "label": "TV Streaming Device",
+                "name": "TV Streaming Device"
+              },
+              {
+                "label": "Remote Control",
+                "name": "Remote Control"
+              },
+              {
+                "label": "DTH Set top box",
+                "name": "DTH Set top box"
+              },
+              {
+                "label": "Headphones Pouch & Case Covers",
+                "name": "Headphones Pouch & Case Covers"
+              }
+            ]
+          },
+          {
+            "label": "Cameras & Accessories",
+            "name": "Cameras & Accessories"
+          },
+          {
+            "label": "Computer Peripherals",
+            "name": "Computer Peripherals",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "Printers",
+                "name": "Printers"
+              },
+              {
+                "label": "Monitors",
+                "name": "Monitors"
+              },
+              {
+                "label": "Projectors",
+                "name": "Projectors"
+              },
+              {
+                "label": "Portable Projectors",
+                "name": "Portable Projectors"
+              },
+              {
+                "label": "Toners",
+                "name": "Toners"
+              },
+              {
+                "label": "Ink Cartridges",
+                "name": "Ink Cartridges"
+              },
+              {
+                "label": "Ink Bottles",
+                "name": "Ink Bottles"
+              },
+              {
+                "label": "Receipt Printers",
+                "name": "Receipt Printers"
+              },
+              {
+                "label": "Lamination Machines",
+                "name": "Lamination Machines"
+              },
+              {
+                "label": "Note Counting Machines",
+                "name": "Note Counting Machines"
+              },
+              {
+                "label": "Barcode Scanners",
+                "name": "Barcode Scanners"
+              },
+              {
+                "label": "Currency Detectors",
+                "name": "Currency Detectors"
+              }
+            ]
+          },
+          {
+            "label": "Gaming",
+            "name": "Gaming"
+          },
+          {
+            "label": "Laptop Accessories",
+            "name": "Laptop Accessories",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "Mouse",
+                "name": "Mouse"
+              },
+              {
+                "label": "Laptop Keyboards",
+                "name": "Laptop Keyboards"
+              },
+              {
+                "label": "Router",
+                "name": "Router"
+              },
+              {
+                "label": "Data Cards",
+                "name": "Data Cards"
+              },
+              {
+                "label": "UPS",
+                "name": "UPS"
+              },
+              {
+                "label": "USB Gadgets",
+                "name": "USB Gadgets"
+              },
+              {
+                "label": "Security Software",
+                "name": "Security Software"
+              },
+              {
+                "label": "Laptop Battery",
+                "name": "Laptop Battery"
+              },
+              {
+                "label": "Laptop Adapter",
+                "name": "Laptop Adapter"
+              },
+              {
+                "label": "Wireless USB Adapter",
+                "name": "Wireless USB Adapter"
+              },
+              {
+                "label": "Processor",
+                "name": "Processor"
+              },
+              {
+                "label": "Other Accessories",
+                "name": "Other Accessories"
+              }
+            ]
+          },
+          {
+            "label": "Laptop and Desktop",
+            "name": "Laptop and Desktop",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "Laptops",
+                "name": "Laptops"
+              },
+              {
+                "label": "Gaming Laptops",
+                "name": "Gaming Laptops"
+              },
+              {
+                "label": "Desktop PCs",
+                "name": "Desktop PCs"
+              },
+              {
+                "label": "All In One PCs",
+                "name": "All In One PCs"
+              },
+              {
+                "label": "Mini PCs",
+                "name": "Mini PCs"
+              },
+              {
+                "label": "Tower PCs",
+                "name": "Tower PCs"
+              },
+              {
+                "label": "PC Finder",
+                "name": "PC Finder"
+              },
+              {
+                "label": "GST Invoice on Laptops",
+                "name": "GST Invoice on Laptops"
+              },
+              {
+                "label": "Laptop Buying Guide",
+                "name": "Laptop Buying Guide"
+              }
+            ]
+          },
+          {
+            "label": "MobileAccessory",
+            "name": "MobileAccessory"
+          },
+          {
+            "label": "Powerbank",
+            "name": "Powerbank"
+          },
+          {
+            "label": "Smart Home automation",
+            "name": "Smart Home automation"
+          },
+          {
+            "label": "Smart Wearables",
+            "name": "Smart Wearables"
+          },
+          {
+            "label": "Storage",
+            "name": "Storage",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "MobileMemoryCard",
+                "name": "MobileMemoryCard"
+              },
+              {
+                "label": "ComputerStoragePendrive",
+                "name": "ComputerStoragePendrive"
+              },
+              {
+                "label": "MobileStoragePendrive",
+                "name": "MobileStoragePendrive"
+              },
+              {
+                "label": "ExternalHardDrive",
+                "name": "ExternalHardDrive"
+              },
+              {
+                "label": "InternalHardDrive",
+                "name": "InternalHardDrive"
+              }
+            ]
+          },
+          {
+            "label": "Tablets",
+            "name": "Tablets"
+          }
+        ]
+      },
+      {
+        "label": "Appliances",
+        "logo": "0ff199d1bd27eb98.png",
+        "name": "home entertainment",
+        "cat_tree": "televisions",
+        "sub_menu": [
+          {
+            "label": "Televisions",
+            "cat_name": "Home Entertainment",
+            "name": "Televisions",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "New Launches",
+                "name": "New Launches"
+              },
+              {
+                "label": "Top Sellers",
+                "name": "Top Sellers"
+              },
+              {
+                "label": "24-32 Inch",
+                "name": "24-32 Inch"
+              },
+              {
+                "label": "40-43 Inch",
+                "name": "40-43 Inch"
+              },
+              {
+                "label": "50-55 Inch",
+                "name": "50-55 Inch"
+              },
+              {
+                "label": "Big Screen TVs",
+                "name": "Big Screen TVs"
+              },
+              {
+                "label": "Smart TVs",
+                "name": "Smart TVs"
+              },
+              {
+                "label": "4K UHD TVs",
+                "name": "4K UHD TVs"
+              },
+              {
+                "label": "The Frame",
+                "name": "The Frame"
+              },
+              {
+                "label": "OLED TVs",
+                "name": "OLED TVs"
+              },
+              {
+                "label": "QLED TVs",
+                "name": "QLED TVs"
+              },
+              {
+                "label": "Nanocell TVs",
+                "name": "Nanocell TVs"
+              }
+            ]
+          },
+          {
+            "label": "Washing Machines",
+            "name": "Washing Machines"
+          },
+          {
+            "label": "Air Conditioners",
+            "name": "Air Conditioners"
+          },
+          {
+            "label": "Refrigerators",
+            "name": "Refrigerators",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "New Launches",
+                "name": "New Launches"
+              },
+              {
+                "label": "Single Door",
+                "name": "Single Door"
+              },
+              {
+                "label": "Double Door",
+                "name": "Double Door"
+              },
+              {
+                "label": "Triple door",
+                "name": "Triple door"
+              },
+              {
+                "label": "Side by Side",
+                "name": "Side by Side"
+              },
+              {
+                "label": "4 Door",
+                "name": "4 Door"
+              },
+              {
+                "label": "Mini Refrigerators",
+                "name": "Mini Refrigerators"
+              },
+              {
+                "label": "Convertible",
+                "name": "Convertible"
+              },
+              {
+                "label": "Bottom Mount",
+                "name": "Bottom Mount"
+              },
+              {
+                "label": "Energy-Efficient",
+                "name": "Energy-Efficient"
+              }
+            ]
+          },
+          {
+            "label": "Kitchen Appliances",
+            "name": "Kitchen Appliances",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "New Launches",
+                "name": "New Launches"
+              },
+              {
+                "label": "Microwave Ovens",
+                "name": "Microwave Ovens"
+              },
+              {
+                "label": "Oven Toaster Grills (OTG)",
+                "name": "Oven Toaster Grills (OTG)"
+              },
+              {
+                "label": "Juicer/Mixer/Grinder",
+                "name": "Juicer/Mixer/Grinder"
+              },
+              {
+                "label": "Electric Kettle",
+                "name": "Electric Kettle"
+              },
+              {
+                "label": "Induction Cooktops",
+                "name": "Induction Cooktops"
+              },
+              {
+                "label": "Chimneys",
+                "name": "Chimneys"
+              },
+              {
+                "label": "Coffee Makers",
+                "name": "Coffee Makers"
+              },
+              {
+                "label": "Sandwich Makers",
+                "name": "Sandwich Makers"
+              },
+              {
+                "label": "Pop Up Toasters",
+                "name": "Pop Up Toasters"
+              },
+              {
+                "label": "Electric Cookers",
+                "name": "Electric Cookers"
+              },
+              {
+                "label": "Wet Grinders",
+                "name": "Wet Grinders"
+              }
+            ]
+          },
+          {
+            "label": "Home Appliances",
+            "name": "Home Appliances",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "New Launches",
+                "name": "New Launches"
+              },
+              {
+                "label": "Irons",
+                "name": "Irons"
+              },
+              {
+                "label": "Water Purifiers",
+                "name": "Water Purifiers"
+              },
+              {
+                "label": "Inverters",
+                "name": "Inverters"
+              },
+              {
+                "label": "Vacuum Cleaners",
+                "name": "Vacuum Cleaners"
+              },
+              {
+                "label": "Sewing Machines",
+                "name": "Sewing Machines"
+              },
+              {
+                "label": "Voltage Stabilizers",
+                "name": "Voltage Stabilizers"
+              },
+              {
+                "label": "Air Purifiers",
+                "name": "Air Purifiers"
+              },
+              {
+                "label": "Landline Phones",
+                "name": "Landline Phones"
+              }
+            ]
+          },
+          {
+            "label": "Seasonal Appliances",
+            "name": "Seasonal Appliances",
+            "sub_menu": [
+              {
+                "label": "All",
+                "name": "All"
+              },
+              {
+                "label": "New Launches",
+                "name": "New Launches"
+              },
+              {
+                "label": "Air Coolers",
+                "name": "Air Coolers"
+              },
+              {
+                "label": "Fans",
+                "name": "Fans"
+              },
+              {
+                "label": "Water Geysers",
+                "name": "Water Geysers"
+              },
+              {
+                "label": "Immersion Rods",
+                "name": "Immersion Rods"
+              },
+              {
+                "label": "Room Heater",
+                "name": "Room Heater"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Home & Kitchen",
+        "name": "home & kitchen",
+        "rootCategory": "home & kitchen",
+        "logo": "ab7e2b022a4587dd.jpg"
+      },
+      {
+        "label": "Glosses",
+        "logo": "29327f40e9c4d26b.png",
+        "name": "Perfume",
+        "rootCategory": "Beauty and Grooming"
+      },
+      {
+        "label": "Travels",
+        "logo": "71050627a56b4693.png",
+        "name": "Bags, Suitcases & Luggage",
+        "rootCategory": "Clothes"
+      },
+      {
+        "label": "Beauty, Toys & more",
+        "logo": "dff3f7adcf3a90c6.png",
+        "name": "Beauty and Grooming",
+        "rootCategory": "Beauty and Grooming"
+      }
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "6ae391e980684a5c38092539",
+    "key": "test_config",
+    "createdAt": "2026-10-29T18:35:21.836Z",
+    "data": {
+      "bannerText": "Big Diwali Sale 50% Off"
+    },
+    "label": "Test Dynamic Config",
+    "updatedAt": "2026-10-29T18:35:21.836Z"
+  }
+]
