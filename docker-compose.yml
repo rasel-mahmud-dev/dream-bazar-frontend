@@ -1,0 +1,112 @@
+services:
+  # ==========================================
+  # MongoDB Database Service
+  # ==========================================
+  mongodb:
+    image: mongo:7.0
+    container_name: dream-bazar-mongodb
+    restart: unless-stopped
+    ports:
+      - "${MONGODB_PORT:-27017}:27017"
+    environment:
+      MONGO_INITDB_DATABASE: ${DB_NAME:-dream-bazar}
+    volumes:
+      - mongodb_data:/data/db
+      - ./docker/mongo-init:/docker-entrypoint-initdb.d:ro
+    networks:
+      - dream-bazar-network
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'db.runCommand(\"ping\").ok' | mongosh localhost:27017/test --quiet"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  # ==========================================
+  # Mongo Express (Web UI for MongoDB)
+  # ==========================================
+  mongo-express:
+    image: mongo-express:latest
+    container_name: dream-bazar-mongo-express
+    restart: unless-stopped
+    ports:
+      - "${MONGO_EXPRESS_PORT:-8081}:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
+      ME_CONFIG_BASICAUTH: "false"
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - dream-bazar-network
+
+  # ==========================================
+  # Backend Server (Node.js / Express / TS)
+  # ==========================================
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      target: development
+    container_name: dream-bazar-server
+    restart: unless-stopped
+    ports:
+      - "${SERVER_PORT:-4000}:4000"
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+      DB_CONN_STRING: mongodb://mongodb:27017/${DB_NAME:-dream-bazar}
+      DB_NAME: ${DB_NAME:-dream-bazar}
+      JWT_SECRET: ${JWT_SECRET:-dream_bazar_jwt_secret_dev_key_123456}
+      CALLBACK_URL: ${CALLBACK_URL:-http://localhost:4000/api/v1/auth/}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:7000}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      FACEBOOK_APP_ID: ${FACEBOOK_APP_ID:-}
+      FACEBOOK_APP_SECRET: ${FACEBOOK_APP_SECRET:-}
+      cloud_name: ${CLOUDINARY_CLOUD_NAME:-}
+      api_key: ${CLOUDINARY_API_KEY:-}
+      api_secret: ${CLOUDINARY_API_SECRET:-}
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - dream-bazar-network
+
+  # ==========================================
+  # Frontend Client (React / Vite / Tailwind)
+  # ==========================================
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: development
+    container_name: dream-bazar-client
+    restart: unless-stopped
+    ports:
+      - "${CLIENT_PORT:-3000}:7000"
+    environment:
+      VITE_BACKEND_URL: ${VITE_BACKEND_URL:-http://localhost:4000}
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - server
+    networks:
+      - dream-bazar-network
+
+# ==========================================
+# Named Volumes & Networks
+# ==========================================
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  dream-bazar-network:
+    driver: bridge

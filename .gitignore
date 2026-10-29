@@ -24,8 +24,8 @@ server/deploy.sh
 server/.env
 server/src/static
 server/public
-server/src/db.json
-server/src/config
+server/src/config/*
+!server/src/config/env.ts
 server/README.MD
 
 

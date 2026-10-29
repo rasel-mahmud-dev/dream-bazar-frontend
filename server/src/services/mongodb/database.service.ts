@@ -2,22 +2,39 @@ import * as mongoDB from "mongodb";
 import {Db, MongoClient} from "mongodb";
 
 
-const mongoClient = new MongoClient(process.env.DB_CONN_STRING as string);
-const clientPromise = mongoClient.connect();
+import dotenv from "dotenv";
+dotenv.config();
+
+const DB_CONN_STRING = process.env.DB_CONN_STRING || "mongodb://mongodb:27017/dream-bazar";
+const DB_NAME = process.env.DB_NAME || "dream-bazar";
+
+let mongoClient: MongoClient | null = null;
+let clientPromise: Promise<MongoClient> | null = null;
 let database: Db;
-let DB_NAME = "dream-bazar"
+
+function getClientPromise(): Promise<MongoClient> {
+    if (!clientPromise) {
+        mongoClient = new MongoClient(process.env.DB_CONN_STRING || DB_CONN_STRING);
+        clientPromise = mongoClient.connect().catch((err) => {
+            clientPromise = null;
+            throw err;
+        });
+    }
+    return clientPromise;
+}
 
 export async function mongoConnect() {
     return new Promise<mongoDB.Db>((async (resolve, reject) => {
         try {
             if (!database) {
-                database = (await clientPromise).db(DB_NAME);
+                const client = await getClientPromise();
+                database = client.db(process.env.DB_NAME || DB_NAME);
             }
-            resolve(database)
+            resolve(database);
         } catch (ex) {
-            reject(ex)
+            reject(ex);
         }
-    }))
+    }));
 }
 
 

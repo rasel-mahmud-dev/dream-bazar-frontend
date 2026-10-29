@@ -46,11 +46,79 @@ Live Link [upcoming preview]()
 - bcryptjs for password hashing
 - jsonwebtoken
 - passportjs
-- http-serverless function for netlify deploy 
-- 
+- Docker & Docker Compose
 
+## Docker & Docker Compose Setup
 
+This project is fully containerized using Docker and Docker Compose, orchestrating the Frontend, Backend, MongoDB database, and Mongo Express management interface.
 
+### Services Overview
+
+| Service | Technology | Port (Host:Container) | Description |
+| :--- | :--- | :--- | :--- |
+| **client** | React 18 / Vite / Tailwind | `3000:7000` | Frontend web client (hot-reloading enabled) |
+| **server** | Node.js / Express / TypeScript | `4000:4000` | REST API backend (hot-reloading with ts-node-dev) |
+| **mongodb** | MongoDB 7.0 | `27017:27017` | Persistent NoSQL database with volume storage |
+| **mongo-express** | Mongo Express | `8081:8081` | Web-based administration GUI for MongoDB |
+
+> **Note for macOS users**: Port `3000` is mapped on the host to avoid port 7000 collisions with Apple's AirPlay Receiver. Custom ports can be set in `.env`.
+
+### Quick Start (Development)
+
+1. **Clone and enter the directory**:
+   ```bash
+   cd dream-bazar-frontend
+   ```
+
+2. **Copy environment file** (optional, defaults are pre-configured):
+   ```bash
+   cp .env.example .env
+   ```
+
+3. **Start all services**:
+   ```bash
+   docker compose up -d --build
+   ```
+
+4. **Access the application**:
+   - **Frontend Client**: [http://localhost:3000](http://localhost:3000)
+   - **Backend API**: [http://localhost:4000](http://localhost:4000)
+   - **API Health Check**: [http://localhost:4000/health](http://localhost:4000/health)
+   - **Mongo Express UI**: [http://localhost:8081](http://localhost:8081)
+   - **Direct MongoDB Connection**: `mongodb://localhost:27017/dream-bazar`
+
+### Common Docker Commands
+
+- **Check status**:
+  ```bash
+  docker compose ps
+  ```
+
+- **Follow logs**:
+  ```bash
+  docker compose logs -f
+  # or specific service:
+  docker compose logs -f server
+  docker compose logs -f mongodb
+  ```
+
+- **Stop containers**:
+  ```bash
+  docker compose down
+  ```
+
+- **Stop containers & remove data volumes**:
+  ```bash
+  docker compose down -v
+  ```
+
+### Production Deployment
+
+To build and run production images (featuring optimized multi-stage builds and Nginx serving the static client bundle):
+
+```bash
+docker compose -f docker-compose.prod.yml up -d --build
+```
 
 ### Preview screenshot
 

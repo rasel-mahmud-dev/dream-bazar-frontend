@@ -30,18 +30,22 @@ app.use(bodyParser.json());
 app.use(morgan("dev"))
 
 
-const allowedOrigin = ["http://localhost:7000"]
+const allowedOrigin = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://localhost:7000",
+    process.env.FRONTEND_URL
+].filter(Boolean);
 
 const corsOptions = {
-    origin: (origin: any[], cb: any)=>{
-        if(allowedOrigin.indexOf(origin as any) !== -1){
-            cb(null, true)
-        } else{
-            cb(null, true)
-            // cb(new Error("You are Blocked"))
+    origin: (origin: any, cb: any) => {
+        if (!origin || allowedOrigin.indexOf(origin) !== -1) {
+            cb(null, true);
+        } else {
+            cb(null, true);
         }
     }
-}
+};
 
 app.use(cors(process.env.NODE_ENV !== "development" ? corsOptions : {}))
 

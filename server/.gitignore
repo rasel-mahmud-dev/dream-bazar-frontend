@@ -6,5 +6,6 @@ deploy.sh
 .env
 src/static
 src/db.json
-src/config
+src/config/*
+!src/config/env.ts
 .vercel

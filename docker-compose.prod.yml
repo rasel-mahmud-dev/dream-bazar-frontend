@@ -1,0 +1,72 @@
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: dream-bazar-mongodb-prod
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: ${DB_NAME:-dream-bazar}
+    volumes:
+      - mongodb_prod_data:/data/db
+      - ./docker/mongo-init:/docker-entrypoint-initdb.d:ro
+    networks:
+      - dream-bazar-prod-net
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'db.runCommand(\"ping\").ok' | mongosh localhost:27017/test --quiet"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      target: production
+    container_name: dream-bazar-server-prod
+    restart: always
+    ports:
+      - "${SERVER_PORT:-4000}:4000"
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DB_CONN_STRING: mongodb://mongodb:27017/${DB_NAME:-dream-bazar}
+      DB_NAME: ${DB_NAME:-dream-bazar}
+      JWT_SECRET: ${JWT_SECRET}
+      CALLBACK_URL: ${CALLBACK_URL}
+      FRONTEND_URL: ${FRONTEND_URL}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      FACEBOOK_APP_ID: ${FACEBOOK_APP_ID:-}
+      FACEBOOK_APP_SECRET: ${FACEBOOK_APP_SECRET:-}
+      cloud_name: ${CLOUDINARY_CLOUD_NAME:-}
+      api_key: ${CLOUDINARY_API_KEY:-}
+      api_secret: ${CLOUDINARY_API_SECRET:-}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - dream-bazar-prod-net
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: production
+      args:
+        VITE_BACKEND_URL: ${VITE_BACKEND_URL:-http://localhost:4000}
+    container_name: dream-bazar-client-prod
+    restart: always
+    ports:
+      - "${CLIENT_PROD_PORT:-80}:80"
+    depends_on:
+      - server
+    networks:
+      - dream-bazar-prod-net
+
+volumes:
+  mongodb_prod_data:
+    driver: local
+
+networks:
+  dream-bazar-prod-net:
+    driver: bridge
