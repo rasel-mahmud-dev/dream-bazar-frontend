@@ -37,4 +37,9 @@ server/.netlify
 
 db/
 
+scripts/
+data/
+docker/
+
 bac
+
